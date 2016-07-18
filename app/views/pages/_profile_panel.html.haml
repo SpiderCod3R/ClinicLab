@@ -1,0 +1,16 @@
+%div{class: "col-xs-12 col-sm-12 col-md-6 col-lg-6"}
+  %div{class: "animated wow zoomIn", "data-wow-delay": ".5s"}
+    %div{class: "panel panel-default"}
+      %div{class: "panel-body"}
+        %table{class: "table table-striped", cellspacing: "0", width: "100%"}
+          %thead
+            %th NOME DE USUÁRIO
+            %th NOME
+            %th EMAIL
+            %th ÚLTIMO LOGIN
+          %tbody{style:"overflow: x;"}
+            %tr
+              %td=link_to current_usuario.username, edit_usuario_registration_path(current_usuario)
+              %td=current_usuario.nome
+              %td=current_usuario.email
+              %td=current_usuario.last_sign_in_at.strftime("%d de %B de %Y às %H:%M")

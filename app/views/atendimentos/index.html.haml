@@ -1,0 +1,30 @@
+=build_form_toolbar(new_atendimento_path,nil, @atendimento, atendimentos_path, nil)
+%section{id:"atendimentos"}
+  %div{class: "container-fluid"}
+    %div{class: "row-fluid"}
+      %h1 Atendimentos
+      %hr{style: "border: #323232 solid 0.5px;"}
+      %table{class: "table table-striped table-bordered", cellspacing: "0", width: "100%"}
+        %thead
+          %th="Nº BAM"
+          %th=t('pacientes.helpers.name')
+          %th=t('pacientes.helpers.rg')
+          %th=t('pacientes.helpers.cpf')
+          %th=t('pacientes.helpers.covenant')
+          %th=t('pacientes.helpers.telephone')
+          %th=t('bootstrap.helpers.actions')
+        %tbody
+          - @atendimentos.each do |paciente|
+            %tr
+              %td= paciente.id
+              %td= paciente.nome
+              %td= paciente.rg
+              %td= paciente.cpf
+              %td= paciente.convenio.nome.upcase unless paciente.convenio.nil?
+              %td= paciente.telefone
+              %td
+                .btn-group.pull-right
+                  -if can? :read, Atendimento
+                    = link_to_visualizar paciente
+    %div{class: "row-fluid"}
+      %hr{style: "border: #323232 solid 0.5px;"}

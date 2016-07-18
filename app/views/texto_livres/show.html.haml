@@ -1,0 +1,21 @@
+=build_object_viewer_toolbar(edit_texto_livre_path(@texto_livre), @texto_livre, texto_livres_path, nil)
+%section{id: "show_texto_livre"}
+  %div{class: "container"}
+    %div{class: "row"}
+      %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+        %div{class: "row-fluid"}
+          %h2 Exibindo Configuração Texto Livre
+          %hr{style: "border: #323232 solid 0.5px;"}
+        %div{class: "row-fluid"}
+          %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+            %strong Código:
+            = @texto_livre.id
+        %div{class: "row-fluid"}
+          %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+            %strong Nome:
+            = @texto_livre.nome
+        %div{class: "row-fluid"}
+          %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+            %strong Descrição:
+            = raw @texto_livre.texto
+          %hr{style: "border: #323232 solid 0.5px;"}

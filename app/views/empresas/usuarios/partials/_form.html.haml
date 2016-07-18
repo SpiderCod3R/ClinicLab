@@ -1,0 +1,15 @@
+= simple_form_for([@empresa, @usuario])  do |f|
+  .panel.panel-default
+    .container
+      .col-xs-12.col-sm-6.col-md-6.col-lg-6{style: 'margin-top: 1%; padding: 0;'}
+        - if @usuario.errors.any?
+          .panel.panel-danger
+            .panel-heading
+              %h2
+              = pluralize(@usuario.errors.count, "error")
+              Impediu este usuario de ser salvo
+              .container
+                %ul
+                  - @usuario.errors.full_messages.each do |msg|
+                    %li= msg
+    =render 'empresas/usuarios/partials/user_common_fields', f: f

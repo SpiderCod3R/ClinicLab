@@ -1,0 +1,12 @@
+%div{class: "container", style: "margin-left: 5%; padding-top: 15px; padding-bottom: 15px;"}
+  = simple_form_for(@texto_livre) do |f|
+    %div{class: "row"}
+      %div{class: "col-xs-12 col-sm-6 col-md-6 col-lg-6", style: 'margin: 0; padding: 0;'}
+        = f.error_notification
+    %div{class: "row"}
+      %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
+        = f.input :nome
+    %div{class: "row"}
+      %div{class: "col-xs-11 col-sm-11 col-md-11 col-lg-11"}
+        = f.text_area :texto, :class => " tinymce", :language => "pt_BR"
+        =tinymce

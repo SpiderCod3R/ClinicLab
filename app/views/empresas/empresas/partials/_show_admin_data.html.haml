@@ -1,0 +1,14 @@
+%tr
+  - if usuario.admin?
+    %td= usuario.id
+    %td= usuario.nome.upcase
+    %td= usuario.username
+    %td= usuario.email.upcase
+    %td=t('labels.administrador')
+    %td=current_usuario.last_sign_in_at.strftime("%d de %B de %Y às %H:%M")
+    %td
+      %div{class: "btn-group pull-right"}
+        = link_to "#{image_tag("icons/glyphicons-151-edit.png", width: 22, height: 22)}".html_safe, edit_empresa_usuario_path(usuario.empresa_id, usuario.id), title: "Editar", class: 'btn btn-default'
+        = link_to "#{image_tag("icons/glyphicons-45-keys.png", width: 22, height: 22)}".html_safe,empresa_trocar_senha_usuario_path(usuario.empresa_id, usuario.id), title: "Alterar a Senha", class: 'btn btn-default'
+        - unless @empresa.possui_pelo_menos_um_administrador == 1
+          = link_to "#{image_tag("icons/glyphicons-17-bin-white.png", width: 22, height: 22)}".html_safe, empresa_usuario_path(usuario.empresa_id, usuario.id), method: "delete", class: 'delete-confirm btn btn-danger', data: {confirm: "Excluir '#{usuario.nome}'"}, title: "Excluir Administrador"

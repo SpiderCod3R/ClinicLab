@@ -1,0 +1,20 @@
+/Author: W3layouts
+/Author URL: http://w3layouts.com
+/License: Creative Commons Attribution 3.0 Unported
+/License URL: http://creativecommons.org/licenses/by/3.0/
+
+!!!
+%html{lang: 'pt-BR'}
+  =render 'application/head'
+  %body{class: controller.controller_name}
+    =build_chromeframe
+    =yield :header
+    %div{class: "clearfix"}
+    %div{id: "page-wrapper"}
+      =render layout: 'layouts/gclinic' do |f|
+        =flash_messages
+        = yield f
+    %div{class: "clearfix"}
+    = javascript_include_tag "application", :media => "all",  'data-turbolinks-track': 'reload' 
+    :javascript
+      new WOW().init();

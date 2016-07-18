@@ -1,0 +1,30 @@
+- if can? :read, Atendimento
+  %li= link_to "ATENDIMENTOS", new_atendimento_path
+- if can? :read, Convenio
+  %li= link_to("CONVÊNIOS", new_convenio_path)
+- if can? :read, Cargo
+  %li= link_to("CARGOS", new_cargo_path)
+- if can? :read, CentroDeCusto
+  %li= link_to("CENTRO DE CUSTO", new_centro_de_custo_path)
+- if can? :read, ConselhoRegional
+  %li= link_to("CONSELHO REGIONAL", new_conselho_regional_path)
+- if can? :read, Cliente
+  %li= link_to("CLIENTES", new_cliente_path)
+- if can? :read, Cabec
+  %li= link_to("CABEC", new_cabec_path)
+- if can? :read, Fornecedor
+  %li= link_to("FORNECEDOR", new_fornecedor_path)
+- if can? :read, ImagemCabec
+  %li= link_to("IMAGENS CABEC", new_imagem_cabec_path)
+- if can? :read, Operadora
+  %li= link_to("OPERADORAS", new_operadora_path)
+- if can? :read, Paciente
+  %li= link_to "PACIENTES", new_paciente_path
+- if can? :read, Profissional
+  %li= link_to("PROFISSIONAIS", new_profissional_path)
+- if can? :read, TextoLivre
+  %li= link_to("TEXTO LIVRE", new_texto_livre_path)
+
+
+/ -render_menu_tree(empresa_atual.permissao_empresas) do |elem|
+/   =elem

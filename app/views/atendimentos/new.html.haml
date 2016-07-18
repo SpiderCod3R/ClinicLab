@@ -1,0 +1,11 @@
+=build_form_toolbar(nil, ".new_atendimento", @atendimento, atendimentos_path, nil)
+%section{id: "new_atendimento"}
+  %div{class: "container"}
+    %div{class: "row"}
+      %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+        %h1=t('pacientes.links.new_appointment')
+        %hr{style: "border: #323232 solid 0.5px;"}
+    %div{class: "row"}
+      %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+        %div{class: "panel"}
+          = render 'atendimentos/partials/form'

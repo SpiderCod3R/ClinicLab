@@ -1,0 +1,6 @@
+- PermissaoEmpresa.order("modulo ASC").each do |permissao|
+  =content_tag(:div, class: "col-xs-12 col-sm-12 col-md-4") do
+    %li{style: "display: block;"}
+      = check_box_tag :permissao_empresa_ids, permissao.id, @empresa.permissao_empresas.include?(permissao),
+        :name => 'empresa[permissao_empresa_ids][]', id: "permissao_empresa_id_#{permissao.id}"
+      = label_tag "permissao_empresa_id_#{permissao.id}", permissao.nome

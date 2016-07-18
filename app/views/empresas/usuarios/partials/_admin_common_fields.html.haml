@@ -1,0 +1,8 @@
+%fieldset
+  %div{style: "display: none"}
+    =f.collection_select(:funcao_id, Funcao.where(nome: "ADMINISTRADOR"),:id, :nome, {include_blank: false}, {:class=>'form-control'})
+  =f.input :nome, label:'Nome'
+  =f.input :username, label:'Nome de Usuário'
+  =f.input :email, placeholder: 'example@email.com'
+  =f.input :password, label: 'Senha'
+  =f.input :password_confirmation, label: 'Confirmação de senha'

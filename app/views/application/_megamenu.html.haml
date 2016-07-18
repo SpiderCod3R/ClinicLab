@@ -1,0 +1,33 @@
+- configurations = [ConfiguracaoRelatorio]
+%li.dropdown
+  %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+    CADASTROS
+    %b.caret
+  %ul.dropdown-menu.multi-column.columns-3
+    .row
+      .col-md-8
+        %ul.multi-column-dropdown
+          %h6 Cadastros
+          =render 'application/register_menu'
+        .clearfix
+-configurations.map do |x|
+  -if can? :read, x
+    %li.dropdown
+      %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+        CONFIGURAÇÕES
+        %b.caret
+      %ul.dropdown-menu.multi-column.columns-3
+        .row
+          .col-md-8
+            %ul.multi-column-dropdown
+              %h6 Relatórios
+              - if x.eql?(ConfiguracaoRelatorio)
+                %li= link_to "RELATÓRIOS", configuracao_relatorios_path
+              - if can? :read, Cabec
+                %li= link_to "CABEC", new_cabec_path
+          .col-md-8
+            %ul.multi-column-dropdown
+              %h6 Imagens
+              - if can? :read, ImagemCabec
+                %li= link_to "IMAGEM CABEC", new_imagem_cabec_path
+%li=link_to "CONTAS", empresa_path(current_usuario.empresa)

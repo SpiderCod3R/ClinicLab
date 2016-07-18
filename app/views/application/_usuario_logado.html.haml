@@ -1,0 +1,4 @@
+%li= link_to "Editar", edit_usuario_registration_path, title: "EDITAR PERFIL"
+-unless current_usuario.super?
+  %li= link_to "Alterar Senha", empresa_trocar_senha_usuario_path(current_usuario.empresa_id, current_usuario.id), title: "EDITAR SENHA"
+%li= link_to "Sair", destroy_usuario_session_path, method: 'delete', title: "SAIR"

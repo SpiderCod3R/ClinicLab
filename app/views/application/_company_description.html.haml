@@ -1,0 +1,9 @@
+%div{class: "footer-grid animated wow slideInLeft", "data-wow-delay" => ".5s"}
+  %div{class: "col-md-6"}
+    %span GClinicWeb
+    %div{class: "footer-grid"}
+      %h3
+        %p
+          \&copy Desenvolvido pela Globalnetsis #{ Date.today.year }
+  %div{class: "col-md-6"}
+    = Time.now.to_time.strftime('Campos dos Goytacazes, %e  de %B de %Y  - Hora: %l:%M %p')

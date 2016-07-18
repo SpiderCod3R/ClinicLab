@@ -1,0 +1,12 @@
+=build_form_toolbar(nil, ".edit_cliente", @cliente, clientes_path, nil)
+%section{id: "edit_clientes"}
+  %div{class: "container"}
+    %div{class: "row"}
+      %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+        %h1=t('clientes.links.edit')
+        %hr{style: "border: #323232 solid 0.5px;"}
+        %div{class: "row-fluid"}
+          .panel
+            =render 'form'
+          .page-header
+          .page-header

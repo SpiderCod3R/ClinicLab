@@ -1,0 +1,29 @@
+%div{class: "container", style: "margin-left: 5%; padding-top: 15px; padding-bottom: 15px;"}
+  = simple_form_for(@configuracao_relatorio) do |f|
+    %div{class: "row"}
+      %div{class: "col-xs-12 col-sm-6 col-md-6 col-lg-6", style: 'margin: 0; padding: 0;'}
+        = f.error_notification
+    %div{class: "row"}
+      %div{class: "col-xs-12 col-sm-4 col-md-4 col-lg-3"}
+        = f.input :nome_empresa
+      %div{class: "col-xs-12 col-sm-4 col-md-4 col-lg-3"}
+        = f.input :cnpj, input_html: { class: "cnpj_maskara"}
+    %div{class: "row"}
+      %div{class: "col-xs-12 col-sm-4 col-md-4 col-lg-3"}
+        = f.input :telefone, input_html: { class: "telefone_maskara"}
+      %div{class: "col-xs-12 col-sm-4 col-md-4 col-lg-3"}
+        = f.input :endereco
+    %div{class: "row"}
+      %div{class: "col-xs-12 col-sm-4 col-md-4 col-lg-3"}
+        = f.input :bairro
+      %div{class: "col-xs-12 col-sm-4 col-md-4 col-lg-3"}
+        = f.input :cidade_estado, label: "Cidade/Estado"
+    %div{class: "row"}
+      %div{class: "col-xs-12 col-sm-4 col-md-4 col-lg-3"}
+        = f.input :email
+    %div{class: "row"}
+      %div{class: "col-xs-12 col-sm-4 col-md-4 col-lg-3"}
+        %strong Imagem logo:
+        %br/
+        = f.file_field :logo
+        %br/

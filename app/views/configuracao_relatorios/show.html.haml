@@ -1,0 +1,49 @@
+=build_object_viewer_toolbar(edit_configuracao_relatorio_path(@configuracao_relatorio), @configuracao_relatorio, configuracao_relatorios_path, nil)
+%section{id: "show_convenio"}
+  %div{class: "container"}
+    %div{class: "row"}
+      %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+        %div{class: "row-fluid"}
+          %h2 Exibindo Relatórios
+          %hr{style: "border: #323232 solid 0.5px;"}
+        %div{class: "col-xs-8 col-sm-8 col-md-8 col-lg-8"}
+          %div{class: "row-fluid"}
+            %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+              %strong Código:
+              = @configuracao_relatorio.id
+          %div{class: "row-fluid"}
+            %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+              %strong Nome empresa:
+              = @configuracao_relatorio.nome
+          %div{class: "row-fluid"}
+            %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+              %strong CNPJ:
+              = @configuracao_relatorio.cnpj
+          %div{class: "row-fluid"}
+            %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+              %strong Telefone:
+              = @configuracao_relatorio.telefone
+          %div{class: "row-fluid"}
+            %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+              %strong Endereço:
+              = @configuracao_relatorio.endereco
+          %div{class: "row-fluid"}
+            %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+              %strong Bairro:
+              = @configuracao_relatorio.bairro
+          %div{class: "row-fluid"}
+            %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+              %strong Cidade/Estado:
+              = @configuracao_relatorio.cidade_estado
+          %div{class: "row-fluid"}
+            %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+              %strong Nome empresa:
+              = @configuracao_relatorio.nome
+          %div{class: "row-fluid"}
+            %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+              %strong Nome email:
+              = @configuracao_relatorio.email
+        %div{class: "col-xs-4 col-sm-4 col-md-4 col-lg-4"}
+          = image_tag @configuracao_relatorio.logo.url(:medium), :class => "img_profissional"
+        
+    %hr{style: "border: #323232 solid 0.5px;"}

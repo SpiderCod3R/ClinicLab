@@ -1,0 +1,25 @@
+=build_object_viewer_toolbar(edit_cabec_path(@cabec), @cabec, cabecs_path, nil)
+%section{id: "show_convenio"}
+  %div{class: "container"}
+    %div{class: "row"}
+      %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+        %div{class: "row-fluid"}
+          %h2 Exibindo Cabec
+          %hr{style: "border: #323232 solid 0.5px;"}
+        %div{class: "row-fluid"}
+          %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+            %strong Código:
+            = @cabec.id
+        %div{class: "row-fluid"}
+          %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+            %strong Status:
+            = status(@cabec.status)
+        %div{class: "row-fluid"}
+          %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+            %strong Nome:
+            = @cabec.nome
+        %div{class: "row-fluid"}
+          %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+            %strong Descrição:
+            = raw @cabec.texto
+          %hr{style: "border: #323232 solid 0.5px;"}

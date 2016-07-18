@@ -1,0 +1,30 @@
+.row
+  - PermissaoEmpresa.order("modulo ASC").each do |permissao|
+    .col-md-3.col-sm-6.col-xs-12
+      .panel.panel-primary
+        .panel-heading
+          = label_tag "permissao_empresa_id_#{permissao.id}", permissao.nome
+        = f.simple_fields_for :usuario_permissao_empresas do |u|
+          =u.input :permissao_empresa_id, :as => :hidden, :input_html => { :value => permissao.id }
+          .panel-body
+            .container-fluid
+              .row
+                .col-md-6.col-xs-4
+                  = u.label :cadastrar
+                .col-md-5.col-xs-5
+                  = u.check_box :cadastrar
+              .row
+                .col-md-6.col-xs-4
+                  = u.label :editar
+                .col-md-5.col-xs-5
+                  = u.check_box :editar
+              .row
+                .col-md-6.col-xs-4
+                  = u.label :visualizar
+                .col-md-5.col-xs-5
+                  = u.check_box :visualizar
+              .row
+                .col-md-6.col-xs-4
+                  = u.label :excluir
+                .col-md-5.col-xs-5
+                  = u.check_box :excluir

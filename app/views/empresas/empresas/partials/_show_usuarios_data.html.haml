@@ -1,0 +1,22 @@
+%tr
+  %td=link_to usuario.id, edit_empresa_usuario_path(usuario.empresa_id, usuario.id)
+  %td=usuario.nome.upcase
+  %td=usuario.username.upcase
+  %td=usuario.email.upcase
+  %td=usuario.funcao.nome
+  %td=usuario.last_sign_in_at.strftime("%d de %B de %Y às %H:%M") unless usuario.last_sign_in_at.nil?
+  %td
+    .btn-group.pull-right
+      -if usuario.funcionario?
+        .col-md-3
+          = link_to_modificar_permissoes empresa_usuario_atualiza_permissoes_path(usuario.empresa_id, usuario.id)
+      -unless current_usuario.eql? usuario
+        -if can? :edit, Usuario
+          .col-md-3
+            = link_to_editar edit_empresa_usuario_path(usuario.empresa_id, usuario.id)
+      -if can? :read, Usuario
+        .col-md-3
+          =link_to_change_password empresa_trocar_senha_usuario_path(usuario.empresa_id, usuario.id)
+      - unless current_usuario.eql? usuario
+        .col-md-2
+          =link_to_delete empresa_usuario_path(usuario.empresa_id, usuario.id)

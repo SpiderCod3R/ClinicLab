@@ -1,0 +1,17 @@
+= simple_form_for([@empresa, @usuario])  do |f|
+  %div{class: "row"}
+    %div{class: "col-xs-12 col-sm-6 col-md-6 col-lg-6", style: 'margin: 0; padding: 0;'}
+      = f.error_notification
+  %div{class: "row"}
+    %div{class: "col-xs-12 col-sm-4 col-md-4 col-lg-3"}
+      = f.input :nome, label:'Nome'
+    %div{class: "col-xs-12 col-sm-4 col-md-4 col-lg-3"}
+      = f.input :username, label:'Nome de Usuário'
+    %div{class: "col-xs-12 col-sm-4 col-md-4 col-lg-3"}
+      = f.input :email, placeholder: 'usuario@email.com', class: 'form-control'
+    -if current_usuario.super? || current_usuario.admin?
+      %div{class: "col-xs-12 col-sm-4 col-md-4 col-lg-3"}
+        =f.label "Função"
+        =f.collection_select(:funcao_id, Funcao.order(:nome).where.not(nome: "SUPER"), :id, :nome, {include_blank: "Selecione"}, {:class=>'form-control'})
+  %div{style: "display: none;"}
+    =render 'empresas/empresas/partials/modulos_checkbox_form'

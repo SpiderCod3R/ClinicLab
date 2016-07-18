@@ -1,0 +1,37 @@
+=build_object_viewer_toolbar(edit_empresa_path(@empresa), @empresa, empresas_path, nil)
+%div{class: "container-fluid"}
+  -unless current_usuario.super? or current_usuario.funcionario?
+    .pull-right{style: "margin-top: 2%;"}
+      =link_to_novo new_empresa_usuario_path current_usuario.empresa
+  %h1{style: "font-weight: bold;"}= @empresa.nome.upcase
+  %hr{style: "border: #323232 solid 0.5px;"}
+  - if current_usuario.super?
+    %div{class: "panel panel-default"}
+      %div{class: "panel-heading"}
+        %b Módulos vinculados
+      %div{class: "panel-body"}
+        %ul
+          - @empresa.permissao_empresas.order("modulo ASC").each do |p|
+            =content_tag(:div, class: "col-xs-8 col-sm-8 col-md-2 col-lg-2") do
+              %li{style: "display: block;"}=p.modulo
+  %div{class: "panel panel-default"}
+    %div{class: "panel-heading"}
+      %b Administradores
+    %div{class: "panel-body"}
+      %table{class: "table table-striped table-bordered table-hover"}
+        %thead
+          %th ID
+          %th NOME
+          %th NOME DE USUÁRIO
+          %th EMAIL
+          %th FUNÇÃO
+          %th ÚLTIMO LOGIN
+          %th=t(:actions, scope: [:bootstrap, :helpers])
+        %tbody
+          - if @empresa.usuarios.any?
+            - @empresa.usuarios.each do |usuario|
+              - if current_usuario.super?
+                = render 'empresas/empresas/partials/show_admin_data', usuario: usuario
+              - elsif current_usuario.admin?
+                = render 'empresas/empresas/partials/show_usuarios_data' ,usuario: usuario
+  %hr{style: "border: #323232 solid 0.5px;"}

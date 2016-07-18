@@ -1,0 +1,69 @@
+=build_object_viewer_toolbar(edit_fornecedor_path(@fornecedor), @fornecedor, fornecedores_path, nil)
+%section{id: "show_fornecedor"}
+  %div{class: "container"}
+    %div{class: "row"}
+      %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+        %div{class: "row-fluid"}
+          %h2 Exibindo fornecedor
+          %hr{style: "border: #323232 solid 0.5px;"}
+        %div{class: "col-xs-8 col-sm-8 col-md-8 col-lg-8"}
+          %div{class: "row-fluid"}
+            %div{class: "col-xs-4 col-sm-4 col-md-4 col-lg-4"}
+              %strong Código:
+              = @fornecedor.id
+          %div{class: "row-fluid"}
+            %div{class: "col-xs-6 col-sm-6 col-md-6 col-lg-6"}
+              %strong Status:
+              = status(@fornecedor.status)
+          %div{class: "row-fluid"}
+            %div{class: "col-xs-6 col-sm-6 col-md-6 col-lg-6"}
+              %strong Nome:
+              = @fornecedor.nome
+          %div{class: "row-fluid"}
+            %div{class: "col-xs-6 col-sm-6 col-md-6 col-lg-6"}
+              %strong Tipo de pessoa:
+              = documento(@fornecedor.documento)
+          %div{class: "row-fluid"}
+            %div{class: "col-xs-6 col-sm-6 col-md-6 col-lg-6"}
+              -if @fornecedor.cpf.present?
+                %strong CPF:
+                = @fornecedor.cpf
+          %div{class: "row-fluid"}
+            %div{class: "col-xs-6 col-sm-6 col-md-6 col-lg-6"}
+              -if(@fornecedor.cnpj.present?)
+                %strong CNPJ:
+                = @fornecedor.cnpj
+          %div{class: "row-fluid"}
+            %div{class: "col-xs-6 col-sm-6 col-md-6 col-lg-6"}
+              %strong Email:
+              = @fornecedor.email
+          %div{class: "row-fluid"}
+            %div{class: "col-xs-6 col-sm-6 col-md-6 col-lg-6"}
+              %strong Telefone:
+              = @fornecedor.telefone
+          %div{class: "row-fluid"}
+            %div{class: "col-xs-6 col-sm-6 col-md-6 col-lg-6"}
+              %strong Celular:
+              = @fornecedor.celular
+          %div{class: "row-fluid"}
+            %div{class: "col-xs-6 col-sm-6 col-md-6 col-lg-6"}
+              %strong Endereço:
+              = @fornecedor.endereco
+          %div{class: "row-fluid"}
+            %div{class: "col-xs-6 col-sm-6 col-md-6 col-lg-6"}
+              %strong Complemento:
+              = @fornecedor.complemento
+          %div{class: "row-fluid"}
+            %div{class: "col-xs-6 col-sm-6 col-md-6 col-lg-6"}
+              %strong Bairro:
+              = @fornecedor.bairro
+          %div{class: "row-fluid"}
+            %div{class: "col-xs-6 col-sm-6 col-md-6 col-lg-6"}
+              %strong Estado:
+              = @fornecedor.estado
+          %div{class: "row-fluid"}
+            %div{class: "col-xs-6 col-sm-6 col-md-6 col-lg-6"}
+              %strong Cidade:
+              = @fornecedor.cidade
+      %div{class: "row-fluid"}
+        %hr{style: "border: #323232 solid 0.5px;"}

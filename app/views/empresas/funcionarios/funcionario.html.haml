@@ -1,0 +1,20 @@
+=build_form_toolbar(nil, ".edit_usuario", @usuario, empresa_path(current_usuario.empresa), nil)
+.container-fluid
+  .row
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+      %h1="Permissões do Usuário #{@usuario.nome.upcase}"
+  .row
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+      = simple_form_for [@empresa, @usuario], url: wizard_path, method: :put do |f|
+        .row
+          .col-xs-12.col-sm-6.col-md-6.col-lg-6{style: 'margin: 0; padding: 0;'}
+            = f.error_notification
+        %hr{style: "border: #323232 solid 0.5px;"}
+        .panel
+          .container{style: "margin-top: 1%;"}
+            %div{style: "margin-bottom: 1%;"}
+              %b="Selecionar Tudo - "
+              = check_box_tag('check_all', 'check_all', false, :onClick => "checkAll(this);")
+            =render 'empresas/usuarios/partials/usuario_permissao_empresa', {f: f}
+        %hr{style: "border: #323232 solid 0.5px;"}
+.page-header

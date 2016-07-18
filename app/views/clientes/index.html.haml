@@ -1,0 +1,31 @@
+=build_form_toolbar(new_cliente_path,nil, @clientes, clientes_path, nil)
+%div{class: "container"}
+  %div{class: "row"}
+    %h1 Clientes
+    %hr{style: "border: #323232 solid 0.5px;"}
+    %table{class: "table table-striped table-bordered", cellspacing: "0", width: "100%"}
+      %thead
+        %th= t('clientes.helpers.status')
+        %th= t('clientes.helpers.codigo')
+        %th= t('clientes.helpers.nome')
+        %th= t('clientes.helpers.cpf')
+        %th= t('clientes.helpers.endereço')
+        %th= t('clientes.helpers.complemento')
+        %th= t('clientes.helpers.bairro')
+        %th= t('bootstrap.helpers.actions')
+      %tbody
+        - @clientes.each do |cliente|
+          %tr
+            %td= status(cliente.status)
+            %td= cliente.id
+            %td= cliente.nome
+            %td= cliente.cpf
+            %td= cliente.endereco
+            %td= cliente.complemento
+            %td= cliente.bairro
+            %td
+              .btn-group.pull-right
+                -if can? :read, Cliente
+                  = link_to_visualizar cliente
+  %div{class: "row"}
+    %hr{style: "border: #323232 solid 0.5px;"}

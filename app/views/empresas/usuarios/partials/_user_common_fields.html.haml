@@ -1,0 +1,16 @@
+.container-fluid
+  .row-fluid
+    .col-md-3
+      =f.label "Função", {:class=>'form-label'}
+      =f.collection_select(:funcao_id, Funcao.order(:nome).where.not(nome: "super"),:id, :nome, {include_blank: "Selecione"}, {:class=>'form-control'})
+    .col-md-3
+      = f.input :nome, label:'Nome'
+    .col-md-3
+      = f.input :username, label:'Nome de Usuário'
+  .row-fluid
+    .col-md-3
+      = f.input :email, placeholder: 'usuario@email.com'
+    .col-md-3
+      = f.input :password, label: 'Senha'
+    .col-md-3
+      = f.input :password_confirmation, label: 'Confirmação de senha'

@@ -1,0 +1,35 @@
+=build_form_toolbar(nil, ".edit_usuario", @usuario, empresa_path(@empresa), nil)
+%div{class: "container-fluid"}
+  %div{class: "row-fluid"}
+    %div{class:"col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+      %div{class: "row-fluid"}
+        %h1="Editando Usuário - #{@usuario.nome}"
+        %hr{style: "border: #323232 solid 0.5px;"}
+        %div{class: "container"}
+          =render 'empresas/usuarios/partials/usuario_form'
+        %hr{style: "border: #323232 solid 0.5px;"}
+        %div{class: "page-header"}
+        %div{class: "page-header"}
+
+
+      / = simple_form_for([@empresa, @usuario], html: { method: :put }) do |f|
+      /   div class="row"
+      /     div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" style='margin: 0; padding: 0;'
+      /       = f.error_notification
+      /   div class="row"
+      /     div class="col-xs-12 col-sm-4 col-md-4 col-lg-3"
+      /       = f.input :nome, label: "Nome", required: true, autocomplete: "on"
+      /     div class="col-xs-12 col-sm-4 col-md-4 col-lg-3"
+      /       = f.input :email, required: true, autofocus: true, autocomplete: "on"
+      /   div class="row"
+      /     div class="col-xs-12 col-sm-4 col-md-4 col-lg-3"
+      /       = f.input :password, autocomplete: "off", hint: "Deixe em branco caso não queira alterar.", required: false
+      /     div class="col-xs-12 col-sm-4 col-md-4 col-lg-3"
+      /       = f.input :password_confirmation, required: false, label: "Confirmar senha"
+      /   div class="row"
+      /     div class="col-xs-12 col-sm-4 col-md-4 col-lg-3"
+      /       = f.input :current_password, hint: "Senha atual para confirmar alterações", required: true, label: "Senha Atual"
+      /   hr
+      /   div class="form-actions"
+      /     = f.button :submit, :value => t(:save, scope: [:bootstrap, :helpers, :links]), :class =>  t(:btn_primary_left, scope: [:bootstrap, :css_class])
+      /     = link_to t(:back, scope: [:bootstrap, :helpers, :links]), root_path, :class => t(:btn_default_right, scope: [:bootstrap, :css_class])

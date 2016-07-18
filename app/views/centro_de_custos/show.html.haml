@@ -1,0 +1,19 @@
+=build_object_viewer_toolbar(edit_centro_de_custo_path(@centro_de_custo), @centro_de_custo, centro_de_custos_path, nil)
+%section{id: "show_convenio"}
+  %div{class: "container"}
+    %div{class: "row"}
+      %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+        %div{class: "row-fluid"}
+          %h2 Exibindo Centro de Custo
+          %hr{style: "border: #323232 solid 0.5px;"}
+        %div{class: "row-fluid"}
+          %p
+            %strong ID:
+            = @centro_de_custo.id
+          %p
+            %strong Status:
+            = status(@centro_de_custo.status)
+          %p
+            %strong Nome:
+            = @centro_de_custo.nome
+          %hr{style: "border: #323232 solid 0.5px;"}

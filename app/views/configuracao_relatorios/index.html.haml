@@ -1,0 +1,34 @@
+=build_form_toolbar(new_configuracao_relatorio_path,nil, @configuracao_relatorios, configuracao_relatorios_path, nil)
+%div{class: "container-fluid"}
+  %div{class: "row-fluid"}
+    %div{class: ".page-header"}
+      %h1 Configuração de Relatórios
+      %hr{style: "border: #323232 solid 0.5px;"}
+      %br/
+      %br/
+      %table{class: "table table-striped table-bordered", cellspacing: "0", width: "100%"}
+        %thead
+          %th=t(:código, scope: [:bootstrap, :helpers, :labels])
+          %th=t(:nome_empresa, scope: [:bootstrap, :helpers, :labels])
+          %th=t(:cnpj, scope: [:bootstrap, :helpers, :labels])
+          %th=t(:telefone, scope: [:bootstrap, :helpers, :labels])
+          %th=t(:endereço, scope: [:bootstrap, :helpers, :labels])
+          %th=t(:bairro, scope: [:bootstrap, :helpers, :labels])
+          %th=t(:cidade_estado, scope: [:bootstrap, :helpers, :labels])
+          %th=t(:email, scope: [:bootstrap, :helpers, :labels])
+          %th{class: "pull-right"}=t(:show, scope: [:bootstrap, :helpers, :links])
+        %tbody
+          - @configuracao_relatorios.each do |configuracao_relatorio|
+            %tr
+              %td=configuracao_relatorio.id
+              %td=configuracao_relatorio.nome_empresa
+              %td=configuracao_relatorio.cnpj
+              %td=configuracao_relatorio.telefone
+              %td=configuracao_relatorio.endereco
+              %td=configuracao_relatorio.bairro
+              %td=configuracao_relatorio.cidade_estado
+              %td=configuracao_relatorio.email
+              %td{class: "pull-right"}
+                = link_to_visualizar configuracao_relatorio
+  %div{class: "row-fluid"}
+    %hr{style: "border: #323232 solid 0.5px;"}

@@ -1,0 +1,16 @@
+=build_form_toolbar(nil, ".new_empresa", @empresa, empresas_path, nil)
+%div{class: "container-fluid"}
+  %div{class: "row-fluid"}
+    %div{class:"col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+      %hr{style: "border: #323232 solid 0.5px;"}
+      %div{class: "container-fluid"}
+        %div{class: "row-fluid"}
+          %div{class: "panel panel-default"}
+            %div{class: "panel-heading"}
+              %b Nova Empresa
+            %div{class: "panel-body"}
+              %div{class: "container-fluid"}=render 'empresas/empresas/partials/form'
+      %hr{style: "border: #323232 solid 0.5px;"}
+      %div{class: "page-header"}
+      %div{class: "page-header"}
+

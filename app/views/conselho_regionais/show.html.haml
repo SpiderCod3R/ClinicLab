@@ -1,0 +1,22 @@
+=build_object_viewer_toolbar(edit_conselho_regional_path(@conselho_regional), @conselho_regional, conselho_regionais_path, nil)
+%section{id: "show_conselho_regional"}
+  %div{class: "container"}
+    %div{class: "row"}
+      %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+        %div{class: "row-fluid"}
+          %h2 Exibindo Conselho Regional
+          %hr{style: "border: #323232 solid 0.5px;"}
+        %div{class: "row-fluid"}
+          %p
+            %strong Código:
+            = @conselho_regional.id
+          %p
+            %strong Status:
+            = status(@conselho_regional.status)
+          %p
+            %strong Sigla:
+            = @conselho_regional.sigla
+          %p
+            %strong Descrição:
+            = @conselho_regional.descricao
+          %hr{style: "border: #323232 solid 0.5px;"}

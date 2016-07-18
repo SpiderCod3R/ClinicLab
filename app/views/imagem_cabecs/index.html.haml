@@ -1,0 +1,19 @@
+=build_form_toolbar(new_imagem_cabec_path, nil, @imagem_cabecs, imagem_cabecs_path, nil)
+%div{class: "container-fluid"}
+  %div{class: "row-fluid"}
+    %h1  Imagens Cabec
+    %hr{style: "border: #323232 solid 0.5px;"}
+    %table{class: "table table-striped table-bordered", cellspacing: "0", width: "100%"}
+      %thead
+        %th=t(:código, scope: [:bootstrap, :helpers, :labels])
+        %th=t(:nome, scope: [:bootstrap, :helpers, :labels])
+        %th{class: "pull-right"}=t(:show, scope: [:bootstrap, :helpers, :links])
+      %tbody
+        - @imagem_cabecs.each do |imagem|
+          %tr
+            %td=imagem.id
+            %td 
+              = link_to "#{imagem.nome}","#{imagem.imagem}", target: "blank"
+            %td{class: "pull-right"}
+              = link_to_visualizar imagem
+  %hr{style: "border: #323232 solid 0.5px;"}

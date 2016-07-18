@@ -1,0 +1,27 @@
+= simple_form_for(@empresa) do |f|
+  %div{class: "row"}
+    %div{class: "col-xs-12 col-sm-6 col-md-6 col-lg-6", style: 'margin: 0; padding: 0;'}
+      = f.error_notification
+  %div{class: "row"}
+    %div{class: "col-md-4"}
+      = f.input :nome, label: "Empresa"
+  %div{class: "row"}
+    %div{class: "col-md-4"}
+      %div{class: "panel panel-default"}
+        %div{class: "panel-heading"}
+          %b Administrador
+        %div{class: "panel-body"}
+          = f.simple_fields_for :usuarios do |usuario|
+            - if current_usuario.super?
+              = show_admin_common_fields_for usuario
+            - else
+              = show_user_common_fields_for usuario
+    %div{class: "col-md-8"}
+      %div{class: "plan-head panel panel-default"}
+        %div{class: "panel-heading"}
+          %b Módulos -
+          %div{id: "side_action_button", style: "display: inline-block;"}
+            %b="Selecionar Tudo - "
+            = check_box_tag('check_all', 'check_all', false, :onClick => "checkAll(this);")
+        %div{class: "panel-body", style: "overflow: auto; height: 405px;"}
+          =render "empresas/empresas/partials/modulos_checkbox_form"

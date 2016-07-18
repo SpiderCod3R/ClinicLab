@@ -1,0 +1,24 @@
+=build_form_toolbar(new_fornecedor_path, nil, @profissional, fornecedores_path, nil)
+%div{class: "container-fluid"}
+  %div{class: "row-fluid"}
+    %h1  Fornecedores
+    %hr{style: "border: #323232 solid 0.5px;"}
+    %table{class: "table table-striped table-bordered", cellspacing: "0", width: "100%"}
+      %thead
+        %th=t(:status, scope: [:bootstrap, :helpers, :labels])
+        %th=t(:código, scope: [:bootstrap, :helpers, :labels])
+        %th=t(:name, scope: [:bootstrap, :helpers, :labels])
+        %th=t(:email, scope: [:bootstrap, :helpers, :labels])
+        %th=t(:celular, scope: [:bootstrap, :helpers, :labels])
+        %th{class: "pull-right"}=t(:show, scope: [:bootstrap, :helpers, :links])
+      %tbody
+        - @fornecedores.each do |fornecedor|
+          %tr
+            %td= status(fornecedor.status)
+            %td= fornecedor.id
+            %td= fornecedor.nome
+            %td= fornecedor.email
+            %td= fornecedor.celular
+            %td{class: "pull-right"}
+              = link_to_visualizar fornecedor
+  %hr{style: "border: #323232 solid 0.5px;"}

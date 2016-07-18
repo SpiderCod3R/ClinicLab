@@ -1,0 +1,92 @@
+=build_object_viewer_toolbar(edit_atendimento_path(@atendimento), @atendimento, atendimentos_path, empresa_atendimento_paciente_relatorio_path(current_usuario.empresa_id,@atendimento.id, format: 'pdf'))
+%section{id: "show_atendimento"}
+  %div{class: "container"}
+    %div{class: "row"}
+      %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+        %div{class: "row"}
+          %h2="Exibindo Atendimento do paciente #{@atendimento.nome}"
+          %hr{style: "border: #323232 solid 0.5px;"}
+    %div{class: "row"}
+      %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+        %div{class: "row"}
+          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
+            = label_tag t('pacientes.helpers.n_bam')
+          %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
+            = @atendimento.id
+        %div{class: "row"}
+          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
+            = label_tag t('pacientes.helpers.covenant')
+          %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
+            = @atendimento.convenio.nome.upcase unless @atendimento.convenio.nil?
+        %div{class: "row"}
+          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
+            = label_tag t('pacientes.helpers.appointment_date')
+          %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
+            = l @atendimento.data unless @atendimento.data.nil?
+        %div{class: "row"}
+          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
+            = label_tag t('pacientes.helpers.appointment_hour')
+          %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
+            = h hora_formatada @atendimento.hora unless @atendimento.hora.nil?
+        %div{class: "row"}
+          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
+            = label_tag t('pacientes.helpers.name')
+          %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
+            = @atendimento.nome
+        %div{class: "row"}
+          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
+            = label_tag t('pacientes.helpers.mothers_name')
+          %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
+            = @atendimento.nome_da_mae
+        %div{class: "row"}
+          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
+            = label_tag t('pacientes.helpers.birth_day')
+          %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
+            =l @atendimento.data_nascimento
+        %div{class: "row"}
+          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
+            = label_tag t('pacientes.helpers.rg')
+          %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
+            = @atendimento.rg
+        %div{class: "row"}
+          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
+            = label_tag t('pacientes.helpers.cpf')
+          %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
+            = @atendimento.cpf
+        %div{class: "row"}
+          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
+            = label_tag t('pacientes.helpers.phone_number')
+          %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
+            = @atendimento.telefone
+        %div{class: "row"}
+          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
+            = label_tag t('pacientes.helpers.cel_phone_number')
+          %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
+            = @atendimento.celular
+        %div{class: "row"}
+          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
+            = label_tag t('pacientes.helpers.state')
+          %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
+            = @atendimento.estado.nome.upcase unless @atendimento.estado.nil?
+        %div{class: "row"}
+          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
+            = label_tag t('pacientes.helpers.city')
+          %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
+            = @atendimento.cidade.nome.upcase unless @atendimento.cidade.nil?
+        %div{class: "row"}
+          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
+            = label_tag t('pacientes.helpers.neighborhood')
+          %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
+            = @atendimento.bairro
+        %div{class: "row"}
+          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
+            = label_tag t('pacientes.helpers.address')
+          %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
+            = @atendimento.endereco
+        %div{class: "row"}
+          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
+            = label_tag t('pacientes.helpers.cep')
+          %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
+            = @atendimento.cep
+    %div{class: "row"}
+      %hr{style: "border: #323232 solid 0.5px;"}

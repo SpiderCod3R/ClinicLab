@@ -1,0 +1,11 @@
+=build_form_toolbar(nil, ".edit_atendimento", @atendimento, atendimentos_path, empresa_atendimento_paciente_relatorio_path(current_usuario.empresa_id,@atendimento.id, format: 'pdf'))
+%section{id: "edit_atendimento"}
+  %div{class: "container"}
+    %div{class: "row"}
+      %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+        %h1=t('pacientes.links.edit_appointment')
+        %hr{style: "border: #323232 solid 0.5px;"}
+    %div{class: "row"}
+      %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+        %div{class: "panel"}
+          = render 'atendimentos/partials/form'

@@ -1,0 +1,49 @@
+%div{class: "container", style: "margin-left: 5%; padding-top: 15px; padding-bottom: 15px;"}
+  = simple_form_for(@atendimento) do |f|
+    %div{class: "row"}
+      %div{class: "col-xs-12 col-sm-6 col-md-6 col-lg-6", style: 'margin: 0; padding: 0;'}
+        - if @atendimento.errors.any?
+          %div{class: "alert", style: "color: #B11515;"}
+            %h4="#{pluralize(@atendimento.errors.count, "erro")} impede(m) este atendimento de ser salvo:"
+    %div{class: "row"}
+      %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
+        = f.input :nome
+      %div{class: "col-xs-12 col-sm-4 col-md-4 col-lg-3"}
+        = f.input :nome_da_mae, label: t('pacientes.helpers.mothers_name')
+    %div{class: "row"}
+      %div{class: "col-xs-12 col-sm-4 col-md-4 col-lg-3"}
+        = f.input :cpf, input_html: {class: "cpf_maskara" }
+      %div{class: "col-xs-12 col-sm-4 col-md-4 col-lg-3"}
+        = f.input :rg, input_html: {class: "rg_maskara" }
+    %div{class: "row"}
+      %div{class: "col-xs-12 col-sm-5 col-md-4 col-lg-3"}
+        = f.input :data_nascimento, as: :date_picker, label: "Data de Nascimento"
+      %div{class: "col-xs-12 col-sm-4 col-md-4 col-lg-3"}
+        =f.label "Convênio"
+        =f.collection_select(:convenio_id, @convenios, :id, :nome, {include_blank: "Selecione"}, {:class=>'form-control'})
+    %div{class: "row"}
+      %div{class: "col-xs-12 col-sm-4 col-md-4 col-lg-3"}
+        = f.input :telefone, input_html: {class: "telefone_maskara" }
+      %div{class: "col-xs-12 col-sm-4 col-md-4 col-lg-3"}
+        = f.input :celular, input_html: {class: "celular_maskara" }
+    %div{class: "row"}
+      %div{class: "col-xs-12 col-sm-4 col-md-4 col-lg-3"}
+        =f.label :estado_id
+        =f.collection_select(:estado_id, @estados, :id, :nome, {include_blank: "Selecione"}, {:class=>'form-control'})
+      %div{class: "col-xs-12 col-sm-4 col-md-4 col-lg-3"}
+        =f.label :cidade_id
+        = f.grouped_collection_select(:cidade_id, @estados, :cidades, :nome, :id, :nome, {include_blank: "Selecione"}, { :class=> "collection_select" })
+    %div{class: "row"}
+      %br
+      %div{class: "col-xs-12 col-sm-4 col-md-4 col-lg-3"}
+        = f.input :endereco
+      %div{class: "col-xs-12 col-sm-4 col-md-4 col-lg-3"}
+        = f.input :bairro
+    %div{class: "row"}
+      %div{class: "col-xs-12 col-sm-4 col-md-4 col-lg-3"}
+        = f.input :cep
+    %div{class: "row"}
+      %div{class: "col-xs-12 col-sm-4 col-md-4 col-lg-3"}
+        =f.input :data, as: :date_picker, label: "Escolha a Data"
+      %div{class: "col-xs-12 col-sm-4 col-md-4 col-lg-3"}
+        =f.input :hora, as: :time_picker, label: "Escolha a Hora"

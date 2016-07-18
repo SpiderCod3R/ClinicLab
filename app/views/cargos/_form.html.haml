@@ -1,0 +1,12 @@
+%div{class: "container", style: "margin-left: 5%; padding-top: 15px; padding-bottom: 15px;"}
+	= simple_form_for(@cargo) do |f|
+		%div{class: "row"}
+			%div{class: "col-xs-5 col-sm-3 col-md-3 col-lg-3"}
+				= f.input :status, :as => :select, :collection => [['Ativo',true],['Inativo',false]], :include_blank => false, :label => t('labels.status')
+		%div{class: "row"}
+			%div{class: "col-xs-12 col-sm-6 col-md-6 col-lg-6", style: 'margin: 0; padding: 0;'}
+				= f.error_notification
+		
+		%div{class: "row"}
+			%div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
+				= f.input :nome

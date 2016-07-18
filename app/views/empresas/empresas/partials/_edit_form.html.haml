@@ -1,0 +1,22 @@
+= simple_form_for @empresa do |f|
+  %div{class: "row-fluid"}
+    %div{class: "col-xs-12 col-sm-6 col-md-6 col-lg-6", style: 'margin: 0; padding: 0;'}
+      = f.error_notification
+
+  %div{class: "row-fluid"}
+    %div{class: "col-xs-12 col-sm-4 col-md-4 col-lg-3"}
+      =f.label "Nome da  Empresa"
+      = f.input :nome, label: false
+  %div{class: "row-fluid"}
+    %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+      %div{class: "plan-head panel panel-default"}
+        %div{class: "panel-heading"}
+          %b Módulos -
+          %div{id: "side_action_button", style: "display: inline-block;"}
+            %b="Selecionar Tudo - "
+            = check_box_tag('check_all', 'check_all', false, :onClick => "checkAll(this);")
+        %div{class: "panel-body", style: "height: 205px; overflow: auto;"}
+          %ul{class: "plan"}
+            =render "empresas/empresas/partials/modulos_checkbox_form"
+
+  %hr{style: "border: #323232 solid 0.5px;"}

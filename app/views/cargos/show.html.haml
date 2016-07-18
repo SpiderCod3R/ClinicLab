@@ -1,0 +1,17 @@
+=build_object_viewer_toolbar(edit_cargo_path(@cargo), @cargo, cargos_path, nil)
+%section{id: "show_convenio"}
+  %div{class: "container"}
+    %div{class: "row"}
+      %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+        %div{class: "row-fluid"}
+          %h2 Exibindo Cargos
+          %hr{style: "border: #323232 solid 0.5px;"}
+        %div{class: "row-fluid"}
+          %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+            %strong Código:
+            = @cargo.id
+        %div{class: "row-fluid"}
+          %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+            %strong Nome:
+            = @cargo.nome
+          %hr{style: "border: #323232 solid 0.5px;"}

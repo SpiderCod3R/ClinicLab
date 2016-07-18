@@ -1,0 +1,19 @@
+=build_object_viewer_toolbar(edit_operadora_path(@operadora), @operadora, operadoras_path, nil)
+%section{id: "show_convenio"}
+  %div{class: "container"}
+    %div{class: "row"}
+      %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+        %div{class: "row-fluid"}
+          %h2 Exibindo Operadoras
+          %hr{style: "border: #323232 solid 0.5px;"}
+        %div{class: "row-fluid"}
+          %p
+            %strong ID:
+            = @operadora.id
+          %p
+            %strong Status:
+            = status(@operadora.status)
+          %p
+            %strong Nome:
+            = @operadora.nome
+        %hr{style: "border: #323232 solid 0.5px;"}

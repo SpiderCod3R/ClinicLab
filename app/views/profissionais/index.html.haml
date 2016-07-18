@@ -1,0 +1,22 @@
+=build_form_toolbar(new_profissional_path, nil, @profissional, profissionais_path, nil)
+%div{class: "container-fluid"}
+  %div{class: "row-fluid"}
+    %h1  Profissionais
+    %hr{style: "border: #323232 solid 0.5px;"}
+    %table{class: "table table-striped table-bordered", cellspacing: "0", width: "100%"}
+      %thead
+        %th=t(:status, scope: [:bootstrap, :helpers, :labels])
+        %th=t(:código, scope: [:bootstrap, :helpers, :labels])
+        %th=t(:name, scope: [:bootstrap, :helpers, :labels])
+        %th=t(:office, scope: [:bootstrap, :helpers, :labels])
+        %th{class: "pull-right"}=t(:show, scope: [:bootstrap, :helpers, :links])
+      %tbody
+        - @profissionais.each do |profissional|
+          %tr
+            %td=status(profissional.status)
+            %td=profissional.id
+            %td=profissional.nome
+            %td=profissional.cargo.nome
+            %td{class: "pull-right"}
+              = link_to_visualizar profissional
+  %hr{style: "border: #323232 solid 0.5px;"}

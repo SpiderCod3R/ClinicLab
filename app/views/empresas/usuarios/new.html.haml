@@ -1,0 +1,12 @@
+=build_form_toolbar(nil, ".new_usuario", @usuario, empresa_path(@empresa), nil)
+%div{class: "container-fluid"}
+  %div{class: "row-fluid"}
+    %div{class:"col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+      %div{class: "row-fluid"}
+        %h1=t('usuarios.links.new')
+        %hr{style: "border: #323232 solid 0.5px;"}
+        %div{class: "container"}
+          =render 'empresas/usuarios/partials/form'
+        %hr{style: "border: #323232 solid 0.5px;"}
+        %div{class: "page-header"}
+        %div{class: "page-header"}

@@ -1,0 +1,20 @@
+.row
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12
+    =f.input :id, as: :hidden
+    %hr{style: "border: #323232 solid 0.5px;"}
+    .panel
+      %br/
+      .container
+        %b Selecionar Tudo
+        = check_box_tag('check_all', 'check_all', false, :onClick => "checkAll(this);")
+      %br/
+      .container
+        = f.simple_fields_for :usuario_permissao_empresas do |u|
+          - unless u.object.permissao_empresa.nil?
+            .col-xs-8.col-sm-8.col-md-3.col-lg-2
+              .panel.panel-primary
+                .panel-heading{style: "text-align:center;"}
+                  = u.object.permissao_empresa.nome
+                .panel-body
+                  =render 'empresas/usuarios/partials/permissoes_fields', { u: u }
+    %hr{style: "border: #323232 solid 0.5px;"}

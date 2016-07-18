@@ -1,0 +1,20 @@
+=build_form_toolbar(new_cabec_path, nil, @cabecs, cabecs_path, nil)
+%div{class: "container-fluid"}
+  %div{class: "row-fluid"}
+    %h1  Cabec
+    %hr{style: "border: #323232 solid 0.5px;"}
+    %table{class: "table table-striped table-bordered", cellspacing: "0", width: "100%"}
+      %thead
+        %th=t(:status, scope: [:bootstrap, :helpers, :labels])
+        %th=t(:código, scope: [:bootstrap, :helpers, :labels])
+        %th=t(:name, scope: [:bootstrap, :helpers, :labels])
+        %th{class: "pull-right"}=t(:show, scope: [:bootstrap, :helpers, :links])
+      %tbody
+        - @cabecs.each do |cabec|
+          %tr
+            %td= status(cabec.status)
+            %td=cabec.id
+            %td=cabec.nome
+            %td{class: "pull-right"}
+              = link_to_visualizar cabec
+  %hr{style: "border: #323232 solid 0.5px;"}

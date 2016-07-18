@@ -1,0 +1,23 @@
+=build_form_toolbar(nil, ".edit_usuario", resource, empresa_path(current_usuario.empresa), nil)
+%div{class: "container-fluid"}
+  %div{class: "col-md-8 col-md-offset-2"}
+    %h2= "Editando Usuário - #{resource.nome}"
+    %hr{style: "border: #323232 solid 0.5px;"}
+    .panel.row
+      %div{class: "col-md-9 col-md-offset-3"}
+        = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+          %div{class: "row"}
+            %div{class: "col-xs-12 col-sm-6 col-md-6 col-lg-6", style: 'margin: 0; padding: 0;'}
+              = f.error_notification
+          %div{class: "row"}
+            %div{class: "col-md-4"}
+              = f.input :nome, required: true
+            %div{class: "col-md-4"}
+              = f.input :username, label: "Nome de Usuário", required: true
+          %div{class: "row"}
+            %div{class: "col-md-4"}
+              = f.input :email, required: true, autofocus: true, autocomplete: "on"
+            %div{class: "col-md-4"}
+              = f.input :current_password, hint: "Senha para confirmar alterações", required: true, label: "Senha Atual"
+%br/
+%br/

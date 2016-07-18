@@ -1,0 +1,8 @@
+%div{class: "container-fluid"}
+  %div{class: "row-fluid"}
+    %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+      %div{class: "row"}
+        - flash.each do |type, message|
+          %div{:class => "alert alert-#{class_for(type)} fade in"}
+            %button.close{"data-dismiss" => "alert"} ×
+            = message

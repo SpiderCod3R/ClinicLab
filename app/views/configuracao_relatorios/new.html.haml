@@ -1,0 +1,11 @@
+=build_form_toolbar(".new_configuracao_relatorio", @configuracao_relatorio, configuracao_relatorios_path, nil)
+%section{id: "new_configuracao_relatorio"}
+  %div{class: "container"}
+    %div{class: "row"}
+      %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+        %h1 Cadastrando Configuração de Relatório
+        %hr{style: "border: #323232 solid 0.5px;"}
+    %div{class: "row"}
+      %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+        %div{class: "panel"}
+          = render 'configuracao_relatorios/form'

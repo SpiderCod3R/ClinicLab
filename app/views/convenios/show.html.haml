@@ -1,0 +1,23 @@
+=build_object_viewer_toolbar(edit_convenio_path(@convenio), @convenio, convenios_path, nil)
+%section{id: "show_convenio"}
+  %div{class: "container"}
+    %div{class: "row"}
+      %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+        %div{class: "row"}
+          %h2 Exibindo Convênio
+          %hr{style: "border: #323232 solid 0.5px;"}
+        %div{class: "row-fluid"}
+          %p
+            %strong Código:
+            = @convenio.id
+          %p
+            %strong Nome:
+            = @convenio.nome
+          %p
+            %strong Valor:
+            = @convenio.valor
+          %p
+            %strong Status:
+            = status(@convenio.status)
+        %div{class: "row"}
+          %hr{style: "border: #323232 solid 0.5px;"}

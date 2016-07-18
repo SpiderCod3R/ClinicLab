@@ -1,0 +1,18 @@
+=build_form_toolbar(new_texto_livre_path, nil, @texto_livres, texto_livres_path, nil)
+%div{class: "container-fluid"}
+  %div{class: "row-fluid"}
+    %h1  Configuração Texto Livre
+    %hr{style: "border: #323232 solid 0.5px;"}
+    %table{class: "table table-striped table-bordered", cellspacing: "0", width: "100%"}
+      %thead
+        %th=t(:código, scope: [:bootstrap, :helpers, :labels])
+        %th=t(:name, scope: [:bootstrap, :helpers, :labels])
+        %th{class: "pull-right"}=t(:show, scope: [:bootstrap, :helpers, :links])
+      %tbody
+        - @texto_livres.each do |texto_livre|
+          %tr
+            %td=texto_livre.id
+            %td=texto_livre.nome
+            %td{class: "pull-right"}
+              = link_to_visualizar texto_livre
+  %hr{style: "border: #323232 solid 0.5px;"}

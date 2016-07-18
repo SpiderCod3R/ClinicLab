@@ -1,0 +1,75 @@
+=build_object_viewer_toolbar(edit_paciente_path(@paciente), @paciente, atendimentos_path, nil)
+%section{id: "show_paciente"}
+  %div{class: "container-fluid"}
+    %div{class: "row-fluid"}
+      %h1 Paciente
+      %hr{style: "border: #323232 solid 0.5px;"}
+      %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+        %div{class: "row"}
+          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
+            = label_tag t('pacientes.helpers.id')
+          %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
+            = @paciente.id
+        %div{class: "row"}
+          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
+            = label_tag t('pacientes.helpers.covenant')
+          %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
+            = @paciente.convenio.nome.upcase unless @paciente.convenio.nil?
+        %div{class: "row"}
+          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
+            = label_tag t('pacientes.helpers.name')
+          .col-xs-8.col-sm-4.col-md-4.col-lg-4
+            = @paciente.nome
+        %div{class: "row"}
+          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
+            = label_tag t('pacientes.helpers.mothers_name')
+          %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
+            = @paciente.nome_da_mae
+        %div{class: "row"}
+          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
+            = label_tag t('pacientes.helpers.rg')
+          .col-xs-8.col-sm-4.col-md-4.col-lg-4
+            = @paciente.rg
+        %div{class: "row"}
+          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
+            = label_tag t('pacientes.helpers.cpf')
+          .col-xs-8.col-sm-4.col-md-4.col-lg-4
+            = @paciente.cpf
+        %div{class: "row"}
+          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
+            = label_tag t('pacientes.helpers.birth_day')
+          .col-xs-3.col-sm-4.col-md-4.col-lg-4
+            = l @paciente.data_nascimento
+        %div{class: "row"}
+          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
+            = label_tag t('pacientes.helpers.phone_number')
+          %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
+            = @paciente.telefone
+        %div{class: "row"}
+          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
+            = label_tag t('pacientes.helpers.cel_phone_number')
+          %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
+            = @paciente.celular
+        %div{class: "row"}
+          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
+            = label_tag t('pacientes.helpers.state')
+          %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
+            =  @paciente.estado.nome.upcase if @paciente.try(:estado)
+        %div{class: "row"}
+          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
+            = label_tag t('pacientes.helpers.city')
+          %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
+            = @paciente.cidade.nome.upcase if  @paciente.try(:cidade)
+        %div{class: "row"}
+          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
+            = label_tag t('pacientes.helpers.address')
+          %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
+            =  @paciente.endereco
+        %div{class: "row"}
+          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
+            = label_tag t('pacientes.helpers.neighborhood')
+          %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
+            = @paciente.bairro
+    %div{class: "row-fluid"}
+      %hr{style: "border: #323232 solid 0.5px;"}
+
