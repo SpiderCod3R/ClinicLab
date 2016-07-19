@@ -3,7 +3,7 @@ require "application_responder"
 class ApplicationController < ActionController::Base
   self.responder = ApplicationResponder
   protect_from_forgery with: :exception
-  # before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :configure_permitted_parameters, if: :devise_controller?
   respond_to :html
 
   rescue_from CanCan::AccessDenied do |exception|
@@ -25,11 +25,11 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  # def configure_permitted_parameters
-  #   devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :nome])
-  #   devise_parameter_sanitizer.permit(:sign_in, keys: [:username, :password])
-  #   devise_parameter_sanitizer.permit(:account_update, keys: [:username, :nome])
-  # end
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :nome])
+    devise_parameter_sanitizer.permit(:sign_in, keys: [:username, :password])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:username, :nome])
+  end
 
   def default_url_options(options = {})
     {locale: I18n.locale}
