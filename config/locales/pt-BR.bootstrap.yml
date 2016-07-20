@@ -1,0 +1,66 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+pt-BR:
+  bootstrap:
+    breadcrumbs:
+      application:
+        root: "Index"
+      pages:
+        pages: "Páginas"
+    labels:
+      equipamentos: Equipamentos
+      codigo: 'Código'
+      nome: 'Nome'
+      data_criacao: 'Data da Criação'
+      status: 'Status'
+    helpers:
+      diagnostico: diagnostico
+      actions: "Opções"
+      tabs:
+        custos: "CUSTOS"
+        estoques: "ESTOQUES"
+        dados: "DADOS"
+        categorias: "CATEGORIAS"
+      links:
+        end: "Finalizar"
+        add: "Adicionar"
+        next: "Avançar"
+        home: "Página Inicial"
+        show: "Visualizar"
+        back: "voltar"
+        cancel: "Cancelar"
+        confirm: "Tem Certeza?"
+        destroy: "Excluir"
+        alter_password: "Alterar Senha"
+        free_modules: "Liberar Módulos"
+        change_permissions: "Alterar Permissões"
+        view_permissions: "Visualizar Permissões"
+        produto_clientes: "Produto Clientes"
+        vendas_produto: "Vendas Produto"
+        new: "Cadastrar"
+        edit: "Editar"
+        print: "Imprimir"
+        generate: "Gerar"
+        confirm: Comfirmação
+        full_list: Listar Todos
+        save: Salvar
+        advance: "Avançar"
+      titles:
+        edit: "Editando %{model}"
+        save: "Salvando %{model}"
+        new: "Novo %{model}"
+        new_categoria: "Nova Categoria"
+        delete: "Deletando %{model}"
+    css_class:
+      btn_default: "btn btn-default"
+      btn_default_right: "btn btn-default pull-right"
+      btn_default_left: "btn btn-default pull-left"
+      btn_primary: "btn btn-primary"
+      btn_primary_left: "btn btn-primary pull-left"
+      btn_primary_right: "btn btn-primary pull-right"
+      btn_success: "btn btn-success"
+      btn_info: "btn btn-info"
+      btn_warning: "btn btn-warning"
+      btn_danger: "btn btn-danger"
+      btn_danger_right: "btn btn-danger pull-right"
