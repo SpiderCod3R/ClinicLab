@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160525171519) do
+ActiveRecord::Schema.define(version: 20160720193237) do
 
   create_table "atendimentos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "nome"
@@ -100,6 +100,8 @@ ActiveRecord::Schema.define(version: 20160525171519) do
     t.string   "rg"
     t.string   "estado_civil"
     t.integer  "empresa_id"
+    t.string   "nacionalidade"
+    t.string   "naturalidade"
     t.index ["cargo_id"], name: "index_clientes_on_cargo_id", using: :btree
     t.index ["convenio_id"], name: "index_clientes_on_convenio_id", using: :btree
     t.index ["empresa_id"], name: "index_clientes_on_empresa_id", using: :btree

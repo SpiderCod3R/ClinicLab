@@ -19,7 +19,7 @@
 = simple_form_for(@cliente) do |f|
   %div{class: "container", style: "margin-left: 5%; padding-top: 15px; padding-bottom: 15px;"}
     %div{class:"tab-content"}
-      / aba dos dados principais
+      / aba documento
       %div{id:"dados", class:"tab-pane fade in active"}
         %div{class: "row"}
           %div{class: "col-xs-12 col-sm-6 col-md-6 col-lg-6", style: 'margin: 0; padding: 0;'}
@@ -55,8 +55,18 @@
             = f.input :cpf,  input_html: {class: "cpf_maskara" }
           %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
             = f.input :rg,  input_html: {class: "rg_maskara" }
+        %div{class: "row"}
+          %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
+            / = f.input :nacionalidade, :as => :select,
+            /         :collection => [['Brasil','brasil'],['Outros','outros']],
+            /         :include_blank => "Selecione"
+            =f.label "Nacionalidade"
+            =localized_country_select(:cliente, :nacionalidade, [], {include_blank: "Selecione"}, {:class => "form-control"})
+          %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3", id: "naturalidade_cliente", style: "display: none;"}
+            =f.label "Naturalidade"
+            =f.collection_select(:naturalidade, @estados, :id, :nome, {include_blank: "Selecione"}, {:class=>'form-control'})
 
-      / aba de endereço
+      / aba convenio
       %div{id:"convenio", class:"tab-pane fade"}
         %div{class: "row"}
           %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
@@ -80,7 +90,7 @@
           %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
             = f.input :plano
 
-      / aba de endereço
+      / aba pessoais
       %div{id:"endereco", class:"tab-pane fade"}
         %div{class: "row"}
           %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
@@ -105,7 +115,7 @@
             = f.grouped_collection_select(:cidade_id, @estados, :cidades, :nome, :id, :nome, {include_blank: "Selecione"}, { :class=> "collection_select" })
           %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
             =f.label "Profissão"
-            =f.collection_select(:cargo_id, Cargo.order(:nome), :id, :nome, {include_blank: false}, {:class=>'form-control'})
+            =f.collection_select(:cargo_id, Cargo.order(:nome), :id, :nome, {include_blank: "Selecione"}, {:class=>'form-control'})
 
       / aba de historico
       %div{id:"historico", class:"tab-pane fade"}

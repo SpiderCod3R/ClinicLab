@@ -68,6 +68,13 @@ jQuery ->
     str_idade = idade.anos + ' ' + str_ano + ', ' + idade.meses + ' ' + str_mes + ' e ' + idade.dias + ' ' + str_dia
     return str_idade
 
+  $('#cliente_nacionalidade').change ->
+    if $('#cliente_nacionalidade :selected').text() == 'Brasil'
+      $('#naturalidade_cliente').show()
+    else
+      $('#naturalidade_cliente').hide()
+      $('#cliente_naturalidade').val('').trigger('change')
+
   cidades = $('#cliente_cidade_id').html()
   if $('#cliente_estado_id').val() != ""
     $('#cliente_cidade_id').prop 'disabled', false
