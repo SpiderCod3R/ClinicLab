@@ -2,6 +2,7 @@ class Empresa < ApplicationRecord
   include MetodosUteis
 
   with_options dependent: :destroy do
+    has_many :agendas
     has_many :pacientes
     has_many :atendimentos
     has_many :profissionais
@@ -19,6 +20,7 @@ class Empresa < ApplicationRecord
 
   accepts_nested_attributes_for :usuarios, allow_destroy: true
   validates_associated :permissao_empresas
+
   validates :nome, presence: true
 
   def possui_pelo_menos_um_administrador

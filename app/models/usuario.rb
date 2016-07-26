@@ -17,6 +17,7 @@ class Usuario < ApplicationRecord
 
   belongs_to :empresa
   belongs_to :funcao
+  has_many   :agendas
 
   has_many :usuario_permissao_empresas, :dependent => :destroy
   has_many :permissao_empresas, through: :usuario_permissao_empresas
