@@ -1,7 +1,8 @@
 source 'https://rubygems.org'
 
-
 gem 'rails', '~> 5.0.0'
+gem 'rails-i18n', '~> 5.0.0'
+
 gem 'mysql2', '>= 0.3.18', '< 0.5'
 gem 'puma', '~> 3.0'
 gem 'sass-rails', '~> 5.0'
@@ -55,3 +56,13 @@ gem 'paperclip'
 gem 'tinymce-rails'
 gem 'tinymce-rails-langs'
 gem "bootstrap-table-rails"
+
+group :development, :test do
+  gem 'pry'
+  gem 'pry-rails'
+  gem 'rspec', '~> 3.5'
+  gem 'rspec-rails', '~> 3.5', '>= 3.5.1'
+  gem 'factory_girl_rails'
+  gem 'capybara', '~> 2.7', '>= 2.7.1'
+  gem 'faker', '~> 1.6', '>= 1.6.6'
+end
