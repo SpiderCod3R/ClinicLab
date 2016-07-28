@@ -6,6 +6,5 @@ FactoryGirl.define do
     password  { Faker::Internet.password(8) }
     association :funcao, factory: :funcao
     association :empresa, factory: :empresa
-    # password_cofirmation { @senha }
   end
 end
