@@ -17,6 +17,8 @@ class Cliente < ApplicationRecord
   belongs_to :cargo
   belongs_to :convenio
   belongs_to :empresa
+  has_many :historicos
+  accepts_nested_attributes_for :historicos, allow_destroy: true
 
   has_attached_file :foto, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :foto, content_type: /\Aimage\/.*\Z/
