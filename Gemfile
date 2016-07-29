@@ -56,3 +56,5 @@ gem 'tinymce-rails'
 gem 'tinymce-rails-langs'
 gem "bootstrap-table-rails"
 gem 'localized_country_select'
+gem 'pry'
+gem 'pry-rails'
