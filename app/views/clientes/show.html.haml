@@ -6,120 +6,120 @@
       %hr{style: "border: #323232 solid 0.5px;"}
       %div{class: "col-xs-8 col-sm-8 col-md-8 col-lg-8"}
         %div{class: "row"}
-          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
+          %div{class: "col-xs-3 col-sm-3 col-md-3 col-lg-3"}
             = label_tag t('clientes.helpers.codigo')
           %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
             = @cliente.id
         %div{class: "row"}
-          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
+          %div{class: "col-xs-3 col-sm-3 col-md-3 col-lg-3"}
             = label_tag t('clientes.helpers.status')
           .col-xs-8.col-sm-4.col-md-4.col-lg-4
             = status(@cliente.status)
         %div{class: "row"}
-          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
-            = label_tag t('clientes.helpers.name')
+          %div{class: "col-xs-3 col-sm-3 col-md-3 col-lg-3"}
+            = label_tag t('clientes.helpers.nome')
           %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
             = @cliente.nome
         %div{class: "row"}
-          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
+          %div{class: "col-xs-3 col-sm-3 col-md-3 col-lg-3"}
             = label_tag t('clientes.helpers.cpf')
           .col-xs-8.col-sm-4.col-md-4.col-lg-4
             = @cliente.cpf
         %div{class: "row"}
-          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
-            = label_tag t('clientes.helpers.address')
+          %div{class: "col-xs-3 col-sm-3 col-md-3 col-lg-3"}
+            = label_tag t('clientes.helpers.endereco')
           .col-xs-8.col-sm-4.col-md-4.col-lg-4
             = @cliente.endereco
         %div{class: "row"}
-          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
-            = label_tag t('clientes.helpers.complement')
+          %div{class: "col-xs-3 col-sm-3 col-md-3 col-lg-3"}
+            = label_tag t('clientes.helpers.complemento')
           %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
             = @cliente.complemento
         %div{class: "row"}
-          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
-            = label_tag t('clientes.helpers.neighborhood')
+          %div{class: "col-xs-3 col-sm-3 col-md-3 col-lg-3"}
+            = label_tag t('clientes.helpers.bairro')
           %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
             = @cliente.bairro
         %div{class: "row"}
-          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
-            = label_tag t('clientes.helpers.state')
+          %div{class: "col-xs-3 col-sm-3 col-md-3 col-lg-3"}
+            = label_tag t('clientes.helpers.estado')
           %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
             =  @cliente.estado.nome.upcase if @cliente.try(:estado_id)
         %div{class: "row"}
-          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
-            = label_tag t('clientes.helpers.city')
+          %div{class: "col-xs-3 col-sm-3 col-md-3 col-lg-3"}
+            = label_tag t('clientes.helpers.cidade')
           %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
             = @cliente.cidade.nome.upcase if @cliente.try(:cidade_id)
         %div{class: "row"}
-          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
-            = label_tag t('clientes.helpers.birth_day')
+          %div{class: "col-xs-3 col-sm-3 col-md-3 col-lg-3"}
+            = label_tag t('clientes.helpers.nascimento')
           %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
             = @cliente.nascimento.strftime("%d/%m/%Y") unless @cliente.nascimento.nil?
         %div{class: "row"}
-          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
-            = label_tag t('clientes.helpers.sex')
+          %div{class: "col-xs-3 col-sm-3 col-md-3 col-lg-3"}
+            = label_tag t('clientes.helpers.sexo')
           %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
             = sexo_formatado(@cliente.sexo)
         %div{class: "row"}
-          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
+          %div{class: "col-xs-3 col-sm-3 col-md-3 col-lg-3"}
             = label_tag t('clientes.helpers.rg')
           %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
             = @cliente.rg
         %div{class: "row"}
-          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
-            = label_tag t('clientes.helpers.marital_status')
+          %div{class: "col-xs-3 col-sm-3 col-md-3 col-lg-3"}
+            = label_tag t('clientes.helpers.estado_civil')
           %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
             = @cliente.estado_civil
         %div{class: "row"}
-          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
+          %div{class: "col-xs-3 col-sm-3 col-md-3 col-lg-3"}
             = label_tag t('clientes.helpers.email')
           %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
             = @cliente.email
         %div{class: "row"}
-          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
-            = label_tag t('clientes.helpers.telephone')
+          %div{class: "col-xs-3 col-sm-3 col-md-3 col-lg-3"}
+            = label_tag t('clientes.helpers.telefone')
           %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
             = @cliente.telefone
         %div{class: "row"}
-          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
-            = label_tag t('clientes.helpers.office')
+          %div{class: "col-xs-3 col-sm-3 col-md-3 col-lg-3"}
+            = label_tag t('clientes.helpers.cargo')
           %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
             = @cliente.cargo.nome
         %div{class: "row"}
-          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
-            = label_tag t('clientes.helpers.status')
+          %div{class: "col-xs-3 col-sm-3 col-md-3 col-lg-3"}
+            = label_tag t('clientes.helpers.status_convenio')
           %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
             = status(@cliente.status_convenio)
         %div{class: "row"}
-          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
-            = label_tag t('clientes.helpers.registration')
+          %div{class: "col-xs-3 col-sm-3 col-md-3 col-lg-3"}
+            = label_tag t('clientes.helpers.convenio')
+          %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
+            = @cliente.convenio.nome
+        %div{class: "row"}
+          %div{class: "col-xs-3 col-sm-3 col-md-3 col-lg-3"}
+            = label_tag t('clientes.helpers.matricula')
           %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
             = @cliente.matricula
         %div{class: "row"}
-          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
-            = label_tag t('clientes.helpers.plan')
+          %div{class: "col-xs-3 col-sm-3 col-md-3 col-lg-3"}
+            = label_tag t('clientes.helpers.plano')
           %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
             = @cliente.plano
         %div{class: "row"}
-          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
-            = label_tag t('clientes.helpers.validity_portfolio')
+          %div{class: "col-xs-3 col-sm-3 col-md-3 col-lg-3"}
+            = label_tag t('clientes.helpers.validade_carteira')
           %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
             = @cliente.validade_carteira.strftime("%d/%m/%Y") unless @cliente.validade_carteira.nil?
         %div{class: "row"}
-          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
-            = label_tag t('clientes.helpers.product')
+          %div{class: "col-xs-3 col-sm-3 col-md-3 col-lg-3"}
+            = label_tag t('clientes.helpers.produto')
           %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
             = @cliente.produto
         %div{class: "row"}
-          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
-            = label_tag t('clientes.helpers.holder')
+          %div{class: "col-xs-3 col-sm-3 col-md-3 col-lg-3"}
+            = label_tag t('clientes.helpers.titular')
           %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
             = @cliente.titular
-        %div{class: "row"}
-          %div{class: "col-xs-3 col-sm-2 col-md-2 col-lg-2"}
-            = label_tag t('clientes.helpers.agreement')
-          %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
-            = @cliente.convenio.nome
       %div{class: "col-xs-4 col-sm-4 col-md-4 col-lg-4"}
         -if @cliente.foto.present?
           = image_tag @cliente.foto.url(:medium), :class => "img_profissional"

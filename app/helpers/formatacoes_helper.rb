@@ -1,4 +1,8 @@
 module FormatacoesHelper
+  def data_formatada(data)
+    data.strftime("%d/%m/%Y") if data.present?
+  end
+
   def hora_formatada(hora)
     hora.strftime("%H:%M") if hora.present?
   end

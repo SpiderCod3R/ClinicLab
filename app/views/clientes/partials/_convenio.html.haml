@@ -1,0 +1,23 @@
+- validade = data_formatada(@cliente.validade_carteira) if @cliente.validade_carteira.present?
+%div{id:"convenio", class:"tab-pane fade"}
+  %div{class: "row"}
+    %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
+      = f.input :status_convenio, :as => :select,
+          :collection => [['Ativo',true],['Inativo',false]],
+          :include_blank => false,
+          :label => t('labels.status convênio')
+    %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
+      = f.input :matricula
+    %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
+      =f.label "Convênio"
+      =f.collection_select(:convenio_id, Convenio.order(:nome), :id, :nome, {include_blank: false}, {:class=>'form-control'})
+  %div{class: "row"}
+    %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
+      = f.input :validade_carteira, as: :string, input_html: {class: "datepicker_form", value: "#{validade}" }
+    %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
+      = f.input :produto
+    %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
+      = f.input :titular
+  %div{class: "row"}
+    %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
+      = f.input :plano
