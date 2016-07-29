@@ -60,6 +60,9 @@
 #= require pacientes
 #= require valida_cpf
 #= require clientes
+#= require idade_clientes
+#= require nacionalidade_clientes
+#= require historicos
 #= require profissionais
 #= require fornecedor
 #= require fornecedores
