@@ -61,7 +61,7 @@ jQuery ->
 
   if $('#cliente_nascimento').val().length > 0
     verifica_data_nascimento()
-    return
   $('#cliente_nascimento').change ->
     verifica_data_nascimento()
     return
+  return

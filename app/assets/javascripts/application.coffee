@@ -57,12 +57,11 @@
 # require xray
 
 # -*- REQUIRES DO GHCARE
-#= require pacientes
 #= require valida_cpf
 #= require clientes
-#= require idade_clientes
-#= require nacionalidade_clientes
-#= require historicos
+#= require cliente_idade
+#= require cliente_nacionalidade
+#= require cliente_historicos
 #= require profissionais
 #= require fornecedor
 #= require fornecedores
