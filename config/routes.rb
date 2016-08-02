@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   resources :clientes
   post 'clientes/retorna_historico', to: "clientes#retorna_historico"
+  post 'clientes/salva_historico', to: "clientes#salva_historico"
+  post 'clientes/atualiza_historico', to: "clientes#atualiza_historico"
 
   get 'pages/help'
   get 'pages/contact_us'
