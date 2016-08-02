@@ -9,6 +9,9 @@
     %a{'data-toggle':"tab", href:"#endereco"}
       Pessoais
   %li
+    %a{'data-toggle':"tab", href:"#historico"}
+      Histórico
+  %li
     %a{'data-toggle':"tab", href:"#texto_livre"}
       Texto Livre
 
@@ -24,6 +27,9 @@
 
       / aba pessoais
       =render 'clientes/partials/pessoais', { f: f }
+
+      / aba historico
+      =render 'clientes/partials/historico', { f: f }
 
       / aba texto livre
       %div{id:"texto_livre", class:"tab-pane fade"}

@@ -1,0 +1,19 @@
+- if @historicos.present?
+  - if @historicos.first.created_at > 24.hours.ago && @historicos.first.usuario_id == current_usuario.id
+    = link_to "Incluir", "#", class: "btn btn-success", style: "margin-bottom: 10px;", id: "editar_historico", data: {historico_id: @historicos.first.id}
+  - else
+    = link_to "Incluir", "#", class: "btn btn-success", style: "margin-bottom: 10px;", id: "incluir_historico"
+  %div{id:"well_historicos", class:"well historico"}
+    - @historicos.each do |historico|
+      = data_e_hora_formatada(historico.created_at.to_date, historico.created_at.to_time)
+      %br
+      = historico.usuario.nome
+      %br
+      = historico.idade
+      %br
+      %br
+      = historico.indice
+      %br
+      %br
+- else
+  = link_to "Incluir", "#", class: "btn btn-success", style: "margin-bottom: 10px;", id: "incluir_historico"

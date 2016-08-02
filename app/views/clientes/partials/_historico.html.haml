@@ -1,28 +1,12 @@
 %div{id:"historico", class:"tab-pane fade"}
   %div{id:"old_historico"}
-    - if @historicos.present?
-      - if @historicos.first.updated_at > 24.hours.ago
-        = link_to "Incluir", "#", class: "btn btn-default", style: "margin-bottom: 10px;", id: "editar_historico", data: {historico_id: @historicos.first.id}
-      - else
-        = link_to "Incluir", "#", class: "btn btn-default", style: "margin-bottom: 10px;", id: "incluir_historico"
-      %div{id:"index_historico", class:"well historico"}
-        - @historicos.each do |historico|
-          %br
-          = data_e_hora_formatada(historico.updated_at.to_date, historico.updated_at.to_time)
-          %br
-          = historico.usuario.nome
-          %br
-          = historico.idade
-          %br
-          %br
-          = historico.indice
-          %br
-    - else
-      = link_to "Incluir", "#", class: "btn btn-default", style: "margin-bottom: 10px;", id: "incluir_historico"
+    =render 'clientes/partials/index_historico', { historicos: @historicos }
   %br
   %div{id:"new_historico", style:"display: none;"}
+    %div{id:"show_historico", class:"well historico", style:"display: none;"}
+    %br
+    = link_to "Incluir", "#", class: "btn btn-success", style: "margin-bottom: 10px;", id: "salvar_historico"
     %div{class: "row"}
       %div{class: "col-xs-11 col-sm-11 col-md-11 col-lg-11"}
-        %textarea{:class => "tinymce", :language => "pt_BR", :id => "historico_textarea", style: "height: 200px;"}
+        %textarea{:class => "tinymce", :language => "pt_BR", :id => "historico_textarea", style: "height: 220px;"}
         =tinymce
-        / %textarea{:id => "historico_textarea"}
