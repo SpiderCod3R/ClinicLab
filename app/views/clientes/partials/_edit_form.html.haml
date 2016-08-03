@@ -1,35 +1,29 @@
 %ul{class: "nav nav-tabs"}
   %li{class:"active"}
     %a{'data-toggle':"tab", href:"#dados"}
-      Documento
+      Dados Pessoais
   %li
     %a{'data-toggle':"tab", href:"#convenio"}
       Convênio
   %li
-    %a{'data-toggle':"tab", href:"#endereco"}
-      Pessoais
+    %a{'data-toggle':"tab", href:"#contato"}
+      Contato
   %li
     %a{'data-toggle':"tab", href:"#historico"}
       Histórico
-  %li
-    %a{'data-toggle':"tab", href:"#texto_livre"}
-      Texto Livre
 
 = simple_form_for(@cliente) do |f|
   %div{class: "container", style: "margin-left: 5%; padding-top: 10px; padding-bottom: 25px;"}
     %div{class:"tab-content"}
 
-      / aba documento
-      =render 'clientes/partials/documento', { f: f }
+      / aba dados_pessoais
+      =render 'clientes/partials/dados_pessoais_edit', { f: f }
 
       / aba convenio
       =render 'clientes/partials/convenio', { f: f }
 
-      / aba pessoais
-      =render 'clientes/partials/pessoais', { f: f }
+      / aba contato
+      =render 'clientes/partials/contato', { f: f }
 
       / aba historico
       =render 'clientes/partials/historico', { f: f }
-
-      / aba texto livre
-      %div{id:"texto_livre", class:"tab-pane fade"}

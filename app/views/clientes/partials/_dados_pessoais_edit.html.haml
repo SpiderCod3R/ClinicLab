@@ -15,7 +15,7 @@
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
       = f.input :sexo, :as => :select,
               :collection => [['Masculino','m'],['Feminino','f']],
-              :include_blank => false,
+              :include_blank => "Selecione",
               :label => t('labels.sexo')
   %div{class: "row"}
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
@@ -27,7 +27,7 @@
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
       = f.input :estado_civil, :as => :select,
               :collection => [['Casado','casado'],['Divorciado','divorciado'],['Solteiro','solteiro']],
-              :include_blank => false,
+              :include_blank => "Selecione",
               :label => t('labels.estado civil')
   %div{class: "row"}
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
@@ -37,7 +37,6 @@
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
       =f.label "Nacionalidade"
       =f.localized_country_select(:nacionalidade, [], {include_blank: "Selecione"}, {:class => "form-control"})
-      / =f.input :nacionalidade, as: :select, collection: I18n.translate(:countries).map{|key, value| value}.sort()
   %div{class: "row"}
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3", id: "naturalidade_cliente", style: "display: none;"}
       =f.label "Naturalidade"
