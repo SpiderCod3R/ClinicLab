@@ -31,7 +31,6 @@ $(document).ready ->
     indice = undefined
     type = undefined
     indice = tinyMCE.activeEditor.getContent()
-    indice = indice.replace(/<[^>]*>/ig, ' ').replace(/<\/[^>]*>/ig, ' ').replace(/&nbsp;|&#160;/gi, ' ').replace(/\s+/ig, ' ').trim()
     if historico_id != 0
       $.ajax
         type: 'POST'
