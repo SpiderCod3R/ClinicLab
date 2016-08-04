@@ -8,5 +8,5 @@
     = link_to "Incluir", "#", class: "btn btn-success", style: "margin-bottom: 10px;", id: "salvar_historico"
     %div{class: "row"}
       %div{class: "col-xs-11 col-sm-11 col-md-11 col-lg-11"}
-        %textarea{:class => "tinymce", :language => "pt_BR", :id => "historico_textarea", style: "height: 220px;"}
-        =tinymce
+        %textarea{:class => "tinymce", :language => "pt_BR", :id => "historico_textarea", style: "height: 500px"}
+        =tinymce :content_css => asset_path('/assets/tinymce/content.min.css')
