@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Nome:
+  = @painel_empresa.nome
+%p
+  %b Status:
+  = @painel_empresa.status
+
+= link_to 'Edit', edit_painel_empresa_path(@painel_empresa)
+\|
+= link_to 'Back', painel_empresas_path

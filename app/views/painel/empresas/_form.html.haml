@@ -1,0 +1,9 @@
+= simple_form_for(@painel_empresa) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :nome
+    = f.input :status
+
+  .form-actions
+    = f.button :submit

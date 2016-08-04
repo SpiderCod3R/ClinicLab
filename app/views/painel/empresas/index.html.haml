@@ -1,0 +1,23 @@
+%h1 Listing painel_empresas
+
+%table
+  %thead
+    %tr
+      %th Nome
+      %th Status
+      %th
+      %th
+      %th
+
+  %tbody
+    - @painel_empresas.each do |painel_empresa|
+      %tr
+        %td= painel_empresa.nome
+        %td= painel_empresa.status
+        %td= link_to 'Show', painel_empresa
+        %td= link_to 'Edit', edit_painel_empresa_path(painel_empresa)
+        %td= link_to 'Destroy', painel_empresa, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Empresa', new_painel_empresa_path

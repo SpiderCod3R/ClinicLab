@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Nome:
+  = @painel_permissao.nome
+%p
+  %b Model class:
+  = @painel_permissao.model_class
+
+= link_to 'Edit', edit_painel_permissao_path(@painel_permissao)
+\|
+= link_to 'Back', painel_permissoes_path

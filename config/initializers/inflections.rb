@@ -24,4 +24,5 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.irregular 'usuario_permissao_empresa', 'usuario_permissao_empresas'
   inflect.irregular 'profissional', 'profissionais'
   inflect.irregular 'centro_de_custo', 'centro_de_custos'
+  inflect.irregular 'permissao', 'permissoes'
 end

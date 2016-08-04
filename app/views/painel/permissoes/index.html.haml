@@ -1,0 +1,23 @@
+%h1 Listing painel_permissoes
+
+%table
+  %thead
+    %tr
+      %th Nome
+      %th Model class
+      %th
+      %th
+      %th
+
+  %tbody
+    - @painel_permissoes.each do |painel_permissao|
+      %tr
+        %td= painel_permissao.nome
+        %td= painel_permissao.model_class
+        %td= link_to 'Show', painel_permissao
+        %td= link_to 'Edit', edit_painel_permissao_path(painel_permissao)
+        %td= link_to 'Destroy', painel_permissao, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Permissao', new_painel_permissao_path
