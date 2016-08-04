@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  devise_for :masters, class_name: "Painel::Master"
+  namespace :painel do
+    get 'masters/index'
+    resources :permissoes
+    resources :empresas
+  end
+
+  resources :permissaos
   resources :texto_livres
   resources :imagem_cabecs
   resources :fornecedores
@@ -21,32 +29,4 @@ Rails.application.routes.draw do
   resources :operadoras
 
   root to: "pages#home"
-
-  devise_for :usuarios, controller: { registrations: 'authentication/registrations', sessions: 'authentication/sessions' }
-  devise_scope :usuario do
-   get "login", to: "devise/sessions#new", as: :login_screen
-   post "login", to: "authentication/sessions#create"
-  end
-
-  authenticated :usuario do
-    devise_scope :usuario do
-      root "authentication/registrations#show", as: "profile"
-    end
-  end
-
-  unauthenticated do
-    devise_scope :usuario do
-      root "pages#home", as: "home"
-    end
-  end
-
-  resources :empresas, controller: 'empresas/empresas' do
-    resources :usuarios, controller: 'empresas/usuarios'
-    resources :funcionarios, controller: 'empresas/funcionarios'
-    get 'usuarios/trocar_senha/:id'=> 'empresas/usuarios#change_password', as: :trocar_senha_usuario
-    put 'usuarios/trocar_senha/:id'=> 'empresas/usuarios#change_user_password', as: :update_usuario_password
-    get 'usuarios/atualiza_permissoes/usuario/:id', to: 'empresas/usuarios#update_permissions', as: :usuario_atualiza_permissoes
-    put 'usuarios/atualiza_permissoes/', to: 'empresas/usuarios#update', as: :atualiza_permissoes_modulo
-    get 'relatorios/atendimentos/paciente/:atendimento_id', to: "reports#relatorio_atendimento", as: :atendimento_paciente_relatorio
-  end
 end
