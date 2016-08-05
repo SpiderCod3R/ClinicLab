@@ -1,4 +1,6 @@
 Rails.application do |config|
+  # Use the responders controller from the responders gem
+  config.app_generators.scaffold_controller :responders_controller
   config.time_zone = 'Brasilia'
   config.generators do |g|
     g.assets         false
