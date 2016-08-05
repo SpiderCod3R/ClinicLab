@@ -9,40 +9,39 @@
         %span.icon-bar
         %span.icon-bar
     #bs-megadropdown-tabs.collapse.navbar-collapse
-      - if gsuper?
-        %ul{class: "nav navbar-nav", style: "padding-left: 15px;"}
-          -if current_page?(empresas_path)
-            %li.active= link_to "HOME", root_path
-          -else
-            %li.active= link_to "CONTAS", empresas_path
-      - if administrador? || funcionario?
-        %ul.nav.navbar-nav
-          =render 'application/megamenu'
-      -if usuario_signed_in?
-        %div{style: "padding-right: 80px;"}
-          %ul.nav.navbar-nav.navbar-right
-            %li.dropdown
-              %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
-                =current_usuario.nome
-                %b.caret
-              %ul.dropdown-menu.multi-column.columns-3
-                .row
-                  .col-sm-5
-                    %ul.multi-column-dropdown
-                      %h6 Páginas
-                      %li
-                        =link_to "Home", root_path
-                      %li
-                        =link_to "Contas", empresas_path
-                  .col-sm-5
-                    %ul.multi-column-dropdown
-                      %h6 Perfil
-                      =render 'application/usuario_logado'
-                  .clearfix
-      -unless usuario_signed_in?
-        %ul.nav.navbar-nav.navbar-right
-          %div{style: "padding-right: 50px; padding-top: 5px;"}
-            -unless request_url_login_screen("login?") or request_url_login_screen("sign_in")
-              =render 'devise/sessions/loginpage'
-          .clearfix
-.clearfix
+      / - if gsuper?
+      /   %ul{class: "nav navbar-nav", style: "padding-left: 15px;"}
+      /     -if current_page?(empresas_path)
+      /       %li.active= link_to "HOME", root_path
+      /     -else
+      /       %li.active= link_to "CONTAS", empresas_path
+      / - if administrador? || funcionario?
+      /   %ul.nav.navbar-nav
+      /     =render 'application/megamenu'
+      / -if usuario_signed_in?
+      /   %div{style: "padding-right: 80px;"}
+      /     %ul.nav.navbar-nav.navbar-right
+      /       %li.dropdown
+      /         %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+      /           =current_usuario.nome
+      /           %b.caret
+      /         %ul.dropdown-menu.multi-column.columns-3
+      /           .row
+      /             .col-sm-5
+      /               %ul.multi-column-dropdown
+      /                 %h6 Páginas
+      /                 %li
+      /                   =link_to "Home", root_path
+      /                 %li
+      /                   =link_to "Contas", empresas_path
+      /             .col-sm-5
+      /               %ul.multi-column-dropdown
+      /                 %h6 Perfil
+      /                 =render 'application/usuario_logado'
+      /             .clearfix
+      / -unless usuario_signed_in?
+      /   %ul.nav.navbar-nav.navbar-right
+      /     %div{style: "padding-right: 50px; padding-top: 5px;"}
+      /       -unless request_url_login_screen("login?") or request_url_login_screen("sign_in")
+      /         =render 'devise/sessions/loginpage'
+      /     .clearfix
