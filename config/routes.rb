@@ -1,9 +1,18 @@
 Rails.application.routes.draw do
-  devise_for :masters, class_name: "Painel::Master"
   namespace :painel do
-    get 'masters/index'
     resources :permissoes
     resources :empresas
+    resources :dashboards
+  end
+
+  devise_for :masters, 
+             path: 'painel/masters',
+             class_name: "Painel::Master",
+             controllers: { sessions: 'painel/masters/sessions' },
+             skip: [:registrations]
+
+  authenticated :master do
+    root 'painel/dashboards#index', as: "authenticated_master_root"
   end
 
   resources :permissaos
