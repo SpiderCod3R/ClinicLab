@@ -2180,7 +2180,7 @@ label.radio {
 }
 .checkbox input,.radio input {
     position: absolute;
-    left: -9999px;
+    // left: -9999px;
 }
 .checkbox input + i:after {
     content: '';
