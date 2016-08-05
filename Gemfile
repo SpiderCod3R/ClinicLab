@@ -48,6 +48,7 @@ gem "sinatra",  require: false
 gem "responders"
 gem "devise"
 gem "devise-i18n"
+gem "devise-encryptable"
 gem 'cancancan'
 gem "prawn"
 gem "prawn-table"
