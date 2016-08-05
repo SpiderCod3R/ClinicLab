@@ -19,6 +19,8 @@ gem 'redis', '~> 3.0'
 
 group :development, :test do
   gem 'byebug', platform: :mri
+  gem 'pry'
+  gem 'pry-rails'
 end
 
 group :development do
