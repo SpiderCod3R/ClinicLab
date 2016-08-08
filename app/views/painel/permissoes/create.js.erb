@@ -1,0 +1,20 @@
+$("#permissao_error_messages").empty()
+<%- unless @permissao.valid? -%>
+  <%- unless @permissao.errors.nil? -%>
+    <%- @permissao_error_messages = @permissao.errors.messages -%>
+    <%- @permissao_error_messages.each do |_key, value| %>
+      <%- @permissao_error_messages[_key].each do |v| %>
+        $("#permissao_error_messages").prepend('<li style="color: #8B0000; font-weight: bold;" ><%= "#{_key} - #{v}" %></li>');
+      <%- end -%>
+    <%- end -%>
+  <%- end -%>
+<%- else -%>
+  $("#new_permissao_modal_form").modal('hide');
+  $("#painel_permissao_nome").val('');
+  $("#painel_permissao_model_class").val('');
+  $("#permissao_error_messages").empty();
+  $("#permissao_content").prepend('<%= j render @permissao %>');
+  $('#permissao_<%= @permissao.id %>').css({'background-color':'#9FFC73'}).animate({'background-color':'#FFFFFF'}, 1000);
+  Materialize.toast('Módulo criado com sucesso!', 4000)
+  Materialize.toast('Proximo passo vincule à um Usuário de alguma Clinica!', 6000)
+<%end%>

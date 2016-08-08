@@ -1,0 +1,6 @@
+$("#edit_permissao_<%= @permissao.id %>").modal('hide');
+
+$("#permissao_<%= @permissao.id %>").fadeOut(500, function(){
+  $(this).remove();
+  $("#permissao_content").prepend('<%= j render @permissao %>');
+});

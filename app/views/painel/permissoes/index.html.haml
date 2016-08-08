@@ -1,23 +1,37 @@
-%h1 Listing painel_permissoes
+%main
+  .container-fluid
+    .row
+      %h1 Permissões
+      =link_to "Nova Permissão", "", :"data-toggle"=> "modal", :"data-target"=>"#new_permissao_modal_form"
+    .row
+      %asside
+        %table.table.table-striped
+          %thead
+            %th
+              %h5 ID
+            %th 
+              %h5 Nome de Exibição
+            %th 
+              %h5 Nome do Modelo (CLASSE)
+          %tbody#permissao_content
+            =render @permissoes
+        #paginator=paginate @permissoes
 
-%table
-  %thead
-    %tr
-      %th Nome
-      %th Model class
-      %th
-      %th
-      %th
-
-  %tbody
-    - @painel_permissoes.each do |painel_permissao|
-      %tr
-        %td= painel_permissao.nome
-        %td= painel_permissao.model_class
-        %td= link_to 'Show', painel_permissao
-        %td= link_to 'Edit', edit_painel_permissao_path(painel_permissao)
-        %td= link_to 'Destroy', painel_permissao, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Permissao', new_painel_permissao_path
+/ Modal  create action
+= simple_form_for @permissao, method: "POST", remote: true do |f|
+  #new_permissao_modal_form.modal.fade{ :"aria-hidden"=> "true", :"aria-labelledby"=> "myModalLabel", role: "dialog", tabindex: "-1"}
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button.close{ :"aria-label" =>"Close", :"data-dismiss"=>"modal", type: "button"}
+            %span{:"aria-hidden"=>"true"} ×
+          %h4#myModalLabel.modal-title=t('painel.helpers.links.new', name: "Permissão")
+          #permissao_error_messages
+        .modal-body
+          .field
+            = f.input :nome, required: true
+          .field
+            = f.input :model_class, required: true, label: "Classe"
+        .modal-footer
+          =f.button :submit, "Adicionar", class: 'btn btn-success'
+          %button#permissao_formclose.btn.btn-default{:"data-dismiss"=> "modal", type: "button"} Fechar

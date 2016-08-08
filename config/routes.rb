@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   namespace :painel do
-    resources :permissoes
+    resources :permissoes, except: [:show, :new] do
+      get 'excluir'
+    end
     resources :empresas
     resources :dashboards
   end
