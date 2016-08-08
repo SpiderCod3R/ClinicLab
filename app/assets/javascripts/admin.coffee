@@ -25,3 +25,13 @@
 # require morris-data
 # require flot-data
 #= require SB-ADMIN/sb-admin-2
+#= require SB-ADMIN/material_toast/materialize
+#= require SB-ADMIN/material_toast/initial
+#= require SB-ADMIN/material_toast/toasts
+
+
+$("button#permissao_formclose").click ->
+  $("#painel_permissao_nome").val('');
+  $("#painel_permissao_model_class").val('');
+  $("#permissao_error_messages").empty();
+  $("#new_permissao_modal_form").modal('toogle')
