@@ -8,12 +8,109 @@
       %li.active
         %i.fa.fa-dashboard
         Dashboard
+/ .row
+/   .col-lg-12
+/     .alert.alert-info.alert-dismissable
+/       %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", :type => "button"} ×
+/       %i.fa.fa-info-circle
+/       %strong Like SB Admin?
+/       Try out
+/       %a.alert-link{:href => "http://startbootstrap.com/template-overviews/sb-admin-2"} SB Admin 2
+/       for additional features!
+
 .row
-  .col-lg-12
-    .alert.alert-info.alert-dismissable
-      %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", :type => "button"} ×
-      %i.fa.fa-info-circle
-      %strong Like SB Admin?
-      Try out
-      %a.alert-link{:href => "http://startbootstrap.com/template-overviews/sb-admin-2"} SB Admin 2
-      for additional features!
+  .col-lg-3.col-md-6
+    .panel.panel-green
+      .panel-heading
+        .row
+          .col-xs-3
+            %i.fa.fa-tasks.fa-5x
+          .col-xs-9.text-right
+            .huge 12
+            %div Auditoria!
+      %a{:href => "#"}
+        .panel-footer
+          %span.pull-left Visualizar em detalhes
+          %span.pull-right
+            %i.fa.fa-arrow-circle-right
+          .clearfix
+  .col-lg-3.col-md-6
+    .panel.panel-primary
+      .panel-heading
+        .row
+          .col-xs-3
+            %i.fa.fa-building.fa-5x
+          .col-xs-9.text-right
+            .huge=Painel::Empresa.all.count
+            %div Empresas!
+      =link_to painel_empresas_path do
+        .panel-footer
+          %span.pull-left Visualizar em detalhes
+          %span.pull-right
+            %i.fa.fa-arrow-circle-right
+          .clearfix
+  .col-lg-3.col-md-6
+    .panel.panel-yellow
+      .panel-heading
+        .row
+          .col-xs-3
+            %i.fa.fa-sitemap.fa-5x
+          .col-xs-9.text-right
+            .huge=Painel::Permissao.all.count
+            %div Permissões!
+      =link_to painel_permissoes_path do
+        .panel-footer
+          %span.pull-left Visualizar em detalhes
+          %span.pull-right
+            %i.fa.fa-arrow-circle-right
+          .clearfix
+  .col-lg-3.col-md-6
+    .panel.panel-red
+      .panel-heading
+        .row
+          .col-xs-3
+            %i.fa.fa-support.fa-5x
+          .col-xs-9.text-right
+            .huge 13
+            %div LOGS!
+      %a{:href => "#"}
+        .panel-footer
+          %span.pull-left Visualizar em detalhes
+          %span.pull-right
+            %i.fa.fa-arrow-circle-right
+          .clearfix
+
+.row
+  .col-lg-4
+    .panel.panel-default
+      .panel-heading
+        %i.fa.fa-bell.fa-fw
+        Painel de Notificações
+      .panel-body
+        %a.list-group-item{:href => "#"}
+          %i.fa.fa-envelope.fa-fw
+          Message Sent
+          %span.pull-right.text-muted.small
+            %em 27 minutes ago
+        %a.list-group-item{:href => "#"}
+          %i.fa.fa-tasks.fa-fw
+          New Task
+          %span.pull-right.text-muted.small
+            %em 43 minutes ago
+        %a.list-group-item{:href => "#"}
+          %i.fa.fa-upload.fa-fw
+          Server Rebooted
+          %span.pull-right.text-muted.small
+            %em 11:32 AM
+        %a.list-group-item{:href => "#"}
+          %i.fa.fa-bolt.fa-fw
+          Server Crashed!
+          %span.pull-right.text-muted.small
+            %em 11:13 AM
+        %a.list-group-item{:href => "#"}
+          %i.fa.fa-warning.fa-fw
+          Server Not Responding
+          %span.pull-right.text-muted.small
+            %em 10:57 AM
+      / /.list-group
+      %a.btn.btn-default.btn-block{:href => "#"} Visualizar todos os Alertas

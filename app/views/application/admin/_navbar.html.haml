@@ -156,7 +156,7 @@
             Settings
         %li.divider
         %li
-          %a{:href => "login.html"}
+          = link_to destroy_master_session_path, method: 'delete', title: "SAIR" do
             %i.fa.fa-sign-out.fa-fw
             Logout
       / /.dropdown-user
@@ -173,7 +173,7 @@
                 %i.fa.fa-search
           / /input-group
         %li
-          %a{:href => "index.html"}
+          =link_to painel_dashboards_path do
             %i.fa.fa-dashboard.fa-fw
             Dashboard
         %li
