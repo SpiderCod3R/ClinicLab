@@ -1,0 +1,18 @@
+pt-BR:
+  flash:
+    actions:
+      create:
+        notice: '%{resource_name} foi criado com sucesso.'
+        success: '%{resource_name} foi criado com sucesso.'
+        alert: '%{resource_name} não pode ser criado.'
+        warning: '%{resource_name} não pode ser criado.'
+      update:
+        notice: '%{resource_name} foi atualizado com sucesso.'
+        success: '%{resource_name} foi atualizado com sucesso.'
+        alert: '%{resource_name} não pode ser atualizado.'
+        warning: '%{resource_name} não pode ser atualizado.'
+      destroy:
+        notice: '%{resource_name} foi excluido com sucesso.'
+        success: '%{resource_name} foi excluido com sucesso.'
+        alert: '%{resource_name} não pode ser excluido.'
+        error: '%{resource_name} não pode ser excluido.'

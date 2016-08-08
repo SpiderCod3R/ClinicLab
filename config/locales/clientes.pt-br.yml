@@ -1,0 +1,38 @@
+pt-BR:
+  clientes:
+    links:
+      new: Novo Cliente
+      edit: Editar Cliente
+      destroy: Excluir Cliente
+      show: Visualizar Cliente
+    helpers:
+      id: ID
+      codigo: "Código"
+      name: "Nome"
+      city: "Cidade"
+      state: "Estado"
+      rg: "RG"
+      cpf: "CPF"
+      cnpj: "CNPJ"
+      birth_day: "Nascimento"
+      phone_number: "Telefone"
+      cel_phone_number: "Celular"
+      mothers_name: "Mãe"
+      address: "Endereço"
+      neighborhood: "Bairro"
+      covenant: "Convênio"
+      cep: "CEP"
+      status: "Status"
+      sex: "Sexo"
+      email: "Email"
+      telephone: "Telefone"
+      marital_status: "Estado Civil"
+      complement: "Complemento"
+      office: "Profissão"
+      plan: "Plano"
+      registration: "Matricula"
+      validity_portfolio: "Validade da carteira"
+      product: "Produto"
+      holder: "Titular"
+      agreement: "Convênio"
+      picture: "Foto"

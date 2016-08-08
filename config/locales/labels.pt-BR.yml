@@ -1,0 +1,9 @@
+pt-BR:
+  labels:
+    operadoras: Operadoras
+    new_operadora: Nova Operadora
+    edit_operadora: Editando Operadora
+    name: Nome
+    id: ID
+    administrador: ADMINISTRADOR
+    status: Status
