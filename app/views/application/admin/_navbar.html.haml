@@ -183,11 +183,11 @@
             %span.fa.arrow
           %ul.nav.nav-second-level
             %li
-              %a{:href => "flot.html"} Clinicas
+              =link_to "Clinicas", painel_empresas_path
             %li
               %a{:href => "morris.html"} Usuários
           / /.nav-second-level
         %li
-          %a{:href => "tables.html"}
+          =link_to painel_permissoes_path do
             %i.fa.fa-table.fa-fw
             Permissões

@@ -1,6 +1,36 @@
-$("#edit_permissao_<%= @permissao.id %>").modal('hide');
+toastr.options = {
+  "closeButton": false,
+  "debug": false,
+  "newestOnTop": false,
+  "progressBar": true,
+  "positionClass": "toast-top-right",
+  "preventDuplicates": true,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "5000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "slideDown",
+  "hideMethod": "fadeOut"
+}
 
-$("#permissao_<%= @permissao.id %>").fadeOut(500, function(){
-  $(this).remove();
-  $("#permissao_content").prepend('<%= j render @permissao %>');
-});
+<%- unless @permissao.valid? -%>
+  <%- unless @permissao.errors.nil? -%>
+    <%- @permissao_error_messages = @permissao.errors.messages -%>
+    <%- @permissao_error_messages.each do |_key, value| %>
+      <%- @permissao_error_messages[_key].each do |v| %>
+        toastr.error('<%= "#{v}" %>', '<%= "#{_key}" %>');
+      <%- end -%>
+    <%- end -%>
+  <%- end -%>
+<%- else -%>
+  $("#edit_permissao_<%= @permissao.id %>").modal('hide');
+
+  $("#permissao_<%= @permissao.id %>").fadeOut(500, function(){
+    $(this).remove();
+    $("#permissao_content").prepend('<%= j render @permissao %>');
+  });
+
+  toastr.info('Módulo Atualizado com sucesso!', 'Informação')
+<%end%>

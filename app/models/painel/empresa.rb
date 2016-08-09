@@ -24,6 +24,18 @@ class Painel::Empresa < ApplicationRecord
                                 reject_if: proc { |attributes| attributes['email'].blank?},
                                 allow_destroy: true
 
+  def possui_todas_as_permissoes?
+    Painel::Permissao.all.each do |permissao|
+      empresa_permissoes.each do |empresa_permissao|
+        until empresa_permissao.permissao != permissao
+          return false
+        end
+      end
+    end
+    binding.pry
+    return true
+  end
+
   def administradores
     usuarios.where(admin: true)
   end

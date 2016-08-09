@@ -1,10 +1,26 @@
-$("#permissao_error_messages").empty()
+toastr.options = {
+  "closeButton": false,
+  "debug": false,
+  "newestOnTop": false,
+  "progressBar": true,
+  "positionClass": "toast-top-right",
+  "preventDuplicates": true,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "5000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "slideDown",
+  "hideMethod": "fadeOut"
+}
+
 <%- unless @permissao.valid? -%>
   <%- unless @permissao.errors.nil? -%>
     <%- @permissao_error_messages = @permissao.errors.messages -%>
     <%- @permissao_error_messages.each do |_key, value| %>
       <%- @permissao_error_messages[_key].each do |v| %>
-        $("#permissao_error_messages").prepend('<li style="color: #8B0000; font-weight: bold;" ><%= "#{_key} - #{v}" %></li>');
+        toastr.error('<%= "#{v}" %>', '<%= "#{_key}" %>');
       <%- end -%>
     <%- end -%>
   <%- end -%>
@@ -15,6 +31,5 @@ $("#permissao_error_messages").empty()
   $("#permissao_error_messages").empty();
   $("#permissao_content").prepend('<%= j render @permissao %>');
   $('#permissao_<%= @permissao.id %>').css({'background-color':'#9FFC73'}).animate({'background-color':'#FFFFFF'}, 1000);
-  Materialize.toast('Módulo criado com sucesso!', 4000)
-  Materialize.toast('Proximo passo vincule à um Usuário de alguma Clinica!', 6000)
+  toastr.success('Módulo criado com sucesso!')
 <%end%>

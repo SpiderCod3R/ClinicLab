@@ -1,4 +1,4 @@
-%tr{ id: "empresa_#{empresa.id}"}
+%tr{ id: "empresa_#{empresa.id}" }
   %td
     -if empresa.status
       %i.fa.fa-2x.fa-check-square{ style: "color: #007B02"}
@@ -7,8 +7,10 @@
   %td
     %strong=empresa.id
   %td=empresa.nome
-  %td=empresa.usuarios.count
-  %td=empresa.usuarios.administradores.count
+  %td
+    %span.badge=empresa.administradores.count
+  %td
+    %span.badge=empresa.funcionarios.count
   %td
     =link_to painel_empresa_path(empresa) do
       %i.fa.fa-2x.fa-newspaper-o{ style: "color: #2D2D2D"}
@@ -16,10 +18,10 @@
     =link_to edit_painel_empresa_path(empresa), remote: true do
       %i.fa.fa-2x.fa-pencil-square-o{ style: "color: #2D2D2D"}
   %td
-    = link_to painel_empresa_path(empresa), method: :delete , remote: true, data: { confirm: "Excluir Empresa '#{empresa.nome}'" }
-      %i.fa.fa-2x.fa-trash{ style: "color: #BC0000"}
+    = link_to painel_empresa_path(empresa), method: :delete , remote: true, data: { confirm: "Excluir Empresa '#{empresa.nome}'" } do
+      %i.fa.fa-2x.fa-trash{ style: "color: #BC0000" }
 
-/ Modal  update action
+Modal  update action
 = simple_form_for(empresa, method: :put, remote: true) do |f|
   %div{ id: "edit_empresa_#{empresa.id}", class: "modal fade", :"aria-hidden"=> "true", :"aria-labelledby"=>"myModalLabel", role: "dialog", tabindex: "-1"}
     .modal-dialog
