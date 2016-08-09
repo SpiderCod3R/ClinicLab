@@ -1,0 +1,6 @@
+/ layout/_flash.html.erb
+%div{style: "display: none;"}
+  - flash.each do |type, message|
+    - type = 'success' if type == 'notice'
+    %div{:class => "flash flash-#{type}", "data-message" => message, "data-type" => type}
+      = message
