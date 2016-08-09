@@ -1,14 +1,15 @@
 pt-BR:
   painel:
     helpers:
-      links:
+      actions:
         new: Novo(a) %{name}
         edit: Editar %{name}
         destroy: Excluir %{name}
         show: Visualizar %{name}
+        back: Voltar
       models:
         permissoes: "Permissoes"
-        empresas: "Empresas"
+        empresa: "Empresas"
         usuarios: "Usuários"
       messages: 
         nao_pode_estar_em_branco: "%{class_name} não pode estar vazio!"

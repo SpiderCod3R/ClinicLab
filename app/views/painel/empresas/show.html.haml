@@ -1,12 +1,76 @@
-%p#notice= notice
-
-%p
-  %b Nome:
-  = @painel_empresa.nome
-%p
-  %b Status:
-  = @painel_empresa.status
-
-= link_to 'Edit', edit_painel_empresa_path(@painel_empresa)
-\|
-= link_to 'Back', painel_empresas_path
+.container
+  .row
+    .col-md-8
+      .page-header
+        %h1
+          =@empresa.nome
+          %small.pull-right
+            - if @empresa.status
+              %i.fa.fa-2x.fa-check-square{style:"color: #007B02"}
+      .pull-left
+        %span.glyphicon.glyphicon-time
+          %b="Criada há: " + time_ago_in_words(@empresa.created_at)
+      %br
+      %br
+      .well
+        %b Administradores
+        %hr
+        .row-fluid
+          %asside
+            %table.table.table-striped
+              %thead
+                %th Nome
+                %th Nome de usuário
+                %th Criado há
+                %th Opções
+              %tbody#empresa_administradores_content
+                =render @administradores
+            %center
+              #administrador_paginator
+                =paginate @administradores, param_name: "administradores_pagina", :theme => 'twitter-bootstrap-3',:pagination_class => "pagination-small pagination-centered"
+              #administrador_page_entries
+                =page_entries_info @administradores
+      / -if current_usuario.admin?
+      /   .well
+      /     b Funcionários
+      /     hr
+      /     .row-fluid
+      /       asside
+      /         -if @funcionarios.empty?
+      /           em Não existem funcionários nesta empresa
+      /         -else
+      /           table.table.table-striped
+      /             thead
+      /               th Nome
+      /               th Nome de usuário
+      /               th Criado há
+      /               th Opções
+      /             tbody#empresa_funcionarios_content
+      /               =render 'funcionarios', { funcionarios: @funcionarios }
+      /           #administrador_paginator
+      /             =paginate @funcionarios, param_name: "funcionarios_pagina", :theme => 'twitter-bootstrap-3',:pagination_class => "pagination-small pagination-centered"
+      /           #administrador_page_entries
+      /             =page_entries_info @funcionarios
+      / .well
+      /   h4 Opções
+      /   hr style="border: #C2C2C2 1px solid"
+      /   .row
+      /     #options style="margin: 0 15px 0 15px;"
+      /       .col-md-2
+      /         =link_to "#novo_administrador", title: "Adicionar novo Administrador", :"data-toggle"=> "modal", :"data-target"=>"#novo_administrador_form" do
+      /           i class="fa fa-2x fa-shield" style="color: #2D2D2D"
+      /       -if current_usuario.admin?
+      /         .col-md-2
+      /           =link_to new_painel_empresa_funcionario_path(current_usuario.empresa_id), title: "Adicionar novo Funcionário" do
+      /             i class="fa fa-2x fa-user-plus" style="color: #2D2D2D"
+      /       .col-md-2
+      /         =link_to edit_painel_empresa_path(@empresa), remote: true, title: "Editar empresa" do
+      /           i class="fa fa-2x fa-pencil-square-o" style="color: #2D2D2D"
+      /       -if current_usuario.super?
+      /         .col-md-2
+      /           = link_to painel_empresa_exclude_without_ajax_path(@empresa), method: :delete, data: { confirm: "Excluir Empresa '#{@empresa.nome}'" }, title: "Excluir Empresa" do
+      /             i class="fa fa-2x fa-trash" style="color: #BC0000"
+      / =render 'empresa_permissoes'
+/Modals
+/ =render 'update_form'
+/ =render 'painel/administradores/novo_administrador'

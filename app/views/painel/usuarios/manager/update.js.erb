@@ -1,0 +1,7 @@
+$("#edit_usuario_<%= @usuario.id %>").modal('hide');
+
+$("#empresa_usuario_<%= @usuario.id %>").fadeOut(500, function(){
+  $(this).remove();
+  $("#empresa_administradores_content").prepend('<%= j render "painel/usuarios/usuario", { usuario: @usuario } %>');
+});
+
