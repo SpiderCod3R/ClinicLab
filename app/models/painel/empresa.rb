@@ -13,5 +13,20 @@ class Painel::Empresa < ApplicationRecord
     has_many :pacientes
     has_many :profissionais
     has_many :pacientes
+    has_many :usuarios
+  end
+
+  scope :em_ordem_alfabetica, -> { order('nome ASC') }
+
+  accepts_nested_attributes_for :usuarios,
+                                reject_if: proc { |attributes| attributes['email'].blank?},
+                                allow_destroy: true
+
+  def administradores
+    usuarios.where(admin: true)
+  end
+
+  def funcionarios
+    usuarios.where(admin: false)
   end
 end
