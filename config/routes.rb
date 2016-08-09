@@ -1,11 +1,21 @@
 Rails.application.routes.draw do
   namespace :painel do
+    resources :dashboards
     resources :permissoes, except: [:show, :new] do
       get 'excluir'
     end
-    resources :empresas
-    resources :dashboards
+    resources :empresas do
+      resources :painel_usuarios, controller: 'usuarios/manager', except: [:index]
+    end
+    put '/usuarios/:id/update_password', to: "usuarios/manager#update_password", as: :usuario_update_password
   end
+
+
+  devise_for :usuarios,
+              path: 'painel/usuarios',
+              class_name: "Painel::Usuario",
+              controllers: { sessions: 'painel/usuarios/sessions' }
+
 
   devise_for :masters, 
              path: 'painel/masters',
@@ -15,6 +25,10 @@ Rails.application.routes.draw do
 
   authenticated :master do
     root 'painel/dashboards#index', as: "authenticated_master_root"
+  end
+
+  authenticated :usuario do
+    root 'painel/dashboards#index', as: "authenticated_usuario_root"
   end
 
   resources :permissaos
