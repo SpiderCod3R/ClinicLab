@@ -1,6 +1,7 @@
 #-*- coding:utf-8-*-
 class Painel::Permissao < ApplicationRecord
   extend ActiveModel::Naming
+  has_many :empresa_permissoes
 
   validates :nome, presence: true
   validates :nome, uniqueness: true

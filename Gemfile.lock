@@ -94,6 +94,10 @@ GEM
     builder (3.2.2)
     byebug (9.0.5)
     cancancan (1.15.0)
+    chosen-rails (1.5.2)
+      coffee-rails (>= 3.2)
+      railties (>= 3.0)
+      sass-rails (>= 3.2)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.8)
@@ -299,6 +303,7 @@ DEPENDENCIES
   brazilian-rails
   byebug
   cancancan
+  chosen-rails (~> 1.5, >= 1.5.2)
   coffee-rails (~> 4.2)
   datetimepicker-rails!
   devise

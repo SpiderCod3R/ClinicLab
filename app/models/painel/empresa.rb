@@ -2,6 +2,7 @@
 class Painel::Empresa < ApplicationRecord
   validates :nome, :status, presence: true, uniqueness: true
 
+  # => Opções com reação em Cadeia apos o destroy da empresa
   with_options dependent: :destroy do
     has_many :atendimentos
     has_many :cargos
@@ -14,6 +15,7 @@ class Painel::Empresa < ApplicationRecord
     has_many :profissionais
     has_many :pacientes
     has_many :usuarios
+    has_many :empresa_permissoes
   end
 
   scope :em_ordem_alfabetica, -> { order('nome ASC') }
@@ -28,5 +30,12 @@ class Painel::Empresa < ApplicationRecord
 
   def funcionarios
     usuarios.where(admin: false)
+  end
+
+  def import_todas_permissoes
+    Painel::Permissao.all.each do |permissao|
+      self.empresa_permissoes.build(permissao_id: permissao.id)
+    end
+    self.save
   end
 end

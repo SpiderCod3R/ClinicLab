@@ -12,9 +12,9 @@ class Painel::EmpresasController < ApplicationController
   def show
     @usuario = Painel::Usuario.new
     @administradores = @empresa.administradores.page params[:administradores_pagina]
-    # @empresa_permissao = @empresa.empresa_permissoes.build
-    # @permissoes = @empresa.permissoes.page params[:permissoes]
-    # @funcionarios = @empresa.funcionarios.page params[:funcionarios_pagina]
+    @funcionarios    = @empresa.funcionarios.page params[:funcionarios_pagina]
+    @empresa_permissoes = @empresa.empresa_permissoes.page params[:permissoes]
+    @empresa_permissao = @empresa.empresa_permissoes.build
     respond_with(@empresa)
   end
 
@@ -31,14 +31,20 @@ class Painel::EmpresasController < ApplicationController
     @empresa = Painel::Empresa.new(empresa_params)
     if @empresa.save
       redirect_to painel_empresa_path(@empresa)
+      flash[:success] = "A empresa foi criada com sucesso."
     else
-      flash[:error] = "ERROR"
+      flash[:error] = "A empresa não pode ser criada."
       render :new
     end
   end
 
   def update
-    @empresa.update(empresa_params)
+    if @empresa.update(empresa_params)
+      flash[:info] = "A empresa foi atualizada com sucesso."
+    else
+      flash[:error] = "A empresa não pode ser criada."
+      render :edit
+    end
     respond_with(@empresa)
   end
 

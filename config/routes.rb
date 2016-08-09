@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     resources :empresas do
       resources :painel_usuarios, controller: 'usuarios/manager', except: [:index]
     end
+    post '/dashboards/empresas/permissoes/create', to: "dashboards#import_permissoes_to_company", as: :dashboards_add_permissoes_to_company 
     put '/usuarios/:id/update_password', to: "usuarios/manager#update_password", as: :usuario_update_password
   end
 

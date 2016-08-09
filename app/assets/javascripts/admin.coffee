@@ -7,6 +7,7 @@
 #= require JQUERY/jquery.numeric.pack
 #= require JQUERY/jquery.maskedinput-1.1.4.pack
 #= require jquery_ujs
+#= require chosen-jquery
 
 
 # -*- BOOTSTRAP -*-
@@ -15,8 +16,6 @@
 #= require BOOTSTRAP/bootstrap-select
 #= require BOOTSTRAP/bootstrap-datepicker
 #= require BOOTSTRAP/bootstrap-waitingfor
-
-# -*- REQUIRES DO GCLINIC -*-
 
 #= require check_all
 #= require delete
@@ -28,13 +27,5 @@
 #= require SB-ADMIN/material_toast/materialize
 #= require SB-ADMIN/material_toast/initial
 #= require SB-ADMIN/material_toast/toasts
-
 #= require toastr
 #= require painel/dashboard
-
-
-$("button#permissao_formclose").click ->
-  $("#painel_permissao_nome").val('');
-  $("#painel_permissao_model_class").val('');
-  $("#permissao_error_messages").empty();
-  $("#new_permissao_modal_form").modal('toogle')

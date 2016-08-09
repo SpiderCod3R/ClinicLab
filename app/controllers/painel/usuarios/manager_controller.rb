@@ -17,7 +17,6 @@ class Painel::Usuarios::ManagerController < ApplicationController
   end
 
   def update
-    binding.pry
     if master_signed_in? || usuario_signed_in?
       @usuario.update_without_password(usuario_params)
     end
@@ -25,7 +24,6 @@ class Painel::Usuarios::ManagerController < ApplicationController
   end
 
   def update_password
-    # binding.pry
     if master_signed_in? || usuario_signed_in?
       if @usuario.update_with_password(password_params)
         flash[:notice] = "Senha atualizada com sucesso"

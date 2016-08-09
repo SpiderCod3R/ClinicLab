@@ -58,3 +58,4 @@ gem 'paperclip'
 gem 'tinymce-rails'
 gem 'tinymce-rails-langs'
 gem "bootstrap-table-rails"
+gem 'chosen-rails', '~> 1.5', '>= 1.5.2'

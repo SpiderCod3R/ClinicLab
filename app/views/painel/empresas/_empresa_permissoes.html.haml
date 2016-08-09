@@ -1,0 +1,55 @@
+.well
+  .pull-left
+    %h4 Permissões da Empresa
+  -if master_signed_in? && current_master
+    .pull-right
+      =link_to "", :"data-toggle"=> "modal", :"data-target"=>"#novo_empresa_permissao_form", title: "Adicionar permissões nesta empresa" do
+        %i.fa.fa-2x.fa-plus-square{style: "color: #2D2D2D"}
+      -unless @empresa_permissoes.empty?
+        / =link_to painel_empresa_remove_permissoes_path(@empresa), title: "Remover todas as permissões desta empresa", style: "margin-left: 10px", method: "delete", class:'delete-confirm', data: {:confirm => "Excluir Permissões da Empresa #{@empresa.nome}"} do
+        /   %i.fa.fa-2x.fa-exclamation-triangle{style: "color: #2D2D2D"}
+  %br/
+  %hr{ style: "border: #C2C2C2 1px solid" }
+  %br/
+  -if @empresa_permissoes.empty?
+    %em Esta empresa não possui permissões cadastradas
+  -else
+    -@empresa_permissoes.each do |x|
+      =content_tag(:div, class: "row", id: "empresa_permissao_#{x.permissao.id}") do
+        .col-md-6
+          =x.permissao.nome
+        -if master_signed_in? && current_master
+          .col-md-4.pull-right
+            = link_to "", method: :delete , remote: true, data: { confirm: "Excluir Pemissao '#{x.permissao.nome}'" } do
+              %i.fa.fa-2x.fa-trash{style: "color: #BC0000"}
+      %hr{style: "border: #ACB2B6 0.5px dashed"}
+    %center
+      #permissoes_paginator
+        =paginate @empresa_permissoes, param_name: "permissoes" ,remote: true, :theme => 'twitter-bootstrap-3',:pagination_class => "pagination-small pagination-centered"
+
+
+/ Modal  create action
+#novo_empresa_permissao_form.modal.fade{ :"aria-hidden"=>"true", :"aria-labelledby"=>"myModalLabel", role: "dialog", tabindex: "-1", :"data-backdrop"=>"static" }
+  = simple_form_for(@empresa_permissao, url: painel_dashboards_add_permissoes_to_company_path, method: :post) do |f|
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button.close{ :"aria-label"=>"Close", :"data-dismiss"=>"modal", type: "button"}
+            %span{ :"aria-hidden"=>"true"} ×
+          %h4#myModalLabel.modal-title="Nova Permissão em"
+          %em
+            %strong=@empresa.nome
+        .container-fluid
+          .row-fluid{ style: "text-align: left" }
+            .box 
+              #empresa_permissao_error_messages
+        .modal-body
+          .field
+            ="Selecionar Tudo - "
+            = check_box_tag('check_all', 'check_all', false, :onClick => "checkAll(this);")
+          .field
+            =f.input :empresa_id, as: :hidden, :input_html => {value: @empresa.id}
+            =f.collection_select :permissao_ids, Painel::Permissao.order("nome ASC"), :id, :nome, {}, { class: "multi-select", multiple: true }
+        .modal-footer
+          =f.button :submit, "Adicionar", class: 'btn btn-primary'
+          %button.novo_administrador_form_close.btn.btn-danger{ :"data-dismiss"=>"modal", type: "button" }Fechar
