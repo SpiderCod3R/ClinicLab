@@ -19,7 +19,7 @@
       =render 'application/admin/navbar'
       #page-wrapper
         .container-fluid
-          =flash_messages
+          =render 'layouts/flash'
           =yield
       =render 'application/admin/footer'
     = javascript_include_tag "admin"
