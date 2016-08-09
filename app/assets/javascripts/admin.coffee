@@ -29,6 +29,9 @@
 #= require SB-ADMIN/material_toast/initial
 #= require SB-ADMIN/material_toast/toasts
 
+#= require toastr
+#= require painel/dashboard
+
 
 $("button#permissao_formclose").click ->
   $("#painel_permissao_nome").val('');
