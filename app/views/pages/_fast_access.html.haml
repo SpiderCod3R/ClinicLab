@@ -2,11 +2,11 @@
   .panel.panel-default
     .panel-heading
       %h4.panel-title
-        %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseOne"}
+        %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseFastAccess"}
           %span
-            %i.fa.fa-archive
+            %i.fa.fa-2x.fa-archive
           Acesso Rápido
-    #collapseOne.panel-collapse.collapse.in
+    #collapseFastAccess.panel-collapse.collapse.in
       .panel-body
         %table.table
           %tr
@@ -32,11 +32,37 @@
   .panel.panel-default
     .panel-heading
       %h4.panel-title
-        %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseThree"}
+        %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseAdminAccess"}
+          %span
+            %i.fa.fa-2x.fa-tachometer
+          Acesso Administrativo
+    #collapseAdminAccess.panel-collapse.collapse
+      .panel-body
+        %table.table
+          %tr
+            %td
+              %span
+                %i.fa.fa-2x.fa-building
+              %a{:href => "http://www.jquery2dotnet.com"} Empresa
+          %tr
+            %td
+              %span
+                %i.fa.fa-2x.fa-users
+              %a{:href => "http://www.jquery2dotnet.com"} Contas
+          %tr
+            %td
+              =link_to "#", :"data-toggle"=> "modal", :"data-target"=>"#empresa_permissoes_modal" do
+                %span.text-info
+                  %i.fa.fa-2x.fa-cogs
+                  Permissões
+  .panel.panel-default
+    .panel-heading
+      %h4.panel-title
+        %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseProfile"}
           %span
             %i.fa.fa-2x.fa-user
           Perfil
-    #collapseThree.panel-collapse.collapse
+    #collapseProfile.panel-collapse.collapse
       .panel-body
         %table.table
           %tr
@@ -55,3 +81,26 @@
                 %span.text-danger
                   %i.fa.fa-sign-out
                   Sair/Deslogar
+
+#empresa_permissoes_modal.modal.fade{ :"aria-hidden"=> "true", :"aria-labelledby"=> "myModalLabel", role: "dialog", tabindex: "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{ :"aria-label" =>"Close", :"data-dismiss"=>"modal", type: "button"}
+          %span{:"aria-hidden"=>"true"} ×
+        %h4#myModalLabel.modal-title
+          %center="Permissoes da Empresa #{current_usuario.empresa.nome}"
+      .modal-body
+        %fieldset{style: "border: #BBC0C3 1px solid;"}
+          %br/
+          %ol
+            .container-fluid
+              .col-md-12
+                -current_usuario.empresa.empresa_permissoes.select(:permissao_id).each do |f|
+                  .row-fluid
+                    %center
+                      %li{style: "color: #524EFF;"}=f.permissao.nome
+                      %br/
+                      %hr{style: "border: #C7C4FF 0.5px dashed;"}
+      .modal-footer
+        %button#permissao_formclose.btn.btn-default{:"data-dismiss"=> "modal", type: "button"} Fechar

@@ -1,5 +1,11 @@
-=render 'application/navbar'
+=build_toolbar
 .container
+  .row-fluid
+    %h4
+      %span.text-info
+        %i.fa.fa-question-circle-o
+        =link_to "Precisa de Ajuda", "#"
+    %br/
   .row
     .col-md-3
       =render "fast_access"
