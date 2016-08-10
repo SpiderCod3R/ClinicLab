@@ -35,6 +35,8 @@ module NavtoolbarHelper
   end
 
   def build_toolbar
-    render "application/header"
+    content_for :header do
+      render "application/navbar"
+    end
   end
 end
