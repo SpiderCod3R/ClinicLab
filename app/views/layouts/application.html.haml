@@ -15,12 +15,13 @@
     =csrf_meta_tag
   %body{class: controller.controller_name}
     =build_chromeframe
-    =yield :header
-    .clearfix
-    #page-wrapper
-      =render layout: 'layouts/gclinic' do |f|
-        =flash_messages
-        = yield f
+    #wrapper
+      =yield :header
+      #page-wrapper
+        .container-fluid
+          #flash_container
+            =render 'layouts/flash'
+        = yield
     .clearfix
     = javascript_include_tag "application", :media => "all"
     :javascript
