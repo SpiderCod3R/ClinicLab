@@ -1,2 +1,25 @@
-=content_for :header do
-  =build_toolbar
+%nav.navbar.navbar-custom.navbar-fixed-top
+  %div{class: "logo-nav-left animated wow zoomIn", "data-wow-delay" => ".10s", style:"padding-left: 50px; padding-top: 12px;"}
+    %h4=link_to "GClinicWeb", root_path
+  %div{class: "navbar-header nav_2"}
+    %button.navbar-toggle.collapsed.navbar-toggle1{"data-target" => "#bs-megadropdown-tabs", "data-toggle" => "collapse", :type => "button"}
+      %span.sr-only Toggle navigation
+      %span.icon-bar
+      %span.icon-bar
+      %span.icon-bar
+  #bs-megadropdown-tabs.collapse.navbar-collapse
+    - if current_usuario.admin?
+      %ul.nav.navbar-nav{style: "padding-left: 15px;"}
+        -unless current_page?(root_path)
+          %li= link_to "HOME", root_path
+    / %ul.nav.navbar-nav
+    /   =render 'application/megamenu'
+    -if usuario_signed_in?
+      %div{style: "padding-right: 80px;"}
+        %ul.nav.navbar-nav.navbar-right
+          %li.dropdown
+            %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+              =current_usuario.nome
+              %span.caret
+            %ul.dropdown-menu
+              =render 'application/usuario_logado'
