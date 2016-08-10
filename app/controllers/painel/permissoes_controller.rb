@@ -1,4 +1,5 @@
 class Painel::PermissoesController < ApplicationController
+  before_action :authenticate_master!
   layout 'admin'
   respond_to :html
 
