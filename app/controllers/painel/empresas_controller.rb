@@ -39,13 +39,8 @@ class Painel::EmpresasController < ApplicationController
   end
 
   def update
-    if @empresa.update(empresa_params)
-      flash[:info] = "A empresa foi atualizada com sucesso."
-    else
-      flash[:error] = "A empresa não pode ser criada."
-      render :edit
-    end
-    respond_with(@empresa)
+    @empresa.update(empresa_params)
+    respond_to &:js
   end
 
   def destroy

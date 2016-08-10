@@ -21,8 +21,8 @@
     = link_to painel_empresa_path(empresa), method: :delete , remote: true, data: { confirm: "Excluir Empresa '#{empresa.nome}'" } do
       %i.fa.fa-2x.fa-trash{ style: "color: #BC0000" }
 
-Modal  update action
-= simple_form_for(empresa, method: :put, remote: true) do |f|
+/ Modal  update action
+= form_for(empresa, method: :put, remote: true) do |f|
   %div{ id: "edit_empresa_#{empresa.id}", class: "modal fade", :"aria-hidden"=> "true", :"aria-labelledby"=>"myModalLabel", role: "dialog", tabindex: "-1"}
     .modal-dialog
       .modal-content
@@ -31,11 +31,21 @@ Modal  update action
             %span{ :"aria-hidden"=>"true"} ×
           %h4#myModalLabel.modal-title Empresa
         .modal-body
-          .field
-            = f.input :nome, required: true
-          .field
-            #boolean_fields
-              = f.input :status, required: true, as: :radio_buttons, label: "Ativada/Inativada"
+          %fieldset
+            %legend 
+              %strong Dados da empresa
+            .container-fluid
+              .field
+                = f.label :status, required: true
+                #boolean_fields
+                  = f.radio_button :status, 1, :checked => true
+                  = label :status_ativada, 'Ativada'
+                  = f.radio_button :status, 0
+                  = label :status_desativada, 'Desativada'
+              .row
+                .col-md-8
+                  = f.label :nome, required: true
+                  = f.text_field :nome, required: true, class: "form-control"
         .modal-footer
-          =f.button :submit, "Editar", class: 'btn btn-success'
+          =f.submit "Editar", class: 'btn btn-success'
           %button#empresa_formclose.btn.btn-default{ :"data-dismiss"=>"modal", type: "button"} Fechar

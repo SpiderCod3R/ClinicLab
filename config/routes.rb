@@ -11,12 +11,10 @@ Rails.application.routes.draw do
     put '/usuarios/:id/update_password', to: "usuarios/manager#update_password", as: :usuario_update_password
   end
 
-
   devise_for :usuarios,
               path: 'painel/usuarios',
               class_name: "Painel::Usuario",
               controllers: { sessions: 'painel/usuarios/sessions' }
-
 
   devise_for :masters, 
              path: 'painel/masters',
