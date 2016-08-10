@@ -17,8 +17,6 @@
 #= require BOOTSTRAP/bootstrap-datepicker
 #= require BOOTSTRAP/bootstrap-waitingfor
 
-#= require check_all
-#= require delete
 #= require SB-ADMIN/metisMenu/dist/metisMenu.min
 # require SB-ADMIN/morrisjs/morris.min
 # require morris-data
@@ -27,5 +25,5 @@
 #= require SB-ADMIN/material_toast/materialize
 #= require SB-ADMIN/material_toast/initial
 #= require SB-ADMIN/material_toast/toasts
-#= require toastr
+#= require utility/__init__
 #= require painel/dashboard

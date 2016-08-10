@@ -31,7 +31,7 @@
 # -*- TINYMCE -*-
 #= require tinymce-jquery
 #= require tinyMCE
-#= require pt_BR
+#= require text_area_editor_pt_BR
 
 #= require TEMPLATE/accounting
 #= require TEMPLATE/modernizr.custom.min
@@ -43,7 +43,6 @@
 #= require TEMPLATE/responsiveslides.min
 #= require TEMPLATE/simpleCart.min
 #= require TEMPLATE/pickers
-#= require maskaras
 #= require DATATABLES/jquery.dataTables
 #= require DATATABLES/dataTables.tableTools
 #= require DATATABLES/dataTables.bootstrap
@@ -64,6 +63,7 @@
 #= require fornecedor
 #= require fornecedores
 #= require atendimentos
-#= require check_all
-#= require delete
-#= require datatable
+
+# -*- UTILITARIOS -*-
+#= require utility/datatable
+#= require utility/__init__
