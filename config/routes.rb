@@ -26,8 +26,15 @@ Rails.application.routes.draw do
     root 'painel/dashboards#index', as: "authenticated_master_root"
   end
 
-  authenticated :usuario do
-    root 'painel/dashboards#index', as: "authenticated_usuario_root"
+
+  devise_scope :usuario do
+    authenticated do
+      
+    end
+
+    unauthenticated do
+      root "painel/usuarios/sessions#new", to: "painel/usuarios/sessions#new", as: :main, path: 'painel/usuarios'
+    end
   end
 
   resources :permissaos
@@ -52,5 +59,5 @@ Rails.application.routes.draw do
   resources :atendimentos
   resources :operadoras
 
-  root to: "pages#home"
+  root "pages#index"
 end
