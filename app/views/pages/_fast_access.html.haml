@@ -1,0 +1,57 @@
+#accordion.panel-group
+  .panel.panel-default
+    .panel-heading
+      %h4.panel-title
+        %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseOne"}
+          %span
+            %i.fa.fa-archive
+          Acesso Rápido
+    #collapseOne.panel-collapse.collapse.in
+      .panel-body
+        %table.table
+          %tr
+            %td
+              %span
+                %i.fa.fa-2x.fa-heartbeat
+              = link_to "Pacientes", new_cliente_path, title: "Acesso Rápido à Paciente"
+          %tr
+            %td
+              %span
+                %i.fa.fa-2x.fa-user-md
+              = link_to "Profissionais", new_profissional_path , title: "Acesso Rápido à Profissionais"
+          %tr
+            %td
+              %span
+                %i.fa.fa-2x.fa-contao
+              = link_to "Convênios", new_convenio_path, title: "Acesso Rápido à Convênio"
+          %tr
+            %td
+              %span
+                %i.fa.fa-2x.fa-calendar
+              = link_to "Agenda", "#", title: "Acesso Rápido à Agenda"
+  .panel.panel-default
+    .panel-heading
+      %h4.panel-title
+        %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseThree"}
+          %span
+            %i.fa.fa-2x.fa-user
+          Perfil
+    #collapseThree.panel-collapse.collapse
+      .panel-body
+        %table.table
+          %tr
+            %td
+              %span
+                %i.fa.fa-key
+              %a{:href => "http://www.jquery2dotnet.com"} Alterar Senha
+          %tr
+            %td
+              %span
+                %i.fa.fa-pencil-square-o
+              %a{:href => "http://www.jquery2dotnet.com"} Alterar Dados
+          %tr
+            %td
+              = link_to destroy_usuario_session_path, method: 'delete', title: "SAIR" do
+                %span.text-danger
+                  %i.fa.fa-sign-out
+                  Sair/Deslogar
