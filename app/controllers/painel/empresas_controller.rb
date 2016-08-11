@@ -45,7 +45,7 @@ class Painel::EmpresasController < ApplicationController
 
   def destroy
     @empresa.destroy
-    respond_with(@empresa)
+    redirect_back(fallback_location: :index)
   end
 
   private
@@ -55,14 +55,14 @@ class Painel::EmpresasController < ApplicationController
 
     def empresa_params
       params.require(:painel_empresa).permit(:nome, :status,
-                                      usuarios_attributes: [:nome,
-                                                            :login,
-                                                            :email,
-                                                            :password,
-                                                            :password_confirmation,
-                                                            :admin,
-                                                            :telefone,
-                                                            :codigo_pais,
-                                                            :_destroy])
+                                              usuarios_attributes: [:nome,
+                                                                    :login,
+                                                                    :email,
+                                                                    :password,
+                                                                    :password_confirmation,
+                                                                    :admin,
+                                                                    :telefone,
+                                                                    :codigo_pais,
+                                                                    :_destroy])
     end
 end

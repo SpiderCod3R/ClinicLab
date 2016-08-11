@@ -32,7 +32,6 @@ class Painel::Empresa < ApplicationRecord
         end
       end
     end
-    binding.pry
     return true
   end
 
@@ -49,5 +48,13 @@ class Painel::Empresa < ApplicationRecord
       self.empresa_permissoes.build(permissao_id: permissao.id)
     end
     self.save
+  end
+
+  def import_permissoes(resource)
+    resource[:permissao_ids].delete("")
+    resource[:permissao_ids].each do |id|
+      self.empresa_permissoes.build(permissao_id: id)
+    end
+    self.save!
   end
 end

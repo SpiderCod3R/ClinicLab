@@ -2,10 +2,10 @@
   .pull-left
     %h4 Permissões da Empresa
   -if master_signed_in? && current_master
-    -unless @empresa.possui_todas_as_permissoes?
-      .pull-right
-        =link_to "", :"data-toggle"=> "modal", :"data-target"=>"#novo_empresa_permissao_form", title: "Adicionar permissões nesta empresa" do
-          %i.fa.fa-2x.fa-plus-square{style: "color: #2D2D2D"}
+    / -unless @empresa.possui_todas_as_permissoes?
+    .pull-right
+      =link_to "", :"data-toggle"=> "modal", :"data-target"=>"#novo_empresa_permissao_form", title: "Adicionar permissões nesta empresa" do
+        %i.fa.fa-2x.fa-plus-square{style: "color: #2D2D2D"}
   %br/
   %hr{ style: "border: #C2C2C2 1px solid" }
   %br/
@@ -23,7 +23,7 @@
       %hr{style: "border: #ACB2B6 0.5px dashed"}
     %center
       #permissoes_paginator
-        =paginate @empresa_permissoes, param_name: "permissoes" ,remote: true, :theme => 'twitter-bootstrap-3',:pagination_class => "pagination-small pagination-centered"
+        =paginate @empresa_permissoes, param_name: "permissoes", :theme => 'twitter-bootstrap-3',:pagination_class => "pagination-small pagination-centered"
 
 
 / Modal  create action
@@ -42,10 +42,10 @@
             .box 
               #empresa_permissao_error_messages
         .modal-body
-          -unless @empresa.possui_todas_as_permissoes?
-            .field
-              ="Selecionar Tudo - "
-              = check_box_tag('check_all', 'check_all', false, :onClick => "checkAll(this);")
+          / -unless @empresa.possui_todas_as_permissoes?
+          .field
+            ="Selecionar Tudo - "
+            = check_box_tag('check_all', 'check_all', false, :onClick => "checkAll(this);")
           .field
             =f.input :empresa_id, as: :hidden, :input_html => {value: @empresa.id}
             =f.collection_select :permissao_ids, Painel::Permissao.order("nome ASC"), :id, :nome, {}, { class: "multi-select", multiple: true }
