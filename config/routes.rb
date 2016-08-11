@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       get 'excluir'
     end
     resources :empresas do
+      resources :contas, controller: 'usuarios/accounts'
       resources :painel_usuarios, controller: 'usuarios/manager', except: [:index]
     end
     post '/dashboards/empresas/permissoes/create', to: "dashboards#import_permissoes_to_company", as: :dashboards_add_permissoes_to_company 
@@ -12,7 +13,7 @@ Rails.application.routes.draw do
   end
 
   devise_for :usuarios,
-              path: 'painel/usuarios',
+              patch: "painel/usuarios",
               class_name: "Painel::Usuario",
               controllers: { sessions: 'painel/usuarios/sessions' }
 

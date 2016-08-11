@@ -1,0 +1,36 @@
+class Painel::Usuarios::AccountsController < ApplicationController
+  before_action :authenticate_usuario!, only: [:index]
+
+  def index
+    @empresa_usuarios = Painel::Usuario.where(empresa_id: params[:empresa_id]).page params[:page]
+  end
+
+  def new
+    if master_signed_in? || usuario_signed_in?
+      @empresa = Painel::Empresa.find(current_usuario.empresa_id) if current_usuario
+      @usuario = Painel::Usuario.new
+    end
+  end
+
+  def destroy
+    
+  end
+
+  private
+    def find_empresa
+      @empresa = Painel::Empresa.find(params[:empresa_id])
+    end
+
+    def find_usuario
+      @usuario = Painel::Usuario.find(params[:id])
+    end
+
+    def password_params
+      params.require(:painel_usuario).permit(:id, :password, :password_confirmation)
+    end
+
+    def usuario_params
+      params.require(:painel_usuario).permit(:nome, :login, :email, :password, :password_confirmation,
+                                             :admin, :telefone, :codigo_pais)
+    end
+end

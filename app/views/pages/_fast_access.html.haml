@@ -29,32 +29,34 @@
               %span
                 %i.fa.fa-2x.fa-calendar
               = link_to "Agenda", "#", title: "Acesso Rápido à Agenda"
-  .panel.panel-default
-    .panel-heading
-      %h4.panel-title
-        %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseAdminAccess"}
-          %span
-            %i.fa.fa-2x.fa-tachometer
-          Acesso Administrativo
-    #collapseAdminAccess.panel-collapse.collapse
-      .panel-body
-        %table.table
-          %tr
-            %td
-              %span
-                %i.fa.fa-2x.fa-building
-              %a{:href => "http://www.jquery2dotnet.com"} Empresa
-          %tr
-            %td
-              %span
-                %i.fa.fa-2x.fa-users
-              %a{:href => "http://www.jquery2dotnet.com"} Contas
-          %tr
-            %td
-              =link_to "#", :"data-toggle"=> "modal", :"data-target"=>"#empresa_permissoes_modal" do
-                %span.text-info
-                  %i.fa.fa-2x.fa-cogs
-                  Permissões
+  -if usuario_signed_in? && current_usuario.admin?
+    .panel.panel-default
+      .panel-heading
+        %h4.panel-title
+          %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseAdminAccess"}
+            %span
+              %i.fa.fa-2x.fa-tachometer
+            Acesso Administrativo
+      #collapseAdminAccess.panel-collapse.collapse
+        .panel-body
+          %table.table
+            %tr
+              %td
+                %span
+                  %i.fa.fa-2x.fa-building
+                %a{:href => "http://www.jquery2dotnet.com"} Empresa
+            %tr
+              %td
+                =link_to painel_empresa_contas_path(current_usuario.empresa) do
+                  %span
+                    %i.fa.fa-2x.fa-users
+                  Contas
+            %tr
+              %td
+                =link_to "#", :"data-toggle"=> "modal", :"data-target"=>"#empresa_permissoes_modal" do
+                  %span.text-info
+                    %i.fa.fa-2x.fa-cogs
+                    Permissões
   .panel.panel-default
     .panel-heading
       %h4.panel-title
@@ -81,7 +83,7 @@
                 %span.text-danger
                   %i.fa.fa-sign-out
                   Sair/Deslogar
-
+//MODAL COM TODAS AS PERMISSOES DA EMPRESA DO USUARIO ATUAL
 #empresa_permissoes_modal.modal.fade{ :"aria-hidden"=> "true", :"aria-labelledby"=> "myModalLabel", role: "dialog", tabindex: "-1"}
   .modal-dialog
     .modal-content

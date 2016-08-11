@@ -1,19 +1,22 @@
 class Painel::Usuarios::ManagerController < ApplicationController
-  before_action :find_empresa, except: [:update_password]
+  before_action :find_empresa, except: [:create, :update_password]
   before_action :find_usuario, except: [:new, :create]
 
   respond_to :html, :js, :xml, :json
 
-  def new
-    #TODO
-  end
-
   def create
-    #TODO
-  end
+    if params[:usuario]
+      @usuario = Painel::Usuario.new_by(params[:usuario]["0"])
+      @usuario.empresa_id = current_usuario.empresa_id
+    end
 
-  def edit
-    #TODO
+    if params[:usuario_permissoes]
+      @usuario.import_permissoes(params[:usuario_permissoes])
+    end
+
+    if @usuario.save
+      respond_to &:json
+    end
   end
 
   def update
@@ -32,10 +35,6 @@ class Painel::Usuarios::ManagerController < ApplicationController
       end
     end
     respond_to &:js
-  end
-
-  def destroy
-    #TODO
   end
 
   private

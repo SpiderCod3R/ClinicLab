@@ -63,6 +63,7 @@
 #= require fornecedor
 #= require fornecedores
 #= require atendimentos
+#= require painel/permissoes
 
 # -*- UTILITARIOS -*-
 #= require utility/datatable

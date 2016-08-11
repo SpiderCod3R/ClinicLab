@@ -8,7 +8,7 @@
       %span.icon-bar
       %span.icon-bar
   #bs-megadropdown-tabs.collapse.navbar-collapse
-    - if current_usuario.admin?
+    -if usuario_signed_in? && current_usuario.admin?
       %ul.nav.navbar-nav{style: "padding-left: 15px;"}
         -unless current_page?(root_path)
           %li= link_to "HOME", root_path

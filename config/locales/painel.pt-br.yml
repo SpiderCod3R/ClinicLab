@@ -8,9 +8,10 @@ pt-BR:
         show: Visualizar %{name}
         back: Voltar
       models:
-        permissoes: "Permissoes"
+        permissoes: "Permissões"
         empresa: "Empresas"
-        usuarios: "Usuários"
+        usuario: "Usuários"
       messages: 
         nao_pode_estar_em_branco: "%{class_name} não pode estar vazio!"
+        permissoes_adicionadas: "Permissões adicionadas com successo ao usuario %{resource_name}"
         
