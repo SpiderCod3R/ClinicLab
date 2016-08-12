@@ -28,11 +28,7 @@ class Painel::Usuarios::ManagerController < ApplicationController
 
   def update_password
     if master_signed_in? || usuario_signed_in?
-      if @usuario.update_with_password(password_params)
-        flash[:notice] = "Senha atualizada com sucesso"
-      else
-        flash[:error] = "Senha não pode ser atualizada"
-      end
+      @usuario.update_with_password(password_params)
     end
     respond_to &:js
   end
