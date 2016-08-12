@@ -1,0 +1,3 @@
+$("#usuario_permissoes").empty()
+$('#usuario_permissoes').html('<%=j render("painel/usuarios/accounts/permissoes", usuario: @usuario) %>');
+$("#usuario_permissoes_modal").modal()
