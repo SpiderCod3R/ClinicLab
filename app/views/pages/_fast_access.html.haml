@@ -42,11 +42,6 @@
           %table.table
             %tr
               %td
-                %span
-                  %i.fa.fa-2x.fa-building
-                %a{:href => "http://www.jquery2dotnet.com"} Empresa
-            %tr
-              %td
                 =link_to painel_empresa_contas_path(current_usuario.empresa) do
                   %span
                     %i.fa.fa-2x.fa-users
@@ -69,19 +64,21 @@
         %table.table
           %tr
             %td
-              %span
-                %i.fa.fa-key
-              %a{:href => "http://www.jquery2dotnet.com"} Alterar Senha
+              #usuario_password
+              =link_to painel_change_user_password_path(current_usuario), remote: true, title: " Alterar Senha" do
+                %span.text-info
+                  %i.fa.fa-2x.fa-key
+                  Alterar Senha
           %tr
             %td
-              %span
-                %i.fa.fa-pencil-square-o
-              %a{:href => "http://www.jquery2dotnet.com"} Alterar Dados
+              %span.text-info
+                %i.fa.fa-2x.fa-pencil-square-o
+                %a{:href => "http://www.jquery2dotnet.com"} Alterar Dados
           %tr
             %td
               = link_to destroy_usuario_session_path, method: 'delete', title: "SAIR" do
                 %span.text-danger
-                  %i.fa.fa-sign-out
+                  %i.fa.fa-2x.fa-sign-out
                   Sair/Deslogar
 //MODAL COM TODAS AS PERMISSOES DA EMPRESA DO USUARIO ATUAL
 #empresa_permissoes_modal.modal.fade{ :"aria-hidden"=> "true", :"aria-labelledby"=> "myModalLabel", role: "dialog", tabindex: "-1"}
@@ -99,10 +96,8 @@
             .container-fluid
               .col-md-12
                 -current_usuario.empresa.empresa_permissoes.select(:permissao_id).each do |f|
-                  .row-fluid
-                    %center
-                      %li{style: "color: #524EFF;"}=f.permissao.nome
-                      %br/
-                      %hr{style: "border: #C7C4FF 0.5px dashed;"}
+                  .col-md-4
+                    %li{style: "color: #524EFF;"}=f.permissao.nome
+                    %hr{style: "border: #C7C4FF 0.5px dashed; margin-top: -2px"}
       .modal-footer
         %button#permissao_formclose.btn.btn-default{:"data-dismiss"=> "modal", type: "button"} Fechar
