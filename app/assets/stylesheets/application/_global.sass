@@ -1,7 +1,10 @@
 $grey: #787878
+$lighgrey: #91A5B5
+$smoothblue: #54758F
+$blood-red: #882323
+$blood-blue: #5789AC
 
 body
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif
   font-size: 14px
   line-height: 1.42857143
   color: #333
@@ -17,9 +20,30 @@ body
   background:         linear-gradient(90deg,  #E1E1E1 10%, #D6D6D6 90%)
   font-family: 'Lato', sans-serif
 
+.wrapper
+  width: 80%
+  margin: 0 auto
+
+.wrapper_with_padding
+  width: 80%
+  margin: 0 auto
+  padding: 3.5rem 0
+
+#page-wrapper
+  padding: 0 15px
+  min-height: 100%
+  margin-top: 1%
+
+a.mailto
+  color: $smoothblue
+  text-decoration: underline
+  &:hover
+    color: $lighgrey
+    border-bottom: 1px solid $blood-blue
 
 #flash_container
   margin-top: 5%
+
 #sessions_left_side_content
   .panel
     h2
@@ -51,20 +75,6 @@ body
 
 .text-center
   text-align: center
-
-.wrapper
-  width: 80%
-  margin: 0 auto
-
-.wrapper_with_padding
-  width: 80%
-  margin: 0 auto
-  padding: 3.5rem 0
-
-#page-wrapper
-  padding: 0 15px
-  min-height: 100%
-  margin-top: 5%
 
 .img_profissional
   width: 125px
