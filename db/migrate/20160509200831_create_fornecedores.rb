@@ -11,8 +11,9 @@ class CreateFornecedores < ActiveRecord::Migration
       t.string :endereco
       t.string :complemento
       t.string :bairro
-      t.string :estado
-      t.string :cidade
+      t.belongs_to :estado, index: true, foreign_key: true
+      t.belongs_to :cidade, index: true, foreign_key: true
+      t.string :documento
 
       t.timestamps null: false
     end
