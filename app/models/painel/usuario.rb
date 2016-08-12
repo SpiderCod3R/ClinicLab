@@ -63,4 +63,8 @@ class Painel::Usuario < ApplicationRecord
                                atualizar: single[:atualizar].to_b, exibir: single[:exibir].to_b, deletar: single[:deletar].to_b)
     end
   end
+
+  def funcionario?
+    admin.eql?(false)
+  end
 end
