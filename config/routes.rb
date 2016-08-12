@@ -8,6 +8,8 @@ Rails.application.routes.draw do
       resources :contas, controller: 'usuarios/accounts'
       resources :painel_usuarios, controller: 'usuarios/manager', except: [:index]
     end
+    get 'usuario/:id/permissoes', to: "usuarios/accounts#show_permissions", as: :show_user_permissions
+    get 'usuario/:id/password_change', to: "usuarios/accounts#change_password", as: :change_user_password
     post '/dashboards/empresas/permissoes/create', to: "dashboards#import_permissoes_to_company", as: :dashboards_add_permissoes_to_company 
     put '/usuarios/:id/update_password', to: "usuarios/manager#update_password", as: :usuario_update_password
   end
@@ -29,10 +31,6 @@ Rails.application.routes.draw do
 
 
   devise_scope :usuario do
-    authenticated do
-      
-    end
-
     unauthenticated do
       root "painel/usuarios/sessions#new", to: "painel/usuarios/sessions#new", as: :main, path: 'painel/usuarios'
     end
