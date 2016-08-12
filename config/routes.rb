@@ -36,7 +36,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :permissaos
   resources :texto_livres
   resources :imagem_cabecs
   resources :fornecedores
