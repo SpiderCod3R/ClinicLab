@@ -1,5 +1,5 @@
 class ProfissionaisController < ApplicationController
-  load_and_authorize_resource :empresa
+  load_and_authorize_resource :empresa, class_name: "Painel::Empresa"
   load_and_authorize_resource param_method: :resource_params
   before_action :set_estados, only: [:new, :edit, :create, :update]
   before_action :set_conselhos_regionais, only: [:new, :edit, :create, :update]
