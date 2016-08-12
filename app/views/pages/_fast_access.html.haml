@@ -9,26 +9,29 @@
     #collapseFastAccess.panel-collapse.collapse.in
       .panel-body
         %table.table
-          %tr
-            %td
-              %span
-                %i.fa.fa-2x.fa-heartbeat
-              = link_to "Pacientes", new_cliente_path, title: "Acesso Rápido à Paciente"
-          %tr
-            %td
-              %span
-                %i.fa.fa-2x.fa-user-md
-              = link_to "Profissionais", new_profissional_path , title: "Acesso Rápido à Profissionais"
-          %tr
-            %td
-              %span
-                %i.fa.fa-2x.fa-contao
-              = link_to "Convênios", new_convenio_path, title: "Acesso Rápido à Convênio"
-          %tr
-            %td
-              %span
-                %i.fa.fa-2x.fa-calendar
-              = link_to "Agenda", "#", title: "Acesso Rápido à Agenda"
+          - if can? :read, Paciente
+            %tr
+              %td
+                %span
+                  %i.fa.fa-2x.fa-heartbeat
+                = link_to "Pacientes", new_paciente_path, title: "Acesso Rápido à Paciente"
+          - if can? :read, Profissional
+            %tr
+              %td
+                %span
+                  %i.fa.fa-2x.fa-user-md
+                = link_to "Profissionais", new_profissional_path , title: "Acesso Rápido à Profissionais"
+          - if can? :read, Convenio
+            %tr
+              %td
+                %span
+                  %i.fa.fa-2x.fa-contao
+                = link_to "Convênios", new_convenio_path, title: "Acesso Rápido à Convênio"
+            / %tr
+            /   %td
+            /     %span
+            /       %i.fa.fa-2x.fa-calendar
+            /     = link_to "Agenda", "#", title: "Acesso Rápido à Agenda"
   -if usuario_signed_in? && current_usuario.admin?
     .panel.panel-default
       .panel-heading
