@@ -1,5 +1,5 @@
 =build_toolbar
-.container
+.container-fluid
   .row-fluid
     %h4
       %span.text-info
@@ -9,7 +9,7 @@
   .row
     .col-md-3
       =render "/pages/fast_access"
-    .col-xs-12.col-md-8
+    .col-xs-12.col-md-9
       .container-fluid
         .row
           %h1=t('painel.helpers.models.usuario')
@@ -20,31 +20,23 @@
             %table.table.table-striped.table-hover.table-condensed
               %thead
                 %th
-                  %h5 ID
+                  %h5{style: "font-weight: bold"} ID
                 %th
-                  %h5 Nome
+                  %h5{style: "font-weight: bold"} Nome
                 %th
-                  %h5 login
+                  %h5{style: "font-weight: bold"} login
                 %th 
-                  %h5 Data de Criação
+                  %h5{style: "font-weight: bold"} Data de Criação
                 %th 
-                  %h5 Administrador
-              %tbody#empresa_content
+                  %h5{style: "font-weight: bold"} Administrador
+                %th 
+                  %h5{style: "font-weight: bold"} Permissões
+                %th 
+                  %h5{style: "font-weight: bold"} Alterar Senha
+              %tbody#empresa_usuarios_content
                 - @empresa_usuarios.each do |usuario|
-                  %tr{id: "empresa_usuario_#{usuario.id}"}
-                    %td=usuario.id
-                    %td=usuario.nome
-                    %td=usuario.login
-                    %td
-                      %em=time_ago_in_words(usuario.created_at)
-                    %td
-                      -if usuario.admin?
-                        %i.fa.fa-2x.fa-check-circle-o.text-center{style: "color: #8CCC00"}
-                      -else
-
-                    %td
-                      .col-md-3
-                        
-                      .col-md-3
+                  =render 'account', {usuario: usuario}
             #paginator
               =paginate @empresa_usuarios
+#usuario_permissoes
+#usuario_password

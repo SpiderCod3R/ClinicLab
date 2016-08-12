@@ -1,0 +1,22 @@
+%tr{id: "empresa_usuario_#{usuario.id}"}
+  %td=usuario.id
+  %td=usuario.nome
+  %td=usuario.login
+  %td
+    %em=time_ago_in_words(usuario.created_at)
+  %td
+    %center
+      -if usuario.admin?
+        %i.fa.fa-2x.fa-check-circle-o{style: "color: #658D10"}
+      -else
+        %i.fa.fa-2x.fa-times-circle-o{style: "color: #CC3B00"}
+  %td
+    %center
+      -unless usuario.admin?
+        =link_to painel_show_user_permissions_path(usuario), remote: true, title: " Visualizar Permissões" do
+          %i.fa.fa-2x.fa-warning.text-center{style: "color: #778A96"}
+  %td
+    %center
+      -unless usuario.admin?
+        =link_to painel_change_user_password_path(usuario), remote: true, title: " Alterar Senha" do
+          %i.fa.fa-2x.fa-lock{style: "color: #778A96"}
