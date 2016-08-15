@@ -1,15 +1,3 @@
-# en.devise.sessions.painel_master.signed_in_first_time
-
-puts "CRIANDO ADMINISTRADOR"
-master         = Painel::Master.new
-master.email   = "globalnetsis@globalnetsis.com.br"
-master.password = "123456"
-master.nome    = "globalnetsis"
-master.login   = "master"
-master.save
-puts master.nome
-puts "ADMINISTRADOR MESTRE INSERIDO"
-
 # puts "CRIANDO ESTADOS"
 # e = Estado.create(:sigla => 'AC', :nome => "Acre")
 #     e.cidades.create(:nome => "Acrelândia")
@@ -5732,17 +5720,7 @@ puts "ADMINISTRADOR MESTRE INSERIDO"
 #     e.save
 # puts "CIDADES & ESTADOS IMPORTADOS"
 
-puts "CRIANDO MODULOS ASSOCIADOS A PERMISSAO EMPRESA"
-Painel::Permissao.create(nome: "Cargo", model_class: "Cargo")
-Painel::Permissao.create(nome: "Centro De Custo", model_class: "CentroDeCusto")
-Painel::Permissao.create(nome: "Convênio", model_class: "Convenio")
-Painel::Permissao.create(nome: "Profissional", model_class: "Profissional")
-Painel::Permissao.create(nome: "Relatorio",model_class: "ConfiguracaoRelatorio")
-Painel::Permissao.create(nome: "Operadoras", model_class: "Operadora")
-Painel::Permissao.create(nome: "Conselho Regional", model_class: "ConselhoRegional")
-Painel::Permissao.create(nome: "Clientes", model_class: "Cliente")
-Painel::Permissao.create(nome: "Cabec", model_class: "Cabec")
-Painel::Permissao.create(nome: "Fornecedores", model_class: "Fornecedor")
-Painel::Permissao.create(nome: "Imagem Cabec", model_class: "ImagemCabec")
+# puts "CRIANDO MODULOS ASSOCIADOS A PERMISSAO EMPRESA"
+
 
 puts "TODOS OS DADOS CONTIDOS EM seed.rb IMPORTADOS COM SUCESSO"
