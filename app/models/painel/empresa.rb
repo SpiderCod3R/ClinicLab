@@ -1,6 +1,7 @@
 #-*-coding:utf-8-*-
 class Painel::Empresa < ApplicationRecord
-  validates :nome, :status, presence: true, uniqueness: true
+  validates :nome, presence: true
+  validates :nome, uniqueness: true
 
   # => Opções com reação em Cadeia apos o destroy da empresa
   with_options dependent: :destroy do
@@ -35,6 +36,10 @@ class Painel::Empresa < ApplicationRecord
       end
     end
     return true
+  end
+
+  def is_on?
+    self.status ? true : false
   end
 
   def administradores

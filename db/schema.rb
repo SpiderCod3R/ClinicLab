@@ -230,7 +230,7 @@ ActiveRecord::Schema.define(version: 20160812171431) do
 
   create_table "painel_empresas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "nome"
-    t.string   "status"
+    t.boolean  "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -38,9 +38,9 @@
               .field
                 = f.label :status, required: true
                 #boolean_fields
-                  = f.radio_button :status, 1, :checked => true
+                  = f.radio_button :status, true, :checked => true
                   = label :status_ativada, 'Ativada'
-                  = f.radio_button :status, 0
+                  = f.radio_button :status, false
                   = label :status_desativada, 'Desativada'
               .row
                 .col-md-8
