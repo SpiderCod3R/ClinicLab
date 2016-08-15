@@ -38,6 +38,12 @@ class Painel::EmpresasController < ApplicationController
     end
   end
 
+  def change_name
+    @empresa = Painel::Empresa.find(params[:empresa_id])
+    @empresa.update(empresa_params)
+    respond_to &:js
+  end
+
   def update
     @empresa.update(empresa_params)
     respond_to &:js

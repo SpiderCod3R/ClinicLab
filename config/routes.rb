@@ -5,6 +5,10 @@ Rails.application.routes.draw do
       get 'excluir'
     end
     resources :empresas do
+      put 'change_name'
+      get 'new_admin', to: "dashboards#new_company_admin", as: :novo_admin
+      post 'create_admin', to: "dashboards#create_admin", as: :create_admin
+      delete 'remove_administrador/:usuario_id', to: "dashboards#remove_admin", as: :remove_admin
       resources :contas, controller: 'usuarios/accounts'
       resources :painel_usuarios, controller: 'usuarios/manager', except: [:index]
     end
