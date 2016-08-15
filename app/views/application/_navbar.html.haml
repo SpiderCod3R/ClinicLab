@@ -3,7 +3,7 @@
     -if usuario_signed_in?
       %h4=link_to current_usuario.empresa_nome, root_path
     -else
-      %h4=link_to "GClinicWeb", root_path
+      %h4=link_to "GClinicWeb", new_master_session_path
   %div{class: "navbar-header nav_2"}
     %button.navbar-toggle.collapsed.navbar-toggle1{"data-target" => "#bs-megadropdown-tabs", "data-toggle" => "collapse", :type => "button"}
       %span.sr-only Toggle navigation
