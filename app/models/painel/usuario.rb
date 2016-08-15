@@ -25,6 +25,9 @@ class Painel::Usuario < ApplicationRecord
     Validations
   '''
   validates :nome, :login, :email, presence: true
+  validates_associated :empresa
+  validates :login, uniqueness: true
+  validates :telefone, uniqueness: true, unless: Proc.new {|f| f.telefone.blank?}
 
   '''
     Delegate methods
@@ -67,4 +70,9 @@ class Painel::Usuario < ApplicationRecord
   def funcionario?
     admin.eql?(false)
   end
+
+  # def valid_password?(password)
+  #   return false if encrypted_password.blank?
+  #   Devise.secure_compare(Devise::Encryptable::Encryptors::Md5.digest(password, nil, nil, nil), self.encrypted_password)
+  # end
 end

@@ -40,6 +40,6 @@ class Painel::Usuarios::AccountsController < ApplicationController
 
     def usuario_params
       params.require(:painel_usuario).permit(:nome, :login, :email, :password, :password_confirmation,
-                                             :admin, :telefone, :codigo_pais)
+                                             :admin, :telefone, :codigo_pais, :empresa_id)
     end
 end

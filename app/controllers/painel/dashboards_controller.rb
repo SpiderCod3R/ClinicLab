@@ -5,6 +5,11 @@ class Painel::DashboardsController < ApplicationController
   def index
   end
 
+=begin
+  Atenção!
+  O metodo a seguir é excluisivamente para adicionar permissoes
+  à uma empresa.
+=end
   def import_permissoes_to_company
     @empresa = Painel::Empresa.find(params[:painel_empresa_permissao][:empresa_id])
     if params[:check_all]
@@ -19,8 +24,53 @@ class Painel::DashboardsController < ApplicationController
     redirect_back(fallback_location: @empresa)
   end
 
+=begin
+  Metodo para adicionar novos administradores
+  diretamente do painel administrativo
+=end
+  def new_company_admin
+    @empresa = Painel::Empresa.find(params[:empresa_id])
+    @usuario = Painel::Usuario.new
+  end
+
+  def create_admin
+    @empresa = Painel::Empresa.find(params[:empresa_id])
+    @usuario = Painel::Usuario.new(usuario_params)
+    @usuario.empresa_id = @empresa.id
+    @usuario.admin = true
+    if @usuario.save
+      flash[:notice] = "Novo administrador criado com sucesso."
+      redirect_to painel_empresa_path(@empresa)
+    else
+      render :new_company_admin
+      flash[:error] = "Não foi possivel criar o administrador"
+    end
+  end
+
+
+=begin
+  ATENÇÃO
+  O método a seguir é unicamente para remover os administradores
+  da empresa diretamente do painel administrativo
+=end
+  def remove_admin
+    @usuario = Painel::Usuario.find(params[:usuario_id])
+    @empresa = @usuario.empresa
+    if @usuario.destroy
+      flash[:info] = "Usuário removido com Sucesso"
+      redirect_to painel_empresa_path(@empresa)
+    else
+      flash[:error] = "Não foi possivel remover o administrador!"
+    end
+  end
+
   private
     def resource_params
       params.require(:empresa_permissao).permit(:empresa_id, permissao_ids: [])
+    end
+
+    def usuario_params
+      params.require(:painel_usuario).permit(:nome, :login, :email, :password, :password_confirmation,
+                                             :admin, :telefone, :codigo_pais, :empresa_id)
     end
 end
