@@ -1,6 +1,6 @@
 class Painel::DashboardsController < ApplicationController
-  before_action :authenticate_master!
   layout 'admin'
+  before_action :authenticate_master!
 
   def index
   end
@@ -16,7 +16,7 @@ class Painel::DashboardsController < ApplicationController
       if @empresa.import_todas_permissoes
         flash[:info] = "Todas Permissoes vinculadas com sucesso."
       else
-        flash[:warning] = "Permissoes não foram vinculadas!"
+        flash[:warning]    = "As Permissões já existem e não podem ser adicionadas novamente!"
       end
     elsif params[:painel_empresa_permissao]
       @empresa.import_permissoes(params[:painel_empresa_permissao])
@@ -62,6 +62,26 @@ class Painel::DashboardsController < ApplicationController
     else
       flash[:error] = "Não foi possivel remover o administrador!"
     end
+  end
+
+=begin
+  ATENÇÃO TRIPLICADA AQUI!
+  O METODO A SEGUIR IRÁ REMOVER PERMISSAO DA EMPRESA
+  CUIDADO AO MANUSEAR ISTO SIGNIFICA REMOVER TANTO DA
+  EMPRESA QUANTO DOS USUARIOS AO QUAL A ESTA ESTÃO VINCULADOS
+=end
+
+  def remover_permissao_empresa_usaurio
+    @empresa = Painel::Empresa.find(params[:empresa_id])
+    @empresa_permissao = Painel::EmpresaPermissao.find_by(empresa_id: params[:empresa_id], permissao_id: params[:permissao_id])
+    @empresa.funcionarios.each do |usuario|
+      @usuario_permissao = Painel::UsuarioPermissao.find_by(permissao_id: params[:permissao_id], usuario_id: usuario.id)
+      unless @usuario_permissao.nil?
+        @usuario_permissao.destroy
+      end
+    end
+    @empresa_permissao.destroy
+    redirect_to painel_empresa_path(@empresa)
   end
 
   private
