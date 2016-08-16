@@ -1,6 +1,5 @@
 class Painel::Usuarios::ManagerController < ApplicationController
   before_action :find_empresa, except: [:create, :update_password]
-  before_action :find_usuario, only: [:update]
 
   respond_to :html, :js, :xml, :json
 
@@ -28,6 +27,7 @@ class Painel::Usuarios::ManagerController < ApplicationController
 
   def update_password
     if master_signed_in? || usuario_signed_in?
+      @usuario = Painel::Usuario.find(password_params[:id])
       @usuario.update_with_password(password_params)
     end
     respond_to &:js
