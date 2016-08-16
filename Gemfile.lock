@@ -129,6 +129,8 @@ GEM
     ffi (1.9.14)
     font-awesome-sass (4.6.2)
       sass (>= 3.2)
+    friendly_id (5.1.0)
+      activerecord (>= 4.0.0)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     haml (4.0.7)
@@ -315,6 +317,7 @@ DEPENDENCIES
   devise-encryptable
   devise-i18n
   font-awesome-sass
+  friendly_id (~> 5.1.0)
   haml
   haml-rails
   jbuilder (~> 2.5)

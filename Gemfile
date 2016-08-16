@@ -61,3 +61,4 @@ gem "bootstrap-table-rails"
 gem 'chosen-rails', '~> 1.5', '>= 1.5.2'
 gem 'wannabe_bool'
 gem "attr_encrypted", "~> 3.0.0"
+gem 'friendly_id', '~> 5.1.0'
