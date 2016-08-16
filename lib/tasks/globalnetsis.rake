@@ -47,6 +47,5 @@ namespace :globalnetsis do
     Painel::Permissao.create(nome: "Fornecedores", model_class: "Fornecedor")
     Painel::Permissao.create(nome: "Cabecs", model_class: "Cabec")
     Painel::Permissao.create(nome: "Imagem Cabecs", model_class: "ImagemCabec")
-    Painel::Permissao.create(nome: "Pacientes", model_class: "Paciente")
   end
 end
