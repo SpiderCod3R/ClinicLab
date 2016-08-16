@@ -199,28 +199,6 @@ ActiveRecord::Schema.define(version: 20160812171431) do
     t.index ["empresa_id"], name: "index_operadoras_on_empresa_id", using: :btree
   end
 
-  create_table "pacientes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "nome"
-    t.string   "rg"
-    t.string   "cpf"
-    t.date     "data_nascimento"
-    t.string   "telefone"
-    t.string   "celular"
-    t.string   "nome_da_mae"
-    t.string   "endereco"
-    t.string   "localizacao",     default: "Brasil"
-    t.integer  "estado_id"
-    t.integer  "cidade_id"
-    t.string   "bairro"
-    t.string   "cep"
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
-    t.integer  "empresa_id"
-    t.index ["cidade_id"], name: "index_pacientes_on_cidade_id", using: :btree
-    t.index ["empresa_id"], name: "index_pacientes_on_empresa_id", using: :btree
-    t.index ["estado_id"], name: "index_pacientes_on_estado_id", using: :btree
-  end
-
   create_table "painel_empresa_permissoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "permissao_id"
     t.integer  "empresa_id"
@@ -231,8 +209,10 @@ ActiveRecord::Schema.define(version: 20160812171431) do
   create_table "painel_empresas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "nome"
     t.boolean  "status"
+    t.string   "slug"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["slug"], name: "index_painel_empresas_on_slug", unique: true, using: :btree
   end
 
   create_table "painel_masters", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -344,8 +324,6 @@ ActiveRecord::Schema.define(version: 20160812171431) do
   add_foreign_key "clientes", "estados"
   add_foreign_key "fornecedores", "cidades"
   add_foreign_key "fornecedores", "estados"
-  add_foreign_key "pacientes", "cidades"
-  add_foreign_key "pacientes", "estados"
   add_foreign_key "profissionais", "cargos"
   add_foreign_key "profissionais", "cidades"
   add_foreign_key "profissionais", "conselho_regionais"
