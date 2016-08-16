@@ -1,5 +1,5 @@
 class Painel::Usuarios::ManagerController < ApplicationController
-  before_action :find_empresa, except: [:create, :update_password]
+  before_action :find_empresa, except: [:create, :update_password, :add_permissions, :save_permissions]
 
   respond_to :html, :js, :xml, :json
 
@@ -33,13 +33,19 @@ class Painel::Usuarios::ManagerController < ApplicationController
     respond_to &:js
   end
 
+  def add_permissions
+    @usuario = Painel::Usuario.find(params[:painel_usuario_id])
+    @empresa_permissoes = @usuario.verify_permissions_not_added
+    binding.pry
+  end
+
+  def save_permissions
+    binding.pry
+  end
+
   private
     def find_empresa
-      @empresa = Painel::Empresa.find(params[:empresa_id])
-    end
-
-    def find_usuario
-      @usuario = Painel::Usuario.find(params[:id])
+      @empresa = Painel::Empresa.friendly.find(params[:empresa_id])
     end
 
     def password_params

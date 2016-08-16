@@ -24,6 +24,7 @@ class ConveniosController < ApplicationController
       redirect_to new_convenio_path
       flash[:notice] = t("flash.actions.#{__method__}.success", resource_name: "Convênio")
     else
+      flash[:error] = t("flash.actions.#{__method__}.alert", resource_name: "Convênio")
       render :new
     end
   end
@@ -33,6 +34,7 @@ class ConveniosController < ApplicationController
       redirect_to convenios_path
       flash[:notice] = t("flash.actions.#{__method__}.success", resource_name: "Convênio")
     else
+      flash[:error] = t("flash.actions.#{__method__}.alert", resource_name: "Convênio")
       render :edit
     end
   end

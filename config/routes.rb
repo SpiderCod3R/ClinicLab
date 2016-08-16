@@ -1,9 +1,14 @@
 Rails.application.routes.draw do
+'''
+  START::ROTAS DO PAINEL ADMINISTRATIVO
+'''
   namespace :painel do
     resources :dashboards
+
     resources :permissoes, except: [:show, :new] do
       get 'excluir'
     end
+
     resources :empresas do
       put 'change_name'
       get 'new_admin', to: "dashboards#new_company_admin", as: :novo_admin
@@ -11,8 +16,12 @@ Rails.application.routes.draw do
       delete 'remove_administrador/:usuario_id', to: "dashboards#remove_admin", as: :remove_admin
       delete 'remover_permissao_empresa_usaurio/:permissao_id', to: "dashboards#remover_permissao_empresa_usaurio", as: :remover_permissao_empresa_usaurio
       resources :contas, controller: 'usuarios/accounts'
-      resources :painel_usuarios, controller: 'usuarios/manager', except: [:index]
+      resources :painel_usuarios, controller: 'usuarios/manager', except: [:index] do
+        get  'add_permissions'
+        post 'save_permissions'
+      end
     end
+
     get 'usuario/:id/permissoes', to: "usuarios/accounts#show_permissions", as: :show_user_permissions
     get 'usuario/:id/password_change', to: "usuarios/accounts#change_password", as: :change_user_password
     post '/dashboards/empresas/permissoes/create', to: "dashboards#import_permissoes_to_company", as: :dashboards_add_permissoes_to_company 
@@ -34,12 +43,14 @@ Rails.application.routes.draw do
     root 'painel/dashboards#index', as: "authenticated_master_root"
   end
 
-
   devise_scope :usuario do
     unauthenticated do
       root "painel/usuarios/sessions#new", to: "painel/usuarios/sessions#new", as: :main, path: 'painel/usuarios'
     end
   end
+'''
+  END::ROTAS DO PAINEL ADMINISTRATIVO
+'''
 
   resources :texto_livres
   resources :imagem_cabecs

@@ -76,4 +76,32 @@ class Painel::Usuario < ApplicationRecord
   #   return false if encrypted_password.blank?
   #   Devise.secure_compare(Devise::Encryptable::Encryptors::Md5.digest(password, nil, nil, nil), self.encrypted_password)
   # end
+
+  def verify_permissions_not_added
+    @empresa_permissoes = []
+    # usuario_permissoes.includes("permissao").order("painel_permissoes.nome ASC").each_with_index do |objectA, x|
+    #   empresa.empresa_permissoes.includes("permissao").order("painel_permissoes.nome ASC").each_with_index do |objectB, y|
+    #     binding.pry
+    #     if objectA[x].permissao == objectB[y].permissao
+    #       next
+    #     else
+    #       @empresa_permissoes << f.permissao
+    #       break
+    #     end
+    #   end
+    # end
+
+    for i in usuario_permissoes.includes("permissao").order("painel_permissoes.nome ASC").each
+      for j in empresa.empresa_permissoes.includes("permissao").order("painel_permissoes.nome ASC").each
+        if i.permissao == j.permissao
+          break
+        else
+          puts "Value of local variable is #{j.permissao.nome}"
+        end
+      end
+    end
+    binding.pry
+
+    return @empresa_permissoes
+  end
 end

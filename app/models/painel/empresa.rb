@@ -65,6 +65,15 @@ class Painel::Empresa < ApplicationRecord
     resource[:permissao_ids].each do |id|
       self.empresa_permissoes.build(permissao_id: id)
     end
-    self.save!
+
+    begin
+      self.save
+    rescue ActiveRecord::RecordInvalid
+      Rails.logger.warn { "Encountered a non-fatal RecordNotUnique error for: #{handle}" }
+      retry
+    rescue => e
+      Rails.logger.error { "Encountered an error when trying to find or create Person for: #{handle}, #{e.message} #{e.backtrace.join("\n")}" }
+      nil
+    end
   end
 end

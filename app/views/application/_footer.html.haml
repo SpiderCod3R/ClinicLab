@@ -1,4 +1,10 @@
-%footer.footer
+.footer.navbar-fixed-bottom
   .container
-    %h5
-      %span GClinicWeb &copy Desenvolvido pela Globalnetsis #{ Date.today.year }
+    %p.muted.credit
+      %h5
+        %span
+          -unless usuario_signed_in?
+            =link_to new_master_session_path do
+              \GClinicWeb &copy Desenvolvido pela Globalnetsis #{ Date.today.year }
+          - else
+            \GClinicWeb &copy Desenvolvido pela Globalnetsis #{ Date.today.year }

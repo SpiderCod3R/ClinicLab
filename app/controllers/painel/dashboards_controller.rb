@@ -19,7 +19,11 @@ class Painel::DashboardsController < ApplicationController
         flash[:warning]    = "As Permissões já existem e não podem ser adicionadas novamente!"
       end
     elsif params[:painel_empresa_permissao]
-      @empresa.import_permissoes(params[:painel_empresa_permissao])
+      if @empresa.import_permissoes(params[:painel_empresa_permissao])
+        flash[:success] = "Permissões vinculadas com sucesso."
+      else
+        flash[:warning]    = "Não foi possivel adicionar a permissão. Talvez ela já exista!"
+      end
     end
     redirect_back(fallback_location: @empresa)
   end
@@ -72,8 +76,8 @@ class Painel::DashboardsController < ApplicationController
 =end
 
   def remover_permissao_empresa_usaurio
-    @empresa = Painel::Empresa.find(params[:empresa_id])
-    @empresa_permissao = Painel::EmpresaPermissao.find_by(empresa_id: params[:empresa_id], permissao_id: params[:permissao_id])
+    @empresa = Painel::Empresa.friendly.find(params[:empresa_id])
+    @empresa_permissao = Painel::EmpresaPermissao.find_by(empresa_id: @empresa.id, permissao_id: params[:permissao_id])
     @empresa.funcionarios.each do |usuario|
       @usuario_permissao = Painel::UsuarioPermissao.find_by(permissao_id: params[:permissao_id], usuario_id: usuario.id)
       unless @usuario_permissao.nil?

@@ -12,7 +12,7 @@
   -if @empresa_permissoes.empty?
     %em Esta empresa não possui permissões cadastradas
   -else
-    -@empresa_permissoes.each do |empresa_permissao|
+    -@empresa_permissoes.includes("permissao").order("painel_permissoes.nome ASC").each do |empresa_permissao|
       =content_tag(:div, class: "row", id: "empresa_permissao_#{empresa_permissao.permissao.id}") do
         .col-md-6
           =empresa_permissao.permissao.nome
