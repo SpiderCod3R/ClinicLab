@@ -1,6 +1,6 @@
 class Painel::Usuarios::ManagerController < ApplicationController
   before_action :find_empresa, except: [:create, :update_password]
-  before_action :find_usuario, except: [:new, :create]
+  before_action :find_usuario, only: [:update]
 
   respond_to :html, :js, :xml, :json
 
@@ -48,6 +48,6 @@ class Painel::Usuarios::ManagerController < ApplicationController
 
     def usuario_params
       params.require(:painel_usuario).permit(:nome, :login, :email, :password, :password_confirmation,
-                                             :admin, :telefone, :codigo_pais)
+                                             :admin, :telefone, :codigo_pais, :empresa_id)
     end
 end
