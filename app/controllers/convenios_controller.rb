@@ -19,7 +19,7 @@ class ConveniosController < ApplicationController
   end
 
   def create
-    @convenio.associado_com_a_empresa=empresa_atual
+    @convenio.empresa_id = current_usuario.empresa_id
     if @convenio.save
       redirect_to new_convenio_path
       flash[:notice] = t("flash.actions.#{__method__}.success", resource_name: "Convênio")

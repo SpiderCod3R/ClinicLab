@@ -1,5 +1,8 @@
 class Cargo < ApplicationRecord
   include MetodosUteis
+  include AtivandoStatus
+
+
   validates :nome, presence: true
   has_many :profissionais
 
