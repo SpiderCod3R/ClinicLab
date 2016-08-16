@@ -9,12 +9,12 @@
     #collapseFastAccess.panel-collapse.collapse.in
       .panel-body
         %table.table
-          - if can? :read, Paciente
+          - if can? :read, Cliente
             %tr
               %td
                 %span
                   %i.fa.fa-2x.fa-heartbeat
-                = link_to "Pacientes", new_paciente_path, title: "Acesso Rápido à Paciente"
+                = link_to "Clientes", new_cliente_path, title: "Acesso Rápido à Cliente"
           - if can? :read, Profissional
             %tr
               %td
