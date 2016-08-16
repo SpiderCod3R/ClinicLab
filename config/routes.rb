@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       get 'new_admin', to: "dashboards#new_company_admin", as: :novo_admin
       post 'create_admin', to: "dashboards#create_admin", as: :create_admin
       delete 'remove_administrador/:usuario_id', to: "dashboards#remove_admin", as: :remove_admin
+      delete 'remover_permissao_empresa_usaurio/:permissao_id', to: "dashboards#remover_permissao_empresa_usaurio", as: :remover_permissao_empresa_usaurio
       resources :contas, controller: 'usuarios/accounts'
       resources :painel_usuarios, controller: 'usuarios/manager', except: [:index]
     end
@@ -46,6 +47,9 @@ Rails.application.routes.draw do
   resources :cabecs
   resources :clientes
   resources :conselho_regionais
+
+  get 'relatorios/new' => "configuracao_relatorios#new"
+  get 'conselhos_regionais/new' => "conselho_regionais#new"
 
   get 'pages/help'
   get 'pages/contact_us'
