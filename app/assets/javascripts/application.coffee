@@ -67,4 +67,5 @@
 
 # -*- UTILITARIOS -*-
 #= require utility/datatable
+#= require utility/maskaras
 #= require utility/__init__

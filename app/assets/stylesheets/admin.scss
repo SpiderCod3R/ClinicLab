@@ -1,10 +1,11 @@
 /* -*- NORMALIZE -*- */
 @import "normalize";
 
-/* -*- FONT-AWESOME -*- */
+/* -*- FONTS -*- */
 @import "font-awesome-sprockets";
 @import "font-awesome";
 @import "FONTAWESOME/font-awesome";
+@import "ROBOTO/path";
 
 @import "BOOTSTRAP/bootstrap";
 @import "chosen";
@@ -15,3 +16,8 @@
 @import "SB-ADMIN/morrisjs/morris";
 @import "toastr";
 @import "painel/dashboard";
+
+em.admin{
+  color: #9C0014;
+  font-weight: bold;
+}
