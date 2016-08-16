@@ -1,5 +1,8 @@
 #-*-coding:utf-8-*-
 class Painel::Empresa < ApplicationRecord
+  extend FriendlyId
+  friendly_id :nome, use: :slugged
+
   validates :nome, presence: true
   validates :nome, uniqueness: true
 
