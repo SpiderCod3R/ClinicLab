@@ -1,9 +1,9 @@
 %nav.navbar.navbar-custom.navbar-fixed-top
   %div{class: "logo-nav-left animated wow zoomIn", "data-wow-delay" => ".10s", style:"padding-left: 50px; padding-top: 12px;"}
     -if usuario_signed_in?
-      %h4=link_to current_usuario.empresa_nome, root_path
+      %h5.company_name=link_to current_usuario.empresa_nome, root_path
     -else
-      %h4=link_to "GClinicWeb", new_master_session_path
+      %h5.company_name=link_to "GClinicWeb", new_master_session_path
   %div{class: "navbar-header nav_2"}
     %button.navbar-toggle.collapsed.navbar-toggle1{"data-target" => "#bs-megadropdown-tabs", "data-toggle" => "collapse", :type => "button"}
       %span.sr-only Toggle navigation
@@ -15,9 +15,9 @@
       %ul.nav.navbar-nav{style: "padding-left: 15px;"}
         -unless current_page?(root_path)
           %li= link_to "HOME", root_path
-    %ul.nav.navbar-nav
-      =render 'application/permissions_menu'
-    -if usuario_signed_in?
+      %ul.nav.navbar-nav
+        =render 'application/permissions_menu'
+
       %div{style: "padding-right: 80px;"}
         %ul.nav.navbar-nav.navbar-right
           %li.dropdown
