@@ -56,12 +56,13 @@ class Painel::EmpresasController < ApplicationController
 
   private
     def set_empresa
-      @empresa = Painel::Empresa.find(params[:id])
+      @empresa = Painel::Empresa.friendly.find(params[:id])
     end
 
     def empresa_params
       params.require(:painel_empresa).permit(:nome, :status,
-                                              usuarios_attributes: [:nome,
+                                              usuarios_attributes: [:slug,
+                                                                    :nome,
                                                                     :login,
                                                                     :email,
                                                                     :password,
