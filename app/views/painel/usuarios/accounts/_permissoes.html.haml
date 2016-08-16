@@ -13,7 +13,7 @@
           %ol
             .container-fluid
               .col-md-12
-                -usuario.usuario_permissoes.select(:permissao_id).each do |f|
+                -usuario.usuario_permissoes.permissoes_adicionadas.select(:permissao_id).each do |f|
                   .col-md-4
                     %li{style: "color: #524EFF;"}=f.permissao.nome
                     %hr{style: "border: #C7C4FF 0.5px dashed;"}
