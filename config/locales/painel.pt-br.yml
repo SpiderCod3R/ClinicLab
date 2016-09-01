@@ -1,0 +1,17 @@
+pt-BR:
+  painel:
+    helpers:
+      actions:
+        new: Novo(a) %{name}
+        edit: Editar %{name}
+        destroy: Excluir %{name}
+        show: Visualizar %{name}
+        back: Voltar
+      models:
+        permissoes: "Permissões"
+        empresa: "Empresas"
+        usuario: "Usuários"
+      messages: 
+        nao_pode_estar_em_branco: "%{class_name} não pode estar vazio!"
+        permissoes_adicionadas: "Permissões adicionadas com successo ao usuario %{resource_name}"
+        

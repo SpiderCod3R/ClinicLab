@@ -1,0 +1,82 @@
+/ Navigation
+%nav.navbar.navbar-default.navbar-static-top{:role => "navigation", :style => "margin-bottom: 0"}
+  .navbar-header
+    %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+      %span.sr-only Toggle navigation
+      %span.icon-bar
+      %span.icon-bar
+      %span.icon-bar
+    %a.navbar-brand{:href => "index.html"}
+      Globalnetsis -
+      %em.admin Admin
+  / /.navbar-header
+  %ul.nav.navbar-top-links.navbar-right
+    / %li.dropdown
+    /   %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+    /     %i.fa.fa-bell.fa-fw
+    /     %i.fa.fa-caret-down
+    /   %ul.dropdown-menu.dropdown-alerts
+    /     %li
+    /       %a{:href => "#"}
+    /         %div
+    /           %i.fa.fa-envelope.fa-fw
+    /           Message Sent
+    /           %span.pull-right.text-muted.small 4 minutes ago
+    /     %li.divider
+    /     %li
+    /       %a{:href => "#"}
+    /         %div
+    /           %i.fa.fa-tasks.fa-fw
+    /           New Task
+    /           %span.pull-right.text-muted.small 4 minutes ago
+    /     %li.divider
+    /     %li
+    /       %a{:href => "#"}
+    /         %div
+    /           %i.fa.fa-upload.fa-fw
+    /           Server Rebooted
+    /           %span.pull-right.text-muted.small 4 minutes ago
+    / /.dropdown-alerts
+    / /.dropdown
+    %li.dropdown
+      %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+        %i.fa.fa-user.fa-fw
+        %i.fa.fa-caret-down
+      %ul.dropdown-menu.dropdown-user
+        %li.divider
+        %li
+          = link_to destroy_master_session_path, method: 'delete', title: "SAIR" do
+            %i.fa.fa-sign-out.fa-fw
+            Logout
+      / /.dropdown-user
+    / /.dropdown
+  / /.navbar-top-links
+  .navbar-default.sidebar{:role => "navigation"}
+    .sidebar-nav.navbar-collapse
+      %ul#side-menu.nav
+        / %li.sidebar-search
+        /   .input-group.custom-search-form
+        /     %input.form-control{:placeholder => "Search...", :type => "text"}/
+        /     %span.input-group-btn
+        /       %button.btn.btn-default{:type => "button"}
+        /         %i.fa.fa-search
+        / /input-group
+        %li
+          =link_to painel_dashboards_path do
+            %i.fa.fa-dashboard.fa-fw
+            Dashboard
+        %li
+          %a{:href => "#"}
+            %i.fa.fa-bar-chart-o.fa-fw
+            Empresas
+            %span.fa.arrow
+          %ul.nav.nav-second-level
+            %li
+              =link_to "Clinicas", painel_empresas_path
+            %li
+              %a{:href => "morris.html"} Usuários
+          / /.nav-second-level
+        %li
+          =link_to painel_permissoes_path do
+            %i.fa.fa-table.fa-fw
+            Permissões

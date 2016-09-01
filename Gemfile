@@ -17,16 +17,12 @@ gem 'redis', '~> 3.0'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-
-group :development, :test do
-  gem 'byebug', platform: :mri
-end
-
 group :development do
   gem 'web-console'
   gem 'listen', '~> 3.0.5'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'xray-rails', '~> 0.1.21'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
@@ -47,6 +43,7 @@ gem "sinatra",  require: false
 gem "responders"
 gem "devise"
 gem "devise-i18n"
+gem "devise-encryptable"
 gem 'cancancan'
 gem "prawn"
 gem "prawn-table"
@@ -66,3 +63,8 @@ group :development, :test do
   gem 'capybara', '~> 2.7', '>= 2.7.1'
   gem 'faker', '~> 1.6', '>= 1.6.6'
 end
+
+gem 'chosen-rails', '~> 1.5', '>= 1.5.2'
+gem 'wannabe_bool'
+gem "attr_encrypted", "~> 3.0.0"
+gem 'friendly_id', '~> 5.1.0'

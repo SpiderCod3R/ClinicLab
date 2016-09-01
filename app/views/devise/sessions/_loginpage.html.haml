@@ -1,6 +1,0 @@
-=form_for(:usuario, url: login_path, :html => { :class => "form-inline" } ) do |f|
-  .form-group
-    = f.text_field :username, required: true, placeholder: "nome de usuário", class: 'form-control'
-  .form-group
-    = f.password_field :password, required: true, class: 'form-control', placeholder: "senha"
-  = f.submit "Login",  class: "btn btn-default"

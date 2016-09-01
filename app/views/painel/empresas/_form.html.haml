@@ -1,0 +1,56 @@
+= form_for(@empresa) do |f|
+  %fieldset
+    %legend 
+      %strong Dados da empresa
+    .container-fluid
+      .field
+        = f.label :status, required: true
+        #boolean_fields
+          = f.radio_button :status, true, :checked => true
+          = label :status_ativada, 'Ativada'
+          = f.radio_button :status, false
+          = label :status_desativada, 'Desativada'
+      .row
+        .col-md-8
+          = f.label :nome, required: true
+          = f.text_field :nome, required: true, class: "form-control"
+  %br
+  %fieldset
+    %legend 
+      %strong Administrador
+    .container-fluid
+      =f.fields_for :usuarios do |z|
+        .row
+          = z.hidden_field :admin, value: 1
+        .row
+          .col-md-4
+            = z.label :nome, required: true
+            = z.text_field :nome, required: true, class: "form-control"
+          .col-md-4
+            = z.label :login, required: true
+            = z.text_field :login, required: true, class: "form-control"
+        .row
+          .col-md-1
+            = z.label "Código", required: true
+            = z.text_field :codigo_pais, required: true, class: "form-control", value: "55"
+          .col-md-3
+            = z.label :telefone
+            = z.text_field :telefone, class: "form-control"
+          .col-md-4
+            =z.label :email, required: true
+            =z.email_field :email, placeholder: "example@email.com", class: "form-control", required: true
+        .row
+          .col-md-4
+            =z.label :password
+            =z.password_field :password, required: true, class: "form-control"
+          .col-md-4
+            =z.label :password_confirmation
+            =z.password_field :password_confirmation, required: true, class: "form-control"
+
+  %br
+  .form-actions
+    %hr{style: "border: #C5B1FF 1px dashed"}
+    .pull-left
+      = f.button :submit, class: "btn btn-primary"
+    .pull-right
+      = link_to t('painel.helpers.actions.back'), painel_empresas_path, class: "btn btn-danger"

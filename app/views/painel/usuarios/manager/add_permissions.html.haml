@@ -1,0 +1,78 @@
+=build_toolbar
+.container
+  .row-fluid
+    %h4
+      %span.text-info
+        %i.fa.fa-question-circle-o
+        =link_to "Precisa de Ajuda", "#"
+    %br/
+  .row
+    .col-md-3
+      =render "/pages/fast_access"
+    .col-md-8
+      %h1{style: "color: #636363; font-weight: bold"} Editando Usuário
+      %br/
+      %main
+        = form_for([@empresa, @usuario], url: painel_empresa_painel_usuario_save_permissions_path, method: "POST", ) do |z|
+          %fieldset
+            %legend
+              %em Dados do Usuário
+            .container-fluid
+              .row
+                =z.hidden_field :empresa_id, value: current_usuario.empresa_id
+              .row
+                .col-md-6
+                  = z.label :nome, required: true
+                  = z.text_field :nome, required: true, class: "form-control", disabled: true
+                .col-md-6
+                  = z.label :login, required: true
+                  = z.text_field :login, required: true, class: "form-control", disabled: true
+              .row
+                .col-md-2
+                  = z.label "Código", required: true
+                  = z.text_field :codigo_pais, required: true, class: "form-control", value: "55", disabled: true
+                .col-md-4
+                  = z.label :telefone, required: true
+                  = z.text_field :telefone, required: true, class: "form-control", disabled: true
+                .col-md-6
+                  =z.label :email, required: true
+                  =z.email_field :email, placeholder: "example@email.com", class: "form-control", required: true, disabled: true
+          %br/
+          #edit_permissoes_empresa
+            .panel.panel.default
+              =content_tag(:div, @usuario.empresa.empresa_permissoes.count, id: "empresa_permissoes_count", style: "display: none")
+              .panel-heading
+                %h3
+                  %em=t('painel.helpers.models.permissoes')
+                %hr{style: "border: #C5B1FF 1px dashed"}
+              .panel-body
+                %table.table
+                  %thead
+                    %th Nome
+                    %th Cadastrar
+                    %th Atualizar
+                    %th Vizualizar
+                    %th Deletar
+                  %tbody
+                    -@usuario.empresa.empresa_permissoes.each do |f|
+                      %tr{id: "usuario_permissao_id_#{f.permissao.id}", style: "border: #C7C4FF 2px dashed;"}
+                        %td{style: "color: #524EFF; font-weight: bold"}
+                          %em=f.permissao.nome
+                          =z.hidden_field :permissao_id, value: "#{f.permissao.id}"
+                        %td
+                          =z.check_box :cadastrar
+                        %td
+                          =z.check_box :atualizar
+                        %td
+                          =z.check_box :exibir
+                        %td
+                          =z.check_box :deletar
+          %br
+          .form-actions
+            %hr{style: "border: #C5B1FF 1px dashed"}
+            .pull-left
+              = z.button "Salvar", class: "btn btn-primary"
+            .pull-right
+              = link_to t('painel.helpers.actions.back'), root_path, class: "btn btn-danger"
+%br/
+%br/

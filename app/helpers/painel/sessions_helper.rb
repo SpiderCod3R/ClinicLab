@@ -1,0 +1,2 @@
+module Painel::SessionsHelper
+end

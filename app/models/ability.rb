@@ -2,46 +2,34 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    user ||= Usuario.new # guest user (not logged in)
+    user ||= Painel::Usuario.new
 
-    alias_action :create, :read, :update, :destroy, :manage, :to => :crud
-
-    if user.super?
-      can :crud, :all
-    elsif user.admin?
-      if can :read, Empresa do |e|
-          e.try(:id).eql?(user.empresa_id)
-        end
+    if can :read, Painel::Empresa do |e|
+        e.try(:id).eql?(user.empresa_id)
       end
+    end
 
-      can :manage, Usuario
+    if user.admin?
+      can :manage, Painel::Usuario
 
-      user.empresa.try(:empresa_permissao_empresas).each do |f|
+      user.empresa.try(:empresa_permissoes).each do |f|
         if f.try(:empresa_id).eql?(user.empresa_id)
-          user.empresa.try(:permissao_empresas).each do |p|
-            can :crud, p.modulo.constantize
+          user.empresa.try(:permissoes).each do |p|
+            can :manage, p.model_class.constantize
           end
         end
       end
     elsif user.funcionario?
-      if can :read, Empresa do |e|
-          e.try(:id).eql?(user.empresa_id)
-        end
-      end
-      can :read, Usuario
-
-      user.empresa.try(:empresa_permissao_empresas).each do |f|
+      user.empresa.try(:empresa_permissoes).each do |f|
         if f.try(:empresa_id).eql?(user.empresa_id)
-          user.try(:usuario_permissao_empresas).each do |p|
-            can :create,  p.permissao_empresa.modulo.constantize if p.cadastrar?
-            can :update,  p.permissao_empresa.modulo.constantize if p.editar?
-            can :read,    p.permissao_empresa.modulo.constantize if p.visualizar?
-            can :destroy, p.permissao_empresa.modulo.constantize if p.excluir?
+          user.try(:usuario_permissoes).each do |p|
+            can :create,  p.permissao.model_class.constantize if p.cadastrar?
+            can :update,  p.permissao.model_class.constantize if p.atualizar?
+            can :read,    p.permissao.model_class.constantize if p.exibir?
+            can :destroy, p.permissao.model_class.constantize if p.deletar?
           end
         end
       end
     end
-    # See the wiki for details:
-    # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
   end
 end

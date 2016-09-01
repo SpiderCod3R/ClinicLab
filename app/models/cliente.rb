@@ -1,17 +1,17 @@
 class Cliente < ApplicationRecord
+  before_save :upcased_attributes
+
   scope :pelo_nome, -> { order("nome ASC") }
 
-  validates_presence_of :nome,
-            :status, :cpf, :endereco, :bairro,
-            :nascimento, :sexo, :rg, :estado_civil, :telefone,
-            :status_convenio, :matricula, :plano, :validade_carteira,
-            :produto, :titular
+  validates :nome, :status, :cpf, :endereco, :bairro,
+           :nascimento, :sexo, :rg, :estado_civil, :telefone,
+           :status_convenio, :matricula, :plano, :validade_carteira,
+           :produto, :titular, presence: true
 
   validates_associated :cargo, :estado, :cidade, :convenio, :empresa
 
   usar_como_cpf :cpf
 
-  before_save :upcased_attributes
   belongs_to :estado
   belongs_to :cidade
   belongs_to :cargo
@@ -23,6 +23,9 @@ class Cliente < ApplicationRecord
 
   def upcased_attributes
     self.nome.upcase!
+    self.sexo.upcase!
+    self.estado_civil.upcase!
+    self.bairro.upcase!
   end
 
   class << self

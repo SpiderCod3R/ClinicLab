@@ -1,0 +1,2 @@
+module Painel::EmpresasHelper
+end

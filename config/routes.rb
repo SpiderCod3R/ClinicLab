@@ -1,56 +1,87 @@
 #-*-coding:utf-8-*-
 Rails.application.routes.draw do
-  root to: "pages#home"
-  scope "/:locale" do
-    resources :texto_livres
-    resources :imagem_cabecs
-    resources :fornecedores
-    resources :cabecs
-    resources :clientes
-    resources :conselho_regionais
+  resources :texto_livres
+  resources :imagem_cabecs
+  resources :fornecedores
+  resources :cabecs
+  resources :clientes
+  resources :conselho_regionais
 
-    get 'pages/help'
-    get 'pages/contact_us'
-    get 'search/buscar_pacientes' => "search#buscar_pacientes"
-    get 'search/conselho_regional', to: 'conselho_regionais#search'
+  get 'pages/help'
+  get 'pages/contact_us'
+  get 'search/buscar_pacientes' => "search#buscar_pacientes"
+  get 'search/conselho_regional', to: 'conselho_regionais#search'
 
-    resources :configuracao_relatorios
-    resources :centro_de_custos
-    resources :profissionais
-    resources :cargos
-    resources :convenios
-    resources :pacientes
-    resources :atendimentos
-    resources :operadoras
+  namespace :painel do
+    resources :dashboards
 
-
-    devise_for :usuarios, controller: { registrations: 'authentication/registrations', sessions: 'authentication/sessions' }
-    devise_scope :usuario do
-     get "login", to: "devise/sessions#new", as: :login_screen
-     post "login", to: "authentication/sessions#create"
+    resources :permissoes, except: [:show, :new] do
+      get 'excluir'
     end
 
-    authenticated :usuario do
-      devise_scope :usuario do
-        root "authentication/registrations#show", as: "profile"
+    resources :empresas do
+      put 'change_name'
+      get 'new_admin', to: "dashboards#new_company_admin", as: :novo_admin
+      post 'create_admin', to: "dashboards#create_admin", as: :create_admin
+      delete 'remove_administrador/:usuario_id', to: "dashboards#remove_admin", as: :remove_admin
+      delete 'remover_permissao_empresa_usaurio/:permissao_id', to: "dashboards#remover_permissao_empresa_usaurio", as: :remover_permissao_empresa_usaurio
+      resources :contas, controller: 'usuarios/accounts'
+      resources :painel_usuarios, controller: 'usuarios/manager', except: [:index] do
+        get  'add_permissions'
+        post 'save_permissions'
       end
-    end
-
-    unauthenticated do
-      devise_scope :usuario do
-        root "pages#home", as: "home"
-      end
-    end
-
-    resources :empresas, controller: 'empresas/empresas' do
-      resources :usuarios, controller: 'empresas/usuarios'
-      resources :funcionarios, controller: 'empresas/funcionarios'
-      get 'usuarios/trocar_senha/:id'=> 'empresas/usuarios#change_password', as: :trocar_senha_usuario
-      put 'usuarios/trocar_senha/:id'=> 'empresas/usuarios#change_user_password', as: :update_usuario_password
-      get 'usuarios/atualiza_permissoes/usuario/:id', to: 'empresas/usuarios#update_permissions', as: :usuario_atualiza_permissoes
-      put 'usuarios/atualiza_permissoes/', to: 'empresas/usuarios#update', as: :atualiza_permissoes_modulo
-      get 'relatorios/atendimentos/paciente/:atendimento_id', to: "reports#relatorio_atendimento", as: :atendimento_paciente_relatorio
       resources :agendas
     end
+
+    get 'usuario/:id/permissoes', to: "usuarios/accounts#show_permissions", as: :show_user_permissions
+    get 'usuario/:id/password_change', to: "usuarios/accounts#change_password", as: :change_user_password
+    post '/dashboards/empresas/permissoes/create', to: "dashboards#import_permissoes_to_company", as: :dashboards_add_permissoes_to_company 
+    put '/usuarios/:id/update_password', to: "usuarios/manager#update_password", as: :usuario_update_password
   end
+
+  devise_for :usuarios,
+              patch: "painel/usuarios",
+              class_name: "Painel::Usuario",
+              controllers: { sessions: 'painel/usuarios/sessions' }
+
+  devise_for :masters, 
+             path: 'painel/masters',
+             class_name: "Painel::Master",
+             controllers: { sessions: 'painel/masters/sessions' },
+             skip: [:registrations]
+
+  authenticated :master do
+    root 'painel/dashboards#index', as: "authenticated_master_root"
+  end
+
+  devise_scope :usuario do
+    unauthenticated do
+      root "painel/usuarios/sessions#new", to: "painel/usuarios/sessions#new", as: :main, path: 'painel/usuarios'
+    end
+  end
+
+  resources :texto_livres
+  resources :imagem_cabecs
+  resources :fornecedores
+  resources :cabecs
+  resources :clientes
+  resources :conselho_regionais
+
+  get 'relatorios/new' => "configuracao_relatorios#new"
+  get 'conselhos_regionais/new' => "conselho_regionais#new"
+
+  get 'pages/help'
+  get 'pages/contact_us'
+  get 'search/buscar_pacientes' => "search#buscar_pacientes"
+  get 'search/conselho_regional', to: 'conselho_regionais#search'
+
+  resources :configuracao_relatorios
+  resources :centro_de_custos
+  resources :profissionais
+  resources :cargos
+  resources :convenios
+  resources :pacientes
+  resources :atendimentos
+  resources :operadoras
+  root to: "pages#index"
 end

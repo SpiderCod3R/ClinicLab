@@ -1,0 +1,23 @@
+%main
+  .container-fluid
+    .row
+      %h1=t('painel.helpers.models.empresa')
+      =link_to "Nova Empresa", new_painel_empresa_path
+    .row
+      %asside
+        %table.table.table-striped
+          %thead
+            %th
+              %h5 Status
+            %th
+              %h5 ID
+            %th 
+              %h5 Nome da Empresa
+            %th 
+              %h5 Administradores
+            %th 
+              %h5 Funcionários
+          %tbody#empresa_content
+            =render @empresas
+        #paginator
+          =paginate @empresas

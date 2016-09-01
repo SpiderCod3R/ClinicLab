@@ -1,0 +1,56 @@
+.container-fluid
+  .row
+    .col-md-8
+      =render 'company_name_status', {empresa: @empresa}
+      %small.pull-right
+        =link_to edit_painel_empresa_path(@empresa), remote:true do
+          %i.fa.fa-2x.fa-pencil-square-o{style:"color: #110C2F"}
+      %br
+      %i.fa.fa-clock-o
+      %b="Criada há: " + time_ago_in_words(@empresa.created_at)
+      %br
+      .well
+        %b Administradores
+        %hr
+        =link_to "Novo Administrador", painel_empresa_novo_admin_path(@empresa)
+        -if @administradores.empty?
+          %br/
+          %hr/
+          %em Não foram encontrados administradores
+        -else
+          .row-fluid
+            %asside
+              %table.table.table-striped
+                %thead
+                  %th Nome
+                  %th Nome de usuário
+                  %th Criado há
+                  %th Opções
+                %tbody#empresa_administradores_content
+                  =render @administradores
+              %center
+                #administrador_paginator
+                  =paginate @administradores, param_name: "administradores_pagina", :theme => 'twitter-bootstrap-3',:pagination_class => "pagination-small pagination-centered"
+      .well
+        %b Funcionários
+        %hr
+        .row-fluid
+          %asside
+            -if @funcionarios.empty?
+              %em Não existem funcionários nesta empresa
+            -else
+              %table.table.table-striped
+                %thead
+                  %th Nome
+                  %th Nome de usuário
+                  %th Criado há
+                  %th Opções
+                %tbody#empresa_funcionarios_content
+                  =render 'funcionarios', { funcionarios: @funcionarios }
+              #administrador_paginator
+                =paginate @funcionarios, param_name: "funcionarios_pagina", :theme => 'twitter-bootstrap-3',:pagination_class => "pagination-small pagination-centered"
+    .col-md-4
+      =render 'empresa_permissoes'
+/Modals
+=render 'edit'
+/ =render 'painel/administradores/novo_administrador'

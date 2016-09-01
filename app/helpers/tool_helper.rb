@@ -23,11 +23,15 @@ module ToolHelper
     end)
   end
 
+  '''
+    MENU AUTOMATIZADO
+  '''
   def render_menu_tree(hash, &block)
     for elem in hash
-      if can? :create, elem.modulo.constantize
+      if can? :read, elem.permissao.model_class.constantize
         concat(content_tag(:li, block.binding) do
-          link_to elem.nome.upcase, "#{elem.modulo.pluralize.downcase}/new"
+          link = I18n.transliterate(elem.permissao.nome.gsub(' ', '_'))
+          link_to elem.permissao.nome.upcase, "#{link.pluralize.downcase}/new"
         end)
       end
     end

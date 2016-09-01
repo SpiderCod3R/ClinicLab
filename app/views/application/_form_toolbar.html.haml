@@ -28,21 +28,8 @@
         %div{style: "padding-right: 80px;"}
           %ul.nav.navbar-nav.navbar-right
             %li.dropdown
-              %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
-                ="Bem Vindo #{current_usuario.nome}"
-                %b.caret
-              %ul.dropdown-menu.multi-column.columns-3
-                .row
-                  .col-sm-5
-                    %ul.multi-column-dropdown
-                      %h6 Páginas
-                      %li
-                        =link_to "Home", root_path
-                      %li
-                        =link_to "Contas", empresas_path
-                  .col-sm-5
-                    %ul.multi-column-dropdown
-                      %h6 Perfil
-                      =render 'application/usuario_logado'
-                  .clearfix
-                .clearfix
+              %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+                =current_usuario.nome
+                %span.caret
+              %ul.dropdown-menu
+                =render 'application/usuario_logado'

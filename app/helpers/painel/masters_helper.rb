@@ -1,0 +1,2 @@
+module Painel::MastersHelper
+end

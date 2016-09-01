@@ -1,6 +1,4 @@
 class ProfissionaisController < ApplicationController
-  load_and_authorize_resource :empresa
-  load_and_authorize_resource param_method: :resource_params
   before_action :set_estados, only: [:new, :edit, :create, :update]
   before_action :set_conselhos_regionais, only: [:new, :edit, :create, :update]
   before_action :set_operadoras, only: [:new, :edit, :create, :update]
@@ -29,6 +27,7 @@ class ProfissionaisController < ApplicationController
       flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @profissional.class)
       redirect_to new_profissional_path
     else
+      flash[:error] = t("flash.actions.#{__method__}.alert", resource_name: @profissional.class)
       render :new
     end
   end
@@ -38,6 +37,7 @@ class ProfissionaisController < ApplicationController
       flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @profissional.class)
       redirect_to profissionais_path
     else
+      flash[:error] = t("flash.actions.#{__method__}.alert", resource_name: @profissional.class)
       render :new
     end
   end
@@ -47,7 +47,7 @@ class ProfissionaisController < ApplicationController
       flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @profissional.class)
       redirect_to profissionais_path
     else
-      flash[:alert] = t("flash.actions.#{__method__}.alert", resource_name: @profissional.class)
+      flash[:error] = t("flash.actions.#{__method__}.alert", resource_name: @profissional.class)
     end
   end
 
