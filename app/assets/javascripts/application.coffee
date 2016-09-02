@@ -53,18 +53,16 @@
 # You may include any languages (optional)
 #= require moment/pt-br
 
-# -*- X-RAY -*-
-# require xray
-
-# -*- REQUIRES DO GHCARE
-#= require pacientes
-#= require valida_cpf
+# -*- REQUIRES DO GCLINIC
+#= require agenda
+#= require atendimentos
 #= require clientes
-#= require profissionais
+#= require pacientes
 #= require fornecedor
 #= require fornecedores
-#= require atendimentos
+#= require profissionais
 #= require painel/permissoes
+#= require valida_cpf
 
 # -*- UTILITARIOS -*-
 #= require utility/datatable

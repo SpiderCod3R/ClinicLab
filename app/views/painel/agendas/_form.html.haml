@@ -1,3 +1,4 @@
+- dias_semana = ['Segunda-Feira', 'Terça-Feira', 'Quarta-Feira', 'Quinta-Feira', 'Sexta-Feita']
 =simple_form_for [@empresa, @agenda] do |f|
   - if @agenda.errors.any?
     .row-fluid
@@ -22,25 +23,27 @@
                                   order: [:day, :month, :year]
           .row-fluid
             .col-md-3
-              =f.label t('agendas.helpers.atendimento_sabado')
-              %br/
-              =f.collection_radio_buttons :atendimento_sabado, [[true, 'Sim'] ,[false, 'Não']], :first, :last, checked: false
+              #atendimento_sabado
+                =f.label t('agendas.helpers.atendimento_sabado')
+                %br/
+                =f.collection_radio_buttons :atendimento_sabado, [[1, 'Sim'] ,[0, 'Não']], :first, :last, checked: 0
             .col-md-3
-              =f.label t('agendas.helpers.atendimento_domingo')
-              %br/
-              =f.collection_radio_buttons :atendimento_domingo, [[true, 'Sim'] ,[false, 'Não']], :first, :last, checked: false
+              #atendimento_domingo
+                =f.label t('agendas.helpers.atendimento_domingo')
+                %br/
+                =f.collection_radio_buttons :atendimento_domingo, [[1, 'Sim'] ,[0, 'Não']], :first, :last, checked: 0
             .col-md-3
               =f.label t('agendas.helpers.atendimento_duracao')
               %br/
-              =f.collection_radio_buttons :horario_parcial, [[true, 'Completo'] ,[false, 'Parcial']], :first, :last
+              =f.collection_radio_buttons :horario_parcial, [[1, 'Completo'] ,[0, 'Parcial']], :first, :last
   .row-fluid
     .col-md-6
       .panel
         =f.simple_fields_for :agenda_manha_horarios do |x|
           .row{style: "margin: 0 auto"}
-            =content_tag(:div, id: "dia_#{x.index}") do
+            =content_tag(:div, id: "manha_dia_#{x.index}") do
               .col-md-3
-                =x.input :dia
+                =content_tag(:label, "" ,id: "dia_#{x.index}")
               .col-md-3
                 =x.label "Inicio"
                 =x.time_field :inicio_do_atendimento, class: "form-control"
@@ -51,12 +54,12 @@
       .panel
         =f.simple_fields_for :agenda_tarde_horarios do |x|
           .row{style: "margin: 0 auto"}
-            .col-md-3
-              =x.input :dia
-            .col-md-3
-              =x.label "Inicio"
-              =x.time_field :inicio_do_atendimento, class: "form-control"
-            .col-md-3
-              =x.label "Termino"
-              =x.time_field :final_do_atendimento, class: "form-control"
-
+            =content_tag(:div, id: "tarde_dia_#{x.index}") do
+              .col-md-3
+                =x.input :dia
+              .col-md-3
+                =x.label "Inicio"
+                =x.time_field :inicio_do_atendimento, class: "form-control"
+              .col-md-3
+                =x.label "Termino"
+                =x.time_field :final_do_atendimento, class: "form-control"
