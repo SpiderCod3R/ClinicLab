@@ -15,7 +15,9 @@ class Painel::AgendasController < ApplicationController
   end
 
   def create
-    
+    @agenda = Agenda.new_by_javascript_params(params[:agenda])
+    binding.pry
+    @agenda.cria_horarios_turno_manha(params[:agenda][:horarios_manha])
   end
 
   private
@@ -27,10 +29,11 @@ class Painel::AgendasController < ApplicationController
     def agenda_params
       params.require(:agenda).permit(:id, :empresa_id, :profissional_id,
                                      :data_inicial, :data_final, :atendimento_sabado,
-                                     :atendimento_domingo, :horario_parcial, :atendimento_duracao,
-                                      agenda_manha_attributes: [ :dia, :turno, :inicio_do_atendimento, 
-                                                                :final_do_atendimento, :agenda_id, :_destroy],
-                                      agenda_tarde_attributes: [ :dia, :turno, :inicio_do_atendimento, 
-                                                                :final_do_atendimento, :agenda_id, :_destroy])
+                                     :atendimento_domingo, :horario_parcial,
+                                     :atendimento_manha_duracao, :atendimento_tarde_duracao,
+                                      agenda_manha_horarios_attributes: [ :dia, :turno, :inicio_do_atendimento, 
+                                                                 :final_do_atendimento, :agenda_id, :_destroy],
+                                      agenda_tarde_horarios_attributes: [ :dia, :turno, :inicio_do_atendimento, 
+                                                                 :final_do_atendimento, :agenda_id, :_destroy])
     end
 end
