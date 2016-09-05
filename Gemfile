@@ -68,3 +68,6 @@ gem 'chosen-rails', '~> 1.5', '>= 1.5.2'
 gem 'wannabe_bool'
 gem "attr_encrypted", "~> 3.0.0"
 gem 'friendly_id', '~> 5.1.0'
+gem 'time_difference', '~> 0.4.2'
+
+gem 'font-awesome-rails', '~> 4.6', '>= 4.6.3.1'
