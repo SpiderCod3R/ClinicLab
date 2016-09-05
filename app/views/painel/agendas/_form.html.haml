@@ -1,4 +1,3 @@
-- dias_semana = ['Segunda-Feira', 'Terça-Feira', 'Quarta-Feira', 'Quinta-Feira', 'Sexta-Feita']
 =simple_form_for [@empresa, @agenda] do |f|
   - if @agenda.errors.any?
     .row-fluid
@@ -10,17 +9,15 @@
       .panel
         .container-fluid{style: "margin: 0 auto; padding-top: 15px; padding-bottom: 15px;"}
           .row-fluid
+            =f.input :empresa_id, as: :hidden, input_html: { value: @empresa.id }
+          .row-fluid
             .col-md-3
               =f.label :profissional_id
               =f.collection_select :profissional_id, Profissional.all.order("nome ASC"), :id, :nome, { prompt: "Selecione um" }, class: "form-control"
             .col-md-3
-              =f.input :data_inicial, as: :date, start_year: Date.today.year - 116,
-                                  end_year: Date.today.year, discard_day: false,
-                                  order: [:day, :month, :year]
+              =f.input :data_inicial, as: :string, input_html: { class: "datepicker" }
             .col-md-3
-              =f.input :data_final, as: :date, start_year: Date.today.year - 116,
-                                  end_year: Date.today.year, discard_day: false,
-                                  order: [:day, :month, :year]
+              =f.input :data_final, as: :string, input_html: { class: "datepicker" }
           .row-fluid
             .col-md-3
               #atendimento_sabado
@@ -33,33 +30,58 @@
                 %br/
                 =f.collection_radio_buttons :atendimento_domingo, [[1, 'Sim'] ,[0, 'Não']], :first, :last, checked: 0
             .col-md-3
-              =f.label t('agendas.helpers.atendimento_duracao')
-              %br/
-              =f.collection_radio_buttons :horario_parcial, [[1, 'Completo'] ,[0, 'Parcial']], :first, :last
+              #horario_parcial
+                =f.label t('agendas.helpers.atendimento_duracao')
+                %br/
+                =f.collection_radio_buttons :horario_parcial, [[1, 'Completo'] ,[0, 'Parcial']], :first, :last, checked: 0
   .row-fluid
     .col-md-6
-      .panel
-        =f.simple_fields_for :agenda_manha_horarios do |x|
-          .row{style: "margin: 0 auto"}
-            =content_tag(:div, id: "manha_dia_#{x.index}") do
-              .col-md-3
-                =content_tag(:label, "" ,id: "dia_#{x.index}")
-              .col-md-3
-                =x.label "Inicio"
-                =x.time_field :inicio_do_atendimento, class: "form-control"
-              .col-md-3
-                =x.label "Termino"
-                =x.time_field :final_do_atendimento, class: "form-control"
+      .panel.panel-default
+        .panel-heading.center.bolder Horário Manha
+        .panel-body
+          .row-fluid
+            #atendimento_manha
+              .container-fluid
+                .col-md-3
+                  =f.input :atendimento_manha_duracao, label: "Intervalo"
+              %hr{style: "border: #A2A2A2 0.5px dashed"}
+          .row-fluid
+            .panel
+              =f.simple_fields_for :agenda_manha_horarios do |x|
+                .row{style: "margin: 0 auto"}
+                  =content_tag(:div, id: "manha_dia_#{x.index}") do
+                    .col-md-3
+                      =content_tag(:label, "" ,id: "dia_#{x.index}")
+                      =x.input :dia, as: :hidden
+                    .col-md-3
+                      =x.label "Inicio"
+                      =x.time_field :inicio_do_atendimento, class: "form-control"
+                    .col-md-3
+                      =x.label "Termino"
+                      =x.time_field :final_do_atendimento, class: "form-control"
+                %br/
     .col-md-6
-      .panel
-        =f.simple_fields_for :agenda_tarde_horarios do |x|
-          .row{style: "margin: 0 auto"}
-            =content_tag(:div, id: "tarde_dia_#{x.index}") do
-              .col-md-3
-                =x.input :dia
-              .col-md-3
-                =x.label "Inicio"
-                =x.time_field :inicio_do_atendimento, class: "form-control"
-              .col-md-3
-                =x.label "Termino"
-                =x.time_field :final_do_atendimento, class: "form-control"
+      .panel.panel-default
+        .panel-heading.center.bolder Horário Tarde
+        .panel-body
+          .row-fluid
+            #atendimento_tarde
+              .container-fluid
+                .col-md-3
+                  =f.input :atendimento_tarde_duracao, label: "Intervalo"
+              %hr{style: "border: #A2A2A2 0.5px dashed"}
+          .row-fluid
+            .panel
+              =f.simple_fields_for :agenda_tarde_horarios do |x|
+                .row{style: "margin: 0 auto"}
+                  =content_tag(:div, id: "tarde_dia_#{x.index}") do
+                    .col-md-3
+                      =content_tag(:label, "" ,id: "tarde_#{x.index}")
+                      =x.input :dia, as: :hidden
+                    .col-md-3
+                      =x.label "Inicio"
+                      =x.time_field :inicio_do_atendimento, class: "form-control"
+                    .col-md-3
+                      =x.label "Termino"
+                      =x.time_field :final_do_atendimento, class: "form-control"
+                %br/
