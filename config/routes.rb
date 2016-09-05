@@ -7,10 +7,53 @@ Rails.application.routes.draw do
   resources :clientes
   resources :conselho_regionais
 
+  resources :texto_livres
+  resources :imagem_cabecs
+  resources :fornecedores
+  resources :cabecs
+  resources :clientes
+  resources :conselho_regionais
+
+  get 'relatorios/new' => "configuracao_relatorios#new"
+  get 'conselhos_regionais/new' => "conselho_regionais#new"
+
   get 'pages/help'
   get 'pages/contact_us'
   get 'search/buscar_pacientes' => "search#buscar_pacientes"
   get 'search/conselho_regional', to: 'conselho_regionais#search'
+
+  resources :configuracao_relatorios
+  resources :centro_de_custos
+  resources :profissionais
+  resources :cargos
+  resources :convenios
+  resources :pacientes
+  resources :atendimentos
+  resources :operadoras
+
+  post 'agenda/create', to: "painel/agendas#create"
+
+  devise_for :usuarios,
+              patch: "painel/usuarios",
+              class_name: "Painel::Usuario",
+              controllers: { sessions: 'painel/usuarios/sessions' }
+
+  devise_for :masters, 
+             path: 'painel/masters',
+             class_name: "Painel::Master",
+             controllers: { sessions: 'painel/masters/sessions' },
+             skip: [:registrations]
+
+  authenticated :master do
+    root 'painel/dashboards#index', as: "authenticated_master_root"
+  end
+
+  devise_scope :usuario do
+    unauthenticated do
+      root "painel/usuarios/sessions#new", to: "painel/usuarios/sessions#new", as: :main, path: 'painel/usuarios'
+    end
+  end
+
 
   namespace :painel do
     resources :dashboards
@@ -39,49 +82,5 @@ Rails.application.routes.draw do
     put '/usuarios/:id/update_password', to: "usuarios/manager#update_password", as: :usuario_update_password
   end
 
-  devise_for :usuarios,
-              patch: "painel/usuarios",
-              class_name: "Painel::Usuario",
-              controllers: { sessions: 'painel/usuarios/sessions' }
-
-  devise_for :masters, 
-             path: 'painel/masters',
-             class_name: "Painel::Master",
-             controllers: { sessions: 'painel/masters/sessions' },
-             skip: [:registrations]
-
-  authenticated :master do
-    root 'painel/dashboards#index', as: "authenticated_master_root"
-  end
-
-  devise_scope :usuario do
-    unauthenticated do
-      root "painel/usuarios/sessions#new", to: "painel/usuarios/sessions#new", as: :main, path: 'painel/usuarios'
-    end
-  end
-
-  resources :texto_livres
-  resources :imagem_cabecs
-  resources :fornecedores
-  resources :cabecs
-  resources :clientes
-  resources :conselho_regionais
-
-  get 'relatorios/new' => "configuracao_relatorios#new"
-  get 'conselhos_regionais/new' => "conselho_regionais#new"
-
-  get 'pages/help'
-  get 'pages/contact_us'
-  get 'search/buscar_pacientes' => "search#buscar_pacientes"
-  get 'search/conselho_regional', to: 'conselho_regionais#search'
-
-  resources :configuracao_relatorios
-  resources :centro_de_custos
-  resources :profissionais
-  resources :cargos
-  resources :convenios
-  resources :pacientes
-  resources :atendimentos
-  resources :operadoras
   root to: "pages#index"
 end
