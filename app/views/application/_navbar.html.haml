@@ -1,28 +1,29 @@
-%nav.navbar.navbar-custom.navbar-fixed-top
-  %div{class: "logo-nav-left animated wow zoomIn", "data-wow-delay" => ".10s", style:"padding-left: 50px; padding-top: 12px;"}
+%nav.navbar.navbar-full.navbar-fixed-top.navbar-light.bg-faded.navbar-custom
+  .navbar-header.fixed-brand
     -if usuario_signed_in?
-      %h5.company_name=link_to current_usuario.empresa_nome, root_path
+      =link_to root_path, class: "navbar-brand brand-logo" do
+        =current_usuario.empresa_nome
+      #menu-toggle.navbar-toggle.collapsed{"data-toggle" => "collapse"}
+        %i.fa.fa-bars.fa-2x{"aria-hidden" => "true"}
     -else
-      %h5.company_name=link_to "GClinicWeb", new_master_session_path
-  %div{class: "navbar-header nav_2"}
-    %button.navbar-toggle.collapsed.navbar-toggle1{"data-target" => "#bs-megadropdown-tabs", "data-toggle" => "collapse", :type => "button"}
-      %span.sr-only Toggle navigation
-      %span.icon-bar
-      %span.icon-bar
-      %span.icon-bar
-  #bs-megadropdown-tabs.collapse.navbar-collapse
-    -if usuario_signed_in? && current_usuario.admin?
-      %ul.nav.navbar-nav{style: "padding-left: 15px;"}
-        -unless current_page?(root_path)
-          %li= link_to "HOME", root_path
-      %ul.nav.navbar-nav
-        =render 'application/permissions_menu'
+      .col-xs-12.col-md-12.link_to_admin-panel.center
+        =link_to new_master_session_path, class: "navbar-brand brand-logo center" do
+          GClinicWeb
+  .options
+    %ul.nav.navbar-nav
+      -if usuario_signed_in?
+        %li.nav-item.active
+          =link_to root_path, class: "nav-link" do
+            Home
+            %span.sr-only (current)
+        -if current_usuario.empresa.empresa_permissoes.any? || current_usuario.usuario_permissoes.any?
+          %li.nav-item
+            =render 'application/permissions_menu'
+    -if usuario_signed_in?
+      %ul.nav.navbar-top-links.navbar-right.pull-right
+        .navbar-usuario
+          %li.navbar-brand.usuario_navbar="Olá #{current_usuario.nome}"
+          %li
+            = link_to destroy_usuario_session_path, method: 'delete', title: "SAIR", class: "nav-link" do
+              %i.fa.fa-2x.fa-sign-out
 
-      %div{style: "padding-right: 80px;"}
-        %ul.nav.navbar-nav.navbar-right
-          %li.dropdown
-            %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
-              =current_usuario.nome
-              %span.caret
-            %ul.dropdown-menu
-              =render 'application/usuario_logado'
