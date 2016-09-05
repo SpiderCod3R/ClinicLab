@@ -1,44 +1,277 @@
+@import "include-media"
+@import "ROBOTO/path"
+
 $grey: #787878
 $lighgrey: #91A5B5
 $smoothblue: #54758F
 $blood-red: #882323
 $blood-blue: #5789AC
 
-@import "ROBOTO/path"
+$break-320:  320px
+$break-1200: 1200px
+
+$breakpoints: (little: 320px, phone: 640px, tablet: 768px, desktop: 1024px) !default
 
 body
-  font-size: 14px
-  line-height: 1.42857143
+  width:  100%
   color: #333
-  min-height: 100%
+  font-size: 14px
   font-weight: 400
+  font-family: 'Lato', 'Raleway', sans-serif
   text-rendering: optimizeLegibility
   -webkit-font-smoothing: subpixel-antialiased
-  height: 100%
   background: -webkit-linear-gradient(90deg,  #E3E9FF 10%, #E1E1E3 90%)
   background:    -moz-linear-gradient(90deg,  #E3E9FF 10%, #E1E1E3 90%)
   background:     -ms-linear-gradient(90deg,  #E3E9FF 10%, #E1E1E3 90%)
   background:      -o-linear-gradient(90deg,  #E3E9FF 10%, #E1E1E3 90%)
   background:         linear-gradient(90deg,  #E3E9FF 10%, #E1E1E3 90%)
-  font-family: 'Lato', sans-serif
+  @include media(">=phone", "<=tablet")
+    background: -webkit-linear-gradient(90deg,  #565656 10%, #403F40 90%)
+    background:    -moz-linear-gradient(90deg,  #565656 10%, #403F40 90%)
+    background:     -ms-linear-gradient(90deg,  #565656 10%, #403F40 90%)
+    background:      -o-linear-gradient(90deg,  #565656 10%, #403F40 90%)
+    background:         linear-gradient(90deg,  #565656 10%, #403F40 90%)
 
-.wrapper
-  width: 80%
-  margin: 0 auto
+.navigation
+  position: fixed
+  height: 60px
+  font-weight: 800
+  background-color: #12366b
+  border-color: #0d284f
+  background-image: -webkit-gradient(linear, left 0%, left 100%, from(#194c97), to(#12366b))
+  background-image: -webkit-linear-gradient(top, #194c97, 0%, #12366b, 100%)
+  background-image: -moz-linear-gradient(top, #194c97 0%, #12366b 100%)
+  background-image: linear-gradient(to bottom, #194c97 0%, #12366b 100%)
+  background-repeat: repeat-x
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff194c97', endColorstr='#ff12366b', GradientType=0)
+  .brand-logo,
+  .nav-link
+    color: white !important
+    &:hover
+      color: #45F0D8 !important
+  a.nav-item
+    color: white !important
+  .dropdown-menu
+    text-align: center !important
+    a
+      text-decoration: none
+
+h5.company_name
+  font-size: 14pt
+  font-family: 'Roboto'
+  line-height: 1.5em
+  a
+    color: #F2F2F2 !important
+    font-weight: bold
+    &:hover
+      color: #6BDCCA !important
+      font-weight: bold
+
+.navbar-usuario
+  float: left
+  padding-top: 0.25rem
+  padding-bottom: 0.25rem
+  margin-right: 1rem
+  font-size: 12px !important
+  display: flex
+  .navbar-brand
+    color: white !important
+    font-size: initial
+
+.center
+  text-align: center !important
+  &.bolder
+    font-size: 12pt !important
+    font-weight: 800
+
+/*- PAGE WRAPPER AREA -*/
+#wrapper
+  -webkit-transition: all 0.5s ease
+  -moz-transition: all 0.5s ease
+  -o-transition: all 0.5s ease
+  transition: all 0.5s ease
+  overflow: hidden
+  #page-wrapper
+    margin-top: 0.5%
+    overflow-x: hidden
+    .title
+      color: #636363
+      font-weight: bold
 
 .wrapper_with_padding
   width: 80%
   margin: 0 auto
-  padding: 3.5rem 0
+  padding: 0 auto
+  @media screen and (max-width: $break-320)
+    width: 100%  !important
+    height: 100% !important
 
-#page-wrapper
-  padding: 0 15px
-  min-height: 100%
-  margin-top: 1%
+#sidebar-wrapper
+  z-index: 1
+  position: fixed
+  left: 250px
+  width: 0
+  height: 100%
+  margin-left: -250px
+  margin-top: 60px !important
+  overflow-y: hidden
+  background: #383838
+  color: cornsilk
+  -webkit-transition: all 0.5s ease
+  -moz-transition: all 0.5s ease
+  -o-transition: all 0.5s ease
+  transition: all 0.5s ease
 
+#wrapper.toggled #sidebar-wrapper
+  width: 250px
+
+#wrapper.toggled #page-content-wrapper
+  position: relative
+  margin-right: 0px
+
+.fixed-brand
+  width: auto
+
+/*- SIDEBAR STYLES AREA  -*/
+
+.sidebar-nav
+  top: 0
+  margin: 0
+  padding: 0
+  list-style: none
+  margin-top: 2px
+  height: 100%
+  position: absolute
+  z-index: 1
+  transition: 0.5s
+
+.closebtn
+  position: absolute
+  top: 0
+  right: 25px
+  font-size: 28px
+  margin-left: 50px
+  color: #D10000
+  &:hover
+    color: white
+
+.sidebar-nav li
+  text-indent: 15px
+  line-height: 40px
+
+.sidebar-nav li a
+  display: block
+  text-decoration: none
+  color: #E4E4E4
+  font-weight: 800
+
+.sidebar-nav li a:hover
+  text-decoration: none
+  color: #fff
+  background: rgba(255,255,255,0.2)
+  border-left: red 2px solid
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus
+  text-decoration: none
+
+.sidebar-nav > .sidebar-brand
+  height: 65px
+  font-size: 18px
+  line-height: 60px
+
+.sidebar-nav > .sidebar-brand a
+  color: #999999
+
+.sidebar-nav > .sidebar-brand a:hover
+  color: #fff
+  background: none
+
+.no-margin
+  margin: 0
+
+#menu-toggle
+  color: white !important
+  float: right
+  margin-right: 15px
+  margin-top: 4px
+
+
+/*- LOGIN STYLES AREA -*/
+#sessions_left_side_content
+  .panel
+    h2
+      padding: 10px 10px 0 10px
+      margin: 0 auto
+      font-size: 2.5rem !important
+      font-weight: bold
+      color: $grey
+    label
+      color: $grey !important
+    .remember-me
+      text-align: center
+  @include media(">=phone", "<tablet")
+    margin: 0 auto
+    .btn
+      width: 220px !important
+    label
+      font-weight: 800
+    .panel
+      width: 280px
+      margin-left: -30px
+      padding: 0 auto
+      h2.large-screen
+        display: none
+      .mobile-screen
+        display: inline !important
+        h2.mobile-screen-title
+          color: #A72108
+          text-align: center !important
+          font-size: 25px !important
+    float: none
+  @media screen and (min-width: $break-1200)
+    h2
+      .mobile-screen
+        display: none
+
+#sessions_right_side_content
+  .panel
+    h1
+      font-size: 2.5rem !important
+      font-weight: bold
+      padding: 10px 10px 0 10px
+      margin: 0 auto
+    p 
+      font-size: 18pt !important
+      &.company
+        text-align: center
+        padding: 40px
+    height: 310px
+  color: $grey
+  @include media(">=phone", "<tablet")
+    display: none
+  @media screen and (min-width: $break-1200)
+    float: right
+
+.session-btn-actions
+  display: inline-flex
+  margin-bottom: 20px
+
+.user_type
+  color: $smoothblue
+  font-weight: 800
+
+.panel-heading
+  em
+    font-weight: bold
+    color: #8994B7
+    font-size: 18px
+
+.text-info
+  font-size: 14px
+
+/*- FOOTER AREA -*/
 .footer
-  // position: absolute
-  // padding-top: 60px
   width: 100%
   height: 50px
   background-color: #0d274c
@@ -61,18 +294,7 @@ body
     a:hover
       color: #27D5CC
 
-h5.company_name
-  font-size: 14pt
-  font-family: 'Roboto'
-  line-height: 1.5em
-  a
-    color: #F2F2F2 !important
-    font-weight: bold
-    &:hover
-      color: #6BDCCA !important
-      font-weight: bold
-  
-
+/*- MAIL LINK AREA -*/
 a.mailto
   color: $smoothblue
   text-decoration: underline
@@ -80,37 +302,17 @@ a.mailto
     color: $lighgrey
     border-bottom: 1px solid $blood-blue
 
+/*- MOBILE ICONS AREA -*/
+.mobile-icons
+  color: #EBEBEB
+  &:hover
+    color: #49F4D2
+    -webkit-filter: blur(3px)
+    filter: blur(3px)
+
+/*- TOAST FLASH AREA -*/
 #flash_container
   margin-top: 5%
-
-#sessions_left_side_content
-  .panel
-    h2
-      padding: 10px 10px 0 10px
-      margin: 0 auto
-      font-size: 2.5rem !important
-      font-weight: bold
-      color: $grey
-    label
-      color: $grey !important
-#sessions_right_side_content
-  .panel
-    h1
-      font-size: 2.5rem !important
-      font-weight: bold
-      padding: 10px 10px 0 10px
-      margin: 0 auto
-    p 
-      font-size: 25pt !important
-      &.company
-        text-align: center
-        padding: 40px
-    height: 310px
-  color: $grey
-
-.session-btn-actions
-  display: inline-flex
-  margin-bottom: 20px
 
 .text-center
   text-align: center
@@ -119,20 +321,163 @@ a.mailto
   width: 125px
   height: 150px
 
-.collection_select
-  display: block
-  width: 100%
-  height: 34px
-  padding: 6px 12px
-  font-size: 14px
-  line-height: 1.42857143
-  color: #555
-  background-color: #fff
-  background-image: none
-  border: 1px solid #ccc
-  border-radius: 4px
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075)
-  box-shadow: inset 0 1px 1px rgba(0,0,0,0.075)
-  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
-  -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
-  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
+
+.permissoes_empresa_well_top
+  text-align: center
+  padding-top: 28px
+  margin-bottom: 30px
+  font-family: "Roboto"
+  display: flex
+  h4
+    font-size: 1.2rem
+
+.back_link
+  font-size: 20pt
+  color: #497FA5
+  &:hover
+    color: #0D5385
+
+#label_bold
+  font-weight: bold
+
+/*- MEDIA & INCLUE AREA -*/
+
+@media screen and(min-width: 360px)
+  .navbar-brand
+    margin-left: 35px !important
+
+@include media("<desktop")
+  .options
+    display: none
+  #menu-toggle
+    display: block
+  #need_help
+    background: white
+    text-align: center
+    display: block
+    border-radius: 5px
+    padding: 3px
+    h4:hover
+      i
+        color: #6449FF
+    a:hover
+      color: #6449FF
+      text-decoration: none
+
+@include media(">=desktop")
+  #menu-toggle
+    display: none !important
+
+@media screen and (min-width: 991px)
+  .form-control
+    width: 100% !important
+
+
+@include media(">=phone", "<=tablet")
+  #home
+    margin-top: 20% !important
+  .navbar-brand
+    margin-left: 15px
+  .options,
+  #hide-on-small-screen,
+  #hide-help-on-small-screen
+    display: none
+  .panel-fast-access
+    display: none
+  #profile_large_screen
+    display: none
+  #accounts_large_screen
+    display: none
+  #accounts_mobile_screen
+    margin-top: 25%
+    display: block !important
+  main.form
+    margin-top: 20%
+    padding: 1%
+    line-height: inherit
+    .title
+      color: #FFFFFF !important
+      text-align: center
+    label
+      color: #8994B7
+      font-weight: 800
+    .lbl-permissoes
+      font-family: "Roboto"
+      font-size: 15pt
+      text-align: center
+  .wrapper_with_padding
+    margin-top: 40px
+  .link_to_admin-panel
+    width: 100%
+    margin-left: 30px
+
+@media screen and(max-width: 320px)
+  main.form
+    width: 270px !important
+    margin-left:  -20% !important
+
+a.mailto
+  color: $smoothblue
+  text-decoration: underline
+  &:hover
+    color: $lighgrey
+    border-bottom: 1px solid $blood-blue
+
+.mobile-icons
+  color: #EBEBEB
+  &:hover
+    color: #49F4D2
+    -webkit-filter: blur(3px)
+    filter: blur(3px)
+
+
+#flash_container
+  margin-top: 5%
+
+.text-center
+  text-align: center
+
+.img_profissional
+  width: 125px
+  height: 150px
+
+#icon-ban
+  width:  40px
+  height: 40px
+  background-image: image-url('icons/glyphicons-200-ban.png')
+  background-repeat: no-repeat
+  position: relative !important
+
+#icon-journal
+  width:  22px
+  height: 24px
+  border: 0px
+  background-image: image-url('icons/glyphicons-610-journal.png')
+  background-repeat: no-repeat
+  position: relative !important
+
+#icon-edit
+  width: 24px
+  height: 24px
+  border: 0px
+  background-image: image-url('icons/glyphicons-151-edit.png')
+  background-repeat: no-repeat
+  position: relative !important
+
+#icon-pencil
+  width: 40px
+  height: 40px
+  background-image:  image-url('icons/glyphicons-151-edit.png')
+  background-repeat: no-repeat
+  position: relative !important
+
+.foto_show
+  width: 125px
+  height: 150px
+  margin-left:  -20% !important
+
+.bootstrap-select.form-control
+  margin-bottom: 0
+  padding: 0
+  border: none
+  z-index: 0 !important
