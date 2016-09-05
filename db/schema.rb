@@ -43,9 +43,10 @@ ActiveRecord::Schema.define(version: 20160812171434) do
     t.boolean  "atendimento_sabado"
     t.boolean  "atendimento_domingo"
     t.boolean  "horario_parcial"
-    t.string   "atendimento_duracao"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.string   "atendimento_manha_duracao"
+    t.string   "atendimento_tarde_duracao"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.index ["empresa_id"], name: "index_agendas_on_empresa_id", using: :btree
     t.index ["profissional_id"], name: "index_agendas_on_profissional_id", using: :btree
     t.index ["usuario_id"], name: "index_agendas_on_usuario_id", using: :btree
