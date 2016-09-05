@@ -9,7 +9,8 @@ class CreateAgendas < ActiveRecord::Migration[5.0]
       t.boolean :atendimento_sabado
       t.boolean :atendimento_domingo
       t.boolean :horario_parcial
-      t.string  :atendimento_duracao
+      t.string  :atendimento_manha_duracao
+      t.string  :atendimento_tarde_duracao
 
       t.timestamps
     end
