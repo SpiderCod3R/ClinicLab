@@ -125,5 +125,14 @@ $(document).ready ->
           atendimento_domingo: atendimento_domingo
           horario_parcial:     horario_parcial
           horarios_manha:      horarios_manha
-
-
+      success: (data) ->
+        console.log data
+        if data.agenda.successfully_created == true
+          setTimeout (->
+            if (data.agenda.flash)
+              toastr.success(data.agenda.flash.notice.success, "Sucesso.", {timeOut: 3000})
+          ), 2000
+          setTimeout (->
+            if (data.agenda.location)
+              window.location.href = localhost + "/painel/empresas/#{empresa_id}/agendas?locale=pt-BR"
+          ), 5000
