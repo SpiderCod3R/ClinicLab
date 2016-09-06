@@ -16,8 +16,13 @@ class Painel::AgendasController < ApplicationController
 
   def create
     @agenda = Agenda.new_by_javascript_params(params[:agenda])
-    binding.pry
     @agenda.cria_horarios_turno_manha(params[:agenda][:horarios_manha])
+    # @agenda.cria_horarios_turno_tarde(params[:agenda][:horarios_tarde])
+    if @agenda.save
+      respond_to &:json
+    else
+      respond_to &:js
+    end
   end
 
   private
