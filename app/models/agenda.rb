@@ -4,14 +4,27 @@ class Agenda < ApplicationRecord
   belongs_to :profissional
   belongs_to :usuario
   belongs_to :empresa
-  has_many   :agenda_manha_horarios, dependent: :destroy
-  has_many   :agenda_tarde_horarios, dependent: :destroy
+
+  with_options dependent: :destroy do
+    has_many   :agenda_manha_horarios, class_name: "AgendaManhaHorario", foreign_key: "agenda_id"
+    has_many   :agenda_tarde_horarios, class_name: "AgendaTardeHorario", foreign_key: "agenda_id"
+  end
 
   validates :data_inicial, :data_final, presence: true
 
   accepts_nested_attributes_for :agenda_manha_horarios, allow_destroy: true
 
   accepts_nested_attributes_for :agenda_tarde_horarios, allow_destroy: true
+
+  delegate :nome,
+           to: :profissional,
+           prefix: true,
+           allow_nil: true
+
+  delegate :nome,
+           to: :empresa,
+           prefix: true,
+           allow_nil: true
 
   class << self
     def new_by_javascript_params(resource)
@@ -63,7 +76,10 @@ class Agenda < ApplicationRecord
         end
         # x += 1
       # end
-      binding.pry
     end
+  end
+
+  def cria_horarios_turno_tarde(resource)
+    
   end
 end
