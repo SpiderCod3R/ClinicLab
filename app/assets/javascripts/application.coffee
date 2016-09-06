@@ -13,6 +13,7 @@
 #= require BOOTSTRAP/bootstrap
 #= require BOOTSTRAP/bootstrap-select
 #= require BOOTSTRAP/bootstrap-datepicker.min
+#= require BOOTSTRAP/locales/bootstrap-datepicker.pt-BR.js
 #= require BOOTSTRAP/bootstrap-dialog
 #= require BOOTSTRAP/bootstrap-waitingfor
 
