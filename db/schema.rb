@@ -355,8 +355,6 @@ ActiveRecord::Schema.define(version: 20160812171434) do
     t.index ["empresa_id"], name: "index_texto_livres_on_empresa_id", using: :btree
   end
 
-  add_foreign_key "agenda_manha_horarios", "agendas"
-  add_foreign_key "agenda_tarde_horarios", "agendas"
   add_foreign_key "atendimentos", "cidades"
   add_foreign_key "atendimentos", "convenios"
   add_foreign_key "atendimentos", "estados"
