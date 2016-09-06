@@ -3,4 +3,7 @@
 #= require utility/beautyMessages
 #= require utility/delete
 
-$('.datepicker').datepicker()
+$('.datepicker').datepicker
+  format: 'dd/mm/yyyy',
+  language: 'pt-BR',
+  todayHighlight: true
