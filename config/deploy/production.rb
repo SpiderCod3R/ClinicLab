@@ -1,5 +1,5 @@
 set :port, 49697
-set :user, 'rmweb'
+set :user, 'deployer'
 set :deploy_via, :remote_cache
 set :use_sudo, false
 
