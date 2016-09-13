@@ -17,7 +17,7 @@ default: &default
   encoding: utf8
   pool: 5
   username: root
-  password: root 
+  password: <%= ENV['GCLINIC_DATABASE'] %> 
   socket: /var/run/mysqld/mysqld.sock
 
 development:
@@ -54,4 +54,4 @@ production:
   <<: *default
   database: gclinic2_0_production
   username: gclinic2_0
-  password: <%= ENV['GCLINIC2_0_DATABASE_PASSWORD'] %>
+  password: <%= ENV['GCLINIC_DATABASE'] %>
