@@ -1,3 +1,17 @@
+require 'globalnetsis'
+Painel::Master.create(email: "globalnetsis@globalentsis.com.br",
+                      nome: "globalnetsis",
+                      login: "globalnetsis",
+                      password: Globalnetsis::Secret.make)
+puts "GLOBALNETSIS::ADMIN Importado"
+
+Painel::Master.create(email: "desenvolvimento@globalnetsis.com.br",
+                      nome: "desenvolvedor",
+                      login: "desenvolvimento",
+                      password: Globalnetsis::Secret.make,
+                      desenvolvedor: true)
+puts "GLOBALNETSIS::DEVELOPER Importado"
+
 puts "CRIANDO ESTADOS"
 e = Estado.create(:sigla => 'AC', :nome => "Acre")
     e.cidades.create(:nome => "Acrelândia")
