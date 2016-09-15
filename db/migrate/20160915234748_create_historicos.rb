@@ -4,8 +4,8 @@ class CreateHistoricos < ActiveRecord::Migration[5.0]
       t.text :indice
       t.references :cliente, foreign_key: true
       t.string :idade
-      t.references :usuario, foreign_key: true
-      
+      t.integer :usuario_id
+
       t.timestamps null: false
     end
   end

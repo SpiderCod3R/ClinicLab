@@ -16,7 +16,7 @@
       %tbody
         - @clientes.each do |cliente|
           %tr
-            %td= status(cliente.status)
+            %td= cliente.status
             %td= cliente.id
             %td= cliente.nome
             %td= cliente.cpf
