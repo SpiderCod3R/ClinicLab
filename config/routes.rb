@@ -56,11 +56,15 @@ Rails.application.routes.draw do
   resources :imagem_cabecs
   resources :fornecedores
   resources :cabecs
-  resources :clientes
   resources :conselho_regionais
 
   get 'relatorios/new' => "configuracao_relatorios#new"
   get 'conselhos_regionais/new' => "conselho_regionais#new"
+
+  resources :clientes
+  post 'clientes/retorna_historico', to: "clientes#retorna_historico"
+  post 'clientes/salva_historico', to: "clientes#salva_historico"
+  post 'clientes/atualiza_historico', to: "clientes#atualiza_historico"
 
   get 'pages/help'
   get 'pages/contact_us'

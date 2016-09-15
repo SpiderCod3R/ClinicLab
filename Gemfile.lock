@@ -208,6 +208,8 @@ GEM
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
+    localized_country_select (0.9.11)
+      actionpack (>= 3.0)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.4)
@@ -415,6 +417,7 @@ DEPENDENCIES
   jquery-ui-rails
   kaminari
   listen (~> 3.0.5)
+  localized_country_select
   masonry-rails
   momentjs-rails!
   mysql2 (>= 0.3.18, < 0.5)

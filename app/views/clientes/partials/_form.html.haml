@@ -1,0 +1,23 @@
+%ul{class: "nav nav-tabs"}
+  %li{class:"active"}
+    %a{'data-toggle':"tab", href:"#dados"}
+      Dados Pessoais
+  %li
+    %a{'data-toggle':"tab", href:"#convenio"}
+      Convênio
+  %li
+    %a{'data-toggle':"tab", href:"#contato"}
+      Contato
+
+= simple_form_for(@cliente) do |f|
+  %div{class: "container", style: "margin-left: 5%; padding-top: 10px; padding-bottom: 25px;"}
+    %div{class:"tab-content"}
+
+      / aba dados_pessoais
+      =render 'clientes/partials/dados_pessoais', { f: f }
+
+      / aba convenio
+      =render 'clientes/partials/convenio', { f: f }
+
+      / aba contato
+      =render 'clientes/partials/contato', { f: f }

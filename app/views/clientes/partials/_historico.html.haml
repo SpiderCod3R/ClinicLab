@@ -1,0 +1,12 @@
+%div{id:"historico", class:"tab-pane fade"}
+  %div{id:"old_historico"}
+    =render 'clientes/partials/index_historico', { historicos: @historicos }
+  %br
+  %div{id:"new_historico", style:"display: none;"}
+    %div{id:"show_historico", class:"well historico", style:"display: none;"}
+    %br
+    = link_to "Incluir", "#", class: "btn btn-success", style: "margin-bottom: 10px;", id: "salvar_historico"
+    %div{class: "row"}
+      %div{class: "col-xs-11 col-sm-11 col-md-11 col-lg-11"}
+        %textarea{:class => "tinymce", :language => "pt_BR", :id => "historico_textarea", style: "height: 500px"}
+        =tinymce :content_css => asset_path('/assets/tinymce/content.min.css')

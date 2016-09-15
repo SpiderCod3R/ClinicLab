@@ -8,6 +8,12 @@ pt-BR:
         root: "Index"
       pages:
         pages: "Páginas"
+    labels:
+      equipamentos: Equipamentos
+      codigo: 'Código'
+      nome: 'Nome'
+      data_criacao: 'Data da Criação'
+      status: 'Status'
     helpers:
       actions: "Opções"
       labels:
@@ -16,12 +22,28 @@ pt-BR:
         company_logo: "Logo"
         office: "Cargo"
         value: "Valor"
+        diagnostico: diagnostico
+      tabs:
+        custos: "CUSTOS"
+        estoques: "ESTOQUES"
+        dados: "DADOS"
+        categorias: "CATEGORIAS"
       links:
+        end: "Finalizar"
+        add: "Adicionar"
+        next: "Avançar"
+        home: "Página Inicial"
         show: "Visualizar"
         back: "voltar"
         cancel: "Cancelar"
         confirm: "Tem Certeza?"
         destroy: "Excluir"
+        alter_password: "Alterar Senha"
+        free_modules: "Liberar Módulos"
+        change_permissions: "Alterar Permissões"
+        view_permissions: "Visualizar Permissões"
+        produto_clientes: "Produto Clientes"
+        vendas_produto: "Vendas Produto"
         new: "Cadastrar"
         edit: "Editar"
         print: "Imprimir"
@@ -38,13 +60,14 @@ pt-BR:
         delete: "Deletando %{model}"
     css_class:
       btn_default: "btn btn-default"
-      btn_default_left: "btn btn-default pull-lefth"
       btn_default_right: "btn btn-default pull-right"
+      btn_default_left: "btn btn-default pull-left"
       btn_primary: "btn btn-primary"
-      btn_primary_left: "btn btn-primary pull-lefth"
+      btn_primary_left: "btn btn-primary pull-left"
       btn_primary_right: "btn btn-primary pull-right"
       btn_success: "btn btn-success"
-      btn_success_left: "btn btn-success pull-lefth"
+      btn_success_left: "btn btn-success pull-left"
       btn_info: "btn btn-info"
       btn_warning: "btn btn-warning"
       btn_danger: "btn btn-danger"
+      btn_danger_right: "btn btn-danger pull-right"

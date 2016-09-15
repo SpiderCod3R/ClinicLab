@@ -51,6 +51,7 @@ gem 'paperclip'
 gem 'tinymce-rails'
 gem 'tinymce-rails-langs'
 gem "bootstrap-table-rails"
+gem 'localized_country_select'
 
 group :development, :test do
   gem 'pry'
