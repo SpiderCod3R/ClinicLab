@@ -47,18 +47,19 @@
               %hr{style: "border: #A2A2A2 0.5px dashed"}
           .row-fluid
             .panel
-              =f.simple_fields_for :agenda_manha_horarios do |x|
+              -indice_manha = 0
+              -while indice_manha <= 6
                 .row{style: "margin: 0 auto"}
-                  =content_tag(:div, id: "manha_dia_#{x.index}") do
+                  =content_tag(:div, id: "manha_dia_#{indice_manha}") do
                     .col-md-3
-                      =content_tag(:label, "" ,id: "dia_#{x.index}")
-                      =x.input :dia, as: :hidden
+                      =content_tag(:label, "" ,id: "dia_#{indice_manha}")
                     .col-md-3
-                      =x.label "Inicio"
-                      =x.time_field :inicio_do_atendimento, class: "form-control"
+                      =f.label "Inicio"
+                      =f.time_field :atendimento_manha_inicio, class: "form-control", id: "agenda_atendimento_manha_inicio_#{indice_manha}_attribute"
                     .col-md-3
-                      =x.label "Termino"
-                      =x.time_field :final_do_atendimento, class: "form-control"
+                      =f.label "Termino"
+                      =f.time_field :atendimento_manha_final, class: "form-control", id: "agenda_atendimento_manha_final_#{indice_manha}_attribute"
+                -indice_manha += 1
                 %br/
     .col-md-6
       .panel.panel-default
@@ -72,16 +73,17 @@
               %hr{style: "border: #A2A2A2 0.5px dashed"}
           .row-fluid
             .panel
-              =f.simple_fields_for :agenda_tarde_horarios do |x|
+              -indice_tarde = 0
+              -while indice_tarde <= 6
                 .row{style: "margin: 0 auto"}
-                  =content_tag(:div, id: "tarde_dia_#{x.index}") do
+                  =content_tag(:div, id: "tarde_dia_#{indice_tarde}") do
                     .col-md-3
-                      =content_tag(:label, "" ,id: "tarde_#{x.index}")
-                      =x.input :dia, as: :hidden
+                      =content_tag(:label, "" ,id: "tarde_#{indice_tarde}")
                     .col-md-3
-                      =x.label "Inicio"
-                      =x.time_field :inicio_do_atendimento, class: "form-control"
+                      =f.label "Inicio"
+                      =f.time_field :atendimento_tarde_inicio, class: "form-control", id: "agenda_atendimento_tarde_inicio_#{indice_tarde}_attribute"
                     .col-md-3
-                      =x.label "Termino"
-                      =x.time_field :final_do_atendimento, class: "form-control"
+                      =f.label "Termino"
+                      =f.time_field :atendimento_tarde_final, class: "form-control", id: "agenda_atendimento_tarde_final_#{indice_tarde}_attribute"
+                -indice_tarde += 1
                 %br/

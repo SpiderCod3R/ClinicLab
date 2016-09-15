@@ -4,7 +4,7 @@
     %h1  Agendas
     %hr{style: "border: #323232 solid 0.5px;"}
     .panel.panel-default
-      .panel-heading Horario da Manhã
+      .panel-heading Horários
       .panel-body
         %table{class: "table table-striped table-bordered", cellspacing: "0", width: "100%"}
           %thead
@@ -14,7 +14,7 @@
             %th Inicio
             %th Fim
           %tbody
-            - @agendas.each do |agenda|
+            - @agendas.order("data_inicial ASC").each do |agenda|
               -agenda.agenda_manha_horarios.each do |agenda_manha|
                 %tr
                   %td{width: "30%", style: "text-align: left; font-weight: bold"}=agenda.profissional_nome
