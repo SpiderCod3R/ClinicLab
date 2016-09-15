@@ -15,8 +15,6 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'redis', '~> 3.0'
 
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
 group :development do
   gem 'web-console'
   gem 'listen', '~> 3.0.5'
@@ -71,3 +69,13 @@ gem 'friendly_id', '~> 5.1.0'
 gem 'time_difference', '~> 0.4.2'
 
 gem 'font-awesome-rails', '~> 4.6', '>= 4.6.3.1'
+
+# Use Capistrano for deployment
+gem 'capistrano', '~> 3.6'
+gem 'capistrano-rails', '~> 1.1', '>= 1.1.7', group: :development
+gem "capistrano-bundler"
+gem 'capistrano-rbenv', '~> 2.0', '>= 2.0.4'
+gem 'capistrano-puma', '~> 0.2.3'
+gem 'capistrano3-puma'
+gem 'capistrano3-nginx'
+gem 'capistrano-upload-config'
