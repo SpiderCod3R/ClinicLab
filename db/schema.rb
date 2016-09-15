@@ -10,43 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160812171434) do
-
-  create_table "agenda_manha_horarios", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "agenda_id"
-    t.string   "dia"
-    t.string   "turno"
-    t.string   "inicio_do_atendimento"
-    t.string   "final_do_atendimento"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
-    t.index ["agenda_id"], name: "index_agenda_manha_horarios_on_agenda_id", using: :btree
-  end
-
-  create_table "agenda_tarde_horarios", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "agenda_id"
-    t.string   "dia"
-    t.string   "turno"
-    t.string   "inicio_do_atendimento"
-    t.string   "final_do_atendimento"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
-    t.index ["agenda_id"], name: "index_agenda_tarde_horarios_on_agenda_id", using: :btree
-  end
+ActiveRecord::Schema.define(version: 20160909202748) do
 
   create_table "agendas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.date     "data"
+    t.boolean  "atendimento_sabado"
+    t.boolean  "atendimento_domingo"
+    t.boolean  "atendimento_parcial"
+    t.string   "atendimento_manha_duracao"
+    t.string   "atendimento_tarde_duracao"
     t.integer  "profissional_id"
     t.integer  "empresa_id"
     t.integer  "usuario_id"
-    t.date     "data_inicial"
-    t.date     "data_final"
-    t.boolean  "atendimento_sabado"
-    t.boolean  "atendimento_domingo"
-    t.boolean  "horario_parcial"
-    t.string   "atendimento_manha_duracao"
-    t.string   "atendimento_tarde_duracao"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+    t.string   "atendimento_inicio"
+    t.string   "atendimento_final"
     t.index ["empresa_id"], name: "index_agendas_on_empresa_id", using: :btree
     t.index ["profissional_id"], name: "index_agendas_on_profissional_id", using: :btree
     t.index ["usuario_id"], name: "index_agendas_on_usuario_id", using: :btree
