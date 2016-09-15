@@ -27,7 +27,7 @@ class Cliente < ApplicationRecord
   validates_attachment_content_type :foto, content_type: /\Aimage\/.*\Z/
 
   def set_status_cliente
-    self.status = 'true'
+    self.status = 'Ativo'
   end
 
   def upcased_attributes

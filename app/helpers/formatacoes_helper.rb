@@ -15,6 +15,14 @@ module FormatacoesHelper
     end
   end
 
+  def status(status)
+    if status == true
+      'Ativo'
+    else
+      'Inativo'
+    end
+  end
+
   def ativo_ou_inativo?(resource)
     return resource ? "ATIVO" : "INATIVO"
   end
