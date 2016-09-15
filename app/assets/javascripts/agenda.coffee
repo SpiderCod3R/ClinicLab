@@ -7,6 +7,7 @@ $(document).ready ->
   empresa_id = $("#agenda_empresa_id").val()
   localhost = window.location.origin
 
+  # => Arrays para coletar os horarios
   horarios_manha = []
   horarios_tarde = []
 
@@ -86,10 +87,22 @@ $(document).ready ->
           'final':  final
       i++
 
+  coletor_do_turno_da_tarde = () ->
+    while i <= dias_semana
+      inicio = $("#agenda_atendimento_tarde_inicio_#{i}_attribute").val()
+      final  = $("#agenda_atendimento_tarde_final_#{i}_attribute").val()
+
+      if inicio != "" && final != ""
+        horarios_tarde.push
+          'inicio': inicio
+          'final':  final
+      i++
+
   $(".simple_form.new_agenda").submit (event) ->
     event.preventDefault()
     # coletando dados dos horarios
     coletor_do_turno_da_manha()
+    coletor_do_turno_da_tarde()
 
     # preparando e enviando informaçõe para o controller
     $.ajax
@@ -108,6 +121,7 @@ $(document).ready ->
           atendimento_domingo: atendimento_domingo
           atendimento_parcial: horario_parcial
           horarios_manha:      horarios_manha
+          horarios_tarde:      horarios_tarde
       success: (data) ->
         console.log data
         if data.agenda.successfully_created == true
