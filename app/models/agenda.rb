@@ -44,179 +44,78 @@ class Agenda < ApplicationRecord
                            atendimento_parcial: resource['atendimento_parcial'],
                            horarios_manha: resource['horarios_manha']
                           })
-
-      # => Gerar agenda no turno da tarde
-      build_agenda_tarde({ data_inicial: resource['data_inicial'],
-                           data_final:   resource['data_final'],
-                           profissional_id: resource['profissional_id'],
-                           atendimento_sabado: resource['atendimento_sabado'],
-                           atendimento_domingo: resource['atendimento_domingo'],
-                           atendimento_manha_duracao: resource['atendimento_manha_duracao'].to_i,
-                           atendimento_parcial: resource['atendimento_parcial'],
-                           horarios_tarde: resource['horarios_tarde']
-                          })
     end
 
     def build_agenda_manha(resource)
-      # => Contadores da Matrix
+      x = 0
       y = 0
       z = 0
-
-      # => Primeiramente deve-se descobir o numero de dias entre as datas
-      _numero_de_dias = (Date.parse(resource[:data_final]) - Date.parse(resource[:data_inicial])).to_i
-
-      # => Deve-se converter para se trabalhar com o formato do Ruby
-      _data_auxiliar = Date.parse(resource[:data_inicial])
+      _data_inicial = Date.parse(resource[:data_inicial])
       _data_final = Date.parse(resource[:data_final])
-      # => O 1º while varre o numero de dias informado entre as datas de inicio e fim
-      while y <= _numero_de_dias
-        # => O foreach horarios_manha varre a quantidade de horarios por dia da semana
-        horarios_manha = JSON.parse(resource[:horarios_manha].to_json)
-        horarios_manha.each do |_key, horario|
-          # => Deve-se converter para se trabalhar com o formato do Ruby
+      _data_auxiliar = _data_inicial
+      _numero_de_dias = (_data_final - _data_inicial).to_i
+      horarios_manha = JSON.parse(resource[:horarios_manha].to_json)
+      horarios_manha.each do |_key, horario|
+        while x <= _numero_de_dias
           _inicio = Time.parse(horario['inicio'])
           _final  = Time.parse(horario['final'])
-
-          # => Deve-se descobrir o intervalo entre os horarios informados
           _intervalo = TimeDifference.between(_inicio, _final).in_hours
           _horario_auxiliar_ = _inicio
 
-          # => Alternador de dias
-          if y >= 1
-            _data_auxiliar = _data_auxiliar.advance(days: 1)
-          end
-
-          # => O 2º while varre o espaco de tempo entre o inicio e fim do atendimento
-          while z <= _intervalo
+          while y <= _intervalo
             _final_do_atendimento = _horario_auxiliar_.advance(minutes: resource[:atendimento_manha_duracao])
 
-            if resource[:atendimento_sabado].nil?
+            if _data_auxiliar.strftime("%A").eql?("Saturday") && resource[:atendimento_sabado] == "0"
               break
-            else
-              next
+            elsif _data_auxiliar.strftime("%A").eql?("Sunday") && resource[:atendimento_domingo] == "0"
+              break
             end
 
-            if resource[:atendimento_domingo].nil?
-              break
-            else
-              next
-            end
+            gera_agenda(resource[:empresa_id], resource[:profissional_id],
+                        _data_auxiliar, resource[:atendimento_sabado],
+                        resource[:atendimento_domingo], resource[:atendimento_manha_duracao],
+                        resource[:atendimento_parcial], _horario_auxiliar_,
+                        _final_do_atendimento)
 
-            create!(empresa_id: resource[:empresa_id],
-                  profissional_id: resource[:profissional_id],
-                  data: _data_auxiliar,
-                  atendimento_sabado: resource[:atendimento_sabado],
-                  atendimento_domingo: resource[:atendimento_domingo],
-                  atendimento_manha_duracao: resource[:atendimento_manha_duracao],
-                  atendimento_parcial: resource[:horario_parcial],
-                  atendimento_inicio: _horario_auxiliar_,
-                  atendimento_final: _final_do_atendimento,
-                  atendimento_parcial: resource[:atendimento_parcial])
-
-            _horario_auxiliar_ = _final_do_atendimento
-
-            # => Condicional para parar ou prosseguir com a contagem do horario inicial ou final
-            # até o final do atendimento informado no params
             if _final == _final_do_atendimento
               break
             else
+              _horario_auxiliar_ = _final_do_atendimento
               next
             end
-
-            z += 1
+            y += 1
           end
-
-          # => Condicional para verificar a se a data correspondente
-          #    confere a data final informada no params
-          if _data_auxiliar == _data_final
-            break
-          else
-            next
-          end
+          _data_auxiliar = _data_auxiliar.advance(days: 1)
+          x += 1
         end
-        y += 1
       end
     end
 
-    def build_agenda_tarde(resource)
-      # => Contadores da Matrix
-      y = 0
-      z = 0
-
-      # => Primeiramente deve-se descobir o numero de dias entre as datas
-      _numero_de_dias = (Date.parse(resource[:data_final]) - Date.parse(resource[:data_inicial])).to_i
-
-      # => Deve-se converter para se trabalhar com o formato do Ruby
-      _data_auxiliar = Date.parse(resource[:data_inicial])
-      _data_final = Date.parse(resource[:data_final])
-      # => O 1º while varre o numero de dias informado entre as datas de inicio e fim
-      while y <= _numero_de_dias
-        # => O foreach horarios_manha varre a quantidade de horarios por dia da semana
-        horarios_tarde = JSON.parse(resource[:horarios_tarde].to_json)
-        horarios_tarde.each do |_key, horario|
-          # => Deve-se converter para se trabalhar com o formato do Ruby
-          _inicio = Time.parse(horario['inicio'])
-          _final  = Time.parse(horario['final'])
-
-          # => Deve-se descobrir o intervalo entre os horarios informados
-          _intervalo = TimeDifference.between(_inicio, _final).in_hours
-          _horario_auxiliar_ = _inicio
-
-          # => Alternador de dias
-          if y >= 1
-            _data_auxiliar = _data_auxiliar.advance(days: 1)
-          end
-
-          # => O 2º while varre o espaco de tempo entre o inicio e fim do atendimento
-          while z <= _intervalo
-            _final_do_atendimento = _horario_auxiliar_.advance(minutes: resource[:atendimento_manha_duracao])
-
-            if resource[:atendimento_sabado].nil?
-              break
-            else
-              next
-            end
-
-            if resource[:atendimento_domingo].nil?
-              break
-            else
-              next
-            end
-
-            create!(empresa_id: resource[:empresa_id],
-                  profissional_id: resource[:profissional_id],
-                  data: _data_auxiliar,
-                  atendimento_sabado:  resource[:atendimento_sabado],
-                  atendimento_domingo: resource[:atendimento_domingo],
-                  atendimento_tarde_duracao: resource[:atendimento_manha_duracao],
-                  atendimento_parcial: resource[:horario_parcial],
-                  atendimento_inicio: _horario_auxiliar_,
-                  atendimento_final: _final_do_atendimento,
-                  atendimento_parcial: resource[:atendimento_parcial])
-
-            _horario_auxiliar_ = _final_do_atendimento
-
-            # => Condicional para parar ou prosseguir com a contagem do horario inicial ou final
-            # até o final do atendimento informado no params
-            if _final == _final_do_atendimento
-              break
-            else
-              next
-            end
-
-            z += 1
-          end
-
-          # => Condicional para verificar a se a data correspondente
-          #    confere a data final informada no params
-          if _data_auxiliar == _data_final
-            break
-          else
-            next
-          end
-        end
-        y += 1
-      end
+    def gera_agenda(empresa_id, profissional_id, data, atendimento_sabado, atendimento_domingo, atendimento_manha_duracao,
+                    atendimento_parcial, atendimento_inicio, atendimento_final)
+      create!(empresa_id:                empresa_id, 
+              profissional_id:           profissional_id,
+              data:                      data, 
+              atendimento_sabado:        atendimento_sabado,
+              atendimento_domingo:       atendimento_domingo,
+              atendimento_manha_duracao: atendimento_manha_duracao,
+              atendimento_parcial:       atendimento_parcial,
+              atendimento_inicio:        atendimento_inicio,
+              atendimento_final:         atendimento_final)
     end
   end
 end
+
+
+
+# create!(empresa_id: resource[:empresa_id],
+#         profissional_id: resource[:profissional_id],
+#         data: _data_auxiliar,
+#         atendimento_sabado: resource[:atendimento_sabado],
+#         atendimento_domingo: resource[:atendimento_domingo],
+#         atendimento_manha_duracao: resource[:atendimento_manha_duracao],
+#         atendimento_parcial: resource[:horario_parcial],
+#         atendimento_inicio: _horario_auxiliar_,
+#         atendimento_final: _final_do_atendimento,
+#         atendimento_parcial: resource[:atendimento_parcial]
+#       )
