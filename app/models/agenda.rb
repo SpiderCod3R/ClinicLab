@@ -9,17 +9,6 @@ class Agenda < ApplicationRecord
   belongs_to :usuario
   belongs_to :empresa
 
-  with_options dependent: :destroy do
-    has_many   :agenda_manha_horarios, class_name: "AgendaManhaHorario", foreign_key: "agenda_id"
-    has_many   :agenda_tarde_horarios, class_name: "AgendaTardeHorario", foreign_key: "agenda_id"
-  end
-
-  # validates :data_inicial, :data_final, presence: true
-
-  accepts_nested_attributes_for :agenda_manha_horarios, allow_destroy: true
-
-  accepts_nested_attributes_for :agenda_tarde_horarios, allow_destroy: true
-
   delegate :nome,
            to: :profissional,
            prefix: true,
