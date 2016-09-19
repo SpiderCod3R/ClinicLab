@@ -118,6 +118,47 @@ class Agenda < ApplicationRecord
       end
     end
 
+    def build_agenda_tarde(resource)
+      x = 0
+      y = 0
+      _data_inicial = Date.parse(resource[:data_inicial])
+      _data_final = Date.parse(resource[:data_final])
+      _data_auxiliar = _data_inicial
+      _numero_de_dias = (_data_final - _data_inicial).to_i
+      horarios_tarde = JSON.parse(resource[:horarios_tarde].to_json)
+
+      while x <= _numero_de_dias
+        horarios_tarde.each do |_key, horario|
+          if (horario['inicio'] == "" && horario['final'] == "")
+            _data_auxiliar = _data_auxiliar.advance(days: 1)
+          else
+            _inicio = Time.parse(horario['inicio'])
+            _final  = Time.parse(horario['final'])
+            _intervalo = TimeDifference.between(_inicio, _final).in_hours
+            _horario_auxiliar_ = _inicio
+
+            while y <= _intervalo
+              _final_do_atendimento = _horario_auxiliar_.advance(minutes: resource[:atendimento_tarde_duracao])
+
+              if _data_auxiliar.strftime("%A").eql?("Saturday") && resource[:atendimento_sabado] == "0"
+                break
+              elsif _data_auxiliar.strftime("%A").eql?("Sunday") && resource[:atendimento_domingo] == "0"
+                break
+              end
+
+              gera_agenda(resource[:empresa_id], resource[:profissional_id],
+                          _data_auxiliar, resource[:atendimento_sabado],
+                          resource[:atendimento_domingo], resource[:atendimento_tarde_duracao],
+                          resource[:atendimento_parcial], _horario_auxiliar_,
+                          _final_do_atendimento)
+
+              if _final == _final_do_atendimento
+                break
+              else
+                _horario_auxiliar_ = _final_do_atendimento
+                next
+              end
+              y += 1
             gera_agenda(resource[:empresa_id], resource[:profissional_id],
                         _data_auxiliar, resource[:atendimento_sabado],
                         resource[:atendimento_domingo], resource[:atendimento_manha_duracao],
@@ -130,9 +171,9 @@ class Agenda < ApplicationRecord
               _horario_auxiliar_ = _final_do_atendimento
               next
             end
-            y += 1
+            _data_auxiliar = _data_auxiliar.advance(days: 1)
           end
-          _data_auxiliar = _data_auxiliar.advance(days: 1)
+
           x += 1
         end
       end
