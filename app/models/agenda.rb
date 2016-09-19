@@ -20,18 +20,18 @@ class Agenda < ApplicationRecord
            allow_nil: true
 
   class << self
-    def create_by_javascript_params(resource)
+    # => Gerar agenda no turno da manha -> Diurno
+    def create_horarios_manha_by_javascript_params(resource)
       resource = JSON.parse(resource.to_json)
 
-      # => Gerar agenda no turno da manha
-      build_agenda_manha({ data_inicial: resource['data_inicial'],
-                           data_final:   resource['data_final'],
-                           profissional_id: resource['profissional_id'],
-                           atendimento_sabado: resource['atendimento_sabado'],
-                           atendimento_domingo: resource['atendimento_domingo'],
-                           atendimento_manha_duracao: resource['atendimento_manha_duracao'].to_i,
-                           atendimento_parcial: resource['atendimento_parcial'],
-                           horarios_manha: resource['horarios_manha']
+      build_agenda_manha({ data_inicial: resource['agenda']['data_inicial'],
+                           data_final:   resource['agenda']['data_final'],
+                           profissional_id: resource['agenda']['profissional_id'],
+                           atendimento_sabado: resource['agenda']['atendimento_sabado'],
+                           atendimento_domingo: resource['agenda']['atendimento_domingo'],
+                           atendimento_manha_duracao: resource['agenda']['atendimento_manha_duracao'].to_i,
+                           atendimento_parcial: resource['agenda']['atendimento_parcial'],
+                           horarios_manha: resource['horarios']['horarios_manha']
                           })
     end
 
