@@ -48,6 +48,7 @@ class Agenda < ApplicationRecord
                            horarios_tarde: resource['horarios']['horarios_tarde']
                           })
     end
+
     def build_agenda_manha(resource)
       x = 0
       y = 0
@@ -71,6 +72,7 @@ class Agenda < ApplicationRecord
         P.s ESSE MESMO COMENTARIO EM BLOCO SERVE PARA O METODO 
         build_agenda_tarde LOGO ABAIXO DESSE
       '''
+
       _data_inicial = Date.parse(resource[:data_inicial])
       _data_final = Date.parse(resource[:data_final])
       _data_auxiliar = _data_inicial
@@ -159,17 +161,6 @@ class Agenda < ApplicationRecord
                 next
               end
               y += 1
-            gera_agenda(resource[:empresa_id], resource[:profissional_id],
-                        _data_auxiliar, resource[:atendimento_sabado],
-                        resource[:atendimento_domingo], resource[:atendimento_manha_duracao],
-                        resource[:atendimento_parcial], _horario_auxiliar_,
-                        _final_do_atendimento)
-
-            if _final == _final_do_atendimento
-              break
-            else
-              _horario_auxiliar_ = _final_do_atendimento
-              next
             end
             _data_auxiliar = _data_auxiliar.advance(days: 1)
           end
@@ -179,6 +170,7 @@ class Agenda < ApplicationRecord
       end
     end
 
+    # => Metodo criado para a geração da agenda de forma simplificada
     def gera_agenda(empresa_id, profissional_id, data, atendimento_sabado, atendimento_domingo, atendimento_manha_duracao,
                     atendimento_parcial, atendimento_inicio, atendimento_final)
       create!(empresa_id:                empresa_id, 
@@ -193,17 +185,3 @@ class Agenda < ApplicationRecord
     end
   end
 end
-
-
-
-# create!(empresa_id: resource[:empresa_id],
-#         profissional_id: resource[:profissional_id],
-#         data: _data_auxiliar,
-#         atendimento_sabado: resource[:atendimento_sabado],
-#         atendimento_domingo: resource[:atendimento_domingo],
-#         atendimento_manha_duracao: resource[:atendimento_manha_duracao],
-#         atendimento_parcial: resource[:horario_parcial],
-#         atendimento_inicio: _horario_auxiliar_,
-#         atendimento_final: _final_do_atendimento,
-#         atendimento_parcial: resource[:atendimento_parcial]
-#       )
