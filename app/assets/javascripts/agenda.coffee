@@ -1,5 +1,4 @@
 $(document).ready ->
-  i = 0
   dias_semana = 6
   atendimento_sabado   =$("#atendimento_sabado").find("input:checked").val()
   atendimento_domingo  =$("#atendimento_sabado").find("input:checked").val()
@@ -7,9 +6,9 @@ $(document).ready ->
   empresa_id = $("#agenda_empresa_id").val()
   localhost = window.location.origin
 
-  # => Arrays para coletar os horarios
-  horarios_manha = []
-  horarios_tarde = []
+  # => arrays necessarios para coletar informação dos horarios
+  horarios_tarde =[]
+  horarios_manha =[]
 
   #dia_5 -> Sabado
   $('#manha_dia_5').hide()
@@ -76,35 +75,41 @@ $(document).ready ->
       $('#atendimento_manha').fadeIn(500)
       $('#atendimento_tarde').fadeIn(500)
 
+  # => Metodo para agrupar os horarios  do turno da Manha informados no formulario da Agenda
   coletor_do_turno_da_manha = () ->
+    horarios = []
+    i = 0
     while i <= dias_semana
       inicio = $("#agenda_atendimento_manha_inicio_#{i}_attribute").val()
       final  = $("#agenda_atendimento_manha_final_#{i}_attribute").val()
 
-      if inicio != "" && final != ""
-        horarios_manha.push
-          'inicio': inicio
-          'final':  final
+      horarios.push
+        'inicio': inicio
+        'final':  final
       i++
+    return horarios
 
+  # => Metodo para agrupar os horarios  do turno da tarde informados no formulario da Agenda
   coletor_do_turno_da_tarde = () ->
-    while i <= dias_semana
-      inicio = $("#agenda_atendimento_tarde_inicio_#{i}_attribute").val()
-      final  = $("#agenda_atendimento_tarde_final_#{i}_attribute").val()
+    horarios = []
+    x =0
+    while x <= dias_semana
+      inicio = $("#agenda_atendimento_tarde_inicio_#{x}_attribute").val()
+      final  = $("#agenda_atendimento_tarde_final_#{x}_attribute").val()
 
-      if inicio != "" && final != ""
-        horarios_tarde.push
-          'inicio': inicio
-          'final':  final
-      i++
+      horarios.push
+        'inicio': inicio
+        'final':  final
+      x++
+    return horarios
 
+  # => Prepando Ajax Request para enviar dados ao controller/model
   $(".simple_form.new_agenda").submit (event) ->
     event.preventDefault()
     # coletando dados dos horarios
-    coletor_do_turno_da_manha()
-    coletor_do_turno_da_tarde()
+    horarios_manha = coletor_do_turno_da_manha()
+    horarios_tarde = coletor_do_turno_da_tarde()
 
-    # preparando e enviando informaçõe para o controller
     $.ajax
       url: localhost + "/painel/empresas/#{empresa_id}/agendas"
       type: 'POST'
@@ -112,16 +117,18 @@ $(document).ready ->
       timeout: 10000
       data:
         agenda:
-          empresa_id:          empresa_id
-          profissional_id:     $("#agenda_profissional_id :selected").val()
-          data_inicial:        $("#agenda_data_inicial").val()
-          data_final:          $("#agenda_data_final").val()
+          empresa_id:                    empresa_id
+          profissional_id:               $("#agenda_profissional_id :selected").val()
+          data_inicial:                  $("#agenda_data_inicial").val()
+          data_final:                    $("#agenda_data_final").val()
           atendimento_manha_duracao:     $("#agenda_atendimento_manha_duracao").val()
-          atendimento_sabado:  atendimento_sabado
-          atendimento_domingo: atendimento_domingo
-          atendimento_parcial: horario_parcial
-          horarios_manha:      horarios_manha
-          horarios_tarde:      horarios_tarde
+          atendimento_tarde_duracao:     $("#agenda_atendimento_tarde_duracao").val()
+          atendimento_sabado:            atendimento_sabado
+          atendimento_domingo:           atendimento_domingo
+          atendimento_parcial:           horario_parcial
+        horarios:
+          horarios_manha: horarios_manha
+          horarios_tarde: horarios_tarde
       success: (data) ->
         console.log data
         if data.agenda.successfully_created == true
