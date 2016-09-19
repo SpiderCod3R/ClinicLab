@@ -76,21 +76,47 @@ class Agenda < ApplicationRecord
       _data_auxiliar = _data_inicial
       _numero_de_dias = (_data_final - _data_inicial).to_i
       horarios_manha = JSON.parse(resource[:horarios_manha].to_json)
-      horarios_manha.each do |_key, horario|
-        while x <= _numero_de_dias
-          _inicio = Time.parse(horario['inicio'])
-          _final  = Time.parse(horario['final'])
-          _intervalo = TimeDifference.between(_inicio, _final).in_hours
-          _horario_auxiliar_ = _inicio
 
-          while y <= _intervalo
-            _final_do_atendimento = _horario_auxiliar_.advance(minutes: resource[:atendimento_manha_duracao])
+      while x <= _numero_de_dias
+        horarios_manha.each do |_key, horario|
+          if (horario['inicio'] == "" && horario['final'] == "")
+            _data_auxiliar = _data_auxiliar.advance(days: 1)
+          else
+            _inicio = Time.parse(horario['inicio'])
+            _final  = Time.parse(horario['final'])
+            _intervalo = TimeDifference.between(_inicio, _final).in_hours
+            _horario_auxiliar_ = _inicio
 
-            if _data_auxiliar.strftime("%A").eql?("Saturday") && resource[:atendimento_sabado] == "0"
-              break
-            elsif _data_auxiliar.strftime("%A").eql?("Sunday") && resource[:atendimento_domingo] == "0"
-              break
+            while y <= _intervalo
+              _final_do_atendimento = _horario_auxiliar_.advance(minutes: resource[:atendimento_manha_duracao])
+
+              if _data_auxiliar.strftime("%A").eql?("Saturday") && resource[:atendimento_sabado] == "0"
+                break
+              elsif _data_auxiliar.strftime("%A").eql?("Sunday") && resource[:atendimento_domingo] == "0"
+                break
+              end
+
+              gera_agenda(resource[:empresa_id], resource[:profissional_id],
+                          _data_auxiliar, resource[:atendimento_sabado],
+                          resource[:atendimento_domingo], resource[:atendimento_manha_duracao],
+                          resource[:atendimento_parcial], _horario_auxiliar_,
+                          _final_do_atendimento)
+
+              if _final == _final_do_atendimento
+                break
+              else
+                _horario_auxiliar_ = _final_do_atendimento
+                next
+              end
+              y += 1
             end
+            _data_auxiliar = _data_auxiliar.advance(days: 1)
+          end
+
+          x += 1
+        end
+      end
+    end
 
             gera_agenda(resource[:empresa_id], resource[:profissional_id],
                         _data_auxiliar, resource[:atendimento_sabado],
