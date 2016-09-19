@@ -51,7 +51,26 @@ class Agenda < ApplicationRecord
     def build_agenda_manha(resource)
       x = 0
       y = 0
-      z = 0
+
+      '''
+        * ATRAVES DO NUMERO DE DIAS CALCULADO SE FAZ NECESSARIO
+        ITERAR EM CIMA DO QUANTITATIVO DOS HORARIOS EM CONJUNTO
+        COM O INTERVALO ENTRE OS HORARIOS INFORMADOS.
+
+        * COM ESSAS INFORMAÇÕES DEVE-SE VERIFICAR SE OS HORARIOS
+        ESTAO DEVIDAMENTE PREENCHIDOS E E SOMENTE SE EM CASO DE 
+        NÃO HAVER HORARIO PREENCHIDO DEVE-SE POR FATOR LÓGICO
+        AVANÇAR UM DIA DE ACORDO COM OS DIAS INFORMADOS.
+
+        * CASO NO ATO DA CRIAÇÃO DA AGENDA, NÃO SEJA MARCADO 
+        SABADO OU DOMINGO DEVE-SE POR DEDUÇÃO PULAR/AVANÇAR
+        UM / OS DIAS DE SABADO / DOMINGO
+
+        * UMA CONDICIONAL DE PARADA PARA CHECAR O FINAL DO ATENDIMENTO
+
+        P.s ESSE MESMO COMENTARIO EM BLOCO SERVE PARA O METODO 
+        build_agenda_tarde LOGO ABAIXO DESSE
+      '''
       _data_inicial = Date.parse(resource[:data_inicial])
       _data_final = Date.parse(resource[:data_final])
       _data_auxiliar = _data_inicial
