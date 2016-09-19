@@ -1,3 +1,9 @@
+'''
+  ATENÇÃO!!!
+  ZONA DE PERIGO EXTREMO
+  CUIDADO AO MANUSEAR ESTA FUNCIONALIDADE
+'''
+
 class Painel::AgendasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :find_empresa
@@ -13,7 +19,16 @@ class Painel::AgendasController < ApplicationController
   end
 
   def create
-    @agenda = Agenda.create_by_javascript_params(params[:agenda])
+    # => Só vai entrar caso os horarios_manha estajam presente nos attributos
+    unless params[:horarios][:horarios_manha].nil?
+      @agenda_manha = Agenda.create_horarios_manha_by_javascript_params(params)
+    end
+
+    # => Só vai entrar caso os horarios_tarde estajam presente nos attributos
+    unless params[:horarios][:horarios_tarde].nil?
+      @agenda_tarde = Agenda.create_horarios_tarde_by_javascript_params(params)
+    end
+
     respond_to &:json
   end
 
