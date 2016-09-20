@@ -1,0 +1,7 @@
+=content_tag(:div, id: "empresa_#{empresa.id}") do
+  %h1=empresa.nome
+  %small.pull-left
+    - if empresa.is_on?
+      %i.fa.fa-circle{style:"color: #13C03A"}
+    -else
+      %i.fa.fa-circle{style:"color: #C01327"}

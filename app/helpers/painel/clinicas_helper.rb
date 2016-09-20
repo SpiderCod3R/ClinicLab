@@ -1,0 +1,2 @@
+module Painel::ClinicasHelper
+end

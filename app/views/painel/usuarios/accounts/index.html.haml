@@ -1,0 +1,42 @@
+=build_toolbar
+.container-fluid
+  .row-fluid
+    %h4
+      %span.text-info
+        %i.fa.fa-question-circle-o
+        =link_to "Precisa de Ajuda", "#"
+    %br/
+  .row
+    .col-md-3
+      =render "/pages/fast_access"
+    .col-xs-12.col-md-9
+      .container-fluid
+        .row
+          %h1=t('painel.helpers.models.usuario')
+          %br/
+          =link_to t('painel.helpers.actions.new', name: "Usuário"), new_painel_empresa_conta_path(current_usuario.empresa)
+        .row
+          .table-responsive
+            %table.table.table-striped.table-hover.table-condensed
+              %thead
+                %th
+                  %h5{style: "font-weight: bold"} ID
+                %th
+                  %h5{style: "font-weight: bold"} Nome
+                %th
+                  %h5{style: "font-weight: bold"} login
+                %th 
+                  %h5{style: "font-weight: bold"} Data de Criação
+                %th 
+                  %h5{style: "font-weight: bold"} Administrador
+                %th 
+                  %h5{style: "font-weight: bold"} Permissões
+                %th 
+                  %h5{style: "font-weight: bold"} Alterar Senha
+              %tbody#empresa_usuarios_content
+                - @empresa_usuarios.each do |usuario|
+                  =render 'account', {usuario: usuario}
+            #paginator
+              =paginate @empresa_usuarios
+#usuario_permissoes
+#usuario_password

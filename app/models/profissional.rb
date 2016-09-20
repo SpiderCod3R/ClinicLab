@@ -14,6 +14,7 @@ class Profissional < ApplicationRecord
   belongs_to :cidade
   belongs_to :conselho_regional
   belongs_to :operadora
+  belongs_to :empresa
 
   usar_como_cpf :cpf
   scope :pelo_nome, -> {order("nome ASC")}

@@ -1,2 +1,29 @@
-=content_for :header do
-  =build_toolbar
+%nav.navbar.navbar-full.navbar-fixed-top.navbar-light.bg-faded.navbar-custom
+  .navbar-header.fixed-brand
+    -if usuario_signed_in?
+      =link_to root_path, class: "navbar-brand brand-logo" do
+        =current_usuario.empresa_nome
+      #menu-toggle.navbar-toggle.collapsed{"data-toggle" => "collapse"}
+        %i.fa.fa-bars.fa-2x{"aria-hidden" => "true"}
+    -else
+      .col-xs-12.col-md-12.link_to_admin-panel.center
+        =link_to new_master_session_path, class: "navbar-brand brand-logo center" do
+          GClinicWeb
+  .options
+    %ul.nav.navbar-nav
+      -if usuario_signed_in?
+        %li.nav-item.active
+          =link_to root_path, class: "nav-link" do
+            Home
+            %span.sr-only (current)
+        -if current_usuario.empresa.empresa_permissoes.any? || current_usuario.usuario_permissoes.any?
+          %li.nav-item
+            =render 'application/permissions_menu'
+    -if usuario_signed_in?
+      %ul.nav.navbar-top-links.navbar-right.pull-right
+        .navbar-usuario
+          %li.navbar-brand.usuario_navbar="Olá #{current_usuario.nome}"
+          %li
+            = link_to destroy_usuario_session_path, method: 'delete', title: "SAIR", class: "nav-link" do
+              %i.fa.fa-2x.fa-sign-out
+

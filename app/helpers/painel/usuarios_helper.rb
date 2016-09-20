@@ -1,0 +1,2 @@
+module Painel::UsuariosHelper
+end

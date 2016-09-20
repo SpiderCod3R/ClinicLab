@@ -6,7 +6,6 @@ class ConselhoRegionaisController < ApplicationController
   def index
     if params[:status] || params[:id] || params[:sigla] || params[:search]
       @conselho_regionais = ConselhoRegional.search(params[:status]['status'], params[:id]['id'], params[:sigla]['sigla'], params[:search]).order("created_at DESC")
-      # binding.pry
     else
       @conselho_regionais = ConselhoRegional.all
       respond_with(@conselho_regionais)
@@ -31,9 +30,12 @@ class ConselhoRegionaisController < ApplicationController
 
   def create
     @conselho_regional = ConselhoRegional.new(conselho_regional_params)
+    @conselho_regional.empresa_id = current_usuario.empresa_id
     if @conselho_regional.save
-      redirect_to new_conselho_regional_path, notice: t("flash.actions.#{__method__}.notice", resource_name: @conselho_regional.sigla)
+      flash[:notice] = t("flash.actions.#{__method__}.notice", resource_name: @conselho_regional.sigla)
+      redirect_to new_conselho_regional_path
     else
+      flash[:error] = t("flash.actions.#{__method__}.alert", resource_name: "Conselho Regional")
       render :new
     end
   end
@@ -54,6 +56,6 @@ class ConselhoRegionaisController < ApplicationController
     end
 
     def conselho_regional_params
-      params.require(:conselho_regional).permit(:sigla, :status, :descricao)
+      params.require(:conselho_regional).permit(:sigla, :status, :descricao, :empresa_id)
     end
 end

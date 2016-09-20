@@ -24,7 +24,7 @@
           %li.disabled= link_to "#{image_tag("icons/glyphicons-193-circle-remove-white.png", width: 22, height: 22)} EXCLUIR".html_safe, "#"
         %li.active= link_to "#{image_tag("icons/glyphicons-28-search-white.png", width: 22, height: 22)} PROCURAR".html_safe, back_path
         -if report_path.nil?
-          -unless current_usuario.super?
+          -unless master_signed_in?
             %li.disabled= link_to "#{image_tag("icons/glyphicons-16-print-white.png", width: 22, height: 22)} IMPRIMIR".html_safe, "#"
         -else
           -if can? :read, object.class
@@ -44,8 +44,6 @@
                       %h6 Páginas
                       %li
                         =link_to "Home", root_path
-                      %li
-                        =link_to "Contas", empresas_path
                   .col-sm-5
                     %ul.multi-column-dropdown
                       %h6 Perfil

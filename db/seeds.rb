@@ -1,19 +1,3 @@
-puts "CRIANDO FUNÇÕES DOS USUARIOS"
-Funcao.create(nome: "super", descricao: "gerente do sistema")
-Funcao.create(nome: "administrador", descricao: "administrador da empresa que representa")
-Funcao.create(nome: "funcionario", descricao: "funcionario do administrador da empresa que representa")
-
-puts "CRIANDO ADMINISTRADOR"
-admin = Usuario.new
-admin.nome=  "globalnetsis"
-admin.email=  "globalnetsis@globalnetsis.com.br"
-admin.password= "gsuper4582"
-admin.username= "globalnetsis"
-admin.funcao_id=  Funcao.find_by_nome("SUPER").id
-admin.save
-puts admin.nome
-puts "ADMINISTRADOR INSERIDO"
-
 puts "CRIANDO ESTADOS"
 e = Estado.create(:sigla => 'AC', :nome => "Acre")
     e.cidades.create(:nome => "Acrelândia")
@@ -5737,16 +5721,6 @@ e = Estado.create(:sigla => 'AC', :nome => "Acre")
 puts "CIDADES & ESTADOS IMPORTADOS"
 
 puts "CRIANDO MODULOS ASSOCIADOS A PERMISSAO EMPRESA"
-PermissaoEmpresa.create(nome: "Cargo", modulo: "Cargo")
-PermissaoEmpresa.create(nome: "Centro De Custo", modulo: "CentroDeCusto")
-PermissaoEmpresa.create(nome: "Convênio", modulo: "Convenio")
-PermissaoEmpresa.create(nome: "Profissional", modulo: "Profissional")
-PermissaoEmpresa.create(nome: "Relatorio",modulo: "ConfiguracaoRelatorio")
-PermissaoEmpresa.create(nome: "Operadoras", modulo: "Operadora")
-PermissaoEmpresa.create(nome: "Conselho Regional", modulo: "ConselhoRegional")
-PermissaoEmpresa.create(nome: "Clientes", modulo: "Cliente")
-PermissaoEmpresa.create(nome: "Cabec", modulo: "Cabec")
-PermissaoEmpresa.create(nome: "Fornecedores", modulo: "Fornecedor")
-PermissaoEmpresa.create(nome: "Imagem Cabec", modulo: "ImagemCabec")
+
 
 puts "TODOS OS DADOS CONTIDOS EM seed.rb IMPORTADOS COM SUCESSO"

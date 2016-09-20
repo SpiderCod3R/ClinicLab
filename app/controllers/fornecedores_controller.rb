@@ -23,7 +23,13 @@ class FornecedoresController < ApplicationController
 
   def create
     @fornecedor = Fornecedor.new(fornecedor_params)
-    @fornecedor.save
+    if @fornecedor.save
+      flash[:notice] = t("flash.actions.#{__method__}.success", resource_name: @fornecedor.nome)
+      redirect_to new_fornecedor_path
+    else
+      flash[:error] = t("flash.actions.#{__method__}.alert", resource_name: "Fornecedor")
+      render :new
+    end
     respond_with(@fornecedor)
   end
 

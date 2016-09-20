@@ -1,10 +1,9 @@
 class ProfissionaisController < ApplicationController
-  load_and_authorize_resource :empresa
-  load_and_authorize_resource param_method: :resource_params
   before_action :set_estados, only: [:new, :edit, :create, :update]
   before_action :set_conselhos_regionais, only: [:new, :edit, :create, :update]
   before_action :set_operadoras, only: [:new, :edit, :create, :update]
   before_action :set_cargos, only: [:new, :edit, :create, :update]
+  before_action :find_profissional, only: [:show, :edit, :update, :destroy]
 
   def index
     @profissionais = Profissional.da_empresa_atual(empresa_atual["id"])
@@ -29,6 +28,7 @@ class ProfissionaisController < ApplicationController
       flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @profissional.class)
       redirect_to new_profissional_path
     else
+      flash[:error] = t("flash.actions.#{__method__}.alert", resource_name: @profissional.class)
       render :new
     end
   end
@@ -38,6 +38,7 @@ class ProfissionaisController < ApplicationController
       flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @profissional.class)
       redirect_to profissionais_path
     else
+      flash[:error] = t("flash.actions.#{__method__}.alert", resource_name: @profissional.class)
       render :new
     end
   end
@@ -47,11 +48,15 @@ class ProfissionaisController < ApplicationController
       flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @profissional.class)
       redirect_to profissionais_path
     else
-      flash[:alert] = t("flash.actions.#{__method__}.alert", resource_name: @profissional.class)
+      flash[:error] = t("flash.actions.#{__method__}.alert", resource_name: @profissional.class)
     end
   end
 
   private
+    def find_profissional
+      @profissional = Profissional.find(params[:id])
+    end
+
     def set_cargos
       @cargos = Cargo.da_empresa_atual(current_usuario.empresa).pelo_nome
     end

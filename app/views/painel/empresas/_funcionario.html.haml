@@ -1,0 +1,10 @@
+%tr{id: "empresa_funcionario_#{funcionario.id}"}
+  %td=link_to funcionario.nome, "#"
+  %td=funcionario.login
+  %td
+    %span
+      %em=time_ago_in_words(funcionario.created_at)
+  %td
+    .col-md-3
+      =link_to "", title: "Alterar Senha", :"data-toggle" => "modal", :"data-target"=>"#edit_password_funcionario_#{funcionario.id}" do
+        %i.fa.fa-2x.fa-cogs{ style: "color: #2D2D2D" }

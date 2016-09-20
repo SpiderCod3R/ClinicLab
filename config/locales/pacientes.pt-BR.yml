@@ -1,0 +1,28 @@
+pt-BR:
+  pacientes:
+    links:
+      new: Novo Paciente
+      edit: Editar Paciente
+      destroy: Excluir Paciente
+      show: Visualizar Paciente
+      new_appointment: Novo Atendimento
+      edit_appointment: Editando Atendimento
+    helpers:
+      n_bam: "Nº BAM"
+      appointment_date: "Data do Atendimento"
+      appointment_hour: "Hora do Atendimento"
+      id: ID
+      name: "Nome"
+      city: "Cidade"
+      state: "Estado"
+      rg: "RG"
+      cpf: "CPF"
+      cnpj: "CNPJ"
+      birth_day: "Nascimento"
+      phone_number: "Telefone"
+      cel_phone_number: "Celular"
+      mothers_name: "Mãe"
+      address: "Endereço"
+      neighborhood: "Bairro"
+      covenant: "Convênio"
+      cep: "CEP"
