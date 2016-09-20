@@ -6,10 +6,8 @@ Rails.application do |config|
     g.assets         false
     g.helper         false
     g.test_framework nil
-    g.factory_girl true
   end
-  config.i18n.available_locales= "pt-BR"
-  config.i18n.default_locale= "pt-BR"
+  config.i18n.default_locale = :"pt-BR"
   config.middleware.use ActionDispatch::Flash
 
   # Use Pry instead of IRB
