@@ -14,12 +14,11 @@
             %th Inicio
             %th Fim
           %tbody
-            - @agendas.order("data_inicial ASC").each do |agenda|
-              -agenda.agenda_manha_horarios.each do |agenda_manha|
-                %tr
-                  %td{width: "30%", style: "text-align: left; font-weight: bold"}=agenda.profissional_nome
-                  %td{width: "10%", style: "text-align: center;"}=agenda.data_inicial.strftime("%d/%m/%Y")
-                  %td{width: "10%", style: "text-align: center;"}=agenda_manha.dia
-                  %td{width: "10%", style: "text-align: center;"}=Time.parse(agenda_manha.inicio_do_atendimento).strftime("%H:%M")
-                  %td{width: "10%", style: "text-align: center;"}=Time.parse(agenda_manha.final_do_atendimento).strftime("%H:%M")
+            - @agendas.order("data ASC").order("atendimento_inicio ASC").each do |agenda|
+              %tr
+                %td{width: "30%", style: "text-align: left; font-weight: bold"}=agenda.profissional_nome
+                %td{width: "10%", style: "text-align: center;"}=agenda.data.strftime("%d/%m/%Y")
+                %td{width: "10%", style: "text-align: center;"}=agenda.data.strftime("%A")
+                %td{width: "10%", style: "text-align: center;"}=Time.parse(agenda.atendimento_inicio).strftime("%H:%M")
+                %td{width: "10%", style: "text-align: center;"}=Time.parse(agenda.atendimento_final).strftime("%H:%M")
     %hr{style: "border: #323232 solid 0.5px;"}
