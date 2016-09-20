@@ -16,6 +16,7 @@
 #= require BOOTSTRAP/locales/bootstrap-datepicker.pt-BR.js
 #= require BOOTSTRAP/bootstrap-dialog
 #= require BOOTSTRAP/bootstrap-waitingfor
+#= require progress-bar/bootstrap-progressbar.min
 
 # -*- TINYMCE -*-
 #= require tinymce-jquery

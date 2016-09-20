@@ -110,28 +110,29 @@ $(document).ready ->
     horarios_manha = coletor_do_turno_da_manha()
     horarios_tarde = coletor_do_turno_da_tarde()
 
-    $.ajax
-      url: localhost + "/painel/empresas/#{empresa_id}/agendas"
-      type: 'POST'
-      dataType: 'JSON'
-      timeout: 10000
-      data:
-        agenda:
-          empresa_id:                    empresa_id
-          profissional_id:               $("#agenda_profissional_id :selected").val()
-          data_inicial:                  $("#agenda_data_inicial").val()
-          data_final:                    $("#agenda_data_final").val()
-          atendimento_manha_duracao:     $("#agenda_atendimento_manha_duracao").val()
-          atendimento_tarde_duracao:     $("#agenda_atendimento_tarde_duracao").val()
-          atendimento_sabado:            atendimento_sabado
-          atendimento_domingo:           atendimento_domingo
-          atendimento_parcial:           horario_parcial
-        horarios:
-          horarios_manha: horarios_manha
-          horarios_tarde: horarios_tarde
-      success: (data) ->
-        console.log data
-        if data.agenda.successfully_created == true
+    setTimeout (->
+      $('.progress .progress-bar').progressbar({display_text: 'center', use_percentage: false})
+      $.ajax
+        url: localhost + "/painel/empresas/#{empresa_id}/agendas"
+        type: 'POST'
+        dataType: 'JSON'
+        timeout: 10000
+        data:
+          agenda:
+            empresa_id:                    empresa_id
+            usuario_id:                    $("#agenda_usuario_id").val()
+            profissional_id:               $("#agenda_profissional_id :selected").val()
+            data_inicial:                  $("#agenda_data_inicial").val()
+            data_final:                    $("#agenda_data_final").val()
+            atendimento_manha_duracao:     $("#agenda_atendimento_manha_duracao").val()
+            atendimento_tarde_duracao:     $("#agenda_atendimento_tarde_duracao").val()
+            atendimento_sabado:            atendimento_sabado
+            atendimento_domingo:           atendimento_domingo
+            atendimento_parcial:           horario_parcial
+          horarios:
+            horarios_manha: horarios_manha
+            horarios_tarde: horarios_tarde
+        success: (data) ->
           setTimeout (->
             if (data.agenda.flash)
               toastr.success(data.agenda.flash.notice.success, "Sucesso.", {timeOut: 3000})
@@ -140,3 +141,6 @@ $(document).ready ->
             if (data.agenda.location)
               window.location.href = localhost + "/painel/empresas/#{empresa_id}/agendas?locale=pt-BR"
           ), 5000
+    ), 10000
+
+
