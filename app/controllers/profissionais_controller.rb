@@ -3,6 +3,7 @@ class ProfissionaisController < ApplicationController
   before_action :set_conselhos_regionais, only: [:new, :edit, :create, :update]
   before_action :set_operadoras, only: [:new, :edit, :create, :update]
   before_action :set_cargos, only: [:new, :edit, :create, :update]
+  before_action :find_profissional, only: [:show, :edit, :update, :destroy]
 
   def index
     @profissionais = Profissional.da_empresa_atual(empresa_atual["id"])
@@ -52,6 +53,10 @@ class ProfissionaisController < ApplicationController
   end
 
   private
+    def find_profissional
+      @profissional = Profissional.find(params[:id])
+    end
+
     def set_cargos
       @cargos = Cargo.da_empresa_atual(current_usuario.empresa).pelo_nome
     end
