@@ -39,13 +39,13 @@
   .row-fluid
     .col-md-6
       .panel.panel-default
-        .panel-heading.center.bolder Horário Manha
+        .panel-heading.center.bolder Turno da Manhã
         .panel-body
           .row-fluid
             #atendimento_manha
               .container-fluid
-                .col-md-3
-                  =f.input :atendimento_manha_duracao, label: "Intervalo"
+                .col-md-2
+                  =f.input :atendimento_manha_duracao, label: "Minutos"
               %hr{style: "border: #A2A2A2 0.5px dashed"}
           .row-fluid
             .panel
@@ -65,13 +65,13 @@
                 %br/
     .col-md-6
       .panel.panel-default
-        .panel-heading.center.bolder Horário Tarde
+        .panel-heading.center.bolder Turno da Tarde
         .panel-body
           .row-fluid
             #atendimento_tarde
               .container-fluid
-                .col-md-3
-                  =f.input :atendimento_tarde_duracao, label: "Intervalo"
+                .col-md-2
+                  =f.input :atendimento_tarde_duracao, label: "Minutos"
               %hr{style: "border: #A2A2A2 0.5px dashed"}
           .row-fluid
             .panel
