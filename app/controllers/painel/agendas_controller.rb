@@ -11,7 +11,7 @@ class Painel::AgendasController < ApplicationController
   respond_to :html, :js, :json, :xml
 
   def index
-    @agendas = Agenda.where(empresa_id: @empresa.id)
+    @agendas = Agenda.where(empresa_id: @empresa.id).page params[:page]
   end
 
   def new

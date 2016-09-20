@@ -1,6 +1,7 @@
 require 'time'
 require 'date'
 class Agenda < ApplicationRecord
+  paginates_per 25
   attr_accessor :atendimento_manha_inicio, :atendimento_manha_final,
                 :atendimento_tarde_inicio, :atendimento_tarde_final,
                 :data_inicial, :data_final
@@ -19,12 +20,18 @@ class Agenda < ApplicationRecord
            prefix: true,
            allow_nil: true
 
+  def profissional_titulo
+    "#{profissional_nome} - #{profissional.cargo_nome}"
+  end
+
   class << self
     # => Gerar agenda no turno da manha -> Diurno
     def create_horarios_manha_by_javascript_params(resource)
       resource = JSON.parse(resource.to_json)
 
-      build_agenda_manha({ data_inicial: resource['agenda']['data_inicial'],
+      build_agenda_manha({ empresa_id:   resource['agenda']['empresa_id'],
+                           usuario_id:   resource['agenda']['usuario_id'],
+                           data_inicial: resource['agenda']['data_inicial'],
                            data_final:   resource['agenda']['data_final'],
                            profissional_id: resource['agenda']['profissional_id'],
                            atendimento_sabado: resource['agenda']['atendimento_sabado'],
@@ -38,7 +45,9 @@ class Agenda < ApplicationRecord
     # => Gerar agenda no turno da tarde -> Vespertino
     def create_horarios_tarde_by_javascript_params(resource)
       resource = JSON.parse(resource.to_json)
-      build_agenda_tarde({ data_inicial: resource['agenda']['data_inicial'],
+      build_agenda_tarde({ empresa_id:   resource['agenda']['empresa_id'],
+                           usuario_id:   resource['agenda']['usuario_id'],
+                           data_inicial: resource['agenda']['data_inicial'],
                            data_final:   resource['agenda']['data_final'],
                            profissional_id: resource['agenda']['profissional_id'],
                            atendimento_sabado: resource['agenda']['atendimento_sabado'],
@@ -98,11 +107,11 @@ class Agenda < ApplicationRecord
                 break
               end
 
-              gera_agenda(resource[:empresa_id], resource[:profissional_id],
-                          _data_auxiliar, resource[:atendimento_sabado],
+              gera_agenda(resource[:empresa_id], resource[:usuario_id],
+                          resource[:profissional_id], _data_auxiliar, resource[:atendimento_sabado],
                           resource[:atendimento_domingo], resource[:atendimento_manha_duracao],
-                          resource[:atendimento_parcial], _horario_auxiliar_,
-                          _final_do_atendimento)
+                          resource[:atendimento_tarde_duracao], resource[:atendimento_parcial],
+                          _horario_auxiliar_, _final_do_atendimento)
 
               if _final == _final_do_atendimento
                 break
@@ -148,11 +157,11 @@ class Agenda < ApplicationRecord
                 break
               end
 
-              gera_agenda(resource[:empresa_id], resource[:profissional_id],
-                          _data_auxiliar, resource[:atendimento_sabado],
-                          resource[:atendimento_domingo], resource[:atendimento_tarde_duracao],
-                          resource[:atendimento_parcial], _horario_auxiliar_,
-                          _final_do_atendimento)
+              gera_agenda(resource[:empresa_id], resource[:usuario_id],
+                          resource[:profissional_id], _data_auxiliar, resource[:atendimento_sabado],
+                          resource[:atendimento_domingo], resource[:atendimento_manha_duracao],
+                          resource[:atendimento_tarde_duracao], resource[:atendimento_parcial],
+                          _horario_auxiliar_, _final_do_atendimento)
 
               if _final == _final_do_atendimento
                 break
@@ -171,14 +180,18 @@ class Agenda < ApplicationRecord
     end
 
     # => Metodo criado para a geração da agenda de forma simplificada
-    def gera_agenda(empresa_id, profissional_id, data, atendimento_sabado, atendimento_domingo, atendimento_manha_duracao,
+    def gera_agenda(empresa_id, usuario_id, profissional_id, data,
+                    atendimento_sabado, atendimento_domingo,
+                    atendimento_manha_duracao, atendimento_tarde_duracao,
                     atendimento_parcial, atendimento_inicio, atendimento_final)
       create!(empresa_id:                empresa_id, 
+              usuario_id:                usuario_id,
               profissional_id:           profissional_id,
               data:                      data, 
               atendimento_sabado:        atendimento_sabado,
               atendimento_domingo:       atendimento_domingo,
               atendimento_manha_duracao: atendimento_manha_duracao,
+              atendimento_tarde_duracao: atendimento_tarde_duracao,
               atendimento_parcial:       atendimento_parcial,
               atendimento_inicio:        atendimento_inicio,
               atendimento_final:         atendimento_final)
