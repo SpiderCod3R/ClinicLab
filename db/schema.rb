@@ -10,10 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20160722224748) do
-=======
-ActiveRecord::Schema.define(version: 20160909202748) do
+ActiveRecord::Schema.define(version: 20160909202749) do
 
   create_table "agendas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.date     "data"
@@ -33,7 +30,6 @@ ActiveRecord::Schema.define(version: 20160909202748) do
     t.index ["profissional_id"], name: "index_agendas_on_profissional_id", using: :btree
     t.index ["usuario_id"], name: "index_agendas_on_usuario_id", using: :btree
   end
->>>>>>> agenda
 
   create_table "atendimentos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "nome"
@@ -124,9 +120,9 @@ ActiveRecord::Schema.define(version: 20160909202748) do
     t.integer  "convenio_id"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
-    t.integer  "empresa_id"
     t.string   "nacionalidade"
     t.string   "naturalidade"
+    t.integer  "empresa_id"
     t.index ["cargo_id"], name: "index_clientes_on_cargo_id", using: :btree
     t.index ["cidade_id"], name: "index_clientes_on_cidade_id", using: :btree
     t.index ["convenio_id"], name: "index_clientes_on_convenio_id", using: :btree
@@ -202,18 +198,10 @@ ActiveRecord::Schema.define(version: 20160909202748) do
     t.index ["estado_id"], name: "index_fornecedores_on_estado_id", using: :btree
   end
 
-<<<<<<< HEAD
-  create_table "funcoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "nome"
-    t.string   "descricao"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "historicos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.text     "indice",     limit: 65535
-    t.integer  "cliente_id"
     t.string   "idade"
+    t.integer  "cliente_id"
     t.integer  "usuario_id"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
@@ -221,8 +209,6 @@ ActiveRecord::Schema.define(version: 20160909202748) do
     t.index ["usuario_id"], name: "index_historicos_on_usuario_id", using: :btree
   end
 
-=======
->>>>>>> agenda
   create_table "imagem_cabecs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "imagem_file_name"
     t.string   "imagem_content_type"
@@ -370,15 +356,6 @@ ActiveRecord::Schema.define(version: 20160909202748) do
   add_foreign_key "clientes", "estados"
   add_foreign_key "fornecedores", "cidades"
   add_foreign_key "fornecedores", "estados"
-<<<<<<< HEAD
-  add_foreign_key "historicos", "clientes"
-  add_foreign_key "historicos", "usuarios"
-  add_foreign_key "pacientes", "cidades"
-  add_foreign_key "pacientes", "convenios"
-  add_foreign_key "pacientes", "empresas"
-  add_foreign_key "pacientes", "estados"
-=======
->>>>>>> agenda
   add_foreign_key "profissionais", "cargos"
   add_foreign_key "profissionais", "cidades"
   add_foreign_key "profissionais", "conselho_regionais"

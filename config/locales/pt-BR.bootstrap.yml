@@ -8,7 +8,6 @@ pt-BR:
         root: "Index"
       pages:
         pages: "Páginas"
-<<<<<<< HEAD
     labels:
       equipamentos: Equipamentos
       codigo: 'Código'
@@ -28,7 +27,6 @@ pt-BR:
         add: "Adicionar"
         next: "Avançar"
         home: "Página Inicial"
-=======
     helpers:
       actions: "Opções"
       labels:
@@ -38,21 +36,17 @@ pt-BR:
         office: "Cargo"
         value: "Valor"
       links:
->>>>>>> agenda
         show: "Visualizar"
         back: "voltar"
         cancel: "Cancelar"
         confirm: "Tem Certeza?"
         destroy: "Excluir"
-<<<<<<< HEAD
         alter_password: "Alterar Senha"
         free_modules: "Liberar Módulos"
         change_permissions: "Alterar Permissões"
         view_permissions: "Visualizar Permissões"
         produto_clientes: "Produto Clientes"
         vendas_produto: "Vendas Produto"
-=======
->>>>>>> agenda
         new: "Cadastrar"
         edit: "Editar"
         print: "Imprimir"
@@ -69,7 +63,6 @@ pt-BR:
         delete: "Deletando %{model}"
     css_class:
       btn_default: "btn btn-default"
-<<<<<<< HEAD
       btn_default_right: "btn btn-default pull-right"
       btn_default_left: "btn btn-default pull-left"
       btn_primary: "btn btn-primary"
@@ -80,7 +73,6 @@ pt-BR:
       btn_warning: "btn btn-warning"
       btn_danger: "btn btn-danger"
       btn_danger_right: "btn btn-danger pull-right"
-=======
       btn_default_left: "btn btn-default pull-lefth"
       btn_default_right: "btn btn-default pull-right"
       btn_primary: "btn btn-primary"
@@ -91,4 +83,3 @@ pt-BR:
       btn_info: "btn btn-info"
       btn_warning: "btn btn-warning"
       btn_danger: "btn btn-danger"
->>>>>>> agenda

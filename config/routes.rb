@@ -6,12 +6,11 @@ Rails.application.routes.draw do
   resources :cabecs
   resources :conselho_regionais
 
-<<<<<<< HEAD
   resources :clientes
   post 'clientes/retorna_historico', to: "clientes#retorna_historico"
   post 'clientes/salva_historico', to: "clientes#salva_historico"
   post 'clientes/atualiza_historico', to: "clientes#atualiza_historico"
-=======
+
   resources :texto_livres
   resources :imagem_cabecs
   resources :fornecedores
@@ -21,7 +20,6 @@ Rails.application.routes.draw do
 
   get 'relatorios/new' => "configuracao_relatorios#new"
   get 'conselhos_regionais/new' => "conselho_regionais#new"
->>>>>>> agenda
 
   get 'pages/help'
   get 'pages/contact_us'

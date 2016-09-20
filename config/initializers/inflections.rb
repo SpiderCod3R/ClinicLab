@@ -8,11 +8,8 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.irregular 'conselho_regional', 'conselho_regionais'
   inflect.irregular 'profissional', 'profissionais'
   inflect.irregular 'centro_de_custo', 'centro_de_custos'
-<<<<<<< HEAD
   inflect.irregular 'historico', 'historicos'
-=======
   inflect.irregular 'permissao', 'permissoes'
   inflect.irregular 'empresa_permissao', 'empresa_permissoes'
   inflect.irregular 'usuario_permissao', 'usuario_permissoes'
->>>>>>> agenda
 end
