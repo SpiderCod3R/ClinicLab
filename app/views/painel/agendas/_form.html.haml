@@ -6,10 +6,12 @@
           %h4="#{pluralize(@agenda.errors.count, "erro")} impede(m) este agenda de ser salvo:"
   .row-fluid
     .col-md-12
+      =render 'application/progress_bar'
       .panel
         .container-fluid{style: "margin: 0 auto; padding-top: 15px; padding-bottom: 15px;"}
           .row-fluid
             =f.input :empresa_id, as: :hidden, input_html: { value: @empresa.id }
+            =f.input :usuario_id, as: :hidden, input_html: { value: current_usuario.id }
           .row-fluid
             .col-md-3
               =f.label :profissional_id
