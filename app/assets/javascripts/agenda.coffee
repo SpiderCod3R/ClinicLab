@@ -141,6 +141,6 @@ $(document).ready ->
             if (data.agenda.location)
               window.location.href = localhost + "/painel/empresas/#{empresa_id}/agendas?locale=pt-BR"
           ), 5000
-    ), 10000
+    ), 3000
 
 
