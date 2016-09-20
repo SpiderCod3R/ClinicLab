@@ -20,6 +20,10 @@ class Agenda < ApplicationRecord
            prefix: true,
            allow_nil: true
 
+  def profissional_titulo
+    "#{profissional_nome} - #{profissional.cargo_nome}"
+  end
+
   class << self
     # => Gerar agenda no turno da manha -> Diurno
     def create_horarios_manha_by_javascript_params(resource)
