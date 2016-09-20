@@ -31,11 +31,11 @@
                 =f.label t('agendas.helpers.atendimento_domingo')
                 %br/
                 =f.collection_radio_buttons :atendimento_domingo, [[1, 'Sim'] ,[0, 'Não']], :first, :last, checked: 0
-            .col-md-3
-              #horario_parcial
-                =f.label t('agendas.helpers.atendimento_duracao')
-                %br/
-                =f.collection_radio_buttons :horario_parcial, [[1, 'Completo'] ,[0, 'Parcial']], :first, :last, checked: 0
+            / .col-md-3
+            /   #horario_parcial
+            /     =f.label t('agendas.helpers.atendimento_duracao')
+            /     %br/
+            /     =f.collection_radio_buttons :horario_parcial, [[1, 'Completo'] ,[0, 'Parcial']], :first, :last, checked: 0
   .row-fluid
     .col-md-6
       .panel.panel-default
