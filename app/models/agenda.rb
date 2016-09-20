@@ -1,6 +1,7 @@
 require 'time'
 require 'date'
 class Agenda < ApplicationRecord
+  paginates_per 25
   attr_accessor :atendimento_manha_inicio, :atendimento_manha_final,
                 :atendimento_tarde_inicio, :atendimento_tarde_final,
                 :data_inicial, :data_final
