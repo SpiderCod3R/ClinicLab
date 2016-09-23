@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.0.0'
+gem 'rails', '~> 5.0.0.1'
 gem 'rails-i18n', '~> 5.0.0'
 
 gem 'mysql2', '>= 0.3.18', '< 0.5'
@@ -76,7 +76,6 @@ gem 'capistrano', '~> 3.6'
 gem 'capistrano-rails', '~> 1.1', '>= 1.1.7', group: :development
 gem "capistrano-bundler"
 gem 'capistrano-rbenv', '~> 2.0', '>= 2.0.4'
-gem 'capistrano-puma', '~> 0.2.3'
 gem 'capistrano3-puma'
 gem 'capistrano3-nginx'
 gem 'capistrano-upload-config'

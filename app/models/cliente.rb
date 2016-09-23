@@ -3,10 +3,10 @@ class Cliente < ApplicationRecord
 
   scope :pelo_nome, -> { order("nome ASC") }
 
-  validates :nome, :status, :cpf, :endereco, :bairro,
-           :nascimento, :sexo, :rg, :estado_civil, :telefone,
-           :status_convenio, :matricula, :plano, :validade_carteira,
-           :produto, :titular, presence: true
+  validates_presence_of :nome, :cpf, :endereco, :bairro,
+            :nascimento, :sexo, :rg, :estado_civil, :telefone,
+            :status_convenio, :matricula, :plano, :validade_carteira,
+            :produto, :titular
 
   validates_associated :cargo, :estado, :cidade, :convenio, :empresa
 
@@ -28,7 +28,7 @@ class Cliente < ApplicationRecord
   validates_attachment_content_type :foto, content_type: /\Aimage\/.*\Z/
 
   def set_status_cliente
-    self.status = 'true'
+    self.status = 'Ativo'
   end
 
   def upcased_attributes

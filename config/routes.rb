@@ -58,10 +58,16 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'relatorios/new' => "configuracao_relatorios#new"
+  get 'conselhos_regionais/new' => "conselho_regionais#new"
+
+  resources :clientes
+  post 'clientes/retorna_historico', to: "clientes#retorna_historico"
+  post 'clientes/salva_historico', to: "clientes#salva_historico"
+  post 'clientes/atualiza_historico', to: "clientes#atualiza_historico"
 
   namespace :painel do
     resources :dashboards
-
     resources :permissoes, except: [:show, :new] do
       get 'excluir'
     end

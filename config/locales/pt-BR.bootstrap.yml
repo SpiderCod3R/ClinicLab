@@ -15,8 +15,14 @@ pt-BR:
       data_criacao: 'Data da Criação'
       status: 'Status'
     helpers:
-      diagnostico: diagnostico
       actions: "Opções"
+      labels:
+        company_name: "Nome empresa"
+        company: "Empresa"
+        company_logo: "Logo"
+        office: "Cargo"
+        value: "Valor"
+        diagnostico: diagnostico
       tabs:
         custos: "CUSTOS"
         estoques: "ESTOQUES"
@@ -27,15 +33,6 @@ pt-BR:
         add: "Adicionar"
         next: "Avançar"
         home: "Página Inicial"
-    helpers:
-      actions: "Opções"
-      labels:
-        company_name: "Nome empresa"
-        company: "Empresa"
-        company_logo: "Logo"
-        office: "Cargo"
-        value: "Valor"
-      links:
         show: "Visualizar"
         back: "voltar"
         cancel: "Cancelar"
@@ -51,7 +48,6 @@ pt-BR:
         edit: "Editar"
         print: "Imprimir"
         generate: "Gerar"
-        confirm: Comfirmação
         full_list: Listar Todos
         save: Salvar
         advance: "Avançar"
@@ -69,17 +65,8 @@ pt-BR:
       btn_primary_left: "btn btn-primary pull-left"
       btn_primary_right: "btn btn-primary pull-right"
       btn_success: "btn btn-success"
+      btn_success_left: "btn btn-success pull-left"
       btn_info: "btn btn-info"
       btn_warning: "btn btn-warning"
       btn_danger: "btn btn-danger"
       btn_danger_right: "btn btn-danger pull-right"
-      btn_default_left: "btn btn-default pull-lefth"
-      btn_default_right: "btn btn-default pull-right"
-      btn_primary: "btn btn-primary"
-      btn_primary_left: "btn btn-primary pull-lefth"
-      btn_primary_right: "btn btn-primary pull-right"
-      btn_success: "btn btn-success"
-      btn_success_left: "btn btn-success pull-lefth"
-      btn_info: "btn btn-info"
-      btn_warning: "btn btn-warning"
-      btn_danger: "btn btn-danger"
