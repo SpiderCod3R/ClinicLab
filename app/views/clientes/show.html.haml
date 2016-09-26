@@ -44,12 +44,12 @@
           %div{class: "col-xs-3 col-sm-3 col-md-3 col-lg-3"}
             = label_tag t('clientes.helpers.estado')
           %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
-            =  @cliente.estado.nome.upcase if @cliente.try(:estado_id)
+            =  @cliente.estado.nome.titleize if @cliente.try(:estado_id)
         %div{class: "row"}
           %div{class: "col-xs-3 col-sm-3 col-md-3 col-lg-3"}
             = label_tag t('clientes.helpers.cidade')
           %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
-            = @cliente.cidade.nome.upcase if @cliente.try(:cidade_id)
+            = @cliente.cidade.nome.titleize if @cliente.try(:cidade_id)
         %div{class: "row"}
           %div{class: "col-xs-3 col-sm-3 col-md-3 col-lg-3"}
             = label_tag t('clientes.helpers.nascimento')
@@ -69,7 +69,7 @@
           %div{class: "col-xs-3 col-sm-3 col-md-3 col-lg-3"}
             = label_tag t('clientes.helpers.estado_civil')
           %div{class: "col-xs-6 col-sm-4 col-md-4 col-lg-4"}
-            = @cliente.estado_civil
+            = @cliente.estado_civil.titleize
         %div{class: "row"}
           %div{class: "col-xs-3 col-sm-3 col-md-3 col-lg-3"}
             = label_tag t('clientes.helpers.email')

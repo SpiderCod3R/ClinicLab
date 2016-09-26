@@ -41,8 +41,8 @@ class ClientesController < ApplicationController
     @cliente = current_usuario.empresa.clientes.build(cliente_params)
     session[:cliente_id] = @cliente.id
     get_historicos
-    @cliente.update(cliente_params)
-    respond_with(@cliente)
+    @cliente.atualiza_cliente(cliente_params)
+    redirect_to new_cliente_path
   end
 
   def retorna_historico
@@ -114,34 +114,34 @@ class ClientesController < ApplicationController
     end
 
     def cliente_params
-      params.require(:cliente).permit(
-        :status,
-        :nome,
-        :cpf,
-        :endereco,
-        :complemento,
-        :bairro,
-        :estado_id,
-        :cidade_id,
-        :empresa_id,
-        :foto,
-        :email,
-        :telefone,
-        :cargo_id,
-        :status_convenio,
-        :matricula,
-        :plano,
-        :validade_carteira,
-        :produto,
-        :titular,
-        :convenio_id,
-        :nascimento,
-        :sexo,
-        :rg,
-        :estado_civil,
-        :nacionalidade,
-        :naturalidade,
-        historico_attributes: [:indice, :idade, :usuario_id, :cliente_id]
-        )
+      params.require(:cliente).permit(:id,
+                                      :status,
+                                      :nome,
+                                      :cpf,
+                                      :endereco,
+                                      :complemento,
+                                      :bairro,
+                                      :estado_id,
+                                      :cidade_id,
+                                      :empresa_id,
+                                      :foto,
+                                      :email,
+                                      :telefone,
+                                      :cargo_id,
+                                      :status_convenio,
+                                      :matricula,
+                                      :plano,
+                                      :validade_carteira,
+                                      :produto,
+                                      :titular,
+                                      :convenio_id,
+                                      :nascimento,
+                                      :sexo,
+                                      :rg,
+                                      :estado_civil,
+                                      :nacionalidade,
+                                      :naturalidade,
+                                      historico_attributes: [:indice, :idade, :usuario_id, :cliente_id]
+                                      )
     end
 end
