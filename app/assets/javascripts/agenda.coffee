@@ -75,6 +75,22 @@ $(document).ready ->
       $('#atendimento_manha').fadeIn(500)
       $('#atendimento_tarde').fadeIn(500)
 
+  discover_week_days = (indice) ->
+    if indice == 0
+      dia = "Segunda-Feira"
+    if indice == 1
+      dia = "Terça-Feira"
+    if indice == 2
+      dia = "Quarta-Feira"
+    if indice == 3
+      dia = "Quinta-Feira"
+    if indice == 4
+      dia = "Sexta-Feira"
+    if indice == 5
+      dia = "Sábado"
+    if indice == 6
+      dia = "Domingo"
+    return dia
   # => Metodo para agrupar os horarios  do turno da Manha informados no formulario da Agenda
   coletor_do_turno_da_manha = () ->
     horarios = []
