@@ -91,29 +91,43 @@ $(document).ready ->
     if indice == 6
       dia = "Domingo"
     return dia
+
   # => Metodo para agrupar os horarios  do turno da Manha informados no formulario da Agenda
-  coletor_do_turno_da_manha = () ->
+  coletor_do_turno_a = () ->
     horarios = []
     i = 0
     while i <= dias_semana
-      inicio = $("#agenda_atendimento_manha_inicio_#{i}_attribute").val()
-      final  = $("#agenda_atendimento_manha_final_#{i}_attribute").val()
+      if $("#agenda_atendimento_manha_inicio_#{i}_attribute").val() == ""
+        inicio = ""
+      else
+        inicio = $("#agenda_atendimento_manha_inicio_#{i}_attribute").val()
+      if $("#agenda_atendimento_manha_final_#{i}_attribute").val() == ""
+        final = ""
+      else
+        final  = $("#agenda_atendimento_manha_final_#{i}_attribute").val()
 
-      horarios.push
-        'inicio': inicio
-        'final':  final
+      dia = discover_week_days(i)
+
+      if inicio != "" && final != ""
+        horarios.push
+          'dia': dia
+          'inicio': inicio
+          'final':  final
       i++
     return horarios
 
   # => Metodo para agrupar os horarios  do turno da tarde informados no formulario da Agenda
-  coletor_do_turno_da_tarde = () ->
+  # coletor_do_turno_b = () ->
     horarios = []
     x =0
     while x <= dias_semana
       inicio = $("#agenda_atendimento_tarde_inicio_#{x}_attribute").val()
       final  = $("#agenda_atendimento_tarde_final_#{x}_attribute").val()
 
+      dia = discover_week_days(x)
+
       horarios.push
+        'dia': dia
         'inicio': inicio
         'final':  final
       x++
@@ -167,15 +181,27 @@ $(document).ready ->
           error_messages.push("<li> O horário do #{dia} no turno da tarde, não pode ser inferior nem igual</li>")
       x++
     return error_messages
+
   # => Prepando Ajax Request para enviar dados ao controller/model
   $(".simple_form.new_agenda").submit (event) ->
     event.preventDefault()
-    # coletando dados dos horarios
-    horarios_manha = coletor_do_turno_da_manha()
-    horarios_tarde = coletor_do_turno_da_tarde()
+    error_messages= []
 
-    setTimeout (->
-      $('.progress .progress-bar').progressbar({display_text: 'center', use_percentage: false})
+    error_messages = verifica_campos()
+
+    error_messages = error_messages.filter((value, duplicated) ->
+      error_messages.indexOf(value) == duplicated
+    )
+
+    if error_messages.length != 0
+      $("#error_messages").find(".modal-title").html("Erros Encontrados")
+      $("#error_messages").find(".modal-body").html(error_messages)
+      $("#error_messages").modal()
+    else
+      # coletando dados dos horarios
+      horarios_turno_a = coletor_do_turno_a()
+      horarios_turno_b = coletor_do_turno_b()
+      console.log horarios_turno_a
       $.ajax
         url: localhost + "/painel/empresas/#{empresa_id}/agendas"
         type: 'POST'
@@ -183,28 +209,39 @@ $(document).ready ->
         timeout: 10000
         data:
           agenda:
-            empresa_id:                    empresa_id
-            usuario_id:                    $("#agenda_usuario_id").val()
-            profissional_id:               $("#agenda_profissional_id :selected").val()
-            data_inicial:                  $("#agenda_data_inicial").val()
-            data_final:                    $("#agenda_data_final").val()
-            atendimento_manha_duracao:     $("#agenda_atendimento_manha_duracao").val()
-            atendimento_tarde_duracao:     $("#agenda_atendimento_tarde_duracao").val()
-            atendimento_sabado:            atendimento_sabado
-            atendimento_domingo:           atendimento_domingo
-            atendimento_parcial:           horario_parcial
+            empresa_id:            empresa_id
+            usuario_id:            $("#agenda_usuario_id").val()
+            profissional_id:       $("#agenda_profissional_id :selected").val()
+            data_inicial:          $("#agenda_data_inicial").val()
+            data_final:            $("#agenda_data_final").val()
+            atendimento_sabado:    atendimento_sabado
+            atendimento_domingo:   atendimento_domingo
+            atendimento_parcial:   horario_parcial
           horarios:
-            horarios_manha: horarios_manha
-            horarios_tarde: horarios_tarde
+            turno_a:
+              atendimento_duracao:         $("#agenda_atendimento_turno_a_duracao").val()
+              horarios_turno_a:            horarios_turno_a
+            turno_b:
+              atendimento_duracao:         $("#agenda_atendimento_turno_b_duracao").val()
+              horarios_turno_b:            horarios_turno_b
         success: (data) ->
-          setTimeout (->
-            if (data.agenda.flash)
-              toastr.success(data.agenda.flash.notice.success, "Sucesso.", {timeOut: 3000})
-          ), 2000
-          setTimeout (->
-            if (data.agenda.location)
-              window.location.href = localhost + "/painel/empresas/#{empresa_id}/agendas?locale=pt-BR"
-          ), 5000
-    ), 3000
+          if data.agenda.not_completeded == false
+            setTimeout (->
+              $('.progress .progress-bar').progressbar({display_text: 'center', use_percentage: false})
+              setTimeout (->
+                if (data.agenda.flash)
+                  toastr.success(data.agenda.flash.notice.success, "Sucesso.", {timeOut: 3000})
+              ), 2000
+              setTimeout (->
+                if (data.agenda.location)
+                  window.location.href = localhost + "/painel/empresas/#{empresa_id}/agendas?locale=pt-BR"
+              ), 5000
+            ), 4000
+
+          if data.agenda.not_completeded == true
+            $("#error_messages").find(".modal-body").empty()
+            $("#error_messages").find(".modal-title").html("Erros Encontrados")
+            $("#error_messages").find(".modal-body").append("<li>#{data.agenda.flash.notice.warning}</li>")
+            $("#error_messages").modal()
 
 
