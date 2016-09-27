@@ -117,7 +117,7 @@ $(document).ready ->
     return horarios
 
   # => Metodo para agrupar os horarios  do turno da tarde informados no formulario da Agenda
-  # coletor_do_turno_b = () ->
+  coletor_do_turno_b = () ->
     horarios = []
     x =0
     while x <= dias_semana
