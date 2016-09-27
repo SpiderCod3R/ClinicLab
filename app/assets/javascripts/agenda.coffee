@@ -119,6 +119,54 @@ $(document).ready ->
       x++
     return horarios
 
+  verifica_campos = () ->
+    x=0
+    dia = ""
+    error_messages  = []
+    profissional_id = $("#agenda_profissional_id :selected").val()
+    data_inicial    = $("#agenda_data_inicial").val()
+    data_final      = $("#agenda_data_final").val()
+    duracao         = $("#agenda_atendimento_turno_a_duracao").val()
+
+    if profissional_id == ""
+      error_messages.push("<li>Profissional deve ser selecionado</li>")
+    if data_inicial == ""
+      error_messages.push("<li>Data Inicial deve ser preenchida</li>")
+    if data_final == ""
+      error_messages.push("<li>Data Final deve ser preenchida</li>")
+
+    while x <= dias_semana
+      if x == 0
+        dia="Segunda-Feira"
+      if x == 1
+        dia="Terça-Feira"
+      if x == 2
+        dia="Quarta-Feira"
+      if x == 3
+        dia="Quinta-Feira"
+      if x == 4
+        dia="Sexta-Feira"
+      if x == 5
+        dia="Sabado"
+      if x == 6
+        dia="Domingo"
+
+      # if $("#agenda_atendimento_manha_inicio_#{x}_attribute").val() == ""
+      #   error_messages.push("<li>Deve ser preenchido pelo menos um ou mais horarios.</li>")
+
+      if $("#agenda_atendimento_manha_inicio_#{x}_attribute").val() != "" && $("#agenda_atendimento_manha_final_#{x}_attribute").val() != ""
+        if $("#agenda_atendimento_turno_a_duracao").val() == ""
+          error_messages.push("<li>Os minutos do turno da manhã deve ser preenchido</li>")
+        if $("#agenda_atendimento_manha_final_#{x}_attribute").val() <= $("#agenda_atendimento_manha_inicio_#{x}_attribute").val()
+          error_messages.push("<li> O horário do #{dia} no turno da manhã, não pode ser inferior nem igual</li>")
+
+      if $("#agenda_atendimento_tarde_inicio_#{x}_attribute").val() != "" && $("#agenda_atendimento_tarde_final_#{x}_attribute").val() != ""
+        if $("#agenda_atendimento_turno_b_duracao").val() == ""
+          error_messages.push("<li>Os minutos do turno da tarde deve ser preenchido</li>")
+        if $("#agenda_atendimento_tarde_final_#{x}_attribute").val() <= $("#agenda_atendimento_tarde_inicio_#{x}_attribute").val()
+          error_messages.push("<li> O horário do #{dia} no turno da tarde, não pode ser inferior nem igual</li>")
+      x++
+    return error_messages
   # => Prepando Ajax Request para enviar dados ao controller/model
   $(".simple_form.new_agenda").submit (event) ->
     event.preventDefault()
