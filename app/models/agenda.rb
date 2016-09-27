@@ -1,10 +1,13 @@
 require 'time'
 require 'date'
 class Agenda < ApplicationRecord
+  extend ActiveModel::Naming
+
   paginates_per 25
   attr_accessor :atendimento_manha_inicio, :atendimento_manha_final,
                 :atendimento_tarde_inicio, :atendimento_tarde_final,
-                :data_inicial, :data_final
+                :data_inicial, :data_final, :atendimento_turno_a_duracao,
+                :atendimento_turno_b_duracao
 
   belongs_to :profissional
   belongs_to :usuario
@@ -26,7 +29,7 @@ class Agenda < ApplicationRecord
 
   class << self
     # => Gerar agenda no turno da manha -> Diurno
-    def create_horarios_manha_by_javascript_params(resource)
+    def create_horarios_turno_a_by_javascript_params(resource)
       resource = JSON.parse(resource.to_json)
 
       build_agenda_manha({ empresa_id:   resource['agenda']['empresa_id'],
@@ -36,14 +39,14 @@ class Agenda < ApplicationRecord
                            profissional_id: resource['agenda']['profissional_id'],
                            atendimento_sabado: resource['agenda']['atendimento_sabado'],
                            atendimento_domingo: resource['agenda']['atendimento_domingo'],
-                           atendimento_manha_duracao: resource['agenda']['atendimento_manha_duracao'].to_i,
+                           atendimento_duracao: resource['horarios']['turno_a']['atendimento_duracao'].to_i,
                            atendimento_parcial: resource['agenda']['atendimento_parcial'],
-                           horarios_manha: resource['horarios']['horarios_manha']
+                           horarios_turno_a: resource['horarios']['turno_a']['horarios_turno_a']
                           })
     end
 
     # => Gerar agenda no turno da tarde -> Vespertino
-    def create_horarios_tarde_by_javascript_params(resource)
+    def create_horarios_turno_b_by_javascript_params(resource)
       resource = JSON.parse(resource.to_json)
       build_agenda_tarde({ empresa_id:   resource['agenda']['empresa_id'],
                            usuario_id:   resource['agenda']['usuario_id'],
@@ -52,16 +55,14 @@ class Agenda < ApplicationRecord
                            profissional_id: resource['agenda']['profissional_id'],
                            atendimento_sabado: resource['agenda']['atendimento_sabado'],
                            atendimento_domingo: resource['agenda']['atendimento_domingo'],
-                           atendimento_tarde_duracao: resource['agenda']['atendimento_tarde_duracao'].to_i,
+                           atendimento_duracao: resource['horarios']['turno_b']['atendimento_duracao'].to_i,
                            atendimento_parcial: resource['agenda']['atendimento_parcial'],
-                           horarios_tarde: resource['horarios']['horarios_tarde']
+                           horarios_turno_b: resource['horarios']['turno_b']['horarios_turno_b'],
                           })
     end
 
     def build_agenda_manha(resource)
       x = 0
-      y = 0
-
       '''
         * ATRAVES DO NUMERO DE DIAS CALCULADO SE FAZ NECESSARIO
         ITERAR EM CIMA DO QUANTITATIVO DOS HORARIOS EM CONJUNTO
@@ -86,95 +87,62 @@ class Agenda < ApplicationRecord
       _data_final = Date.parse(resource[:data_final])
       _data_auxiliar = _data_inicial
       _numero_de_dias = (_data_final - _data_inicial).to_i
-      horarios_manha = JSON.parse(resource[:horarios_manha].to_json)
 
+      # => Convertendo resource[:horarios_turno_a] para JSON
+      horarios_turno_a = JSON.parse(resource[:horarios_turno_a].to_json)
+
+      # => Se as datas estiverem preenchidas
       while x <= _numero_de_dias
-        horarios_manha.each do |_key, horario|
-          if (horario['inicio'] == "" && horario['final'] == "")
-            _data_auxiliar = _data_auxiliar.advance(days: 1)
-          else
-            _inicio = Time.parse(horario['inicio'])
-            _final  = Time.parse(horario['final'])
-            _intervalo = TimeDifference.between(_inicio, _final).in_hours
-            _horario_auxiliar_ = _inicio
-
-            while y <= _intervalo
-              _final_do_atendimento = _horario_auxiliar_.advance(minutes: resource[:atendimento_manha_duracao])
-
-              if _data_auxiliar.strftime("%A").eql?("Saturday") && resource[:atendimento_sabado] == "0"
-                break
-              elsif _data_auxiliar.strftime("%A").eql?("Sunday") && resource[:atendimento_domingo] == "0"
-                break
-              end
-
-              gera_agenda(resource[:empresa_id], resource[:usuario_id],
-                          resource[:profissional_id], _data_auxiliar, resource[:atendimento_sabado],
-                          resource[:atendimento_domingo], resource[:atendimento_manha_duracao],
-                          resource[:atendimento_tarde_duracao], resource[:atendimento_parcial],
-                          _horario_auxiliar_, _final_do_atendimento)
-
-              if _final == _final_do_atendimento
-                break
-              else
-                _horario_auxiliar_ = _final_do_atendimento
-                next
-              end
-              y += 1
-            end
-            _data_auxiliar = _data_auxiliar.advance(days: 1)
-          end
-
-          x += 1
+        # => CAPTURA DOS horarios com o intervalo
+        if Date::DAYNAMES[_data_auxiliar.wday] == "Segunda-Feira"
+          gerencia_horarios(_data_auxiliar, horarios_turno_a, resource)
+        elsif Date::DAYNAMES[_data_auxiliar.wday] == "Terça-Feira"
+          gerencia_horarios(_data_auxiliar, horarios_turno_a, resource)
+        elsif Date::DAYNAMES[_data_auxiliar.wday] == "Quarta-Feira"
+          gerencia_horarios(_data_auxiliar, horarios_turno_a, resource)
+        elsif Date::DAYNAMES[_data_auxiliar.wday] == "Quinta-Feira"
+          gerencia_horarios(_data_auxiliar, horarios_turno_a, resource)
+        elsif Date::DAYNAMES[_data_auxiliar.wday] == "Sexta-Feira"
+          gerencia_horarios(_data_auxiliar, horarios_turno_a, resource)
+        elsif Date::DAYNAMES[_data_auxiliar.wday] == "Sábado"
+          gerencia_horarios(_data_auxiliar, horarios_turno_a, resource)
+        elsif Date::DAYNAMES[_data_auxiliar.wday] == "Domingo"
+          gerencia_horarios(_data_auxiliar, horarios_turno_a, resource)
         end
+
+        _data_auxiliar = _data_auxiliar.advance(days: 1)
+
+        x = x + 1
       end
     end
 
-    def build_agenda_tarde(resource)
-      x = 0
+    def gerencia_horarios(_data_auxiliar, horarios_turno_a, resource)
       y = 0
-      _data_inicial = Date.parse(resource[:data_inicial])
-      _data_final = Date.parse(resource[:data_final])
-      _data_auxiliar = _data_inicial
-      _numero_de_dias = (_data_final - _data_inicial).to_i
-      horarios_tarde = JSON.parse(resource[:horarios_tarde].to_json)
+      horarios_turno_a.each do |_key, value|
+        _inicio_do_atendimento = Time.parse(value['inicio'])
+        _final_pre_determinado  = Time.parse(value['final'])
+        _intervalo = TimeDifference.between(_inicio_do_atendimento, _final_pre_determinado).in_hours
 
-      while x <= _numero_de_dias
-        horarios_tarde.each do |_key, horario|
-          if (horario['inicio'] == "" && horario['final'] == "")
-            _data_auxiliar = _data_auxiliar.advance(days: 1)
-          else
-            _inicio = Time.parse(horario['inicio'])
-            _final  = Time.parse(horario['final'])
-            _intervalo = TimeDifference.between(_inicio, _final).in_hours
-            _horario_auxiliar_ = _inicio
+        if value['dia'] == Date::DAYNAMES[_data_auxiliar.wday]
+          # => bloco para gerar a agenda com os horarios com a logica do intervalo em minutos
+          while y <= _intervalo
+            # => Determinando o final do atendimento
+            _final_do_atendimento = _inicio_do_atendimento.advance(minutes: resource[:atendimento_duracao])
 
-            while y <= _intervalo
-              _final_do_atendimento = _horario_auxiliar_.advance(minutes: resource[:atendimento_tarde_duracao])
+            gera_agenda(resource[:empresa_id], resource[:usuario_id],
+                        resource[:profissional_id], _data_auxiliar, resource[:atendimento_sabado],
+                        resource[:atendimento_domingo], resource[:atendimento_duracao],
+                        resource[:atendimento_parcial], _inicio_do_atendimento, _final_do_atendimento)
 
-              if _data_auxiliar.strftime("%A").eql?("Saturday") && resource[:atendimento_sabado] == "0"
-                break
-              elsif _data_auxiliar.strftime("%A").eql?("Sunday") && resource[:atendimento_domingo] == "0"
-                break
-              end
-
-              gera_agenda(resource[:empresa_id], resource[:usuario_id],
-                          resource[:profissional_id], _data_auxiliar, resource[:atendimento_sabado],
-                          resource[:atendimento_domingo], resource[:atendimento_manha_duracao],
-                          resource[:atendimento_tarde_duracao], resource[:atendimento_parcial],
-                          _horario_auxiliar_, _final_do_atendimento)
-
-              if _final == _final_do_atendimento
-                break
-              else
-                _horario_auxiliar_ = _final_do_atendimento
-                next
-              end
-              y += 1
+            # => condição de parada dos horarios
+            if _final_pre_determinado == _final_do_atendimento
+              break
+            else
+              _inicio_do_atendimento = _final_do_atendimento
+              next
             end
-            _data_auxiliar = _data_auxiliar.advance(days: 1)
+            y = y + 1
           end
-
-          x += 1
         end
       end
     end
@@ -182,19 +150,19 @@ class Agenda < ApplicationRecord
     # => Metodo criado para a geração da agenda de forma simplificada
     def gera_agenda(empresa_id, usuario_id, profissional_id, data,
                     atendimento_sabado, atendimento_domingo,
-                    atendimento_manha_duracao, atendimento_tarde_duracao,
-                    atendimento_parcial, atendimento_inicio, atendimento_final)
-      create!(empresa_id:                empresa_id, 
-              usuario_id:                usuario_id,
-              profissional_id:           profissional_id,
-              data:                      data, 
-              atendimento_sabado:        atendimento_sabado,
-              atendimento_domingo:       atendimento_domingo,
-              atendimento_manha_duracao: atendimento_manha_duracao,
-              atendimento_tarde_duracao: atendimento_tarde_duracao,
-              atendimento_parcial:       atendimento_parcial,
-              atendimento_inicio:        atendimento_inicio,
-              atendimento_final:         atendimento_final)
+                    atendimento_duracao, atendimento_parcial,
+                    atendimento_inicio, atendimento_final)
+      create!(empresa_id:           empresa_id, 
+              usuario_id:           usuario_id,
+              profissional_id:      profissional_id,
+              data:                 data, 
+              atendimento_sabado:   atendimento_sabado,
+              atendimento_domingo:  atendimento_domingo,
+              atendimento_duracao:  atendimento_duracao,
+              atendimento_parcial:  atendimento_parcial,
+              atendimento_inicio:   atendimento_inicio,
+              atendimento_final:    atendimento_final,
+              status:               "VAGO")
     end
   end
 end
