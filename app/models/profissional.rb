@@ -27,7 +27,7 @@ class Profissional < ApplicationRecord
          prefix: true,
          allow_nil: true
 
-  def to_s
+  def titulo
     "#{nome} - #{cargo.nome}"
   end
 end
