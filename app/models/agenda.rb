@@ -61,28 +61,30 @@ class Agenda < ApplicationRecord
                           })
     end
 
+    '''
+      * ATRAVES DO NUMERO DE DIAS CALCULADO SE FAZ NECESSARIO
+      ITERAR EM CIMA DO QUANTITATIVO DOS HORARIOS EM CONJUNTO
+      COM O INTERVALO ENTRE OS HORARIOS INFORMADOS.
+
+      * COM ESSAS INFORMAÇÕES DEVE-SE VERIFICAR OS DATAS / DIAS
+      EQUIVALENTES AOS HORARIOS PREENCHIDOS E E SOMENTE SE EM CASO DE 
+      NÃO HAVER HORARIO PREENCHIDO DEVE-SE POR FATOR LÓGICO
+      AVANÇAR UM DIA DE ACORDO COM OS DIAS INFORMADOS.
+
+      * CASO NO ATO DA CRIAÇÃO DA AGENDA, NÃO SEJA MARCADO 
+      SABADO OU DOMINGO DEVE-SE POR DEDUÇÃO PULAR/AVANÇAR
+      UM / OS DIAS DE SABADO / DOMINGO
+
+      * UMA CONDICIONAL DE PARADA PARA CHECAR O FINAL DO ATENDIMENTO
+      PARA EVITAR PROSSEGUIMENTO DO LOOP
+
+      P.s ESSE MESMO COMENTARIO EM BLOCO SERVE PARA O METODO 
+      build_agenda_tarde LOGO ABAIXO DESSE, BEM COMO O
+      VALIDADOR / VERIFICADOR DE HORARIO JÁ INSERIDO NA BASE DE DADOS
+    '''
+
     def build_agenda_manha(resource)
       x = 0
-      '''
-        * ATRAVES DO NUMERO DE DIAS CALCULADO SE FAZ NECESSARIO
-        ITERAR EM CIMA DO QUANTITATIVO DOS HORARIOS EM CONJUNTO
-        COM O INTERVALO ENTRE OS HORARIOS INFORMADOS.
-
-        * COM ESSAS INFORMAÇÕES DEVE-SE VERIFICAR SE OS HORARIOS
-        ESTAO DEVIDAMENTE PREENCHIDOS E E SOMENTE SE EM CASO DE 
-        NÃO HAVER HORARIO PREENCHIDO DEVE-SE POR FATOR LÓGICO
-        AVANÇAR UM DIA DE ACORDO COM OS DIAS INFORMADOS.
-
-        * CASO NO ATO DA CRIAÇÃO DA AGENDA, NÃO SEJA MARCADO 
-        SABADO OU DOMINGO DEVE-SE POR DEDUÇÃO PULAR/AVANÇAR
-        UM / OS DIAS DE SABADO / DOMINGO
-
-        * UMA CONDICIONAL DE PARADA PARA CHECAR O FINAL DO ATENDIMENTO
-
-        P.s ESSE MESMO COMENTARIO EM BLOCO SERVE PARA O METODO 
-        build_agenda_tarde LOGO ABAIXO DESSE
-      '''
-
       _data_inicial = Date.parse(resource[:data_inicial])
       _data_final = Date.parse(resource[:data_final])
       _data_auxiliar = _data_inicial
@@ -91,9 +93,7 @@ class Agenda < ApplicationRecord
       # => Convertendo resource[:horarios_turno_a] para JSON
       horarios_turno_a = JSON.parse(resource[:horarios_turno_a].to_json)
 
-      # => Se as datas estiverem preenchidas
       while x <= _numero_de_dias
-        # => CAPTURA DOS horarios com o intervalo
         if Date::DAYNAMES[_data_auxiliar.wday] == "Segunda-Feira"
           gerencia_horarios(_data_auxiliar, horarios_turno_a, resource)
         elsif Date::DAYNAMES[_data_auxiliar.wday] == "Terça-Feira"
@@ -116,8 +116,21 @@ class Agenda < ApplicationRecord
       end
     end
 
+    def verifica_agenda(agendas, data)
+      if @agendas.any?
+        @agendas.each do |agenda|
+          # binding.pry
+          if agenda.data.strftime("%d/%m/%Y") == data.strftime("%d/%m/%Y")
+            return true
+          end
+        end
+      end
+    end
+
     def gerencia_horarios(_data_auxiliar, horarios_turno_a, resource)
       y = 0
+      @agendas = Agenda.where(profissional_id: resource[:profissional_id], empresa_id: resource[:empresa_id])
+
       horarios_turno_a.each do |_key, value|
         _inicio_do_atendimento = Time.parse(value['inicio'])
         _final_pre_determinado  = Time.parse(value['final'])
@@ -125,23 +138,25 @@ class Agenda < ApplicationRecord
 
         if value['dia'] == Date::DAYNAMES[_data_auxiliar.wday]
           # => bloco para gerar a agenda com os horarios com a logica do intervalo em minutos
-          while y <= _intervalo
-            # => Determinando o final do atendimento
-            _final_do_atendimento = _inicio_do_atendimento.advance(minutes: resource[:atendimento_duracao])
+          unless verifica_agenda(@agendas, _data_auxiliar) == true
+            while y <= _intervalo
+              # => Determinando o final do atendimento
+              _final_do_atendimento = _inicio_do_atendimento.advance(minutes: resource[:atendimento_duracao])
 
-            gera_agenda(resource[:empresa_id], resource[:usuario_id],
-                        resource[:profissional_id], _data_auxiliar, resource[:atendimento_sabado],
-                        resource[:atendimento_domingo], resource[:atendimento_duracao],
-                        resource[:atendimento_parcial], _inicio_do_atendimento, _final_do_atendimento)
+              gera_agenda(resource[:empresa_id], resource[:usuario_id],
+                          resource[:profissional_id], _data_auxiliar, resource[:atendimento_sabado],
+                          resource[:atendimento_domingo], resource[:atendimento_duracao],
+                          resource[:atendimento_parcial], _inicio_do_atendimento, _final_do_atendimento)
 
-            # => condição de parada dos horarios
-            if _final_pre_determinado == _final_do_atendimento
-              break
-            else
-              _inicio_do_atendimento = _final_do_atendimento
-              next
+              # => condição de parada dos horarios
+              if _final_pre_determinado == _final_do_atendimento
+                break
+              else
+                _inicio_do_atendimento = _final_do_atendimento
+                next
+              end
+              y = y + 1
             end
-            y = y + 1
           end
         end
       end
