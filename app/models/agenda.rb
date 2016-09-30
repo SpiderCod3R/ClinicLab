@@ -113,15 +113,22 @@ class Agenda < ApplicationRecord
       end
     end
 
-    def verifica_agenda(agendas, data)
+    # => Methodo para verificar se ja existe uma agenda para um determinado dia e horario
+    def agenda_exist?(agendas, data, inicio, intervalo)
       if @agendas.any?
         @agendas.each do |agenda|
-          # binding.pry
-          if agenda.data.strftime("%d/%m/%Y") == data.strftime("%d/%m/%Y")
+          inicio_do_atendimento= Time.parse(agenda.atendimento_inicio)
+          if agenda.data.strftime("%d/%m/%Y") == data.strftime("%d/%m/%Y") and 
+            agenda.atendimento_duracao.to_i == intervalo.to_i and 
+            inicio_do_atendimento.strftime("%H:%M") == inicio.strftime("%H:%M") and
+            agenda.status.eql?("VAGO")
             return true
+          else
+            agenda.destroy
           end
         end
       end
+      return false
     end
 
     def gerencia_horarios(_data_auxiliar, horarios_turno_a, resource)
