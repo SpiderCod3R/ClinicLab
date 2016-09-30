@@ -83,31 +83,28 @@ class Agenda < ApplicationRecord
       VALIDADOR / VERIFICADOR DE HORARIO JÁ INSERIDO NA BASE DE DADOS
     '''
 
-    def build_agenda_manha(resource)
+    def build_agenda(resource)
       x = 0
       _data_inicial = Date.parse(resource[:data_inicial])
       _data_final = Date.parse(resource[:data_final])
       _data_auxiliar = _data_inicial
       _numero_de_dias = (_data_final - _data_inicial).to_i
 
-      # => Convertendo resource[:horarios_turno_a] para JSON
-      horarios_turno_a = JSON.parse(resource[:horarios_turno_a].to_json)
-
       while x <= _numero_de_dias
         if Date::DAYNAMES[_data_auxiliar.wday] == "Segunda-Feira"
-          gerencia_horarios(_data_auxiliar, horarios_turno_a, resource)
+          manager(_data_auxiliar, resource)
         elsif Date::DAYNAMES[_data_auxiliar.wday] == "Terça-Feira"
-          gerencia_horarios(_data_auxiliar, horarios_turno_a, resource)
+          manager(_data_auxiliar, resource)
         elsif Date::DAYNAMES[_data_auxiliar.wday] == "Quarta-Feira"
-          gerencia_horarios(_data_auxiliar, horarios_turno_a, resource)
+          manager(_data_auxiliar, resource)
         elsif Date::DAYNAMES[_data_auxiliar.wday] == "Quinta-Feira"
-          gerencia_horarios(_data_auxiliar, horarios_turno_a, resource)
+          manager(_data_auxiliar, resource)
         elsif Date::DAYNAMES[_data_auxiliar.wday] == "Sexta-Feira"
-          gerencia_horarios(_data_auxiliar, horarios_turno_a, resource)
+          manager(_data_auxiliar, resource)
         elsif Date::DAYNAMES[_data_auxiliar.wday] == "Sábado"
-          gerencia_horarios(_data_auxiliar, horarios_turno_a, resource)
+          manager(_data_auxiliar, resource)
         elsif Date::DAYNAMES[_data_auxiliar.wday] == "Domingo"
-          gerencia_horarios(_data_auxiliar, horarios_turno_a, resource)
+          manager(_data_auxiliar, resource)
         end
 
         _data_auxiliar = _data_auxiliar.advance(days: 1)
