@@ -6,18 +6,11 @@ json.set! :agenda do
         json.set! :warning, @agenda_manha[:data][0][:message] if @agenda_manha[:data].present?
       end
     end
-  elsif @agenda_tarde.class == ActiveModel::Errors
-    json.set! :not_completeded, true
-    json.set! :flash do
-      json.set! :notice do
-        json.set! :warning, @agenda_tarde[:data][0][:message] if @agenda_tarde[:data].present?
-      end
-    end
   else
     json.set! :not_completeded, false
     json.set! :flash do
       json.set! :notice do
-        json.set! :success, I18n.t("flash.actions.create.success", resource_name: "Agenda")
+        json.set! :success, I18n.t("agendas.messages.generating", resource_name: Agenda.last.profissional.nome)
       end
     end
 
