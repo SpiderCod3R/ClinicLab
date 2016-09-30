@@ -227,16 +227,16 @@ $(document).ready ->
         success: (data) ->
           if data.agenda.not_completeded == false
             setTimeout (->
+              if (data.agenda.flash)
+                toastr.info(data.agenda.flash.notice.success, "Aguarde!")
+            ), 2000
+            setTimeout (->
               $('.progress .progress-bar').progressbar({display_text: 'center', use_percentage: false})
-              setTimeout (->
-                if (data.agenda.flash)
-                  toastr.success(data.agenda.flash.notice.success, "Sucesso.", {timeOut: 3000})
-              ), 2000
               setTimeout (->
                 if (data.agenda.location)
                   window.location.href = localhost + "/painel/empresas/#{empresa_id}/agendas?locale=pt-BR"
-              ), 5000
-            ), 4000
+              ), 8000
+            ), 7000
 
           if data.agenda.not_completeded == true
             $("#error_messages").find(".modal-body").empty()
