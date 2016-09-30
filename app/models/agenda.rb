@@ -131,18 +131,24 @@ class Agenda < ApplicationRecord
       return false
     end
 
-    def gerencia_horarios(_data_auxiliar, horarios_turno_a, resource)
+    # => Metodo para gerenciar os registros da agenda a ser criada
+    def manager(_data_auxiliar, resource)
       y = 0
+      # => Executando uma busca fina da agenda
       @agendas = Agenda.where(profissional_id: resource[:profissional_id], empresa_id: resource[:empresa_id])
 
-      horarios_turno_a.each do |_key, value|
+      # => Convertendo resource[:horarios] para JSON
+      horarios = JSON.parse(resource[:horarios].to_json)
+
+      horarios.each do |_key, value|
         _inicio_do_atendimento = Time.parse(value['inicio'])
         _final_pre_determinado  = Time.parse(value['final'])
         _intervalo = TimeDifference.between(_inicio_do_atendimento, _final_pre_determinado).in_hours
 
         if value['dia'] == Date::DAYNAMES[_data_auxiliar.wday]
-          # => bloco para gerar a agenda com os horarios com a logica do intervalo em minutos
-          unless verifica_agenda(@agendas, _data_auxiliar) == true
+          # => bloco para Verificar se a agenda já existe na base de dados
+          unless agenda_exist?(@agendas, _data_auxiliar, _inicio_do_atendimento, resource[:atendimento_duracao])
+            # => bloco para gerar a agenda com os horarios com a logica do intervalo em minutos
             while y <= _intervalo
               # => Determinando o final do atendimento
               _final_do_atendimento = _inicio_do_atendimento.advance(minutes: resource[:atendimento_duracao])
