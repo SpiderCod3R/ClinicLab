@@ -10,22 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160914123827) do
 
+ActiveRecord::Schema.define(version: 20160922124631) do
   create_table "agendas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.date     "data"
     t.boolean  "atendimento_sabado"
     t.boolean  "atendimento_domingo"
     t.boolean  "atendimento_parcial"
-    t.string   "atendimento_manha_duracao"
-    t.string   "atendimento_tarde_duracao"
+    t.string   "atendimento_duracao"
+    t.string   "atendimento_inicio"
+    t.string   "atendimento_final"
     t.integer  "profissional_id"
     t.integer  "empresa_id"
     t.integer  "usuario_id"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.string   "atendimento_inicio"
-    t.string   "atendimento_final"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.string   "status"
     t.index ["empresa_id"], name: "index_agendas_on_empresa_id", using: :btree
     t.index ["profissional_id"], name: "index_agendas_on_profissional_id", using: :btree
     t.index ["usuario_id"], name: "index_agendas_on_usuario_id", using: :btree

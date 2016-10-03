@@ -1,0 +1,5 @@
+%td{width: "30%", style: "text-align: left; font-weight: bold"}=agenda.profissional_titulo
+%td{width: "10%", style: "text-align: center;"}=agenda.data.strftime("%d/%m/%Y")
+%td{width: "10%", style: "text-align: center;"}=day_name(agenda.data.wday)
+%td{width: "10%", style: "text-align: center;"}=Time.parse(agenda.atendimento_inicio).strftime("%H:%M")
+%td{width: "10%", style: "text-align: center;"}=Time.parse(agenda.atendimento_final).strftime("%H:%M")
