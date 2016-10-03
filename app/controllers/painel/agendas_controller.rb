@@ -19,15 +19,15 @@ class Painel::AgendasController < ApplicationController
   end
 
   def create
-    # => Só vai entrar caso os horarios_manha estajam presente nos attributos
+    # => Só vai entrar caso os horarios_turno_a estajam presente nos attributos
     unless params[:horarios][:turno_a][:horarios_turno_a].nil?
       @agenda_manha = Agenda.create_horarios_turno_a_by_javascript_params(params)
     end
 
-    # => Só vai entrar caso os horarios_tarde estajam presente nos attributos
-    # unless params[:horarios][:turno_b][:horarios_turno_b].nil?
-    #   @agenda_tarde = Agenda.create_horarios_turno_b_by_javascript_params(params)
-    # end
+    # => Só vai entrar caso os horarios_turno_b estajam presente nos attributos
+    unless params[:horarios][:turno_b][:horarios_turno_b].nil?
+      @agenda_tarde = Agenda.create_horarios_turno_b_by_javascript_params(params)
+    end
 
     respond_to &:json
   end
