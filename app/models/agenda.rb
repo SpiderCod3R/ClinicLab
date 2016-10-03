@@ -119,12 +119,14 @@ class Agenda < ApplicationRecord
         @agendas.each do |agenda|
           inicio_do_atendimento= Time.parse(agenda.atendimento_inicio)
           if agenda.data.strftime("%d/%m/%Y") == data.strftime("%d/%m/%Y") and 
-            agenda.atendimento_duracao.to_i == intervalo.to_i and 
-            inicio_do_atendimento.strftime("%H:%M") == inicio.strftime("%H:%M") and
+            agenda.atendimento_duracao.to_i == intervalo.to_i and
             agenda.status.eql?("VAGO")
             return true
-          else
-            agenda.destroy
+          elsif agenda.data.strftime("%d/%m/%Y") == data.strftime("%d/%m/%Y") and 
+                agenda.atendimento_duracao.to_i != intervalo.to_i and
+                Time.parse(agenda.atendimento_inicio).strftime("%H:%M") == inicio.strftime("%H:%M") and 
+                agenda.status.eql?("VAGO")
+            return true
           end
         end
       end
