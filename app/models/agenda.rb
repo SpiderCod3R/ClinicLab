@@ -41,7 +41,24 @@ class Agenda < ApplicationRecord
                      atendimento_domingo: resource['agenda']['atendimento_domingo'],
                      atendimento_duracao: resource['horarios']['turno_a']['atendimento_duracao'].to_i,
                      atendimento_parcial: resource['agenda']['atendimento_parcial'],
-                     horarios: resource['horarios']['turno_a']['horarios_turno_a']
+                     horarios: resource['horarios']['turno_a']['atendimentos']
+                    })
+    end
+
+    # => Gerar agenda no turno da Tarde -> Vespertino
+    def create_horarios_turno_b_by_javascript_params(resource)
+      resource = JSON.parse(resource.to_json)
+
+      build_agenda({ empresa_id:   resource['agenda']['empresa_id'],
+                     usuario_id:   resource['agenda']['usuario_id'],
+                     data_inicial: resource['agenda']['data_inicial'],
+                     data_final:   resource['agenda']['data_final'],
+                     profissional_id: resource['agenda']['profissional_id'],
+                     atendimento_sabado: resource['agenda']['atendimento_sabado'],
+                     atendimento_domingo: resource['agenda']['atendimento_domingo'],
+                     atendimento_duracao: resource['horarios']['turno_b']['atendimento_duracao'].to_i,
+                     atendimento_parcial: resource['agenda']['atendimento_parcial'],
+                     horarios: resource['horarios']['turno_b']['atendimentos']
                     })
     end
 
