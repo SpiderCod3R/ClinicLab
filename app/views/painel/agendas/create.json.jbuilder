@@ -1,5 +1,5 @@
 json.set! :agenda do
-  if @invalid_fields_for_shift_a.length.eql?(0)
+  if @invalid_fields_for_shift_a.nil? or @invalid_fields_for_shift_b.nil?
     json.set! :not_completeded, false
     json.set! :flash do
       json.set! :notice do
