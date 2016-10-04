@@ -11,4 +11,5 @@ pt-BR:
       atendimento_duracao: "Duração do Atendimento [Min]"
     messages:
       generating: Gerando Agenda de %{resource_name}
-      
+      no_value_detected: Nenhum horário detectado. Por-favor Preencha pelo menos um horário.
+      time_out_no_detected: Não foi possivel detectar um intervalo do atendimento. Por-favor informe um intervalo em minutos.
