@@ -237,8 +237,7 @@ $(document).ready ->
                   window.location.href = localhost + "/painel/empresas/#{empresa_id}/agendas?locale=pt-BR"
               ), 8000
             ), 7000
-
-          if response.agenda.not_completeded == true
+          else
             i=0
             $("#error_messages").find(".modal-body").empty()
             $("#error_messages").find(".modal-title").html("Erros Encontrados")
