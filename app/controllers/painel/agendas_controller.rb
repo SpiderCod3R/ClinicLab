@@ -23,11 +23,11 @@ class Painel::AgendasController < ApplicationController
     @invalid_fields_for_shift_a = @agenda_notification.validate_shift_a!
     @invalid_fields_for_shift_b = @agenda_notification.validate_shift_b!
 
-    if @invalid_fields_for_shift_a.length.eql?(0)
+    if @invalid_fields_for_shift_a.nil?
       @agenda_manha = Agenda.create_horarios_turno_a_by_javascript_params(params)
     end
 
-    if @invalid_fields_for_shift_b.length.eql?(0)
+    if @invalid_fields_for_shift_b.nil?
       @agenda_tarde = Agenda.create_horarios_turno_b_by_javascript_params(params)
     end
   end
