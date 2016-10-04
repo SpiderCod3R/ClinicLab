@@ -126,10 +126,11 @@ $(document).ready ->
 
       dia = discover_week_days(x)
 
-      horarios.push
-        'dia': dia
-        'inicio': inicio
-        'final':  final
+      if inicio != "" && final != ""
+        horarios.push
+          'dia': dia
+          'inicio': inicio
+          'final':  final
       x++
     return horarios
 
