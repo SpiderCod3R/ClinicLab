@@ -3,7 +3,7 @@
   ZONA DE PERIGO EXTREMO
   CUIDADO AO MANUSEAR ESTA FUNCIONALIDADE
 '''
-
+require 'custom/agenda_notification'
 class Painel::AgendasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :find_empresa
@@ -19,17 +19,17 @@ class Painel::AgendasController < ApplicationController
   end
 
   def create
-    # => Só vai entrar caso os horarios_turno_a estajam presente nos attributos
-    unless params[:horarios][:turno_a][:horarios_turno_a].nil?
+    @agenda_notification = AgendaNotification.new(params)
+    @invalid_fields_for_shift_a = @agenda_notification.validate_shift_a!
+    @invalid_fields_for_shift_b = @agenda_notification.validate_shift_b!
+
+    if @invalid_fields_for_shift_a.length.eql?(0)
       @agenda_manha = Agenda.create_horarios_turno_a_by_javascript_params(params)
     end
 
-    # => Só vai entrar caso os horarios_turno_b estajam presente nos attributos
-    unless params[:horarios][:turno_b][:horarios_turno_b].nil?
+    if @invalid_fields_for_shift_b.length.eql?(0)
       @agenda_tarde = Agenda.create_horarios_turno_b_by_javascript_params(params)
     end
-
-    respond_to &:json
   end
 
   private
