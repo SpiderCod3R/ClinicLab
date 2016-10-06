@@ -8,7 +8,7 @@ class Cliente < ApplicationRecord
             :status_convenio, :matricula, :plano, :validade_carteira,
             :produto, :titular
 
-  validates_associated :cargo, :estado, :cidade, :convenio, :empresa
+  validates_associated :cargo, :estado, :cidade, :convenio
 
   usar_como_cpf :cpf
 
