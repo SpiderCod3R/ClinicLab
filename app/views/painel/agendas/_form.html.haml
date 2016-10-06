@@ -15,7 +15,7 @@
           .row-fluid
             .col-md-3
               =f.label :profissional_id
-              =f.collection_select :profissional_id, Profissional.all.order("nome ASC"), :id, :nome, { prompt: "Selecione um" }, class: "form-control"
+              =f.collection_select :profissional_id, Profissional.all.order("nome ASC"), :id, :titulo, { prompt: "Selecione um" }, class: "form-control"
             .col-md-3
               =f.input :data_inicial, as: :string, input_html: { class: "datepicker" }
             .col-md-3
@@ -45,7 +45,7 @@
             #atendimento_manha
               .container-fluid
                 .col-md-2
-                  =f.input :atendimento_manha_duracao, label: "Minutos"
+                  =f.input :atendimento_turno_a_duracao, label: "Minutos"
               %hr{style: "border: #A2A2A2 0.5px dashed"}
           .row-fluid
             .panel
@@ -71,7 +71,7 @@
             #atendimento_tarde
               .container-fluid
                 .col-md-2
-                  =f.input :atendimento_tarde_duracao, label: "Minutos"
+                  =f.input :atendimento_turno_b_duracao, label: "Minutos"
               %hr{style: "border: #A2A2A2 0.5px dashed"}
           .row-fluid
             .panel
@@ -89,3 +89,4 @@
                       =f.time_field :atendimento_tarde_final, class: "form-control", id: "agenda_atendimento_tarde_final_#{indice_tarde}_attribute"
                 -indice_tarde += 1
                 %br/
+=render 'error_messages'
