@@ -47,7 +47,7 @@ gem "prawn"
 gem "prawn-table"
 gem "wicked"
 gem 'masonry-rails'
-gem 'paperclip'
+gem 'paperclip', '~> 5.0.0'
 gem 'tinymce-rails'
 gem 'tinymce-rails-langs'
 gem "bootstrap-table-rails"

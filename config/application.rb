@@ -20,5 +20,8 @@ module Gclinic20
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
     config.i18n.default_locale = :'pt-BR'
+
+    # Set command_path for Paperclip gem
+    Paperclip.options[:command_path] = "/usr/local/bin/"
   end
 end

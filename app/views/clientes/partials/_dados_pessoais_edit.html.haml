@@ -6,6 +6,7 @@
         =f.error_notification
   %div{class: "row"}
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
+      = f.input :id, as: :hidden
       = f.input :status, :as => :select,
               :collection => [['Ativo','Ativo'],['Inativo','Inativo']],
               :include_blank => false,
