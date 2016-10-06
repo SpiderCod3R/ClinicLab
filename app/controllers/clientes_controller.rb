@@ -38,10 +38,9 @@ class ClientesController < ApplicationController
   end
 
   def update
-    @cliente = current_usuario.empresa.clientes.build(cliente_params)
     session[:cliente_id] = @cliente.id
     get_historicos
-    @cliente.atualiza_cliente(cliente_params)
+    @cliente.update(cliente_params)
     redirect_to new_cliente_path
   end
 
