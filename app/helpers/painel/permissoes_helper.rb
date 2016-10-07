@@ -1,2 +1,0 @@
-module Painel::PermissoesHelper
-end

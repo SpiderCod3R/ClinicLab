@@ -1,2 +1,0 @@
-module Painel::AccountsHelper
-end
