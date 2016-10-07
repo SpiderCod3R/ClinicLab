@@ -29,9 +29,10 @@
 #= require bootstrap-table
 
 # -*- TINYMCE -*-
-#= require tinymce-jquery
+#= require TINYMCE/jquery.tinymce.min
+#= require TINYMCE/tinymce.min
 #= require tinyMCE
-#= require text_area_editor_pt_BR
+#= require TINYMCE/tinymce_pt_BR
 
 #= require TEMPLATE/accounting
 #= require TEMPLATE/modernizr.custom.min
