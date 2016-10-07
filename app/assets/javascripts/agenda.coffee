@@ -6,6 +6,8 @@ $(document).ready ->
   empresa_id = $("#agenda_empresa_id").val()
   localhost = window.location.origin
 
+  $("#q_data_cont").val("")
+
   # => arrays necessarios para coletar informação dos horarios
   horarios_tarde =[]
   horarios_manha =[]
@@ -254,3 +256,11 @@ $(document).ready ->
             $("#error_messages").modal()
 
 
+  $('tr.movimentar_agenda[data-href]').on 'click', ->
+    # alert $(this).data('agenda-id')
+    $.ajax
+      url: localhost + $(this).data('href')
+      type: 'GET'
+      dataType: 'JSON'
+      data:
+        agenda_id: $(this).data('agenda-id')
