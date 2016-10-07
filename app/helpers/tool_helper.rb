@@ -19,6 +19,16 @@ module ToolHelper
     return resource ? "ATIVO" : "INATIVO"
   end
 
+  def documento(documento)
+    if documento == '1'
+      'Física'
+    elsif documento == '2'
+      'Jurídica'
+    else
+      ''
+    end
+  end
+
   def sexo_formatado(s)
     sexo = ''
     if s == 'f'
@@ -79,7 +89,6 @@ module ToolHelper
     link_to "#{image_tag("icons/glyphicons-191-circle-plus.png", width: 22, height: 22)}
              NOVO USUÁRIO".html_safe, resource, class: 'btn btn-default'
   end
-
 
   def link_to_visualizar(resource)
     link_to "#{image_tag("icons/glyphicons-610-journal.png", width: 22, height: 22)}".html_safe,
