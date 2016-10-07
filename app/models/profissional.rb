@@ -28,6 +28,6 @@ class Profissional < ApplicationRecord
          allow_nil: true
 
   def titulo
-    "#{nome} - #{cargo.nome}"
+    "#{nome} - #{cargo_nome}"
   end
 end
