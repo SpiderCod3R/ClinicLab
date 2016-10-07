@@ -1,0 +1,22 @@
+.row-fluid
+  .panel.panel-default
+    .panel-heading 
+    .panel-body
+      %table.table.table-striped.table-bordered.table-hover{ cellspacing: "0", width: "100%"}
+        %thead
+          %th=sort_link @search, :name, "Profissional"
+          %th=sort_link @search, :name, "Dia"
+          %th="Turno"
+          %th=sort_link @search, :name, "Data"
+          %th=sort_link @search, :name, "Horário"
+        %tbody
+          - @agendas.order("data ASC").order("atendimento_inicio ASC").each do |agenda|
+            -if agenda.status.eql?("VAGO")
+              =content_tag(:tr, class: "success") do
+                =render 'agenda_tr', { agenda: agenda }
+            -elsif agenda.status.eql?("AGENDADO")
+              %tr.danger=render 'agenda_tr', { agenda: agenda }
+
+  %hr{style: "border: #323232 solid 0.5px;"}
+  =paginate @agendas
+#movimentar_agenda_section

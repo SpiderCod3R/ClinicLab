@@ -1,0 +1,6 @@
+%td{width: "30%", style: "text-align: left; font-weight: bold"}
+  =link_to agenda.profissional_titulo, painel_empresa_agenda_movimentar_path(@empresa,agenda.id), remote: true, class: "hands_cursor"
+%td{width: "10%", style: "text-align: center;"}=day_name(agenda.data.wday)
+%td{width: "10%", style: "text-align: center;"}=agenda.turno
+%td{width: "10%", style: "text-align: center;"}=agenda.data.strftime("%d/%m/%Y")
+%td{width: "10%", style: "text-align: center;"}=Time.parse(agenda.atendimento_inicio).strftime("%H:%M")

@@ -1,0 +1,23 @@
+%section#schedule
+  .col-md-12
+    .row
+      .col-md-3
+        %b Código Responsável
+        %br
+        %b=agenda.profissional_id
+      .col-md-3
+        %b Responsável
+        %br
+        =agenda.profissional_nome
+      .col-md-2
+        %b Data
+        %br
+        =agenda.data.strftime("%d/%m/%Y")
+      .col-md-2
+        %b Data
+        %br
+        =day_name(agenda.data.wday)
+      .col-md-2
+        %b Hora
+        %br
+        =Time.parse(agenda.atendimento_inicio).strftime("%H:%M")
