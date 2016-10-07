@@ -73,7 +73,13 @@ Rails.application.routes.draw do
         get  'add_permissions'
         post 'save_permissions'
       end
-      resources :agendas
+      resources :agendas do
+        collection do
+          match 'advanced_search' => 'agendas#advanced_search', via: [:get, :post], as: :advanced_search
+        end
+        get 'movimentar', to: 'agenda_movimentacoes#new', as: :movimentar
+        post 'movimentar', to: 'agenda_movimentacoes#create', as: :post_movimentacao
+      end
     end
 
     get 'usuario/:id/permissoes', to: "usuarios/accounts#show_permissions", as: :show_user_permissions
