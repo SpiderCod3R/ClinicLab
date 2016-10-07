@@ -31,9 +31,13 @@
 # require utility/datatable
 
 # -*- REQUIRES DO GCLINIC
+#= require date_time_inputs
 #= require agenda
 #= require atendimentos
 #= require clientes
+#= require cliente_idade
+#= require cliente_nacionalidade
+#= require cliente_historicos
 #= require fornecedor
 #= require fornecedores
 #= require profissionais
