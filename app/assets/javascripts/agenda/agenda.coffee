@@ -254,13 +254,3 @@ $(document).ready ->
                 $("#error_messages").find(".modal-body").append("<li>#{response.agenda.flash.messages[i]}</li>")
               i++
             $("#error_messages").modal()
-
-
-  $('tr.movimentar_agenda[data-href]').on 'click', ->
-    # alert $(this).data('agenda-id')
-    $.ajax
-      url: localhost + $(this).data('href')
-      type: 'GET'
-      dataType: 'JSON'
-      data:
-        agenda_id: $(this).data('agenda-id')
