@@ -21,4 +21,8 @@ class AgendaMovimentacao < ApplicationRecord
   def no_convenio_registered?
     sem_convenio.present?
   end
+
+  def convenio_desc
+    "#{convenio_title}"
+  end
 end
