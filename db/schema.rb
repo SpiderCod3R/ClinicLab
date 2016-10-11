@@ -11,6 +11,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 20161007201507) do
+
   create_table "agenda_movimentacoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "agenda_id"
     t.integer  "convenio_id"
@@ -143,9 +144,9 @@ ActiveRecord::Schema.define(version: 20161007201507) do
     t.integer  "convenio_id"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
+    t.integer  "empresa_id"
     t.string   "nacionalidade"
     t.string   "naturalidade"
-    t.integer  "empresa_id"
     t.index ["cargo_id"], name: "index_clientes_on_cargo_id", using: :btree
     t.index ["cidade_id"], name: "index_clientes_on_cidade_id", using: :btree
     t.index ["convenio_id"], name: "index_clientes_on_convenio_id", using: :btree
@@ -221,22 +222,14 @@ ActiveRecord::Schema.define(version: 20161007201507) do
     t.index ["estado_id"], name: "index_fornecedores_on_estado_id", using: :btree
   end
 
-  create_table "funcoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "nome"
-    t.string   "descricao"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "historicos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.text     "indice",     limit: 65535
-    t.string   "idade"
     t.integer  "cliente_id"
+    t.string   "idade"
     t.integer  "usuario_id"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
     t.index ["cliente_id"], name: "index_historicos_on_cliente_id", using: :btree
-    t.index ["usuario_id"], name: "index_historicos_on_usuario_id", using: :btree
   end
 
   create_table "imagem_cabecs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -391,7 +384,6 @@ ActiveRecord::Schema.define(version: 20161007201507) do
   add_foreign_key "fornecedores", "cidades"
   add_foreign_key "fornecedores", "estados"
   add_foreign_key "historicos", "clientes"
-  add_foreign_key "historicos", "usuarios"
   add_foreign_key "profissionais", "cargos"
   add_foreign_key "profissionais", "cidades"
   add_foreign_key "profissionais", "conselho_regionais"
