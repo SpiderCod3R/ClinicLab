@@ -14,7 +14,8 @@ class AgendaMovimentacao < ApplicationRecord
            prefix: true,
            allow_nil: true
 
-  validates :agenda_id, :convenio_id, :cliente_id, presence: true
-  validates_associated :agenda, :convenio, :cliente
+  validates :agenda_id, presence: true
+  validates :convenio_id, presence: true, if: :no_convenio_registered?
+  validates_associated :agenda
 
 end
