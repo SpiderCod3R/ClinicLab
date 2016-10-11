@@ -10,8 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+ActiveRecord::Schema.define(version: 20161007201507) do
+  create_table "agenda_movimentacoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "agenda_id"
+    t.integer  "convenio_id"
+    t.integer  "cliente_id"
+    t.text     "observacoes",       limit: 65535
+    t.string   "confirmacao"
+    t.boolean  "sem_convenio"
+    t.date     "data"
+    t.time     "hora"
+    t.time     "hora_chegada"
+    t.string   "sala_espera"
+    t.date     "data_sala_espera"
+    t.integer  "atendente_id"
+    t.integer  "solicitante_id"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.string   "nome_paciente"
+    t.string   "telefone_paciente"
+    t.string   "email_paciente"
+    t.index ["agenda_id"], name: "index_agenda_movimentacoes_on_agenda_id", using: :btree
+    t.index ["cliente_id"], name: "index_agenda_movimentacoes_on_cliente_id", using: :btree
+    t.index ["convenio_id"], name: "index_agenda_movimentacoes_on_convenio_id", using: :btree
+  end
 
-ActiveRecord::Schema.define(version: 20160922124631) do
   create_table "agendas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.date     "data"
     t.boolean  "atendimento_sabado"
@@ -355,6 +378,9 @@ ActiveRecord::Schema.define(version: 20160922124631) do
     t.index ["empresa_id"], name: "index_texto_livres_on_empresa_id", using: :btree
   end
 
+  add_foreign_key "agenda_movimentacoes", "agendas"
+  add_foreign_key "agenda_movimentacoes", "clientes"
+  add_foreign_key "agenda_movimentacoes", "convenios"
   add_foreign_key "atendimentos", "cidades"
   add_foreign_key "atendimentos", "convenios"
   add_foreign_key "atendimentos", "estados"

@@ -15,11 +15,11 @@ class Cliente < ApplicationRecord
   before_create :set_status_cliente
   before_save :upcased_attributes
 
+  belongs_to :empresa, class_name: "Painel::Empresa", foreign_key: "empresa_id"
   belongs_to :estado
   belongs_to :cidade
   belongs_to :cargo
   belongs_to :convenio
-  belongs_to :empresa
   has_many :historicos
 
   accepts_nested_attributes_for :historicos, allow_destroy: true

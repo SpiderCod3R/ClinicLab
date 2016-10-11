@@ -1,0 +1,7 @@
+%td{width: "25%", style: "text-align: left; font-weight: bold"}
+  =link_to agenda.profissional_titulo, painel_empresa_agenda_movimentar_ou_atualizar_path(@empresa,agenda.id), class: "hands_cursor"
+%td{width: "9%", style: "text-align: center;"}=day_name(agenda.data.wday)
+%td{width: "7%", style: "text-align: center;"}=agenda.data.strftime("%d/%m/%Y")
+%td{width: "5%", style: "text-align: center;"}=Time.parse(agenda.atendimento_inicio).strftime("%H:%M")
+%td{width: "10%", style: "text-align: center;"}=agenda.agenda_movimentacao.nome_paciente if agenda.try(:agenda_movimentacao)
+%td{width: "10%", style: "text-align: center;"}=agenda.agenda_movimentacao.atendente.nome if agenda.try(:agenda_movimentacao)

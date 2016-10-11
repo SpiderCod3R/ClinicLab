@@ -36,6 +36,7 @@ namespace :globalnetsis do
 
   desc "import permissions to database"
   task make_permissions: :environment do
+    Painel::Permissao.create(nome: "Agendas", model_class: "Agenda")
     Painel::Permissao.create(nome: "Cargos", model_class: "Cargo")
     Painel::Permissao.create(nome: "Centro De Custos", model_class: "CentroDeCusto")
     Painel::Permissao.create(nome: "Convênios", model_class: "Convenio")

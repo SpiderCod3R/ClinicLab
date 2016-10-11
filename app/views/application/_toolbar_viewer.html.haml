@@ -15,7 +15,7 @@
           %li.active= link_to "#{image_tag("icons/glyphicons-151-edit-white.png", width: 22, height: 22)} EDITAR EMPRESA".html_safe, edit_path
       -unless object.id.nil?
         -if can? :destroy, object.class
-          %li.active= link_to "#{image_tag("icons/glyphicons-193-circle-remove-white.png", width: 22, height: 22)} EXCLUIR".html_safe, {action: 'destroy', id: object }, method: "delete", class: 'delete-confirm', data: {confirm: "Excluir #{object.to_s}"}, title: "Excluir Empresa"
+          %li.active= link_to "#{image_tag("icons/glyphicons-193-circle-remove-white.png", width: 22, height: 22)} EXCLUIR".html_safe, {action: 'destroy', id: object }, method: "delete", class: 'delete-confirm', data: {confirm: "Excluir #{object.to_s}"}
       -else
         %li.disabled= link_to "#{image_tag("icons/glyphicons-193-circle-remove-white.png", width: 22, height: 22)} EXCLUIR".html_safe, "#"
       %li.active= link_to "#{image_tag("icons/glyphicons-28-search-white.png", width: 22, height: 22)} PROCURAR".html_safe, back_path

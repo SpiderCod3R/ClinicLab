@@ -1,4 +1,15 @@
 GIT
+  remote: git://github.com/activerecord-hackery/ransack.git
+  revision: ae237535c75e03742aed1c94f251ecd3b1ab991e
+  specs:
+    ransack (1.8.2)
+      actionpack (>= 3.0)
+      activerecord (>= 3.0)
+      activesupport (>= 3.0)
+      i18n
+      polyamorous (~> 1.3)
+
+GIT
   remote: git://github.com/derekprior/momentjs-rails.git
   revision: 41e30d424e9a56ea4b310087615e1fdc94d87810
   specs:
@@ -241,6 +252,8 @@ GEM
       mimemagic (~> 0.3.0)
     pdf-core (0.6.1)
     pkg-config (1.1.7)
+    polyamorous (1.3.1)
+      activerecord (>= 3.0)
     prawn (2.1.0)
       pdf-core (~> 0.6.1)
       ttfunk (~> 1.4.0)
@@ -429,6 +442,7 @@ DEPENDENCIES
   puma (~> 3.0)
   rails (~> 5.0.0.1)
   rails-i18n (~> 5.0.0)
+  ransack!
   redis (~> 3.0)
   responders
   rspec (~> 3.5)

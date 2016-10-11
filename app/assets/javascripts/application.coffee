@@ -32,7 +32,8 @@
 
 # -*- REQUIRES DO GCLINIC
 #= require date_time_inputs
-#= require agenda
+#= require agenda/agenda
+#= require agenda/movimentar_agenda
 #= require atendimentos
 #= require clientes
 #= require cliente_idade

@@ -6,6 +6,8 @@ $(document).ready ->
   empresa_id = $("#agenda_empresa_id").val()
   localhost = window.location.origin
 
+  $("#q_data_cont").val("")
+
   # => arrays necessarios para coletar informação dos horarios
   horarios_tarde =[]
   horarios_manha =[]
@@ -126,10 +128,11 @@ $(document).ready ->
 
       dia = discover_week_days(x)
 
-      horarios.push
-        'dia': dia
-        'inicio': inicio
-        'final':  final
+      if inicio != "" && final != ""
+        horarios.push
+          'dia': dia
+          'inicio': inicio
+          'final':  final
       x++
     return horarios
 
@@ -140,7 +143,8 @@ $(document).ready ->
     profissional_id = $("#agenda_profissional_id :selected").val()
     data_inicial    = $("#agenda_data_inicial").val()
     data_final      = $("#agenda_data_final").val()
-    duracao         = $("#agenda_atendimento_turno_a_duracao").val()
+    duracao_turno_a = $("#agenda_atendimento_turno_a_duracao").val()
+    duracao_turno_b = $("#agenda_atendimento_turno_b_duracao").val()
 
     if profissional_id == ""
       error_messages.push("<li>Profissional deve ser selecionado</li>")
@@ -164,9 +168,6 @@ $(document).ready ->
         dia="Sabado"
       if x == 6
         dia="Domingo"
-
-      # if $("#agenda_atendimento_manha_inicio_#{x}_attribute").val() == ""
-      #   error_messages.push("<li>Deve ser preenchido pelo menos um ou mais horarios.</li>")
 
       if $("#agenda_atendimento_manha_inicio_#{x}_attribute").val() != "" && $("#agenda_atendimento_manha_final_#{x}_attribute").val() != ""
         if $("#agenda_atendimento_turno_a_duracao").val() == ""
@@ -202,6 +203,7 @@ $(document).ready ->
       horarios_turno_a = coletor_do_turno_a()
       horarios_turno_b = coletor_do_turno_b()
       console.log horarios_turno_a
+      console.log horarios_turno_b
       $.ajax
         url: localhost + "/painel/empresas/#{empresa_id}/agendas"
         type: 'POST'
@@ -219,29 +221,36 @@ $(document).ready ->
             atendimento_parcial:   horario_parcial
           horarios:
             turno_a:
-              atendimento_duracao:         $("#agenda_atendimento_turno_a_duracao").val()
-              horarios_turno_a:            horarios_turno_a
+              atendimento_duracao: $("#agenda_atendimento_turno_a_duracao").val()
+              atendimentos:        horarios_turno_a
             turno_b:
-              atendimento_duracao:         $("#agenda_atendimento_turno_b_duracao").val()
-              horarios_turno_b:            horarios_turno_b
-        success: (data) ->
-          if data.agenda.not_completeded == false
+              atendimento_duracao: $("#agenda_atendimento_turno_b_duracao").val()
+              atendimentos:        horarios_turno_b
+        success: (response) ->
+          if response.agenda.not_completeded == false
             setTimeout (->
-              if (data.agenda.flash)
-                toastr.info(data.agenda.flash.notice.success, "Aguarde!")
+              if (response.agenda.flash)
+                toastr.info(response.agenda.flash.notice.success, "Aguarde!")
             ), 2000
             setTimeout (->
               $('.progress .progress-bar').progressbar({display_text: 'center', use_percentage: false})
               setTimeout (->
-                if (data.agenda.location)
+                if (response.agenda.location)
                   window.location.href = localhost + "/painel/empresas/#{empresa_id}/agendas?locale=pt-BR"
               ), 8000
             ), 7000
-
-          if data.agenda.not_completeded == true
+          else
+            i=0
             $("#error_messages").find(".modal-body").empty()
             $("#error_messages").find(".modal-title").html("Erros Encontrados")
-            $("#error_messages").find(".modal-body").append("<li>#{data.agenda.flash.notice.warning}</li>")
+            messages = response.agenda.flash.messages.filter((last, i) ->
+              response.agenda.flash.messages.indexOf(last) == i
+            )
+            console.log messages
+            while i <= messages.length
+              if i >= messages.length
+                break
+              else
+                $("#error_messages").find(".modal-body").append("<li>#{response.agenda.flash.messages[i]}</li>")
+              i++
             $("#error_messages").modal()
-
-

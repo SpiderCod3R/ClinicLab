@@ -1,0 +1,32 @@
+%section#dados_principais_da_agenda
+  .container
+    .row-fluid
+      .col-md-3
+        %b Código Responsável
+        %br
+        %label=agenda.profissional_id
+      .col-md-3
+        %b Responsável
+        %br
+        %label=agenda.profissional_nome
+      .col-md-2
+        %b Data
+        %br
+        %label=agenda.data.strftime("%d/%m/%Y")
+      .col-md-2
+        %b Data
+        %br
+        %label=day_name(agenda.data.wday)
+      .col-md-2
+        %b Hora
+        %br
+        %label{style: "color: #9F0303"}=Time.parse(agenda.atendimento_inicio).strftime("%H:%M")
+      .col-md-3
+        %b Status
+        %br
+        -if agenda.status.eql?(I18n.t("agendas.helpers.scheduled"))
+          %label{style: "color: #9F0303"}
+            =agenda.status
+        -else
+          %label{style: "color: #059F03"}
+            =agenda.status
