@@ -18,11 +18,18 @@ class AgendaMovimentacao < ApplicationRecord
   validates :convenio_id, presence: true, if: :no_convenio_registered?
   validates_associated :agenda
 
+  after_save :change_agenda_status
+
   def no_convenio_registered?
     sem_convenio.present?
   end
 
   def convenio_desc
     "#{convenio_title}"
+  end
+
+  def change_agenda_status
+    agenda.status= I18n.t("agendas.helpers.scheduled")
+    agenda.save
   end
 end
