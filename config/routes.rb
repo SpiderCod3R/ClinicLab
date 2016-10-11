@@ -54,7 +54,6 @@ Rails.application.routes.draw do
     end
   end
 
-
   namespace :painel do
     resources :dashboards
 
@@ -77,8 +76,8 @@ Rails.application.routes.draw do
         collection do
           match 'advanced_search' => 'agendas#advanced_search', via: [:get, :post], as: :advanced_search
         end
-        get 'movimentar', to: 'agenda_movimentacoes#new', as: :movimentar
-        post 'movimentar', to: 'agenda_movimentacoes#create', as: :post_movimentacao
+        resources :agenda_movimentacoes
+        get 'movimentar', to: 'agenda_movimentacoes#verify', as: :movimentar_ou_atualizar
       end
     end
 
