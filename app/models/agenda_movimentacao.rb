@@ -17,7 +17,4 @@ class AgendaMovimentacao < ApplicationRecord
   validates :agenda_id, :convenio_id, :cliente_id, presence: true
   validates_associated :agenda, :convenio, :cliente
 
-  accepts_nested_attributes_for :cliente,
-                                reject_if: proc { |attributes| attributes['nome', 'telefone', 'email'].blank?},
-                                allow_destroy: true
 end
