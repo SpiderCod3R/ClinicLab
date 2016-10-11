@@ -12,14 +12,12 @@
           = f.label :profissional_nome_cont, "Nome do Profissional"
           %br
           = f.search_field :profissional_nome_cont, placeholder: "Nome"
-      %BR
-      .row
-        .col-md-4
-          .field
-            Sortear:
-            = f.sort_fields do |s|
-              = s.sort_select
+        .col-md-2
+          = f.label :agenda_movimentacao_nome_paciente_cont, "Nome do Paciente"
+          %br
+          = f.search_field :agenda_movimentacao_nome_paciente_cont, placeholder: "Nome do Paciente"
       .row
         %br
         .col-md-4
           = f.submit "Buscar", class: "btn btn-success"
+          =link_to "Recarregar Página", painel_empresa_agendas_path(current_usuario.empresa), class: "btn btn-primary"
