@@ -14,6 +14,7 @@ class Agenda < ApplicationRecord
   belongs_to :profissional
   belongs_to :usuario
   belongs_to :empresa
+  has_one :agenda_movimentacao
 
   delegate :id, :nome,
            to: :profissional,
