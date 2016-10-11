@@ -31,7 +31,8 @@
 # require utility/datatable
 
 # -*- REQUIRES DO GCLINIC
-#= require agenda
+#= require agenda/agenda
+#= require agenda/movimentar_agenda
 #= require atendimentos
 #= require clientes
 #= require pacientes
