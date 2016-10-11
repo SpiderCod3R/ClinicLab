@@ -60,8 +60,18 @@ class Painel::AgendasController < ApplicationController
       @empresa = Painel::Empresa.friendly.find(params[:empresa_id])
     end
 
+    def check_params_for_agenda
+      lambda do |*args|
+        raise ArgumentError if args.empty? || args.size > 2
+        arg1, arg2 = args
+        return arg1 unless arg1.nil?
+        return arg2 unless arg2.nil?
+      end
+    end
+
     def find_agenda
-      @agenda = Agenda.find_by(empresa_id: @empresa.id, id: params[:agenda_id])
+      @id = check_params_for_agenda
+      @agenda = Agenda.find_by(empresa_id: @empresa.id, id: @id.call(params[:id], params[:agenda_id]))
     end
 
     def ransack_params
