@@ -29,6 +29,7 @@ class Painel::AgendaMovimentacoesController < ApplicationController
     @movimentacao = AgendaMovimentacao.build_movimentacao(params[:agenda_movimentacao])
     @movimentacao.atendente = current_usuario
     if @movimentacao.save
+      @movimentacao.change_agenda_status
       flash[:notice] = "Agenda movimentada com sucesso"
       redirect_to painel_empresa_agenda_path(@empresa, @agenda)
     else
@@ -39,6 +40,7 @@ class Painel::AgendaMovimentacoesController < ApplicationController
   def update
     @movimentacao.atendente = current_usuario
     if @movimentacao.update_movimentacao(params[:agenda_movimentacao])
+      @movimentacao.change_agenda_status
       flash[:notice] = "Agenda atualizada com sucesso"
       redirect_to painel_empresa_agenda_path(@empresa, @agenda)
     else

@@ -3,7 +3,6 @@
   ZONA DE PERIGO EXTREMO
   CUIDADO AO MANUSEAR ESTA FUNCIONALIDADE
 '''
-require 'custom/agenda_notification'
 class Painel::AgendasController < ApplicationController
   include AgendasHelper
   before_action :authenticate_usuario!
