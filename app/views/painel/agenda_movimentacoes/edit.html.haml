@@ -1,0 +1,5 @@
+=build_form_toolbar(nil, ".edit_agenda_movimentacao", @movimentacao, painel_empresa_agendas_path, nil)
+.container
+  %h3=movimentar_agenda_numero(@agenda.id)
+  .panel.panel-default
+    =render 'form'

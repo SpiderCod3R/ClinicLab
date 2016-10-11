@@ -1,0 +1,27 @@
+.col-md-6
+  .col-md-12
+    .panel.panel-default
+      .panel-heading Dados do Paciente
+      .panel-body
+        .row
+          .col-md-1
+            %b Nome
+          .col-md-5
+            =agenda_movimentacao.nome_paciente
+          .col-md-2
+            %b Telefone
+          .col-md-3
+            =agenda_movimentacao.telefone_paciente
+        %br/
+        .row
+          .col-md-2
+            %b E-mail
+          .col-md-6
+            =agenda_movimentacao.email_paciente
+.col-md-6
+  .row
+    .panel.panel-default
+      .panel-heading Observações
+      .panel-body
+        #observacoes_blk
+          =agenda_movimentacao.observacoes

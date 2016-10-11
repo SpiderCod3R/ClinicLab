@@ -1,23 +1,32 @@
-%section#schedule
-  .col-md-12
-    .row
+%section#dados_principais_da_agenda
+  .container
+    .row-fluid
       .col-md-3
         %b Código Responsável
         %br
-        %b=agenda.profissional_id
+        %label=agenda.profissional_id
       .col-md-3
         %b Responsável
         %br
-        =agenda.profissional_nome
+        %label=agenda.profissional_nome
       .col-md-2
         %b Data
         %br
-        =agenda.data.strftime("%d/%m/%Y")
+        %label=agenda.data.strftime("%d/%m/%Y")
       .col-md-2
         %b Data
         %br
-        =day_name(agenda.data.wday)
+        %label=day_name(agenda.data.wday)
       .col-md-2
         %b Hora
         %br
-        =Time.parse(agenda.atendimento_inicio).strftime("%H:%M")
+        %label{style: "color: #9F0303"}=Time.parse(agenda.atendimento_inicio).strftime("%H:%M")
+      .col-md-3
+        %b Status
+        %br
+        -if agenda.status.eql?(I18n.t("agendas.helpers.scheduled"))
+          %label{style: "color: #9F0303"}
+            =agenda.status
+        -else
+          %label{style: "color: #059F03"}
+            =agenda.status
