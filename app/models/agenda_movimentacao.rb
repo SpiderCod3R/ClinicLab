@@ -33,4 +33,30 @@ class AgendaMovimentacao < ApplicationRecord
     agenda.status= I18n.t("agendas.helpers.scheduled")
     agenda.save
   end
+
+  class << self
+    def build_movimentacao(resource)
+      new(agenda_id:         resource[:agenda_id],
+          convenio_id:       resource[:convenio_id],
+          sem_convenio:      resource[:sem_convenio],
+          observacoes:       resource[:observacoes],
+          confirmacao:       resource[:confirmacao],
+          nome_paciente:     resource[:nome_paciente],
+          telefone_paciente: resource[:telefone_paciente],
+          email_paciente:    resource[:email_paciente],
+          solicitante_id:    resource[:solicitante_id])
+    end
+  end
+
+  def update_movimentacao(resource)
+    update_attributes(agenda_id:         resource[:agenda_id],
+                      convenio_id:       resource[:convenio_id],
+                      sem_convenio:      resource[:sem_convenio],
+                      observacoes:       resource[:observacoes],
+                      confirmacao:       resource[:confirmacao],
+                      nome_paciente:     resource[:nome_paciente],
+                      telefone_paciente: resource[:telefone_paciente],
+                      email_paciente:    resource[:email_paciente],
+                      solicitante_id:    resource[:solicitante_id])
+  end
 end
