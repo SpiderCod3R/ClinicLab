@@ -2,6 +2,7 @@ class AgendaMovimentacao < ApplicationRecord
   belongs_to :agenda
   belongs_to :convenio
   belongs_to :cliente
+  belongs_to :atendente, class_name: "Painel::Usuario", foreign_key: "atendente_id"
 
   delegate :nome,
            to: :convenio,
