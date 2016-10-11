@@ -6,6 +6,7 @@ $lighgrey: #91A5B5
 $smoothblue: #54758F
 $blood-red: #882323
 $blood-blue: #5789AC
+$darkBlue: #0d274c
 
 $break-320:  320px
 $break-1200: 1200px
@@ -274,12 +275,12 @@ h5.company_name
 .footer
   width: 100%
   height: 50px
-  background-color: #0d274c
+  background-color: $darkBlue
   border-color: #274d84
-  background-image: -webkit-gradient(linear, left 0%, left 100%, from(#273FA9), to(#0d274c))
-  background-image: -webkit-linear-gradient(top, #273FA9, 0%, #0d274c, 100%)
-  background-image: -moz-linear-gradient(top, #273FA9 0%, #0d274c 100%)
-  background-image: linear-gradient(to bottom, #273FA9 0%, #0d274c 100%)
+  background-image: -webkit-gradient(linear, left 0%, left 100%, from(#273FA9), to($darkBlue))
+  background-image: -webkit-linear-gradient(top, #273FA9, 0%, $darkBlue, 100%)
+  background-image: -moz-linear-gradient(top, #273FA9 0%, $darkBlue 100%)
+  background-image: linear-gradient(to bottom, #273FA9 0%, $darkBlue 100%)
   background-repeat: repeat-x
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff3b73c5', endColorstr='#ff2f5c9e', GradientType=0)
   h5
@@ -505,8 +506,12 @@ textarea:focus
 
 .bootstrap-select > .dropdown-toggle
   padding-right: 25px
+  position: relative
   z-index: 1 !important
-
+.select_live
+  .selectpicker
+    position: relative
+    z-index: 1 !important
 .bootstrap-select.btn-group:not(.input-group-btn),
 .bootstrap-select.btn-group[class*="col-"]
   float: none
@@ -514,3 +519,7 @@ textarea:focus
   margin-left: 0
   z-index: 1 !important
 
+#observacoes_blk
+  text-decoration: underline
+  text-align: justify
+  color: $darkBlue
