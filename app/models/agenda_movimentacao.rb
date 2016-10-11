@@ -18,4 +18,7 @@ class AgendaMovimentacao < ApplicationRecord
   validates :convenio_id, presence: true, if: :no_convenio_registered?
   validates_associated :agenda
 
+  def no_convenio_registered?
+    sem_convenio.present?
+  end
 end
