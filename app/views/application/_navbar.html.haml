@@ -16,6 +16,7 @@
           =link_to root_path, class: "nav-link" do
             Home
             %span.sr-only (current)
+<<<<<<< Updated upstream
         -if current_usuario.empresa.empresa_permissoes.any? || current_usuario.usuario_permissoes.any?
           %li.nav-item
             =render 'application/permissions_menu'
@@ -27,3 +28,21 @@
             = link_to destroy_usuario_session_path, method: 'delete', title: "SAIR", class: "nav-link" do
               %i.fa.fa-2x.fa-sign-out
 
+=======
+        -if usuario_signed_in?
+          -if current_usuario.empresa.empresa_permissoes.any? || current_usuario.usuario_permissoes.any?
+            %li.dropdown
+              %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+                Cadastros
+                %span.caret
+              %ul.dropdown-menu
+                =render 'application/menus/cadastros'
+          %ul.nav.navbar-nav.navbar-right
+            .navbar-usuario
+              %li.navbar-brand.usuario_navbar="Olá #{current_usuario.nome}"
+              %li
+                =link_to destroy_usuario_session_path, method: 'delete', title: "SAIR", class: "nav-link" do
+                  %i.fa.fa-2x.fa-sign-out
+    / /.navbar-collapse
+  / /.container-fluid
+>>>>>>> Stashed changes
