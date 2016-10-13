@@ -16,19 +16,6 @@
           =link_to root_path, class: "nav-link" do
             Home
             %span.sr-only (current)
-<<<<<<< Updated upstream
-        -if current_usuario.empresa.empresa_permissoes.any? || current_usuario.usuario_permissoes.any?
-          %li.nav-item
-            =render 'application/permissions_menu'
-    -if usuario_signed_in?
-      %ul.nav.navbar-top-links.navbar-right.pull-right
-        .navbar-usuario
-          %li.navbar-brand.usuario_navbar="Olá #{current_usuario.nome}"
-          %li
-            = link_to destroy_usuario_session_path, method: 'delete', title: "SAIR", class: "nav-link" do
-              %i.fa.fa-2x.fa-sign-out
-
-=======
         -if usuario_signed_in?
           -if current_usuario.empresa.empresa_permissoes.any? || current_usuario.usuario_permissoes.any?
             %li.dropdown
@@ -45,4 +32,3 @@
                   %i.fa.fa-2x.fa-sign-out
     / /.navbar-collapse
   / /.container-fluid
->>>>>>> Stashed changes
