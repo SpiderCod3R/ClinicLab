@@ -13,7 +13,7 @@
           =f.collection_select :convenio_id, @convenios, :id, :title, { prompt: "Selecione um" }, class: "form-control"
         .col-md-6
           #convenio_n_cadastrado{style: "display: inline-block; padding-top: 30px;"}
-            =f.check_box :sem_convenio, checked: false
+            =f.check_box :sem_convenio
             =f.label "Convênio não Cadastrado"
       %br/
       .row
