@@ -16,7 +16,7 @@ class AgendaMovimentacao < ApplicationRecord
            allow_nil: true
 
   validates :agenda_id, presence: true
-  validates :convenio_id, presence: true, if: :no_convenio_registered?
+  # validates :convenio_id, presence: true, if: :no_convenio_registered?
   validates_associated :agenda
 
   # after_save :change_agenda_status
