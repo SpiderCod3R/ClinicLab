@@ -15,7 +15,16 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'redis', '~> 3.0'
 
-group :development do
+group :development, :test do
+  gem 'pry'
+  gem 'pry-rails'
+  gem 'rspec', '~> 3.5'
+  gem 'rspec-rails', '~> 3.5', '>= 3.5.1'
+  gem 'factory_girl_rails'
+  gem 'capybara', '~> 2.7', '>= 2.7.1'
+  gem 'faker', '~> 1.6', '>= 1.6.6'
+  gem 'better_errors', '~> 2.1', '>= 2.1.1'
+  gem "binding_of_caller"
   gem 'web-console'
   gem 'listen', '~> 3.0.5'
   gem 'spring'
@@ -52,23 +61,11 @@ gem 'paperclip'
 gem 'tinymce-rails'
 gem 'tinymce-rails-langs'
 gem "bootstrap-table-rails"
-
-group :development, :test do
-  gem 'pry'
-  gem 'pry-rails'
-  gem 'rspec', '~> 3.5'
-  gem 'rspec-rails', '~> 3.5', '>= 3.5.1'
-  gem 'factory_girl_rails'
-  gem 'capybara', '~> 2.7', '>= 2.7.1'
-  gem 'faker', '~> 1.6', '>= 1.6.6'
-end
-
 gem 'chosen-rails', '~> 1.5', '>= 1.5.2'
 gem 'wannabe_bool'
 gem "attr_encrypted", "~> 3.0.0"
 gem 'friendly_id', '~> 5.1.0'
 gem 'time_difference', '~> 0.4.2'
-
 gem 'font-awesome-rails', '~> 4.6', '>= 4.6.3.1'
 
 # Use Capistrano for deployment
