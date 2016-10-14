@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161007201507) do
+ActiveRecord::Schema.define(version: 20161013170405) do
 
   create_table "agenda_movimentacoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "agenda_id"
@@ -47,9 +47,10 @@ ActiveRecord::Schema.define(version: 20161007201507) do
     t.integer  "profissional_id"
     t.integer  "empresa_id"
     t.integer  "usuario_id"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.string   "status"
+    t.text     "motivo_bloqueio",     limit: 65535
     t.index ["empresa_id"], name: "index_agendas_on_empresa_id", using: :btree
     t.index ["profissional_id"], name: "index_agendas_on_profissional_id", using: :btree
     t.index ["usuario_id"], name: "index_agendas_on_usuario_id", using: :btree
@@ -145,6 +146,8 @@ ActiveRecord::Schema.define(version: 20161007201507) do
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.integer  "empresa_id"
+    t.string   "nacionalidade"
+    t.string   "naturalidade"
     t.index ["cargo_id"], name: "index_clientes_on_cargo_id", using: :btree
     t.index ["cidade_id"], name: "index_clientes_on_cidade_id", using: :btree
     t.index ["convenio_id"], name: "index_clientes_on_convenio_id", using: :btree
@@ -220,6 +223,16 @@ ActiveRecord::Schema.define(version: 20161007201507) do
     t.index ["estado_id"], name: "index_fornecedores_on_estado_id", using: :btree
   end
 
+  create_table "historicos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.text     "indice",     limit: 65535
+    t.integer  "cliente_id"
+    t.string   "idade"
+    t.integer  "usuario_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.index ["cliente_id"], name: "index_historicos_on_cliente_id", using: :btree
+  end
+
   create_table "imagem_cabecs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "imagem_file_name"
     t.string   "imagem_content_type"
@@ -259,20 +272,21 @@ ActiveRecord::Schema.define(version: 20161007201507) do
   end
 
   create_table "painel_masters", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.string   "nome"
     t.string   "login"
+    t.boolean  "desenvolvedor",          default: false
     t.index ["email"], name: "index_painel_masters_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_painel_masters_on_reset_password_token", unique: true, using: :btree
   end
@@ -370,6 +384,7 @@ ActiveRecord::Schema.define(version: 20161007201507) do
   add_foreign_key "clientes", "estados"
   add_foreign_key "fornecedores", "cidades"
   add_foreign_key "fornecedores", "estados"
+  add_foreign_key "historicos", "clientes"
   add_foreign_key "profissionais", "cargos"
   add_foreign_key "profissionais", "cidades"
   add_foreign_key "profissionais", "conselho_regionais"
