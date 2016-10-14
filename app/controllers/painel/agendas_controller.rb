@@ -7,8 +7,13 @@ class Painel::AgendasController < ApplicationController
   include AgendasHelper
   before_action :authenticate_usuario!
   before_action :find_empresa
-  before_action :find_agenda, only: [:show, :movimentar, :destroy]
-
+  before_action :find_agenda, only: [:show,
+                                     :movimentar,
+                                     :destroy,
+                                     :block_day,
+                                     :block_period,
+                                     :clean
+                                    ]
   respond_to :html, :js, :json, :xml
 
   def index
@@ -31,10 +36,6 @@ class Painel::AgendasController < ApplicationController
   end
 
   def create
-    # @agenda_notification = AgendaNotification.new(params)
-    # @invalid_fields_for_shift_a = @agenda_notification.validate_shift_a!
-    # @invalid_fields_for_shift_b = @agenda_notification.validate_shift_b!
-
     if params[:horarios][:turno_a][:atendimentos].present?
       @agenda_manha = Agenda.create_horarios_turno_a_by_javascript_params(params)
     end
@@ -52,6 +53,24 @@ class Painel::AgendasController < ApplicationController
       flash[:error] = "A agenda não pôde ser deletada."
       respond_with(@agenda)
     end
+  end
+
+  def clean
+    @current_id = @agenda.agenda_movimentacao.id
+    @agenda.clean
+    redirect_to :back
+  end
+
+  def block_day
+    respond_to &:js
+  end
+
+  def set_block_on_day
+    
+  end
+
+  def block_period
+    respond_to &:js
   end
 
   private
@@ -74,7 +93,7 @@ class Painel::AgendasController < ApplicationController
     end
 
     def ransack_params
-      Agenda.includes(:profissional).ransack(params[:q])
+      Agenda.includes(:profissional).includes(:agenda_movimentacao).ransack(params[:q])
     end
 
     def ransack_result

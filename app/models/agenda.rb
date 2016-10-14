@@ -10,6 +10,7 @@ class Agenda < ApplicationRecord
                 :atendimento_turno_b_duracao
 
   scope :disponibilidade, ->(boolean = true) { where(status: "VAGO") }
+  scope :nome_paciente_like, -> (name) { where("agenda_movimentacao.nome_paciente ilike ?", name)}
 
   belongs_to :profissional
   belongs_to :usuario
@@ -36,6 +37,12 @@ class Agenda < ApplicationRecord
     else
       I18n.t('agendas.helpers.shift.morning')
     end
+  end
+
+  def clean
+    self.agenda_movimentacao.destroy
+    self.status= I18n.t("agendas.helpers.free")
+    self.save
   end
 
   private_class_method :ransackable_scopes
