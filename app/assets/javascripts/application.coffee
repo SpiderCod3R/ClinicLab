@@ -6,6 +6,8 @@
 #= require JQUERY/jquery.maskMoney
 #= require JQUERY/jquery.numeric.pack
 #= require JQUERY/jquery.maskedinput-1.1.4.pack
+#= require jquery-ui/autocomplete
+#= require autocomplete-rails
 #= require xray
 #= require jquery_ujs
 

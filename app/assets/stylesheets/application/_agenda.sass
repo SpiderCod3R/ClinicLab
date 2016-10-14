@@ -1,0 +1,59 @@
+.tres
+  width: 30px
+  height: 30px
+  border: 25px solid
+  /* As 4 bordas sólidas com 25px de espessura*/
+  border-color: #f00 #0f0 #00f #fc0
+  /* cores: topo, direita, inferior, esquerda */
+
+.block_tile
+  width:  5px
+  height: 5px
+  display: -webkit-inline-box
+  .azul_claro
+    border: 10px solid
+    border-color: #5CB7DD
+  .verde_limao
+    border: 10px solid
+    border-color: #62B290
+  .laranja
+    border: 10px solid
+    border-color: #EE8F2E
+  .grey
+    border: 10px solid
+    border-color: #5B5A62
+  .vermelho_claro
+    border: 10px solid
+    border-color: #EE3342
+
+.legend
+  margin: 2px
+  padding-left: 15px
+  position: relative
+  top: -10px !important
+  width: 300px
+
+#agenda_legend
+  li
+    display: block
+
+.table > thead > tr > td.marker,
+.table > tbody > tr > td.marker,
+.table > tfoot > tr > td.marker,
+.table > thead > tr > th.marker,
+.table > tbody > tr > th.marker,
+.table > tfoot > tr > th.marker,
+.table > thead > tr.marker > td,
+.table > tbody > tr.marker > td,
+.table > tfoot > tr.marker > td,
+.table > thead > tr.marker > th,
+.table > tbody > tr.marker > th,
+.table > tfoot > tr.marker > th
+  background-color: #CAF68E
+
+.table-hover > tbody > tr > td.marker:hover,
+.table-hover > tbody > tr > th.marker:hover,
+.table-hover > tbody > tr.marker:hover > td,
+.table-hover > tbody > tr:hover > .marker,
+.table-hover > tbody > tr.marker:hover > th
+  background-color: #A6D762

@@ -3,7 +3,7 @@ $(document).ready ->
 
   if $('#agenda_movimentacao_sem_convenio').length
     checked_convenio = this.checked ? true : false
-    if checked_convenio
+    if checked_convenio == true
       $("#agenda_movimentacao_convenio_id").prop( "disabled", true);
   
   $('#agenda_movimentacao_sem_convenio').change ->
