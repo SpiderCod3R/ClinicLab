@@ -16,10 +16,9 @@
         %tbody
           - @agendas.order("data ASC").order("atendimento_inicio ASC").each do |agenda|
             -if agenda.status.eql?(I18n.t("agendas.helpers.free"))
-              =content_tag(:tr, class: "success") do
-                =render 'agenda_tr', { agenda: agenda }
+              %tr.info=render 'agenda_tr', { agenda: agenda }
             -elsif agenda.status.eql?(I18n.t("agendas.helpers.scheduled"))
-              %tr.danger=render 'agenda_tr', { agenda: agenda }
+              %tr.marker=render 'agenda_tr', { agenda: agenda }
 
   %hr{style: "border: #323232 solid 0.5px;"}
   =paginate @agendas

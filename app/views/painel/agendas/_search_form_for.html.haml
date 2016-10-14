@@ -1,23 +1,22 @@
-.container
-  = link_to_toggle_agenda_search_modes
-  %HR
-  = search_form_for [@empresa, @search], url: painel_empresa_agendas_path do |f|
-    .col-md-12
-      .row
-        .col-md-2
-          = f.label :data_cont, "Data"
-          %br
-          = f.search_field :data_cont, placeholder: "Data",class: "datepicker"
-        .col-md-2
-          = f.label :profissional_nome_cont, "Nome do Profissional"
-          %br
-          = f.search_field :profissional_nome_cont, placeholder: "Nome"
-        .col-md-2
-          = f.label :agenda_movimentacao_nome_paciente_cont, "Nome do Paciente"
-          %br
-          = f.search_field :agenda_movimentacao_nome_paciente_cont, placeholder: "Nome do Paciente"
-      .row
-        %br
-        .col-md-4
-          = f.submit "Buscar", class: "btn btn-success"
-          =link_to "Recarregar Página", painel_empresa_agendas_path(current_usuario.empresa), class: "btn btn-primary"
+= search_form_for [@empresa, @search], url: painel_empresa_agendas_path do |f|
+  .row
+    .col-md-3
+      = f.label :profissional_nome_cont, "Nome do Profissional"
+      = f.text_field :profissional_nome_cont, placeholder: "Nome"
+    .col-md-4
+      = f.label :agenda_movimentacao_nome_paciente_cont, "Nome do Paciente"
+      = f.text_field :agenda_movimentacao_nome_paciente_cont, placeholder: "Nome do Paciente"
+  .row
+    .col-md-4
+      = f.label :data_cont, "Data"
+      %br
+      = f.date_select :data_cont, placeholder: "Data", class: "form-control date-select"
+  %br
+  .row
+    .col-md-8
+      = f.submit "Buscar", class: "btn btn-success"
+      =link_to "Recarregar Página", painel_empresa_agendas_path(current_usuario.empresa), class: "btn btn-primary"
+
+
+
+/ , params[:search], class: "search-query", placeholder: "namesearch", type: "search", data: {autocomplete: autocomplete_agenda_movimentacao_nome_paciente_painel_empresa_agendas_path(current_usuario.empresa)}
