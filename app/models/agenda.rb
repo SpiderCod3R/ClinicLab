@@ -11,6 +11,8 @@ class Agenda < ApplicationRecord
                 :data_inicial, :data_final, :atendimento_turno_a_duracao,
                 :atendimento_turno_b_duracao, :hora
 
+  attr_reader :param_data, :param_hora, :agenda_disponivel
+  attr_writer :agenda_disponivel
   scope :disponibilidade, ->(boolean = true) { where(status: "VAGO") }
   scope :nome_paciente_like, -> (name) { where("agenda_movimentacao.nome_paciente ilike ?", name)}
 
