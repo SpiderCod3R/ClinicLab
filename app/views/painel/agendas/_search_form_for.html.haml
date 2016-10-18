@@ -10,7 +10,7 @@
     .col-md-4
       = f.label :data_cont, "Data"
       %br
-      = f.date_select :data_cont, placeholder: "Data", class: "form-control date-select"
+      = f.date_select :data_cont, placeholder: "Data", class: "form-control date-select", :default => Date.today
   %br
   .row
     .col-md-8

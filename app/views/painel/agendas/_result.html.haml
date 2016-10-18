@@ -18,7 +18,7 @@
             -if agenda.status.eql?(I18n.t("agendas.helpers.free"))
               %tr.info=render 'agenda_tr', { agenda: agenda }
             -elsif agenda.status.eql?(I18n.t("agendas.helpers.scheduled"))
-              %tr.marker=render 'agenda_tr', { agenda: agenda }
+              %tr.success=render 'agenda_tr', { agenda: agenda }
 
   %hr{style: "border: #323232 solid 0.5px;"}
   =paginate @agendas

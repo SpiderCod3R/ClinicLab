@@ -1,0 +1,54 @@
+#change_agenda_day_or_time.modal.fade{:role => "dialog", :tabindex => "-1", :"data-backdrop"=> true}
+  .modal-dialog{:role => "document"}
+    .modal-content
+      .modal-header
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} ×
+        %h4.modal-title=movimentar_agenda_numero(@agenda.id)
+      .modal-body
+        =simple_form_for [@empresa, @agenda], url: painel_empresa_agenda_change_path, method: "PUT", html: { class: "modal_change_agenda_day_or_time"} do |f|
+          .container-fluid
+            .row-fluid
+              .col-md-12
+                .row
+                  .col-md-6
+                    %label Paciente
+                    %p=@agenda.agenda_movimentacao.nome_paciente
+                .row
+                  .col-md-5
+                    %label Responsável
+                    %p=@agenda.profissional_nome
+                  .col-md-2
+                    %label Data
+                    %p=@agenda.data.strftime("%d/%m/%Y")
+                  .col-md-3
+                    %label Dia
+                    %p=day_name(@agenda.data.wday)
+                  .col-md-2
+                    %label Hora
+                    %p=Time.parse(@agenda.atendimento_inicio).strftime("%H:%M")
+            %hr{style: "border: #323232 solid 0.5px;"}
+            .row-fluid
+              .col-md-12
+                .col-md-5
+                  .row
+                    =f.label :profissional_id
+                    =f.collection_select :profissional_id, Profissional.all.order("nome ASC"), :id, :titulo, { prompt: "Selecione um" }, class: "form-control"
+                .col-md-5.col-md-offset-1
+                  .row
+                    =f.label "Dia"
+                    %br/
+                    =f.date_select :data, class: "form-control"
+                  .row
+                    =f.label "Hora"
+                    %br/
+                    =f.time_select :hora, class: "form-control", default: Time.now
+            %br/
+          .modal-footer
+            .pull-left
+              =f.button :submit, "Enviar", class: "btn btn-primary"
+            .pull-right
+              %button.btn.btn-default{"data-dismiss" => "modal", type: "button"} Fechar
+    / /.modal-content
+  / /.modal-dialog
+/ /.modal
