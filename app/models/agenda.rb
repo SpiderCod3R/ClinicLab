@@ -1,5 +1,7 @@
 require 'time'
 require 'date'
+require 'converters/date_converter'
+require 'converters/time_converter'
 class Agenda < ApplicationRecord
   include AgendaConcern
   paginates_per 10
