@@ -12,7 +12,9 @@ class Painel::AgendasController < ApplicationController
                                      :destroy,
                                      :block_day,
                                      :block_period,
-                                     :clean
+                                     :clean,
+                                     :change_day_or_time,
+                                     :change
                                     ]
   respond_to :html, :js, :json, :xml
 
@@ -59,6 +61,19 @@ class Painel::AgendasController < ApplicationController
     @current_id = @agenda.agenda_movimentacao.id
     @agenda.clean
     redirect_to :back
+  end
+
+  def change_day_or_time
+    respond_to &:js
+  end
+
+  def change
+    if @agenda.check_availability(params[:agenda])
+      @agenda.change_day_or_time(params[:agenda])
+      redirect_to :back
+    else
+      respond_to &:js
+    end
   end
 
   def block_day
