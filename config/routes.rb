@@ -77,6 +77,8 @@ Rails.application.routes.draw do
           match 'advanced_search' => 'agendas#advanced_search', via: [:get, :post], as: :advanced_search
         end
         get 'clean'
+        get 'change_day_or_time'
+        put 'change'
         get 'block_day', to: 'agendas#block_day', as: :block_day
         put 'block_day', to: 'agendas#set_block_on_day', as: :set_block_on_day
         resources :agenda_movimentacoes
