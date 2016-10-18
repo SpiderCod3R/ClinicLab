@@ -49,6 +49,24 @@ class Agenda < ApplicationRecord
     self.save
   end
 
+  def check_availability(resource)
+    # => Checando disponibilidade da agenda
+    @param_data = Converter::DateConverter.new(resource["data(1i)"].to_i, resource["data(2i)"].to_i, resource["data(3i)"].to_i)
+    @param_hora = Converter::TimeConverter.new(resource["hora(4i)"], resource["hora(5i)"])
+    @agenda_disponivel = Agenda.exists?(["data LIKE ? AND atendimento_inicio LIKE ? AND status LIKE ?", "%#{@param_data.to_american_format}%", "%#{@param_hora.to_format}%", "%#{I18n.t('agendas.helpers.free')}%"])
+    return @agenda_disponivel
+  end
+
+  def change_day_or_time(resource)
+    # => Encontrando o horario
+    @agenda_disponivel = Agenda.find_by("data LIKE ? AND atendimento_inicio LIKE ? AND status LIKE ?", "%#{@param_data.to_american_format}%", "%#{@param_hora.to_format}%", "%#{I18n.t('agendas.helpers.free')}%")
+    @agenda_movimentacao = AgendaMovimentacao.find_by_agenda_id(self.id)
+    @agenda_movimentacao.update_attributes(agenda_id: @agenda_disponivel.id)
+    @agenda_movimentacao.agenda.update_attributes(status: I18n.t('agendas.helpers.scheduled'))
+    self.status = I18n.t('agendas.helpers.free')
+    self.save
+  end
+
   private_class_method :ransackable_scopes
 
   private
