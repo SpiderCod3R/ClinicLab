@@ -9,7 +9,7 @@ class Agenda < ApplicationRecord
   attr_accessor :atendimento_manha_inicio, :atendimento_manha_final,
                 :atendimento_tarde_inicio, :atendimento_tarde_final,
                 :data_inicial, :data_final, :atendimento_turno_a_duracao,
-                :atendimento_turno_b_duracao
+                :atendimento_turno_b_duracao, :hora
 
   scope :disponibilidade, ->(boolean = true) { where(status: "VAGO") }
   scope :nome_paciente_like, -> (name) { where("agenda_movimentacao.nome_paciente ilike ?", name)}
