@@ -5,3 +5,9 @@
 %td{width: "5%", style: "text-align: center;"}=Time.parse(agenda.atendimento_inicio).strftime("%H:%M")
 %td{width: "10%", style: "text-align: center;"}=agenda.agenda_movimentacao.nome_paciente if agenda.try(:agenda_movimentacao)
 %td{width: "10%", style: "text-align: center;"}=agenda.agenda_movimentacao.atendente.nome if agenda.try(:agenda_movimentacao)
+%td
+%td
+%td
+  =render 'movimentacao_opcoes', { agenda: agenda}
+#block_day
+#block_period

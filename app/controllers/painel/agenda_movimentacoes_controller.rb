@@ -79,6 +79,7 @@ class Painel::AgendaMovimentacoesController < ApplicationController
                                                   :telefone_paciente,
                                                   :email_paciente,
                                                   :solicitante_id,
-                                                  :id_paciente)
+                                                  :id_paciente,
+                                                  :motivo_bloqueio)
     end
 end

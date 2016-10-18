@@ -2,8 +2,19 @@
 .container-fluid
   .row-fluid
     %h1  Agendas
-    %hr{style: "border: #323232 solid 0.5px;"}
   .row-fluid
-    .jumbotron
-      =render 'search_form_for'
-    =render 'result'
+    %hr{style: "border: #323232 solid 0.5px;"}
+  .jumbotron
+    .row-fluid
+      .col-md-8.pull-left
+        =render 'search_form_for'
+      .col-md-3.col-md-offset-1.pull-right
+        .panel.panel-info
+          .container
+            %br/
+            %fieldset
+              %legend{style: "border: #A5AFD7 dashed 1px; text-align: center"} Legenda
+              .container
+                =render 'legend'
+              %hr{style: "border: #A5AFD7 dashed 1px"}
+  =render 'result'

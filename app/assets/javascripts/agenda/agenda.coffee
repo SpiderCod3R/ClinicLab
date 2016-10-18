@@ -6,6 +6,10 @@ $(document).ready ->
   empresa_id = $("#agenda_empresa_id").val()
   localhost = window.location.origin
 
+  $('#q_agenda_movimentacao_nome_paciente_cont').bind 'railsAutocomplete.select', (event, data) ->
+    $('#search-form').submit()
+    return
+
   $("#q_data_cont").val("")
 
   # => arrays necessarios para coletar informação dos horarios

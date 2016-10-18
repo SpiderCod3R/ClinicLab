@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161007201507) do
+ActiveRecord::Schema.define(version: 20161013170405) do
 
   create_table "agenda_movimentacoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "agenda_id"
@@ -47,9 +47,10 @@ ActiveRecord::Schema.define(version: 20161007201507) do
     t.integer  "profissional_id"
     t.integer  "empresa_id"
     t.integer  "usuario_id"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.string   "status"
+    t.text     "motivo_bloqueio",     limit: 65535
     t.index ["empresa_id"], name: "index_agendas_on_empresa_id", using: :btree
     t.index ["profissional_id"], name: "index_agendas_on_profissional_id", using: :btree
     t.index ["usuario_id"], name: "index_agendas_on_usuario_id", using: :btree
