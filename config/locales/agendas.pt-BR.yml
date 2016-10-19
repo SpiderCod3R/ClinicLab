@@ -18,3 +18,5 @@ pt-BR:
       generating: Gerando Agenda de %{resource_name}
       no_value_detected: Nenhum horário detectado. Por-favor Preencha pelo menos um horário.
       time_out_no_detected: Não foi possivel detectar um intervalo do atendimento. Por-favor informe um intervalo em minutos.
+      schedule_not_found: Nenhum resgistro encontrado para este horário
+      schedule_changed:  Dia ou horário do atendimento alterado.
