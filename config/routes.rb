@@ -79,6 +79,8 @@ Rails.application.routes.draw do
         get 'clean'
         get 'change_day_or_time'
         put 'change'
+        get 'remark_by_pacient'
+        put 'remarked_by_pacient'
         get 'block_day', to: 'agendas#block_day', as: :block_day
         put 'block_day', to: 'agendas#set_block_on_day', as: :set_block_on_day
         resources :agenda_movimentacoes
