@@ -58,8 +58,12 @@ class Agenda < ApplicationRecord
     # => Checando disponibilidade da agenda
     @param_data = Converter::DateConverter.new(resource["param_data(1i)"].to_i, resource["param_data(2i)"].to_i, resource["param_data(3i)"].to_i)
     @param_hora = Converter::TimeConverter.new(resource["hora(4i)"], resource["hora(5i)"])
-    @agenda_disponivel = Agenda.exists?(["data LIKE ? AND atendimento_inicio LIKE ? AND status LIKE ? AND profissional_id LIKE ?", "%#{@param_data.to_american_format}%", "%#{@param_hora.to_format}%", "%#{I18n.t('agendas.helpers.free')}%", "%#{resource[:profissional_id]}%"])
-    return @agenda_disponivel
+    @agenda_disponivel = false
+    @data_valida =(@param_data >= Date.today)
+    if @data_valida
+      @agenda_disponivel = Agenda.exists?(["data LIKE ? AND atendimento_inicio LIKE ? AND status LIKE ? AND profissional_id LIKE ?", "%#{@param_data.to_american_format}%", "%#{@param_hora.to_format}%", "%#{I18n.t('agendas.helpers.free')}%", "%#{resource[:profissional_id]}%"])
+    end
+    return [@agenda_disponivel, @data_valida]
   end
 
   def remark(params, confirmation)
