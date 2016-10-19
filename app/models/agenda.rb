@@ -62,14 +62,15 @@ class Agenda < ApplicationRecord
     return @agenda_disponivel
   end
 
-  def change_day_or_time(resource)
+  def remark(params, confirmation)
     # => Encontrando o horario e alterando o dia e hora
-    @agenda_disponivel   = Agenda.find_by(["data LIKE ? AND atendimento_inicio LIKE ? AND status LIKE ? AND profissional_id LIKE ?", "%#{@param_data.to_american_format}%", "%#{@param_hora.to_format}%", "%#{I18n.t('agendas.helpers.free')}%", "%#{resource[:profissional_id]}%"])
+    @agenda_disponivel   = Agenda.find_by(["data LIKE ? AND atendimento_inicio LIKE ? AND status LIKE ? AND profissional_id LIKE ?", "%#{@param_data.to_american_format}%", "%#{@param_hora.to_format}%", "%#{I18n.t('agendas.helpers.free')}%", "%#{params[:profissional_id]}%"])
     @agenda_movimentacao = AgendaMovimentacao.find_by_agenda_id(self.id)
-    @agenda_movimentacao.update_attributes(agenda_id: @agenda_disponivel.id)
+    @agenda_movimentacao.update_attributes(agenda_id: @agenda_disponivel.id, confirmacao: confirmation)
     @agenda_movimentacao.agenda.update_attributes(status: I18n.t('agendas.helpers.scheduled'))
     self.status = I18n.t('agendas.helpers.free')
     self.save
+  end
     return @agenda_movimentacao.agenda
   end
 
