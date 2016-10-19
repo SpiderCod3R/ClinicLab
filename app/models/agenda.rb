@@ -75,6 +75,19 @@ class Agenda < ApplicationRecord
     self.status = I18n.t('agendas.helpers.free')
     self.save
   end
+
+  def change_day_or_time(resource)
+    remark(resource, "OK")
+    return @agenda_movimentacao.agenda
+  end
+
+  def remarked_by_pacient(resource)
+    remark(resource, "R.P")
+    return @agenda_movimentacao.agenda
+  end
+
+  def remarked_by_doctor(resource)
+    remark(resource, "R.M")
     return @agenda_movimentacao.agenda
   end
 
