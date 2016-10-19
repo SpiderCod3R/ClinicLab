@@ -38,11 +38,11 @@
                   .row
                     =f.label "Dia"
                     %br/
-                    =f.date_select :data, class: "form-control"
+                    =f.input :param_data, as: :date, use_month_numbers: true, label: false, default: Date.today
                   .row
                     =f.label "Hora"
                     %br/
-                    =f.time_select :hora, class: "form-control", default: Time.now
+                    =f.input :hora, as: :time, default: Time.now, label: false
             %br/
           .modal-footer
             .pull-left
