@@ -65,6 +65,7 @@ class Agenda < ApplicationRecord
     @agenda_movimentacao.agenda.update_attributes(status: I18n.t('agendas.helpers.scheduled'))
     self.status = I18n.t('agendas.helpers.free')
     self.save
+    return @agenda_movimentacao.agenda
   end
 
   private_class_method :ransackable_scopes

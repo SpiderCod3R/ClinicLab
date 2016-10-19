@@ -69,11 +69,13 @@ class Painel::AgendasController < ApplicationController
 
   def change
     if @agenda.check_availability(params[:agenda])
-      @agenda.change_day_or_time(params[:agenda])
-      redirect_to :back
+      @old_agenda = @agenda
+      @new_agenda = @agenda.change_day_or_time(params[:agenda])
+      @changed = true
     else
-      respond_to &:js
+      @changed = false
     end
+    respond_to &:js
   end
 
   def block_day
