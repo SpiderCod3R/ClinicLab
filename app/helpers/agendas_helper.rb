@@ -27,6 +27,10 @@ module AgendasHelper
     return "Movimentar Agenda - nº #{object_id}"
   end
 
+  def remarcar_agenda_numero(object_id)
+    return "Remarcar Agenda - nº #{object_id}"
+  end
+
   def max_result_per_page
     # => numero maximo de resultados
     25
