@@ -12,7 +12,7 @@ class Agenda < ApplicationRecord
                 :atendimento_turno_b_duracao, :hora
 
   attr_reader :param_data, :param_hora, :agenda_disponivel
-  attr_writer :agenda_disponivel
+  attr_writer :agenda_disponivel, :param_data
   scope :disponibilidade, ->(boolean = true) { where(status: "VAGO") }
   scope :nome_paciente_like, -> (name) { where("agenda_movimentacao.nome_paciente ilike ?", name)}
 
@@ -51,15 +51,15 @@ class Agenda < ApplicationRecord
 
   def check_availability(resource)
     # => Checando disponibilidade da agenda
-    @param_data = Converter::DateConverter.new(resource["data(1i)"].to_i, resource["data(2i)"].to_i, resource["data(3i)"].to_i)
+    @param_data = Converter::DateConverter.new(resource["param_data(1i)"].to_i, resource["param_data(2i)"].to_i, resource["param_data(3i)"].to_i)
     @param_hora = Converter::TimeConverter.new(resource["hora(4i)"], resource["hora(5i)"])
-    @agenda_disponivel = Agenda.exists?(["data LIKE ? AND atendimento_inicio LIKE ? AND status LIKE ?", "%#{@param_data.to_american_format}%", "%#{@param_hora.to_format}%", "%#{I18n.t('agendas.helpers.free')}%"])
+    @agenda_disponivel = Agenda.exists?(["data LIKE ? AND atendimento_inicio LIKE ? AND status LIKE ? AND profissional_id LIKE ?", "%#{@param_data.to_american_format}%", "%#{@param_hora.to_format}%", "%#{I18n.t('agendas.helpers.free')}%", "%#{resource[:profissional_id]}%"])
     return @agenda_disponivel
   end
 
   def change_day_or_time(resource)
-    # => Encontrando o horario
-    @agenda_disponivel = Agenda.find_by("data LIKE ? AND atendimento_inicio LIKE ? AND status LIKE ?", "%#{@param_data.to_american_format}%", "%#{@param_hora.to_format}%", "%#{I18n.t('agendas.helpers.free')}%")
+    # => Encontrando o horario e alterando o dia e hora
+    @agenda_disponivel   = Agenda.find_by(["data LIKE ? AND atendimento_inicio LIKE ? AND status LIKE ? AND profissional_id LIKE ?", "%#{@param_data.to_american_format}%", "%#{@param_hora.to_format}%", "%#{I18n.t('agendas.helpers.free')}%", "%#{resource[:profissional_id]}%"])
     @agenda_movimentacao = AgendaMovimentacao.find_by_agenda_id(self.id)
     @agenda_movimentacao.update_attributes(agenda_id: @agenda_disponivel.id)
     @agenda_movimentacao.agenda.update_attributes(status: I18n.t('agendas.helpers.scheduled'))
