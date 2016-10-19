@@ -38,7 +38,10 @@
                   .row
                     =f.label "Dia"
                     %br/
-                    =f.input :param_data, as: :date, use_month_numbers: true, label: false, default: Date.today
+                    / =f.input :param_data, as: :date, use_month_numbers: true, label: false, default: Date.today
+                    .form-group.date.optional
+                      .form-inline
+                        =f.date_select :param_data, use_month_numbers: true, default: Date.today
                   .row
                     =f.label "Hora"
                     %br/
