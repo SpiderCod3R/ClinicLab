@@ -4,7 +4,7 @@
       .modal-header
         %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
           %span{"aria-hidden" => "true"} ×
-        %h4.modal-title=movimentar_agenda_numero(@agenda.id)
+        %h4.modal-title=alterar_horario_agenda_numero(@agenda.id)
       .modal-body
         =simple_form_for [@empresa, @agenda], url: painel_empresa_agenda_change_path, method: "PUT", html: { class: "modal_change_agenda_day_or_time"}, remote: true do |f|
           .container-fluid
