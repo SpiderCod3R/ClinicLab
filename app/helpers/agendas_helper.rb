@@ -23,12 +23,16 @@ module AgendasHelper
     %i(id profissional_titulo data status).freeze
   end
 
+  def alterar_horario_agenda_numero(object_id)
+    return "Trocar horário da agenda - nº #{object_id}"
+  end
+
   def movimentar_agenda_numero(object_id)
-    return "Movimentar Agenda - nº #{object_id}"
+    return "Movimentar agenda - nº #{object_id}"
   end
 
   def remarcar_agenda_numero(object_id)
-    return "Remarcar Agenda - nº #{object_id}"
+    return "Remarcar horário da agenda - nº #{object_id}"
   end
 
   def max_result_per_page
