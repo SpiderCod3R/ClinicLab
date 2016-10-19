@@ -10,7 +10,7 @@
       %li=link_to "Limpar Horário", painel_empresa_agenda_clean_path(current_usuario.empresa, agenda)
       %li.divider{:role => "separator"}
       %li=link_to "Remarcar pelo Paciente", painel_empresa_agenda_remark_by_pacient_path(current_usuario.empresa, agenda), remote: true
-      %li=link_to "Remarcar pelo Médico", "#"
+      %li=link_to "Remarcar pelo Médico", painel_empresa_agenda_remark_by_doctor_path(current_usuario.empresa, agenda), remote: true
   #change_agenda_section
 -else
   .btn-group
