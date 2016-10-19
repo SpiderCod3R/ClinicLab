@@ -14,7 +14,9 @@ class Painel::AgendasController < ApplicationController
                                      :block_period,
                                      :clean,
                                      :change_day_or_time,
-                                     :change
+                                     :change,
+                                     :remark_by_pacient,
+                                     :remarked_by_pacient
                                     ]
   respond_to :html, :js, :json, :xml
 
@@ -68,7 +70,8 @@ class Painel::AgendasController < ApplicationController
   end
 
   def change
-    if @agenda.check_availability(params[:agenda])
+    @agenda_disponivel, @data_valida = @agenda.check_availability(params[:agenda])
+    if @agenda_disponivel && @data_valida
       @old_agenda = @agenda
       @new_agenda = @agenda.change_day_or_time(params[:agenda])
       @changed = true
@@ -78,12 +81,20 @@ class Painel::AgendasController < ApplicationController
     respond_to &:js
   end
 
-  def block_day
+  def remark_by_pacient
     respond_to &:js
   end
 
-  def set_block_on_day
-    
+  def remarked_by_pacient
+    @agenda_disponivel, @data_valida = @agenda.check_availability(params[:agenda])
+    if @agenda_disponivel && @data_valida
+      @old_agenda = @agenda
+      @new_agenda = @agenda.remarked_by_pacient(params[:agenda])
+      @changed = true
+    else
+      @changed = false
+    end
+    respond_to &:js
   end
 
   def block_period
