@@ -43,6 +43,11 @@ class Agenda < ApplicationRecord
     end
   end
 
+  def confirmacao?
+    return unless try(:agenda_movimentacao)
+    agenda_movimentacao.confirmacao?
+  end
+
   def clean
     self.agenda_movimentacao.destroy
     self.status= I18n.t("agendas.helpers.free")
