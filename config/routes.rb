@@ -81,6 +81,8 @@ Rails.application.routes.draw do
         put 'change'
         get 'remark_by_pacient'
         put 'remarked_by_pacient'
+        get 'remark_by_doctor'
+        put 'remarked_by_doctor'
         get 'block_day', to: 'agendas#block_day', as: :block_day
         put 'block_day', to: 'agendas#set_block_on_day', as: :set_block_on_day
         resources :agenda_movimentacoes
