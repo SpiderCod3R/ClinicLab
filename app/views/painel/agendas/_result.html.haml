@@ -13,13 +13,14 @@
           %th Chegada
           %th S.Espera
           %th Movimentações
-        %tbody
+        %tbody#agenda_content
           - @agendas.order("data ASC").order("atendimento_inicio ASC").each do |agenda|
             -if agenda.status.eql?(I18n.t("agendas.helpers.free"))
-              %tr.info=render 'agenda_tr', { agenda: agenda }
+              =content_tag(:tr, id: "agenda_id_#{agenda.id}" , class: "info") do
+                =render 'agenda_tr', { agenda: agenda }
             -elsif agenda.status.eql?(I18n.t("agendas.helpers.scheduled"))
-              %tr.success=render 'agenda_tr', { agenda: agenda }
+              =content_tag(:tr, id: "agenda_id_#{agenda.id}" , class: "success") do
+                =render 'agenda_tr', { agenda: agenda }
 
   %hr{style: "border: #323232 solid 0.5px;"}
   =paginate @agendas
-#movimentar_agenda_section
