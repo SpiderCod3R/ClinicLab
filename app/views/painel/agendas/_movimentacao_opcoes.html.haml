@@ -5,6 +5,7 @@
       %span.caret
     %ul.dropdown-menu.options_agenda
       %li=link_to "Ver Ficha do Paciente", "#"
+      %li=link_to "Visualizar atendimento", painel_empresa_agenda_path(current_usuario.empresa, agenda)
       %li.divider{:role => "separator"}
       %li=link_to "Trocar Horário", painel_empresa_agenda_change_day_or_time_path(current_usuario.empresa, agenda), remote: true
       %li=link_to "Limpar Horário", painel_empresa_agenda_clean_path(current_usuario.empresa, agenda)
