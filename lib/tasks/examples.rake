@@ -107,7 +107,7 @@ namespace :samples do
     puts "Sample profissionals created with success"
   end
 
-  desc "Creating a profissional sample"
+  desc "Creating a Cliente sample"
   task cliente: :environment do
     @empresa_id = Painel::Empresa.find_by("nome LIKE '%Ruby%'").id
     cpfs = ["893.288.555-94", "392.860.713-88", "013.331.261-58", "310.773.813-10", "074.154.247-19", "234.485.664-11", "857.312.193-97"]
