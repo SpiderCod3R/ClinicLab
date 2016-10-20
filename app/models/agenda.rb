@@ -13,7 +13,10 @@ class Agenda < ApplicationRecord
 
   attr_reader :param_data, :param_hora, :agenda_disponivel
   attr_writer :agenda_disponivel, :param_data
+
   scope :disponibilidade, ->(boolean = true) { where(status: "VAGO") }
+  scope :data_do_dia, -> { where(data: Date.today) }
+
   scope :nome_paciente_like, -> (name) { where("agenda_movimentacao.nome_paciente ilike ?", name)}
 
   belongs_to :profissional

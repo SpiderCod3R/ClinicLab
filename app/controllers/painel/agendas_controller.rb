@@ -24,12 +24,12 @@ class Painel::AgendasController < ApplicationController
 
   def index
     @search  = ransack_params
-    @search.build_sort if @search.sorts.empty?
-    @agendas = ransack_result
+    @agendas = Agenda.includes(:profissional).includes(:agenda_movimentacao).data_do_dia.where(empresa_id: @empresa.id).page(params[:page])
   end
 
-  def advanced_search
-    index
+  def search
+    @search  = ransack_params
+    @agendas = ransack_result
     render :index
   end
 

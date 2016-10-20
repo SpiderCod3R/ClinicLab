@@ -74,7 +74,7 @@ Rails.application.routes.draw do
       end
       resources :agendas do
         collection do
-          match 'advanced_search' => 'agendas#advanced_search', via: [:get, :post], as: :advanced_search
+          match 'search' => 'agendas#search', via: [:get], as: :search
         end
         get 'clean'
         get 'change_day_or_time'
