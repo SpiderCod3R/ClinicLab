@@ -1,22 +1,24 @@
-= search_form_for [@empresa, @search], url: painel_empresa_agendas_path do |f|
+= search_form_for [@empresa, @search], url: search_painel_empresa_agendas_path do |f|
   .row
-    .col-md-3
-      = f.label :profissional_nome_cont, "Nome do Profissional"
-      = f.text_field :profissional_nome_cont, placeholder: "Nome"
-    .col-md-4
-      = f.label :agenda_movimentacao_nome_paciente_cont, "Nome do Paciente"
-      = f.text_field :agenda_movimentacao_nome_paciente_cont, placeholder: "Nome do Paciente"
+    .col-md-5
+      #search_profissional_field
+        = f.label :profissional_nome_cont, "Nome do Profissional"
+        %br/
+        = f.text_field :profissional_nome_cont, placeholder: "Nome do Profissional"
+    .col-lg-4.col-md-4
+      #search_paciente_field
+        = f.label :agenda_movimentacao_nome_paciente_cont, "Nome do Paciente"
+        %br/
+        = f.text_field :agenda_movimentacao_nome_paciente_cont, placeholder: "Nome do Paciente"
   .row
-    .col-md-4
+    .col-md-5
       = f.label :data_cont, "Data"
-      %br
-      = f.date_select :data_cont, placeholder: "Data", class: "form-control date-select", :default => Date.today
+      %br/
+      .form-group.date.optional
+        .form-inline
+          =f.date_select :data_cont, use_month_numbers: true, default: Date.today
   %br
   .row
     .col-md-8
       = f.submit "Buscar", class: "btn btn-success"
       =link_to "Recarregar Página", painel_empresa_agendas_path(current_usuario.empresa), class: "btn btn-primary"
-
-
-
-/ , params[:search], class: "search-query", placeholder: "namesearch", type: "search", data: {autocomplete: autocomplete_agenda_movimentacao_nome_paciente_painel_empresa_agendas_path(current_usuario.empresa)}

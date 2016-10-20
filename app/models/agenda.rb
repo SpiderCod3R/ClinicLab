@@ -13,7 +13,10 @@ class Agenda < ApplicationRecord
 
   attr_reader :param_data, :param_hora, :agenda_disponivel
   attr_writer :agenda_disponivel, :param_data
+
   scope :disponibilidade, ->(boolean = true) { where(status: "VAGO") }
+  scope :data_do_dia, -> { where(data: Date.today) }
+
   scope :nome_paciente_like, -> (name) { where("agenda_movimentacao.nome_paciente ilike ?", name)}
 
   belongs_to :profissional
@@ -43,6 +46,11 @@ class Agenda < ApplicationRecord
     end
   end
 
+  def confirmacao?
+    return unless try(:agenda_movimentacao)
+    agenda_movimentacao.confirmacao?
+  end
+
   def clean
     self.agenda_movimentacao.destroy
     self.status= I18n.t("agendas.helpers.free")
@@ -53,18 +61,36 @@ class Agenda < ApplicationRecord
     # => Checando disponibilidade da agenda
     @param_data = Converter::DateConverter.new(resource["param_data(1i)"].to_i, resource["param_data(2i)"].to_i, resource["param_data(3i)"].to_i)
     @param_hora = Converter::TimeConverter.new(resource["hora(4i)"], resource["hora(5i)"])
-    @agenda_disponivel = Agenda.exists?(["data LIKE ? AND atendimento_inicio LIKE ? AND status LIKE ? AND profissional_id LIKE ?", "%#{@param_data.to_american_format}%", "%#{@param_hora.to_format}%", "%#{I18n.t('agendas.helpers.free')}%", "%#{resource[:profissional_id]}%"])
-    return @agenda_disponivel
+    @agenda_disponivel = false
+    @data_valida =(@param_data >= Date.today)
+    if @data_valida
+      @agenda_disponivel = Agenda.exists?(["data LIKE ? AND atendimento_inicio LIKE ? AND status LIKE ? AND profissional_id LIKE ?", "%#{@param_data.to_american_format}%", "%#{@param_hora.to_format}%", "%#{I18n.t('agendas.helpers.free')}%", "%#{resource[:profissional_id]}%"])
+    end
+    return [@agenda_disponivel, @data_valida]
   end
 
-  def change_day_or_time(resource)
+  def remark(params, confirmation)
     # => Encontrando o horario e alterando o dia e hora
-    @agenda_disponivel   = Agenda.find_by(["data LIKE ? AND atendimento_inicio LIKE ? AND status LIKE ? AND profissional_id LIKE ?", "%#{@param_data.to_american_format}%", "%#{@param_hora.to_format}%", "%#{I18n.t('agendas.helpers.free')}%", "%#{resource[:profissional_id]}%"])
+    @agenda_disponivel   = Agenda.find_by(["data LIKE ? AND atendimento_inicio LIKE ? AND status LIKE ? AND profissional_id LIKE ?", "%#{@param_data.to_american_format}%", "%#{@param_hora.to_format}%", "%#{I18n.t('agendas.helpers.free')}%", "%#{params[:profissional_id]}%"])
     @agenda_movimentacao = AgendaMovimentacao.find_by_agenda_id(self.id)
-    @agenda_movimentacao.update_attributes(agenda_id: @agenda_disponivel.id)
+    @agenda_movimentacao.update_attributes(agenda_id: @agenda_disponivel.id, confirmacao: confirmation)
     @agenda_movimentacao.agenda.update_attributes(status: I18n.t('agendas.helpers.scheduled'))
     self.status = I18n.t('agendas.helpers.free')
     self.save
+  end
+
+  def change_day_or_time(resource)
+    remark(resource, "OK")
+    return @agenda_movimentacao.agenda
+  end
+
+  def remarked_by_pacient(resource)
+    remark(resource, "R.P")
+    return @agenda_movimentacao.agenda
+  end
+
+  def remarked_by_doctor(resource)
+    remark(resource, "R.M")
     return @agenda_movimentacao.agenda
   end
 

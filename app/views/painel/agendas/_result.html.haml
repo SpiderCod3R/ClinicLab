@@ -4,10 +4,11 @@
     .panel-body
       %table.table.table-striped.table-bordered.table-hover{ cellspacing: "0", width: "100%"}
         %thead
-          %th=sort_link @search, :name, "Profissional"
-          %th=sort_link @search, :name, "Dia"
-          %th=sort_link @search, :name, "Data"
-          %th=sort_link @search, :name, "Horário"
+          %th Profissional
+          %th Dia
+          %th Data
+          %th Horário
+          %th Confirmação
           %th Paciente
           %th Atendente
           %th Chegada
@@ -21,6 +22,5 @@
             -elsif agenda.status.eql?(I18n.t("agendas.helpers.scheduled"))
               =content_tag(:tr, id: "agenda_id_#{agenda.id}" , class: "success") do
                 =render 'agenda_tr', { agenda: agenda }
-
   %hr{style: "border: #323232 solid 0.5px;"}
   =paginate @agendas

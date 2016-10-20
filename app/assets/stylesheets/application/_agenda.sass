@@ -1,3 +1,6 @@
+@import "include-media"
+$breakpoints: (little: 320px, phone: 640px, tablet: 768px, desktop: 1024px) !default
+
 .tres
   width: 30px
   height: 30px
@@ -57,3 +60,45 @@
 .table-hover > tbody > tr:hover > .marker,
 .table-hover > tbody > tr.marker:hover > th
   background-color: #A6D762
+
+#q_profissional_nome_cont
+  width: 300px
+#q_agenda_movimentacao_nome_paciente_cont
+  width: 300px
+
+.col-md-pull-0-5
+  right: 5.33333333%
+
+.panel-legend
+  width: 275px
+
+select#q_data_cont_3i,
+select#q_data_cont_2i,
+select#q_data_cont_1i,
+select#agenda_param_data_3i,
+select#agenda_param_data_2i,
+select#agenda_param_data_1i,
+select#agenda_hora_4i,
+select#agenda_hora_5i
+  width:  50px
+  height: 30px
+select#agenda_param_data_1i,
+select#q_data_cont_1i
+  width:  60px
+
+@include media("<=desktop")
+  #q_profissional_nome_cont,
+  #q_agenda_movimentacao_nome_paciente_cont
+    width: 250px
+    border-radius: 5px
+  #search_paciente_field
+    margin-left: 20% !important
+  .panel-legend
+    margin-left: -35% !important
+  .dropdown-menu
+    left: inherit
+    right: -4px
+
+.dropdown-menu.options_agenda
+  left: inherit
+  right: -4px

@@ -3,6 +3,7 @@
 %td{width: "9%", style: "text-align: center;"}=day_name(agenda.data.wday)
 %td{width: "7%", style: "text-align: center;"}=agenda.data.strftime("%d/%m/%Y")
 %td{width: "5%", style: "text-align: center;"}=Time.parse(agenda.atendimento_inicio).strftime("%H:%M")
+%td=agenda.agenda_movimentacao.confirmacao if agenda.confirmacao?
 %td{width: "10%", style: "text-align: center;"}=agenda.agenda_movimentacao.nome_paciente if agenda.try(:agenda_movimentacao)
 %td{width: "10%", style: "text-align: center;"}=agenda.agenda_movimentacao.atendente.nome if agenda.try(:agenda_movimentacao)
 %td
