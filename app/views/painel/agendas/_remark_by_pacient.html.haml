@@ -11,31 +11,14 @@
         =simple_form_for [@empresa, @agenda], url: painel_empresa_agenda_remarked_by_pacient_path, method: "PUT", html: { class: "modal_ramark_agenda_by_pacient"}, remote: true do |f|
           .container-fluid
             .row-fluid
-              .col-md-12
-                .row
-                  .col-md-6
-                    %label Paciente
-                    %p=@agenda.agenda_movimentacao.nome_paciente
-                .row
-                  .col-md-5
-                    %label Responsável
-                    %p=@agenda.profissional_nome
-                  .col-md-2
-                    %label Data
-                    %p=@agenda.data.strftime("%d/%m/%Y")
-                  .col-md-3
-                    %label Dia
-                    %p=day_name(@agenda.data.wday)
-                  .col-md-2
-                    %label Hora
-                    %p=Time.parse(@agenda.atendimento_inicio).strftime("%H:%M")
+              =render 'main_line'
             %hr{style: "border: #323232 solid 0.5px;"}
             .row-fluid
               .col-md-12
                 .col-md-5
                   .row
-                    =f.label :profissional_id
-                    =f.collection_select :profissional_id, Profissional.all.order("nome ASC"), :id, :titulo, { prompt: "Selecione um" }, class: "form-control"
+                    =f.label :referencia_agenda_id, "Referência"
+                    =f.collection_select :referencia_agenda_id, ReferenciaAgenda.where(empresa_id: current_usuario.empresa_id), :id, :descricao_completa, { prompt: "Selecione um" }, class: "form-control"
                 .col-md-5.col-md-offset-1
                   .row
                     =f.label "Dia"
