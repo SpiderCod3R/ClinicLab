@@ -19,13 +19,13 @@ class Agenda < ApplicationRecord
 
   scope :nome_paciente_like, -> (name) { where("agenda_movimentacao.nome_paciente ilike ?", name)}
 
-  belongs_to :profissional
+  belongs_to :referencia_agenda
   belongs_to :usuario
   belongs_to :empresa
   has_one :agenda_movimentacao
 
-  delegate :id, :nome,
-           to: :profissional,
+  delegate :id, :descricao, :profissional,
+           to: :referencia_agenda,
            prefix: true,
            allow_nil: true
 
@@ -35,7 +35,11 @@ class Agenda < ApplicationRecord
            allow_nil: true
 
   def profissional_titulo
-    "#{profissional_nome} - #{profissional.cargo_nome}"
+    "#{referencia_agenda_profissional.nome} - #{referencia_agenda_profissional.cargo_nome}"
+  end
+
+  def referencia
+    "#{referencia_agenda_descricao} - #{profissional_titulo}"
   end
 
   def turno
