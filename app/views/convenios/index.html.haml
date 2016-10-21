@@ -14,7 +14,7 @@
         %tbody
           - @convenios.each do |convenio|
             %tr
-              %td=ativo_ou_inativo?(convenio.status)
+              %td=status(convenio.status)
               %td=convenio.id
               %td=convenio.nome
               %td=convenio.valor

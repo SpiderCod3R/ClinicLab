@@ -15,7 +15,7 @@ module ToolHelper
     end
   end
 
-  def ativo_ou_inativo?(resource)
+  def status(resource)
     return resource ? "ATIVO" : "INATIVO"
   end
 

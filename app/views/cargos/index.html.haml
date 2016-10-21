@@ -15,7 +15,7 @@
         %tbody
           - @cargos.each do |cargo|
             %tr
-              %td=ativo_ou_inativo?(cargo.status)
+              %td=status(cargo.status)
               %td=cargo.id
               %td=cargo.nome
               %td{class: "pull-right"}

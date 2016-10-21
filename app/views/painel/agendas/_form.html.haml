@@ -14,8 +14,8 @@
             =f.input :usuario_id, as: :hidden, input_html: { value: current_usuario.id }
           .row-fluid
             .col-md-3
-              =f.label :profissional_id
-              =f.collection_select :profissional_id, Profissional.all.order("nome ASC"), :id, :titulo, { prompt: "Selecione um" }, class: "form-control selectpicker", :"data-live-search"=>"true"
+              =f.label :referencia_agenda_id, "Referência"
+              =f.collection_select :referencia_agenda_id, ReferenciaAgenda.where(empresa_id: current_usuario.empresa_id), :id, :descricao_completa, { prompt: "Selecione um" }, class: "form-control selectpicker", :"data-live-search"=>"true"
             .col-md-3
               =f.input :data_inicial, as: :string, input_html: { class: "datepicker" }
             .col-md-3

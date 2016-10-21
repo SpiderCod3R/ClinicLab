@@ -3,7 +3,7 @@ json.set! :agenda do
     json.set! :not_completeded, false
     json.set! :flash do
       json.set! :notice do
-        json.set! :success, I18n.t("agendas.messages.generating", resource_name: Agenda.last.profissional.nome)
+        json.set! :success, I18n.t("agendas.messages.generating", resource_name: Agenda.last.referencia_agenda.profissional_nome)
       end
     end
 
