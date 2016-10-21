@@ -1,2 +1,0 @@
-module PermissoesHelper
-end
