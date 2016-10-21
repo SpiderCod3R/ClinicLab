@@ -1,0 +1,18 @@
+.col-md-12
+  .row
+    .col-md-6
+      %label Paciente
+      %p=@agenda.agenda_movimentacao.nome_paciente
+  .row
+    .col-md-5
+      %label Referência
+      %p=@agenda.referencia_agenda_profissional.nome
+    .col-md-2
+      %label Data
+      %p=@agenda.data.strftime("%d/%m/%Y")
+    .col-md-3
+      %label Dia
+      %p=day_name(@agenda.data.wday)
+    .col-md-2
+      %label Hora
+      %p=Time.parse(@agenda.atendimento_inicio).strftime("%H:%M")
