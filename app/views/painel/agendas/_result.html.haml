@@ -4,7 +4,7 @@
     .panel-body
       %table.table.table-striped.table-bordered.table-hover{ cellspacing: "0", width: "100%"}
         %thead
-          %th Profissional
+          %th Referência
           %th Dia
           %th Data
           %th Horário
@@ -15,12 +15,7 @@
           %th S.Espera
           %th Movimentações
         %tbody#agenda_content
-          - @agendas.order("data ASC").order("atendimento_inicio ASC").each do |agenda|
-            -if agenda.status.eql?(I18n.t("agendas.helpers.free"))
-              =content_tag(:tr, id: "agenda_id_#{agenda.id}" , class: "info") do
-                =render 'agenda_tr', { agenda: agenda }
-            -elsif agenda.status.eql?(I18n.t("agendas.helpers.scheduled"))
-              =content_tag(:tr, id: "agenda_id_#{agenda.id}" , class: "success") do
-                =render 'agenda_tr', { agenda: agenda }
+          =render 'agendas'
   %hr{style: "border: #323232 solid 0.5px;"}
-  =paginate @agendas
+  #paginator
+    =paginate @agendas, remote: true
