@@ -30,4 +30,8 @@ class Profissional < ApplicationRecord
   def titulo
     "#{nome} - #{cargo_nome}"
   end
+
+  def titulo_completo
+    "#{id} - #{nome} - #{cargo_nome}"
+  end
 end

@@ -2,6 +2,7 @@ pt-BR:
   agendas:
     links:
       new: Nova Agenda
+      new_referency: Nova Referência
       edit: Editar Agenda
       destroy: Excluir Agenda
       show: Visualizar Agenda
@@ -21,3 +22,12 @@ pt-BR:
       schedule_not_found: Não existem horários vagos para estes dados
       schedule_changed:  Dia ou horário do atendimento alterado.
       invalid_date: A data não pode ser menor do que a data de hoje.
+      referency_saved: Referência salva com sucesso.
+      referency_saved: Referência salva com sucesso.
+  activerecord: 
+    models: 
+      agenda: Agenda 
+      referencia_agenda: ReferenciaAgenda 
+  attributes: 
+    referencia_agenda: 
+      profissional_id: Profissional

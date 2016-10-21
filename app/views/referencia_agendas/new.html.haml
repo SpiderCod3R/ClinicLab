@@ -1,0 +1,10 @@
+=build_form_toolbar(nil, ".new_referencia_agenda", @referencia, index_referencia_agendas_path, nil)
+%section#new_referencia_agenda
+  .container-fluid
+    .row-fluid
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        %h1=t('agendas.links.new_referency')
+        %hr{style: "border: #323232 solid 0.5px;"}
+    .row-fluid
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        =render 'form'
