@@ -24,7 +24,7 @@ class Painel::AgendasController < ApplicationController
 
   def index
     @search  = ransack_params
-    @agendas = Agenda.includes(:profissional).includes(:agenda_movimentacao).data_do_dia.where(empresa_id: @empresa.id).page(params[:page])
+    @agendas = Agenda.includes(:referencia_agenda).includes(:agenda_movimentacao).data_do_dia.where(empresa_id: @empresa.id).page(params[:page])
   end
 
   def search
@@ -42,12 +42,17 @@ class Painel::AgendasController < ApplicationController
   end
 
   def create
-    if params[:horarios][:turno_a][:atendimentos].present?
-      @agenda_manha = Agenda.create_horarios_turno_a_by_javascript_params(params)
-    end
+    if params[:horarios]
+      if params[:horarios][:turno_a][:atendimentos].present?
+        Agenda.create_horarios_turno_a_by_javascript_params(params)
+      end
 
-    if params[:horarios][:turno_b][:atendimentos].present?
-      @agenda_tarde = Agenda.create_horarios_turno_b_by_javascript_params(params)
+      if params[:horarios][:turno_b][:atendimentos].present?
+        Agenda.create_horarios_turno_b_by_javascript_params(params)
+      end
+      @completed = true
+    else
+      @completed = false
     end
   end
 
@@ -135,7 +140,7 @@ class Painel::AgendasController < ApplicationController
     end
 
     def ransack_params
-      Agenda.includes(:profissional).includes(:agenda_movimentacao).ransack(params[:q])
+      Agenda.includes(:referencia_agenda).includes(:agenda_movimentacao).ransack(params[:q])
     end
 
     def ransack_result

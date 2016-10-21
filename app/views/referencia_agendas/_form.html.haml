@@ -1,0 +1,33 @@
+=simple_form_for @referencia do |f|
+  - if @referencia.errors.any?
+    .row-fluid
+      .col-md-12
+        %div{class: "alert alert-danger", style: "color: #B11515;"}
+          %h4="#{pluralize(@referencia.errors.count, "erro")} impede(m) este referencia de ser salvo:"
+  .row-fluid
+    .col-md-12
+      .panel.panel-default
+        .panel-heading
+        .container-fluid
+          .row-fluid
+            .col-md-4
+              -if @referencia.errors.any?
+                =label_or_error_tag @referencia, :status
+              -else
+                =f.label :status, class: "control-label"
+              =f.collection_radio_buttons :status, [['ativo', 'ativo'] ,['inativo', 'inativo']],:first, :last
+          .row-fluid
+            .col-md-4
+              -if @referencia.errors.any?
+                =label_or_error_tag @referencia, :descricao
+              -else
+                =f.label :descricao, class: "control-label"
+              =f.input :descricao, :error => false, label: false
+          .row-fluid
+            .col-md-4
+              -if @referencia.errors.any?
+                =label_or_error_tag @referencia, :profissional_id
+              -else
+                =f.label :profissional_id, class: "control-label"
+              =f.collection_select :profissional_id, Profissional.where(empresa_id: current_usuario.empresa_id).order("nome ASC"), :id, :titulo_completo, { prompt: "Selecione um" }, class: "form-control selectpicker", :"data-live-search"=>"true"
+          %br/

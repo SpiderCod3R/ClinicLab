@@ -144,14 +144,14 @@ $(document).ready ->
     x=0
     dia = ""
     error_messages  = []
-    profissional_id = $("#agenda_profissional_id :selected").val()
+    agenda_referencia_agenda_id = $("#agenda_referencia_agenda_id :selected").val()
     data_inicial    = $("#agenda_data_inicial").val()
     data_final      = $("#agenda_data_final").val()
     duracao_turno_a = $("#agenda_atendimento_turno_a_duracao").val()
     duracao_turno_b = $("#agenda_atendimento_turno_b_duracao").val()
 
-    if profissional_id == ""
-      error_messages.push("<li>Profissional deve ser selecionado</li>")
+    if agenda_referencia_agenda_id == ""
+      error_messages.push("<li>Referência deve ser selecionado</li>")
     if data_inicial == ""
       error_messages.push("<li>Data Inicial deve ser preenchida</li>")
     if data_final == ""
@@ -206,8 +206,6 @@ $(document).ready ->
       # coletando dados dos horarios
       horarios_turno_a = coletor_do_turno_a()
       horarios_turno_b = coletor_do_turno_b()
-      console.log horarios_turno_a
-      console.log horarios_turno_b
       $.ajax
         url: localhost + "/painel/empresas/#{empresa_id}/agendas"
         type: 'POST'
@@ -215,14 +213,14 @@ $(document).ready ->
         timeout: 10000
         data:
           agenda:
-            empresa_id:            empresa_id
-            usuario_id:            $("#agenda_usuario_id").val()
-            profissional_id:       $("#agenda_profissional_id :selected").val()
-            data_inicial:          $("#agenda_data_inicial").val()
-            data_final:            $("#agenda_data_final").val()
-            atendimento_sabado:    atendimento_sabado
-            atendimento_domingo:   atendimento_domingo
-            atendimento_parcial:   horario_parcial
+            empresa_id:                  empresa_id
+            usuario_id:                  $("#agenda_usuario_id").val()
+            agenda_referencia_agenda_id: $("#agenda_referencia_agenda_id :selected").val()
+            data_inicial:                $("#agenda_data_inicial").val()
+            data_final:                  $("#agenda_data_final").val()
+            atendimento_sabado:          atendimento_sabado
+            atendimento_domingo:         atendimento_domingo
+            atendimento_parcial:         horario_parcial
           horarios:
             turno_a:
               atendimento_duracao: $("#agenda_atendimento_turno_a_duracao").val()
@@ -231,7 +229,7 @@ $(document).ready ->
               atendimento_duracao: $("#agenda_atendimento_turno_b_duracao").val()
               atendimentos:        horarios_turno_b
         success: (response) ->
-          if response.agenda.not_completeded == false
+          if response.agenda.completeded == true
             setTimeout (->
               if (response.agenda.flash)
                 toastr.info(response.agenda.flash.notice.success, "Aguarde!")
@@ -244,17 +242,11 @@ $(document).ready ->
               ), 8000
             ), 7000
           else
-            i=0
-            $("#error_messages").find(".modal-body").empty()
-            $("#error_messages").find(".modal-title").html("Erros Encontrados")
-            messages = response.agenda.flash.messages.filter((last, i) ->
-              response.agenda.flash.messages.indexOf(last) == i
-            )
-            console.log messages
-            while i <= messages.length
-              if i >= messages.length
-                break
-              else
-                $("#error_messages").find(".modal-body").append("<li>#{response.agenda.flash.messages[i]}</li>")
-              i++
-            $("#error_messages").modal()
+            setTimeout (->
+              if (response.agenda.flash)
+                toastr.danger("Um erro não identificado foi detectado. Contate o suporte.", "Essa não :( ")
+            ), 2000
+            setTimeout (->
+              if (response.agenda.location)
+                window.location.href = localhost + "/painel/empresas/#{empresa_id}/agendas?locale=pt-BR"
+            ), 8000

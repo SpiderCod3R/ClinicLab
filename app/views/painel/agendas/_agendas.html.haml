@@ -1,0 +1,7 @@
+- @agendas.order("data ASC").order("atendimento_inicio ASC").each do |agenda|
+  -if agenda.status.eql?(I18n.t("agendas.helpers.free"))
+    =content_tag(:tr, id: "agenda_id_#{agenda.id}" , class: "info") do
+      =render 'agenda_tr', { agenda: agenda }
+  -elsif agenda.status.eql?(I18n.t("agendas.helpers.scheduled"))
+    =content_tag(:tr, id: "agenda_id_#{agenda.id}" , class: "success") do
+      =render 'agenda_tr', { agenda: agenda }

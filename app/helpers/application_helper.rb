@@ -17,4 +17,14 @@ module ApplicationHelper
       tag.strong 'Globalnetsis GClinic2.0 app'
       } running on Ruby #{RUBY_VERSION}, Rails #{Rails::VERSION::STRING}".html_safe
   end
+
+  def label_or_error_tag(model, attribute)
+    if model.errors.has_key? attribute
+      content_tag(
+        :span,
+        "#{attribute.to_s.gsub('_id','').capitalize} - #{model.errors[attribute].first}",
+        class: 'help-block'
+      )
+    end
+  end
 end
