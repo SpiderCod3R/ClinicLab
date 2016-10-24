@@ -20,7 +20,9 @@ class Painel::AgendasController < ApplicationController
                                      :remark_by_doctor,
                                      :remarked_by_doctor,
                                      :unmarked_by_doctor,
-                                     :unmarked_by_pacient
+                                     :unmarked_by_pacient,
+                                     :make_appointment,
+                                     :attended
                                     ]
   respond_to :html, :js, :json, :xml
 
@@ -126,7 +128,6 @@ class Painel::AgendasController < ApplicationController
   end
 
   def unmarked_by_doctor
-    @agenda.backup_agenda
     @agenda.unmarked_by_doctor
     redirect_to :back
   end
@@ -135,6 +136,16 @@ class Painel::AgendasController < ApplicationController
     @agenda.backup_agenda
     @agenda.unmarked_by_pacient
     redirect_to :back
+  end
+
+  def make_appointment
+    respond_to &:js
+  end
+
+  def attended
+    @agenda.attended(params[:agenda])
+    @changed = true
+    respond_to &:js
   end
 
   private

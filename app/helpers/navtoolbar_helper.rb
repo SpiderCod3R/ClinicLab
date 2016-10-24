@@ -39,4 +39,13 @@ module NavtoolbarHelper
       render "application/navbar"
     end
   end
+
+  def build_toolbar_dual_buttons(uri_path, root_path)
+    content_for :header do
+      render "application/toolbars/dual_button_toolbar", {
+                                          uri_path: uri_path,
+                                          root_path: root_path
+                                        }
+    end
+  end
 end

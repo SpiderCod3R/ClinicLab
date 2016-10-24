@@ -116,6 +116,14 @@ class Agenda < ApplicationRecord
     self.save
   end
 
+  def attended(resource)
+    @param_hora = Converter::TimeConverter.new(resource["hora_atendimento(4i)"], resource["hora_atendimento(5i)"])
+    self.agenda_movimentacao.update_attributes(confirmacao: "A.T.T")
+    self.status=(I18n.t('agendas.helpers.attended'))
+    self.hora_atendimento=@param_hora.to_format
+    self.save
+  end
+
   private_class_method :ransackable_scopes
 
   private
