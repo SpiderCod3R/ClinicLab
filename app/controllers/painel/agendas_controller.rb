@@ -126,7 +126,6 @@ class Painel::AgendasController < ApplicationController
   end
 
   def unmarked_by_doctor
-    @agenda.backup_agenda
     @agenda.unmarked_by_doctor
     redirect_to :back
   end
