@@ -6,12 +6,18 @@
     %ul.dropdown-menu.options_agenda
       %li=link_to "Ver Ficha do Paciente", "#"
       %li=link_to "Visualizar atendimento", painel_empresa_agenda_path(current_usuario.empresa, agenda)
-      %li.divider{:role => "separator"}
-      %li=link_to "Trocar Horário", painel_empresa_agenda_change_day_or_time_path(current_usuario.empresa, agenda), remote: true
       %li=link_to "Limpar Horário", painel_empresa_agenda_clean_path(current_usuario.empresa, agenda)
-      %li.divider{:role => "separator"}
-      %li=link_to "Remarcar pelo Paciente", painel_empresa_agenda_remark_by_pacient_path(current_usuario.empresa, agenda), remote: true
-      %li=link_to "Remarcar pelo Médico", painel_empresa_agenda_remark_by_doctor_path(current_usuario.empresa, agenda), remote: true
+      -if agenda.status.eql?(I18n.t("agendas.helpers.scheduled")) or agenda.status.eql?(I18n.t("agendas.helpers.free"))
+        %li.divider{:role => "separator"}
+        %li=link_to "Trocar Horário", painel_empresa_agenda_change_day_or_time_path(current_usuario.empresa, agenda), remote: true
+      -unless agenda.status.eql?(I18n.t("agendas.helpers.unmarked_by_doctor")) or agenda.status.eql?(I18n.t("agendas.helpers.unmarked_by_pacient"))
+        %li.divider{:role => "separator"}
+        %li=link_to "Remarcar pelo Paciente", painel_empresa_agenda_remark_by_pacient_path(current_usuario.empresa, agenda), remote: true
+        %li=link_to "Remarcar pelo Médico", painel_empresa_agenda_remark_by_doctor_path(current_usuario.empresa, agenda), remote: true
+      -if agenda.status.eql?(I18n.t("agendas.helpers.scheduled")) or agenda.status.eql?(I18n.t("agendas.helpers.free"))
+        %li.divider{:role => "separator"}
+        %li=link_to "Desmarcar pelo Paciente", painel_empresa_agenda_unmarked_by_pacient_path(agenda.empresa, agenda)
+        %li=link_to "Desmarcar pelo Médico", painel_empresa_agenda_unmarked_by_doctor_path(agenda.empresa, agenda)
   #change_agenda_section
 -else
   .btn-group
