@@ -551,3 +551,24 @@ select.date-select
     display: inline-block
     width: auto !important
     vertical-align: middle
+
+.table > thead > tr > td.attention,
+.table > tbody > tr > td.attention,
+.table > tfoot > tr > td.attention,
+.table > thead > tr > th.attention,
+.table > tbody > tr > th.attention,
+.table > tfoot > tr > th.attention,
+.table > thead > tr.attention > td,
+.table > tbody > tr.attention > td,
+.table > tfoot > tr.attention > td,
+.table > thead > tr.attention > th,
+.table > tbody > tr.attention > th,
+.table > tfoot > tr.attention > th
+  background-color: #F6ECB5
+
+.table-hover > tbody > tr > td.attention:hover,
+.table-hover > tbody > tr > th.attention:hover,
+.table-hover > tbody > tr.attention:hover > td,
+.table-hover > tbody > tr:hover > .attention,
+.table-hover > tbody > tr.attention:hover > th
+  background-color: #FEF7C9
