@@ -104,6 +104,18 @@ class Agenda < ApplicationRecord
     @backup_agenda.save
   end
 
+  def unmarked_by_doctor
+    self.agenda_movimentacao.update_attributes(confirmacao: "D.M.")
+    self.status=(I18n.t('agendas.helpers.unmarked_by_doctor'))
+    self.save
+  end
+
+  def unmarked_by_pacient
+    self.agenda_movimentacao.update_attributes(confirmacao: "D.P.")
+    self.status=(I18n.t('agendas.helpers.unmarked_by_pacient'))
+    self.save
+  end
+
   private_class_method :ransackable_scopes
 
   private
