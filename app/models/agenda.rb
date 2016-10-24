@@ -98,6 +98,12 @@ class Agenda < ApplicationRecord
     return @agenda_movimentacao.agenda
   end
 
+  def backup_agenda
+    @backup_agenda = Agenda.new(self.attributes.except("id"))
+    @backup_agenda.status=(I18n.t('agendas.helpers.free'))
+    @backup_agenda.save
+  end
+
   private_class_method :ransackable_scopes
 
   private
