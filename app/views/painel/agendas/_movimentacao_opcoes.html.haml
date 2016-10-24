@@ -2,8 +2,8 @@
   .btn-group
     %button.btn.btn-white-background.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
       %i.mdi-set.mdi-account-card-details.mdi-2x.mdi-white-color
-      %span.caret
-    %ul.dropdown-menu.options_agenda
+      %span.caret.caret-up
+    %ul.dropdown-menu.options_agenda.drop-up
       %li=link_to "Ver Ficha do Paciente", "#"
       %li=link_to "Visualizar Ficha", painel_empresa_agenda_path(current_usuario.empresa, agenda)
       -unless agenda.status.eql?(I18n.t("agendas.helpers.attended"))
@@ -25,8 +25,8 @@
   .btn-group
     %button.btn.btn-white-background.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
       %i.mdi-set.mdi-clock-alert.mdi-2x.mdi-white-color
-      %span.caret
-    %ul.dropdown-menu.options_agenda
+      %span.caret.caret-up
+    %ul.dropdown-menu.options_agenda.drop-up
       %li=link_to "Agendar atendimento", painel_empresa_agenda_movimentar_ou_atualizar_path(@empresa,agenda.id), class: "hands_cursor"
       %li.divider{:role => "separator"}
       %li=link_to "Excluir Agenda", "#"

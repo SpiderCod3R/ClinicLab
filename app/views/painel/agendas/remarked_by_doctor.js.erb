@@ -1,5 +1,5 @@
 <%- if @changed -%>
-  $("#change_agenda_day_or_time").modal('hide')
+  $("#remark_by_doctor").modal('hide')
 
   $("#agenda_id_<%= @old_agenda.id %>").fadeOut(500, function(){
     $(this).empty();
