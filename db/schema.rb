@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161020193408) do
+ActiveRecord::Schema.define(version: 20161024164723) do
 
   create_table "agenda_movimentacoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "agenda_id"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20161020193408) do
     t.datetime "updated_at",                         null: false
     t.string   "status"
     t.text     "motivo_bloqueio",      limit: 65535
+    t.time     "hora_atendimento"
     t.index ["empresa_id"], name: "index_agendas_on_empresa_id", using: :btree
     t.index ["usuario_id"], name: "index_agendas_on_usuario_id", using: :btree
   end
