@@ -8,3 +8,6 @@
   -elsif agenda.status.eql?(I18n.t("agendas.helpers.didnt_come")) or agenda.status.eql?(I18n.t("agendas.helpers.unmarked_by_pacient")) or agenda.status.eql?(I18n.t("agendas.helpers.unmarked_by_doctor"))
     =content_tag(:tr, id: "agenda_id_#{agenda.id}" , class: "attention") do
       =render 'agenda_tr', { agenda: agenda }
+  -elsif agenda.status.eql?(I18n.t("agendas.helpers.attended"))
+    =content_tag(:tr, id: "agenda_id_#{agenda.id}" , class: "danger") do
+      =render 'agenda_tr', { agenda: agenda }

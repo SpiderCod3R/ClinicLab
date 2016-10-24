@@ -1,6 +1,6 @@
 %section#dados_principais_da_agenda
   .container
-    .row-fluid
+    .row
       .col-md-3
         %b Código Responsável
         %br
@@ -21,6 +21,8 @@
         %b Hora
         %br
         %label{style: "color: #9F0303"}=Time.parse(agenda.atendimento_inicio).strftime("%H:%M")
+    .row
+      %hr{style: "border: 0.5px #D9E7EF solid;"}
       .col-md-3
         %b Status
         %br
@@ -35,6 +37,11 @@
           %b Confirmação
           %br
           -if agenda.agenda_movimentacao.confirmacao?
-            %label{style: "color: #868181"}=agenda.agenda_movimentacao.confirmacao
+            %label{style: "color: #57514B"}=agenda.agenda_movimentacao.confirmacao
           -else
-            %label{style: "color: #868181"} Nenhuma
+            %label{style: "color: #57514B"} Nenhuma
+      -if agenda.hora_atendimento?
+        .col-md-3
+          %b Hora do atendimento
+          %br
+          %label{style: "color: #A81616"}=agenda.hora_atendimento.strftime("%H:%M")
