@@ -21,7 +21,7 @@ class Agenda < ApplicationRecord
 
   belongs_to :referencia_agenda
   belongs_to :usuario
-  belongs_to :empresa
+  belongs_to :empresa, class_name: "Painel::Empresa", foreign_key: "empresa_id"
   has_one :agenda_movimentacao
 
   delegate :id, :descricao, :profissional,
