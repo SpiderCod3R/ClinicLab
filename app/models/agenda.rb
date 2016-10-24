@@ -89,12 +89,12 @@ class Agenda < ApplicationRecord
   end
 
   def remarked_by_pacient(resource)
-    remark(resource, "R.P")
+    remark(resource, "R.P.")
     return @agenda_movimentacao.agenda
   end
 
   def remarked_by_doctor(resource)
-    remark(resource, "R.M")
+    remark(resource, "R.M.")
     return @agenda_movimentacao.agenda
   end
 
