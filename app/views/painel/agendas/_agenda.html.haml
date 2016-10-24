@@ -30,3 +30,11 @@
         -else
           %label{style: "color: #059F03"}
             =agenda.status
+      -if agenda.try(:agenda_movimentacao)
+        .col-md-3
+          %b Confirmação
+          %br
+          -if agenda.agenda_movimentacao.confirmacao?
+            %label{style: "color: #868181"}=agenda.agenda_movimentacao.confirmacao
+          -else
+            %label{style: "color: #868181"} Nenhuma

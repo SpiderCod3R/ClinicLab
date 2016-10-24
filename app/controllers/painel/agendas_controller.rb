@@ -18,7 +18,9 @@ class Painel::AgendasController < ApplicationController
                                      :remark_by_pacient,
                                      :remarked_by_pacient,
                                      :remark_by_doctor,
-                                     :remarked_by_doctor
+                                     :remarked_by_doctor,
+                                     :unmarked_by_doctor,
+                                     :unmarked_by_pacient
                                     ]
   respond_to :html, :js, :json, :xml
 
@@ -66,6 +68,9 @@ class Painel::AgendasController < ApplicationController
     end
   end
 
+  '''
+    ACTIONS DAS MOVIMENTACOES
+  '''
   def clean
     @current_id = @agenda.agenda_movimentacao.id
     @agenda.clean
@@ -118,6 +123,18 @@ class Painel::AgendasController < ApplicationController
       @changed = false
     end
     respond_to &:js
+  end
+
+  def unmarked_by_doctor
+    @agenda.backup_agenda
+    @agenda.unmarked_by_doctor
+    redirect_to :back
+  end
+
+  def unmarked_by_pacient
+    @agenda.backup_agenda
+    @agenda.unmarked_by_pacient
+    redirect_to :back
   end
 
   private

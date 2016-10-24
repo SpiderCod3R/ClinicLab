@@ -16,10 +16,7 @@ class AgendaMovimentacao < ApplicationRecord
            allow_nil: true
 
   validates :agenda_id, presence: true
-  # validates :convenio_id, presence: true, if: :no_convenio_registered?
   validates_associated :agenda
-
-  # after_save :change_agenda_status
 
   def no_convenio_registered?
     sem_convenio.present?
@@ -30,7 +27,20 @@ class AgendaMovimentacao < ApplicationRecord
   end
 
   def change_agenda_status
-    self.agenda.status= I18n.t("agendas.helpers.scheduled")
+    case confirmacao
+    when "N.V"
+      self.agenda.status= I18n.t("agendas.helpers.didnt_come")
+    when "D.M"
+      self.agenda.status= I18n.t("agendas.helpers.unmarked_by_doctor")
+    when "R.P"
+      self.agenda.status= I18n.t("agendas.helpers.remarked_by_doctor")
+    when "R.M"
+      self.agenda.status= I18n.t("agendas.helpers.remarked_by_doctor")
+    when "Desistiu"
+      self.agenda.status= I18n.t("agendas.helpers.give_up")
+    else
+      self.agenda.status= I18n.t("agendas.helpers.scheduled")
+    end
     self.agenda.save
   end
 

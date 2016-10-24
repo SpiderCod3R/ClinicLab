@@ -21,7 +21,7 @@ class Agenda < ApplicationRecord
 
   belongs_to :referencia_agenda
   belongs_to :usuario
-  belongs_to :empresa
+  belongs_to :empresa, class_name: "Painel::Empresa", foreign_key: "empresa_id"
   has_one :agenda_movimentacao
 
   delegate :id, :descricao, :profissional,
@@ -89,13 +89,31 @@ class Agenda < ApplicationRecord
   end
 
   def remarked_by_pacient(resource)
-    remark(resource, "R.P")
+    remark(resource, "R.P.")
     return @agenda_movimentacao.agenda
   end
 
   def remarked_by_doctor(resource)
-    remark(resource, "R.M")
+    remark(resource, "R.M.")
     return @agenda_movimentacao.agenda
+  end
+
+  def backup_agenda
+    @backup_agenda = Agenda.new(self.attributes.except("id"))
+    @backup_agenda.status=(I18n.t('agendas.helpers.free'))
+    @backup_agenda.save
+  end
+
+  def unmarked_by_doctor
+    self.agenda_movimentacao.update_attributes(confirmacao: "D.M.")
+    self.status=(I18n.t('agendas.helpers.unmarked_by_doctor'))
+    self.save
+  end
+
+  def unmarked_by_pacient
+    self.agenda_movimentacao.update_attributes(confirmacao: "D.P.")
+    self.status=(I18n.t('agendas.helpers.unmarked_by_pacient'))
+    self.save
   end
 
   private_class_method :ransackable_scopes

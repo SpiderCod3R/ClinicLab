@@ -11,6 +11,13 @@ pt-BR:
       atendimento_domingo: Atendimento no Domingo
       atendimento_duracao: "Duração do Atendimento [Min]"
       scheduled: Agendado
+      unavaliable: Indisponível
+      didnt_come: Não Veio
+      unmarked_by_doctor: Desmarcado pelo Médico
+      remarked_by_doctor: Remarcado pelo Médico
+      unmarked_by_pacient: Desmarcado pelo Paciente
+      remarked_by_pacient: Remarcado pelo Paciente
+      give_up: Desistiu
       free: VAGO
       shift:
         morning: Manhã
