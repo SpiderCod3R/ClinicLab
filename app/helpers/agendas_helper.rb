@@ -27,8 +27,8 @@ module AgendasHelper
     return "Trocar horário da agenda - nº #{object_id}"
   end
 
-  def movimentar_agenda_numero(object_id)
-    return "Movimentar agenda - nº #{object_id}"
+  def movimentar_agenda_numero(object)
+    return "Movimentar agenda - nº #{object.id} - Referência - #{object.referencia_agenda.descricao}"
   end
 
   def remarcar_agenda_numero(object_id)
