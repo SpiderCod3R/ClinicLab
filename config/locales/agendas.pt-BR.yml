@@ -17,6 +17,7 @@ pt-BR:
       remarked_by_doctor: Remarcado pelo Médico
       unmarked_by_pacient: Desmarcado pelo Paciente
       remarked_by_pacient: Remarcado pelo Paciente
+      attended: Atendido
       give_up: Desistiu
       free: VAGO
       shift:
@@ -31,6 +32,7 @@ pt-BR:
       invalid_date: A data não pode ser menor do que a data de hoje.
       referency_saved: Referência salva com sucesso.
       referency_saved: Referência salva com sucesso.
+      service_attended: Atendimento concluido
   activerecord: 
     models: 
       agenda: Agenda 
