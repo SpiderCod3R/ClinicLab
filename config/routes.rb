@@ -91,6 +91,8 @@ Rails.application.routes.draw do
         put 'remarked_by_doctor'
         get 'unmarked_by_doctor'
         get 'unmarked_by_pacient'
+        get 'make_appointment'
+        put 'attended'
         get 'block_day', to: 'agendas#block_day', as: :block_day
         put 'block_day', to: 'agendas#set_block_on_day', as: :set_block_on_day
         resources :agenda_movimentacoes
