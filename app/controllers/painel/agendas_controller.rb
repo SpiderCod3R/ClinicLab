@@ -13,6 +13,7 @@ class Painel::AgendasController < ApplicationController
                                      :block_day,
                                      :block_period,
                                      :clean,
+                                     :didnt_came,
                                      :change_day_or_time,
                                      :change,
                                      :remark_by_pacient,
