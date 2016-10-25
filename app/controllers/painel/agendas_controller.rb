@@ -29,7 +29,13 @@ class Painel::AgendasController < ApplicationController
 
   def index
     @search  = ransack_params
-    @agendas = Agenda.includes(:referencia_agenda).includes(:agenda_movimentacao).data_do_dia.where(empresa_id: @empresa.id).page(params[:page])
+    @agendas = Agenda.includes(:referencia_agenda).includes(:agenda_movimentacao).
+                      verifica_a_empresa(@empresa.id).
+                      data_do_dia.
+                      pela_referencia.
+                      horario_intercalado.
+                      page(params[:page])
+    # binding.pry
   end
 
   def search
