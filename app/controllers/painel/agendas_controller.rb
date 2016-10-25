@@ -13,6 +13,7 @@ class Painel::AgendasController < ApplicationController
                                      :block_day,
                                      :block_period,
                                      :clean,
+                                     :didnt_came,
                                      :change_day_or_time,
                                      :change,
                                      :remark_by_pacient,
@@ -28,7 +29,13 @@ class Painel::AgendasController < ApplicationController
 
   def index
     @search  = ransack_params
-    @agendas = Agenda.includes(:referencia_agenda).includes(:agenda_movimentacao).data_do_dia.where(empresa_id: @empresa.id).page(params[:page])
+    @agendas = Agenda.includes(:referencia_agenda).includes(:agenda_movimentacao).
+                      verifica_a_empresa(@empresa.id).
+                      data_do_dia.
+                      pela_referencia.
+                      horario_intercalado.
+                      page(params[:page])
+    # binding.pry
   end
 
   def search
@@ -77,6 +84,12 @@ class Painel::AgendasController < ApplicationController
     @current_id = @agenda.agenda_movimentacao.id
     @agenda.clean
     redirect_to :back
+  end
+
+  def didnt_came
+    @agenda.set_didnt_came
+    @changed = true
+    respond_to &:js
   end
 
   def change_day_or_time

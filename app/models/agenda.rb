@@ -15,7 +15,12 @@ class Agenda < ApplicationRecord
   attr_writer :agenda_disponivel, :param_data
 
   scope :disponibilidade, ->(boolean = true) { where(status: "VAGO") }
+  
+  scope :pela_referencia, -> { order(referencia_agenda_id: :asc, ) }
+  scope :horario_intercalado, -> { order("atendimento_inicio") }
+
   scope :data_do_dia, -> { where(data: Date.today) }
+  scope :verifica_a_empresa, -> (empresa_id) { where(empresa_id: empresa_id) }
 
   scope :nome_paciente_like, -> (name) { where("agenda_movimentacao.nome_paciente ilike ?", name)}
 
@@ -58,6 +63,12 @@ class Agenda < ApplicationRecord
   def clean
     self.agenda_movimentacao.destroy
     self.status= I18n.t("agendas.helpers.free")
+    self.save
+  end
+
+  def set_didnt_came
+    self.agenda_movimentacao.update_attributes(confirmacao: "N.V.")
+    self.status= I18n.t("agendas.helpers.didnt_came")
     self.save
   end
 
@@ -118,7 +129,7 @@ class Agenda < ApplicationRecord
 
   def attended(resource)
     @param_hora = Converter::TimeConverter.new(resource["hora_atendimento(4i)"], resource["hora_atendimento(5i)"])
-    self.agenda_movimentacao.update_attributes(confirmacao: "A.T.T")
+    self.agenda_movimentacao.update_attributes(confirmacao: "A.T.E.")
     self.status=(I18n.t('agendas.helpers.attended'))
     self.hora_atendimento=@param_hora.to_format
     self.save

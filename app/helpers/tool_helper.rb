@@ -15,6 +15,10 @@ module ToolHelper
     end
   end
 
+  def date_to_format(date)
+    date.strftime("%d/%m/%Y") if date.present?
+  end
+
   def status(resource)
     return resource ? "ATIVO" : "INATIVO"
   end
