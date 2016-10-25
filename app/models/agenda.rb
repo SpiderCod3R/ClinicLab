@@ -15,7 +15,12 @@ class Agenda < ApplicationRecord
   attr_writer :agenda_disponivel, :param_data
 
   scope :disponibilidade, ->(boolean = true) { where(status: "VAGO") }
+  
+  scope :pela_referencia, -> { order(referencia_agenda_id: :asc, ) }
+  scope :horario_intercalado, -> { order("atendimento_inicio") }
+
   scope :data_do_dia, -> { where(data: Date.today) }
+  scope :verifica_a_empresa, -> (empresa_id) { where(empresa_id: empresa_id) }
 
   scope :nome_paciente_like, -> (name) { where("agenda_movimentacao.nome_paciente ilike ?", name)}
 
