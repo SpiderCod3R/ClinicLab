@@ -1,0 +1,8 @@
+<%- if @changed -%>
+  $("#agenda_id_<%= @agenda.id %>").fadeOut(500, function(){
+    $(this).empty();
+    $(this).prepend("<%= j render 'agenda_tr' , { agenda: @agenda } %>");
+    $(this).fadeIn(500).removeClass("success").addClass("orange");
+  });
+  toastr.info('<%= I18n.t("agendas.messages.didnt_came")%>', 'Atenção', {timeOut: 5000});
+<%- end -%>

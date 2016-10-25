@@ -61,6 +61,12 @@ class Agenda < ApplicationRecord
     self.save
   end
 
+  def set_didnt_came
+    self.agenda_movimentacao.update_attributes(confirmacao: "N.V.")
+    self.status= I18n.t("agendas.helpers.didnt_came")
+    self.save
+  end
+
   def check_availability(resource)
     # => Checando disponibilidade da agenda
     @param_data = Converter::DateConverter.new(resource["param_data(1i)"].to_i, resource["param_data(2i)"].to_i, resource["param_data(3i)"].to_i)

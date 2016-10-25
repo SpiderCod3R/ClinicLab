@@ -79,6 +79,12 @@ class Painel::AgendasController < ApplicationController
     redirect_to :back
   end
 
+  def didnt_came
+    @agenda.set_didnt_came
+    @changed = true
+    respond_to &:js
+  end
+
   def change_day_or_time
     respond_to &:js
   end

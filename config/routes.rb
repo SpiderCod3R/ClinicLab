@@ -83,6 +83,7 @@ Rails.application.routes.draw do
           match 'search' => 'agendas#search', via: [:get], as: :search
         end
         get 'clean'
+        get 'didnt_came'
         get 'change_day_or_time'
         put 'change'
         get 'remark_by_pacient'
