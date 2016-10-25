@@ -8,6 +8,15 @@
     .col-md-8
       .row
         =f.input :agenda_id, as: :hidden, input_html: {value: @agenda.id}
+      .row
+        .col-md-6
+          =f.input :nome_paciente, input_html: { class: "buscar_paciente_4_agenda" }
+        .col-md-5
+          =f.input :telefone_paciente, input_html: { class: "txtboxToFilter" }, maxlength: "20"
+      .row
+        .col-md-6
+          =f.input :email_paciente
+      .row
         .col-md-6
           =f.label "Convênio"
           =f.collection_select :convenio_id, @convenios, :id, :title, { prompt: "Selecione um" }, class: "form-control"
@@ -15,20 +24,12 @@
           #convenio_n_cadastrado{style: "display: inline-block; padding-top: 30px;"}
             =f.check_box :sem_convenio
             =f.label "Convênio não Cadastrado"
-      %br/
+      %br
       .row
         .col-md-6
-          =f.input :nome_paciente, input_html: { class: "buscar_paciente_4_agenda" }
-        .col-md-5
-          =f.input :telefone_paciente, input_html: { class: "telefone_maskara" }
-      .row
-        .col-md-6
-          =f.input :email_paciente
-        .col-md-5
           .select_live
             =f.label :solicitante_id, "Solicitante"
             =f.collection_select :solicitante_id, Profissional.where(empresa_id: current_usuario.empresa_id).order("nome ASC"), :id, :titulo, { prompt: "Selecione um" }, class: "form-control"
-      .row
         .col-md-3
           =f.input :confirmacao, label: "Confirmação", :as => :select,:collection => [['OK','OK'],['N.V','N.V'], ['D.M','D.M'], ['R.P','R.P'], ['R.M','R.M'], [ 'Desistiu', 'Desistiu']], :include_blank => true
       
