@@ -16,11 +16,20 @@ class Agenda < ApplicationRecord
 
   scope :disponibilidade, ->(boolean = true) { where(status: "VAGO") }
   
+  '''
+    OBS. IMPORTANTE: 
+    OS scope A SEGUIR INTERCALAM AS POSIÇÕES NA GRID DA AGENDA
+    CUIDADO AO MANUSEA-LOS
+  '''
   scope :pela_referencia, -> { order(referencia_agenda_id: :asc, ) }
-  scope :horario_intercalado, -> { order("atendimento_inicio") }
-
+  scope :order_atendimento, -> { order(atendimento_inicio: :asc) }
+  scope :order_data, -> { order(data: "ASC") }
   scope :do_dia, -> { where(data: Date.today) }
   scope :da_empresa, -> (empresa_id) { where(empresa_id: empresa_id) }
+  '''
+    FIM DA OBSERVAÇÃO
+    TENHAM ATENÇÃO PLEASE!
+  '''
 
   scope :nome_paciente_like, -> (name) { where("agenda_movimentacao.nome_paciente ilike ?", name)}
 
