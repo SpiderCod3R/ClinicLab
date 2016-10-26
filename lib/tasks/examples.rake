@@ -8,7 +8,7 @@ namespace :samples do
   desc "Creating admin to sample company"
   task company_admin: :environment do
     @empresa_id = Painel::Empresa.find_by("nome LIKE '%Ruby%'").id
-    Painel::Usuario.create(email: "admin@rubyhospitalcenter.com", nome: "admin", login: "admin", password: "admin2016", empresa_id: @empresa_id)
+    Painel::Usuario.create(email: "admin@rubyhospitalcenter.com", nome: "admin", login: "admin", password: "admin2016", empresa_id: @empresa_id, admin: true)
     puts "Sample Company Admin created with success"
   end
 
