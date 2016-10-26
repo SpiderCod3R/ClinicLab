@@ -4,10 +4,9 @@
       %i.mdi-set.mdi-account-card-details.mdi-2x.mdi-white-color
       %span.caret.caret-up
     %ul.dropdown-menu.options_agenda.drop-up
-      %li=link_to "Ver Ficha do Paciente", "#"
+      %li=link_to "Ficha do Paciente", "#"
+      %li.divider{:role => "separator"}
       %li=link_to "Visualizar Atendimento", painel_empresa_agenda_path(current_usuario.empresa, agenda)
-      -unless agenda.status.eql?(I18n.t("agendas.helpers.didnt_came"))
-        %li=link_to "Paciente não veio", painel_empresa_agenda_didnt_came_path(current_usuario.empresa, agenda), remote: true
       -unless agenda.status.eql?(I18n.t("agendas.helpers.attended"))
         -if agenda.status.eql?(I18n.t("agendas.helpers.scheduled")) or agenda.status.eql?(I18n.t("agendas.helpers.free"))
           %li=link_to "Realizar Atendimento", painel_empresa_agenda_make_appointment_path(current_usuario.empresa, agenda), remote: true
@@ -15,6 +14,7 @@
           %li=link_to "Trocar Horário", painel_empresa_agenda_change_day_or_time_path(current_usuario.empresa, agenda), remote: true
           %li=link_to "Limpar Horário", painel_empresa_agenda_clean_path(current_usuario.empresa, agenda)
         -unless agenda.status.eql?(I18n.t("agendas.helpers.unmarked_by_doctor")) or agenda.status.eql?(I18n.t("agendas.helpers.unmarked_by_pacient")) or agenda.status.eql?(I18n.t("agendas.helpers.didnt_came"))
+          %li=link_to "Paciente não veio", painel_empresa_agenda_didnt_came_path(current_usuario.empresa, agenda), remote: true
           %li.divider{:role => "separator"}
           %li=link_to "Remarcar pelo Paciente", painel_empresa_agenda_remark_by_pacient_path(current_usuario.empresa, agenda), remote: true
           %li=link_to "Remarcar pelo Médico", painel_empresa_agenda_remark_by_doctor_path(current_usuario.empresa, agenda), remote: true
