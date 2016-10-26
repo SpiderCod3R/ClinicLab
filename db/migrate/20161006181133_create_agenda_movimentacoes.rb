@@ -14,6 +14,9 @@ class CreateAgendaMovimentacoes < ActiveRecord::Migration[5.0]
       t.date       :data_sala_espera
       t.integer    :atendente_id
       t.integer    :solicitante_id
+      t.string     :nome_paciente
+      t.string     :telefone_paciente
+      t.string     :email_paciente
 
       t.timestamps
     end

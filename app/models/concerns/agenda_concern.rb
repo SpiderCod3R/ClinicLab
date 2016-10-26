@@ -14,8 +14,8 @@ module AgendaConcern
                        atendimento_sabado: resource['agenda']['atendimento_sabado'],
                        atendimento_domingo: resource['agenda']['atendimento_domingo'],
                        atendimento_duracao: resource['horarios']['turno_a']['atendimento_duracao'].to_i,
-                       atendimento_parcial: resource['agenda']['atendimento_parcial'],
-                       horarios: resource['horarios']['turno_a']['atendimentos']
+                       horarios: resource['horarios']['turno_a']['atendimentos'],
+                       periodo:  resource['horarios']['turno_a']['periodo']
                       })
       end
 
@@ -31,8 +31,8 @@ module AgendaConcern
                        atendimento_sabado:   resource['agenda']['atendimento_sabado'],
                        atendimento_domingo:  resource['agenda']['atendimento_domingo'],
                        atendimento_duracao:  resource['horarios']['turno_b']['atendimento_duracao'].to_i,
-                       atendimento_parcial:  resource['agenda']['atendimento_parcial'],
-                       horarios: resource['horarios']['turno_b']['atendimentos']
+                       horarios: resource['horarios']['turno_b']['atendimentos'],
+                       periodo:  resource['horarios']['turno_b']['periodo']
                       })
       end
 
@@ -67,19 +67,19 @@ module AgendaConcern
       end
 
       # => Methodo para verificar se ja existe uma agenda para um determinado dia e horario
-      def agenda_exist?(agendas, data, inicio, intervalo)
+      def agenda_exist?(agendas, data, inicio, intervalo, periodo)
         if @agendas.any?
           @agendas.each do |agenda|
             inicio_do_atendimento= Time.parse(agenda.atendimento_inicio)
             if agenda.data.strftime("%d/%m/%Y") == data.strftime("%d/%m/%Y") and 
               agenda.atendimento_duracao.to_i == intervalo.to_i and
               Time.parse(agenda.atendimento_inicio).strftime("%H:%M") == inicio.strftime("%H:%M") and 
-              agenda.status.eql?("VAGO")
+              agenda.status.eql?("VAGO") and agenda.periodo.eql?(periodo)
               return true
             elsif agenda.data.strftime("%d/%m/%Y") == data.strftime("%d/%m/%Y") and 
                   agenda.atendimento_duracao.to_i != intervalo.to_i and
                   Time.parse(agenda.atendimento_inicio).strftime("%H:%M") == inicio.strftime("%H:%M") and 
-                  agenda.status.eql?("VAGO")
+                  agenda.status.eql?("VAGO") and agenda.periodo.eql?(periodo)
               return true
             end
           end
@@ -106,7 +106,7 @@ module AgendaConcern
 
           if value['dia'] == Date::DAYNAMES[_data_auxiliar.wday]
             # => bloco para Verificar se a agenda já existe na base de dados
-            if agenda_exist?(@agendas, _data_auxiliar, _inicio_do_atendimento, resource[:atendimento_duracao])
+            if agenda_exist?(@agendas, _data_auxiliar, _inicio_do_atendimento, resource[:atendimento_duracao], resource[:periodo])
               @agendas.each do |agenda|
                 horario_auxiliar = Time.parse(agenda.atendimento_inicio)
                 agenda_data      = agenda.data
@@ -121,7 +121,7 @@ module AgendaConcern
                     gera_agenda(resource[:empresa_id], resource[:usuario_id],
                                 resource[:referencia_agenda_id], _data_auxiliar, resource[:atendimento_sabado],
                                 resource[:atendimento_domingo], resource[:atendimento_duracao],
-                                resource[:atendimento_parcial], _inicio_do_atendimento, _final_do_atendimento)
+                                _inicio_do_atendimento, _final_do_atendimento, resource[:periodo])
 
                     # => condição de parada dos horarios
                     if _final_pre_determinado == _final_do_atendimento
@@ -129,7 +129,7 @@ module AgendaConcern
                       gera_agenda(resource[:empresa_id], resource[:usuario_id],
                                   resource[:referencia_agenda_id], _data_auxiliar, resource[:atendimento_sabado],
                                   resource[:atendimento_domingo], resource[:atendimento_duracao],
-                                  resource[:atendimento_parcial], _final_do_atendimento, _ultimo_atendimento)
+                                  _final_do_atendimento, _ultimo_atendimento, resource[:periodo])
                       break
                     else
                       _inicio_do_atendimento = _final_do_atendimento
@@ -148,7 +148,7 @@ module AgendaConcern
                 gera_agenda(resource[:empresa_id], resource[:usuario_id],
                             resource[:referencia_agenda_id], _data_auxiliar, resource[:atendimento_sabado],
                             resource[:atendimento_domingo], resource[:atendimento_duracao],
-                            resource[:atendimento_parcial], _inicio_do_atendimento, _final_do_atendimento)
+                            _inicio_do_atendimento, _final_do_atendimento, resource[:periodo])
 
                 # => condição de parada dos horarios
                 if _final_pre_determinado == _final_do_atendimento
@@ -156,7 +156,7 @@ module AgendaConcern
                   gera_agenda(resource[:empresa_id], resource[:usuario_id],
                               resource[:referencia_agenda_id], _data_auxiliar, resource[:atendimento_sabado],
                               resource[:atendimento_domingo], resource[:atendimento_duracao],
-                              resource[:atendimento_parcial], _final_do_atendimento, _ultimo_atendimento)
+                              _final_do_atendimento, _ultimo_atendimento, resource[:periodo])
                   break
                 else
                   _inicio_do_atendimento = _final_do_atendimento
@@ -172,8 +172,8 @@ module AgendaConcern
       # => Metodo criado para a geração da agenda de forma simplificada
       def gera_agenda(empresa_id, usuario_id, referencia_agenda_id, data,
                       atendimento_sabado, atendimento_domingo,
-                      atendimento_duracao, atendimento_parcial,
-                      atendimento_inicio, atendimento_final)
+                      atendimento_duracao, atendimento_inicio,
+                      atendimento_final, periodo)
         create!(empresa_id:           empresa_id, 
                 usuario_id:           usuario_id,
                 referencia_agenda_id: referencia_agenda_id,
@@ -181,9 +181,9 @@ module AgendaConcern
                 atendimento_sabado:   atendimento_sabado,
                 atendimento_domingo:  atendimento_domingo,
                 atendimento_duracao:  atendimento_duracao,
-                atendimento_parcial:  atendimento_parcial,
                 atendimento_inicio:   atendimento_inicio,
                 atendimento_final:    atendimento_final,
+                periodo:              periodo,
                 status:               "VAGO")
       end
     end

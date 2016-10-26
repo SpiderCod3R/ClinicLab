@@ -12,7 +12,6 @@ class ReferenciaAgendasController < ApplicationController
 
   def new
     @referencia = ReferenciaAgenda.new
-    respond_with(@referencia)
   end
 
   def create

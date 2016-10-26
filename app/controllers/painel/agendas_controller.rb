@@ -30,10 +30,10 @@ class Painel::AgendasController < ApplicationController
   def index
     @search  = ransack_params
     @agendas = Agenda.includes(:referencia_agenda).includes(:agenda_movimentacao).
-                      verifica_a_empresa(@empresa.id).
-                      data_do_dia.
-                      pela_referencia.
-                      horario_intercalado.
+                      da_empresa(@empresa.id).
+                      do_dia.
+                      order_data.
+                      order_atendimento.
                       page(params[:page])
     # binding.pry
   end

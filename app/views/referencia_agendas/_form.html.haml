@@ -12,13 +12,6 @@
           .row-fluid
             .col-md-4
               -if @referencia.errors.any?
-                =label_or_error_tag @referencia, :status
-              -else
-                =f.label :status, class: "control-label"
-              =f.collection_radio_buttons :status, [['ativo', 'ativo'] ,['inativo', 'inativo']],:first, :last
-          .row-fluid
-            .col-md-4
-              -if @referencia.errors.any?
                 =label_or_error_tag @referencia, :descricao
               -else
                 =f.label :descricao, class: "control-label"

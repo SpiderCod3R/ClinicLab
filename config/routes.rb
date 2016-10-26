@@ -1,10 +1,6 @@
 #-*-coding:utf-8-*-
 Rails.application.routes.draw do
-  resource :referencia_agendas, except: [:show] do
-    collection do
-      match "index" => 'referencia_agendas#index', via: [:get], as: :index
-    end
-  end
+  resources :referencia_agendas, except: [:show]
 
   resources :texto_livres
   resources :imagem_cabecs

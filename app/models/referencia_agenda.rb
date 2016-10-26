@@ -1,10 +1,11 @@
 class ReferenciaAgenda < ApplicationRecord
+  include AtivandoStatus
   belongs_to :profissional
   belongs_to :empresa, class_name: "Painel::Empresa", foreign_key: "empresa_id"
   has_many :agendas
   paginates_per 10
 
-  validates :profissional_id, :descricao, :status, presence: true
+  validates :profissional_id, :descricao, presence: true
 
 
   def self.localize(id, empresa)

@@ -2,7 +2,7 @@ $(document).ready ->
   dias_semana = 6
   atendimento_sabado   =$("#atendimento_sabado").find("input:checked").val()
   atendimento_domingo  =$("#atendimento_sabado").find("input:checked").val()
-  horario_parcial      =$("#horario_parcial").find("input:checked").val()
+  # horario_parcial      =$("#horario_parcial").find("input:checked").val()
   empresa_id = $("#agenda_empresa_id").val()
   localhost = window.location.origin
 
@@ -72,14 +72,14 @@ $(document).ready ->
       $('#manha_dia_6').show().fadeOut(500)
       $('#tarde_dia_6').show().fadeOut(500)
 
-  $('#horario_parcial').change ->
-    horario_parcial = $('#horario_parcial').find("input:checked").val()
-    if horario_parcial == "1"
-      $('#atendimento_manha').fadeOut(500)
-      $('#atendimento_tarde').fadeOut(500)
-    else
-      $('#atendimento_manha').fadeIn(500)
-      $('#atendimento_tarde').fadeIn(500)
+  # $('#horario_parcial').change ->
+  #   horario_parcial = $('#horario_parcial').find("input:checked").val()
+  #   if horario_parcial == "1"
+  #     $('#atendimento_manha').fadeOut(500)
+  #     $('#atendimento_tarde').fadeOut(500)
+  #   else
+  #     $('#atendimento_manha').fadeIn(500)
+  #     $('#atendimento_tarde').fadeIn(500)
 
   discover_week_days = (indice) ->
     if indice == 0
@@ -206,6 +206,7 @@ $(document).ready ->
       # coletando dados dos horarios
       horarios_turno_a = coletor_do_turno_a()
       horarios_turno_b = coletor_do_turno_b()
+      console.log horarios_turno_a
       $.ajax
         url: localhost + "/painel/empresas/#{empresa_id}/agendas"
         type: 'POST'
@@ -220,14 +221,16 @@ $(document).ready ->
             data_final:                  $("#agenda_data_final").val()
             atendimento_sabado:          atendimento_sabado
             atendimento_domingo:         atendimento_domingo
-            atendimento_parcial:         horario_parcial
+            # atendimento_parcial:         horario_parcial
           horarios:
             turno_a:
               atendimento_duracao: $("#agenda_atendimento_turno_a_duracao").val()
               atendimentos:        horarios_turno_a
+              periodo:             "A.M"
             turno_b:
               atendimento_duracao: $("#agenda_atendimento_turno_b_duracao").val()
               atendimentos:        horarios_turno_b
+              periodo:             "P.M"
         success: (response) ->
           if response.agenda.completeded == true
             setTimeout (->
