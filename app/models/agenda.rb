@@ -19,8 +19,8 @@ class Agenda < ApplicationRecord
   scope :pela_referencia, -> { order(referencia_agenda_id: :asc, ) }
   scope :horario_intercalado, -> { order("atendimento_inicio") }
 
-  scope :data_do_dia, -> { where(data: Date.today) }
-  scope :verifica_a_empresa, -> (empresa_id) { where(empresa_id: empresa_id) }
+  scope :do_dia, -> { where(data: Date.today) }
+  scope :da_empresa, -> (empresa_id) { where(empresa_id: empresa_id) }
 
   scope :nome_paciente_like, -> (name) { where("agenda_movimentacao.nome_paciente ilike ?", name)}
 
@@ -95,7 +95,7 @@ class Agenda < ApplicationRecord
   end
 
   def change_day_or_time(resource)
-    remark(resource, "OK")
+    remark(resource, "T.R.")
     return @agenda_movimentacao.agenda
   end
 
