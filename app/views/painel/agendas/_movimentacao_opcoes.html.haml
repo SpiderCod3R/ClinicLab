@@ -4,7 +4,7 @@
       %i.mdi-set.mdi-account-card-details.mdi-2x.mdi-white-color
       %span.caret.caret-up
     %ul.dropdown-menu.options_agenda.drop-up
-      %li=link_to "Ficha do Paciente", "#"
+      %li=link_to "Ficha do Paciente", new_ficha_cliente_path(agenda_id: agenda)
       %li.divider{:role => "separator"}
       %li=link_to "Visualizar Atendimento", painel_empresa_agenda_path(current_usuario.empresa, agenda)
       -unless agenda.status.eql?(I18n.t("agendas.helpers.attended"))

@@ -15,14 +15,6 @@ module AgendasHelper
     end
   end
 
-  def agenda_column_headers
-    %i(id profissional_titulo data status).freeze
-  end
-
-  def agenda_columns_fields
-    %i(id profissional_titulo data status).freeze
-  end
-
   def alterar_horario_agenda_numero(object_id)
     return "Trocar horário da agenda - nº #{object_id}"
   end
@@ -33,6 +25,10 @@ module AgendasHelper
 
   def remarcar_agenda_numero(object_id)
     return "Remarcar horário da agenda - nº #{object_id}"
+  end
+
+  def show_clock_period(object)
+    "#{Time.parse(object.atendimento_inicio).strftime("%H:%M")} - #{object.periodo}"
   end
 
   def max_result_per_page
