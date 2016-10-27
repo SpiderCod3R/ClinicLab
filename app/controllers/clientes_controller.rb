@@ -1,6 +1,6 @@
 class ClientesController < ApplicationController
   before_action :set_cliente, only: [:show, :edit, :update, :destroy]
-  before_action :set_estados, only: [:new, :edit, :create, :update]
+  before_action :set_estados, only: [:new, :edit, :create, :update, :ficha]
 
   respond_to :html
 
@@ -39,6 +39,14 @@ class ClientesController < ApplicationController
   def destroy
     @cliente.destroy
     respond_with(@cliente)
+  end
+
+  def ficha
+    # binding.pry
+    @agenda = Agenda.find(params[:agenda_id])
+    @cliente = current_usuario.empresa.clientes.build
+    @cliente.recupera_agenda_dados(@agenda)
+    render :new
   end
 
   private
