@@ -6,19 +6,20 @@
 #= require JQUERY/jquery.maskMoney
 #= require JQUERY/jquery.numeric.pack
 #= require JQUERY/jquery.maskedinput-1.1.4.pack
-#= require jquery-ui/autocomplete
-#= require autocomplete-rails
 #= require xray
 #= require jquery_ujs
 
-# -*- BOOTSTRAP -*-
-#= require BOOTSTRAP/bootstrap
-#= require BOOTSTRAP/bootstrap-select
-#= require BOOTSTRAP/bootstrap-datepicker.min
-#= require BOOTSTRAP/locales/bootstrap-datepicker.pt-BR.js
-#= require BOOTSTRAP/bootstrap-dialog
-#= require BOOTSTRAP/bootstrap-waitingfor
-#= require progress-bar/bootstrap-progressbar.min
+#= require bootstrap
+#= require angular
+#= require leaflet
+
+# -*- BOOTSTRAP-PLUGINS -*-
+#= require BOOTSTRAP-PLUGINS/bootstrap-select
+#= require BOOTSTRAP-PLUGINS/bootstrap-datepicker.min
+#= require BOOTSTRAP-PLUGINS/locales/bootstrap-datepicker.pt-BR.js
+#= require BOOTSTRAP-PLUGINS/bootstrap-dialog
+#= require BOOTSTRAP-PLUGINS/bootstrap-waitingfor
+#= require BOOTSTRAP-PLUGINS/bootstrap-progressbar.min
 
 # -*- TINYMCE -*-
 #= require tinymce-jquery
@@ -43,3 +44,5 @@
 #= require profissionais
 #= require painel/permissoes
 #= require valida_cpf
+
+$("#session_modal.modal").modal()
