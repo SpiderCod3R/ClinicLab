@@ -42,7 +42,6 @@ class ClientesController < ApplicationController
   end
 
   def ficha
-    # binding.pry
     @agenda = Agenda.find(params[:agenda_id])
     @cliente = current_usuario.empresa.clientes.build
     @cliente.recupera_agenda_dados(@agenda)
