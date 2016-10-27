@@ -8,15 +8,17 @@
     .col-md-12
       .panel.panel-default
         .panel-heading
-        .container-fluid
-          .row-fluid
+          Descrição e Profissional
+        .container
+          %hr
+          .row
             .col-md-4
               -if @referencia.errors.any?
                 =label_or_error_tag @referencia, :descricao
               -else
                 =f.label :descricao, class: "control-label"
               =f.input :descricao, :error => false, label: false
-          .row-fluid
+          .row
             .col-md-4
               -if @referencia.errors.any?
                 =label_or_error_tag @referencia, :profissional_id
