@@ -1,4 +1,5 @@
 class Cliente < ApplicationRecord
+  include AtivandoStatus
   before_save :upcased_attributes
 
   scope :pelo_nome, -> { order("nome ASC") }
@@ -32,5 +33,12 @@ class Cliente < ApplicationRecord
     def da_empresa(resource)
       where(empresa_id: resource)
     end
+  end
+
+  def recupera_agenda_dados(agenda)
+    self.nome        = agenda.agenda_movimentacao.nome_paciente
+    self.email       = agenda.agenda_movimentacao.email_paciente
+    self.telefone    = agenda.agenda_movimentacao.telefone_paciente
+    self.convenio_id = agenda.agenda_movimentacao.convenio_id if agenda.agenda_movimentacao.convenio_id?
   end
 end
