@@ -181,7 +181,7 @@ class Painel::AgendasController < ApplicationController
     end
 
     def ransack_params
-      Agenda.includes(:referencia_agenda).includes(:agenda_movimentacao).ransack(params[:q])
+      Agenda.includes(:referencia_agenda).includes(:agenda_movimentacao).da_empresa(@empresa.id).order_data.order_atendimento.ransack(params[:q])
     end
 
     def ransack_result
