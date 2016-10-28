@@ -36,7 +36,7 @@
               %td
                 %span
                   %i.fa.fa-2x.fa-calendar
-                = link_to "Agenda", new_painel_empresa_agenda_path(current_usuario.empresa), title: "Acesso Rápido à Agenda"
+                = link_to "Agenda", painel_empresa_agendas_path(current_usuario.empresa), title: "Acesso Rápido à Agenda"
   -if usuario_signed_in? && current_usuario.admin?
     .panel.panel-default
       .panel-heading
