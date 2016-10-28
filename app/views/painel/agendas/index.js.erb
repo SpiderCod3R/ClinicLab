@@ -1,2 +1,0 @@
-$('#agenda_content').html('<%= escape_javascript render "agendas" %>');
-$('#paginator').html('<%= escape_javascript(paginate(@agendas, :remote => true).to_s) %>');

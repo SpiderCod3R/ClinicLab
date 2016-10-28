@@ -1,6 +1,9 @@
 @import "include-media"
 $breakpoints: (little: 320px, phone: 640px, tablet: 768px, desktop: 1024px) !default
 
+tr.tr_agenda
+  height: 25%
+
 .tres
   width: 30px
   height: 30px
@@ -87,7 +90,6 @@ select#q_data_cont_1i
   width:  60px
 
 @include media("<=desktop")
-  #q_referencia_agenda_profissional_nome_cont,
   #q_agenda_movimentacao_nome_paciente_cont
     width: 250px
     border-radius: 5px
@@ -95,10 +97,3 @@ select#q_data_cont_1i
     margin-left: 20% !important
   .panel-legend
     margin-left: -35% !important
-  .dropdown-menu
-    left: inherit
-    right: -4px
-
-.dropdown-menu.options_agenda
-  left: inherit
-  right: -4px
