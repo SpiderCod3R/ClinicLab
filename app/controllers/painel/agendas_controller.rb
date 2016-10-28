@@ -28,19 +28,25 @@ class Painel::AgendasController < ApplicationController
   respond_to :html, :js, :json, :xml
 
   def index
-    @search  = ransack_params
-    @agendas = Agenda.includes(:referencia_agenda).includes(:agenda_movimentacao).
+    @search= ransack_params
+    @agendas= Agenda.includes(:referencia_agenda).includes(:agenda_movimentacao).
                       da_empresa(@empresa.id).
                       do_dia.
                       order_data.
-                      order_atendimento.
-                      page(params[:page])
+                      order_atendimento
+    # @medicos= Agenda.da_empresa(@empresa.id).
+    #                 do_dia.
+    #                 joins(:"referencia_agenda").joins(:"profissionais").
+    #                 distinct
+    #           Profissional.da_empresa(@empresa.id)
     # binding.pry
+    @agenda= Agenda.new
   end
 
   def search
     @search  = ransack_params
     @agendas = ransack_result
+    @agenda= Agenda.new
     render :index
   end
 
@@ -181,10 +187,10 @@ class Painel::AgendasController < ApplicationController
     end
 
     def ransack_params
-      Agenda.includes(:referencia_agenda).includes(:agenda_movimentacao).da_empresa(@empresa.id).order_data.order_atendimento.ransack(params[:q])
+      Agenda.ransack(params[:q])
     end
 
     def ransack_result
-      @search.result(distinct: agenda_wants_distinct_results?).where(empresa_id: @empresa.id).page(params[:page])
+      @search.result(distinct: agenda_wants_distinct_results?).da_empresa(@empresa.id).order_data.order_atendimento
     end
 end
