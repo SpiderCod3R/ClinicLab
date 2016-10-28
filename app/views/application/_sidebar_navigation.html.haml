@@ -1,0 +1,32 @@
+/ Sidebar
+#sidebar-wrapper
+  %span.closebtn
+    %i.fa.fa-times.fa-stack-1x
+  %ul
+    .ttmenu-content
+      .row
+        .col-md-3
+          .box
+            %ul
+              / =render_menu_tree current_usuario.empresa.empresa_permissoes do |permissao|
+              /   =permissao
+              -if can? :read, Convenio
+                %li.nav-item
+                  =link_to 'Convênios', convenios_path, style: "font-weight: bold;"
+              -if can? :read, Colaborador
+                %li.nav-item
+                  =link_to 'Colaboradores', colaboradores_path, style: "font-weight: bold;"
+              -if can? :read, Cliente
+                %li.nav-item
+                  =link_to 'Clientes', clientes_path, style: "font-weight: bold;"
+        .col-md-3
+          .box
+            %ul
+              -if can? :read, OrigemDestino
+                %li.nav-item
+                  =link_to 'Origem Destino', origem_destinos_path, style: "font-weight: bold;"
+          / end box
+        / end col
+      / end row
+    / end ttmenu-content
+  / /#sidebar-wrapper

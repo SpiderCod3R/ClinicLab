@@ -1,0 +1,30 @@
+#agenda_attended.modal.fade{:role => "dialog", :tabindex => "-1", :"data-backdrop"=> true}
+  .modal-dialog{:role => "document"}
+    .modal-content
+      .modal-header
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} ×
+        %h4.modal-title Realizar Atendimento
+      .modal-body
+        =simple_form_for [@empresa, @agenda], url: painel_empresa_agenda_attended_path, method: "PUT", html: { class: "modal_attended_agenda"}, remote: true do |f|
+          .container-fluid
+            .row-fluid
+              .col-md-12
+                =render 'main_line'
+            %hr{style: "border: #323232 solid 0.5px;"}
+            .row-fluid
+              .col-md-12
+                .col-md-5
+                  .row
+                    =f.label "Hora do atendimento"
+                    %br/
+                    =f.input :hora_atendimento, as: :time, default: Time.parse(@agenda.atendimento_inicio), label: false
+            %br/
+          .modal-footer
+            .pull-left
+              =f.button :submit, "Enviar", class: "btn btn-primary"
+            .pull-right
+              %button.btn.btn-default{"data-dismiss" => "modal", type: "button"} Fechar
+    / /.modal-content
+  / /.modal-dialog
+/ /.modal

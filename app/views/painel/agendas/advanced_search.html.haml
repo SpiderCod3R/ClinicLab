@@ -1,0 +1,17 @@
+=build_form_toolbar(new_painel_empresa_agenda_path(empresa_atual), nil, @agenda, painel_empresa_agendas_path(empresa_atual), nil)
+%div{class: "container-fluid"}
+  %div{class: "row-fluid"}
+    %h1  Agendas
+    %hr{style: "border: #323232 solid 0.5px;"}
+    %div{class: "row", style: "margin: 0;"}
+      %div{class: "jumbotron"}
+        %div{class: "row", style: "margin: 0;"}
+          = link_to_toggle_agenda_search_modes
+          = search_form_for [@empresa, @search], url: advanced_search_painel_empresa_agendas_path,html: { method: :post } do |f|
+            .col-md-12
+              .row
+                
+              %BR
+              .col-md-4
+                = f.submit "Buscar", class: "btn btn-success"
+  =render 'result'

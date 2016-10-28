@@ -6,27 +6,19 @@
 #= require JQUERY/jquery.maskMoney
 #= require JQUERY/jquery.numeric.pack
 #= require JQUERY/jquery.maskedinput-1.1.4.pack
+#= require jquery-ui/autocomplete
+#= require autocomplete-rails
+#= require xray
 #= require jquery_ujs
-#require turbolinks
-
-#= require moment
-#= require TEMPLATE/simpleCart.min
-#= require TEMPLATE/wow.min
-
 
 # -*- BOOTSTRAP -*-
 #= require BOOTSTRAP/bootstrap
-#= require BOOTSTRAP/bootstrap-dialog
 #= require BOOTSTRAP/bootstrap-select
-#= require BOOTSTRAP/bootstrap-datepicker
+#= require BOOTSTRAP/bootstrap-datepicker.min
+#= require BOOTSTRAP/locales/bootstrap-datepicker.pt-BR.js
+#= require BOOTSTRAP/bootstrap-dialog
 #= require BOOTSTRAP/bootstrap-waitingfor
-# require BOOTSTRAP/bootstrap-table
-# require BOOTSTRAP/bootstrap-table-multiple-search
-# require BOOTSTRAP/bootstrap-table-pt-BR
-# require BOOTSTRAP/bootstrap-table-resizable
-# require BOOTSTRAP/bootstrap-table-export
-#= require BOOTSTRAP/bootstrap-datetimepicker
-#= require bootstrap-table
+#= require progress-bar/bootstrap-progressbar.min
 
 # -*- TINYMCE -*-
 #= require TINYMCE/jquery.tinymce.min
@@ -34,41 +26,26 @@
 #= require tinyMCE
 #= require TINYMCE/tinymce_pt_BR
 
+# -*- UTILITARIOS -*-
+#= require utility/maskaras
+#= require utility/__init__
 #= require TEMPLATE/accounting
-#= require TEMPLATE/modernizr.custom.min
-#= require TEMPLATE/easyResponsiveTabs
-#= require TEMPLATE/imagezoom
-#= require JQUERY/jquery.flexslider
 #= require TEMPLATE/parsley.min
-#= require TEMPLATE/pickers
-#= require TEMPLATE/responsiveslides.min
-#= require TEMPLATE/simpleCart.min
-#= require TEMPLATE/pickers
-#= require DATATABLES/jquery.dataTables
-#= require DATATABLES/dataTables.tableTools
-#= require DATATABLES/dataTables.bootstrap
+# require utility/datatable
 
-#= require date_time_inputs
-
-# You may include any languages (optional)
-#= require moment/pt-br
-
-# -*- X-RAY -*-
-# require xray
-
-# -*- REQUIRES DO GHCARE
-#= require valida_cpf
+# -*- REQUIRES DO GCLINIC
+#= require agenda/agenda
+#= require agenda/movimentar_agenda
+#= require atendimentos
 #= require clientes
-#= require cliente_idade
-#= require cliente_nacionalidade
-#= require cliente_historicos
-#= require profissionais
+#= require pacientes
 #= require fornecedor
 #= require fornecedores
-#= require atendimentos
+#= require profissionais
 #= require painel/permissoes
 
 # -*- UTILITARIOS -*-
 #= require utility/datatable
 #= require utility/maskaras
 #= require utility/__init__
+#= require valida_cpf

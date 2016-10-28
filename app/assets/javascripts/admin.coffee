@@ -2,6 +2,7 @@
 #= require JQUERY/jquery.min
 #= require jquery-ui/effect.all
 #= require jquery-ui/effect-blind
+#= require xray
 #= require jquery_ujs
 #= require chosen-jquery
 

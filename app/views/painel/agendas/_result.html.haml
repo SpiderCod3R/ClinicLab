@@ -1,0 +1,21 @@
+.row-fluid
+  .panel.panel-default
+    .panel-heading 
+    .panel-body
+      %table.table.table-striped.table-bordered.table-hover{ cellspacing: "0", width: "100%"}
+        %thead
+          %th Referência
+          %th Dia
+          %th Data
+          %th Horário
+          %th Confirmação
+          %th Paciente
+          %th Atendente
+          %th H.Atendimento
+          / %th S.Espera
+          %th Movimentações
+        %tbody#agenda_content
+          =render 'agendas'
+  %hr{style: "border: #323232 solid 0.5px;"}
+  #paginator
+    =paginate @agendas, remote: true

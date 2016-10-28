@@ -9,7 +9,7 @@ class Convenio < ApplicationRecord
 
   scope :pelo_nome, -> { order("nome ASC") }
 
-  def to_s
-    "#{nome}"
+  def title
+    "#{id} - #{nome}"
   end
 end

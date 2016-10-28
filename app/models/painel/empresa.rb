@@ -8,6 +8,7 @@ class Painel::Empresa < ApplicationRecord
 
   # => Opções com reação em Cadeia apos o destroy da empresa
   with_options dependent: :destroy do
+    has_many :agendas
     has_many :atendimentos
     has_many :cargos
     has_many :convenios

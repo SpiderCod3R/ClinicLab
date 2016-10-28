@@ -18,6 +18,7 @@ pt-BR:
   helpers:
     attributes:
       name: Nome
+      profissional_id: "Profissional"
     btn:
       show: Visualizar
       edit: Editar

@@ -1,18 +1,19 @@
 toastr.options =
-  'closeButton': false
-  'debug': false
-  'newestOnTop': false
-  'progressBar': true
-  'positionClass': 'toast-top-right'
-  'preventDuplicates': true
-  'showDuration': '300'
-  'hideDuration': '1000'
-  'timeOut': '5000'
-  'extendedTimeOut': '1000'
-  'showEasing': 'swing'
-  'hideEasing': 'linear'
-  'showMethod': 'fadeIn'
-  'hideMethod': 'fadeOut'
+  "closeButton": true
+  "debug": false
+  "newestOnTop": false
+  "progressBar": false
+  "positionClass": "toast-top-right"
+  "preventDuplicates": false
+  "onclick": null
+  "showDuration": "0"
+  "hideDuration": "0"
+  "timeOut": "0"
+  "extendedTimeOut": "0"
+  "showEasing": "swing"
+  "hideEasing": "linear"
+  "showMethod": "fadeIn"
+  "hideMethod": "fadeOut"
 
 $('document').ready ->
   flashInfo = $('.flash').first()

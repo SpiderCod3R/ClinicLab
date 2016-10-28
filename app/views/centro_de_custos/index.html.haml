@@ -13,7 +13,7 @@
         %tbody
           - @centro_de_custos.each do |centro_de_custo|
             %tr
-              %td=ativo_ou_inativo?(centro_de_custo.status)
+              %td=status(centro_de_custo.status)
               %td=centro_de_custo.id
               %td=centro_de_custo.nome
               %td{class: "pull-right"}

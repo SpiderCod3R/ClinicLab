@@ -1,0 +1,19 @@
+.row-fluid
+  .panel.panel-default
+    .panel-heading 
+    .panel-body
+      %table.table.table-striped.table-bordered.table-hover{ cellspacing: "0", width: "100%"}
+        %thead
+          %th Status
+          %th Descrição
+          %th Profissional
+        %tbody#referencia_agendas_content
+          - @referencias.each do |referencia|
+            -if referencia.ultima_atualizacao
+              =content_tag(:tr, id: "referencia_agenda_id_#{referencia.id}" , class: "danger") do
+                =render 'referencia_agenda_tr', { referencia: referencia }
+            -else
+              =content_tag(:tr, id: "referencia_agenda_id_#{referencia.id}" , class: "success") do
+                =render 'referencia_agenda_tr', { referencia: referencia }
+  %hr{style: "border: #323232 solid 0.5px;"}
+  =paginate @referencias

@@ -1,0 +1,72 @@
+/* -*- NORMALIZE -*- */
+@import "normalize"
+
+/* -*- FONTS -*- */
+@import "font-awesome"
+@import "font-awesome-sass/font-awesome"
+@import "ROBOTO/path"
+
+@import "chosen"
+
+@import "SB-ADMIN/metisMenu/dist/metisMenu"
+@import "SB-ADMIN/bootstrap"
+@import "SB-ADMIN/timeline"
+@import "SB-ADMIN/sb-admin-2"
+@import "SB-ADMIN/morrisjs/morris"
+@import "application/toastr"
+
+@import "BOOTSTRAP/bootstrap-theme"
+
+em.admin
+  color: #9C0014
+  font-weight: bold
+
+.sea-color
+  color: #221A78
+  font-weight: bold
+
+.navbar-top-links li em
+  padding: 15px
+  min-height: 50px
+  color: #6B6B6B
+
+.mobile-icons
+  color: #6B6B6B
+
+.user-dropdown
+  float: right
+
+.back_link
+  font-size: 20pt
+  color: #497FA5
+  &:hover
+    color: #0D5385
+
+@media screen and (max-width: 414px)
+  #company-at-large-screen
+    display: none !important
+  #company-at-small-screen
+    display: block !important
+    .company_name
+      font-weight: 800
+      font-family: "Roboto"
+      font-size: 12pt
+
+@media screen and (max-width: 320px)
+  #company-at-large-screen
+    display: none !important
+  #company-at-small-screen
+    display: block !important
+
+.permissoes_empresa_well_top
+  font-family: "Roboto"
+  display: -webkit-inline-box
+  a
+    i
+      float: right
+      margin-left: 50px
+      margin-top: 5.5px
+      color: #2D2D2D
+      transition: width 2s, height 4s
+      &:hover
+        color: #8D7EB2

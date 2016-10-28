@@ -14,7 +14,7 @@
       %tbody
         - @fornecedores.each do |fornecedor|
           %tr
-            %td= ativo_ou_inativo?(fornecedor.status)
+            %td= status(fornecedor.status)
             %td= fornecedor.id
             %td= fornecedor.nome
             %td= fornecedor.email

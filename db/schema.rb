@@ -10,24 +10,48 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160914123827) do
+ActiveRecord::Schema.define(version: 20161026120458) do
+
+  create_table "agenda_movimentacoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "agenda_id"
+    t.integer  "convenio_id"
+    t.integer  "cliente_id"
+    t.text     "observacoes",       limit: 65535
+    t.string   "confirmacao"
+    t.boolean  "sem_convenio"
+    t.date     "data"
+    t.time     "hora"
+    t.time     "hora_chegada"
+    t.string   "sala_espera"
+    t.date     "data_sala_espera"
+    t.integer  "atendente_id"
+    t.integer  "solicitante_id"
+    t.string   "nome_paciente"
+    t.string   "telefone_paciente"
+    t.string   "email_paciente"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.index ["agenda_id"], name: "index_agenda_movimentacoes_on_agenda_id", using: :btree
+    t.index ["cliente_id"], name: "index_agenda_movimentacoes_on_cliente_id", using: :btree
+    t.index ["convenio_id"], name: "index_agenda_movimentacoes_on_convenio_id", using: :btree
+  end
 
   create_table "agendas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "status"
     t.date     "data"
-    t.boolean  "atendimento_sabado"
-    t.boolean  "atendimento_domingo"
-    t.boolean  "atendimento_parcial"
-    t.string   "atendimento_manha_duracao"
-    t.string   "atendimento_tarde_duracao"
-    t.integer  "profissional_id"
-    t.integer  "empresa_id"
-    t.integer  "usuario_id"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.string   "atendimento_duracao"
     t.string   "atendimento_inicio"
     t.string   "atendimento_final"
+    t.time     "hora_atendimento"
+    t.boolean  "atendimento_sabado"
+    t.boolean  "atendimento_domingo"
+    t.integer  "empresa_id"
+    t.integer  "usuario_id"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.integer  "referencia_agenda_id"
     t.index ["empresa_id"], name: "index_agendas_on_empresa_id", using: :btree
-    t.index ["profissional_id"], name: "index_agendas_on_profissional_id", using: :btree
+    t.index ["referencia_agenda_id"], name: "index_agendas_on_referencia_agenda_id", using: :btree
     t.index ["usuario_id"], name: "index_agendas_on_usuario_id", using: :btree
   end
 
@@ -346,6 +370,16 @@ ActiveRecord::Schema.define(version: 20160914123827) do
     t.index ["operadora_id"], name: "index_profissionais_on_operadora_id", using: :btree
   end
 
+  create_table "referencia_agendas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "descricao"
+    t.boolean  "status"
+    t.integer  "profissional_id"
+    t.integer  "empresa_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["profissional_id"], name: "index_referencia_agendas_on_profissional_id", using: :btree
+  end
+
   create_table "texto_livres", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "nome"
     t.text     "texto",      limit: 65535
@@ -355,6 +389,10 @@ ActiveRecord::Schema.define(version: 20160914123827) do
     t.index ["empresa_id"], name: "index_texto_livres_on_empresa_id", using: :btree
   end
 
+  add_foreign_key "agenda_movimentacoes", "agendas"
+  add_foreign_key "agenda_movimentacoes", "clientes"
+  add_foreign_key "agenda_movimentacoes", "convenios"
+  add_foreign_key "agendas", "referencia_agendas"
   add_foreign_key "atendimentos", "cidades"
   add_foreign_key "atendimentos", "convenios"
   add_foreign_key "atendimentos", "estados"
@@ -371,4 +409,5 @@ ActiveRecord::Schema.define(version: 20160914123827) do
   add_foreign_key "profissionais", "conselho_regionais"
   add_foreign_key "profissionais", "estados"
   add_foreign_key "profissionais", "operadoras"
+  add_foreign_key "referencia_agendas", "profissionais"
 end

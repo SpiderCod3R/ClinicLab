@@ -35,7 +35,7 @@
       %tbody
         - @conselho_regionais.each do |conselho_regional|
           %tr
-            %td= ativo_ou_inativo?(conselho_regional.status)
+            %td= status(conselho_regional.status)
             %td= conselho_regional.id
             %td= conselho_regional.sigla
             %td= conselho_regional.descricao

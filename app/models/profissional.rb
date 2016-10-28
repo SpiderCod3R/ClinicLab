@@ -14,6 +14,7 @@ class Profissional < ApplicationRecord
   belongs_to :cidade
   belongs_to :conselho_regional
   belongs_to :operadora
+  belongs_to :empresa
 
   usar_como_cpf :cpf
   scope :pelo_nome, -> {order("nome ASC")}
@@ -21,7 +22,16 @@ class Profissional < ApplicationRecord
   has_attached_file :imagem, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :imagem, content_type: /\Aimage\/.*\Z/
 
-  def to_s
-    "#{nome} - #{cargo.nome}"
+  delegate :nome,
+         to: :cargo,
+         prefix: true,
+         allow_nil: true
+
+  def titulo
+    "#{nome} - #{cargo_nome}"
+  end
+
+  def titulo_completo
+    "#{id} - #{nome} - #{cargo_nome}"
   end
 end
