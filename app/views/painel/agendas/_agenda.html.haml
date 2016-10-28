@@ -20,7 +20,7 @@
       .col-md-2
         %b Hora
         %br
-        %label{style: "color: #9F0303"}=Time.parse(agenda.atendimento_inicio).strftime("%H:%M")
+        %label{style: "color: #9F0303"}=show_clock_period(agenda)
     .row
       %hr{style: "border: 0.5px #D9E7EF solid;"}
       .col-md-3

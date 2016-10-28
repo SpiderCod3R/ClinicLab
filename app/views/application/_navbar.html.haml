@@ -1,4 +1,4 @@
-%nav.navbar.navbar-full.navbar-fixed-top.navbar-light.bg-faded.navbar-custom
+%nav.navbar.navbar-full.navbar-light.navbar-inverse.navbar-fixed-top
   .navbar-header.fixed-brand
     -if usuario_signed_in?
       =link_to root_path, class: "navbar-brand brand-logo" do
@@ -9,26 +9,27 @@
       .col-xs-12.col-md-12.link_to_admin-panel.center
         =link_to new_master_session_path, class: "navbar-brand brand-logo center" do
           GClinicWeb
-  .options
-    %ul.nav.navbar-nav
+  %ul.nav.navbar-nav
+    -if usuario_signed_in?
+      %li.nav-item.active
+        =link_to root_path, class: "nav-link" do
+          Home
+          %span.sr-only (current)
       -if usuario_signed_in?
-        %li.nav-item.active
-          =link_to root_path, class: "nav-link" do
-            Home
-            %span.sr-only (current)
-        -if usuario_signed_in?
-          -if current_usuario.empresa.empresa_permissoes.any? || current_usuario.usuario_permissoes.any?
-            %li.dropdown
-              %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
-                Cadastros
-                %span.caret
-              %ul.dropdown-menu
-                =render 'application/menus/cadastros'
-          %ul.nav.navbar-nav.navbar-right
-            .navbar-usuario
-              %li.navbar-brand.usuario_navbar="Olá #{current_usuario.nome}"
-              %li
-                =link_to destroy_usuario_session_path, method: 'delete', title: "SAIR", class: "nav-link" do
-                  %i.fa.fa-2x.fa-sign-out
+        -if current_usuario.empresa.empresa_permissoes.any? || current_usuario.usuario_permissoes.any?
+          %li.dropdown
+            %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+              Cadastros
+              %span.caret
+            %ul.dropdown-menu
+              =render 'application/menus/cadastros'
+  -if usuario_signed_in?
+    %ul.nav.navbar-nav.navbar-right
+      %li.nav-item
+        =link_to "Seja bem vindo - #{current_usuario.nome}", "#"
+      %li.nav-item
+        =link_to destroy_usuario_session_path, method: 'delete', title: "SAIR" do
+          Sair
+          %i.fa.fa-sign-out
     / /.navbar-collapse
   / /.container-fluid

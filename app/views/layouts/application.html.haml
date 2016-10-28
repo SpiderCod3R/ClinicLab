@@ -14,13 +14,11 @@
     =csrf_meta_tag
   %body{class: controller.controller_name}
     =render 'application/chromeframe'
-    #wrapper
+    #wrapper_with_padding
       =yield :header
       / =render 'application/sidebar_navigation'
-      #page-wrapper
-        .container-fluid
-          #flash_container
-            =render 'layouts/flash'
+      %section#gclinic
+        #flash_container=render 'layouts/flash'
         = yield
     .clearfix
     = javascript_include_tag "application", :media => "all"

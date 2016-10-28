@@ -1,14 +1,22 @@
 source 'https://rubygems.org'
 
 gem 'rails', '~> 5.0.0.1'
+gem 'bundler', '>= 1.8.4'
 gem 'rails-i18n', '~> 5.0.0'
 
 gem 'mysql2', '>= 0.3.18', '< 0.5'
 gem 'puma', '~> 3.0'
+
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
 gem 'therubyracer', platforms: :ruby
+
+source 'https://rails-assets.org' do
+  gem 'rails-assets-bootstrap'
+  gem 'rails-assets-angular'
+  gem 'rails-assets-leaflet'
+end
 
 gem 'turbolinks', '~> 5'
 
@@ -19,8 +27,6 @@ gem 'rails-jquery-autocomplete'
 
 gem 'redis', '~> 3.0'
 gem 'jbuilder', '~> 2.5'
-
-
 gem 'ransack', github: 'activerecord-hackery/ransack'
 gem 'momentjs-rails', github: 'derekprior/momentjs-rails'
 gem 'datetimepicker-rails', github: 'zpaulovics/datetimepicker-rails', branch: 'master', submodules: true
@@ -29,7 +35,6 @@ gem 'simple_form'
 gem 'haml'
 gem "haml-rails"
 gem "brazilian-rails"
-gem "bootstrap_flash_messages"
 gem "kaminari"
 gem "bootstrap-kaminari-views"
 gem "sinatra",  require: false

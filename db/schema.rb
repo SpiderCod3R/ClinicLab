@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161026120458) do
+ActiveRecord::Schema.define(version: 20161027134631) do
 
   create_table "agenda_movimentacoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "agenda_id"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20161026120458) do
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
     t.integer  "referencia_agenda_id"
+    t.string   "periodo"
     t.index ["empresa_id"], name: "index_agendas_on_empresa_id", using: :btree
     t.index ["referencia_agenda_id"], name: "index_agendas_on_referencia_agenda_id", using: :btree
     t.index ["usuario_id"], name: "index_agendas_on_usuario_id", using: :btree
@@ -120,7 +121,7 @@ ActiveRecord::Schema.define(version: 20161026120458) do
     t.string   "foto_content_type"
     t.integer  "foto_file_size"
     t.datetime "foto_updated_at"
-    t.string   "status"
+    t.boolean  "status"
     t.string   "nome"
     t.string   "cpf"
     t.string   "endereco"
@@ -133,7 +134,7 @@ ActiveRecord::Schema.define(version: 20161026120458) do
     t.string   "estado_civil"
     t.date     "nascimento"
     t.string   "produto"
-    t.string   "status_convenio"
+    t.boolean  "status_convenio"
     t.string   "matricula"
     t.string   "titular"
     t.string   "plano"
