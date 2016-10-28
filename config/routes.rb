@@ -33,7 +33,9 @@ Rails.application.routes.draw do
   resources :atendimentos
   resources :operadoras
 
-  post 'agenda/create', to: "painel/agendas#create"
+  # post 'agenda/create', to: "painel/agendas#create"
+
+  get 'ficha_cliente', to: "clientes#ficha", as: :new_ficha_cliente
 
   devise_for :usuarios,
               patch: "painel/usuarios",
@@ -96,7 +98,6 @@ Rails.application.routes.draw do
         get 'movimentar', to: 'agenda_movimentacoes#verify', as: :movimentar_ou_atualizar
       end
     end
-
     get 'usuario/:id/permissoes', to: "usuarios/accounts#show_permissions", as: :show_user_permissions
     get 'usuario/:id/password_change', to: "usuarios/accounts#change_password", as: :change_user_password
     post '/dashboards/empresas/permissoes/create', to: "dashboards#import_permissoes_to_company", as: :dashboards_add_permissoes_to_company 

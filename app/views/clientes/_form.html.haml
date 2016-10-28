@@ -71,12 +71,10 @@
             = f.input :matricula
           %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
             =f.label "Convênio"
-            =f.collection_select(:convenio_id, Convenio.order(:nome), :id, :nome, {include_blank: false}, {:class=>'form-control'})
+            =f.collection_select(:convenio_id, Convenio.order(:nome), :id, :nome, {include_blank: "Selecione"}, {:class=>'form-control'})
         %div{class: "row"}
-          %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
-            = f.input :validade_carteira, as: :date, start_year: Date.today.year - 116,
-                              end_year: Date.today.year, discard_day: false,
-                              order: [:day, :month, :year]
+          %div{class: "col-xs-12 col-sm-6 col-md-12 col-lg-12"}
+            = f.input :validade_carteira, as: :date, start_year: Date.today.year - 116, end_year: Date.today.year, discard_day: false,  order: [:day, :month, :year]
           %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
             = f.input :produto
           %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
@@ -93,7 +91,7 @@
           %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
             = f.input :email
           %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
-            = f.input :telefone,  input_html: {class: "telefone_maskara" }
+            = f.input :telefone
         %div{class: "row"}
           %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
             = f.input :endereco
