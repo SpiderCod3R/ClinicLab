@@ -56,6 +56,25 @@ class Agenda < ApplicationRecord
   def referencia
     "#{referencia_agenda_descricao}"
   end
+
+  class << self
+    def retorna_todos_os_medicos_do_dia(resource)
+      find_by_sql("SELECT DISTINCT r.descricao AS descricao
+                  FROM agendas AS a
+                  INNER JOIN referencia_agendas ON referencia_agendas.id = a.referencia_agenda_id
+                  INNER JOIN referencia_agendas AS r ON r.id = a.referencia_agenda_id
+                  INNER JOIN profissionais AS p ON p.id = r.profissional_id
+                  WHERE a.empresa_id=#{resource.id} AND a.data= '#{Date.today.strftime("%Y-%m-%d")}'")
+    end
+
+    def retorna_todos_os_medicos_com_agenda(resource)
+      find_by_sql("SELECT DISTINCT r.descricao AS descricao
+                  FROM agendas AS a
+                  INNER JOIN referencia_agendas ON referencia_agendas.id = a.referencia_agenda_id
+                  INNER JOIN referencia_agendas AS r ON r.id = a.referencia_agenda_id
+                  INNER JOIN profissionais AS p ON p.id = r.profissional_id
+                  WHERE a.empresa_id=#{resource.id} AND NOT a.data= '#{Date.today.strftime("%Y-%m-%d")}'")
+    end
   end
 
   def turno
