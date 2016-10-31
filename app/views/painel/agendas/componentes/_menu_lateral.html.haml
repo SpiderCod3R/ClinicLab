@@ -7,11 +7,9 @@
     #collapseFastAccess.panel-collapse.collapse.in
       .panel-body
         %table.table
-          - @medicos.each do |medico|
-            =binding.pry
+          - @medicos_do_dia.each do |medico|
             %tr
-              %td
-                = link_to medico, new_cliente_path, title: "Acesso Rápido à Cliente"
+              %td=link_to medico.descricao, new_cliente_path, title: "Acesso Rápido à Cliente"
   .panel.panel-default
     .panel-heading
       %h4.panel-title
@@ -20,21 +18,6 @@
     #collapseProfile.panel-collapse.collapse
       .panel-body
         %table.table
-          %tr
-            %td
-              #usuario_password
-              =link_to painel_change_user_password_path(current_usuario), remote: true, title: " Alterar Senha" do
-                %span.text-info
-                  %i.fa.fa-2x.fa-key
-                  Alterar Senha
-          %tr
-            %td
-              %span.text-info
-                %i.fa.fa-2x.fa-pencil-square-o
-                %a{:href => "http://www.jquery2dotnet.com"} Alterar Dados
-          %tr
-            %td
-              = link_to destroy_usuario_session_path, method: 'delete', title: "SAIR" do
-                %span.text-danger
-                  %i.fa.fa-2x.fa-sign-out
-                  Sair/Deslogar
+          - @outros_medicos.each do |medico|
+            %tr
+              %td=link_to medico.descricao, new_cliente_path, title: "Acesso Rápido à Cliente"
