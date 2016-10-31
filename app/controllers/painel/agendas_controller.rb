@@ -34,12 +34,8 @@ class Painel::AgendasController < ApplicationController
                       do_dia.
                       order_data.
                       order_atendimento
-    # @medicos= Agenda.da_empresa(@empresa.id).
-    #                 do_dia.
-    #                 joins(:"referencia_agenda").joins(:"profissionais").
-    #                 distinct
-    #           Profissional.da_empresa(@empresa.id)
-    # binding.pry
+    @medicos_do_dia= Agenda.retorna_todos_os_medicos_do_dia(@empresa)
+    @outros_medicos= Agenda.retorna_todos_os_medicos_com_agenda(@empresa)
     @agenda= Agenda.new
   end
 
