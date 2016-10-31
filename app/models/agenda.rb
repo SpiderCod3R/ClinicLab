@@ -54,7 +54,8 @@ class Agenda < ApplicationRecord
   end
 
   def referencia
-    "#{referencia_agenda_descricao} - #{profissional_titulo}"
+    "#{referencia_agenda_descricao}"
+  end
   end
 
   def turno
