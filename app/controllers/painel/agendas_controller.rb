@@ -7,6 +7,7 @@ class Painel::AgendasController < ApplicationController
   include AgendasHelper
   before_action :authenticate_usuario!
   before_action :find_empresa
+  before_action :retorna_referencias_menu_lateral, only: [:index, :search_agenda_medicos]
   before_action :find_agenda, only: [:show,
                                      :movimentar,
                                      :destroy,
@@ -34,15 +35,21 @@ class Painel::AgendasController < ApplicationController
                       do_dia.
                       order_data.
                       order_atendimento
-    @medicos_do_dia= Agenda.retorna_todos_os_medicos_do_dia(@empresa)
-    @outros_medicos= Agenda.retorna_todos_os_medicos_com_agenda(@empresa)
     @agenda= Agenda.new
   end
 
   def search
     @search  = ransack_params
-    @agendas = ransack_result
     @agenda= Agenda.new
+    render :index
+  end
+
+  def search_agenda_medicos
+    @search= ransack_params
+    if params
+      @agendas  = Agenda.search_agenda_medicos(params)
+    end
+    @agenda  = Agenda.new
     render :index
   end
 
@@ -175,6 +182,11 @@ class Painel::AgendasController < ApplicationController
         return arg1 unless arg1.nil?
         return arg2 unless arg2.nil?
       end
+    end
+
+    def retorna_referencias_menu_lateral
+      @medicos_do_dia= Agenda.retorna_todos_os_medicos_do_dia(@empresa)
+      @outros_medicos= Agenda.retorna_todos_os_medicos_com_agenda(@empresa)
     end
 
     def find_agenda
