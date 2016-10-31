@@ -91,7 +91,8 @@
                       =f.time_field :atendimento_tarde_final, class: "form-control", id: "agenda_atendimento_tarde_final_#{indice_tarde}_attribute"
                 -indice_tarde += 1
                 %br/
-  =f.submit "Gerar Agenda", class: "btn btn-success"
-  %br/
-  %br/
+  .pull-right
+    =f.submit "Gerar Agenda", class: "btn btn-success"
+    %br/
+    %br/
 =render 'error_messages'
