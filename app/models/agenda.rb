@@ -15,7 +15,7 @@ class Agenda < ApplicationRecord
   attr_writer :agenda_disponivel, :param_data
 
   scope :disponibilidade, ->(boolean = true) { where(status: "VAGO") }
-  
+
   '''
     OBS. IMPORTANTE: 
     OS scope A SEGUIR INTERCALAM AS POSIÇÕES NA GRID DA AGENDA
@@ -23,7 +23,7 @@ class Agenda < ApplicationRecord
   '''
   scope :pela_referencia, -> { order(referencia_agenda_id: :asc, ) }
   scope :order_atendimento, -> { order(atendimento_inicio: :asc) }
-  scope :order_data, -> { order(data: "ASC") }
+  scope :order_data, -> { order(data: :ASC) }
   scope :do_dia, -> { where(data: Date.today) }
   scope :da_empresa, -> (empresa_id) { where(empresa_id: empresa_id) }
   '''
@@ -59,7 +59,7 @@ class Agenda < ApplicationRecord
 
   class << self
     def retorna_todos_os_medicos_do_dia(resource)
-      find_by_sql("SELECT DISTINCT r.descricao AS descricao
+      find_by_sql("SELECT DISTINCT r.id AS id, r.descricao AS descricao
                   FROM agendas AS a
                   INNER JOIN referencia_agendas ON referencia_agendas.id = a.referencia_agenda_id
                   INNER JOIN referencia_agendas AS r ON r.id = a.referencia_agenda_id
@@ -68,12 +68,17 @@ class Agenda < ApplicationRecord
     end
 
     def retorna_todos_os_medicos_com_agenda(resource)
-      find_by_sql("SELECT DISTINCT r.descricao AS descricao
+      find_by_sql("SELECT DISTINCT r.id AS id, r.descricao AS descricao
                   FROM agendas AS a
                   INNER JOIN referencia_agendas ON referencia_agendas.id = a.referencia_agenda_id
                   INNER JOIN referencia_agendas AS r ON r.id = a.referencia_agenda_id
                   INNER JOIN profissionais AS p ON p.id = r.profissional_id
                   WHERE a.empresa_id=#{resource.id} AND NOT a.data= '#{Date.today.strftime("%Y-%m-%d")}'")
+    end
+
+    def search_agenda_medicos(resource)
+      @empresa = Painel::Empresa.friendly.find(resource[:empresa_id]).id
+      where(referencia_agenda_id: resource[:referencia_agenda_id], empresa_id: @empresa).order_data
     end
   end
 
