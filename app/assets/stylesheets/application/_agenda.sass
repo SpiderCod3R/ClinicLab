@@ -31,6 +31,9 @@ tr.tr_agenda
   .red
     border: 10px solid
     border-color: #EE3342
+  .soft_grey
+    border: 10px solid
+    border-color: #B7B7B7
 
 .legend
   margin: 2px
@@ -42,6 +45,29 @@ tr.tr_agenda
 #agenda_legend
   li
     display: block
+
+
+.table > thead > tr > td.soft_grey,
+.table > tbody > tr > td.soft_grey,
+.table > tfoot > tr > td.soft_grey,
+.table > thead > tr > th.soft_grey,
+.table > tbody > tr > th.soft_grey,
+.table > tfoot > tr > th.soft_grey,
+.table > thead > tr.soft_grey > td,
+.table > tbody > tr.soft_grey > td,
+.table > tfoot > tr.soft_grey > td,
+.table > thead > tr.soft_grey > th,
+.table > tbody > tr.soft_grey > th,
+.table > tfoot > tr.soft_grey > th
+  background-color: #FEFAFF
+
+.table-hover > tbody > tr > td.soft_grey:hover,
+.table-hover > tbody > tr > th.soft_grey:hover,
+.table-hover > tbody > tr.soft_grey:hover > td,
+.table-hover > tbody > tr:hover > .soft_grey,
+.table-hover > tbody > tr.soft_grey:hover > th
+  background-color: #DCDCDC
+
 
 .table > thead > tr > td.orange,
 .table > tbody > tr > td.orange,
