@@ -79,6 +79,7 @@ Rails.application.routes.draw do
       resources :agendas do
         collection do
           match 'search' => 'agendas#search', via: [:get], as: :search
+          match 'search-referencia/:referencia_agenda_id'=> 'agendas#search_agenda_medicos', via: [:get], as: :search_agenda_medicos
         end
         get 'clean'
         get 'didnt_came'
