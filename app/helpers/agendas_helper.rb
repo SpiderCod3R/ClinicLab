@@ -45,8 +45,8 @@ module AgendasHelper
     render 'painel/agendas/componentes/navbar'
   end
 
-  def carrega_filtro_da_agenda
-    render 'painel/agendas/componentes/filtro'
+  def carrega_setor_alpha_da_agenda
+    render 'painel/agendas/componentes/setor_alpha'
   end
 
   def carrega_opcoes_agenda(agenda)
