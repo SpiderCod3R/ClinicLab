@@ -7,7 +7,7 @@ class Painel::AgendasController < ApplicationController
   include AgendasHelper
   before_action :authenticate_usuario!
   before_action :find_empresa
-  before_action :retorna_referencias_menu_lateral, only: [:index, :search_agenda_medicos]
+  before_action :retorna_referencias_menu_lateral, only: [:index, :search, :search_agenda_medicos]
   before_action :find_agenda, only: [:show,
                                      :movimentar,
                                      :destroy,
@@ -40,7 +40,9 @@ class Painel::AgendasController < ApplicationController
 
   def search
     @search  = ransack_params
-    @agenda= Agenda.new
+    # @agendas = ransack_result
+    @agendas = Agenda.a_partir_da_data(params[:q]).da_empresa(@empresa.id)
+    @agenda  = Agenda.new
     render :index
   end
 
@@ -171,10 +173,6 @@ class Painel::AgendasController < ApplicationController
   end
 
   private
-    def find_empresa
-      @empresa = Painel::Empresa.friendly.find(params[:empresa_id])
-    end
-
     def check_params_for_agenda
       lambda do |*args|
         raise ArgumentError if args.empty? || args.size > 2
@@ -182,6 +180,11 @@ class Painel::AgendasController < ApplicationController
         return arg1 unless arg1.nil?
         return arg2 unless arg2.nil?
       end
+    end
+
+    def find_empresa
+      @id = check_params_for_agenda
+      @empresa = Painel::Empresa.friendly.find(@id.call(current_usuario.empresa_id, params[:empresa_id]))
     end
 
     def retorna_referencias_menu_lateral
@@ -196,9 +199,14 @@ class Painel::AgendasController < ApplicationController
 
     def ransack_params
       Agenda.ransack(params[:q])
+      # if params[:q]
+      #   Agenda.a_partir_da_data(params[:q])
+      # end
     end
 
     def ransack_result
-      @search.result(distinct: agenda_wants_distinct_results?).da_empresa(@empresa.id).order_data.order_atendimento
+      @search.result(distinct: agenda_wants_distinct_results?).da_empresa(@empresa.id).
+              order_data.
+              order_atendimento
     end
 end
