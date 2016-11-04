@@ -1,4 +1,8 @@
 module AgendasHelper
+  def tipo_de_acao(resource)
+    return resource.gsub('agenda_content_', '')
+  end
+
   def action
     if action_name == 'advanced_search'
       :post

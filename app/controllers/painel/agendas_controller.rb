@@ -49,6 +49,23 @@ class Painel::AgendasController < ApplicationController
     render :index
   end
 
+  def load_more_data
+    if params[:acao].present?
+      @acao = tipo_de_acao(params[:acao])
+      case @acao
+      when "normal"
+        @agendas = Agenda.includes(:referencia_agenda).includes(:agenda_movimentacao).
+                          da_empresa(@empresa.id).
+                          do_dia.
+                          order_data.
+                          order_atendimento.
+                          take(params[:page_limit])
+      else
+        
+      end
+    end
+  end
+
   def search_agenda_medicos
     @search= ransack_params
     if params

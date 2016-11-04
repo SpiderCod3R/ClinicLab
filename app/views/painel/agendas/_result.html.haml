@@ -2,7 +2,7 @@
   .panel.panel-success
     .panel-heading 
     .panel-body
-      %table.table.table-striped.table-bordered.table-hover{ cellspacing: "0", width: "100%"}
+      %table.table-agenda.table.table-striped.table-bordered.table-hover{ cellspacing: "0", width: "100%"}
         %thead
           %th Referência
           %th{align: "center"} Dia
@@ -13,5 +13,6 @@
           %th Atendente
           %th{align: "center"} Hora
           %th{align: "center"} Opções
-        %tbody#agenda_content
+        %tbody#agenda_content_normal
           =render 'agendas'
+=render 'application/componentes/rolagem'
