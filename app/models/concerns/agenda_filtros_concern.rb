@@ -34,6 +34,14 @@ module AgendaFiltrosConcern
         where("agendas.data >= ?",@param_data.to_american_format).
         where("agenda_movimentacoes.nome_paciente LIKE ?", "#{resource["agenda_movimentacao_nome_paciente_cont"]}")
       end
+
+      def da_data(resource)
+        @param_data = Converter::DateConverter.new(resource["data_cont(1i)"].to_i, resource["data_cont(2i)"].to_i, resource["data_cont(3i)"].to_i)
+
+        joins(:referencia_agenda).
+        joins(:agenda_movimentacao).
+        where("agendas.data >= ?", @param_data.to_american_format)
+      end
     end
   end
 end

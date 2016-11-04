@@ -40,8 +40,11 @@ class Painel::AgendasController < ApplicationController
 
   def search
     @search  = ransack_params
-    # @agendas = ransack_result
-    @agendas = Agenda.a_partir_da_data(params[:q]).da_empresa(@empresa.id)
+    if params[:q][:agenda_movimentacao_nome_paciente_cont].present?
+      @agendas = Agenda.a_partir_da_data(params[:q]).da_empresa(@empresa.id)
+    else
+      # @agendas = Agenda.da_data(params[:q]).da_empresa(@empresa.id)
+    end
     @agenda  = Agenda.new
     render :index
   end
