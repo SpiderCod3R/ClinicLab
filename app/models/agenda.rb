@@ -24,7 +24,7 @@ class Agenda < ApplicationRecord
     CUIDADO AO MANUSEA-LOS
   '''
   scope :pela_referencia, -> { order(referencia_agenda_id: :asc, ) }
-  scope :order_atendimento, -> { order(atendimento_inicio: :asc) }
+  scope :order_atendimento, -> { order(atendimento_inicio: :ASC) }
   scope :order_data, -> { order(data: :ASC) }
   scope :do_dia, -> { where(data: Date.today) }
   scope :da_empresa, -> (empresa_id) { where(empresa_id: empresa_id) }

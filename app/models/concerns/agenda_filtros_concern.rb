@@ -21,6 +21,17 @@ module AgendaFiltrosConcern
                   WHERE a.empresa_id=#{resource.id} AND NOT a.data= '#{Date.today.strftime("%Y-%m-%d")}'")
       end
 
+      # def buscar_dados_agenda(resource)
+      #   find_by_sql("SELECT DISTINCT *
+      #               FROM agendas AS a
+      #               INNER JOIN referencia_agendas ON referencia_agendas.id = a.referencia_agenda_id
+      #               INNER JOIN referencia_agendas AS r ON r.id = a.referencia_agenda_id
+      #               WHERE a.empresa_id=#{resource[:empresa_id]}
+      #               AND   a.data= '#{Date.today.strftime("%Y-%m-%d")}'
+      #               ORDER BY a.data ASC, a.atendimento_inicio asc
+      #               LIMIT #{resource[:offset]}, #{resource[:page_limit]}")
+      # end
+
       def search_agenda_medicos(resource)
         @empresa = Painel::Empresa.friendly.find(resource[:empresa_id]).id
         where(referencia_agenda_id: resource[:referencia_agenda_id], empresa_id: @empresa).order_data
