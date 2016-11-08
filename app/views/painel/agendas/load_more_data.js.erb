@@ -1,1 +1,9 @@
-$("#agenda_content_normal").prepend("<%=j render 'agendas' , { agendas: @agendas } %>");
+$("#agenda_content_normal").append("<%=j render 'agendas' , { agendas: @agendas } %>");
+
+<% if @agendas.empty? %>
+  $(".lendodados").text('Não existem mais usuários.');
+  $(".lendodados").fadeIn(1000)
+<%- else -%>
+  $(".lendodados").fadeIn(1000)
+  $(".lendodados").fadeOut(1000)
+<% end %>
