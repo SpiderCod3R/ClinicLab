@@ -69,12 +69,13 @@ class Painel::AgendasController < ApplicationController
   end
 
   def search_agenda_medicos
-    @search= ransack_params
+    # @search= ransack_params
+    # @agenda  = Agenda.new
     if params
+      @referencia = ReferenciaAgenda.find(params[:referencia_agenda_id])
       @agendas  = Agenda.search_agenda_medicos(params)
     end
-    @agenda  = Agenda.new
-    render :index
+    respond_to &:js
   end
 
   def show
