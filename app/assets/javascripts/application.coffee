@@ -43,7 +43,6 @@
 #= require cliente_nacionalidade
 #= require cliente_historicos
 # require clientes/search
-#= require pacientes
 #= require fornecedor
 #= require fornecedores
 #= require profissionais
