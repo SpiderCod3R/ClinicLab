@@ -43,6 +43,17 @@ module AgendaFiltrosConcern
         take(12)
       end
 
+      # => retorna agenda dos medicos de outro dia que nao
+      def search_agenda_medicos_outro_dia(resource)
+        @empresa = Painel::Empresa.friendly.find(resource[:empresa_id]).id
+        where(referencia_agenda_id: resource[:referencia_agenda_id], empresa_id: @empresa).
+        a_partir_do_proximo_dia.
+        order_data.
+        order_atendimento.
+        offset(0).
+        take(12)
+      end
+
       # => Carrega mais medicos
       def load_more_medicos(resource)
         @referencia = resource[:acao].gsub("agenda_content_","")
