@@ -14,6 +14,9 @@ $(document).ready ->
       return false
     return
 
+  $(".link_menu_lateral").click ->
+    offset = 12
+
   $.ajaxSetup
     url: urlPost
     type: 'POST'
@@ -32,10 +35,6 @@ $(document).ready ->
       error: ''
       success: (read) ->
         #loadler.delay(300).fadeOut("slow");
-  # Trocando o ID
-  # $('.table-agenda').find('tbody').attr("id","newId");
-  tbody   = $('.table-agenda').find('tbody').attr("id")
-  # loadData("acao=#{tbody}&offset=0&page_limit=12")
 
   # Carregamento quando o scroll for igual a 0
   $(window).scroll ->

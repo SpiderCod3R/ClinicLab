@@ -32,6 +32,7 @@ module AgendaFiltrosConcern
       #               LIMIT #{resource[:offset]}, #{resource[:page_limit]}")
       # end
 
+      # => retorna agenda dos medicos
       def search_agenda_medicos(resource)
         @empresa = Painel::Empresa.friendly.find(resource[:empresa_id]).id
         where(referencia_agenda_id: resource[:referencia_agenda_id], empresa_id: @empresa).
@@ -42,6 +43,7 @@ module AgendaFiltrosConcern
         take(12)
       end
 
+      # => Carrega mais medicos
       def load_more_medicos(resource)
         @referencia = resource[:acao].gsub("agenda_content_","")
 

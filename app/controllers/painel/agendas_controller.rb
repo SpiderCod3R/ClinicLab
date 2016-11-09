@@ -68,16 +68,23 @@ class Painel::AgendasController < ApplicationController
                                              offset: params[:offset],
                                              page_limit: params[:page_limit],
                                              empresa_id: params[:empresa_id]})
+        # binding.pry
       end
     end
   end
 
   def search_agenda_medicos
-    # @search= ransack_params
-    # @agenda  = Agenda.new
     if params
       @referencia = ReferenciaAgenda.find(params[:referencia_agenda_id])
       @agendas  = Agenda.search_agenda_medicos(params)
+    end
+    respond_to &:js
+  end
+
+  def search_agenda_medicos_outro_dia
+    if params
+      @referencia = ReferenciaAgenda.find(params[:referencia_agenda_id])
+      @agendas  = Agenda.search_agenda_medicos_outro_dia(params)
     end
     respond_to &:js
   end

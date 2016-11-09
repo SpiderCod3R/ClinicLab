@@ -27,6 +27,7 @@ class Agenda < ApplicationRecord
   scope :order_data, -> { order(data: :ASC) }
   scope :do_dia, -> { where(data: Date.today) }
   scope :a_partir_da_data_do_dia, -> { where("data >= ?",Date.today) }
+  scope :a_partir_da_data_do_outro_dia, -> { where("data > ?",Date.today) }
   scope :da_empresa, -> (empresa_id) { where(empresa_id: empresa_id) }
   '''
     FIM DA OBSERVAÇÃO
