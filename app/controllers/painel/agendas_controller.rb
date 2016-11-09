@@ -7,6 +7,7 @@ class Painel::AgendasController < ApplicationController
   include AgendasHelper
   before_action :authenticate_usuario!
   before_action :find_empresa
+  before_action :retorna_referencias_menu_lateral, only: [:index, :search, :search_agenda_medicos]
   before_action :find_agenda, only: [:show,
                                      :movimentar,
                                      :destroy,
@@ -28,19 +29,51 @@ class Painel::AgendasController < ApplicationController
   respond_to :html, :js, :json, :xml
 
   def index
-    @search  = ransack_params
-    @agendas = Agenda.includes(:referencia_agenda).includes(:agenda_movimentacao).
-                      da_empresa(@empresa.id).
-                      do_dia.
-                      order_data.
-                      order_atendimento.
-                      page(params[:page])
-    # binding.pry
+    @search= ransack_params
+    # @agendas= Agenda.includes(:referencia_agenda).includes(:agenda_movimentacao).
+    #                   da_empresa(@empresa.id).
+    #                   do_dia.
+    #                   order_data.
+    #                   order_atendimento
+    @agenda= Agenda.new
   end
 
   def search
     @search  = ransack_params
-    @agendas = ransack_result
+    if params[:q][:agenda_movimentacao_nome_paciente_cont].present?
+      @agendas = Agenda.a_partir_da_data(params[:q]).da_empresa(@empresa.id)
+    else
+      # @agendas = Agenda.da_data(params[:q]).da_empresa(@empresa.id)
+    end
+    @agenda  = Agenda.new
+    render :index
+  end
+
+  def load_more_data
+    if params[:acao].present?
+      @acao = tipo_de_acao(params[:acao])
+      case @acao
+      when "normal"
+        @agendas = Agenda.includes(:referencia_agenda).includes(:agenda_movimentacao).
+                          da_empresa(@empresa.id).
+                          do_dia.
+                          order_data.
+                          order_atendimento.
+                          offset(params[:offset]).
+                          take(params[:page_limit])
+        # binding.pry
+      else
+        
+      end
+    end
+  end
+
+  def search_agenda_medicos
+    @search= ransack_params
+    if params
+      @agendas  = Agenda.search_agenda_medicos(params)
+    end
+    @agenda  = Agenda.new
     render :index
   end
 
@@ -162,10 +195,6 @@ class Painel::AgendasController < ApplicationController
   end
 
   private
-    def find_empresa
-      @empresa = Painel::Empresa.friendly.find(params[:empresa_id])
-    end
-
     def check_params_for_agenda
       lambda do |*args|
         raise ArgumentError if args.empty? || args.size > 2
@@ -175,16 +204,31 @@ class Painel::AgendasController < ApplicationController
       end
     end
 
+    def find_empresa
+      @id = check_params_for_agenda
+      @empresa = Painel::Empresa.friendly.find(@id.call(current_usuario.empresa_id, params[:empresa_id]))
+    end
+
+    def retorna_referencias_menu_lateral
+      @medicos_do_dia= Agenda.retorna_todos_os_medicos_do_dia(@empresa)
+      @outros_medicos= Agenda.retorna_todos_os_medicos_com_agenda(@empresa)
+    end
+
     def find_agenda
       @id = check_params_for_agenda
       @agenda = Agenda.find_by(empresa_id: @empresa.id, id: @id.call(params[:id], params[:agenda_id]))
     end
 
     def ransack_params
-      Agenda.includes(:referencia_agenda).includes(:agenda_movimentacao).ransack(params[:q])
+      Agenda.ransack(params[:q])
+      # if params[:q]
+      #   Agenda.a_partir_da_data(params[:q])
+      # end
     end
 
     def ransack_result
-      @search.result(distinct: agenda_wants_distinct_results?).where(empresa_id: @empresa.id).page(params[:page])
+      @search.result(distinct: agenda_wants_distinct_results?).da_empresa(@empresa.id).
+              order_data.
+              order_atendimento
     end
 end

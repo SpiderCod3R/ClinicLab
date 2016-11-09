@@ -1,9 +1,8 @@
 -unless agenda.agenda_movimentacao.nil?
   .btn-group
-    %button.btn.btn-white-background.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
-      %i.mdi-set.mdi-account-card-details.mdi-2x.mdi-white-color
-      %span.caret.caret-up
-    %ul.dropdown-menu.options_agenda.drop-up
+    %button.btn.btn-default.btn-circle.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+      %i.glyphicon.glyphicon-chevron-up
+    %ul.dropdown-menu.drop-up
       %li=link_to "Ficha do Paciente", new_ficha_cliente_path(agenda_id: agenda)
       %li.divider{:role => "separator"}
       %li=link_to "Visualizar Atendimento", painel_empresa_agenda_path(current_usuario.empresa, agenda)
@@ -25,10 +24,9 @@
   #change_agenda_section
 -else
   .btn-group
-    %button.btn.btn-white-background.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
-      %i.mdi-set.mdi-clock-alert.mdi-2x.mdi-white-color
-      %span.caret.caret-up
-    %ul.dropdown-menu.options_agenda.drop-up
+    %button.btn.btn-default.btn-circle.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+      %i.glyphicon.glyphicon-chevron-up
+    %ul.dropdown-menu.drop-up
       %li=link_to "Agendar atendimento", painel_empresa_agenda_movimentar_ou_atualizar_path(@empresa,agenda.id), class: "hands_cursor"
       %li.divider{:role => "separator"}
       %li=link_to "Excluir Agenda", "#"

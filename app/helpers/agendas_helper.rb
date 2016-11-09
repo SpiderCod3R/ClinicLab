@@ -1,4 +1,8 @@
 module AgendasHelper
+  def tipo_de_acao(resource)
+    return resource.gsub('agenda_content_', '')
+  end
+
   def action
     if action_name == 'advanced_search'
       :post
@@ -41,27 +45,20 @@ module AgendasHelper
     15
   end
 
-  # def agenda_profissional_and_movimentacoes
-  #   %w(profissional).freeze
-  # end
+  def carrega_navbar_da_agenda
+    render 'painel/agendas/componentes/navbar'
+  end
 
-  # def condition_fields
-  #   %w(data fields condition).freeze
-  # end
+  def carrega_setor_alpha_da_agenda
+    render 'painel/agendas/componentes/setor_alpha'
+  end
 
-  # def value_fields
-  #   %w(fields condition).freeze
-  # end
+  def carrega_opcoes_agenda(agenda)
+    render 'painel/agendas/componentes/opcoes', { agenda: agenda}
+  end
+
 
   def agenda_wants_distinct_results?
     params[:distinct].to_i == 1
-  end
-
-  def display_results_information(count)
-    if count > results_limit
-      "Your first #{results_limit} results out of #{count} total"
-    else
-      "Your #{pluralize(count, 'result')}"
-    end
   end
 end

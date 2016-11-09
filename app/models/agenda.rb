@@ -4,6 +4,8 @@ require 'converters/date_converter'
 require 'converters/time_converter'
 class Agenda < ApplicationRecord
   include AgendaConcern
+  include AgendaFiltrosConcern
+
   paginates_per 10
 
   attr_accessor :atendimento_manha_inicio, :atendimento_manha_final,
@@ -15,15 +17,14 @@ class Agenda < ApplicationRecord
   attr_writer :agenda_disponivel, :param_data
 
   scope :disponibilidade, ->(boolean = true) { where(status: "VAGO") }
-  
+
   '''
     OBS. IMPORTANTE: 
     OS scope A SEGUIR INTERCALAM AS POSIÇÕES NA GRID DA AGENDA
     CUIDADO AO MANUSEA-LOS
   '''
-  scope :pela_referencia, -> { order(referencia_agenda_id: :asc, ) }
   scope :order_atendimento, -> { order(atendimento_inicio: :asc) }
-  scope :order_data, -> { order(data: "ASC") }
+  scope :order_data, -> { order(data: :ASC) }
   scope :do_dia, -> { where(data: Date.today) }
   scope :da_empresa, -> (empresa_id) { where(empresa_id: empresa_id) }
   '''
@@ -34,6 +35,7 @@ class Agenda < ApplicationRecord
   scope :nome_paciente_like, -> (name) { where("agenda_movimentacao.nome_paciente ilike ?", name)}
 
   belongs_to :referencia_agenda
+  has_one :profissional, through: :referencia_agenda
   belongs_to :usuario
   belongs_to :empresa, class_name: "Painel::Empresa", foreign_key: "empresa_id"
   has_one :agenda_movimentacao
@@ -53,7 +55,7 @@ class Agenda < ApplicationRecord
   end
 
   def referencia
-    "#{referencia_agenda_descricao} - #{profissional_titulo}"
+    "#{referencia_agenda_descricao}"
   end
 
   def turno

@@ -187,6 +187,10 @@ $(document).ready ->
       x++
     return error_messages
 
+  $('.btn_close_modal_agenda').click ->
+    $(".btn-form-agenda").prop('disabled', false)
+  
+
   # => Prepando Ajax Request para enviar dados ao controller/model
   $(".simple_form.new_agenda").submit (event) ->
     event.preventDefault()
@@ -199,19 +203,20 @@ $(document).ready ->
     )
 
     if error_messages.length != 0
-      $("#error_messages").find(".modal-title").html("Erros Encontrados")
-      $("#error_messages").find(".modal-body").html(error_messages)
-      $("#error_messages").modal()
+      $("#error_messages_from_agenda").find(".modal-title").html("Erros Encontrados")
+      $("#error_messages_from_agenda").find(".modal-body").html(error_messages)
+      $("#error_messages_from_agenda").modal()
     else
       # coletando dados dos horarios
       horarios_turno_a = coletor_do_turno_a()
       horarios_turno_b = coletor_do_turno_b()
-      console.log horarios_turno_a
       $.ajax
         url: localhost + "/painel/empresas/#{empresa_id}/agendas"
         type: 'POST'
         dataType: 'JSON'
         timeout: 10000
+        beforeSend: ->
+          toastr.warning("Por-favor não saia dessa tela.", "Aguarde!")
         data:
           agenda:
             empresa_id:                  empresa_id

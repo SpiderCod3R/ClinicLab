@@ -1,0 +1,2 @@
+$('.table-agenda').find('tbody').attr("id","agenda_content_<%= @medico_nome%>");
+$("#agenda_content_<%= @medico_nome %>").append("<%=j render 'agendas' , { agendas: @agendas } %>");

@@ -1,0 +1,20 @@
+.container-fluid
+  / Nav tabs
+  %ul.nav.nav-tabs{:role => "tablist"}
+    %li.active{:role => "presentation"}
+      %a{"aria-controls" => "agendas", "data-toggle" => "tab", :href => "#agendas", :role => "tab"} Agendas
+    %li{:role => "presentation"}
+      %a{"aria-controls" => "gerar_agenda", "data-toggle" => "tab", :href => "#gerar_agenda", :role => "tab"} Gerar Agenda
+  / Tab panes
+  .tab-content
+    #agendas.tab-pane.active{:role => "tabpanel"}
+      .panel
+        =render 'result'
+    #gerar_agenda.tab-pane{:role => "tabpanel"}
+      .panel
+        .container-fluid
+          =render 'form'
+%hr{style: "border: #323232 solid 0.5px;"}
+#movimentar_agenda_section
+#block_day
+#block_period

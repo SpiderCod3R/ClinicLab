@@ -1,0 +1,23 @@
+#accordion.agenda.panel-group
+  .panel.panel-default
+    .panel-heading
+      %h4.panel-title
+        %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseFastAccess"}
+          Médicos do Dia
+    #collapseFastAccess.panel-collapse.collapse.in
+      .panel-body
+        %table.table
+          - @medicos_do_dia.each do |referencia|
+            %tr
+              %td=link_to referencia.descricao, search_agenda_medicos_painel_empresa_agendas_path(current_usuario.empresa, referencia.id), title: "Acesso Rápido à Cliente", remote: true
+  .panel.panel-default
+    .panel-heading
+      %h4.panel-title
+        %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseProfile"}
+          Outros Médicos
+    #collapseProfile.panel-collapse.collapse
+      .panel-body
+        %table.table
+          - @outros_medicos.each do |referencia|
+            %tr
+              %td=link_to referencia.descricao, search_agenda_medicos_painel_empresa_agendas_path(current_usuario.empresa, referencia.id), title: "Acesso Rápido à Cliente"

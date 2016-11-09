@@ -6,7 +6,8 @@
           %h4="#{pluralize(@agenda.errors.count, "erro")} impede(m) este agenda de ser salvo:"
   .row-fluid
     .col-md-12
-      =render 'application/progress_bar'
+      %hr
+      =render 'painel/agendas/componentes/progress_bar'
       .panel
         .container-fluid{style: "margin: 0 auto; padding-top: 15px; padding-bottom: 15px;"}
           .row-fluid
@@ -63,6 +64,7 @@
                       =f.time_field :atendimento_manha_final, class: "form-control", id: "agenda_atendimento_manha_final_#{indice_manha}_attribute"
                 -indice_manha += 1
                 %br/
+  .row-fluid
     .col-md-6
       .panel.panel-default
         .panel-heading.center.bolder Turno da Tarde
@@ -89,4 +91,8 @@
                       =f.time_field :atendimento_tarde_final, class: "form-control", id: "agenda_atendimento_tarde_final_#{indice_tarde}_attribute"
                 -indice_tarde += 1
                 %br/
+  .pull-right
+    =f.submit "Gerar Agenda", class: "btn btn-success btn-form-agenda"
+    %br/
+    %br/
 =render 'error_messages'

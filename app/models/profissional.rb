@@ -15,9 +15,12 @@ class Profissional < ApplicationRecord
   belongs_to :conselho_regional
   belongs_to :operadora
   belongs_to :empresa
+  has_many :referencia_agendas
+  has_many :agendas, through: :referencia_agendas
 
   usar_como_cpf :cpf
   scope :pelo_nome, -> {order("nome ASC")}
+  scope :da_empresa, -> (empresa_id) { where(empresa_id: empresa_id) }
 
   has_attached_file :imagem, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :imagem, content_type: /\Aimage\/.*\Z/

@@ -17,7 +17,7 @@
   $("#agenda_id_<%= @new_agenda.id %>").fadeOut(500, function(){
     $(this).empty();
     $(this).prepend("<%= j render 'agenda_tr' , { agenda: @new_agenda } %>");
-    $(this).fadeIn(500).removeClass("info").addClass("success");
+    $(this).fadeIn(500).removeClass("info").addClass("attention");
   });
 
   toastr.success('<%= I18n.t("agendas.messages.schedule_changed")%>', 'Atenção', {timeOut: 5000});
