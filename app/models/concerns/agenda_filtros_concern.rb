@@ -35,21 +35,22 @@ module AgendaFiltrosConcern
       def search_agenda_medicos(resource)
         @empresa = Painel::Empresa.friendly.find(resource[:empresa_id]).id
         where(referencia_agenda_id: resource[:referencia_agenda_id], empresa_id: @empresa).
+        a_partir_da_data_do_dia.
         order_data.
+        order_atendimento.
         offset(0).
         take(12)
       end
 
       def load_more_medicos(resource)
-                binding.pry
-        if resource[:acao].present?
-          @referencia = resource[:acao].gsub("agenda_content_","")
-        end
+        @referencia = resource[:acao].gsub("agenda_content_","")
 
         where(referencia_agenda_id: @referencia, empresa_id: resource[:empresa_id]).
+        a_partir_da_data_do_dia.
         order_data.
-        offset(0).
-        take(12)
+        order_atendimento.
+        offset(resource[:offset]).
+        take(resource[:page_limit])
       end
 
       def a_partir_da_data(resource)

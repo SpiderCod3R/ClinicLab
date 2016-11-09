@@ -58,12 +58,11 @@ class Painel::AgendasController < ApplicationController
       when "normal"
         @agendas = Agenda.includes(:referencia_agenda).includes(:agenda_movimentacao).
                           da_empresa(@empresa.id).
-                          where("data >= ?",Date.today).
+                          a_partir_da_data_do_dia.
                           order_data.
                           order_atendimento.
                           offset(params[:offset]).
                           take(params[:page_limit])
-        # binding.pry
       else
         @agendas = Agenda.load_more_medicos({acao: params[:acao],
                                              offset: params[:offset],

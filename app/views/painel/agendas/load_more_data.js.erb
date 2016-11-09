@@ -1,4 +1,8 @@
-$("#agenda_content_normal").append("<%=j render 'agendas' , { agendas: @agendas } %>");
+<%- if @acao == "normal" -%>
+  $("#agenda_content_normal").append("<%=j render 'agendas' , { agendas: @agendas } %>");
+<%- else -%>
+  $("#agenda_content_<%= @acao.gsub('agenda_content_','') %>").append("<%=j render 'agendas' , { agendas: @agendas } %>");
+<%- end -%>
 
 <% if @agendas.empty? %>
   $(".lendodados").text('Não existem mais dados.');
