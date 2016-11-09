@@ -30,11 +30,13 @@ class Painel::AgendasController < ApplicationController
 
   def index
     @search= ransack_params
-    # @agendas= Agenda.includes(:referencia_agenda).includes(:agenda_movimentacao).
-    #                   da_empresa(@empresa.id).
-    #                   do_dia.
-    #                   order_data.
-    #                   order_atendimento
+    @agendas= Agenda.includes(:referencia_agenda).includes(:agenda_movimentacao).
+                     da_empresa(@empresa.id).
+                     do_dia.
+                     order_data.
+                     order_atendimento.
+                     offset(0).
+                     take(12)
     @agenda= Agenda.new
   end
 
@@ -56,25 +58,29 @@ class Painel::AgendasController < ApplicationController
       when "normal"
         @agendas = Agenda.includes(:referencia_agenda).includes(:agenda_movimentacao).
                           da_empresa(@empresa.id).
-                          do_dia.
+                          where("data >= ?",Date.today).
                           order_data.
                           order_atendimento.
                           offset(params[:offset]).
                           take(params[:page_limit])
         # binding.pry
       else
-        
+        @agendas = Agenda.load_more_medicos({acao: params[:acao],
+                                             offset: params[:offset],
+                                             page_limit: params[:page_limit],
+                                             empresa_id: params[:empresa_id]})
       end
     end
   end
 
   def search_agenda_medicos
-    @search= ransack_params
+    # @search= ransack_params
+    # @agenda  = Agenda.new
     if params
+      @referencia = ReferenciaAgenda.find(params[:referencia_agenda_id])
       @agendas  = Agenda.search_agenda_medicos(params)
     end
-    @agenda  = Agenda.new
-    render :index
+    respond_to &:js
   end
 
   def show

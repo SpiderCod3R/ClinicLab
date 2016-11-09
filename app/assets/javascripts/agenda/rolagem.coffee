@@ -35,7 +35,7 @@ $(document).ready ->
   # Trocando o ID
   # $('.table-agenda').find('tbody').attr("id","newId");
   tbody   = $('.table-agenda').find('tbody').attr("id")
-  loadData("acao=#{tbody}&offset=0&page_limit=12")
+  # loadData("acao=#{tbody}&offset=0&page_limit=12")
 
   # Carregamento quando o scroll for igual a 0
   $(window).scroll ->
