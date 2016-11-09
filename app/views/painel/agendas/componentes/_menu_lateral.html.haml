@@ -9,7 +9,7 @@
         %table.table
           - @medicos_do_dia.each do |referencia|
             %tr
-              %td=link_to referencia.descricao, search_agenda_medicos_painel_empresa_agendas_path(current_usuario.empresa, referencia.id), title: "Acesso Rápido à Cliente", remote: true
+              %td=link_to referencia.descricao.upcase, search_agenda_medicos_painel_empresa_agendas_path(current_usuario.empresa, referencia.id), title: "Acesso Rápido à Cliente", remote: true, data: { referencia: referencia.descricao }
   .panel.panel-default
     .panel-heading
       %h4.panel-title
@@ -20,4 +20,4 @@
         %table.table
           - @outros_medicos.each do |referencia|
             %tr
-              %td=link_to referencia.descricao, search_agenda_medicos_painel_empresa_agendas_path(current_usuario.empresa, referencia.id), title: "Acesso Rápido à Cliente"
+              %td=link_to referencia.descricao.upcase, search_agenda_medicos_painel_empresa_agendas_path(current_usuario.empresa, referencia.id), title: "Acesso Rápido à Cliente", remote: true, data: { referencia: referencia.descricao }
