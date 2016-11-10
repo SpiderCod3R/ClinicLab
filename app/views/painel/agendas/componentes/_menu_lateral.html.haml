@@ -7,6 +7,8 @@
     #collapseFastAccess.panel-collapse.collapse.in
       .panel-body
         %table.table
+          %tr
+            %td=link_to "TODOS", painel_empresa_agendas_path(current_usuario.empresa)
           - @medicos_do_dia.each do |referencia|
             %tr
               %td=link_to referencia.descricao.upcase, search_agenda_medicos_painel_empresa_agendas_path(current_usuario.empresa, referencia.id), remote: true, class: "link_menu_lateral"

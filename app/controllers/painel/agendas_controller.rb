@@ -41,14 +41,17 @@ class Painel::AgendasController < ApplicationController
   end
 
   def search
-    @search  = ransack_params
     if params[:q][:agenda_movimentacao_nome_paciente_cont].present?
       @agendas = Agenda.a_partir_da_data(params[:q]).da_empresa(@empresa.id)
-    else
-      # @agendas = Agenda.da_data(params[:q]).da_empresa(@empresa.id)
     end
-    @agenda  = Agenda.new
-    render :index
+
+    if params[:q][:referencia_agenda_id].present?
+      @content = ReferenciaAgenda.find params[:q][:referencia_agenda_id]
+      @agendas = Agenda.da_empresa(@empresa.id).pela_referencia_da_data(params[:q])
+    end
+    # binding.pry
+
+    respond_to &:js
   end
 
   def load_more_data
@@ -68,7 +71,6 @@ class Painel::AgendasController < ApplicationController
                                              offset: params[:offset],
                                              page_limit: params[:page_limit],
                                              empresa_id: params[:empresa_id]})
-        # binding.pry
       end
     end
   end
