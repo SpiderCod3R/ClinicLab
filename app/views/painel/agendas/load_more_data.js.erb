@@ -6,8 +6,9 @@
 
 <% if @agendas.empty? %>
   $(".lendodados").text('Não existem mais dados.');
-  $(".lendodados").fadeIn(1000)
+  $(".lendodados").fadeIn(1000);
 <%- else -%>
-  $(".lendodados").fadeIn(1000)
-  $(".lendodados").fadeOut(1000)
+  $(".lendodados").empty();
+  $(".lendodados").append("<%=j render 'application/componentes/rolagem' %>").fadeIn(1000);
+  $(".lendodados").fadeOut(1000);
 <% end %>

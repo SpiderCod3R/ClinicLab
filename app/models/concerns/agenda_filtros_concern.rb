@@ -47,7 +47,7 @@ module AgendaFiltrosConcern
       def search_agenda_medicos_outro_dia(resource)
         @empresa = Painel::Empresa.friendly.find(resource[:empresa_id]).id
         where(referencia_agenda_id: resource[:referencia_agenda_id], empresa_id: @empresa).
-        a_partir_do_proximo_dia.
+        a_partir_da_data_do_dia.
         order_data.
         order_atendimento.
         offset(0).
