@@ -3,4 +3,17 @@
   $('.table-agenda').find('tbody').attr("id","agenda_content_<%= @content.id %>");
   $("#agenda_content_<%= @content.id %>").empty();
   $("#agenda_content_<%= @content.id %>").append("<%=j render 'agendas' , { agendas: @agendas } %>");
+<%- else -%>
+  $("#agenda_content_normal").empty();
+  $("#agenda_content_normal").append("<%=j render 'agendas' , { agendas: @agendas } %>");
 <%-end-%>
+
+
+<% if @agendas.empty? %>
+  $(".lendodados").text('Não existem mais dados.');
+  $(".lendodados").fadeIn(1000);
+<%- else -%>
+  $(".lendodados").empty();
+  $(".lendodados").append("<%=j render 'application/componentes/rolagem' %>").fadeIn(1000);
+  $(".lendodados").fadeOut(1000);
+<% end %>

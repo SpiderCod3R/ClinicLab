@@ -42,14 +42,18 @@ class Painel::AgendasController < ApplicationController
 
   def search
     if params[:q][:agenda_movimentacao_nome_paciente_cont].present?
-      @agendas = Agenda.a_partir_da_data(params[:q]).da_empresa(@empresa.id)
+      @agendas = Agenda.da_empresa(@empresa.id).paciente_a_partir_da_data(params[:q])
     end
 
     if params[:q][:referencia_agenda_id].present?
       @content = ReferenciaAgenda.find params[:q][:referencia_agenda_id]
       @agendas = Agenda.da_empresa(@empresa.id).pela_referencia_da_data(params[:q])
     end
-    # binding.pry
+
+    if params[:q][:referencia_agenda_id].present? && params[:q][:agenda_movimentacao_nome_paciente_cont].present?
+      @content = ReferenciaAgenda.find params[:q][:referencia_agenda_id]
+      @content = ReferenciaAgenda.find params[:q][:referencia_agenda_id]
+    end
 
     respond_to &:js
   end

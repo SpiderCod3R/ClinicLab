@@ -66,18 +66,19 @@ module AgendaFiltrosConcern
         take(resource[:page_limit])
       end
 
-      def a_partir_da_data(resource)
+      def paciente_a_partir_da_data(resource)
         @param_data = Converter::DateConverter.new(resource["data_cont(1i)"].to_i, resource["data_cont(2i)"].to_i, resource["data_cont(3i)"].to_i)
-
-        joins(:referencia_agenda).
         joins(:agenda_movimentacao).
-        where("agendas.data >= ?",@param_data.to_american_format).
-        where("agenda_movimentacoes.nome_paciente LIKE ?", "#{resource["agenda_movimentacao_nome_paciente_cont"]}")
+        where("agendas.data >= ?", @param_data.to_american_format).
+        where("agenda_movimentacoes.nome_paciente LIKE ?", "%#{resource["agenda_movimentacao_nome_paciente_cont"]}%").
+        order_data.
+        order_atendimento.
+        offset(0).
+        take(12)
       end
 
       def pela_referencia_da_data(resource)
         @param_data = Converter::DateConverter.new(resource["data_cont(1i)"].to_i, resource["data_cont(2i)"].to_i, resource["data_cont(3i)"].to_i)
-        # binding.pry
         where(referencia_agenda_id: resource['referencia_agenda_id']).
         where("agendas.data >= ?", @param_data.to_american_format).
         order_data.
