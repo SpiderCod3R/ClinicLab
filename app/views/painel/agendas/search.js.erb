@@ -4,6 +4,7 @@
   $("#agenda_content_<%= @content.id %>").empty();
   $("#agenda_content_<%= @content.id %>").append("<%=j render 'agendas' , { agendas: @agendas } %>");
 <%- else -%>
+  $('.table-agenda').find('tbody').attr("id", "agenda_content_normal")
   $("#agenda_content_normal").empty();
   $("#agenda_content_normal").append("<%=j render 'agendas' , { agendas: @agendas } %>");
 <%-end-%>
