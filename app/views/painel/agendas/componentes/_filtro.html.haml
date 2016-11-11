@@ -1,5 +1,8 @@
-= search_form_for [@empresa, @search], url: search_painel_empresa_agendas_path do |f|
+= search_form_for [@empresa, @search], url: search_painel_empresa_agendas_path, remote: true do |f|
   .row
+    .col-lg-4.col-md-4
+      = f.label :referencia_agenda_id, "Referência"
+      =f.collection_select :referencia_agenda_id, ReferenciaAgenda.where(empresa_id: current_usuario.empresa_id), :id, :descricao_completa, { prompt: "Selecione uma" }, class: "form-control selectpicker", :"data-live-search"=>"true"
     .col-lg-4.col-md-4
       #search_paciente_field
         = f.label :agenda_movimentacao_nome_paciente_cont, "Nome do Paciente"

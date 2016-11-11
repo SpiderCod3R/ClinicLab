@@ -32,41 +32,59 @@ module AgendaFiltrosConcern
       #               LIMIT #{resource[:offset]}, #{resource[:page_limit]}")
       # end
 
+      # => retorna agenda dos medicos
       def search_agenda_medicos(resource)
         @empresa = Painel::Empresa.friendly.find(resource[:empresa_id]).id
         where(referencia_agenda_id: resource[:referencia_agenda_id], empresa_id: @empresa).
+        a_partir_da_data_do_dia.
         order_data.
+        order_atendimento.
         offset(0).
         take(12)
       end
 
+      # => retorna agenda dos medicos de outro dia que nao
+      def search_agenda_medicos_outro_dia(resource)
+        @empresa = Painel::Empresa.friendly.find(resource[:empresa_id]).id
+        where(referencia_agenda_id: resource[:referencia_agenda_id], empresa_id: @empresa).
+        a_partir_da_data_do_dia.
+        order_data.
+        order_atendimento.
+        offset(0).
+        take(12)
+      end
+
+      # => Carrega mais medicos
       def load_more_medicos(resource)
-                binding.pry
-        if resource[:acao].present?
-          @referencia = resource[:acao].gsub("agenda_content_","")
-        end
+        @referencia = resource[:acao].gsub("agenda_content_","")
 
         where(referencia_agenda_id: @referencia, empresa_id: resource[:empresa_id]).
+        a_partir_da_data_do_dia.
         order_data.
+        order_atendimento.
+        offset(resource[:offset]).
+        take(resource[:page_limit])
+      end
+
+      def paciente_a_partir_da_data(resource)
+        @param_data = Converter::DateConverter.new(resource["data_cont(1i)"].to_i, resource["data_cont(2i)"].to_i, resource["data_cont(3i)"].to_i)
+        joins(:agenda_movimentacao).
+        where("agendas.data >= ?", @param_data.to_american_format).
+        where("agenda_movimentacoes.nome_paciente LIKE ?", "%#{resource["agenda_movimentacao_nome_paciente_cont"]}%").
+        order_data.
+        order_atendimento.
         offset(0).
         take(12)
       end
 
-      def a_partir_da_data(resource)
+      def pela_referencia_da_data(resource)
         @param_data = Converter::DateConverter.new(resource["data_cont(1i)"].to_i, resource["data_cont(2i)"].to_i, resource["data_cont(3i)"].to_i)
-
-        joins(:referencia_agenda).
-        joins(:agenda_movimentacao).
-        where("agendas.data >= ?",@param_data.to_american_format).
-        where("agenda_movimentacoes.nome_paciente LIKE ?", "#{resource["agenda_movimentacao_nome_paciente_cont"]}")
-      end
-
-      def da_data(resource)
-        @param_data = Converter::DateConverter.new(resource["data_cont(1i)"].to_i, resource["data_cont(2i)"].to_i, resource["data_cont(3i)"].to_i)
-
-        joins(:referencia_agenda).
-        joins(:agenda_movimentacao).
-        where("agendas.data >= ?", @param_data.to_american_format)
+        where(referencia_agenda_id: resource['referencia_agenda_id']).
+        where("agendas.data >= ?", @param_data.to_american_format).
+        order_data.
+        order_atendimento.
+        offset(0).
+        take(12)
       end
     end
   end
