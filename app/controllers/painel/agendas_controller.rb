@@ -38,18 +38,22 @@ class Painel::AgendasController < Support::AgendaSupportController
   end
 
   def search
-    if params[:q][:agenda_movimentacao_nome_paciente_cont].present?
+    if nome_do_paciente_presente?
       @agendas = Agenda.da_empresa(@empresa.id).paciente_a_partir_da_data(params[:q])
     end
 
-    if params[:q][:referencia_agenda_id].present? && !params[:q][:agenda_movimentacao_nome_paciente_cont].present?
+    if referencia_agenda_presente?
       @content = ReferenciaAgenda.find params[:q][:referencia_agenda_id]
       @agendas = Agenda.da_empresa(@empresa.id).pela_referencia_da_data(params[:q])
     end
 
-    if params[:q][:referencia_agenda_id].present? && params[:q][:agenda_movimentacao_nome_paciente_cont].present?
+    if referencia_agenda_e_paciente_presentes?
       @content = ReferenciaAgenda.find params[:q][:referencia_agenda_id]
       @agendas = Agenda.da_empresa(@empresa.id).pela_referencia_e_paciente_da_data(params[:q])
+    end
+
+    if somente_data_presente?
+      @agendas = Agenda.da_empresa(@empresa.id).da_data(params[:q])
     end
 
     respond_to &:js
