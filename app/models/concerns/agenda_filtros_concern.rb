@@ -87,6 +87,15 @@ module AgendaFiltrosConcern
         take(12)
       end
 
+      def da_data(resource)
+        @param_data = Converter::DateConverter.new(resource["data_cont(1i)"].to_i, resource["data_cont(2i)"].to_i, resource["data_cont(3i)"].to_i)
+        where("agendas.data >= ?", @param_data.to_american_format).
+        order_data.
+        order_atendimento.
+        offset(0).
+        take(12)
+      end
+
       def pela_referencia_e_paciente_da_data(resource)
         @param_data = Converter::DateConverter.new(resource["data_cont(1i)"].to_i, resource["data_cont(2i)"].to_i, resource["data_cont(3i)"].to_i)
         joins(:agenda_movimentacao).
