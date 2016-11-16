@@ -29,4 +29,4 @@
     %ul.dropdown-menu.drop-up
       %li=link_to "Agendar atendimento", painel_empresa_agenda_movimentar_ou_atualizar_path(@empresa,agenda.id), class: "hands_cursor"
       %li.divider{:role => "separator"}
-      %li=link_to "Excluir Agenda", "#"
+      %li=link_to "Excluir Agenda", painel_empresa_agenda_path(current_usuario.empresa, agenda), method: :delete, data: { confirm: "Deseja mesmo excluir a agenda #{agenda.referencia_agenda.descricao} no periodo de #{Time.parse(agenda.atendimento_inicio).strftime('%H:%M')}?" }
