@@ -32,11 +32,11 @@ module AgendaFiltrosConcern
         take(resource[:page_limit])
       end
 
-      def do_dia_anterior(resource)
+      def search_by_day(resource)
         @empresa = Painel::Empresa.friendly.find(resource[:empresa_id]).id
         includes(:referencia_agenda).includes(:agenda_movimentacao).
         da_empresa(@empresa).
-        where("data >= ?", Date.parse(resource["data"]).strftime("%Y-%m-%d"))
+        where("data >= '#{Date.parse(resource["data"]).strftime("%Y-%m-%d")}'").
         order_data.
         order_atendimento.
         offset(resource[:offset]).
