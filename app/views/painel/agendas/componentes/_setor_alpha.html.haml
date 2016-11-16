@@ -1,10 +1,6 @@
 .container-fluid{style: "width: 100"}
-  .well
-    .container-fluid
-      .row
+  .panel.panel-default
+    .container-fluid{style: "width: 100"}
+      .row-fluid
         .col-xs-12.col-sm-12.col-md-12.col-lg-12
-          .row
-            .col-md-10
-              =render 'painel/agendas/componentes/filtro'
-            / .col-md-2
-            /   =render 'painel/agendas/componentes/legenda'
+          =render 'painel/agendas/componentes/filtro'
