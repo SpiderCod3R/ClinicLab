@@ -14,7 +14,7 @@
           %th Atendente
           %th{align: "center"} Hora
           %th{align: "center"} Opções
-        %tbody#agenda_content_normal
+        =content_tag(:tbody, id: I18n.t('agendas.helpers.default')) do
           =render 'agendas'
 %br/
 %br/

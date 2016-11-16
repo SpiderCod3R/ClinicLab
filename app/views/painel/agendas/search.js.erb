@@ -1,12 +1,12 @@
 <%-if !@content.nil?%>
-  $("#agenda_content_normal").empty();
-  $('.table-agenda').find('tbody').attr("id","agenda_content_<%= @content %>");
-  $("#agenda_content_<%= @content %>").empty();
-  $("#agenda_content_<%= @content %>").append("<%=j render 'agendas' , { agendas: @agendas } %>");
+  $("#<%= I18n.t('agendas.helpers.default_content')%>").empty();
+  $('.table-agenda').find('tbody').attr("id","<%= @content %>");
+  $("#<%= @content %>").empty();
+  $("#<%= @content %>").append("<%=j render 'agendas' , { agendas: @agendas } %>");
 <%- else -%>
-  $('.table-agenda').find('tbody').attr("id", "agenda_content_normal")
-  $("#agenda_content_normal").empty();
-  $("#agenda_content_normal").append("<%=j render 'agendas' , { agendas: @agendas } %>");
+  $('.table-agenda').find('tbody').attr("id", "<%= I18n.t('agendas.helpers.default_content')%>")
+  $("#<%= I18n.t('agendas.helpers.default_content')%>").empty();
+  $("#<%= I18n.t('agendas.helpers.default_content')%>").append("<%=j render 'agendas' , { agendas: @agendas } %>");
 <%-end-%>
 
 
