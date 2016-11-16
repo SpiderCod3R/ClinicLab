@@ -1,8 +1,8 @@
 <%-if !@content.nil?%>
   $("#agenda_content_normal").empty();
-  $('.table-agenda').find('tbody').attr("id","agenda_content_<%= @content.id %>");
-  $("#agenda_content_<%= @content.id %>").empty();
-  $("#agenda_content_<%= @content.id %>").append("<%=j render 'agendas' , { agendas: @agendas } %>");
+  $('.table-agenda').find('tbody').attr("id","agenda_content_<%= @content %>");
+  $("#agenda_content_<%= @content %>").empty();
+  $("#agenda_content_<%= @content %>").append("<%=j render 'agendas' , { agendas: @agendas } %>");
 <%- else -%>
   $('.table-agenda').find('tbody').attr("id", "agenda_content_normal")
   $("#agenda_content_normal").empty();

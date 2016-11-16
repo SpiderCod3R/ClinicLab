@@ -43,19 +43,19 @@ class Painel::AgendasController < Support::AgendaSupportController
     end
 
     if referencia_agenda_presente?
-      @content = ReferenciaAgenda.find params[:q][:referencia_agenda_id]
+      @content = ReferenciaAgenda.find(params[:q][:referencia_agenda_id]).id
       @agendas = Agenda.da_empresa(@empresa.id).pela_referencia_da_data(params[:q])
     end
 
     if referencia_agenda_e_paciente_presentes?
-      @content = ReferenciaAgenda.find params[:q][:referencia_agenda_id]
+      @content = ReferenciaAgenda.find(params[:q][:referencia_agenda_id]).id
       @agendas = Agenda.da_empresa(@empresa.id).pela_referencia_e_paciente_da_data(params[:q])
     end
 
     if somente_data_presente?
+      @content = "dia_anterior"
       @agendas = Agenda.da_empresa(@empresa.id).da_data(params[:q])
     end
-
     respond_to &:js
   end
 
@@ -64,13 +64,10 @@ class Painel::AgendasController < Support::AgendaSupportController
       @acao = tipo_de_acao(params[:acao])
       case @acao
       when "normal"
-        @agendas = Agenda.includes(:referencia_agenda).includes(:agenda_movimentacao).
-                          da_empresa(@empresa.id).
-                          a_partir_da_data_do_dia.
-                          order_data.
-                          order_atendimento.
-                          offset(params[:offset]).
-                          take(params[:page_limit])
+        @agendas = Agenda.default(params)
+      when "dia_anterior"
+        @agendas = Agenda.do_dia_anterior(params)
+        binding.pry
       else
         @agendas = Agenda.load_more_medicos({acao: params[:acao],
                                              offset: params[:offset],
