@@ -1,8 +1,69 @@
+'''
+  ATENÇÃO!!!
+  ZONA DE PERIGO EXTREMO
+  CUIDADO AO MANUSEAR ESTA FUNCIONALIDADE
+'''
 class Support::AgendaSupportController < ApplicationController
   include AgendasHelper
   before_action :authenticate_usuario!
   before_action :find_empresa
 
+  def search
+    if nome_do_paciente_presente?
+      @agendas = Agenda.da_empresa(@empresa.id).paciente_a_partir_da_data(params[:q])
+    end
+
+    if referencia_agenda_presente?
+      @content = ReferenciaAgenda.find(params[:q][:referencia_agenda_id]).id
+      @content = I18n.t('agendas.helpers.by_parameters', parameter: @content)
+      @agendas = Agenda.da_empresa(@empresa.id).pela_referencia_da_data(params[:q])
+    end
+
+    if referencia_agenda_e_paciente_presentes?
+      @content = ReferenciaAgenda.find(params[:q][:referencia_agenda_id]).id
+      @content = I18n.t('agendas.helpers.by_parameters', parameter: @content)
+      @agendas = Agenda.da_empresa(@empresa.id).pela_referencia_e_paciente_da_data(params[:q])
+    end
+
+    if somente_data_presente?
+      @content = I18n.t('agendas.helpers.search_by_day_content')
+      @agendas = Agenda.da_empresa(@empresa.id).da_data(params[:q])
+    end
+    respond_to &:js
+  end
+
+  def load_more_data
+    if params[:acao].present?
+      @acao = tipo_de_acao(params[:acao])
+      case @acao
+      when I18n.t('agendas.helpers.default')
+        @agendas = Agenda.default(params)
+      when I18n.t('agendas.helpers.by_day')
+        @agendas = Agenda.search_by_day(params)
+      else
+        @agendas = Agenda.load_more_medicos({acao: params[:acao],
+                                             offset: params[:offset],
+                                             page_limit: params[:page_limit],
+                                             empresa_id: params[:empresa_id]})
+      end
+    end
+  end
+
+  def search_agenda_medicos
+    if params
+      @referencia = ReferenciaAgenda.find(params[:referencia_agenda_id])
+      @agendas  = Agenda.search_agenda_medicos(params)
+    end
+    respond_to &:js
+  end
+
+  def search_agenda_medicos_outro_dia
+    if params
+      @referencia = ReferenciaAgenda.find(params[:referencia_agenda_id])
+      @agendas  = Agenda.search_agenda_medicos_outro_dia(params)
+    end
+    respond_to &:js
+  end
 
   private
     def check_params_for_agenda

@@ -37,62 +37,6 @@ class Painel::AgendasController < Support::AgendaSupportController
     @agenda= Agenda.new
   end
 
-  def search
-    if nome_do_paciente_presente?
-      @agendas = Agenda.da_empresa(@empresa.id).paciente_a_partir_da_data(params[:q])
-    end
-
-    if referencia_agenda_presente?
-      @content = ReferenciaAgenda.find(params[:q][:referencia_agenda_id]).id
-      @agendas = Agenda.da_empresa(@empresa.id).pela_referencia_da_data(params[:q])
-    end
-
-    if referencia_agenda_e_paciente_presentes?
-      @content = ReferenciaAgenda.find(params[:q][:referencia_agenda_id]).id
-      @agendas = Agenda.da_empresa(@empresa.id).pela_referencia_e_paciente_da_data(params[:q])
-    end
-
-    if somente_data_presente?
-      @content = "dia_anterior"
-      @agendas = Agenda.da_empresa(@empresa.id).da_data(params[:q])
-    end
-    respond_to &:js
-  end
-
-  def load_more_data
-    if params[:acao].present?
-      @acao = tipo_de_acao(params[:acao])
-      case @acao
-      when "normal"
-        @agendas = Agenda.default(params)
-      when "dia_anterior"
-        @agendas = Agenda.do_dia_anterior(params)
-        binding.pry
-      else
-        @agendas = Agenda.load_more_medicos({acao: params[:acao],
-                                             offset: params[:offset],
-                                             page_limit: params[:page_limit],
-                                             empresa_id: params[:empresa_id]})
-      end
-    end
-  end
-
-  def search_agenda_medicos
-    if params
-      @referencia = ReferenciaAgenda.find(params[:referencia_agenda_id])
-      @agendas  = Agenda.search_agenda_medicos(params)
-    end
-    respond_to &:js
-  end
-
-  def search_agenda_medicos_outro_dia
-    if params
-      @referencia = ReferenciaAgenda.find(params[:referencia_agenda_id])
-      @agendas  = Agenda.search_agenda_medicos_outro_dia(params)
-    end
-    respond_to &:js
-  end
-
   def show
     respond_with(@agenda)
   end

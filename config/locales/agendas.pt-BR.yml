@@ -7,6 +7,11 @@ pt-BR:
       destroy: Excluir Agenda
       show: Visualizar Agenda
     helpers:
+      search_by_day_content: agenda_content_por_dia
+      default_content: agenda_content_normal
+      default: normal
+      by_day:  por_dia
+      by_parameters: agenda_content_%{parameter} 
       atendimento_sabado: Atendimento no Sábado
       atendimento_domingo: Atendimento no Domingo
       atendimento_duracao: "Duração do Atendimento [Min]"
