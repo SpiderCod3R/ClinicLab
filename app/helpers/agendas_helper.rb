@@ -3,19 +3,36 @@ module AgendasHelper
     return resource.gsub('agenda_content_', '')
   end
 
-  def action
-    if action_name == 'advanced_search'
-      :post
-    else
-      :get
-    end
+  def build_line_agendas(object)
+    render 'agenda_tr', { agenda: object }
   end
 
-  def link_to_toggle_agenda_search_modes
-    if action_name == 'advanced_search'
-      link_to('Busca Simplificada', painel_empresa_agendas_path(current_usuario.empresa_id))
-    else
-      link_to('Busca Avaçada', advanced_search_painel_empresa_agendas_path(current_usuario.empresa_id))
+  def change_color_by_day(resource, &block)
+    # binding.pry
+    if resource.status.eql?(I18n.t("agendas.helpers.scheduled")) && resource.data.eql?(Date.today)
+      concat(content_tag(:tr, block.binding, id: I18n.t('agendas.helpers.identity', resource_id: resource.id), class: "success tr_agenda") do
+        yield
+      end)
+    end
+
+    if resource.status.eql?(I18n.t("agendas.helpers.free"))
+      if resource.data == Date.today
+        concat(content_tag(:tr, block.binding, id: I18n.t('agendas.helpers.identity', resource_id: resource.id), class: "info tr_agenda") do
+          yield
+        end)
+      end
+
+      if resource.data != Date.today
+        if resource.data.day < Date.today && resource.data < resource.next.data
+          concat(content_tag(:tr, block.binding, id: I18n.t('agendas.helpers.identity', resource_id: resource.id), class: "soft_grey tr_agenda") do
+            yield
+          end)
+        else
+          concat(content_tag(:tr, block.binding, id: I18n.t('agendas.helpers.identity', resource_id: resource.id), class: "danger tr_agenda") do
+            yield
+          end)
+        end
+      end
     end
   end
 
@@ -56,7 +73,6 @@ module AgendasHelper
   def carrega_opcoes_agenda(agenda)
     render 'painel/agendas/componentes/opcoes', { agenda: agenda}
   end
-
 
   def agenda_wants_distinct_results?
     params[:distinct].to_i == 1

@@ -16,6 +16,7 @@ pt-BR:
       atendimento_domingo: Atendimento no Domingo
       atendimento_duracao: "Duração do Atendimento [Min]"
       scheduled: Agendado
+      identity: agenda_id_%{resource_id}
       unavaliable: Indisponível
       didnt_came: Não Veio
       unmarked_by_doctor: Desmarcado pelo Médico
