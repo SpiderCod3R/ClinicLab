@@ -4,9 +4,11 @@
   -else
     %label=agenda.referencia
 %td{align: "center"}=day_name(agenda.data.wday)
-%td{align: "center"}=agenda.data.strftime("%d/%m/%Y")
+-if agenda.data.eql?(Date.today)
+  %td{align: "center", style: "color: #1B861F; font-weight: bold;"}=agenda.data.strftime("%d/%m/%Y")
+-else
+  %td{align: "center", style: "color: #6E0200"}=agenda.data.strftime("%d/%m/%Y")
 %td{align: "center"}=Time.parse(agenda.atendimento_inicio).strftime("%H:%M")
-%td{align: "center"}=agenda.atendimento_duracao
 %td{align: "center"}
   %label=agenda.agenda_movimentacao.confirmacao if agenda.confirmacao?
 %td=agenda.agenda_movimentacao.nome_paciente if agenda.try(:agenda_movimentacao)
