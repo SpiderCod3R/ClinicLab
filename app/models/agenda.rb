@@ -73,6 +73,14 @@ class Agenda < ApplicationRecord
     agenda_movimentacao.confirmacao?
   end
 
+  def next
+    self.class.where("id > ?", id).first
+  end
+
+  def previous
+    self.class.where("id < ?", id).last
+  end
+
   def clean
     self.agenda_movimentacao.destroy
     self.status= I18n.t("agendas.helpers.free")
@@ -142,7 +150,7 @@ class Agenda < ApplicationRecord
 
   def attended(resource)
     @param_hora = Converter::TimeConverter.new(resource["hora_atendimento(4i)"], resource["hora_atendimento(5i)"])
-    self.agenda_movimentacao.update_attributes(confirmacao: "A.T.E.")
+    self.agenda_movimentacao.update_attributes(confirmacao: "ATD")
     self.status=(I18n.t('agendas.helpers.attended'))
     self.hora_atendimento=@param_hora.to_format
     self.save
