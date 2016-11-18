@@ -9,13 +9,6 @@ Rails.application.routes.draw do
   resources :clientes
   resources :conselho_regionais
 
-  resources :texto_livres
-  resources :imagem_cabecs
-  resources :fornecedores
-  resources :cabecs
-  resources :clientes
-  resources :conselho_regionais
-
   get 'relatorios/new' => "configuracao_relatorios#new"
   get 'conselhos_regionais/new' => "conselho_regionais#new"
 
@@ -29,11 +22,10 @@ Rails.application.routes.draw do
   resources :profissionais
   resources :cargos
   resources :convenios
-  resources :pacientes
   resources :atendimentos
   resources :operadoras
 
-  # post 'agenda/create', to: "painel/agendas#create"
+  post 'agenda/paciente/change', to: "clientes#change_or_create_new_paciente", as: :change_or_create_new_paciente
 
   get 'ficha_cliente', to: "clientes#ficha", as: :new_ficha_cliente
 
