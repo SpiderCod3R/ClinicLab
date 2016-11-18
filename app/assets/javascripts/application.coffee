@@ -49,7 +49,6 @@
 #= require valida_cpf
 
 
-$("#session_modal.modal").modal()
 
 #= require fornecedor
 #= require fornecedores
@@ -63,3 +62,5 @@ $("#session_modal.modal").modal()
 #= require utility/maskaras
 #= require utility/__init__
 
+# $("#session_modal.modal").modal()
+# 
