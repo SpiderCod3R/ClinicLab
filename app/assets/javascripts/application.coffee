@@ -6,7 +6,7 @@
 #= require JQUERY/jquery.maskMoney
 #= require JQUERY/jquery.numeric.pack
 #= require JQUERY/jquery.maskedinput-1.1.4.pack
-# require xray
+#= require xray
 #= require jquery_ujs
 
 #= require bootstrap
@@ -22,10 +22,9 @@
 #= require BOOTSTRAP-PLUGINS/bootstrap-progressbar.min
 
 # -*- TINYMCE -*-
-#= require TINYMCE/jquery.tinymce.min
-#= require TINYMCE/tinymce.min
+#= require tinymce-jquery
 #= require tinyMCE
-#= require TINYMCE/tinymce_pt_BR
+#= require text_area_editor_pt_BR
 
 # -*- UTILITARIOS -*-
 #= require utility/maskaras
@@ -34,25 +33,24 @@
 #= require TEMPLATE/parsley.min
 # require utility/datatable
 
-# You may include any languages (optional)
-#= require moment/pt-br
-
-# -*- X-RAY -*-
-# require xray
-
 # -*- REQUIRES DO GCLINIC
-#= require valida_cpf
-#= require clientes
-#= require cliente_idade
-#= require cliente_nacionalidade
-#= require cliente_historicos
-#= require profissionais
-
+#= require date_time_inputs
 #= require agenda/agenda
 #= require agenda/movimentar_agenda
 #= require atendimentos
 #= require clientes
+#= require cliente_idade
+#= require cliente_nacionalidade
+#= require cliente_historicos
 #= require clientes/search
+#= require fornecedor
+#= require fornecedores
+#= require profissionais
+#= require painel/permissoes
+#= require valida_cpf
+
+
+$("#session_modal.modal").modal()
 
 #= require fornecedor
 #= require fornecedores
