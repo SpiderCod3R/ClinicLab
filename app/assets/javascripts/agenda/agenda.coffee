@@ -2,9 +2,10 @@ $(document).ready ->
   dias_semana = 6
   atendimento_sabado   =$("#atendimento_sabado").find("input:checked").val()
   atendimento_domingo  =$("#atendimento_sabado").find("input:checked").val()
-  # horario_parcial      =$("#horario_parcial").find("input:checked").val()
   empresa_id = $("#agenda_empresa_id").val()
   localhost = window.location.origin
+
+
 
   $('#q_agenda_movimentacao_nome_paciente_cont').bind 'railsAutocomplete.select', (event, data) ->
     $('#search-form').submit()
@@ -56,30 +57,72 @@ $(document).ready ->
 
   $('#atendimento_sabado').change ->
     atendimento_sabado = $('#atendimento_sabado').find("input:checked").val()
-    if atendimento_sabado == "1"
+    if $("#agenda_atendimento_turno_a_duracao").val() != "" && atendimento_sabado == "1"
       $('#manha_dia_5').show().fadeIn(500)
+    else
+      $("#agenda_atendimento_turno_a_duracao").focus()
+      # $("#agenda_atendimento_sabado_1").attr('checked', false);
+      # $("#agenda_atendimento_sabado_0").attr('checked', true);
+      $('#manha_dia_5').show().fadeOut(500)
+
+    if $("#agenda_atendimento_turno_b_duracao").val() != "" && atendimento_sabado == "1"
       $('#tarde_dia_5').show().fadeIn(500)
     else
-      $('#manha_dia_5').show().fadeOut(500)
+      $("#agenda_atendimento_turno_b_duracao").focus()
+      # $("#agenda_atendimento_sabado_1").attr('checked', false);
+      # $("#agenda_atendimento_sabado_0").attr('checked', true);
       $('#tarde_dia_5').show().fadeOut(500)
 
   $('#atendimento_domingo').change ->
     atendimento_domingo = $('#atendimento_domingo').find("input:checked").val()
-    if atendimento_domingo == "1"
+    if atendimento_domingo == "1" && $("#agenda_atendimento_turno_a_duracao").val() != ""
       $('#manha_dia_6').show().fadeIn(500)
       $('#tarde_dia_6').show().fadeIn(500)
     else
+      $("#agenda_atendimento_turno_a_duracao").focus()
+      $("#agenda_atendimento_domingo_1").attr('checked', false);
+      $("#agenda_atendimento_domingo_0").attr('checked', true);
       $('#manha_dia_6').show().fadeOut(500)
       $('#tarde_dia_6').show().fadeOut(500)
 
-  # $('#horario_parcial').change ->
-  #   horario_parcial = $('#horario_parcial').find("input:checked").val()
-  #   if horario_parcial == "1"
-  #     $('#atendimento_manha').fadeOut(500)
-  #     $('#atendimento_tarde').fadeOut(500)
-  #   else
-  #     $('#atendimento_manha').fadeIn(500)
-  #     $('#atendimento_tarde').fadeIn(500)
+  $("#agenda_data_final").blur ->
+    $("#agenda_atendimento_turno_a_duracao").focus()
+
+  if $("#agenda_atendimento_turno_a_duracao").val() == ""
+    i=0
+    while i <= 4
+      $("#manha_dia_#{i}").hide()
+      i++
+
+  if $("#agenda_atendimento_turno_b_duracao").val() == ""
+    i=0
+    while i <= 4
+      $("#tarde_dia_#{i}").hide()
+      i++
+
+  $("#agenda_atendimento_turno_a_duracao").change ->
+    if $("#agenda_atendimento_turno_a_duracao").val() == ""
+      i=0
+      while i <= 4
+        $("#manha_dia_#{i}").hide()
+        i++
+    else
+      i=0
+      while i <= 4
+        $("#manha_dia_#{i}").show()
+        i++
+
+  $("#agenda_atendimento_turno_b_duracao").change ->
+    if $("#agenda_atendimento_turno_b_duracao").val() == ""
+      i=0
+      while i <= 4
+        $("#tarde_dia_#{i}").hide()
+        i++
+    else
+      i=0
+      while i <= 4
+        $("#tarde_dia_#{i}").show()
+        i++
 
   discover_week_days = (indice) ->
     if indice == 0
