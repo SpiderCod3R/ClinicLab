@@ -3,6 +3,8 @@
     %button.btn.btn-default.btn-circle.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
       %i.glyphicon.glyphicon-chevron-up
     %ul.dropdown-menu.drop-up
+      %li=link_to "Ficha do Paciente", new_ficha_cliente_path(agenda_id: agenda)
+      %li.divider{:role => "separator"}
       %li=link_to "Visualizar Atendimento", painel_empresa_agenda_path(current_usuario.empresa, agenda)
       -unless agenda.status.eql?(I18n.t("agendas.helpers.attended"))
         -if agenda.status.eql?(I18n.t("agendas.helpers.scheduled")) or agenda.status.eql?(I18n.t("agendas.helpers.free"))

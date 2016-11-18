@@ -1,7 +1,7 @@
 json.array!(@pacientes) do |paciente|
   json.extract! paciente, :id,:nome, :rg, :cpf, :telefone, :endereco, :bairro,
                           :complemento, :sexo, :estado_civil, :matricula, :titular,
-                          :plano, :validade_carteira, :email
+                          :plano, :validade_carteira, :email, :produto
 
 
   json.set! :nascimento do

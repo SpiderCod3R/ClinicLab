@@ -1,7 +1,7 @@
 $(document).ready ->
   localhost = window.location.origin
   # => Metodo para buscar pacientes já cadastrados no sistema
-  $("#cliente_nome").on 'change', (event) ->
+  $("#agenda_movimentacao_nome_paciente").on 'change', (event) ->
     paciente = $(this)
     $.ajax
       type: 'get'
@@ -54,16 +54,8 @@ $(document).ready ->
                         "<a href='#' data-paciente-nome='#{cluster.nome}'"+
                         "data-paciente-id='#{cluster.id}'"+
                         "data-paciente-rg='#{cluster.rg}'"+
-                        "data-paciente-cpf='#{cluster.cpf.numero}'"+
+                        "data-paciente-cpf='#{cluster.cpf}'"+
                         "data-paciente-email='#{cluster.email}'"+
-                        "data-paciente-matricula='#{cluster.matricula}'"+
-                        "data-paciente-produto='#{cluster.produto}'"+
-                        "data-paciente-titular='#{cluster.titular}'"+
-                        "data-paciente-endereco='#{cluster.endereco}'"+
-                        "data-paciente-complemento='#{cluster.complemento}'"+
-                        "data-paciente-bairro='#{cluster.bairro}'"+
-                        "data-paciente-plano='#{cluster.plano}'"+
-                        "data-paciente-validade_carteira='#{cluster.validade_carteira}'"+
                         "data-paciente-telefone='#{cluster.telefone}'"+
                         "data-paciente-convenio_id='#{if cluster.convenio != undefined then cluster.convenio.id }'"+
                         "data-paciente-convenio_nome='#{if cluster.convenio != undefined then cluster.convenio.nome }'>"+
@@ -77,21 +69,11 @@ $(document).ready ->
 
   $(document).on "click", "#paciente_search_result_link", ->
     link = $(this).find("a")
-    $("#cliente_nome").val(link.data().pacienteNome).focus()
-    $("#cliente_telefone").val(link.data().pacienteTelefone)
-    $("#cliente_email").val(link.data().pacienteEmail)
-    $("#cliente_cpf").val(link.data().pacienteCpf)
-    $("#cliente_rg").val(link.data().pacienteRg)
-    $("#cliente_matricula").val(link.data().pacienteMatricula)
-    $("#cliente_produto").val(link.data().pacienteProduto)
-    $("#cliente_titular").val(link.data().pacienteTitular)
-    $("#cliente_plano").val(link.data().pacientePlano)
-    $(".cliente_validade_carteira").val(link.data().pacienteValidade_carteira)
-    $("#cliente_endereco").val(link.data().pacienteEndereco)
-    $("#cliente_complemento").val(link.data().pacienteComplemento)
-    $("#cliente_bairro").val(link.data().pacienteBairro)
+    $("#agenda_movimentacao_nome_paciente").val(link.data().pacienteNome).focus()
+    $("#agenda_movimentacao_telefone_paciente").val(link.data().pacienteTelefone)
+    $("#agenda_movimentacao_email_paciente").val(link.data().pacienteEmail)
 
     if link.data().pacienteId != "undefined"
-      $("#cliente_id").val(link.data().pacienteId)
+      $("#agenda_movimentacao_id_paciente").val(link.data().pacienteId)
     if link.data().pacienteConvenio_id != "undefined"
-      $("#cliente_convenio_id").val(link.data().pacienteConvenio_id) #"<option value=\"" + link.data().pacienteEstado_id  + "\">" + link.data().pacienteEstado_nome + "</option>"
+      $("#agenda_movimentacao_convenio_id").val(link.data().pacienteConvenio_id) #"<option value=\"" + link.data().pacienteEstado_id  + "\">" + link.data().pacienteEstado_nome + "</option>"

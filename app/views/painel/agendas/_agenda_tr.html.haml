@@ -15,10 +15,4 @@
 %td=agenda.agenda_movimentacao.atendente.nome if agenda.try(:agenda_movimentacao)
 %td
   %label=agenda.hora_atendimento.strftime("%H:%M") unless agenda.hora_atendimento.blank?
-%td
-  #opcoes{style: "display: -webkit-inline-box;"}
-    =carrega_opcoes_agenda(agenda)
-    -if agenda.try(:agenda_movimentacao)
-      =content_tag(:div, class: "side", style: "position: relative; left: 45px; font-size: large;") do
-        =link_to new_ficha_cliente_path(agenda_id: agenda) do
-          %i.mdi.mdi-account-card-details
+%td{align: "center"}=carrega_opcoes_agenda(agenda)

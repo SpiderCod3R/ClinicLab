@@ -38,8 +38,7 @@
 #= require agenda/movimentar_agenda
 #= require atendimentos
 #= require clientes
-# require clientes/search
-#= require pacientes
+#= require clientes/search
 #= require fornecedor
 #= require fornecedores
 #= require profissionais
