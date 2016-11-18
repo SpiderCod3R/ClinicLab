@@ -38,18 +38,17 @@
         %hr
         .container
           =simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'form-horizontal' }) do |f|
-            .row-fluid
-              .col-md-4
-                = f.input :login, required: false, autofocus: true
-            .row-fluid
-              .col-md-4
-                = f.input :password, required: false
-            .row-fluid
-              .col-md-4
-                .session-btn-actions
-                  = f.button :submit, "Log in", class: "btn btn-success"
-                  - if devise_mapping.rememberable? 
-                    = f.input :remember_me, as: :boolean
+            .container
+              .row
+                .col-md-4
+                  = f.input :login, required: false, autofocus: true
+              .row
+                .col-md-4
+                  = f.input :password, required: false
+              .row
+                .col-md-4
+                  .session-btn-actions
+                    = f.button :submit, "Log in", class: "btn btn-success"
   .col-md-7
     #sessions_right_side_content
       .panel
