@@ -1,11 +1,7 @@
 source 'https://rubygems.org'
 
-<<<<<<< HEAD
 gem 'rails', '~> 5.0.0.1'
-=======
 gem 'bundler', '>= 1.8.4'
-gem 'rails', '~> 5.0.0'
->>>>>>> agenda
 gem 'rails-i18n', '~> 5.0.0'
 
 gem 'mysql2', '>= 0.3.18', '< 0.5'
@@ -24,14 +20,10 @@ end
 
 gem 'turbolinks', '~> 5'
 
-<<<<<<< HEAD
-group :development do
-=======
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-turbolinks'
 gem 'rails-jquery-autocomplete'
-
 gem 'redis', '~> 3.0'
 gem 'jbuilder', '~> 2.5'
 
@@ -46,7 +38,7 @@ group :development, :test do
   gem 'faker', '~> 1.6', '>= 1.6.6'
   gem 'better_errors', '~> 2.1', '>= 2.1.1'
   gem "binding_of_caller"
->>>>>>> agenda
+
   gem 'web-console'
   gem 'listen', '~> 3.0.5'
   gem 'spring'
@@ -79,48 +71,24 @@ gem 'masonry-rails'
 gem 'paperclip', '~> 5.0.0'
 gem 'tinymce-rails'
 gem 'tinymce-rails-langs'
-<<<<<<< HEAD
 gem "bootstrap-table-rails"
 gem 'localized_country_select'
 
-group :development, :test do
-  gem 'pry'
-  gem 'pry-rails'
-  gem 'rspec', '~> 3.5'
-  gem 'rspec-rails', '~> 3.5', '>= 3.5.1'
-  gem 'factory_girl_rails'
-  gem 'capybara', '~> 2.7', '>= 2.7.1'
-  gem 'faker', '~> 1.6', '>= 1.6.6'
-end
 
-=======
->>>>>>> agenda
 gem 'chosen-rails', '~> 1.5', '>= 1.5.2'
 gem 'wannabe_bool'
 gem "attr_encrypted", "~> 3.0.0"
 gem 'friendly_id', '~> 5.1.0'
 gem 'time_difference', '~> 0.4.2'
-<<<<<<< HEAD
 
 gem 'font-awesome-rails', '~> 4.6', '>= 4.6.3.1'
 
-=======
-gem 'font-awesome-rails', '~> 4.6', '>= 4.6.3.1'
-
-
->>>>>>> agenda
 # Use Capistrano for deployment
 gem 'capistrano', '~> 3.6'
 gem 'capistrano-rails', '~> 1.1', '>= 1.1.7', group: :development
 gem "capistrano-bundler"
 gem 'capistrano-rbenv', '~> 2.0', '>= 2.0.4'
-<<<<<<< HEAD
 gem 'capistrano3-puma'
 gem 'capistrano3-nginx'
 gem 'capistrano-upload-config'
-=======
 gem 'capistrano-puma', '~> 0.2.3'
-gem 'capistrano3-puma'
-gem 'capistrano3-nginx'
-gem 'capistrano-upload-config'
->>>>>>> agenda
