@@ -1,12 +1,11 @@
 class Cargo < ApplicationRecord
   include MetodosUteis
   include AtivandoStatus
-
-
+  validates :nome, presence: true, uniqueness: true
   validates :nome, presence: true
   has_many :profissionais
-
-  validates_uniqueness_of :nome
+  belongs_to :empresa
+  has_many :profissionais
 
   scope :pelo_nome, -> { order("nome ASC") }
 

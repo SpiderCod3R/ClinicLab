@@ -1,0 +1,49 @@
+pt-BR:
+  agendas:
+    links:
+      new: Nova Agenda
+      new_referency: Nova Referência
+      edit: Editar Agenda
+      destroy: Excluir Agenda
+      show: Visualizar Agenda
+    helpers:
+      search_by_day_content: agenda_content_por_dia
+      default_content: agenda_content_normal
+      default: normal
+      by_day:  por_dia
+      by_parameters: agenda_content_%{parameter} 
+      atendimento_sabado: Atendimento no Sábado
+      atendimento_domingo: Atendimento no Domingo
+      atendimento_duracao: "Duração do Atendimento [Min]"
+      scheduled: Agendado
+      identity: agenda_id_%{resource_id}
+      unavaliable: Indisponível
+      didnt_came: Não Veio
+      unmarked_by_doctor: Desmarcado pelo Médico
+      remarked_by_doctor: Remarcado pelo Médico
+      unmarked_by_pacient: Desmarcado pelo Paciente
+      remarked_by_pacient: Remarcado pelo Paciente
+      attended: Atendido
+      give_up: Desistiu
+      free: VAGO
+      shift:
+        morning: Manhã
+        afternoon: "Tarde"
+    messages:
+      generating: Gerando Agenda da Referência %{referency} - %{referency_resource}
+      no_value_detected: Nenhum horário detectado. Por-favor Preencha pelo menos um horário.
+      time_out_no_detected: Não foi possivel detectar um intervalo do atendimento. Por-favor informe um intervalo em minutos.
+      schedule_not_found: Não existem horários vagos para estes dados
+      schedule_changed:  Dia ou horário do atendimento alterado.
+      invalid_date: A data não pode ser menor do que a data de hoje.
+      referency_saved: Referência salva com sucesso.
+      referency_saved: Referência salva com sucesso.
+      service_attended: Atendimento concluido
+      didnt_came: Paciente não compareceu ao atendimento.
+  activerecord: 
+    models: 
+      agenda: Agenda 
+      referencia_agenda: ReferenciaAgenda 
+  attributes: 
+    referencia_agenda: 
+      profissional_id: Profissional

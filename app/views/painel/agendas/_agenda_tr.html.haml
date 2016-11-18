@@ -1,0 +1,18 @@
+%td
+  -unless agenda.agenda_movimentacao.present?
+    =link_to agenda.referencia, painel_empresa_agenda_movimentar_ou_atualizar_path(@empresa,agenda.id), class: "hands_cursor"
+  -else
+    %label=agenda.referencia
+%td{align: "center"}=day_name(agenda.data.wday)
+-if agenda.data.eql?(Date.today)
+  %td{align: "center", style: "color: #1B861F; font-weight: bold;"}=agenda.data.strftime("%d/%m/%Y")
+-else
+  %td{align: "center", style: "color: #6E0200"}=agenda.data.strftime("%d/%m/%Y")
+%td{align: "center"}=Time.parse(agenda.atendimento_inicio).strftime("%H:%M")
+%td{align: "center"}
+  %label=agenda.agenda_movimentacao.confirmacao if agenda.confirmacao?
+%td=agenda.agenda_movimentacao.nome_paciente if agenda.try(:agenda_movimentacao)
+%td=agenda.agenda_movimentacao.atendente.nome if agenda.try(:agenda_movimentacao)
+%td
+  %label=agenda.hora_atendimento.strftime("%H:%M") unless agenda.hora_atendimento.blank?
+%td{align: "center"}=carrega_opcoes_agenda(agenda)

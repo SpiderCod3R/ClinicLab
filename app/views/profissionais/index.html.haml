@@ -13,7 +13,7 @@
       %tbody
         - @profissionais.each do |profissional|
           %tr
-            %td=ativo_ou_inativo?(profissional.status)
+            %td=status(profissional.status)
             %td=profissional.id
             %td=profissional.nome
             %td=profissional.cargo.nome

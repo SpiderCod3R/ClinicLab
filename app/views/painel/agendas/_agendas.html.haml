@@ -1,0 +1,28 @@
+- @agendas.each do |agenda|
+  -change_color_by_day agenda do
+    =build_line_agendas(agenda)
+
+/ -if agenda.status.eql?(I18n.t("agendas.helpers.free")) and agenda.data == Date.today
+/     =content_tag(:tr, id: "agenda_id_#{agenda.id}" , class: "info tr_agenda") do
+/       =render 'agenda_tr', { agenda: agenda }
+/   -elsif agenda.status.eql?(I18n.t("agendas.helpers.scheduled")) and agenda.data == Date.today
+/     =content_tag(:tr, id: "agenda_id_#{agenda.id}" , class: "success tr_agenda") do
+/       =render 'agenda_tr', { agenda: agenda }
+/   -elsif agenda.status.eql?(I18n.t("agendas.helpers.didnt_come")) or agenda.status.eql?(I18n.t("agendas.helpers.unmarked_by_pacient")) or agenda.status.eql?(I18n.t("agendas.helpers.unmarked_by_doctor"))
+/     =content_tag(:tr, id: "agenda_id_#{agenda.id}" , class: "attention tr_agenda") do
+/       =render 'agenda_tr', { agenda: agenda }
+/   -elsif agenda.status.eql?(I18n.t("agendas.helpers.attended"))
+/     =content_tag(:tr, id: "agenda_id_#{agenda.id}" , class: "danger tr_agenda") do
+/       =render 'agenda_tr', { agenda: agenda }
+/   -elsif agenda.status.eql?(I18n.t("agendas.helpers.didnt_came"))
+/     =content_tag(:tr, id: "agenda_id_#{agenda.id}" , class: "attention tr_agenda") do
+/       =render 'agenda_tr', { agenda: agenda }
+/   -elsif agenda.status.eql?(I18n.t("agendas.helpers.didnt_come")) or agenda.status.eql?(I18n.t("agendas.helpers.unmarked_by_pacient")) or agenda.status.eql?(I18n.t("agendas.helpers.unmarked_by_doctor")) and agenda.data != Date.today
+/     =content_tag(:tr, id: "agenda_id_#{agenda.id}" , class: "attention tr_agenda") do
+/       =render 'agenda_tr', { agenda: agenda }
+/   -elsif agenda.status.eql?(I18n.t("agendas.helpers.free")) and agenda.data != Date.today
+/     =content_tag(:tr, id: "agenda_id_#{agenda.id}" , class: "soft_grey tr_agenda") do
+/       =render 'agenda_tr', { agenda: agenda }
+/   -elsif agenda.status.eql?(I18n.t("agendas.helpers.scheduled")) and agenda.data != Date.today
+/     =content_tag(:tr, id: "agenda_id_#{agenda.id}" , class: "soft_grey tr_agenda") do
+/       =render 'agenda_tr', { agenda: agenda }

@@ -1,0 +1,126 @@
+@import "include-media"
+$breakpoints: (little: 320px, phone: 640px, tablet: 768px, desktop: 1024px) !default
+
+tr.tr_agenda
+  height: 25%
+
+.tres
+  width: 30px
+  height: 30px
+  border: 25px solid
+  /* As 4 bordas sólidas com 25px de espessura*/
+  border-color: #f00 #0f0 #00f #fc0
+  /* cores: topo, direita, inferior, esquerda */
+
+.block_tile
+  width:  5px
+  height: 5px
+  .blue
+    border: 10px solid
+    border-color: #5CB7DD
+  .green
+    border: 10px solid
+    border-color: #62B290
+  .yellow
+    border: 10px solid
+    border-color: #F6E275
+  .orange
+    border: 10px solid
+    border-color: #ECB186
+  .red
+    border: 10px solid
+    border-color: #EE3342
+  .soft_grey
+    border: 10px solid
+    border-color: #B7B7B7
+
+.legend
+  margin: 2px
+  padding-left: 15px
+  position: relative
+  top: -10px !important
+  width: 300px
+
+#agenda_legend
+  margin: 0 auto
+  padding: 0 auto
+
+#filter_btns_agenda
+  margin-top: 7%
+
+.table > thead > tr > td.soft_grey,
+.table > tbody > tr > td.soft_grey,
+.table > tfoot > tr > td.soft_grey,
+.table > thead > tr > th.soft_grey,
+.table > tbody > tr > th.soft_grey,
+.table > tfoot > tr > th.soft_grey,
+.table > thead > tr.soft_grey > td,
+.table > tbody > tr.soft_grey > td,
+.table > tfoot > tr.soft_grey > td,
+.table > thead > tr.soft_grey > th,
+.table > tbody > tr.soft_grey > th,
+.table > tfoot > tr.soft_grey > th
+  background-color: #FEFAFF
+
+.table-hover > tbody > tr > td.soft_grey:hover,
+.table-hover > tbody > tr > th.soft_grey:hover,
+.table-hover > tbody > tr.soft_grey:hover > td,
+.table-hover > tbody > tr:hover > .soft_grey,
+.table-hover > tbody > tr.soft_grey:hover > th
+  background-color: #DCDCDC
+
+
+.table > thead > tr > td.orange,
+.table > tbody > tr > td.orange,
+.table > tfoot > tr > td.orange,
+.table > thead > tr > th.orange,
+.table > tbody > tr > th.orange,
+.table > tfoot > tr > th.orange,
+.table > thead > tr.orange > td,
+.table > tbody > tr.orange > td,
+.table > tfoot > tr.orange > td,
+.table > thead > tr.orange > th,
+.table > tbody > tr.orange > th,
+.table > tfoot > tr.orange > th
+  background-color: #EDC4A6
+
+.table-hover > tbody > tr > td.orange:hover,
+.table-hover > tbody > tr > th.orange:hover,
+.table-hover > tbody > tr.orange:hover > td,
+.table-hover > tbody > tr:hover > .orange,
+.table-hover > tbody > tr.orange:hover > th
+  background-color: #FDC49B
+
+#q_referencia_agenda_profissional_nome_cont,
+#q_agenda_movimentacao_nome_paciente_cont
+  width: 300px
+  border-radius: 5px
+
+.col-md-pull-0-5
+  right: 5.33333333%
+
+.panel-legend
+  width: 275px
+
+select#q_data_cont_3i,
+select#q_data_cont_2i,
+select#q_data_cont_1i,
+select#agenda_param_data_3i,
+select#agenda_param_data_2i,
+select#agenda_param_data_1i,
+select#agenda_hora_4i,
+select#agenda_hora_5i
+  width:  50px
+  height: 30px
+select#agenda_param_data_1i,
+select#q_data_cont_1i
+  width:  60px
+
+@include media("<=desktop")
+  #q_agenda_movimentacao_nome_paciente_cont
+    width: 250px
+    border-radius: 5px
+  #search_paciente_field
+    margin-left: 20% !important
+  .panel-legend
+    margin-left: -35% !important

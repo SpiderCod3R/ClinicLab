@@ -1,32 +1,33 @@
+#-*-coding:utf-8-*-
 Rails.application.routes.draw do
-'''
-  START::ROTAS DO PAINEL ADMINISTRATIVO
-'''
-  namespace :painel do
-    resources :dashboards
+  resources :referencia_agendas, except: [:show]
 
-    resources :permissoes, except: [:show, :new] do
-      get 'excluir'
-    end
+  resources :texto_livres
+  resources :imagem_cabecs
+  resources :fornecedores
+  resources :cabecs
+  resources :clientes
+  resources :conselho_regionais
 
-    resources :empresas do
-      put 'change_name'
-      get 'new_admin', to: "dashboards#new_company_admin", as: :novo_admin
-      post 'create_admin', to: "dashboards#create_admin", as: :create_admin
-      delete 'remove_administrador/:usuario_id', to: "dashboards#remove_admin", as: :remove_admin
-      delete 'remover_permissao_empresa_usaurio/:permissao_id', to: "dashboards#remover_permissao_empresa_usaurio", as: :remover_permissao_empresa_usaurio
-      resources :contas, controller: 'usuarios/accounts'
-      resources :painel_usuarios, controller: 'usuarios/manager', except: [:index] do
-        get  'add_permissions'
-        post 'save_permissions'
-      end
-    end
+  get 'relatorios/new' => "configuracao_relatorios#new"
+  get 'conselhos_regionais/new' => "conselho_regionais#new"
 
-    get 'usuario/:id/permissoes', to: "usuarios/accounts#show_permissions", as: :show_user_permissions
-    get 'usuario/:id/password_change', to: "usuarios/accounts#change_password", as: :change_user_password
-    post '/dashboards/empresas/permissoes/create', to: "dashboards#import_permissoes_to_company", as: :dashboards_add_permissoes_to_company 
-    put '/usuarios/:id/update_password', to: "usuarios/manager#update_password", as: :usuario_update_password
-  end
+  get 'pages/help'
+  get 'pages/contact_us'
+  get 'search/buscar_pacientes' => "search#buscar_pacientes"
+  get 'search/conselho_regional', to: 'conselho_regionais#search'
+
+  resources :configuracao_relatorios
+  resources :centro_de_custos
+  resources :profissionais
+  resources :cargos
+  resources :convenios
+  resources :atendimentos
+  resources :operadoras
+
+  post 'agenda/paciente/change', to: "clientes#change_or_create_new_paciente", as: :change_or_create_new_paciente
+
+  get 'ficha_cliente', to: "clientes#ficha", as: :new_ficha_cliente
 
   devise_for :usuarios,
               patch: "painel/usuarios",
@@ -48,9 +49,6 @@ Rails.application.routes.draw do
       root "painel/usuarios/sessions#new", to: "painel/usuarios/sessions#new", as: :main, path: 'painel/usuarios'
     end
   end
-'''
-  END::ROTAS DO PAINEL ADMINISTRATIVO
-'''
 
   resources :texto_livres
   resources :imagem_cabecs
@@ -71,14 +69,56 @@ Rails.application.routes.draw do
   get 'search/buscar_pacientes' => "search#buscar_pacientes"
   get 'search/conselho_regional', to: 'conselho_regionais#search'
 
-  resources :configuracao_relatorios
-  resources :centro_de_custos
-  resources :profissionais
-  resources :cargos
-  resources :convenios
-  resources :pacientes
-  resources :atendimentos
-  resources :operadoras
+  namespace :painel do
+    resources :dashboards
 
-  root "pages#index"
+    resources :permissoes, except: [:show, :new] do
+      get 'excluir'
+    end
+
+    resources :empresas do
+      put 'change_name'
+      get 'new_admin', to: "dashboards#new_company_admin", as: :novo_admin
+      post 'create_admin', to: "dashboards#create_admin", as: :create_admin
+      delete 'remove_administrador/:usuario_id', to: "dashboards#remove_admin", as: :remove_admin
+      delete 'remover_permissao_empresa_usaurio/:permissao_id', to: "dashboards#remover_permissao_empresa_usaurio", as: :remover_permissao_empresa_usaurio
+      resources :contas, controller: 'usuarios/accounts'
+
+      resources :painel_usuarios, controller: 'usuarios/manager', except: [:index] do
+        get  'add_permissions'
+        post 'save_permissions'
+      end
+
+      resources :agendas do
+        collection do
+          match 'search' => 'agendas#search', via: [:get], as: :search
+          match 'search-referencia/:referencia_agenda_id'=> 'agendas#search_agenda_medicos', via: [:get], as: :search_agenda_medicos
+          match 'search-referencia-proximo-dia/:referencia_agenda_id'=> 'agendas#search_agenda_medicos_outro_dia', via: [:get], as: :search_agenda_medicos_outro_dia
+          match 'load_more_data' => 'agendas#load_more_data', via: [:post], as: :load_more_data
+        end
+        get 'clean'
+        get 'didnt_came'
+        get 'change_day_or_time'
+        put 'change'
+        get 'remark_by_pacient'
+        put 'remarked_by_pacient'
+        get 'remark_by_doctor'
+        put 'remarked_by_doctor'
+        get 'unmarked_by_doctor'
+        get 'unmarked_by_pacient'
+        get 'make_appointment'
+        put 'attended'
+        get 'block_day', to: 'agendas#block_day', as: :block_day
+        put 'block_day', to: 'agendas#set_block_on_day', as: :set_block_on_day
+        resources :agenda_movimentacoes
+        get 'movimentar', to: 'agenda_movimentacoes#verify', as: :movimentar_ou_atualizar
+      end
+    end
+    get 'usuario/:id/permissoes', to: "usuarios/accounts#show_permissions", as: :show_user_permissions
+    get 'usuario/:id/password_change', to: "usuarios/accounts#change_password", as: :change_user_password
+    post '/dashboards/empresas/permissoes/create', to: "dashboards#import_permissoes_to_company", as: :dashboards_add_permissoes_to_company 
+    put '/usuarios/:id/update_password', to: "usuarios/manager#update_password", as: :usuario_update_password
+  end
+
+  root to: "pages#index"
 end

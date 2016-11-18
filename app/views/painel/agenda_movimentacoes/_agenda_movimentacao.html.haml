@@ -1,0 +1,35 @@
+.col-md-8
+  .col-md-12
+    .panel.panel-default
+      .panel-heading Dados do Paciente
+      .panel-body
+        .row-fluid
+          .col-md-2
+            %b Nome
+          .col-md-5
+            =agenda_movimentacao.nome_paciente
+        %br/
+        .row-fluid
+          .col-md-2
+            %b E-mail
+          .col-md-4{style: "margin: 0px; padding: 0px"}
+            =agenda_movimentacao.email_paciente
+        %br/
+        .row-fluid
+          .col-md-2
+            %b Telefone
+          .col-md-3
+            =agenda_movimentacao.telefone_paciente
+        %br/
+        .row-fluid
+          .col-md-2
+            %b Convenio
+          .col-md-3{style: "margin: 0px; padding: 0px"}
+            =agenda_movimentacao.convenio_desc
+.col-md-4
+  .row
+    .panel.panel-default
+      .panel-heading Observações
+      .panel-body
+        #observacoes_blk
+          =agenda_movimentacao.observacoes

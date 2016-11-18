@@ -1,4 +1,47 @@
 module ToolHelper
+  def day_name(week_day)
+    Date::DAYNAMES[week_day]
+  end
+
+  def hora_formatada(hora)
+    hora.strftime("%H:%M") if hora.present?
+  end
+
+  def data_e_hora_formatada(data, hora)
+    if data.present? && hora.present?
+      content_tag(:label) do
+        data.strftime("%d/%m/%Y") + " - " + hora.strftime("%H:%M")
+      end
+    end
+  end
+
+  def date_to_format(date)
+    date.strftime("%d/%m/%Y") if date.present?
+  end
+
+  def status(resource)
+    return resource ? "ATIVO" : "INATIVO"
+  end
+
+  def documento(documento)
+    if documento == '1'
+      'Física'
+    elsif documento == '2'
+      'Jurídica'
+    else
+      ''
+    end
+  end
+
+  def sexo_formatado(s)
+    sexo = ''
+    if s == 'f'
+      sexo = 'Feminino'
+    elsif s == 'm'
+      sexo = 'Masculino'
+    end
+  end
+
   def novo
     t(:new, scope: [:bootstrap, :helpers, :links])
   end
@@ -50,7 +93,6 @@ module ToolHelper
     link_to "#{image_tag("icons/glyphicons-191-circle-plus.png", width: 22, height: 22)}
              NOVO USUÁRIO".html_safe, resource, class: 'btn btn-default'
   end
-
 
   def link_to_visualizar(resource)
     link_to "#{image_tag("icons/glyphicons-610-journal.png", width: 22, height: 22)}".html_safe,

@@ -1,0 +1,24 @@
+#accordion.agenda.panel-group
+  .panel.panel-default
+    .panel-heading
+      %h4.panel-title
+        %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseFastAccess"}
+          Do Dia
+    #collapseFastAccess.panel-collapse.collapse.in
+      .panel-body
+        %table.table
+          %tr
+          - @medicos_do_dia.each do |referencia|
+            %tr
+              %td=link_to referencia.descricao.upcase, search_agenda_medicos_painel_empresa_agendas_path(current_usuario.empresa, referencia.id), remote: true, class: "link_menu_lateral"
+  .panel.panel-default
+    .panel-heading
+      %h4.panel-title
+        %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseProfile"}
+          De outros dias
+    #collapseProfile.panel-collapse.collapse.in
+      .panel-body
+        %table.table
+          - @outros_medicos.each do |referencia|
+            %tr
+              %td=link_to referencia.descricao.upcase, search_agenda_medicos_outro_dia_painel_empresa_agendas_path(current_usuario.empresa, referencia.id), remote: true, class: "link_menu_lateral"
