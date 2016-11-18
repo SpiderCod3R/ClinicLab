@@ -36,7 +36,6 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'capybara', '~> 2.7', '>= 2.7.1'
   gem 'faker', '~> 1.6', '>= 1.6.6'
-  gem 'better_errors', '~> 2.1', '>= 2.1.1'
   gem "binding_of_caller"
 
   gem 'web-console'
@@ -45,6 +44,8 @@ group :development, :test do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'xray-rails', '~> 0.1.21'
 end
+
+gem 'better_errors', '~> 2.1', '>= 2.1.1'
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
