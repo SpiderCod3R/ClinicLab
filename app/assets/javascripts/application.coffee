@@ -6,7 +6,7 @@
 #= require JQUERY/jquery.maskMoney
 #= require JQUERY/jquery.numeric.pack
 #= require JQUERY/jquery.maskedinput-1.1.4.pack
-#= require xray
+# require xray
 #= require jquery_ujs
 
 #= require bootstrap
