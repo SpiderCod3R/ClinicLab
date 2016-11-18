@@ -7,8 +7,8 @@ Rails.application.routes.draw do
   resources :fornecedores
   resources :cabecs
   resources :conselho_regionais
-
   resources :clientes
+
   post 'clientes/retorna_historico', to: "clientes#retorna_historico"
   post 'clientes/salva_historico', to: "clientes#salva_historico"
   post 'clientes/atualiza_historico', to: "clientes#atualiza_historico"
@@ -33,11 +33,10 @@ Rails.application.routes.draw do
   resources :profissionais
   resources :cargos
   resources :convenios
-  resources :pacientes
   resources :atendimentos
   resources :operadoras
 
-  # post 'agenda/create', to: "painel/agendas#create"
+  post 'agenda/paciente/change', to: "clientes#change_or_create_new_paciente", as: :change_or_create_new_paciente
 
   get 'ficha_cliente', to: "clientes#ficha", as: :new_ficha_cliente
 

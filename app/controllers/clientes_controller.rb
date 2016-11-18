@@ -1,7 +1,4 @@
-class ClientesController < ApplicationController
-  before_action :set_cliente, only: [:show, :edit, :update, :destroy]
-  before_action :set_estados, only: [:new, :edit, :create, :update, :ficha]
-
+class ClientesController < Support::ClienteSupportController
   respond_to :html
 
   def index
@@ -92,62 +89,4 @@ class ClientesController < ApplicationController
     respond_with(@cliente)
     session[:cliente_id] = nil
   end
-
-  def ficha
-    @agenda = Agenda.find(params[:agenda_id])
-    @cliente = current_usuario.empresa.clientes.build
-    @cliente.recupera_agenda_dados(@agenda)
-    render :new
-  end
-
-  private
-
-    def set_estados
-      @estados = Estado.pelo_nome
-    end
-
-    def set_cliente
-      @cliente = Cliente.find(params[:id])
-    end
-
-    def set_historico
-      @historico = Historico.find(params[:historico_id])
-    end
-
-    def get_historicos
-      @cliente ||= Cliente.find(session[:cliente_id])
-      @historicos = Historico.where(cliente_id: @cliente.id).order('updated_at DESC')
-    end
-
-    def cliente_params
-      params.require(:cliente).permit(:id,
-                                      :status,
-                                      :nome,
-                                      :cpf,
-                                      :endereco,
-                                      :complemento,
-                                      :bairro,
-                                      :estado_id,
-                                      :cidade_id,
-                                      :empresa_id,
-                                      :foto,
-                                      :email,
-                                      :telefone,
-                                      :cargo_id,
-                                      :status_convenio,
-                                      :matricula,
-                                      :plano,
-                                      :validade_carteira,
-                                      :produto,
-                                      :titular,
-                                      :convenio_id,
-                                      :nascimento,
-                                      :sexo,
-                                      :rg,
-                                      :estado_civil,
-                                      :nacionalidade,
-                                      :naturalidade,
-                                      historico_attributes: [:indice, :idade, :usuario_id, :cliente_id]
-                                      )
-    end
 end

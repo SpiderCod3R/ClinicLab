@@ -15,4 +15,4 @@
 %td=agenda.agenda_movimentacao.atendente.nome if agenda.try(:agenda_movimentacao)
 %td
   %label=agenda.hora_atendimento.strftime("%H:%M") unless agenda.hora_atendimento.blank?
-%td{width: "2%", align: "center"}=carrega_opcoes_agenda(agenda)
+%td{align: "center"}=carrega_opcoes_agenda(agenda)

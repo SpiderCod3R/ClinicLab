@@ -1,4 +1,4 @@
-%nav.navbar.navbar-full.navbar-light.navbar-inverse.navbar-fixed-top
+%nav.navbar.navbar-full.navbar-light.navbar-inverse.navbar-fixed-top.navbar-custom
   .navbar-header.fixed-brand
     -if usuario_signed_in?
       =link_to root_path, class: "navbar-brand brand-logo" do
@@ -7,7 +7,7 @@
         %i.fa.fa-bars.fa-2x{"aria-hidden" => "true"}
   #bs-megadropdown-tabs.collapse.navbar-collapse
     %ul{class: "nav navbar-nav", style: "padding-left: 15px;"}
-      %li.active= link_to "#{image_tag("icons/glyphicons-222-unshare-white.png", width: 22, height: 22)} AGENDAS DO DIA #{date_to_format(@agenda.data)}".html_safe, uri_path
+      %li.active= link_to "#{image_tag("icons/glyphicons-222-unshare-white.png", width: 22, height: 22)} VOLTAR PARA AGENDAS".html_safe, uri_path
       %li= link_to "#{image_tag("icons/glyphicons-389-exit-white.png", width: 22, height: 22)} SAIR".html_safe, root_path
     -if usuario_signed_in?
       %div{style: "padding-right: 80px;"}

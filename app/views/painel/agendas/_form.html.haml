@@ -7,36 +7,29 @@
   .row-fluid
     .col-md-12
       %hr
-      =render 'painel/agendas/componentes/progress_bar'
-      .panel
-        .container-fluid{style: "margin: 0 auto; padding-top: 15px; padding-bottom: 15px;"}
-          .row-fluid
-            =f.input :empresa_id, as: :hidden, input_html: { value: @empresa.id }
-            =f.input :usuario_id, as: :hidden, input_html: { value: current_usuario.id }
-          .row-fluid
-            .col-md-3
-              =f.label :referencia_agenda_id, "Referência"
-              =f.collection_select :referencia_agenda_id, ReferenciaAgenda.where(empresa_id: current_usuario.empresa_id), :id, :descricao_completa, { prompt: "Selecione um" }, class: "form-control selectpicker", :"data-live-search"=>"true"
-            .col-md-3
-              =f.input :data_inicial, as: :string, input_html: { class: "datepicker" }
-            .col-md-3
-              =f.input :data_final, as: :string, input_html: { class: "datepicker" }
-          .row-fluid
-            .col-md-3
-              #atendimento_sabado
-                =f.label t('agendas.helpers.atendimento_sabado')
-                %br/
-                =f.collection_radio_buttons :atendimento_sabado, [[1, 'Sim'] ,[0, 'Não']], :first, :last, checked: 0
-            .col-md-3
-              #atendimento_domingo
-                =f.label t('agendas.helpers.atendimento_domingo')
-                %br/
-                =f.collection_radio_buttons :atendimento_domingo, [[1, 'Sim'] ,[0, 'Não']], :first, :last, checked: 0
-            / .col-md-3
-            /   #horario_parcial
-            /     =f.label t('agendas.helpers.atendimento_duracao')
-            /     %br/
-            /     =f.collection_radio_buttons :horario_parcial, [[1, 'Completo'] ,[0, 'Parcial']], :first, :last, checked: 0
+      .container-fluid{style: "margin: 0 auto; padding-top: 15px; padding-bottom: 15px;"}
+        .row-fluid
+          =f.input :empresa_id, as: :hidden, input_html: { value: @empresa.id }
+          =f.input :usuario_id, as: :hidden, input_html: { value: current_usuario.id }
+        .row-fluid
+          .col-md-3
+            =f.label :referencia_agenda_id, "Referência"
+            =f.collection_select :referencia_agenda_id, ReferenciaAgenda.where(empresa_id: current_usuario.empresa_id), :id, :descricao_completa, { prompt: "Selecione um" }, class: "form-control selectpicker", :"data-live-search"=>"true"
+          .col-md-3
+            =f.input :data_inicial, as: :string, input_html: { class: "datepicker" }
+          .col-md-3
+            =f.input :data_final, as: :string, input_html: { class: "datepicker" }
+        .row-fluid
+          .col-md-3
+            #atendimento_sabado
+              =f.label t('agendas.helpers.atendimento_sabado')
+              %br/
+              =f.collection_radio_buttons :atendimento_sabado, [[1, 'Sim'] ,[0, 'Não']], :first, :last, checked: 0
+          .col-md-3
+            #atendimento_domingo
+              =f.label t('agendas.helpers.atendimento_domingo')
+              %br/
+              =f.collection_radio_buttons :atendimento_domingo, [[1, 'Sim'] ,[0, 'Não']], :first, :last, checked: 0
   .row-fluid
     .col-md-6
       .panel.panel-default
@@ -91,6 +84,10 @@
                       =f.time_field :atendimento_tarde_final, class: "form-control", id: "agenda_atendimento_tarde_final_#{indice_tarde}_attribute"
                 -indice_tarde += 1
                 %br/
+  .row-fluid
+    .col-md-12
+      %hr
+      =render 'painel/agendas/componentes/progress_bar'
   .pull-right
     =f.submit "Gerar Agenda", class: "btn btn-success btn-form-agenda"
     %br/

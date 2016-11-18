@@ -29,7 +29,7 @@ class Painel::AgendasController < Support::AgendaSupportController
     @search= ransack_params
     @agendas= Agenda.includes(:referencia_agenda).includes(:agenda_movimentacao).
                      da_empresa(@empresa.id).
-                     do_dia.
+                     a_partir_da_data_do_dia.
                      order_data.
                      order_atendimento.
                      offset(0).

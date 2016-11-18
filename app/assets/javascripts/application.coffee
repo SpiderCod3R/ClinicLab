@@ -42,7 +42,7 @@
 #= require cliente_idade
 #= require cliente_nacionalidade
 #= require cliente_historicos
-# require clientes/search
+#= require clientes/search
 #= require fornecedor
 #= require fornecedores
 #= require profissionais
