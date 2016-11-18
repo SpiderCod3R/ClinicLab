@@ -23,7 +23,7 @@
 # -*- TINYMCE -*-
 #= require tinymce-jquery
 #= require tinyMCE
-#= require text_area_editor_pt_BR
+# require text_area_editor_pt_BR
 
 # -*- UTILITARIOS -*-
 #= require utility/maskaras
