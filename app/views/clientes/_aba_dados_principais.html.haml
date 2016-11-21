@@ -26,12 +26,12 @@
       %span{id: "tempo_de_vida"}
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
       = f.input :sexo, :as => :select,
-              :collection => [['Masculino','m'],['Feminino','f']],
+              :collection => [['M','M'],['F','F']],
               :include_blank => false,
               :label => t('labels.sexo')
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
       = f.input :estado_civil, :as => :select,
-              :collection => [['Casado','casado'],['Solteiro','solteiro'],['Divorciado','divorciado']],
+              :collection => [['CASADO','CASADO'],['SOLTEIRO','SOLTEIRO'],['DIVORCIADO','DIVORCIADO']],
               :include_blank => false,
               :label => t('labels.estado civil')
   %div{class: "row"}
