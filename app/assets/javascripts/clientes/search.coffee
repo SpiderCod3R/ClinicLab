@@ -63,6 +63,8 @@ $(document).ready ->
                         "data-paciente-complemento='#{cluster.complemento}'"+
                         "data-paciente-bairro='#{cluster.bairro}'"+
                         "data-paciente-plano='#{cluster.plano}'"+
+                        "data-paciente-sexo='#{cluster.sexo}'"+
+                        "data-paciente-estado_civil='#{cluster.estado_civil}'"+
                         "data-paciente-validade_carteira='#{cluster.validade_carteira}'"+
                         "data-paciente-telefone='#{cluster.telefone}'"+
                         "data-paciente-convenio_id='#{if cluster.convenio != undefined then cluster.convenio.id }'"+
@@ -90,6 +92,8 @@ $(document).ready ->
     $("#cliente_endereco").val(link.data().pacienteEndereco)
     $("#cliente_complemento").val(link.data().pacienteComplemento)
     $("#cliente_bairro").val(link.data().pacienteBairro)
+    $("#cliente_sexo").val(link.data().pacienteSexo)
+    $("#cliente_estado_civil").val(link.data().pacienteEstado_civil)
 
     if link.data().pacienteId != "undefined"
       $("#cliente_id").val(link.data().pacienteId)
