@@ -19,7 +19,6 @@ $(document).ready ->
                         "<th>Nome do Paciente</th>"+
                         "<th>RG</th>"+
                         "<th>CPF</th>"+
-                        "<th>Convênio</th>"+
                       "</tr><thead>"+
                       "<tbody>" +
                         result +
@@ -72,7 +71,6 @@ $(document).ready ->
                         cluster.nome.toUpperCase() + "</a></td>" + 
                         "<td>#{cluster.rg }</td>" +
                         "<td>#{cluster.cpf.numero}</td>" +
-                        "<td>#{cluster.convenio.nome}</td>" +
                         "</tr>")
       x = x + 1
     dados_tabela
