@@ -42,5 +42,5 @@ $(document).ready ->
     data  = $("#q_data_cont_3i :selected").val() + "/" + $("#q_data_cont_2i :selected").val() + "/" + $("#q_data_cont_1i :selected").val()
     if $(window).scrollTop() + $(window).height() >= $(document).height()
       loadler.fadeIn 'fast'
-      loadData("acao=#{tbody}&offset=#{offset}&page_limit=12&data=#{data}")
-      offset += 12
+      loadData("acao=#{tbody}&offset=#{offset}&page_limit=20&data=#{data}")
+      offset += 20
