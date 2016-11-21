@@ -14,7 +14,7 @@ class ClientesController < Support::ClienteSupportController
   def new
     session[:cliente_id] = nil
     @cliente = current_usuario.empresa.clientes.build
-    get_historicos
+    # get_historicos
     respond_with(@cliente)
   end
 
