@@ -48,4 +48,30 @@ class Cliente < ApplicationRecord
     self.telefone    = agenda.agenda_movimentacao.telefone_paciente
     self.convenio_id = agenda.agenda_movimentacao.convenio_id if agenda.agenda_movimentacao.convenio_id?
   end
+
+  def update_data(resource)
+    nascimento = Converter::DateConverter.new(resource["nascimento(1i)"].to_i, resource["nascimento(2i)"].to_i, resource["nascimento(3i)"].to_i)
+    validade_carteira = Converter::DateConverter.new(resource["validade_carteira(1i)"].to_i, resource["validade_carteira(2i)"].to_i, resource["validade_carteira(3i)"].to_i)
+    update_attributes(status:       resource[:status],
+                      nome:         resource[:nome],
+                      nascimento:   nascimento.to_american_format,
+                      sexo:         resource[:sexo],
+                      estado_civil: resource[:estado_civil],
+                      cpf:          resource[:cpf],
+                      rg:           resource[:rg],
+                      status_convenio: resource[:status_convenio],
+                      matricula:       resource[:matricula],
+                      convenio_id:     resource[:convenio_id],
+                      validade_carteira: validade_carteira.to_american_format,
+                      produto: resource[:produto],
+                      titular: resource[:titular],
+                      plano:   resource[:plano],
+                      email:   resource[:email],
+                      telefone: resource[:telefone],
+                      endereco: resource[:endereco],
+                      complemento: resource[:complemento],
+                      bairro:      resource[:bairro],
+                      estado_id:   resource[:estado_id],
+                      cargo_id:    resource[:cargo_id])
+  end
 end
