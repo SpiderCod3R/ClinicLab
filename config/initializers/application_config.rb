@@ -20,4 +20,13 @@ Rails.application do |config|
       rescue LoadError
     end
   end
+
+  # => configurando caminhos a serem carregados automaticamente com rails-s
+  config.autoload_paths += %W(
+    #{config.root}/app/controllers/concerns
+    #{config.root}/app/models/concerns
+    #{config.root}/lib/
+    #{config.root}/app/pdfs
+    #{config.root}/public/assets
+  )
 end 

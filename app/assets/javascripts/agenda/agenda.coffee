@@ -257,7 +257,6 @@ $(document).ready ->
         url: localhost + "/painel/empresas/#{empresa_id}/agendas"
         type: 'POST'
         dataType: 'JSON'
-        timeout: 10000
         beforeSend: ->
           toastr.warning("Por-favor não saia dessa tela.", "Aguarde!")
         data:

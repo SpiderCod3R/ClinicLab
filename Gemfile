@@ -24,10 +24,12 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-turbolinks'
 gem 'rails-jquery-autocomplete'
-
 gem 'redis', '~> 3.0'
 gem 'jbuilder', '~> 2.5'
 
+
+gem 'xray-rails', '~> 0.1.21'
+gem 'better_errors', '~> 2.1', '>= 2.1.1'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'ransack', github: 'activerecord-hackery/ransack'
@@ -56,23 +58,23 @@ gem 'tinymce-rails-langs'
 gem 'localized_country_select'
 
 group :development, :test do
+  gem 'rails-erd'
   gem 'pry'
   gem 'pry-rails'
-  gem 'rails-erd'
   gem 'rspec', '~> 3.5'
   gem 'rspec-rails', '~> 3.5', '>= 3.5.1'
   gem 'factory_girl_rails'
   gem 'capybara', '~> 2.7', '>= 2.7.1'
   gem 'faker', '~> 1.6', '>= 1.6.6'
-  gem 'better_errors', '~> 2.1', '>= 2.1.1'
   gem "binding_of_caller"
   gem 'web-console'
   gem 'listen', '~> 3.0.5'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'xray-rails', '~> 0.1.21'
 end
 
+
+gem "bootstrap-table-rails"
 gem 'chosen-rails', '~> 1.5', '>= 1.5.2'
 gem 'wannabe_bool'
 gem "attr_encrypted", "~> 3.0.0"
@@ -89,3 +91,4 @@ gem 'capistrano-rbenv', '~> 2.0', '>= 2.0.4'
 gem 'capistrano3-puma'
 gem 'capistrano3-nginx'
 gem 'capistrano-upload-config'
+gem 'capistrano-puma', '~> 0.2.3'

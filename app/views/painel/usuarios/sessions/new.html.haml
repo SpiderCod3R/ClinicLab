@@ -1,31 +1,59 @@
-/ =render 'application/navbar'
-#session_modal.modal.fade{:role => "dialog", :tabindex => "-1", :"data-backdrop"=> true}
-  .modal-dialog{:role => "document"}
-    .modal-content
-      .modal-header
-        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
-        %h2.modal-title.text-center GClinic - Log in
-      .modal-body
-        =simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'form-horizontal' }) do |f|
-          .container-fluid
-            .row
-              .col-md-12
-                = f.input :login, required: false, autofocus: true
-            .row
-              .col-md-12
-                = f.input :password, required: false
-            .row
-              .col-md-4
-                .session-btn-actions
-                  - if devise_mapping.rememberable? 
-                    = f.input :remember_me, as: :boolean, label: "Me Mantenha Conectado"
-          .modal-footer
-            .pull-left
-              %p.company.text-center
-                %h4
-                  %b Globalnetsis - Safe System LTDA.
-            = f.button :submit, "Log in", class: "btn btn-success"
-    / /.modal-content
-  / /.modal-dialog
-/ /.modal
-/ =render 'application/footer'
+/ / =render 'application/navbar'
+/ #session_modal.modal.fade{:role => "dialog", :tabindex => "-1", :"data-backdrop"=> true}
+/   .modal-dialog{:role => "document"}
+/     .modal-content
+/       .modal-header
+/         %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+/         %h2.modal-title.text-center GClinic - Log in
+/       .modal-body
+/         =simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'form-horizontal' }) do |f|
+/           .container-fluid
+/             .row
+/               .col-md-12
+/                 = f.input :login, required: false, autofocus: true
+/             .row
+/               .col-md-12
+/                 = f.input :password, required: false
+/             .row
+/               .col-md-4
+/                 .session-btn-actions
+/                   - if devise_mapping.rememberable? 
+/                     = f.input :remember_me, as: :boolean, label: "Me Mantenha Conectado"
+/           .modal-footer
+/             .pull-left
+/               %p.company.text-center
+/                 %h4
+/                   %b Globalnetsis - Safe System LTDA.
+/             = f.button :submit, "Log in", class: "btn btn-success"
+/     / /.modal-content
+/   / /.modal-dialog
+/ / /.modal
+/ / =render 'application/footer'
+=render 'application/navbar'
+.wrapper_with_padding
+  .col-md-5
+    #sessions_left_side_content
+      .panel
+        %h2.text-center Log in
+        %hr
+        .container
+          =simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'form-horizontal' }) do |f|
+            .container
+              .row
+                .col-md-4
+                  = f.input :login, required: false, autofocus: true
+              .row
+                .col-md-4
+                  = f.input :password, required: false
+              .row
+                .col-md-4
+                  .session-btn-actions
+                    = f.button :submit, "Log in", class: "btn btn-success"
+  .col-md-7
+    #sessions_right_side_content
+      .panel
+        .container-fluid
+          %h1.text-center GClinic
+          %hr
+          %p.company Globalnetsis - Safe System LTDA.
+=render 'application/footer'

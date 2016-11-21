@@ -61,6 +61,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :texto_livres
+  resources :imagem_cabecs
+  resources :fornecedores
+  resources :cabecs
+  resources :conselho_regionais
+
   get 'relatorios/new' => "configuracao_relatorios#new"
   get 'conselhos_regionais/new' => "conselho_regionais#new"
 
@@ -68,6 +74,11 @@ Rails.application.routes.draw do
   post 'clientes/retorna_historico', to: "clientes#retorna_historico"
   post 'clientes/salva_historico', to: "clientes#salva_historico"
   post 'clientes/atualiza_historico', to: "clientes#atualiza_historico"
+
+  get 'pages/help'
+  get 'pages/contact_us'
+  get 'search/buscar_pacientes' => "search#buscar_pacientes"
+  get 'search/conselho_regional', to: 'conselho_regionais#search'
 
   namespace :painel do
     resources :dashboards
@@ -82,10 +93,12 @@ Rails.application.routes.draw do
       delete 'remove_administrador/:usuario_id', to: "dashboards#remove_admin", as: :remove_admin
       delete 'remover_permissao_empresa_usaurio/:permissao_id', to: "dashboards#remover_permissao_empresa_usaurio", as: :remover_permissao_empresa_usaurio
       resources :contas, controller: 'usuarios/accounts'
+
       resources :painel_usuarios, controller: 'usuarios/manager', except: [:index] do
         get  'add_permissions'
         post 'save_permissions'
       end
+
       resources :agendas do
         collection do
           match 'search' => 'agendas#search', via: [:get], as: :search

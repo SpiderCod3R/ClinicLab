@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/activerecord-hackery/ransack.git
-  revision: 35bb2c37697f37f46580e0b7dc90ac8c7aa244cb
+  revision: cdf0bec982b9866f29a527a2390ebd1551fbd65a
   specs:
     ransack (1.8.2)
       actionpack (>= 3.0)
@@ -66,7 +66,8 @@ GEM
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
-    addressable (2.4.0)
+    addressable (2.5.0)
+      public_suffix (~> 2.0, >= 2.0.2)
     airbrussh (1.1.1)
       sshkit (>= 1.6.1, != 1.7.0)
     arel (7.1.4)
@@ -82,6 +83,7 @@ GEM
     bootstrap-kaminari-views (0.0.5)
       kaminari (>= 0.13)
       rails (>= 3.1)
+    bootstrap-table-rails (1.11.0)
     brI18n (3.3.0)
       actionpack (>= 3.0.0)
       activerecord (>= 3.0.0)
@@ -124,6 +126,8 @@ GEM
       capistrano (~> 3.1)
       sshkit (~> 1.2)
     capistrano-harrow (0.5.3)
+    capistrano-puma (0.2.3)
+      capistrano (>= 3.0)
     capistrano-rails (1.2.0)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
@@ -171,7 +175,7 @@ GEM
       warden (~> 1.2.3)
     devise-encryptable (0.2.0)
       devise (>= 2.1.0)
-    devise-i18n (1.1.0)
+    devise-i18n (1.1.1)
     diff-lcs (1.2.5)
     encryptor (3.0.0)
     erubis (2.7.0)
@@ -221,7 +225,7 @@ GEM
     kaminari (0.17.0)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
-    libv8 (3.16.14.15)
+    libv8 (3.16.14.17)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -269,6 +273,7 @@ GEM
       slop (~> 3.4)
     pry-rails (0.3.4)
       pry (>= 0.9.10)
+    public_suffix (2.0.4)
     puma (3.6.0)
     rack (2.0.1)
     rack-test (0.6.3)
@@ -315,7 +320,7 @@ GEM
     rb-fsevent (0.9.8)
     rb-inotify (0.9.7)
       ffi (>= 0.5.0)
-    redis (3.3.1)
+    redis (3.3.2)
     ref (2.0.0)
     responders (2.3.0)
       railties (>= 4.2.0, < 5.1)
@@ -369,7 +374,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    sshkit (1.11.3)
+    sshkit (1.11.4)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
     therubyracer (0.12.2)
@@ -395,7 +400,7 @@ GEM
     wannabe_bool (0.6.0)
     warden (1.2.6)
       rack (>= 1.0)
-    web-console (3.3.1)
+    web-console (3.4.0)
       actionview (>= 5.0)
       activemodel (>= 5.0)
       debug_inspector
@@ -419,11 +424,13 @@ DEPENDENCIES
   better_errors (~> 2.1, >= 2.1.1)
   binding_of_caller
   bootstrap-kaminari-views
+  bootstrap-table-rails
   brazilian-rails
   bundler (>= 1.8.4)
   cancancan
   capistrano (~> 3.6)
   capistrano-bundler
+  capistrano-puma (~> 0.2.3)
   capistrano-rails (~> 1.1, >= 1.1.7)
   capistrano-rbenv (~> 2.0, >= 2.0.4)
   capistrano-upload-config

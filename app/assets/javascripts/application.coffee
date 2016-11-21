@@ -6,7 +6,6 @@
 #= require JQUERY/jquery.maskMoney
 #= require JQUERY/jquery.numeric.pack
 #= require JQUERY/jquery.maskedinput-1.1.4.pack
-#= require xray
 #= require jquery_ujs
 
 #= require bootstrap
@@ -24,7 +23,7 @@
 # -*- TINYMCE -*-
 #= require tinymce-jquery
 #= require tinyMCE
-#= require text_area_editor_pt_BR
+# require text_area_editor_pt_BR
 
 # -*- UTILITARIOS -*-
 #= require utility/maskaras
@@ -49,5 +48,5 @@
 #= require painel/permissoes
 #= require valida_cpf
 
-
-$("#session_modal.modal").modal()
+# $("#session_modal.modal").modal()
+# 
