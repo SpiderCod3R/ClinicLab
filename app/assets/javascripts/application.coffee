@@ -48,19 +48,5 @@
 #= require painel/permissoes
 #= require valida_cpf
 
-
-
-#= require fornecedor
-#= require fornecedores
-#= require profissionais
-#= require painel/permissoes
-#= require valida_cpf
-
-
-# -*- UTILITARIOS -*-
-#= require utility/datatable
-#= require utility/maskaras
-#= require utility/__init__
-
 # $("#session_modal.modal").modal()
 # 
