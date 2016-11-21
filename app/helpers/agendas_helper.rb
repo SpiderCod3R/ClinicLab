@@ -7,10 +7,27 @@ module AgendasHelper
     render 'agenda_tr', { agenda: object }
   end
 
-  def change_color_by_day(resource, &block)
-    # binding.pry
+  def change_color_by_status(resource, &block)
     if resource.status.eql?(I18n.t("agendas.helpers.scheduled")) && resource.data.eql?(Date.today)
       concat(content_tag(:tr, block.binding, id: I18n.t('agendas.helpers.identity', resource_id: resource.id), class: "success tr_agenda") do
+        yield
+      end)
+    end
+
+    if resource.status.eql?(I18n.t("agendas.helpers.unmarked_by_pacient")) || resource.status.eql?(I18n.t("agendas.helpers.unmarked_by_doctor"))
+      concat(content_tag(:tr, block.binding, id: I18n.t('agendas.helpers.identity', resource_id: resource.id), class: "attention tr_agenda") do
+        yield
+      end)
+    end
+
+    if resource.status == "Não Veio"
+      concat(content_tag(:tr, block.binding, id: I18n.t('agendas.helpers.identity', resource_id: resource.id), class: "orange tr_agenda") do
+        yield
+      end)
+    end
+
+    if resource.status.eql?(I18n.t("agendas.helpers.attended"))
+      concat(content_tag(:tr, id: "agenda_id_#{resource.id}" , class: "danger tr_agenda") do
         yield
       end)
     end
