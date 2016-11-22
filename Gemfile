@@ -72,6 +72,7 @@ gem 'masonry-rails'
 gem 'paperclip', '~> 5.0.0'
 gem 'tinymce-rails'
 gem 'tinymce-rails-langs'
+# gem 'tinymce-rails', github: 'spohlenz/tinymce-rails', branch: 'tinymce-3'
 gem "bootstrap-table-rails"
 gem 'localized_country_select'
 

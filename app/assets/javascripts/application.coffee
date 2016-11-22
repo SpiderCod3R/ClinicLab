@@ -20,14 +20,8 @@
 #= require BOOTSTRAP-PLUGINS/bootstrap-waitingfor
 #= require BOOTSTRAP-PLUGINS/bootstrap-progressbar.min
 
-# require tinyMCE
-# require text_area_editor_pt_BR
-
 # -*- TINYMCE -*-
-#= require tinymce
-#= tinymce/js/tinymce/tinymce.min.js
-#= tinymce/js/tinymce/jquery.tinymce.min.js
-#= tinymce/js/tinymce/themes/modern/theme.min.js
+#= require tinymce-jquery
 
 # -*- UTILITARIOS -*-
 #= require utility/maskaras

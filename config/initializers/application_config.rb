@@ -9,6 +9,7 @@ Rails.application do |config|
   end
   config.i18n.default_locale = :"pt-BR"
   config.middleware.use ActionDispatch::Flash
+  config.tinymce.install = :copy
 
   # Use Pry instead of IRB
   silence_warnings do
