@@ -20,9 +20,6 @@
 #= require BOOTSTRAP-PLUGINS/bootstrap-waitingfor
 #= require BOOTSTRAP-PLUGINS/bootstrap-progressbar.min
 
-# -*- TINYMCE -*-
-#= require tinymce-jquery
-
 # -*- UTILITARIOS -*-
 #= require utility/maskaras
 #= require utility/__init__
