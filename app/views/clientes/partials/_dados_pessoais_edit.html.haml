@@ -1,4 +1,4 @@
-- nascimento = data_formatada(@cliente.nascimento) if @cliente.nascimento.present?
+- nascimento = date_to_format(@cliente.nascimento) if @cliente.nascimento.present?
 %div{id:"dados", class:"tab-pane fade in active"}
   %div{class: "row"}
     %div{class: "col-xs-12 col-sm-6 col-md-6 col-lg-6", style: 'margin: 0; padding: 0;'}

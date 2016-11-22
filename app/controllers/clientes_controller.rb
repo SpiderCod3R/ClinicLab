@@ -14,7 +14,7 @@ class ClientesController < Support::ClienteSupportController
   def new
     session[:cliente_id] = nil
     @cliente = current_usuario.empresa.clientes.build
-    # get_historicos
+    get_historicos
     respond_with(@cliente)
   end
 
@@ -65,7 +65,7 @@ class ClientesController < Support::ClienteSupportController
       @historico.cliente_id = session[:cliente_id]
       @historico.save
     end
-    get_historicos
+    # get_historicos
     respond_to do |format|
       format.html
       format.json { render json: session[:cliente_id].as_json }

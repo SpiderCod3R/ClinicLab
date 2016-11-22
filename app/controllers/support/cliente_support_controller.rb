@@ -5,7 +5,6 @@ class Support::ClienteSupportController < ApplicationController
   def ficha
     session[:agenda_id] = params[:agenda_id]
     @cliente = current_usuario.empresa.clientes.build
-    # @cliente.recupera_agenda_dados(@agenda)
     render :ficha_em_branco
   end
 
@@ -41,6 +40,15 @@ class Support::ClienteSupportController < ApplicationController
 
     def set_cliente
       @cliente = Cliente.find(params[:id])
+    end
+
+    def set_historico
+      @historico = Historico.find(params[:historico_id])
+    end
+
+    def get_historicos
+      @cliente ||= Cliente.find(session[:cliente_id])
+      @historicos = Historico.where(cliente_id: @cliente.id).order('updated_at DESC')
     end
 
     def cliente_params
