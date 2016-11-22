@@ -5,7 +5,6 @@ class Support::ClienteSupportController < ApplicationController
   def ficha
     session[:agenda_id] = params[:agenda_id]
     @cliente = current_usuario.empresa.clientes.build
-    # @cliente.recupera_agenda_dados(@agenda)
     render :ficha_em_branco
   end
 
