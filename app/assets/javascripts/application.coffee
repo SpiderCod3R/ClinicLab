@@ -24,7 +24,7 @@
 # require text_area_editor_pt_BR
 
 # -*- TINYMCE -*-
-# require tinymce-jquery
+#= require tinymce
 #= tinymce/js/tinymce/tinymce.min.js
 #= tinymce/js/tinymce/jquery.tinymce.min.js
 #= tinymce/js/tinymce/themes/modern/theme.min.js
