@@ -10,3 +10,4 @@ Rails.application.config.assets.version = '1.0'
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 Rails.application.config.assets.precompile += %w( admin.css admin.coffee)
 Rails.application.config.assets.precompile += %w( agenda/rolagem.coffee)
+Rails.application.config.assets.precompile += %w( tinymce/js/tinymce/tiny_mce.min.js tinymce/js/tinymce/jquery.tinymce.min.js tinymce/js/tinymce/themes/inlite/theme.min.js tinymce/js/tinymce/themes/modern/theme.min.js )
