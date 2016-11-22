@@ -22,7 +22,7 @@
 
 # -*- TINYMCE -*-
 #= require tinymce-jquery
-#= require tinyMCE
+# require tinyMCE
 # require text_area_editor_pt_BR
 
 # -*- UTILITARIOS -*-
