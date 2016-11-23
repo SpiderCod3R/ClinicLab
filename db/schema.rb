@@ -10,24 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161027134631) do
-
-  create_table "agendas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.date     "data"
-    t.boolean  "atendimento_sabado"
-    t.boolean  "atendimento_domingo"
-    t.boolean  "atendimento_parcial"
-    t.string   "atendimento_manha_duracao"
-    t.string   "atendimento_tarde_duracao"
-    t.integer  "profissional_id"
-    t.integer  "empresa_id"
-    t.integer  "usuario_id"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.string   "atendimento_inicio"
-    t.string   "atendimento_final"
-    t.index ["empresa_id"], name: "index_agendas_on_empresa_id", using: :btree
-    t.index ["profissional_id"], name: "index_agendas_on_profissional_id", using: :btree
+ActiveRecord::Schema.define(version: 20161123095333) do
 
   create_table "agenda_movimentacoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "agenda_id"
@@ -131,6 +114,21 @@ ActiveRecord::Schema.define(version: 20161027134631) do
     t.integer  "estado_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "ckeditor_assets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "data_file_name",               null: false
+    t.string   "data_content_type"
+    t.integer  "data_file_size"
+    t.integer  "assetable_id"
+    t.string   "assetable_type",    limit: 30
+    t.string   "type",              limit: 30
+    t.integer  "width"
+    t.integer  "height"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["assetable_type", "assetable_id"], name: "idx_ckeditor_assetable", using: :btree
+    t.index ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type", using: :btree
   end
 
   create_table "clientes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -240,13 +238,6 @@ ActiveRecord::Schema.define(version: 20161027134631) do
     t.index ["estado_id"], name: "index_fornecedores_on_estado_id", using: :btree
   end
 
-  create_table "funcoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "nome"
-    t.string   "descricao"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "historicos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.text     "indice",     limit: 65535
     t.integer  "cliente_id"
@@ -255,7 +246,6 @@ ActiveRecord::Schema.define(version: 20161027134631) do
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
     t.index ["cliente_id"], name: "index_historicos_on_cliente_id", using: :btree
-    t.index ["usuario_id"], name: "index_historicos_on_usuario_id", using: :btree
   end
 
   create_table "imagem_cabecs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -421,7 +411,6 @@ ActiveRecord::Schema.define(version: 20161027134631) do
   add_foreign_key "fornecedores", "cidades"
   add_foreign_key "fornecedores", "estados"
   add_foreign_key "historicos", "clientes"
-  add_foreign_key "historicos", "usuarios"
   add_foreign_key "profissionais", "cargos"
   add_foreign_key "profissionais", "cidades"
   add_foreign_key "profissionais", "conselho_regionais"

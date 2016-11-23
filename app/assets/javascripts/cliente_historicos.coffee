@@ -22,7 +22,8 @@ $(document).ready ->
           $('#show_historico').empty()
           historico = json
           $('#show_historico').append('<p>' + historico.data + '</p><p>' + historico.usuario + '</p><p>' + historico.idade + '</p>')
-          tinyMCE.activeEditor.setContent(historico.indice)
+          # tinyMCE.activeEditor.setContent(historico.indice)
+          CKEDITOR.instances['historico_textarea'].setData(historico.indice)
           return
     return
   $('#salvar_historico').click ->
@@ -30,7 +31,8 @@ $(document).ready ->
     idade = undefined
     indice = undefined
     type = undefined
-    indice = tinyMCE.activeEditor.getContent()
+    # indice = tinyMCE.activeEditor.getContent()
+    indice = CKEDITOR.instances['historico_textarea'].getData()
     if historico_id != 0
       $.ajax
         type: 'POST'

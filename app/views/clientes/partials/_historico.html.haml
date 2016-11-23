@@ -1,5 +1,3 @@
-= tinymce_assets
-
 %div{id:"historico", class:"tab-pane fade"}
   %div{id:"old_historico"}
     =render 'clientes/partials/index_historico', { historicos: @historicos }
@@ -10,5 +8,11 @@
     = link_to "Incluir", "#", class: "btn btn-success", style: "margin-bottom: 10px;", id: "salvar_historico"
     %div{class: "row"}
       %div{class: "col-xs-11 col-sm-11 col-md-11 col-lg-11"}
-        %textarea{:class => "tinymce", :language => "pt_BR", :id => "historico_textarea", style: "height: 500px"}
-        =tinymce :content_css => asset_path('/assets/tinymce/content.min.css')
+        / %textarea{:class => "tinymce", :language => "pt_BR", :id => "historico_textarea", style: "height: 500px"}
+        / =tinymce :content_css => asset_path('/assets/tinymce/content.min.css')
+        = cktext_area :page, :info, cols: 40, ckeditor: { uiColor: '#E2E2E2', toolbar: 'mini' }, :id => "historico_textarea", style: "height: 500px"
+
+        / =content_tag(:textarea, :id => "historico_textarea", style: "height: 500px")
+
+
+= javascript_include_tag Ckeditor.asset_path

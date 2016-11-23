@@ -1,5 +1,6 @@
 #-*-coding:utf-8-*-
 Rails.application.routes.draw do
+  mount Ckeditor::Engine => '/ckeditor'
   resources :referencia_agendas, except: [:show]
 
   resources :texto_livres

@@ -45,3 +45,5 @@
 
 # $("#session_modal.modal").modal()
 # 
+
+#= require ckeditor/init

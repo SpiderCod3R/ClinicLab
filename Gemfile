@@ -70,11 +70,14 @@ gem "prawn-table"
 gem "wicked"
 gem 'masonry-rails'
 gem 'paperclip', '~> 5.0.0'
-gem 'tinymce-rails'
-gem 'tinymce-rails-langs'
-# gem 'tinymce-rails', github: 'spohlenz/tinymce-rails', branch: 'tinymce-3'
 gem "bootstrap-table-rails"
 gem 'localized_country_select'
+
+gem 'ckeditor', '4.1.3'
+
+# gem 'tinymce-rails'
+# gem 'tinymce-rails-langs'
+# gem 'tinymce-rails', github: 'spohlenz/tinymce-rails', branch: 'tinymce-3'
 
 
 gem 'chosen-rails', '~> 1.5', '>= 1.5.2'
