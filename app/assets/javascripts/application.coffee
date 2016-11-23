@@ -20,11 +20,6 @@
 #= require BOOTSTRAP-PLUGINS/bootstrap-waitingfor
 #= require BOOTSTRAP-PLUGINS/bootstrap-progressbar.min
 
-# -*- TINYMCE -*-
-#= require tinymce-jquery
-#= require tinyMCE
-# require text_area_editor_pt_BR
-
 # -*- UTILITARIOS -*-
 #= require utility/maskaras
 #= require utility/__init__
@@ -50,3 +45,6 @@
 
 # $("#session_modal.modal").modal()
 # 
+
+# -*- CKEDITOR -*-
+#= require ckeditor/init

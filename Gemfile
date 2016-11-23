@@ -27,7 +27,6 @@ gem 'rails-jquery-autocomplete'
 gem 'redis', '~> 3.0'
 gem 'jbuilder', '~> 2.5'
 
-
 gem 'xray-rails', '~> 0.1.21'
 gem 'better_errors', '~> 2.1', '>= 2.1.1'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
@@ -53,9 +52,8 @@ gem "prawn-table"
 gem "wicked"
 gem 'masonry-rails'
 gem 'paperclip', '~> 5.0.0'
-gem 'tinymce-rails'
-gem 'tinymce-rails-langs'
 gem 'localized_country_select'
+gem "bootstrap-table-rails"
 
 group :development, :test do
   gem 'rails-erd'
@@ -73,6 +71,7 @@ group :development, :test do
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
+gem 'ckeditor', '4.1.3'
 
 gem "bootstrap-table-rails"
 gem 'chosen-rails', '~> 1.5', '>= 1.5.2'
