@@ -3,6 +3,7 @@ require "application_responder"
 class ApplicationController < ActionController::Base
   self.responder = ApplicationResponder
   protect_from_forgery with: :exception
+  before_action :authenticate_usuario!
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_locale
   respond_to :html, :xml, :json
