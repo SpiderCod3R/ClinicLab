@@ -7,7 +7,12 @@ Rails.application.routes.draw do
     resources :servicos
   end
 
-  resources :texto_livres
+  resources :texto_livres do
+    member do
+      get 'show_texto_livre'
+    end
+  end
+
   resources :imagem_cabecs
   resources :fornecedores
   resources :cabecs

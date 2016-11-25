@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161125115532) do
+ActiveRecord::Schema.define(version: 20161125155033) do
 
   create_table "agenda_movimentacoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "agenda_id"
@@ -399,11 +399,13 @@ ActiveRecord::Schema.define(version: 20161125115532) do
 
   create_table "texto_livres", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "nome"
-    t.text     "texto",      limit: 65535
+    t.integer  "servico_id"
+    t.integer  "empresa_id"
+    t.text     "content",    limit: 65535
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
-    t.integer  "empresa_id"
     t.index ["empresa_id"], name: "index_texto_livres_on_empresa_id", using: :btree
+    t.index ["servico_id"], name: "index_texto_livres_on_servico_id", using: :btree
   end
 
   add_foreign_key "agenda_movimentacoes", "agendas"
@@ -426,4 +428,5 @@ ActiveRecord::Schema.define(version: 20161125115532) do
   add_foreign_key "profissionais", "estados"
   add_foreign_key "profissionais", "operadoras"
   add_foreign_key "referencia_agendas", "profissionais"
+  add_foreign_key "texto_livres", "servicos"
 end

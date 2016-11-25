@@ -8,4 +8,8 @@ class Servico < ApplicationRecord
   def addEmpresa=(aEmpresa)
     self.empresa = aEmpresa
   end
+
+  def to_s
+    "#{tipo} - #{abreviatura}"
+  end
 end
