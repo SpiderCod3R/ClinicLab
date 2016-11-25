@@ -3,6 +3,10 @@ Rails.application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
   resources :referencia_agendas, except: [:show]
 
+  resources :empresas do
+    resources :servicos
+  end
+
   resources :texto_livres
   resources :imagem_cabecs
   resources :fornecedores
