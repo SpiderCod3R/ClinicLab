@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   get 'pages/help'
   get 'pages/contact_us'
   get 'search/buscar_pacientes' => "search#buscar_pacientes"
+  get 'search/find-texto-livres'=> "search#collect_all_free_text" ,as: :collect_all_free_text
   get 'search/conselho_regional', to: 'conselho_regionais#search'
 
   resources :configuracao_relatorios
@@ -72,6 +73,7 @@ Rails.application.routes.draw do
   resources :clientes
   post 'clientes/retorna_historico', to: "clientes#retorna_historico"
   post 'clientes/salva_historico', to: "clientes#salva_historico"
+  post 'clientes/include_texto_livre', to: "clientes#include_texto_livre"
   post 'clientes/atualiza_historico', to: "clientes#atualiza_historico"
 
   get 'pages/help'

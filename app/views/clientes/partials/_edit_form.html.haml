@@ -11,6 +11,9 @@
   %li
     %a{'data-toggle':"tab", href:"#historico"}
       Histórico
+  %li
+    %a{'data-toggle':"tab", href:"#texto_livre"}
+      Texto-Livre
 
 = simple_form_for(@cliente) do |f|
   %div{class: "container", style: "margin-left: 5%; padding-top: 10px; padding-bottom: 25px;"}
@@ -27,3 +30,6 @@
 
       / aba historico
       =render 'clientes/partials/historico', { f: f }
+
+      / aba texto-livre
+      =render 'clientes/partials/texto_livre', { f: f }

@@ -22,6 +22,8 @@ class Cliente < ApplicationRecord
   belongs_to :cargo
   belongs_to :convenio
   has_many :historicos
+  has_many :cliente_texto_livres
+
   accepts_nested_attributes_for :historicos, allow_destroy: true
 
   has_attached_file :foto, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"

@@ -35,6 +35,7 @@
 #= require clientes
 #= require cliente_idade
 #= require cliente_nacionalidade
+#= require clientes/texto_livre
 #= require cliente_historicos
 #= require clientes/search
 #= require fornecedor

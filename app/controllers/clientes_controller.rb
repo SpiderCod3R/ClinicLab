@@ -1,4 +1,5 @@
 class ClientesController < Support::ClienteSupportController
+  before_action :authenticate_usuario!
   respond_to :html
 
   def index
@@ -81,6 +82,13 @@ class ClientesController < Support::ClienteSupportController
     respond_to do |format|
       format.html
       format.json { render json: session[:cliente_id].as_json }
+    end
+  end
+
+  def include_texto_livre
+    binding.pry
+    if !params[:texto_livre].empty?
+      @cliente_texto_livre = ClienteTextoLivre.new
     end
   end
 
