@@ -1,7 +1,6 @@
 #-*-coding:utf-8-*-
 Rails.application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
-  resources :referencia_agendas, except: [:show]
 
   resources :empresas do
     resources :servicos
@@ -13,21 +12,16 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :texto_livres
   resources :imagem_cabecs
   resources :fornecedores
   resources :cabecs
   resources :clientes
   resources :conselho_regionais
-
-  get 'relatorios/new' => "configuracao_relatorios#new"
-  get 'conselhos_regionais/new' => "conselho_regionais#new"
-
-  get 'pages/help'
-  get 'pages/contact_us'
-  get 'search/buscar_pacientes' => "search#buscar_pacientes"
-  get 'search/find-texto-livres'=> "search#collect_all_free_text" ,as: :collect_all_free_text
-  get 'search/conselho_regional', to: 'conselho_regionais#search'
-
+  resources :imagem_cabecs
+  resources :fornecedores
+  resources :cabecs
+  resources :conselho_regionais
   resources :configuracao_relatorios
   resources :centro_de_custos
   resources :profissionais
@@ -36,30 +30,13 @@ Rails.application.routes.draw do
   resources :atendimentos
   resources :operadoras
 
+  get 'relatorios/new' => "configuracao_relatorios#new"
+  get 'conselhos_regionais/new' => "conselho_regionais#new"
+
+  post 'clientes/retorna_historico', to: "clientes#retorna_historico"
+  post 'clientes/salva_historico', to: "clientes#salva_historico"
+  post 'clientes/atualiza_historico', to: "clientes#atualiza_historico"
   post 'agenda/paciente/change', to: "clientes#change_or_create_new_paciente", as: :change_or_create_new_paciente
-
-  get 'ficha_cliente', to: "clientes#ficha", as: :new_ficha_cliente
-
-  devise_for :usuarios,
-              patch: "painel/usuarios",
-              class_name: "Painel::Usuario",
-              controllers: { sessions: 'painel/usuarios/sessions' }
-
-  devise_for :masters, 
-             path: 'painel/masters',
-             class_name: "Painel::Master",
-             controllers: { sessions: 'painel/masters/sessions' },
-             skip: [:registrations]
-
-  authenticated :master do
-    root 'painel/dashboards#index', as: "authenticated_master_root"
-  end
-
-  devise_scope :usuario do
-    unauthenticated do
-      root "painel/usuarios/sessions#new", to: "painel/usuarios/sessions#new", as: :main, path: 'painel/usuarios'
-    end
-  end
 
   resources :texto_livres
   resources :imagem_cabecs
@@ -70,20 +47,17 @@ Rails.application.routes.draw do
   get 'relatorios/new' => "configuracao_relatorios#new"
   get 'conselhos_regionais/new' => "conselho_regionais#new"
 
-  resources :clientes
-  post 'clientes/retorna_historico', to: "clientes#retorna_historico"
-  post 'clientes/salva_historico', to: "clientes#salva_historico"
-  post 'clientes/include_texto_livre', to: "clientes#include_texto_livre"
-  post 'clientes/atualiza_historico', to: "clientes#atualiza_historico"
+  get 'ficha_cliente', to: "clientes#ficha", as: :new_ficha_cliente
 
-  get 'pages/help'
-  get 'pages/contact_us'
-  get 'search/buscar_pacientes' => "search#buscar_pacientes"
   get 'search/conselho_regional', to: 'conselho_regionais#search'
+  get 'search/buscar_pacientes' => "search#buscar_pacientes"
+  get 'search/find-texto-livres'=> "search#collect_all_free_text" ,as: :collect_all_free_text
+  get 'search/conselho_regional', to: 'conselho_regionais#search'
+
+  resources :referencia_agendas, except: [:show]
 
   namespace :painel do
     resources :dashboards
-
     resources :permissoes, except: [:show, :new] do
       get 'excluir'
     end
@@ -131,6 +105,30 @@ Rails.application.routes.draw do
     post '/dashboards/empresas/permissoes/create', to: "dashboards#import_permissoes_to_company", as: :dashboards_add_permissoes_to_company 
     put '/usuarios/:id/update_password', to: "usuarios/manager#update_password", as: :usuario_update_password
   end
+
+  devise_for :usuarios,
+              patch: "painel/usuarios",
+              class_name: "Painel::Usuario",
+              controllers: { sessions: 'painel/usuarios/sessions' }
+
+  devise_for :masters, 
+             path: 'painel/masters',
+             class_name: "Painel::Master",
+             controllers: { sessions: 'painel/masters/sessions' },
+             skip: [:registrations]
+
+  authenticated :master do
+    root 'painel/dashboards#index', as: "authenticated_master_root"
+  end
+
+  devise_scope :usuario do
+    unauthenticated do
+      root "painel/usuarios/sessions#new", to: "painel/usuarios/sessions#new", as: :main, path: 'painel/usuarios'
+    end
+  end
+
+  get 'pages/help'
+  get 'pages/contact_us'
 
   root to: "pages#index"
 end

@@ -1,6 +1,7 @@
 class Cliente < ApplicationRecord
   include AtivandoStatus
   before_save :upcased_attributes
+  before_create :set_status_cliente
 
   scope :pelo_nome, -> { order("nome ASC") }
 
@@ -12,9 +13,6 @@ class Cliente < ApplicationRecord
   validates_associated :cargo, :estado, :cidade, :convenio
 
   usar_como_cpf :cpf
-
-  before_create :set_status_cliente
-  before_save :upcased_attributes
 
   belongs_to :empresa, class_name: "Painel::Empresa", foreign_key: "empresa_id"
   belongs_to :estado
@@ -29,12 +27,10 @@ class Cliente < ApplicationRecord
   has_attached_file :foto, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :foto, content_type: /\Aimage\/.*\Z/
 
-  def set_status_cliente
-    self.status = 'Ativo'
-  end
-
   def upcased_attributes
     self.nome.upcase!
+    self.sexo.upcase!
+    self.estado_civil.upcase!
     self.bairro.upcase!
   end
 

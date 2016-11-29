@@ -18,11 +18,8 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-leaflet'
 end
 
-gem 'turbolinks', '~> 5'
-
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-gem 'jquery-turbolinks'
 gem 'rails-jquery-autocomplete'
 gem 'redis', '~> 3.0'
 gem 'jbuilder', '~> 2.5'
@@ -47,8 +44,6 @@ end
 gem 'xray-rails', '~> 0.1.21'
 gem 'better_errors', '~> 2.1', '>= 2.1.1'
 
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
 gem 'ransack', github: 'activerecord-hackery/ransack'
 gem 'momentjs-rails', github: 'derekprior/momentjs-rails'
 gem 'datetimepicker-rails', github: 'zpaulovics/datetimepicker-rails', branch: 'master', submodules: true
@@ -72,20 +67,12 @@ gem 'masonry-rails'
 gem 'paperclip', '~> 5.0.0'
 gem "bootstrap-table-rails"
 gem 'localized_country_select'
-
 gem 'ckeditor', '4.1.3'
-
-# gem 'tinymce-rails'
-# gem 'tinymce-rails-langs'
-# gem 'tinymce-rails', github: 'spohlenz/tinymce-rails', branch: 'tinymce-3'
-
-
 gem 'chosen-rails', '~> 1.5', '>= 1.5.2'
 gem 'wannabe_bool'
 gem "attr_encrypted", "~> 3.0.0"
 gem 'friendly_id', '~> 5.1.0'
 gem 'time_difference', '~> 0.4.2'
-
 gem 'font-awesome-rails', '~> 4.6', '>= 4.6.3.1'
 
 # Use Capistrano for deployment
@@ -93,7 +80,9 @@ gem 'capistrano', '~> 3.6'
 gem 'capistrano-rails', '~> 1.1', '>= 1.1.7', group: :development
 gem "capistrano-bundler"
 gem 'capistrano-rbenv', '~> 2.0', '>= 2.0.4'
-gem 'capistrano3-puma'
+# gem 'capistrano3-puma'
 gem 'capistrano3-nginx'
-gem 'capistrano-upload-config'
 gem 'capistrano-puma', '~> 0.2.3'
+gem 'capistrano-upload-config'
+
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

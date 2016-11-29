@@ -42,9 +42,14 @@
 #= require fornecedores
 #= require profissionais
 #= require painel/permissoes
-#= require valida_cpf
 
 # $("#session_modal.modal").modal()
 # 
 
 #= require ckeditor/init
+
+# -*- UTILITARIOS -*-
+#= require utility/datatable
+#= require utility/maskaras
+#= require utility/__init__
+#= require valida_cpf
