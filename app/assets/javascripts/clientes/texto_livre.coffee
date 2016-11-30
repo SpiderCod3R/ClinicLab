@@ -81,6 +81,7 @@ $(document).ready ->
               cliente_id = $("#cliente_id").val()
               window.location.href = URL_BASE + "clientes/" + cliente_id + "/edit"
               window.location.href = URL_BASE + "clientes/" + cliente_id + "/edit#texto_livre"
+              $('.nav-tabs a[href="#texto_livre"]').tab('show')
 
 
   $('#cancelar_free_text').click ->
@@ -91,8 +92,7 @@ $(document).ready ->
     $("#next_page").fadeIn(500)
     $("#previous_page").fadeIn(500)
     $("#change_free_text").fadeIn(500)
-    $("#change_free_text").fadeIn(500);
-    $('#destroy_free_text').fadeIn(500);
+    $('#destroy_free_text').fadeIn(500)
     $(this).hide()
 
   $("#change_free_text").click ->
@@ -129,6 +129,12 @@ $(document).ready ->
         cliente_texto_livre:
           id: ctl_id
       success: (json) ->
-        cliente_id = json
-        window.location.href = URL_BASE + "clientes/" + cliente_id + "/edit"
-        window.location.href = URL_BASE + "clientes/" + cliente_id + "/edit#texto_livre"
+        $('#cancelar_free_text').fadeOut(500)
+        $("#include_new_free_text").fadeIn(500)
+        $("#salvar_new_free_text").fadeOut(500)
+        $('#cktext_area_editor').fadeOut(500)
+        $("#free_text_area").fadeIn(500)
+        $("#next_page").fadeIn(500)
+        $("#previous_page").fadeIn(500)
+        $("#change_free_text").fadeIn(500)
+        $('#destroy_free_text').fadeIn(500);
