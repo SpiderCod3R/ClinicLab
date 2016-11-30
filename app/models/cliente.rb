@@ -20,10 +20,7 @@ class Cliente < ApplicationRecord
   belongs_to :cargo
   belongs_to :convenio
   has_many :historicos
-<<<<<<< HEAD
-=======
   has_many :cliente_texto_livres
->>>>>>> cliente_texto_livre
 
   accepts_nested_attributes_for :historicos, allow_destroy: true
 

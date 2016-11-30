@@ -45,10 +45,7 @@
 # $("#session_modal.modal").modal()
 # 
 
-<<<<<<< HEAD
 # -*- CKEDITOR -*-
-#= require ckeditor/init
-=======
 #= require ckeditor/init
 
 # -*- UTILITARIOS -*-
@@ -56,4 +53,3 @@
 #= require utility/__init__
 #= require valida_cpf
 #= require bootbox.min.js
->>>>>>> cliente_texto_livre

@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20161123095333) do
-=======
 ActiveRecord::Schema.define(version: 20161128121826) do
->>>>>>> cliente_texto_livre
   create_table "agenda_movimentacoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "agenda_id"
     t.integer  "convenio_id"
