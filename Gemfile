@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.0.0.1'
+gem 'rails', '~> 5.0', '>= 5.0.0.1'
 gem 'bundler', '>= 1.8.4'
 gem 'rails-i18n', '~> 5.0.0'
 
@@ -18,18 +18,14 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-leaflet'
 end
 
-gem 'turbolinks', '~> 5'
-
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-gem 'jquery-turbolinks'
 gem 'rails-jquery-autocomplete'
 gem 'redis', '~> 3.0'
 gem 'jbuilder', '~> 2.5'
 
 gem 'xray-rails', '~> 0.1.21'
 gem 'better_errors', '~> 2.1', '>= 2.1.1'
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'ransack', github: 'activerecord-hackery/ransack'
 gem 'momentjs-rails', github: 'derekprior/momentjs-rails'
@@ -53,7 +49,6 @@ gem "wicked"
 gem 'masonry-rails'
 gem 'paperclip', '~> 5.0.0'
 gem 'localized_country_select'
-gem "bootstrap-table-rails"
 
 group :development, :test do
   gem 'rails-erd'
@@ -87,7 +82,9 @@ gem 'capistrano', '~> 3.6'
 gem 'capistrano-rails', '~> 1.1', '>= 1.1.7', group: :development
 gem "capistrano-bundler"
 gem 'capistrano-rbenv', '~> 2.0', '>= 2.0.4'
-gem 'capistrano3-puma'
+# gem 'capistrano3-puma'
 gem 'capistrano3-nginx'
-gem 'capistrano-upload-config'
 gem 'capistrano-puma', '~> 0.2.3'
+gem 'capistrano-upload-config'
+
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

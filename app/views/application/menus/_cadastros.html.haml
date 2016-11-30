@@ -25,3 +25,7 @@
   %li=link_to 'Imagem Cabec', new_imagem_cabec_path, style: "font-weight: bold;"
 -if can? :read, Operadora
   %li=link_to 'Operadoras', new_operadora_path, style: "font-weight: bold;"
+-if can? :read, Servico
+  %li=link_to 'Serviços', new_empresa_servico_path(current_usuario.empresa), style: "font-weight: bold;"
+-if can? :read, TextoLivre
+  %li=link_to 'Texto Livre', new_texto_livre_path, style: "font-weight: bold;"

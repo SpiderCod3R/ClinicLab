@@ -1,51 +1,56 @@
 class TextoLivresController < ApplicationController
-  before_action :set_texto_livre, only: [:show, :edit, :update, :destroy]
-
-  respond_to :html
+  load_and_authorize_resource
 
   def index
-    @texto_livres = TextoLivre.all
-    respond_with(@texto_livres)
+    @texto_livres = TextoLivre.where(empresa_id: current_usuario.empresa_id)
   end
 
   def show
-    respond_with(@texto_livre)
+  end
+
+  def show_texto_livre
+    respond_to &:js
   end
 
   def new
     @texto_livre = TextoLivre.new
-    respond_with(@texto_livre)
   end
 
   def edit
   end
 
   def create
-    @texto_livre = TextoLivre.new(texto_livre_params)
+    @texto_livre = TextoLivre.new(resource_params)
+    @texto_livre.addEmpresa=current_usuario.empresa
     if @texto_livre.save
-      flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @texto_livre.class)
-      redirect_to new_texto_livre_path
+      redirect_to @texto_livre, notice: 'Texto livre was successfully created.'
     else
       render :new
     end
   end
 
   def update
-    @texto_livre.update(texto_livre_params)
-    respond_with(@texto_livre)
+    respond_to do |format|
+      if @texto_livre.update(resource_params)
+        format.html { redirect_to @texto_livre, notice: 'Texto livre was successfully updated.' }
+        format.json { render :show, status: :ok, location: @texto_livre }
+      else
+        format.html { render :edit }
+        format.json { render json: @texto_livre.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def destroy
     @texto_livre.destroy
-    respond_with(@texto_livre)
+    respond_to do |format|
+      format.html { redirect_to texto_livres_url, notice: 'Texto livre was successfully destroyed.' }
+      format.json { head :no_content }
+    end
   end
 
   private
-    def set_texto_livre
-      @texto_livre = TextoLivre.find(params[:id])
-    end
-
-    def texto_livre_params
-      params.require(:texto_livre).permit(:nome, :texto)
+    def resource_params
+      params.require(:texto_livre).permit(:nome, :servico_id, :content, :empresa_id)
     end
 end

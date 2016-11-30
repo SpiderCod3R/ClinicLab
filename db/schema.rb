@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20161123095333) do
+=======
+ActiveRecord::Schema.define(version: 20161128121826) do
+>>>>>>> cliente_texto_livre
   create_table "agenda_movimentacoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "agenda_id"
     t.integer  "convenio_id"
@@ -130,6 +134,16 @@ ActiveRecord::Schema.define(version: 20161123095333) do
     t.index ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type", using: :btree
   end
 
+  create_table "cliente_texto_livres", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "cliente_id"
+    t.text     "content_data",   limit: 65535
+    t.integer  "texto_livre_id"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.index ["cliente_id"], name: "index_cliente_texto_livres_on_cliente_id", using: :btree
+    t.index ["texto_livre_id"], name: "index_cliente_texto_livres_on_texto_livre_id", using: :btree
+  end
+
   create_table "clientes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "foto_file_name"
     t.string   "foto_content_type"
@@ -237,6 +251,13 @@ ActiveRecord::Schema.define(version: 20161123095333) do
     t.index ["estado_id"], name: "index_fornecedores_on_estado_id", using: :btree
   end
 
+  create_table "funcoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "nome"
+    t.string   "descricao"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "historicos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.text     "indice",     limit: 65535
     t.integer  "cliente_id"
@@ -245,6 +266,7 @@ ActiveRecord::Schema.define(version: 20161123095333) do
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
     t.index ["cliente_id"], name: "index_historicos_on_cliente_id", using: :btree
+    t.index ["usuario_id"], name: "index_historicos_on_usuario_id", using: :btree
   end
 
   create_table "imagem_cabecs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -387,13 +409,24 @@ ActiveRecord::Schema.define(version: 20161123095333) do
     t.index ["profissional_id"], name: "index_referencia_agendas_on_profissional_id", using: :btree
   end
 
+  create_table "servicos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "tipo"
+    t.string   "abreviatura"
+    t.integer  "empresa_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["empresa_id"], name: "index_servicos_on_empresa_id", using: :btree
+  end
+
   create_table "texto_livres", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "nome"
-    t.text     "texto",      limit: 65535
+    t.integer  "servico_id"
+    t.integer  "empresa_id"
+    t.text     "content",    limit: 65535
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
-    t.integer  "empresa_id"
     t.index ["empresa_id"], name: "index_texto_livres_on_empresa_id", using: :btree
+    t.index ["servico_id"], name: "index_texto_livres_on_servico_id", using: :btree
   end
 
   add_foreign_key "agenda_movimentacoes", "agendas"
@@ -403,6 +436,8 @@ ActiveRecord::Schema.define(version: 20161123095333) do
   add_foreign_key "atendimentos", "cidades"
   add_foreign_key "atendimentos", "convenios"
   add_foreign_key "atendimentos", "estados"
+  add_foreign_key "cliente_texto_livres", "clientes"
+  add_foreign_key "cliente_texto_livres", "texto_livres"
   add_foreign_key "clientes", "cargos"
   add_foreign_key "clientes", "cidades"
   add_foreign_key "clientes", "convenios"
@@ -410,10 +445,12 @@ ActiveRecord::Schema.define(version: 20161123095333) do
   add_foreign_key "fornecedores", "cidades"
   add_foreign_key "fornecedores", "estados"
   add_foreign_key "historicos", "clientes"
+  add_foreign_key "historicos", "usuarios"
   add_foreign_key "profissionais", "cargos"
   add_foreign_key "profissionais", "cidades"
   add_foreign_key "profissionais", "conselho_regionais"
   add_foreign_key "profissionais", "estados"
   add_foreign_key "profissionais", "operadoras"
   add_foreign_key "referencia_agendas", "profissionais"
+  add_foreign_key "texto_livres", "servicos"
 end

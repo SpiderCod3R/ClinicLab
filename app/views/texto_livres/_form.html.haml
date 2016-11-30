@@ -1,12 +1,14 @@
-%div{class: "container", style: "margin-left: 5%; padding-top: 15px; padding-bottom: 15px;"}
-  = simple_form_for(@texto_livre) do |f|
-    %div{class: "row"}
-      %div{class: "col-xs-12 col-sm-6 col-md-6 col-lg-6", style: 'margin: 0; padding: 0;'}
-        = f.error_notification
-    %div{class: "row"}
-      %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
-        = f.input :nome
-    %div{class: "row"}
-      %div{class: "col-xs-11 col-sm-11 col-md-11 col-lg-11"}
-        = f.text_area :texto, :class => " tinymce", :language => "pt_BR"
-        =tinymce
+= simple_form_for(@texto_livre) do |f|
+  = f.error_notification
+
+  .row
+    .col-md-4
+      = f.input :nome
+    .col-md-4
+      =f.label :servico_id, "Serviço"
+      =f.collection_select :servico_id, Servico.where(empresa_id: current_usuario.empresa_id), :id, :to_s, { prompt: "Selecione um" }, class: "form-control selectpicker", :"data-live-search"=>"true"
+  %hr/
+  .row-fluid
+    = f.label "Texto Livre"
+    = f.cktext_area :content, ckeditor: { uiColor: '#D3E7EF', toolbar: 'mini', height: 400 }
+= javascript_include_tag Ckeditor.asset_path

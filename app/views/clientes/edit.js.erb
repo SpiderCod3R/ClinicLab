@@ -1,0 +1,3 @@
+$('#next_page').html("<%=j link_to_next_page @cliente_textos_livres, 'Próxima >>', :remote => true, class: 'btn btn-default' %>");
+$('#previous_page').html("<%=j link_to_previous_page @cliente_textos_livres, '<< Anterior', remote: true, class: 'btn btn-default' %>");
+$('#texto_livres_container').html("<%=j render 'clientes/partials/cliente_textos_livre' %>");

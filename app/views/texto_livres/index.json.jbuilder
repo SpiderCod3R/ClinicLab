@@ -1,4 +1,1 @@
-json.array!(@texto_livres) do |texto_livre|
-  json.extract! texto_livre, :id, :nome, :texto
-  json.url texto_livre_url(texto_livre, format: :json)
-end
+json.array! @texto_livres, partial: 'texto_livres/texto_livre', as: :texto_livre

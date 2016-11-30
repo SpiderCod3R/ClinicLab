@@ -1,6 +1,7 @@
 class Cliente < ApplicationRecord
   include AtivandoStatus
   before_save :upcased_attributes
+  before_create :set_status_cliente
 
   scope :pelo_nome, -> { order("nome ASC") }
 
@@ -13,27 +14,26 @@ class Cliente < ApplicationRecord
 
   usar_como_cpf :cpf
 
-  before_create :set_status_cliente
-  before_save :upcased_attributes
-
   belongs_to :empresa, class_name: "Painel::Empresa", foreign_key: "empresa_id"
   belongs_to :estado
   belongs_to :cidade
   belongs_to :cargo
   belongs_to :convenio
   has_many :historicos
+<<<<<<< HEAD
+=======
+  has_many :cliente_texto_livres
+>>>>>>> cliente_texto_livre
 
   accepts_nested_attributes_for :historicos, allow_destroy: true
 
   has_attached_file :foto, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :foto, content_type: /\Aimage\/.*\Z/
 
-  def set_status_cliente
-    self.status = 'Ativo'
-  end
-
   def upcased_attributes
     self.nome.upcase!
+    self.sexo.upcase!
+    self.estado_civil.upcase!
     self.bairro.upcase!
   end
 

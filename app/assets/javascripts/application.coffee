@@ -25,7 +25,6 @@
 #= require utility/__init__
 #= require TEMPLATE/accounting
 #= require TEMPLATE/parsley.min
-# require utility/datatable
 
 # -*- REQUIRES DO GCLINIC
 #= require date_time_inputs
@@ -35,16 +34,26 @@
 #= require clientes
 #= require cliente_idade
 #= require cliente_nacionalidade
+#= require clientes/texto_livre
 #= require cliente_historicos
 #= require clientes/search
 #= require fornecedor
 #= require fornecedores
 #= require profissionais
 #= require painel/permissoes
-#= require valida_cpf
 
 # $("#session_modal.modal").modal()
 # 
 
+<<<<<<< HEAD
 # -*- CKEDITOR -*-
 #= require ckeditor/init
+=======
+#= require ckeditor/init
+
+# -*- UTILITARIOS -*-
+#= require utility/maskaras
+#= require utility/__init__
+#= require valida_cpf
+#= require bootbox.min.js
+>>>>>>> cliente_texto_livre
