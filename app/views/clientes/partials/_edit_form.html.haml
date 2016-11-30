@@ -1,18 +1,18 @@
 %ul{class: "nav nav-tabs"}
   %li{class:"active"}
-    %a{'data-toggle':"tab", href:"#dados"}
+    %a{'data-toggle':"tab", href:"#dados", id: "aba_dados"}
       Dados Pessoais
   %li
-    %a{'data-toggle':"tab", href:"#convenio"}
+    %a{'data-toggle':"tab", href:"#convenio", id: "aba_convenio"}
       Convênio
   %li
-    %a{'data-toggle':"tab", href:"#contato"}
+    %a{'data-toggle':"tab", href:"#contato", id: "aba_contato"}
       Contato
   %li
-    %a{'data-toggle':"tab", href:"#historico"}
+    %a{'data-toggle':"tab", href:"#historico", id: "aba_historico"}
       Histórico
   %li
-    %a{'data-toggle':"tab", href:"#texto_livre"}
+    %a{'data-toggle':"tab", href:"#texto_livre", id: "aba_texto_livre"}
       Texto-Livre
 
 = simple_form_for(@cliente) do |f|
