@@ -50,10 +50,12 @@ $(document).ready ->
     CKEDITOR.instances['texto_livre_textarea'].setData(link.data().freetext)
     BootstrapDialog.closeAll()
     $("#cancelar_free_text").show()
-    $("#include_new_free_text").fadeOut(500);
-    $("#salvar_new_free_text").fadeIn(500);
-    $("#next_page").fadeOut(500);
-    $("#previous_page").fadeOut(500);
+    $("#include_new_free_text").fadeOut(500)
+    $("#salvar_new_free_text").fadeIn(500)
+    $("#next_page").fadeOut(500)
+    $("#previous_page").fadeOut(500)
+    $("#change_free_text").fadeOut(500)
+    $('#destroy_free_text').fadeOut(500)
 
   $('#destroy_free_text').click ->
     ctl_id     = $("#id_texto_livre").text()
@@ -82,13 +84,15 @@ $(document).ready ->
 
 
   $('#cancelar_free_text').click ->
-    $("#include_new_free_text").fadeIn(500);
-    $("#salvar_new_free_text").fadeOut(500);
+    $("#include_new_free_text").fadeIn(500)
+    $("#salvar_new_free_text").fadeOut(500)
     $('#cktext_area_editor').fadeOut(500)
     $("#free_text_area").fadeIn(500)
-    $("#next_page").fadeIn(500);
-    $("#previous_page").fadeIn(500);
+    $("#next_page").fadeIn(500)
+    $("#previous_page").fadeIn(500)
     $("#change_free_text").fadeIn(500)
+    $("#change_free_text").fadeIn(500);
+    $('#destroy_free_text').fadeIn(500);
     $(this).hide()
 
   $("#change_free_text").click ->
@@ -103,10 +107,10 @@ $(document).ready ->
       success: (response) ->
         $("#free_text_area").hide()
         $('#cktext_area_editor').show()
-        $("#include_new_free_text").fadeOut(500);
-        $("#salvar_new_free_text").fadeIn(500);
-        $("#next_page").hide();
-        $("#previous_page").hide();
+        $("#include_new_free_text").fadeOut(500)
+        $("#salvar_new_free_text").fadeIn(500)
+        $("#next_page").hide()
+        $("#previous_page").hide()
         $('#cancelar_free_text').show()
         CKEDITOR.instances['texto_livre_textarea'].setData(response.content_data)
 
