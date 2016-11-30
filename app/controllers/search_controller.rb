@@ -9,4 +9,8 @@ class SearchController < ApplicationController
   def collect_all_free_text
     @textos_livres = TextoLivre.all.where(empresa_id: current_usuario.empresa_id)
   end
+
+  def find_cliente_texto_livre
+    @texto_livre= ClienteTextoLivre.find_by( id: params[:id], cliente_id: params[:cliente_id])
+  end
 end

@@ -21,6 +21,7 @@ class ClientesController < Support::ClienteSupportController
 
   def edit
     session[:cliente_id] = @cliente.id
+    @cliente_textos_livres = @cliente.cliente_texto_livres.page params[:page]
     get_historicos
   end
 
@@ -86,9 +87,26 @@ class ClientesController < Support::ClienteSupportController
   end
 
   def include_texto_livre
-    binding.pry
-    if !params[:texto_livre].empty?
-      @cliente_texto_livre = ClienteTextoLivre.new
+    # binding.pry
+    if params[:cliente_texto_livre][:id].to_i.eql?(0)
+      @cliente_texto_livre = ClienteTextoLivre.include(params[:texto_livre])
+    else
+      @cliente_texto_livre = ClienteTextoLivre.find(params[:cliente_texto_livre][:id])
+      @cliente_texto_livre.update_content(params)
+    end
+
+    respond_to do |format|
+      format.html
+      format.json { render json: session[:cliente_id].as_json }
+    end
+  end
+
+  def destroy_cliente_texto_livre
+    @cliente_texto_livre = ClienteTextoLivre.find(params[:id])
+    @cliente_texto_livre.destroy
+    respond_to do |format|
+      format.html
+      format.json { render json: session[:cliente_id].as_json }
     end
   end
 

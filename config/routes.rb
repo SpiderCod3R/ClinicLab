@@ -36,9 +36,8 @@ Rails.application.routes.draw do
   post 'clientes/retorna_historico', to: "clientes#retorna_historico"
   post 'clientes/salva_historico', to: "clientes#salva_historico"
   post 'clientes/atualiza_historico', to: "clientes#atualiza_historico"
-  post 'agenda/paciente/change', to: "clientes#change_or_create_new_paciente", as: :change_or_create_new_paciente
+  get 'clientes/:cliente_id/destroy_texto_livre', to: "clientes#destroy_cliente_texto_livre"
 
-  resources :texto_livres
   resources :imagem_cabecs
   resources :fornecedores
   resources :cabecs
@@ -53,6 +52,9 @@ Rails.application.routes.draw do
   get 'search/buscar_pacientes' => "search#buscar_pacientes"
   get 'search/find-texto-livres'=> "search#collect_all_free_text" ,as: :collect_all_free_text
   get 'search/conselho_regional', to: 'conselho_regionais#search'
+  get 'search/cliente-texto-livre', to: 'search#find_cliente_texto_livre'
+
+  post 'clientes/include_texto_livre', to: 'clientes#include_texto_livre'
 
   resources :referencia_agendas, except: [:show]
 
