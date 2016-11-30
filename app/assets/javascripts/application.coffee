@@ -25,7 +25,6 @@
 #= require utility/__init__
 #= require TEMPLATE/accounting
 #= require TEMPLATE/parsley.min
-# require utility/datatable
 
 # -*- REQUIRES DO GCLINIC
 #= require date_time_inputs
@@ -49,7 +48,7 @@
 #= require ckeditor/init
 
 # -*- UTILITARIOS -*-
-#= require utility/datatable
 #= require utility/maskaras
 #= require utility/__init__
 #= require valida_cpf
+#= require bootbox.min.js
