@@ -1,33 +1,38 @@
 #texto_livre.tab-pane.fade
-  #wrapper
-    .container
-      .col-md-12
-        .row
-          .col-md-6
-            =link_to "Incluir Novo", "#", class: "btn btn-success", id: "include_new_free_text"
-            =link_to "Incluir", "#", class: "btn btn-warning", id: "salvar_new_free_text"
-            =link_to "Cancelar Inclusão", "#", class: "btn btn-success", id: "cancelar_free_text"
-            =link_to "Alterar", "#", class: "btn btn-info", id: "change_free_text" if !@cliente.cliente_texto_livres.empty?
-            =link_to "Excluir", "#", class: "btn btn-danger", id: "destroy_free_text" if !@cliente.cliente_texto_livres.empty?
+  .container-fluid
+    .col-md-11
+      .row
+        .col-md-6
+          =link_to "Incluir Novo", "#", class: "btn btn-success", id: "include_new_free_text"
+          =link_to "Incluir", "#", class: "btn btn-success", id: "salvar_new_free_text"
+          =link_to "Cancelar Inclusão", "#", class: "btn btn-warning", id: "cancelar_free_text"
+          =link_to "Alterar", "#", class: "btn btn-info", id: "change_free_text" if !@cliente.cliente_texto_livres.empty?
+          =link_to "Excluir", "#", class: "btn btn-danger", id: "destroy_free_text" if !@cliente.cliente_texto_livres.empty?
+        .col-md-6
+          .pull-right
+            #first_page{style: "display: inline"}
+              = link_to_first_page path: cliente_find_textos_livres_path(@cliente, first_page: true), text: '<< Primeiro'
             #previous_page{style: "display: inline"}
-              = link_to_previous_page @cliente_textos_livres, '<< Anterior', remote: true, class: "btn btn-default"
+              = link_to_back_page path: cliente_find_textos_livres_path(@cliente, previous_page: true, texto_livre_id: @cliente_texto_livre.id), text: '< Anterior'
             #next_page{style: "display: inline"}
-              = link_to_next_page @cliente_textos_livres, 'Próxima >>', remote: true, class: "btn btn-default"
-    %br/
-    .container
-      .col-md-11
-        #free_text_area
-          .panel.panel-default
-            .panel-heading
-              %b Texto-Livre
-            .panel-body
-              #texto_livres_container
-                .clearfix
-                  -if !@cliente_textos_livres.nil?
-                    =render 'clientes/partials/cliente_textos_livre'
-        #select_free_text_modal
-        #cktext_area_editor{style: "display: none"}
-          =cktext_area :page, :info, cols: 40, ckeditor: { uiColor: '#E2E2E2', toolbar: 'mini', height: 400 }, :id => "texto_livre_textarea"
+              = link_to_advance_page path: cliente_find_textos_livres_path(@cliente, next_page: true, texto_livre_id: @cliente_texto_livre.id), text: 'Próxima >'
+            #last_page{style: "display: inline"}
+              = link_to_last_page path: cliente_find_textos_livres_path(@cliente, last_page: true), text: 'Último >>'
+  %br/
+  .container
+    .col-md-11
+      #free_text_area
+        .panel.panel-default
+          .panel-heading
+            %b Texto-Livre
+          .panel-body
+            #texto_livres_container
+              .clearfix
+                -if !@cliente_texto_livre.nil?
+                  =render 'clientes/partials/cliente_texto_livre'
+      #select_free_text_modal
+      #cktext_area_editor{style: "display: none"}
+        =cktext_area :page, :info, cols: 40, ckeditor: { uiColor: '#E2E2E2', toolbar: 'mini', height: 400 }, :id => "texto_livre_textarea"
 
 
 =javascript_include_tag Ckeditor.asset_path

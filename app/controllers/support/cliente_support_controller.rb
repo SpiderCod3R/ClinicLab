@@ -31,9 +31,26 @@ class Support::ClienteSupportController < ApplicationController
     redirect_to painel_empresa_agenda_path(current_usuario.empresa, @agenda)
   end
 
+  '''
+    Action para paginar textos livre dentro do cliente
+  '''
+  def find_textos_livre
+    @cliente = Cliente.find(params[:cliente_id])
+    @cliente_texto_livre = @cliente.cliente_texto_livres.find(params[:texto_livre_id]) if params[:texto_livre_id].present?
+    if params[:first_page].present?
+      @cliente_texto_livre = @cliente.cliente_texto_livres.first
+    elsif params[:previous_page].present?
+      @cliente_texto_livre = @cliente_texto_livre.previous
+    elsif params[:next_page].present?
+      @cliente_texto_livre = @cliente_texto_livre.next
+    elsif params[:last_page].present?
+      @cliente_texto_livre = @cliente.cliente_texto_livres.last
+    end
+    respond_to &:js
+  end
+
 
   private
-
     def set_estados
       @estados = Estado.pelo_nome
     end

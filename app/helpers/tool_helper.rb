@@ -119,4 +119,20 @@ module ToolHelper
     link_to "#{image_tag("icons/glyphicons-137-cogwheel.png", width: 22, height: 22)}".html_safe,
     resource, title: "Alterar permissões", class: 'btn btn-default'
   end
+
+  def link_to_first_page(options={})
+    link_to options[:text], options[:path], remote: true, class: 'btn btn-default'
+  end
+
+  def link_to_advance_page(options={})
+    link_to options[:text], options[:path], remote: true, class: 'btn btn-default'
+  end
+
+  def link_to_back_page(options={})
+    link_to options[:text], options[:path], remote: true, class: 'btn btn-default'
+  end
+
+  def link_to_last_page(options={})
+    link_to options[:text], options[:path], remote: true, class: 'btn btn-default'
+  end
 end

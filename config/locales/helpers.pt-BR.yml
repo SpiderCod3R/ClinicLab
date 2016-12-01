@@ -2,3 +2,4 @@ pt-BR:
   helpers:
     messages:
       wait: Aguarde, obtendo dados
+      no_more_data: Não existem, mais dados para serem carregados

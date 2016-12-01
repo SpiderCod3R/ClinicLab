@@ -47,7 +47,8 @@ Rails.application.routes.draw do
   post 'clientes/retorna_historico', to: "clientes#retorna_historico"
   post 'clientes/salva_historico', to: "clientes#salva_historico"
   post 'clientes/atualiza_historico', to: "clientes#atualiza_historico"
-  get 'clientes/:cliente_id/destroy_texto_livre', to: "clientes#destroy_cliente_texto_livre"
+  get  'clientes/:cliente_id/destroy_texto_livre', to: "clientes#destroy_cliente_texto_livre"
+  get 'clientes/:cliente_id/textos_livres', to: "clientes#find_textos_livre", as: :cliente_find_textos_livres
 
   resources :imagem_cabecs
   resources :fornecedores
