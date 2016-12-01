@@ -49,6 +49,19 @@ class Support::ClienteSupportController < ApplicationController
     respond_to &:js
   end
 
+  def print_free_text
+    # binding.pry
+    @cliente = Cliente.find(params[:id])
+    @cliente_texto_livre = @cliente.cliente_texto_livres.find(params[:texto_livre_id]) if params[:texto_livre_id].present?
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = ClienteTextoLivrePdf.new(@cliente_texto_livre)
+        send_data pdf.render, filename: 'texto_livre', type: 'application/pdf', disposition: 'inline'
+      end
+    end
+  end
+
 
   private
     def set_estados

@@ -209,6 +209,7 @@ GEM
       haml (~> 4.0.0)
       nokogiri (~> 1.6.0)
       ruby_parser (~> 3.5)
+    htmlentities (4.3.4)
     i18n (0.7.0)
     jbuilder (2.6.1)
       activesupport (>= 3.0.0, < 5.1)
@@ -440,6 +441,7 @@ DEPENDENCIES
   friendly_id (~> 5.1.0)
   haml
   haml-rails
+  htmlentities
   jbuilder (~> 2.5)
   jquery-rails
   jquery-ui-rails

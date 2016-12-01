@@ -52,3 +52,4 @@
 #= require utility/__init__
 #= require valida_cpf
 #= require bootbox.min.js
+#= require ckEditor.config

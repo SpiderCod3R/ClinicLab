@@ -16,7 +16,11 @@ Rails.application.routes.draw do
   resources :imagem_cabecs
   resources :fornecedores
   resources :cabecs
-  resources :clientes
+  resources :clientes do
+    member do
+      get 'print_free_text'
+    end
+  end
   resources :conselho_regionais
   resources :imagem_cabecs
   resources :fornecedores
