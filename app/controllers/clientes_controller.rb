@@ -21,7 +21,7 @@ class ClientesController < Support::ClienteSupportController
 
   def edit
     session[:cliente_id] = @cliente.id
-    @cliente_textos_livres = @cliente.cliente_texto_livres.page params[:page]
+    @cliente_texto_livre = @cliente.cliente_texto_livres.first
     get_historicos
   end
 

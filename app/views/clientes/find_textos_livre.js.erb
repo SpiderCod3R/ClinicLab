@@ -1,0 +1,19 @@
+<%- if @cliente_texto_livre.nil? -%>
+  var dialog = bootbox.dialog({
+    title: 'Aguarde ...',
+    message: '<p><i class="fa fa-spin fa-spinner"></i> Processando...</p>'
+  });
+  dialog.init(function(){
+      setTimeout(function(){
+          dialog.find('.bootbox-body').html("<%= t('helpers.messages.no_more_data')%>");
+      }, 3000);
+  });
+  setTimeout(function(){
+    dialog.modal('hide');
+  }, 6000);
+<% else %>
+  $('#texto_livres_container').empty()
+  $('#texto_livres_container').html("<%=j render 'clientes/partials/cliente_texto_livre' %>");
+  $('#previous_page').html("<%=j link_to_back_page path: cliente_find_textos_livres_path(@cliente, previous_page: true, texto_livre_id: @cliente_texto_livre.id), text: '< Anterior'%>");
+  $('#next_page').html("<%=j link_to_advance_page path: cliente_find_textos_livres_path(@cliente, next_page: true, texto_livre_id: @cliente_texto_livre.id), text: 'Próxima >'%>");
+<%- end -%>
