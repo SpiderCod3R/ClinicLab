@@ -88,3 +88,4 @@ gem 'capistrano-upload-config'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'htmlentities'
+gem 'htmltoword'
