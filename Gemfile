@@ -88,3 +88,6 @@ gem 'capistrano-puma', '~> 0.2.3'
 gem 'capistrano-upload-config'
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+gem 'htmlentities'
+gem 'htmltoword'

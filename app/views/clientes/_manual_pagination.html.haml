@@ -1,0 +1,10 @@
+.col-md-6
+  .pull-right
+    #first_page{style: "display: inline"}
+      = link_to_first_page path: cliente_find_textos_livres_path(@cliente, first_page: true), text: '<< Primeiro'
+    #previous_page{style: "display: inline"}
+      = link_to_back_page path: cliente_find_textos_livres_path(@cliente, previous_page: true, texto_livre_id: @cliente_texto_livre.id), text: '< Anterior'
+    #next_page{style: "display: inline"}
+      = link_to_advance_page path: cliente_find_textos_livres_path(@cliente, next_page: true, texto_livre_id: @cliente_texto_livre.id), text: 'Próxima >'
+    #last_page{style: "display: inline"}
+      = link_to_last_page path: cliente_find_textos_livres_path(@cliente, last_page: true), text: 'Último >>'

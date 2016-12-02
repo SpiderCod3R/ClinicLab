@@ -17,7 +17,6 @@ Rails.application.routes.draw do
   resources :fornecedores
   resources :cabecs
   resources :conselho_regionais
-  resources :clientes
 
   post 'clientes/retorna_historico', to: "clientes#retorna_historico"
   post 'clientes/salva_historico', to: "clientes#salva_historico"
@@ -27,7 +26,13 @@ Rails.application.routes.draw do
   resources :imagem_cabecs
   resources :fornecedores
   resources :cabecs
-  resources :clientes
+
+  resources :clientes do
+    member do
+      get 'print_free_text'
+    end
+  end
+
   resources :conselho_regionais
   resources :imagem_cabecs
   resources :fornecedores
