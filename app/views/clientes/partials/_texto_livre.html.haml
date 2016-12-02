@@ -10,7 +10,8 @@
         .col-md-3
           .pull-right
             =link_to "Excluir", "#", class: "btn btn-danger", id: "destroy_free_text" if !@cliente.cliente_texto_livres.empty?
-            =link_to_print_free_text path: print_free_text_cliente_path(@cliente, texto_livre_id: @cliente_texto_livre.id, format: 'pdf'), text: 'Imprimir' if !@cliente.cliente_texto_livres.empty?
+            #print_free_text{style: "display: inline;"}
+              =link_to_print_free_text path: print_free_text_cliente_path(@cliente, texto_livre_id: @cliente_texto_livre.id, format: 'docx'), text: 'Imprimir' if !@cliente.cliente_texto_livres.empty?
         #manual_pagination
           =render 'manual_pagination' if !@cliente.cliente_texto_livres.empty?
   %br/
