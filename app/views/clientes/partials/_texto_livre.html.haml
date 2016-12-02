@@ -28,7 +28,7 @@
                   =render 'clientes/partials/cliente_texto_livre'
       #select_free_text_modal
       #cktext_area_editor{style: "display: none"}
-        =cktext_area :page, :info, cols: 40, ckeditor: { uiColor: '#E2E2E2', toolbar: 'mini', height: 400 }, :id => "texto_livre_textarea"
+        =cktext_area :page, :info, cols: 40, ckeditor: { height: 400 }, :id => "texto_livre_textarea"
 
 
 =javascript_include_tag Ckeditor.asset_path
