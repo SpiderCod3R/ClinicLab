@@ -45,12 +45,13 @@
 # $("#session_modal.modal").modal()
 # 
 
-# -*- CKEDITOR -*-
-#= require ckeditor/init
-
 # -*- UTILITARIOS -*-
 #= require utility/maskaras
 #= require utility/__init__
 #= require valida_cpf
 #= require bootbox.min.js
+
+# -*- CKEDITOR -*-
+#= require ckeditor/init
 #= require ckEditor.config
+#= require ckeditor/init
