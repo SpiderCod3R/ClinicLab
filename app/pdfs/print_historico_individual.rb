@@ -1,5 +1,5 @@
 require "prawn"
-class PrintHistorico < Prawn::Document
+class PrintHistoricoIndividual < Prawn::Document
   include ActionView::Helpers::SanitizeHelper
   attr_accessor :resource
 

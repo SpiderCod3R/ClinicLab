@@ -4,7 +4,7 @@
       = link_to "Incluir", "#", class: "btn btn-success", id: "editar_historico", data: {historico_id: @historicos.first.id}
     - else
       = link_to "Incluir", "#", class: "btn btn-success", id: "incluir_historico"
-    =link_to "Imprimir Tudo", "#", class: "btn btn-default"
+    =link_to "Imprimir Tudo", print_historico_full_cliente_path(@cliente, format: "pdf"), class: "btn btn-default"
     =link_to "Imprimir historico", print_historico_cliente_path(@cliente, format: "pdf"), class: "btn btn-default"
   %hr/
   #well_historicos.well.historico

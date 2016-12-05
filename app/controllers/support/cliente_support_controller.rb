@@ -67,7 +67,18 @@ class Support::ClienteSupportController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        pdf = PrintHistorico.new(@historicos.first)
+        pdf = PrintHistoricoIndividual.new(@historicos.first)
+        send_data pdf.render, filename: "historico", type: 'application/pdf', disposition: 'inline'
+      end
+    end
+  end
+
+  def print_historico_full
+    get_historicos
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = PrintHistoricoCompleto.new(@historicos)
         send_data pdf.render, filename: "historico", type: 'application/pdf', disposition: 'inline'
       end
     end
