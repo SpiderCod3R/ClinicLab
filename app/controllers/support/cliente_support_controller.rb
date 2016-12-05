@@ -53,13 +53,15 @@ class Support::ClienteSupportController < ApplicationController
   def print_free_text
     @cliente = Cliente.find(params[:id])
     @cliente_texto_livre = @cliente.cliente_texto_livres.find(params[:texto_livre_id]) if params[:texto_livre_id].present?
-    respond_with(@cliente_texto_livre.content_data, filename: "#{@cliente_texto_livre.texto_livre.nome}.docx", word_template: 'print_free_text.html.erb')
-    # respond_to do |format|
-    #   format.html
-    #   format.docx do
-    #     render docx: @cliente_texto_livre.content_data, filename: 'my_file.docx'
-    #   end
-    # end
+    # respond_with(@cliente_texto_livre.content_data, filename: "#{@cliente_texto_livre.texto_livre.nome}", word_template: 'print_free_text.html.erb')
+    respond_to do |format|
+      format.html
+      format.pdf do
+        # render pdf: @cliente_texto_livre.content_data, filename: "#{@cliente_texto_livre.texto_livre.nome}", template: 'clientes/print_free_text.pdf.erb'
+        pdf = PrintFreeText.new(@cliente_texto_livre.content_data)
+        send_data pdf.render, filename: "#{@cliente_texto_livre.texto_livre.nome}", type: 'application/pdf', disposition: 'inline', template: 'clientes/print_free_text.pdf.erb'
+      end
+    end
   end
 
 
