@@ -30,7 +30,8 @@ class PrintHistoricoIndividual < Prawn::Document
   def header
     font "Courier", style: :bold
     text formatDateHour(resource.created_at.to_date, resource.created_at.to_time)
-    text resource.usuario.nome
+    text "Elaborado por - #{resource.usuario.nome}"
+    text "Cliente - #{resource.cliente.nome}"
     text resource.idade
   end
 
