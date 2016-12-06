@@ -53,5 +53,4 @@
 
 # -*- CKEDITOR -*-
 #= require ckeditor/init
-#= require ckEditor.config
-#= require ckeditor/init
+#= require ckeditor/config
