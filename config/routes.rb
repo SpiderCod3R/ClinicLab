@@ -30,6 +30,8 @@ Rails.application.routes.draw do
   resources :clientes do
     member do
       get 'print_free_text'
+      get 'print_historico'
+      get 'print_historico_full'
     end
   end
 
