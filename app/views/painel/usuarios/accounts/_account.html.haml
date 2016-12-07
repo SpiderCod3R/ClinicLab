@@ -17,6 +17,9 @@
           %i.fa.fa-2x.fa-warning.text-center{style: "color: #778A96"}
         =link_to painel_empresa_painel_usuario_add_permissions_path(usuario.empresa, usuario), title: " Adicionar nova Permissão" do
           %i.fa.fa-2x.fa-plus-circle.text-center{style: "color: #0580DE"}
+        -if usuario.usuario_permissoes.possuiAgenda?
+          =link_to "", title: "Permissões da Agenda" do
+            %i.fa.fa-2x.fa-calendar.text-center{style: "color: #AE6D2D"}
   %td
     %center
       -unless usuario.admin?
