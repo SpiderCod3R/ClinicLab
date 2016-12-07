@@ -1,7 +1,6 @@
 class Cliente < ApplicationRecord
   include AtivandoStatus
   before_save :upcased_attributes
-  before_create :set_status_cliente
 
   scope :pelo_nome, -> { order("nome ASC") }
 
