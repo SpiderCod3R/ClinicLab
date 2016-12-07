@@ -62,6 +62,7 @@ class Painel::Usuario < ApplicationRecord
   end
 
   def import_permissoes(resoure_array)
+    usuario_permissoes.delete_all #necessario para atualizar ou adicionar novas permissoes
     resoure_array.each do |_key, single|
       usuario_permissoes.build(permissao_id: single[:permissao_id].to_i, cadastrar: single[:cadastrar].to_b,
                                atualizar: single[:atualizar].to_b, exibir: single[:exibir].to_b, deletar: single[:deletar].to_b)
@@ -72,24 +73,12 @@ class Painel::Usuario < ApplicationRecord
     admin.eql?(false)
   end
 
-  # def valid_password?(password)
-  #   return false if encrypted_password.blank?
-  #   Devise.secure_compare(Devise::Encryptable::Encryptors::Md5.digest(password, nil, nil, nil), self.encrypted_password)
-  # end
+  def tipo
+    admin ? "Administrador" : "Funcionário"
+  end
 
   def verify_permissions_not_added
     @empresa_permissoes = []
-    # usuario_permissoes.includes("permissao").order("painel_permissoes.nome ASC").each_with_index do |objectA, x|
-    #   empresa.empresa_permissoes.includes("permissao").order("painel_permissoes.nome ASC").each_with_index do |objectB, y|
-    #     binding.pry
-    #     if objectA[x].permissao == objectB[y].permissao
-    #       next
-    #     else
-    #       @empresa_permissoes << f.permissao
-    #       break
-    #     end
-    #   end
-    # end
 
     for i in usuario_permissoes.includes("permissao").order("painel_permissoes.nome ASC").each
       for j in empresa.empresa_permissoes.includes("permissao").order("painel_permissoes.nome ASC").each
@@ -100,7 +89,6 @@ class Painel::Usuario < ApplicationRecord
         end
       end
     end
-
     return @empresa_permissoes
   end
 end

@@ -3,23 +3,9 @@ class Painel::Usuarios::ManagerController < ApplicationController
 
   respond_to :html, :js, :xml, :json
 
-  def create
-    if params[:usuario]
-      @usuario = Painel::Usuario.new_by(params[:usuario]["0"])
-      @usuario.empresa_id = current_usuario.empresa_id
-    end
-
-    if params[:usuario_permissoes]
-      @usuario.import_permissoes(params[:usuario_permissoes])
-    end
-
-    if @usuario.save
-      respond_to &:json
-    end
-  end
-
   def update
     if master_signed_in? || usuario_signed_in?
+      @usuario = Painel::Usuario.find(params[:id])
       @usuario.update_without_password(usuario_params)
     end
     respond_to &:js
@@ -39,8 +25,23 @@ class Painel::Usuarios::ManagerController < ApplicationController
   end
 
   def save_permissions
-    binding.pry
+    if params[:usuario]
+      @usuario = Painel::Usuario.find(params[:usuario]["0"]["usuario_id"])
+    end
+    if params[:usuario_permissoes]
+      @usuario.import_permissoes(params[:usuario_permissoes])
+    end
+    # binding.pry
+
+    if @usuario.save(validate: false)
+      respond_to &:json
+    end
   end
+
+  def destroy
+    
+  end
+
 
   private
     def find_empresa
