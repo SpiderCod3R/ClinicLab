@@ -100,7 +100,6 @@ class Painel::Usuario < ApplicationRecord
         end
       end
     end
-    binding.pry
 
     return @empresa_permissoes
   end

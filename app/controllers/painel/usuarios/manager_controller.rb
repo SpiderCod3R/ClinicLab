@@ -36,7 +36,6 @@ class Painel::Usuarios::ManagerController < ApplicationController
   def add_permissions
     @usuario = Painel::Usuario.find(params[:painel_usuario_id])
     @empresa_permissoes = @usuario.verify_permissions_not_added
-    binding.pry
   end
 
   def save_permissions

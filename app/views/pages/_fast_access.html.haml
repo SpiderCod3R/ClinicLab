@@ -32,6 +32,7 @@
                 %span
                   %i.mdi.mdi-clipboard-text.fa-2x
                 = link_to "Referências Agenda", new_referencia_agenda_path, title: "Acesso Rápido às Referências de Agenda"
+          -if (can? :read, Agenda) || (can? :create, Agenda)
             %tr
               %td
                 %span
@@ -77,11 +78,6 @@
                 %span.text-info
                   %i.fa.fa-2x.fa-key
                   Alterar Senha
-          %tr
-            %td
-              %span.text-info
-                %i.fa.fa-2x.fa-pencil-square-o
-                %a{:href => "http://www.jquery2dotnet.com"} Alterar Dados
           %tr
             %td
               = link_to destroy_usuario_session_path, method: 'delete', title: "SAIR" do
