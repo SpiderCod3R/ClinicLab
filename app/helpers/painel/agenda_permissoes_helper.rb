@@ -1,0 +1,2 @@
+module Painel::AgendaPermissoesHelper
+end

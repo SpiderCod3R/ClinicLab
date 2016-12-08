@@ -65,6 +65,12 @@ Rails.application.routes.draw do
 
   resources :referencia_agendas, except: [:show]
 
+  resources :agenda_permissoes, controller: "painel/agenda_permissoes", except: [:index, :show, :new, :create, :edit, :update, :destroy] do
+    member do
+      get 'manager'
+      post 'build_agenda_permissions'
+    end
+  end
   namespace :painel do
     resources :dashboards
     resources :permissoes, except: [:show, :new] do
