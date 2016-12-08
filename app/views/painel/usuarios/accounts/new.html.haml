@@ -34,11 +34,11 @@
                   = z.text_field :login, required: true, class: "form-control"
               .row
                 .col-md-2
-                  = z.label "Código", required: true
-                  = z.text_field :codigo_pais, required: true, class: "form-control", value: "55"
+                  = z.label "Código"
+                  = z.text_field :codigo_pais, class: "form-control", value: "55"
                 .col-md-4
-                  = z.label :telefone, required: true
-                  = z.text_field :telefone, required: true, class: "form-control"
+                  = z.label :telefone
+                  = z.text_field :telefone, class: "form-control"
                 .col-md-6
                   =z.label :email, required: true
                   =z.email_field :email, placeholder: "example@email.com", class: "form-control", required: true
