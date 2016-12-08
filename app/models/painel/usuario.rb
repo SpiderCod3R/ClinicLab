@@ -27,7 +27,7 @@ class Painel::Usuario < ApplicationRecord
   validates :nome, :login, :email, presence: true
   validates_associated :empresa
   validates_uniqueness_of :login, :scope => :empresa_id
-  validates :telefone, uniqueness: true, unless: Proc.new {|f| f.telefone.blank?}
+  # validates :telefone, uniqueness: true, unless: Proc.new {|f| f.telefone.blank?}
   validates_format_of :login, :with => /\A[a-z0-9]+\z/i
 
   '''

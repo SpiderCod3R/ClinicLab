@@ -19,16 +19,10 @@
   %div{class: "container", style: "margin-left: 5%; padding-top: 15px; padding-bottom: 15px;"}
     %div{class:"tab-content"}
       / aba dos dados principais
-      =render 'aba_dados_principais', {f: f}
+      =render 'clientes/partials/aba_dados_principais', {f: f}
 
       / aba de convenios
-      =render 'aba_dados_convenio', {f: f}
+      =render 'clientes/partials/aba_dados_convenio', {f: f}
 
       / aba de dados pessoais
-      =render 'aba_dados_pessoais', {f: f}
-
-      / aba de historico
-      %div{id:"historico", class:"tab-pane fade"}
-
-      / aba de texto livre
-      %div{id:"texto_livre", class:"tab-pane fade"}
+      =render 'clientes/partials/aba_dados_pessoais', {f: f}

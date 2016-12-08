@@ -3,6 +3,19 @@ class Painel::Usuarios::ManagerController < ApplicationController
 
   respond_to :html, :js, :xml, :json
 
+  def create
+    if params[:usuario]
+      @usuario = Painel::Usuario.new_by(params[:usuario]["0"])
+      @usuario.empresa_id = current_usuario.empresa_id
+    end
+    if params[:usuario_permissoes]
+      @usuario.import_permissoes(params[:usuario_permissoes])
+    end
+    if @usuario.save
+      respond_to &:json
+    end
+  end
+
   def update
     if master_signed_in? || usuario_signed_in?
       @usuario = Painel::Usuario.find(params[:id])
