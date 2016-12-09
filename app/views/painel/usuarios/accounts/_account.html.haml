@@ -22,5 +22,5 @@
   %td
     %center
       -unless usuario.admin?
-        =link_to painel_change_user_password_path(usuario), remote: true, title: " Alterar Senha" do
-          %i.fa.fa-2x.fa-lock{style: "color: #778A96"}
+        =link_to change_account_painel_empresa_painel_usuario_path(usuario.empresa, usuario), title: " Alterar Dados" do
+          %i.fa.fa-2x.fa-pencil-square-o{style: "color: #4F5558"}

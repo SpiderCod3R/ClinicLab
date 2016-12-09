@@ -90,6 +90,10 @@ Rails.application.routes.draw do
       resources :painel_usuarios, controller: 'usuarios/manager', except: [:index] do
         get  'add_permissions'
         post 'save_permissions'
+        member do
+          get 'change_account'
+          put 'change_data'
+        end
       end
 
       resources :agendas do

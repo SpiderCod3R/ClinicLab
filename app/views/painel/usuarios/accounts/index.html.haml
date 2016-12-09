@@ -32,7 +32,7 @@
                 %th 
                   %h5{style: "font-weight: bold"} Permissões
                 %th 
-                  %h5{style: "font-weight: bold"} Alterar Senha
+                  %h5{style: "font-weight: bold"} Alterar Dados
               %tbody#empresa_usuarios_content
                 - @empresa_usuarios.each do |usuario|
                   =render 'account', {usuario: usuario}

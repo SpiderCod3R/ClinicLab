@@ -55,6 +55,30 @@ class Painel::Usuarios::ManagerController < ApplicationController
     
   end
 
+  def change_account
+    @usuario = Painel::Usuario.find(params[:id])
+  end
+
+  def change_data
+    @usuario = Painel::Usuario.find(params[:id])
+    binding.pry
+    if usuario_params[:password]==""
+      if @usuario.update_without_password(usuario_params)
+        flash[:info] = "Usuário atualizado."
+        redirect_to painel_empresa_contas_path(current_usuario.empresa)
+      else
+        render :edit
+      end
+    elsif usuario_params[:password] != ""
+      if @usuario.update(usuario_params)
+        flash[:info] = "Usuário atualizado."
+        redirect_to painel_empresa_contas_path(current_usuario.empresa)
+      else
+        render :change_account
+      end
+    end
+  end
+
 
   private
     def find_empresa

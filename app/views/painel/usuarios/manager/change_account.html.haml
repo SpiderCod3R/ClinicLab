@@ -1,0 +1,24 @@
+=build_form_toolbar(".edit_painel_usuario", @usuario, painel_empresa_contas_path(@usuario.empresa), nil)
+.container-fluid
+  %h4 Alterarando Dados
+  %em
+    %b{style: "text-decoration: underline"}=@usuario.nome
+.col-md-6
+  .jumbotron
+    .container
+      = simple_form_for([@usuario.empresa, @usuario], method: "PUT", url: change_data_painel_empresa_painel_usuario_path) do |f|
+        .row-fluid
+          .field
+            = f.input :nome, required: true
+        .row-fluid
+          .field
+            = f.input :login, required: true
+        .row-fluid
+          .field
+            = f.input :email, required: true
+        .row-fluid
+          .field
+            = f.input :password
+        .row-fluid
+          .field
+            = f.input :password_confirmation, label: "Confirme sua senha"
