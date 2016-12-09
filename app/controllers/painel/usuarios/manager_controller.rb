@@ -38,15 +38,29 @@ class Painel::Usuarios::ManagerController < ApplicationController
   end
 
   def save_permissions
+    @permissao = Painel::Permissao.find_by(model_class: "Agenda")
+
     if params[:usuario]
       @usuario = Painel::Usuario.find(params[:usuario]["0"]["usuario_id"])
     end
+
+    @old_usuario_permissao = @usuario.usuario_permissoes.find_by(permissao_id: @permissao.id)
+
     if params[:usuario_permissoes]
       @usuario.import_permissoes(params[:usuario_permissoes])
     end
-    # binding.pry
+
 
     if @usuario.save(validate: false)
+      # binding.pry
+      if !@old_usuario_permissao.nil?
+        # binding.pry
+        @agenda_permissao = AgendaPermissao.find_by usuario_permissoes_id: @old_usuario_permissao.id
+        if !@agenda_permissao.nil?
+          @new_usuario_permissao=@usuario.usuario_permissoes.find_by(permissao_id: @permissao.id)
+          @agenda_permissao.update_attributes(usuario_permissoes_id: @new_usuario_permissao.id)
+        end
+      end
       respond_to &:json
     end
   end

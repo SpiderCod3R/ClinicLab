@@ -1,9 +1,10 @@
 .container-fluid
   / Nav tabs
   %ul.nav.nav-tabs{:role => "tablist"}
-    %li.active{:role => "presentation"}
-      %a{"aria-controls" => "agendas", "data-toggle" => "tab", :href => "#agendas", :role => "tab"} Agendas
-    -if (can? :read, Agenda) || (can? :create, Agenda)
+    -if can? :read, Agenda
+      %li.active{:role => "presentation"}
+        %a{"aria-controls" => "agendas", "data-toggle" => "tab", :href => "#agendas", :role => "tab"} Agendas
+    -if can? :create, Agenda
       %li{:role => "presentation"}
         %a{"aria-controls" => "gerar_agenda", "data-toggle" => "tab", :href => "#gerar_agenda", :role => "tab"} Gerar Agenda
   / Tab panes

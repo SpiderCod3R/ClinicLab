@@ -15,6 +15,7 @@ class Painel::AgendaPermissoesController < ApplicationController
   def build_agenda_permissions
     @usuario_permissao = Painel::UsuarioPermissao.find(resource_params[:usuario_permissoes_id])
     @agenda_permissao  = AgendaPermissao.find_by(usuario_permissoes_id: resource_params[:usuario_permissoes_id])
+
     if !@agenda_permissao.nil?
       @agenda_permissao  = AgendaPermissao.update_content(resource_params)
     else
