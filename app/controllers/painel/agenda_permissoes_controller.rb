@@ -5,18 +5,24 @@ class Painel::AgendaPermissoesController < ApplicationController
 
   def manager
     @usuario = Painel::Usuario.find(params[:id])
-    @agenda_permissao = Painel::Permissao.find_by(model_class: "Agenda")
-    @usuario_permissao = @usuario.usuario_permissoes.find_by(permissao_id: @agenda_permissao.id)
+    @permissao = Painel::Permissao.find_by(model_class: "Agenda")
+    @usuario_permissao = @usuario.usuario_permissoes.find_by(permissao_id: @permissao.id)
     @agenda_permissao = AgendaPermissao.find_by usuario_permissoes_id: @usuario_permissao.id
 
     @agenda_permissao = AgendaPermissao.new if @agenda_permissao.nil?
-    # binding.pry
   end
 
   def build_agenda_permissions
-    @agenda_permissao = AgendaPermissao.find_or_create_by(resource_params)
-    
-    binding.pry
+    @usuario_permissao = Painel::UsuarioPermissao.find(resource_params[:usuario_permissoes_id])
+    @agenda_permissao  = AgendaPermissao.find_by(usuario_permissoes_id: resource_params[:usuario_permissoes_id])
+    if !@agenda_permissao.nil?
+      @agenda_permissao  = AgendaPermissao.update_content(resource_params)
+    else
+      @agenda_permissao  = AgendaPermissao.create(resource_params)
+    end
+
+    flash[:notice] = "Permissões da Agenda adicionadas"
+    redirect_to manager_agenda_permissao_path(@usuario_permissao.usuario.id)
   end
 
   private

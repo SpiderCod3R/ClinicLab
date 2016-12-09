@@ -39,6 +39,7 @@ $(document).ready ->
 
           # => Localizando as permissões de CRUD
           inputs = indice_externo.find("input:checked")
+
           c = inputs.closest("#painel_usuario_cadastrar").val()
           r = inputs.closest("#painel_usuario_exibir").val()
           u = inputs.closest("#painel_usuario_atualizar").val()
@@ -87,10 +88,6 @@ $(document).ready ->
     inputs = ""
     indice_externo = ""
     permissao_id = ""
-    c = 0
-    r = 0
-    u = 0
-    d = 0
 
     coleta_permissoes(i, checked_admin)
 

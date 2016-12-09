@@ -5,7 +5,7 @@
       %b Permissoes da Modalidade - Agenda
       %hr{style: "border: #5F5F5F 1px solid"}
   .col-md-12
-    =simple_form_for @agenda_permissao, url: build_agenda_permissions_agenda_permissao_path do |f|
+    =simple_form_for @agenda_permissao, url: build_agenda_permissions_agenda_permissao_path, method: "post" do |f|
       =f.hidden_field :usuario_permissoes_id, value: "#{@usuario_permissao.id}"
       .col-md-6
         .panel.panel.default
@@ -19,9 +19,7 @@
               %code=@usuario.tipo
             %p
               %label Ultima vez logado no sistema - 
-              %pre=@usuario.last_sign_in_at.to_formatted_s(:short)
-          .panel-body
-            .container
+              %pre=@usuario.last_sign_in_at.to_formatted_s(:short) if !@usuario.last_sign_in_at.nil?
       .col-md-6
         .panel.panel.default
           .panel-heading
@@ -76,16 +74,27 @@
                 %tr
                   %th Remarcar Pelo Paciente
                   -if @agenda_permissao.remarcar_pelo_paciente?
-                  %td=f.check_box :remarcar_pelo_paciente, checked: false
+                    %td=f.check_box :remarcar_pelo_paciente, checked: true
+                  -else
+                    %td=f.check_box :remarcar_pelo_paciente, checked: false
                 %tr
                   %th Remarcar Pelo Medico
-                  %td=f.check_box :remarcar_pelo_medico, checked: false
+                  -if @agenda_permissao.remarcar_pelo_medico?
+                    %td=f.check_box :remarcar_pelo_medico, checked: true
+                  -else
+                    %td=f.check_box :remarcar_pelo_medico, checked: false
+
                 %tr
                   %th Desmarcar Pelo Paciente
-                  %td=f.check_box :desmarcar_pelo_paciente, checked: false
+                  -if @agenda_permissao.desmarcar_pelo_paciente?
+                    %td=f.check_box :desmarcar_pelo_paciente, checked: true
+                  -else
+                    %td=f.check_box :desmarcar_pelo_paciente, checked: false
                 %tr
                   %th Desmarcar Pelo Medico
-                  %td=f.check_box :desmarcar_pelo_medico, checked: false
+                  -if @agenda_permissao.desmarcar_pelo_medico?
+                    %td=f.check_box :desmarcar_pelo_medico, checked: true
+                  -else
+                    %td=f.check_box :desmarcar_pelo_medico, checked: false
             .pull-right
               =f.submit "Salvar", class: "btn btn-success", id: "btnFormPermissoesAgenda"
-            %br/
