@@ -14,6 +14,12 @@ module AgendasHelper
       end)
     end
 
+    if resource.status.eql?(I18n.t("agendas.helpers.scheduled")) && !resource.data.eql?(Date.today)
+      concat(content_tag(:tr, block.binding, id: I18n.t('agendas.helpers.identity', resource_id: resource.id), class: "success tr_agenda") do
+        yield
+      end)
+    end
+
     if resource.status.eql?(I18n.t("agendas.helpers.unmarked_by_pacient")) || resource.status.eql?(I18n.t("agendas.helpers.unmarked_by_doctor"))
       concat(content_tag(:tr, block.binding, id: I18n.t('agendas.helpers.identity', resource_id: resource.id), class: "attention tr_agenda") do
         yield

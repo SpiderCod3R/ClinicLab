@@ -33,6 +33,12 @@ class Support::AgendaSupportController < ApplicationController
   end
 
   def load_more_data
+    if !current_usuario.admin?
+      @permissao = Painel::Permissao.find_by(model_class: "Agenda")
+      @usuario_permissao = current_usuario.usuario_permissoes.find_by(permissao_id: @permissao.id)
+      @agenda_permissao = AgendaPermissao.find_by usuario_permissoes_id: @usuario_permissao.id
+    end
+
     if params[:acao].present?
       @acao = tipo_de_acao(params[:acao])
       case @acao
