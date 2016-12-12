@@ -7,6 +7,7 @@ class Support::AgendaSupportController < ApplicationController
   include AgendasHelper
   before_action :authenticate_usuario!
   before_action :find_empresa
+  before_action :verify_agenda_authorization
 
   def search
     if nome_do_paciente_presente?
@@ -30,14 +31,10 @@ class Support::AgendaSupportController < ApplicationController
       @agendas = Agenda.da_empresa(@empresa.id).da_data(params[:q])
     end
 
-    verify_agenda_authorization
-
     respond_to &:js
   end
 
   def load_more_data
-    verify_agenda_authorization
-
     if params[:acao].present?
       @acao = tipo_de_acao(params[:acao])
       case @acao
