@@ -29,10 +29,15 @@ class Support::AgendaSupportController < ApplicationController
       @content = I18n.t('agendas.helpers.search_by_day_content')
       @agendas = Agenda.da_empresa(@empresa.id).da_data(params[:q])
     end
+
+    verify_agenda_authorization
+
     respond_to &:js
   end
 
   def load_more_data
+    verify_agenda_authorization
+
     if params[:acao].present?
       @acao = tipo_de_acao(params[:acao])
       case @acao
@@ -66,6 +71,14 @@ class Support::AgendaSupportController < ApplicationController
   end
 
   private
+    def verify_agenda_authorization
+      if !current_usuario.admin?
+        @permissao = Painel::Permissao.find_by(model_class: "Agenda")
+        @usuario_permissao = current_usuario.usuario_permissoes.find_by(permissao_id: @permissao.id)
+        @agenda_permissao = AgendaPermissao.find_by usuario_permissoes_id: @usuario_permissao.id
+      end
+    end
+
     def check_params_for_agenda
       lambda do |*args|
         raise ArgumentError if args.empty? || args.size > 2

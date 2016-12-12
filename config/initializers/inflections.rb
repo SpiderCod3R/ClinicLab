@@ -14,4 +14,5 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.irregular 'usuario_permissao', 'usuario_permissoes'
   inflect.irregular 'historico', 'historicos'
   inflect.irregular 'agenda_movimentacao', 'agenda_movimentacoes'
+  inflect.irregular 'agenda_permissao', 'agenda_permissoes'
 end

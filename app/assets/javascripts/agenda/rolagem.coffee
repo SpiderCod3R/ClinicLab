@@ -1,8 +1,8 @@
 #= require JQUERY/jquery.min
 
 $(document).ready ->
-  empresa_id = $("#agenda_empresa_id").val()
   localhost = window.location.origin
+  empresa_id = $("#agenda_empresa_id").text()
   urlPost= localhost + "/painel/empresas/#{empresa_id}/agendas/load_more_data"
   offset = 12
 
@@ -42,5 +42,5 @@ $(document).ready ->
     data  = $("#q_data_cont_3i :selected").val() + "/" + $("#q_data_cont_2i :selected").val() + "/" + $("#q_data_cont_1i :selected").val()
     if $(window).scrollTop() + $(window).height() >= $(document).height()
       loadler.fadeIn 'fast'
-      loadData("acao=#{tbody}&offset=#{offset}&page_limit=20&data=#{data}")
+      loadData("acao=#{tbody}&offset=#{offset}&page_limit=20&data=#{data}&empresa_id=#{empresa_id}")
       offset += 20

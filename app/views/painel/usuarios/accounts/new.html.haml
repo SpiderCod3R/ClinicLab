@@ -34,11 +34,11 @@
                   = z.text_field :login, required: true, class: "form-control"
               .row
                 .col-md-2
-                  = z.label "Código", required: true
-                  = z.text_field :codigo_pais, required: true, class: "form-control", value: "55"
+                  = z.label "Código"
+                  = z.text_field :codigo_pais, class: "form-control", value: "55"
                 .col-md-4
-                  = z.label :telefone, required: true
-                  = z.text_field :telefone, required: true, class: "form-control"
+                  = z.label :telefone
+                  = z.text_field :telefone, class: "form-control"
                 .col-md-6
                   =z.label :email, required: true
                   =z.email_field :email, placeholder: "example@email.com", class: "form-control", required: true
@@ -64,21 +64,40 @@
                     %th Cadastrar
                     %th Atualizar
                     %th Vizualizar
-                    %th Deletar
                   %tbody
+                    / -@empresa.empresa_permissoes.includes("permissao").order("painel_permissoes.nome ASC").select(:permissao_id).each do |f|
+                    /   %tr{id: "usuario_permissao_id_#{f.permissao.id}", style: "border: #C7C4FF 2px dashed;"}
+                    /     %td{style: "color: #524EFF; font-weight: bold"}
+                    /       %em=f.permissao.nome
+                    /       =z.hidden_field :permissao_id, value: "#{f.permissao.id}"
+                    /     %td
+                    /       =z.check_box :cadastrar
+                    /     %td
+                    /       =z.check_box :atualizar
+                    /     %td
+                    /       =z.check_box :exibir
+                    /     %td
+                    /       =z.check_box :deletar
                     -@empresa.empresa_permissoes.includes("permissao").order("painel_permissoes.nome ASC").select(:permissao_id).each do |f|
-                      %tr{id: "usuario_permissao_id_#{f.permissao.id}", style: "border: #C7C4FF 2px dashed;"}
+                      %tr{id: "indice_externo_#{f.permissao.id}", style: "border: #C7C4FF 2px dashed;"}
                         %td{style: "color: #524EFF; font-weight: bold"}
                           %em=f.permissao.nome
                           =z.hidden_field :permissao_id, value: "#{f.permissao.id}"
                         %td
-                          =z.check_box :cadastrar
+                          -if @usuario.usuario_permissoes.find_by(permissao_id: f.permissao.id, cadastrar: true)
+                            =z.check_box :cadastrar, checked: true, data: { permissao_id: f.permissao.id }
+                          -else
+                            =z.check_box :cadastrar, data: { permissao_id: f.permissao.id }
                         %td
-                          =z.check_box :atualizar
+                          -if @usuario.usuario_permissoes.find_by(permissao_id: f.permissao.id, atualizar: true)
+                            =z.check_box :atualizar, checked: true
+                          -else
+                            =z.check_box :atualizar
                         %td
-                          =z.check_box :exibir
-                        %td
-                          =z.check_box :deletar
+                          -if @usuario.usuario_permissoes.find_by(permissao_id: f.permissao.id, exibir: true)
+                            =z.check_box :exibir, checked: true
+                          -else
+                            =z.check_box :exibir
           %br
           .form-actions
             %hr{style: "border: #C5B1FF 1px dashed"}

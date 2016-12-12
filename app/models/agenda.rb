@@ -36,6 +36,7 @@ class Agenda < ApplicationRecord
 
   scope :nome_paciente_like, -> (name) { where("agenda_movimentacao.nome_paciente ilike ?", name)}
 
+  has_many :agenda_permissoes
   belongs_to :referencia_agenda
   has_one :profissional, through: :referencia_agenda
   belongs_to :usuario

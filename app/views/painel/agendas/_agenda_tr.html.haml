@@ -15,4 +15,8 @@
 %td=agenda.agenda_movimentacao.atendente.nome if agenda.try(:agenda_movimentacao)
 %td
   %label=agenda.hora_atendimento.strftime("%H:%M") unless agenda.hora_atendimento.blank?
-%td{align: "center"}=carrega_opcoes_agenda(agenda)
+%td{align: "center"}
+  -if current_usuario.admin?
+    =carrega_opcoes_agenda(agenda)
+  -else
+    =render 'painel/agendas/componentes/opcoes_for_funcionario', { agenda: agenda}

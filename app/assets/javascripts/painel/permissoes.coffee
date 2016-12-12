@@ -39,6 +39,7 @@ $(document).ready ->
 
           # => Localizando as permissões de CRUD
           inputs = indice_externo.find("input:checked")
+
           c = inputs.closest("#painel_usuario_cadastrar").val()
           r = inputs.closest("#painel_usuario_exibir").val()
           u = inputs.closest("#painel_usuario_atualizar").val()
@@ -71,27 +72,13 @@ $(document).ready ->
       data:
         usuario_permissoes: permissoes_params,
         usuario: usuario_params
-      timeout: 10000
       success: (response) ->
-        if response.usuario.invalid == false
-          setTimeout (->
-            toastr.info(response.message.success, "Sucesso!", {timeOut: 3000})
-          ), 2000
-          setTimeout (->
-            window.location.href="/painel/empresas/#{empresa_id}/contas?locale=pt-BR"
-          ), 5000
-        else
-          x =0
-          $("#error_explanation").css("display", "block")
-          $("#error_explanation").find("#erros_count").empty()
-          $("#error_explanation").find("#messages").empty()
-          $("#error_explanation").find("#erros_count").append("#{response.message_count} erros foram encontrados")
-          while x <= response.messages.length
-            if x >= response.messages.length
-              break
-            else
-              $("#error_explanation").find("#messages").append("<li> #{response.messages[x].field} - #{response.messages[x].value} </li>")
-            x++
+        setTimeout (->
+          toastr.success(response.messages.success, "Sucesso!", {timeOut: 5000})
+        ), 2000
+        setTimeout (->
+          window.location.href="/painel/empresas/#{empresa_id}/contas?locale=pt-BR"
+        ), 5000
 
   $('#new_painel_usuario').submit (event) ->
     event.preventDefault()
@@ -101,10 +88,6 @@ $(document).ready ->
     inputs = ""
     indice_externo = ""
     permissao_id = ""
-    c = 0
-    r = 0
-    u = 0
-    d = 0
 
     coleta_permissoes(i, checked_admin)
 
@@ -120,7 +103,7 @@ $(document).ready ->
         'password_confirmation' : $("#painel_usuario_password").val()
         'admin'                 : checked_admin
     # => AJAX request para enviar dados ao controller
-    PATH = "painel/empresas/#{empresa_id}/nova_conta"
+    PATH = "painel/empresas/#{empresa_id}/painel_usuarios"
     ajax_request(data_usuario, data_usuario_permissoes, PATH)
 
 

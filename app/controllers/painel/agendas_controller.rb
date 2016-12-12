@@ -34,6 +34,12 @@ class Painel::AgendasController < Support::AgendaSupportController
                      order_atendimento.
                      offset(0).
                      take(12)
+    if !current_usuario.admin?
+      @permissao = Painel::Permissao.find_by(model_class: "Agenda")
+      @usuario_permissao = current_usuario.usuario_permissoes.find_by(permissao_id: @permissao.id)
+      @agenda_permissao = AgendaPermissao.find_by usuario_permissoes_id: @usuario_permissao.id
+    end
+
     @agenda= Agenda.new
   end
 

@@ -3,6 +3,19 @@ class Painel::Usuarios::ManagerController < ApplicationController
 
   respond_to :html, :js, :xml, :json
 
+  def create
+    if params[:usuario]
+      @usuario = Painel::Usuario.new_by(params[:usuario]["0"])
+      @usuario.empresa_id = current_usuario.empresa_id
+    end
+    if params[:usuario_permissoes]
+      @usuario.import_permissoes(params[:usuario_permissoes])
+    end
+    if @usuario.save
+      respond_to &:json
+    end
+  end
+
   def update
     if master_signed_in? || usuario_signed_in?
       @usuario = Painel::Usuario.find(params[:id])
@@ -25,21 +38,59 @@ class Painel::Usuarios::ManagerController < ApplicationController
   end
 
   def save_permissions
+    @permissao = Painel::Permissao.find_by(model_class: "Agenda")
+
     if params[:usuario]
       @usuario = Painel::Usuario.find(params[:usuario]["0"]["usuario_id"])
     end
+
+    @old_usuario_permissao = @usuario.usuario_permissoes.find_by(permissao_id: @permissao.id)
+
     if params[:usuario_permissoes]
       @usuario.import_permissoes(params[:usuario_permissoes])
     end
-    # binding.pry
+
 
     if @usuario.save(validate: false)
+      # binding.pry
+      if !@old_usuario_permissao.nil?
+        # binding.pry
+        @agenda_permissao = AgendaPermissao.find_by usuario_permissoes_id: @old_usuario_permissao.id
+        if !@agenda_permissao.nil?
+          @new_usuario_permissao=@usuario.usuario_permissoes.find_by(permissao_id: @permissao.id)
+          @agenda_permissao.update_attributes(usuario_permissoes_id: @new_usuario_permissao.id)
+        end
+      end
       respond_to &:json
     end
   end
 
   def destroy
     
+  end
+
+  def change_account
+    @usuario = Painel::Usuario.find(params[:id])
+  end
+
+  def change_data
+    @usuario = Painel::Usuario.find(params[:id])
+    binding.pry
+    if usuario_params[:password]==""
+      if @usuario.update_without_password(usuario_params)
+        flash[:info] = "Usuário atualizado."
+        redirect_to painel_empresa_contas_path(current_usuario.empresa)
+      else
+        render :edit
+      end
+    elsif usuario_params[:password] != ""
+      if @usuario.update(usuario_params)
+        flash[:info] = "Usuário atualizado."
+        redirect_to painel_empresa_contas_path(current_usuario.empresa)
+      else
+        render :change_account
+      end
+    end
   end
 
 
