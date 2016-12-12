@@ -25,6 +25,9 @@
           .panel-heading
             %h3
               %em=t('painel.helpers.models.permissoes')
+            .pull-right
+              %label Selecionar Tudo? - 
+              = check_box_tag('check_all', 'check_all', false, :onClick => "checkAll(this);")
             %hr{style: "border: #C5B1FF 1px dashed"}
           .panel-body
             %table.table
