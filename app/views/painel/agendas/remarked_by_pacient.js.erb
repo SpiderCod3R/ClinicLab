@@ -4,20 +4,20 @@
   $("#agenda_id_<%= @old_agenda.id %>").fadeOut(500, function(){
     $(this).empty();
     $(this).prepend("<%= j render 'agenda_tr' , { agenda: @old_agenda } %>");
-    <%- if @old_agenda.status.eql?(I18n.t('agendas.helpers.scheduled'))-%>
-      $(this).fadeIn(500).removeClass("success").addClass("info");
-    <%- elsif @old_agenda.status.eql?(I18n.t('agendas.helpers.didnt_come')) or 
-        @old_agenda.status.eql?(I18n.t('agendas.helpers.unmarked_by_doctor')) or
-        @old_agenda.status.eql?(I18n.t('agendas.helpers.unmarked_by_pacient'))
-    -%>
-      $(this).fadeIn(500).removeClass("attention").addClass("info");
-    <%- end -%>
+    $(this).fadeIn(500).removeClass("success").addClass("info");
   });
 
   $("#agenda_id_<%= @new_agenda.id %>").fadeOut(500, function(){
     $(this).empty();
     $(this).prepend("<%= j render 'agenda_tr' , { agenda: @new_agenda } %>");
-    $(this).fadeIn(500).removeClass("info").addClass("attention");
+    <%- if @new_agenda.status.eql?(I18n.t('agendas.helpers.scheduled'))-%>
+      $(this).fadeIn(500).removeClass("info").addClass("success");
+    <%- elsif @new_agenda.status.eql?(I18n.t('agendas.helpers.didnt_come')) or 
+        @new_agenda.status.eql?(I18n.t('agendas.helpers.unmarked_by_doctor')) or
+        @new_agenda.status.eql?(I18n.t('agendas.helpers.unmarked_by_pacient'))
+    -%>
+      $(this).fadeIn(500).removeClass("attention").addClass("info");
+    <%- end -%>
   });
 
   toastr.success('<%= I18n.t("agendas.messages.schedule_changed")%>', 'Atenção', {timeOut: 5000});
