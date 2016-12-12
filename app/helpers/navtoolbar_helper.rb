@@ -39,4 +39,10 @@ module NavtoolbarHelper
       render "application/navbar"
     end
   end
+
+  def build_exit_toolbar
+    content_for :header do
+      render "application/componentes/exit_navbar"
+    end
+  end
 end
