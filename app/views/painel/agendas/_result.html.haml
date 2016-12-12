@@ -16,5 +16,6 @@
         =content_tag(:tbody, id: I18n.t('agendas.helpers.default_content')) do
           =render 'agendas'
 %br/
-
+=content_tag(:div, id: "agenda_empresa_id", style: "display: none;") do
+  =current_usuario.empresa_id
 =render 'application/componentes/rolagem'
