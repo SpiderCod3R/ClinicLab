@@ -41,7 +41,7 @@ module AgendaFiltrosConcern
         order_atendimento.
         offset(resource[:offset]).
         take(resource[:page_limit])
-     end
+      end
 
       # => retorna agenda dos medicos
       def search_agenda_medicos(resource)

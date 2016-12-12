@@ -39,7 +39,7 @@ class Painel::AgendasController < Support::AgendaSupportController
       @usuario_permissao = current_usuario.usuario_permissoes.find_by(permissao_id: @permissao.id)
       @agenda_permissao = AgendaPermissao.find_by usuario_permissoes_id: @usuario_permissao.id
     end
-    
+
     @agenda= Agenda.new
   end
 
