@@ -65,7 +65,7 @@ namespace :deploy do
   task :initial do
     on roles(:app) do
       before 'deploy:restart', 'puma:start'
-      invoke 'deploy'
+      # invoke 'deploy'
     end
   end
 
@@ -79,5 +79,5 @@ namespace :deploy do
   before :starting,     :check_revision
   after  :finishing,    :compile_assets
   after  :finishing,    :cleanup
-  after  :finishing,    :restart
+  # after  :finishing,    :restart
 end
