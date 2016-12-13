@@ -9,13 +9,6 @@ server '138.197.135.242',
   user: fetch(:user),
   primary: true
 
-
-set :ssh_options, {
-  forward_agent: true,
-  auth_methods: %w(publickey),
-  user: fetch(:user),
-}
-
 set :rbenv_ruby, '2.3.1'
 set :rbenv_type, :user
 
