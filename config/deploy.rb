@@ -1,51 +1,75 @@
 # config valid only for current version of Capistrano
 lock '3.6.1'
 
-set :port, 49697
 set :user, 'deployer'
-set :deploy_via, :remote_cache
-set :pty, true
-set :use_sudo, false
 
-server '138.197.135.242',
-  roles: [:web, :app, :db],
-  port: fetch(:port),
-  user: fetch(:user),
-  primary: true
+server '138.197.135.242', port: 49697, roles: [:web, :app, :db], primary: true
 
-
-set :ssh_options, {
-  forward_agent: true,
-  auth_methods: %w(publickey),
-  user: fetch(:user),
-  keys: %w(~/.ssh/id_rsa.pub)
-}
-
-set :conditionally_migrate, true
-
-set :stage,     :production
-set :rails_env, :production
 set :application, 'gclinic'
-set :repo_url, 'git@gitlab.com:gclinic/gclinic2.0.git'
-
+set :repo_url, 'git@gitlab.com:gclinic/gclinic2.0.git' # Edit this to match your repository
+set :branch, :master
 set :deploy_to, "/home/#{fetch(:user)}/globalnetsis/#{fetch(:application)}"
+set :pty, true
+set :linked_files, %w{config/database.yml}
+set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads}
+set :keep_releases, 5
+set :stage,           :production
+set :deploy_via,      :remote_cache
 
-set :format_options, command_output: true, log_file: 'log/capistrano.log', color: :auto, truncate: :auto
+set :puma_bind, "unix://#{shared_path}/tmp/sockets/#{fetch(:application)}-puma.sock" 
+set :puma_state, "#{shared_path}/tmp/pids/puma.state"
+set :puma_pid, "#{shared_path}/tmp/pids/puma.pid"
+set :puma_access_log, "#{shared_path}/log/puma_error.log"
+set :puma_error_log, "#{shared_path}/log/puma_access.log"
+set :puma_role, :app
+set :puma_env, fetch(:rack_env, fetch(:rails_env, 'production'))
+set :puma_threads, [4, 16]
+set :puma_workers, 0
+set :puma_worker_timeout, nil
+set :puma_preload_app, true
+set :puma_init_active_record, true
 
-set :format,    :pretty
-set :log_level, :debug
+namespace :puma do  
+  desc 'Create Directories for Puma Pids and Socket'
+  task :make_dirs do
+    on roles(:app) do
+      execute "mkdir #{shared_path}/tmp/sockets -p"
+      execute "mkdir #{shared_path}/tmp/pids -p"
+    end
+  end
 
-append :linked_files, 'config/database.yml', 'config/secrets.yml', 'config/puma.rb'
-# set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml', 'config/puma.rb')
+  before :start, :make_dirs
+end
 
-append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'public/system', 'vendor/bundle', 'public/uploads'
-# set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'public/uploads')
+namespace :deploy do  
+  desc "Make sure local git is in sync with remote."
+  task :check_revision do
+    on roles(:app) do
+      unless `git rev-parse HEAD` == `git rev-parse origin/master`
+        puts "WARNING: HEAD is not the same as origin/master"
+        puts "Run `git push` to sync changes."
+        exit
+      end
+    end
+  end
 
-# Puma:
-set :puma_conf, "#{shared_path}/config/puma.rb"
+  desc 'Initial Deploy'
+  task :initial do
+    on roles(:app) do
+      before 'deploy:restart', 'puma:start'
+      invoke 'deploy'
+    end
+  end
 
+  desc 'Restart application'
+  task :restart do
+    on roles(:app), in: :sequence, wait: 5 do
+      invoke 'puma:restart'
+    end
+  end
 
-
-
-before :deploy, "puma:make_dirs"
-after "assets:symlink", 'setup:database'
+  before :starting,     :check_revision
+  after  :finishing,    :compile_assets
+  after  :finishing,    :cleanup
+  after  :finishing,    :restart
+end  
