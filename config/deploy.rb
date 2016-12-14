@@ -7,15 +7,13 @@ set :application, 'gclinic'
 set :repo_url, 'git@gitlab.com:gclinic/gclinic2.0.git'
 set :pty, true
 
-set :deploy_to, "/home/#{fetch(:user)}/www/#{fetch(:application)}"
+set :deploy_to, "/home/#{fetch(:user)}/globalnetsis/#{fetch(:application)}"
 
 set :format_options, command_output: true, log_file: 'log/capistrano.log', color: :auto, truncate: :auto
 
-# Default value for :linked_files is []
 append :linked_files, 'config/database.yml', 'config/secrets.yml', 'config/puma.rb'
 # set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml', 'config/puma.rb')
 
-# Default value for linked_dirs is []
 append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'public/system', 'vendor/bundle', 'public/uploads'
 # set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'public/uploads')
 
