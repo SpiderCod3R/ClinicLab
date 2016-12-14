@@ -90,3 +90,5 @@ group :development do
   gem 'capistrano3-nginx'
   gem 'capistrano-upload-config'
 end
+
+gem 'dotenv-rails'
