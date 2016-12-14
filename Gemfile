@@ -80,22 +80,13 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'htmlentities'
 gem 'htmltoword'
 
-# group :development do
-#   gem 'capistrano', '~> 3.6'
-#   gem 'capistrano-rails', '~> 1.1'
-#   gem "capistrano-bundler"
-#   gem 'capistrano-rbenv', '~> 2.0', '>= 2.0.4'
-#   # gem 'capistrano-rvm'
-#   gem 'capistrano3-puma'
-#   gem 'capistrano3-nginx'
-#   gem 'capistrano-upload-config'
-# end
-
 group :development do
-  gem 'capistrano',         require: false
-  gem 'capistrano-rbenv', '~> 2.0', '>= 2.0.4', require: false
-  gem 'capistrano-rvm',     require: false
-  gem 'capistrano-rails',   require: false
-  gem 'capistrano-bundler', require: false
-  gem 'capistrano3-puma',   require: false
+  gem 'capistrano', '~> 3.6'
+  gem 'capistrano-rails', '~> 1.1', '>= 1.1.7', group: :development
+  gem "capistrano-bundler"
+  gem 'capistrano-rbenv', '~> 2.0', '>= 2.0.4'
+  gem 'capistrano-puma', '~> 0.2.3'
+  gem 'capistrano3-puma'
+  gem 'capistrano3-nginx'
+  gem 'capistrano-upload-config'
 end

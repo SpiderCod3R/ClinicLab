@@ -5,8 +5,6 @@ namespace :puma do
       execute "mkdir #{shared_path}/tmp/sockets -p"
       execute "mkdir #{shared_path}/tmp/pids -p"
     end
-
-    before 'puma:start', :make_dirs
   end
 
   desc 'Restart application'
