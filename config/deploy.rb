@@ -2,7 +2,7 @@ lock '3.6.1'
 
 set :stage,     :production
 set :rails_env, :production
-set :application, 'rm-web'
+set :application, 'gclinic'
 set :repo_url, 'git@gitlab.com:gclinic/gclinic2.0.git'
 set :user, 'deployer'
 set :branch, 'master'
