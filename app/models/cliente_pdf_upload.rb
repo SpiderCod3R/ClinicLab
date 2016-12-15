@@ -1,0 +1,2 @@
+class ClientePdfUpload < ApplicationRecord
+end
