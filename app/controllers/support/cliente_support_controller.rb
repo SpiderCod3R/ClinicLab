@@ -1,6 +1,6 @@
 class Support::ClienteSupportController < ApplicationController
   before_action :authenticate_usuario!
-  before_action :set_cliente, only: [:show, :edit, :update, :destroy]
+  before_action :set_cliente, only: [:show, :edit, :update, :destroy, :destroy_pdf]
   before_action :set_estados, only: [:new, :edit, :create, :update, :ficha, :ficha_em_branco]
   respond_to :docx
 
@@ -83,6 +83,13 @@ class Support::ClienteSupportController < ApplicationController
         send_data pdf.render, filename: "historico", type: 'application/pdf', disposition: 'inline'
       end
     end
+  end
+
+  def destroy_pdf
+    @cliente_pdf_id = params[:pdf]
+    @cliente_pdf = @cliente.cliente_pdf_uploads.find(params[:pdf])
+    @cliente_pdf.destroy
+    respond_to &:js
   end
 
   private

@@ -1,3 +1,7 @@
+require 'time'
+require 'date'
+require 'converters/date_converter'
+require 'converters/time_converter'
 class Cliente < ApplicationRecord
   include AtivandoStatus
   before_save :upcased_attributes
@@ -50,7 +54,6 @@ class Cliente < ApplicationRecord
   end
 
   def update_data(resource)
-    binding.pry
     nascimento = Converter::DateConverter.new(resource["nascimento(1i)"].to_i, resource["nascimento(2i)"].to_i, resource["nascimento(3i)"].to_i)
     validade_carteira = Converter::DateConverter.new(resource["validade_carteira(1i)"].to_i, resource["validade_carteira(2i)"].to_i, resource["validade_carteira(3i)"].to_i)
     update_attributes(status:       resource[:status],

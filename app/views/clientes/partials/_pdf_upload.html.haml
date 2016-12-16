@@ -30,9 +30,11 @@
               %th Anotações
               %th Data
               %th PDF
+              %th Excluir
             %tbody#table_pdf_clientes
-              - @cliente_pdfs.each do |f|
-                %tr
-                  %td=f.anotacoes
-                  %td=l f.data
-                  %td=link_to "visualizar", f.pdf.url, target: "_blank"
+              - @cliente_pdfs.each do |cp|
+                %tr{id: "cliente_pdf_#{cp.id}"}
+                  %td=cp.anotacoes
+                  %td=l cp.data
+                  %td=link_to "Visualizar", cp.pdf.url, target: "_blank"
+                  %td=link_to "Excluir", destroy_pdf_cliente_path(@cliente, pdf: cp), method: :delete, remote: true, data: { confirm: "Tem certeza?" }, class: "delete_cliente_pdf"

@@ -21,7 +21,12 @@ class ClientesController < Support::ClienteSupportController
   def edit
     session[:cliente_id] = @cliente.id
     @cliente_texto_livre = @cliente.cliente_texto_livres.first
-    @cliente_pdf_uploads = @cliente.cliente_pdf_uploads.build if !@cliente.cliente_pdf_uploads.empty?
+    if !@cliente.cliente_pdf_uploads.empty?
+      @cliente_pdf_uploads = @cliente.cliente_pdf_uploads.build
+    else
+      @cliente_pdf_uploads = @cliente.cliente_pdf_uploads.build
+    end
+    # binding.pry
     @cliente_pdfs  = ClientePdfUpload.where(cliente_id: @cliente)
     get_historicos
   end
