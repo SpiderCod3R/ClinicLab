@@ -1,3 +1,7 @@
+require 'time'
+require 'date'
+require 'converters/date_converter'
+require 'converters/time_converter'
 class Cliente < ApplicationRecord
   include AtivandoStatus
   before_save :upcased_attributes
@@ -20,11 +24,14 @@ class Cliente < ApplicationRecord
   belongs_to :convenio
   has_many :historicos
   has_many :cliente_texto_livres
+  has_many :cliente_pdf_uploads
 
   accepts_nested_attributes_for :historicos, allow_destroy: true
+  accepts_nested_attributes_for :cliente_pdf_uploads, reject_if: :all_blank, allow_destroy: true
 
   has_attached_file :foto, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :foto, content_type: /\Aimage\/.*\Z/
+
 
   def upcased_attributes
     self.nome.upcase!
@@ -70,5 +77,14 @@ class Cliente < ApplicationRecord
                       bairro:      resource[:bairro],
                       estado_id:   resource[:estado_id],
                       cargo_id:    resource[:cargo_id])
+  end
+
+  def upload_files(resource)
+    data = Converter::DateConverter.new(resource["data(1i)"].to_i, resource["data(2i)"].to_i, resource["data(3i)"].to_i)
+    self.cliente_pdf_uploads.build(data: data.to_american_format,
+                                   anotacoes: resource[:anotacoes],
+                                   pdf: resource[:pdf]
+                                  )
+    self.save
   end
 end

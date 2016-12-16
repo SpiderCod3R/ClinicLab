@@ -29,9 +29,10 @@ Rails.application.routes.draw do
 
   resources :clientes do
     member do
-      get 'print_free_text'
-      get 'print_historico'
-      get 'print_historico_full'
+      get    'print_free_text'
+      get    'print_historico'
+      get    'print_historico_full'
+      delete 'destroy_pdf'
     end
   end
 

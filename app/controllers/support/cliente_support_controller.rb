@@ -1,5 +1,6 @@
 class Support::ClienteSupportController < ApplicationController
-  before_action :set_cliente, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_usuario!
+  before_action :set_cliente, only: [:show, :edit, :update, :destroy, :destroy_pdf]
   before_action :set_estados, only: [:new, :edit, :create, :update, :ficha, :ficha_em_branco]
   respond_to :docx
 
@@ -84,6 +85,13 @@ class Support::ClienteSupportController < ApplicationController
     end
   end
 
+  def destroy_pdf
+    @cliente_pdf_id = params[:pdf]
+    @cliente_pdf = @cliente.cliente_pdf_uploads.find(params[:pdf])
+    @cliente_pdf.destroy
+    respond_to &:js
+  end
+
   private
     def set_estados
       @estados = Estado.pelo_nome
@@ -102,35 +110,12 @@ class Support::ClienteSupportController < ApplicationController
       @historicos = Historico.where(cliente_id: @cliente.id).order('updated_at DESC')
     end
 
-    def cliente_params
-      params.require(:cliente).permit(:id,
-                                      :status,
-                                      :nome,
-                                      :cpf,
-                                      :endereco,
-                                      :complemento,
-                                      :bairro,
-                                      :estado_id,
-                                      :cidade_id,
-                                      :empresa_id,
-                                      :foto,
-                                      :email,
-                                      :telefone,
-                                      :cargo_id,
-                                      :status_convenio,
-                                      :matricula,
-                                      :plano,
-                                      :validade_carteira,
-                                      :produto,
-                                      :titular,
-                                      :convenio_id,
-                                      :nascimento,
-                                      :sexo,
-                                      :rg,
-                                      :estado_civil,
-                                      :nacionalidade,
-                                      :naturalidade,
-                                      historico_attributes: [:indice, :idade, :usuario_id, :cliente_id]
-                                      )
+    def resource_params
+      params.require(:cliente).permit(
+        :id, :status, :nome, :cpf, :endereco, :complemento, :bairro, :estado_id,
+        :cidade_id, :empresa_id, :foto, :email, :telefone, :cargo_id, :status_convenio,
+        :matricula, :plano, :validade_carteira, :produto, :titular, :convenio_id, :nascimento,
+        :sexo, :rg, :estado_civil, :nacionalidade, :naturalidade, 
+        cliente_pdf_upload_attributes: [:id, :cliente_id, :anotacoes, :data, :pdf, :_destroy])
     end
 end

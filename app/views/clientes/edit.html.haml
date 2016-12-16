@@ -6,6 +6,9 @@
         %h1=t('bootstrap.helpers.links.edit')
         %hr{style: "border: #323232 solid 0.5px;"}
         %div{class: "row-fluid"}
+          - if @cliente.errors.any?
+            %div{class: "alert alert-danger", style: "color: #B11515;"}
+              %h4="Existem 1 ou mais erro(s) que impede(m) este cliente de ser salvo:"
           %div{class: "panel"}
             =render 'clientes/partials/edit_form'
 

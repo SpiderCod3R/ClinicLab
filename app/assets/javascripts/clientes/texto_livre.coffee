@@ -2,7 +2,7 @@ $(document).ready ->
   URL_BASE = window.location.origin + "/"
   texto_livre_id = 0
   ctl_id =0
-  $('.nav-tabs a[href="#texto_livre"]').tab('show')
+  # $('.nav-tabs a[href="#texto_livre"]').tab('show')
 
   $("#cancelar_free_text").hide()
   $("#salvar_new_free_text").hide()

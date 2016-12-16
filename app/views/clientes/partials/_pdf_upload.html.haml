@@ -1,0 +1,40 @@
+#pdf.tab-pane.fade
+  .container-fluid
+    .col-md-12
+      .row
+        .col-md-3
+          / =link_to "Incluir", "#", class: "btn btn-success", id: "include_new_pdf"
+        .col-md-3
+  %br/
+  .container-fluid
+    #updload_pdf_area
+      .col-md-6
+        .panel.panel-default
+          .panel-heading
+            %b Envio de PDF's
+          .panel-body
+            =f.simple_fields_for @cliente_pdf_uploads do |u|
+              .row
+                .col-md-12
+                  =u.input :data, as: :date
+              .row
+                .col-md-12
+                  =u.input :pdf, as: :file, label: "Documento"
+              .row
+                .col-md-12
+                  =u.input :anotacoes, as: :text, input_html: {style: "margin: 5px 0px 3px; height: 150px; width: 499px;"}
+      .col-md-6
+        -if !@cliente_pdfs.empty?
+          %table{class: "table table-striped table-bordered", cellspacing: "0", width: "100%"}
+            %thead
+              %th Anotações
+              %th Data
+              %th PDF
+              %th Excluir
+            %tbody#table_pdf_clientes
+              - @cliente_pdfs.each do |cp|
+                %tr{id: "cliente_pdf_#{cp.id}"}
+                  %td=cp.anotacoes
+                  %td=l cp.data
+                  %td=link_to "Visualizar", cp.pdf.url, target: "_blank"
+                  %td=link_to "Excluir", destroy_pdf_cliente_path(@cliente, pdf: cp), method: :delete, remote: true, data: { confirm: "Tem certeza?" }, class: "delete_cliente_pdf"

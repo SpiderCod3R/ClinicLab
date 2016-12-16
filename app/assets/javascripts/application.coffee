@@ -8,6 +8,8 @@
 #= require JQUERY/jquery.maskedinput-1.1.4.pack
 #= require jquery_ujs
 
+#= require cocoon
+
 #= require bootstrap
 #= require angular
 #= require leaflet
