@@ -34,5 +34,5 @@
               - @cliente_pdfs.each do |f|
                 %tr
                   %td=f.anotacoes
-                  %td=f.data
+                  %td=l f.data
                   %td=link_to "visualizar", f.pdf.url, target: "_blank"

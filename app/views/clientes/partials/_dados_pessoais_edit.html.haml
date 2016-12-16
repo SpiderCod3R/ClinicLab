@@ -1,17 +1,19 @@
 - nascimento = date_to_format(@cliente.nascimento) if @cliente.nascimento.present?
 - sexo  = @cliente.sexo if @cliente.sexo.present?
+- estado_civil  = @cliente.estado_civil if @cliente.estado_civil.present?
 %div{id:"dados", class:"tab-pane fade in active"}
   %div{class: "row"}
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
       = f.input :id, as: :hidden
-      = f.input :status, :as => :select,
-              :collection => [['Ativo','Ativo'],['Inativo','Inativo']],
-              :include_blank => false,
-              :label => t('labels.status')
+      = f.label :status
+      %br/
+      = f.collection_radio_buttons :status, [[true, 'Ativo'] ,[false, 'Inativo']], :first, :last
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
       = f.input :nome
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
-      = f.input :sexo, :collection => [['Masculino','m'],['Feminino','f']], :label => t('labels.sexo'), :selected_value => sexo, :include_blank => "Selecione"
+      =f.label :sexo
+      %br/
+      = f.collection_radio_buttons :sexo, [['M', 'Masculino'] ,['F', 'Feminino']], :first, :last
   %div{class: "row"}
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
       = f.input :nascimento, as: :string, input_html: {class: "datepicker_form", value: "#{nascimento}"}
@@ -20,10 +22,9 @@
         Idade
       %input{:type=>"text", :class => "form-control", :id => "cliente_idade"}
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
-      = f.input :estado_civil, :as => :select,
-              :collection => [['Casado','casado'],['Divorciado','divorciado'],['Solteiro','solteiro']],
-              :include_blank => "Selecione",
-              :label => t('labels.estado civil')
+      = f.label :estado_civil
+      %br/
+      = f.select :estado_civil, options_for_select([ "CASADO", "DIVORCIADO", "SOLTEIRO" ], estado_civil.to_s), {} ,{:class => "form-control"}
   %div{class: "row"}
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
       = f.input :cpf,  input_html: {class: "cpf_maskara" }
