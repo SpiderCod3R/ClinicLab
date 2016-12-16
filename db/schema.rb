@@ -152,12 +152,14 @@ ActiveRecord::Schema.define(version: 20161215114418) do
   create_table "cliente_pdf_uploads", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.text     "anotacoes",        limit: 65535
     t.date     "data"
+    t.integer  "cliente_id"
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
     t.string   "pdf_file_name"
     t.string   "pdf_content_type"
     t.integer  "pdf_file_size"
     t.datetime "pdf_updated_at"
+    t.index ["cliente_id"], name: "index_cliente_pdf_uploads_on_cliente_id", using: :btree
   end
 
   create_table "cliente_texto_livres", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

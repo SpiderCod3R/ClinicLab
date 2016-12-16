@@ -1,5 +1,4 @@
 class ClientesController < Support::ClienteSupportController
-  before_action :authenticate_usuario!
   respond_to :html
 
   def index
@@ -22,11 +21,13 @@ class ClientesController < Support::ClienteSupportController
   def edit
     session[:cliente_id] = @cliente.id
     @cliente_texto_livre = @cliente.cliente_texto_livres.first
+    @cliente_pdf_uploads = @cliente.cliente_pdf_uploads.build if !@cliente.cliente_pdf_uploads.empty?
+    @cliente_pdfs  = ClientePdfUpload.where(cliente_id: @cliente)
     get_historicos
   end
 
   def create
-    @cliente = current_usuario.empresa.clientes.build(cliente_params)
+    @cliente = current_usuario.empresa.clientes.build(resource_params)
     get_historicos
     if @cliente.save
       redirect_to new_cliente_path
@@ -39,8 +40,14 @@ class ClientesController < Support::ClienteSupportController
   def update
     session[:cliente_id] = @cliente.id
     get_historicos
-    @cliente.update(cliente_params)
-    redirect_to new_cliente_path
+    if @cliente.update(resource_params)
+      @cliente.upload_files(params[:cliente][:cliente_pdf_upload])
+      redirect_to :back
+    else
+      @cliente_pdf_uploads = @cliente.cliente_pdf_uploads.build if !@cliente.cliente_pdf_uploads.empty?
+      @cliente_pdfs  = ClientePdfUpload.where(cliente_id: @cliente)
+      render :edit
+    end
   end
 
   def retorna_historico

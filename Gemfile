@@ -64,7 +64,6 @@ gem "prawn"
 gem "prawn-table"
 gem "wicked"
 gem 'masonry-rails'
-gem 'paperclip', '~> 5.0.0'
 gem "bootstrap-table-rails"
 gem 'localized_country_select'
 gem 'ckeditor', '4.1.3'
@@ -77,8 +76,12 @@ gem 'font-awesome-rails', '~> 4.6', '>= 4.6.3.1'
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
+gem 'paperclip', '~> 5.0.0'
+gem 'paperclip-i18n'
+
 gem 'htmlentities'
 gem 'htmltoword'
+gem "cocoon"
 
 group :development do
   gem 'capistrano', '~> 3.6'

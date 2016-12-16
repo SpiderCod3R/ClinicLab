@@ -160,6 +160,7 @@ GEM
       activesupport (>= 3.0)
     cocaine (0.5.8)
       climate_control (>= 0.0.3, < 1.0)
+    cocoon (1.2.9)
     coderay (1.1.1)
     coffee-rails (4.2.1)
       coffee-script (>= 2.2.0)
@@ -268,6 +269,7 @@ GEM
       cocaine (~> 0.5.5)
       mime-types
       mimemagic (~> 0.3.0)
+    paperclip-i18n (4.3.0)
     pdf-core (0.6.1)
     polyamorous (1.3.1)
       activerecord (>= 3.0)
@@ -442,6 +444,7 @@ DEPENDENCIES
   capybara (~> 2.7, >= 2.7.1)
   chosen-rails (~> 1.5, >= 1.5.2)
   ckeditor (= 4.1.3)
+  cocoon
   coffee-rails (~> 4.2)
   datetimepicker-rails!
   devise
@@ -467,6 +470,7 @@ DEPENDENCIES
   momentjs-rails!
   mysql2 (>= 0.3.18, < 0.5)
   paperclip (~> 5.0.0)
+  paperclip-i18n
   prawn
   prawn-table
   pry
