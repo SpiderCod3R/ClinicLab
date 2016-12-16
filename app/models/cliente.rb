@@ -80,8 +80,7 @@ class Cliente < ApplicationRecord
   end
 
   def upload_files(resource)
-    data = Converter::DateConverter.new(resource["data(1i)"].to_i, resource["data(2i)"].to_i, resource["data(3i)"].to_i)
-    self.cliente_pdf_uploads.build(data: data.to_american_format,
+    self.cliente_pdf_uploads.build(data: Date.today,
                                    anotacoes: resource[:anotacoes],
                                    pdf: resource[:pdf]
                                   )

@@ -14,9 +14,9 @@
             %b Envio de PDF's
           .panel-body
             =f.simple_fields_for @cliente_pdf_uploads do |u|
-              .row
-                .col-md-12
-                  =u.input :data, as: :date
+              / .row
+              /   .col-md-12
+              /     =u.input :data, as: :date
               .row
                 .col-md-12
                   =u.input :pdf, as: :file, label: "Documento"
