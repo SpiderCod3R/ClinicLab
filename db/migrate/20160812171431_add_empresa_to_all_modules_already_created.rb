@@ -11,7 +11,6 @@ class AddEmpresaToAllModulesAlreadyCreated < ActiveRecord::Migration[5.0]
     add_reference :operadoras,              :empresa, index: true
     add_reference :fornecedores,            :empresa, index: true
     add_reference :imagem_cabecs,           :empresa, index: true
-    add_reference :texto_livres,            :empresa, index: true
     add_reference :profissionais,           :empresa, index: true
   end
 end

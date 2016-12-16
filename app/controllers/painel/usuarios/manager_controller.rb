@@ -52,9 +52,7 @@ class Painel::Usuarios::ManagerController < ApplicationController
 
 
     if @usuario.save(validate: false)
-      # binding.pry
       if !@old_usuario_permissao.nil?
-        # binding.pry
         @agenda_permissao = AgendaPermissao.find_by usuario_permissoes_id: @old_usuario_permissao.id
         if !@agenda_permissao.nil?
           @new_usuario_permissao=@usuario.usuario_permissoes.find_by(permissao_id: @permissao.id)
@@ -75,7 +73,6 @@ class Painel::Usuarios::ManagerController < ApplicationController
 
   def change_data
     @usuario = Painel::Usuario.find(params[:id])
-    binding.pry
     if usuario_params[:password]==""
       if @usuario.update_without_password(usuario_params)
         flash[:info] = "Usuário atualizado."

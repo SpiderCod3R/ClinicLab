@@ -1,27 +1,18 @@
-# Painel::Permissao.create(nome: "Cargos", model_class: "Cargo")
-# Painel::Permissao.create(nome: "Centro De Custos", model_class: "CentroDeCusto")
-# Painel::Permissao.create(nome: "Convênios", model_class: "Convenio")
-# Painel::Permissao.create(nome: "Profissionais", model_class: "Profissional")
-# Painel::Permissao.create(nome: "Relatórios",model_class: "ConfiguracaoRelatorio")
-# Painel::Permissao.create(nome: "Operadoras", model_class: "Operadora")
-# Painel::Permissao.create(nome: "Conselhos Regionais", model_class: "ConselhoRegional")
-# Painel::Permissao.create(nome: "Clientes", model_class: "Cliente")
-# Painel::Permissao.create(nome: "Fornecedores", model_class: "Fornecedor")
-# Painel::Permissao.create(nome: "Cabecs", model_class: "Cabec")
-# Painel::Permissao.create(nome: "Imagem Cabecs", model_class: "ImagemCabec")
-# require 'globalnetsis'
-# Painel::Master.create(email: "globalnetsis@globalentsis.com.br",
-#                       nome: "globalnetsis",
-#                       login: "globalnetsis",
-#                       password: Globalnetsis::Secret.make)
-# puts "GLOBALNETSIS::ADMIN Importado"
+Painel::Master.create(email: "globalnetsis@globalnetsis.com.br", nome: "globalnetsis", login: "globalnetsis", password: "#GSUPER4582?")
+Painel::Permissao.create(nome: "Agendas", model_class: "Agenda")
+Painel::Permissao.create(nome: "Referência Agendas", model_class: "ReferenciaAgenda")
+Painel::Permissao.create(nome: "Cargos", model_class: "Cargo")
+Painel::Permissao.create(nome: "Centro De Custos", model_class: "CentroDeCusto")
+Painel::Permissao.create(nome: "Convênios", model_class: "Convenio")
+Painel::Permissao.create(nome: "Profissionais", model_class: "Profissional")
+Painel::Permissao.create(nome: "Relatórios",model_class: "ConfiguracaoRelatorio")
+Painel::Permissao.create(nome: "Operadoras", model_class: "Operadora")
+Painel::Permissao.create(nome: "Conselhos Regionais", model_class: "ConselhoRegional")
+Painel::Permissao.create(nome: "Clientes", model_class: "Cliente")
+Painel::Permissao.create(nome: "Fornecedores", model_class: "Fornecedor")
+Painel::Permissao.create(nome: "Cabecs", model_class: "Cabec")
+Painel::Permissao.create(nome: "Imagem Cabecs", model_class: "ImagemCabec")
 
-# Painel::Master.create(email: "desenvolvimento@globalnetsis.com.br",
-#                       nome: "desenvolvedor",
-#                       login: "desenvolvimento",
-#                       password: Globalnetsis::Secret.make,
-#                       desenvolvedor: true)
-# puts "GLOBALNETSIS::DEVELOPER Importado"
 
 puts "CRIANDO ESTADOS"
 e = Estado.create(:sigla => 'AC', :nome => "Acre")

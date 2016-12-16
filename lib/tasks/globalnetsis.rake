@@ -1,5 +1,5 @@
 require 'yaml'
-require 'globalnetsis'
+require_relative 'painel/globalnetsis.rb'
 
 namespace :globalnetsis do
   desc "import globalnetsis admin to database"
