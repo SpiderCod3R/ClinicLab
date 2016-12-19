@@ -46,14 +46,17 @@ class ClientesController < Support::ClienteSupportController
     session[:cliente_id] = @cliente.id
     get_historicos
     @cliente.upload_files(params[:cliente][:cliente_pdf_upload]) if !params[:cliente][:cliente_pdf_upload][:pdf].nil?
-    binding.pry
+    # binding.pry
+    # if !@upload && @upload != nil
+      # send_back_with_error
+      # return
+    # end
+
     if @cliente.update(resource_params)
       flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @cliente.class)
       redirect_to :back
     else
-      @cliente_pdf_uploads = @cliente.cliente_pdf_uploads.build if !@cliente.cliente_pdf_uploads.empty?
-      @cliente_pdfs  = ClientePdfUpload.where(cliente_id: @cliente)
-      render :edit
+      send_back_with_error
     end
   end
 
@@ -128,4 +131,11 @@ class ClientesController < Support::ClienteSupportController
     respond_with(@cliente)
     session[:cliente_id] = nil
   end
+
+  private
+    def send_back_with_error
+      @cliente_pdf_uploads = @cliente.cliente_pdf_uploads.build if !@cliente.cliente_pdf_uploads.empty?
+      @cliente_pdfs  = ClientePdfUpload.where(cliente_id: @cliente)
+      render :edit
+    end
 end

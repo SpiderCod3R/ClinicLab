@@ -84,6 +84,12 @@ class Cliente < ApplicationRecord
                                    anotacoes: resource[:anotacoes],
                                    pdf: resource[:pdf]
                                   )
-    # self.save
+    # # binding.pry
+    # if self.cliente_pdf_uploads.last.valid?
+    #   self.save
+    #   return true
+    # else
+    #   return false
+    # end
   end
 end

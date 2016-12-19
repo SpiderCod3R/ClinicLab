@@ -4,8 +4,8 @@ class ClientePdfUpload < ApplicationRecord
   has_attached_file :pdf, styles: { thumbnail: "60x60#" }
   validates_attachment :pdf, presence: true,
     content_type: { content_type: "application/pdf" },
-    size: { in: 0..5.megabytes }
-  validates_attachment_file_name :pdf, matches: [/pdf\z/]
+    size: { in: 0..5.megabytes }, messages: "Formato inválido - Apenas documento pdf"
+  validates_attachment_file_name :pdf, matches: [/pdf\z/], messages: "Formato inválido - Apenas documento pdf"
 
   validates :anotacoes, :data, :pdf, presence: true
 
