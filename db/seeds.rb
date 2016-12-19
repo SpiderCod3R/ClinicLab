@@ -1,4 +1,7 @@
+puts "IMPORTANDO ADMIN"
 Painel::Master.create(email: "globalnetsis@globalnetsis.com.br", nome: "globalnetsis", login: "globalnetsis", password: "#GSUPER4582?")
+
+puts "IMPORTANDO PERMISSOES"
 Painel::Permissao.create(nome: "Agendas", model_class: "Agenda")
 Painel::Permissao.create(nome: "Referência Agendas", model_class: "ReferenciaAgenda")
 Painel::Permissao.create(nome: "Cargos", model_class: "Cargo")
@@ -14,7 +17,7 @@ Painel::Permissao.create(nome: "Cabecs", model_class: "Cabec")
 Painel::Permissao.create(nome: "Imagem Cabecs", model_class: "ImagemCabec")
 
 
-puts "CRIANDO ESTADOS"
+puts "CRIANDO ESTADOS & CIDADES"
 e = Estado.create(:sigla => 'AC', :nome => "Acre")
 e.cidades.create(:nome => "Acrelândia")
 e.cidades.create(:nome => "Assis Brasil")
@@ -5734,9 +5737,5 @@ e.cidades.create(:nome => "Wanderlândia")
 e.cidades.create(:nome => "Xambioá")
 e.capital = Cidade.find_by_nome_and_estado_id('Palmas', Estado.find_by_nome('Tocantins').id)
 e.save
-# puts "CIDADES & ESTADOS IMPORTADOS"
-
-# puts "CRIANDO MODULOS ASSOCIADOS A PERMISSAO EMPRESA"
-
-
-# puts "TODOS OS DADOS CONTIDOS EM seed.rb IMPORTADOS COM SUCESSO"
+puts "CIDADES & ESTADOS IMPORTADOS"
+puts "TODOS OS DADOS CONTIDOS EM seed.rb IMPORTADOS COM SUCESSO"
