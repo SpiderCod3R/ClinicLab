@@ -45,8 +45,9 @@ class ClientesController < Support::ClienteSupportController
   def update
     session[:cliente_id] = @cliente.id
     get_historicos
+    @cliente.upload_files(params[:cliente][:cliente_pdf_upload]) if !params[:cliente][:cliente_pdf_upload][:pdf].nil?
+    binding.pry
     if @cliente.update(resource_params)
-      @cliente.upload_files(params[:cliente][:cliente_pdf_upload]) if !params[:cliente][:cliente_pdf_upload][:pdf].nil?
       flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @cliente.class)
       redirect_to :back
     else
