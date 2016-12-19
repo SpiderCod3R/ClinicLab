@@ -14,14 +14,14 @@
           .row
             .col-md-4
               -if @referencia.errors.any?
-                =label_or_error_tag @referencia, :descricao
+                =label_or_error_tag @referencia, :descricao, "Descrição"
               -else
                 =f.label :descricao, class: "control-label"
               =f.input :descricao, :error => false, label: false
           .row
             .col-md-4
               -if @referencia.errors.any?
-                =label_or_error_tag @referencia, :profissional_id
+                =label_or_error_tag @referencia, :profissional_id, "Profissional"
               -else
                 =f.label :profissional_id, class: "control-label"
               =f.collection_select :profissional_id, Profissional.where(empresa_id: current_usuario.empresa_id).order("nome ASC"), :id, :titulo_completo, { prompt: "Selecione um" }, class: "form-control selectpicker", :"data-live-search"=>"true"
