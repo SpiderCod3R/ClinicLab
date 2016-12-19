@@ -34,11 +34,10 @@ module ToolHelper
   end
 
   def sexo_formatado(s)
-    sexo = ''
-    if s == 'f'
-      sexo = 'Feminino'
-    elsif s == 'm'
-      sexo = 'Masculino'
+    if s.upcase.eql?("F")
+      return 'Feminino'
+    elsif s.upcase.eql?("M")
+      return 'Masculino'
     end
   end
 
