@@ -84,6 +84,6 @@ class Cliente < ApplicationRecord
                                    anotacoes: resource[:anotacoes],
                                    pdf: resource[:pdf]
                                   )
-    self.save
+    # self.save
   end
 end
