@@ -1,3 +1,2 @@
-// $('#previous_page').html("<%=j link_to_back_page path: cliente_find_textos_livres_path(@cliente, previous_page: true, texto_livre_id: @cliente_texto_livre.id), text: '< Anterior'%>");
-// $('#next_page').html("<%=j link_to_advance_page path: cliente_find_textos_livres_path(@cliente, next_page: true, texto_livre_id: @cliente_texto_livre.id), text: 'Próxima >'%>");
-$('#texto_livres_container').html("<%=j render 'clientes/partials/cliente_texto_livre' %>");
+$('#table_pdf').html("<%=j render 'clientes/partials/pdf_table', { cliente_pdfs: @cliente_pdfs } %>");
+$('#paginator').html("<%=j paginate(@cliente_pdfs, :remote => true).to_s %>");

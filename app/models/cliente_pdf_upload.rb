@@ -9,6 +9,7 @@ class ClientePdfUpload < ApplicationRecord
 
   validates :anotacoes, :data, :pdf, presence: true
 
+  paginates_per 10
   private
     def cliente_pdf_upload
       params.require(:cliente_pdf_upload).permit(:anotacoes, :data, :cliente_id, :pdf)
