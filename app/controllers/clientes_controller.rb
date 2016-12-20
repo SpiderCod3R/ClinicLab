@@ -26,9 +26,9 @@ class ClientesController < Support::ClienteSupportController
     else
       @cliente_pdf_uploads = @cliente.cliente_pdf_uploads.build
     end
-    # binding.pry
-    @cliente_pdfs  = ClientePdfUpload.where(cliente_id: @cliente)
+    @cliente_pdfs  = ClientePdfUpload.where(cliente_id: @cliente).page params[:page]
     get_historicos
+    # binding.pry
   end
 
   def create
@@ -46,12 +46,6 @@ class ClientesController < Support::ClienteSupportController
     session[:cliente_id] = @cliente.id
     get_historicos
     @cliente.upload_files(params[:cliente][:cliente_pdf_upload]) if !params[:cliente][:cliente_pdf_upload][:pdf].nil?
-    # binding.pry
-    # if !@upload && @upload != nil
-      # send_back_with_error
-      # return
-    # end
-
     if @cliente.update(resource_params)
       flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @cliente.class)
       redirect_to :back
@@ -135,7 +129,7 @@ class ClientesController < Support::ClienteSupportController
   private
     def send_back_with_error
       @cliente_pdf_uploads = @cliente.cliente_pdf_uploads.build if !@cliente.cliente_pdf_uploads.empty?
-      @cliente_pdfs  = ClientePdfUpload.where(cliente_id: @cliente)
+      @cliente_pdfs  = ClientePdfUpload.where(cliente_id: @cliente).page params[:page]
       render :edit
     end
 end

@@ -17,8 +17,8 @@
     #wrapper_with_padding
       =yield :header
       / =render 'application/sidebar_navigation'
+      =render 'layouts/flash'
       %section#gclinic
-        #flash_container=render 'layouts/flash'
         = yield
     .clearfix
     = javascript_include_tag "application", :media => "all"
