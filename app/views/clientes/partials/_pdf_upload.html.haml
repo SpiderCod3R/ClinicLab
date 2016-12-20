@@ -1,32 +1,34 @@
 #pdf.tab-pane.fade
-  .row
-    #updload_pdf_area
-      .col-md-6{ style: "margin-left: -10%;" }
-        .panel.panel-default
-          .panel-heading
-            %b Envio de PDF's
-          .panel-body
-            =f.simple_fields_for @cliente_pdf_uploads do |u|
-              / .row
-              /   .col-md-12
-              /     =u.input :data, as: :date
-              .row
-                .col-md-12
-                  =u.input :pdf, as: :file, label: "Documento"
-                  =error_custom_tag(@cliente, :"cliente_pdf_uploads.pdf_file_name", "Documento")
-              .row
-                .col-md-12
-                  =u.input :anotacoes, as: :text, input_html: {style: "margin: 5px 0px 3px; height: 150px; width: 499px;"}
-      .col-md-6
-        .container-fluid
-          -if !@cliente_pdfs.empty?
-            %table{class: "table table-striped table-bordered", cellspacing: "0", width: "100%"}
-              %thead
-                %th Anotações
-                %th Data
-                %th PDF
-                %th Excluir
-              %tbody#table_pdf
-                =render 'clientes/partials/pdf_table', { cliente_pdfs: @cliente_pdfs }
-            #paginator
-              = paginate @cliente_pdfs, remote: true
+  .container-fluid
+    .row-fluid
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        #updload_pdf_area
+          .col-md-6{ style: "margin-left: -10%;" }
+            .panel.panel-default
+              .panel-heading
+                %b Envio de PDF's
+              .panel-body
+                =f.simple_fields_for @cliente_pdf_uploads do |u|
+                  / .row
+                  /   .col-md-12
+                  /     =u.input :data, as: :date
+                  .row
+                    .col-md-12
+                      =u.input :pdf, as: :file, label: "Documento"
+                      =error_custom_tag(@cliente, :"cliente_pdf_uploads.pdf_file_name", "Documento")
+                  .row
+                    .col-md-12
+                      =u.input :anotacoes, as: :text, input_html: {style: "margin: 5px 0px 3px; height: 150px; width: 499px;"}
+          .col-md-6
+            .container-fluid
+              -if !@cliente_pdfs.empty?
+                %table{class: "table table-striped table-bordered", cellspacing: "0", width: "100%"}
+                  %thead
+                    %th Anotações
+                    %th Data
+                    %th PDF
+                    %th Excluir
+                  %tbody#table_pdf
+                    =render 'clientes/partials/pdf_table', { cliente_pdfs: @cliente_pdfs }
+                #paginator
+                  = paginate @cliente_pdfs, remote: true
