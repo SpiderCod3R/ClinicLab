@@ -1,14 +1,15 @@
 =build_form_toolbar(nil, ".edit_cliente", @cliente, clientes_path, nil)
 %section{id: "edit_clientes"}
-  %div{class: "container"}
-    %div{class: "row"}
-      %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
-        %h1=t('bootstrap.helpers.links.edit')
-        %hr{style: "border: #323232 solid 0.5px;"}
-        %div{class: "row-fluid"}
-          - if @cliente.errors.any?
-            %div{class: "alert alert-danger", style: "color: #B11515;"}
-              %h4="Existem 1 ou mais erro(s) que impede(m) este cliente de ser salvo:"
-          %div{class: "panel"}
-            =render 'clientes/partials/edit_form'
+  .container-fluid
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+      %h1=t('bootstrap.helpers.links.edit')
+      %hr{style: "border: #323232 solid 0.5px;"}
+      .row-fluid
+        - if @cliente.errors.any?
+          .alert.alert-danger{style: "color: #B11515;"}
+            %h4="Existem 1 ou mais erro(s) que impede(m) este cliente de ser salvo:"
+  .container-fluid
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+      .panel
+        =render 'clientes/partials/edit_form'
 
