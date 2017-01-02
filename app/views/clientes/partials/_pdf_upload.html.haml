@@ -1,34 +1,37 @@
 #pdf.tab-pane.fade
-  .container-fluid
-    .row-fluid
-      .col-xs-12.col-sm-12.col-md-12.col-lg-12
-        #updload_pdf_area
-          .col-md-6{ style: "margin-left: -10%;" }
-            .panel.panel-default
-              .panel-heading
-                %b Envio de PDF's
-              .panel-body
-                =f.simple_fields_for @cliente_pdf_uploads do |u|
-                  / .row
-                  /   .col-md-12
-                  /     =u.input :data, as: :date
-                  .row
-                    .col-md-12
-                      =u.input :pdf, as: :file, label: "Documento"
-                      =error_custom_tag(@cliente, :"cliente_pdf_uploads.pdf_file_name", "Documento")
-                  .row
-                    .col-md-12
-                      =u.input :anotacoes, as: :text, input_html: {style: "margin: 5px 0px 3px; height: 150px; width: 499px;"}
-          .col-md-6
-            .container-fluid
-              -if !@cliente_pdfs.empty?
-                %table{class: "table table_pdf_cliente table-striped table-bordered", cellspacing: "0", width: "100%"}
-                  %thead
-                    %th Anotações
-                    %th Data
-                    %th PDF
-                    %th Excluir
-                  %tbody#table_pdf
-                    =render 'clientes/partials/pdf_table', { cliente_pdfs: @cliente_pdfs }
-                #paginator
-                  = paginate @cliente_pdfs, remote: true
+  %hr
+  .col-md-12.col-sm-12.col-xs-12.col-lg-12
+    .col-md-4
+      .panel.panel-default
+        .panel-heading
+          %b Envio de PDF's
+        .panel-body
+          =f.simple_fields_for @cliente_pdf_uploads do |u|
+            .row
+              .col-md-12
+                =u.input :pdf, as: :file, label: "Documento"
+                =error_custom_tag(@cliente, :"cliente_pdf_uploads.pdf_file_name", "Documento")
+            .row
+              .col-md-12
+                =u.input :anotacoes, as: :text, input_html: {style: "margin: 5px 0px 3px; height: 150px; width: 499px;"}
+    -if !@cliente_pdfs.empty?
+      .col-md-6.col-md-offset-1
+        / .row
+        /   = search_form_for @search_pdf, url: search_pdfs_cliente_path, remote: true do |f|
+        /     .col-lg-4.col-md-4
+        /       = f.label :anotacoes_cont, "Observações"
+        /       = f.text_field :anotacoes_cont, class: "form-control"
+        /     .col-lg-8.col-md-8
+        /       = f.label :data_cont, "Data"
+        /       = f.date_select :data_cont,class: "form-control"
+        .row
+          %table{class: "table table_pdf_cliente table-striped table-bordered"}
+            %thead
+              %th Anotações
+              %th Data
+              %th PDF
+              %th Excluir
+            %tbody#table_pdf
+              =render 'clientes/partials/pdf_table', { cliente_pdfs: @cliente_pdfs }
+          #paginator
+            = paginate @cliente_pdfs, remote: true
