@@ -92,6 +92,11 @@ class Support::ClienteSupportController < ApplicationController
     respond_to &:js
   end
 
+  def find_pdf_annotations
+    @cliente_pdf_upload = ClientePdfUpload.find_by(id: params[:pdf_id])
+    # binding.pry
+    respond_to &:js
+  end
   private
     def set_estados
       @estados = Estado.pelo_nome
