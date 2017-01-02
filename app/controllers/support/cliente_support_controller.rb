@@ -97,6 +97,11 @@ class Support::ClienteSupportController < ApplicationController
     # binding.pry
     respond_to &:js
   end
+
+  def search_pdfs
+    
+  end
+
   private
     def set_estados
       @estados = Estado.pelo_nome

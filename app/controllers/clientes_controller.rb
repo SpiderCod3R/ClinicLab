@@ -26,7 +26,8 @@ class ClientesController < Support::ClienteSupportController
     else
       @cliente_pdf_uploads = @cliente.cliente_pdf_uploads.build
     end
-    @cliente_pdfs  = ClientePdfUpload.where(cliente_id: @cliente).page params[:page]
+    @search_pdf  = cliente_pdf_ransack_params
+    @cliente_pdfs= ClientePdfUpload.where(cliente_id: @cliente).ultima_data.page params[:page]
     get_historicos
     # binding.pry
   end
@@ -129,7 +130,12 @@ class ClientesController < Support::ClienteSupportController
   private
     def send_back_with_error
       @cliente_pdf_uploads = @cliente.cliente_pdf_uploads.build if !@cliente.cliente_pdf_uploads.empty?
-      @cliente_pdfs  = ClientePdfUpload.where(cliente_id: @cliente).page params[:page]
+      @cliente_pdfs  = ClientePdfUpload.where(cliente_id: @cliente).ultima_data.page params[:page]
+      @search_pdf  = cliente_pdf_ransack_params
       render :edit
+    end
+
+    def cliente_pdf_ransack_params
+      ClientePdfUpload.ransack(params[:q])
     end
 end

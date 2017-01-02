@@ -22,6 +22,7 @@ Rails.application.routes.draw do
       get    'print_historico'
       get    'print_historico_full'
       delete 'destroy_pdf'
+      get 'search_pdfs'
       get 'find_pdf_annotations'
     end
   end
