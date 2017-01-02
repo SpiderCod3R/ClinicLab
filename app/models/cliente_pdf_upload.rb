@@ -9,6 +9,8 @@ class ClientePdfUpload < ApplicationRecord
 
   validates :anotacoes, :data, :pdf, presence: true
 
+  scope :ultima_data, -> {order(data: :DESC)}
+
   paginates_per 10
   private
     def cliente_pdf_upload
