@@ -1,0 +1,11 @@
+=search_form_for @search_pdf, url: search_pdfs_cliente_path, remote: true, html: {id: "search_pdf_form"} do |s|
+  .col-lg-4.col-md-4
+    = s.label :anotacoes_cont, "Anotações"
+    = s.text_field :anotacoes_cont, placeholder: "Anotações", class: "form-control"
+  .col-lg-2.col-md-2
+    = s.label :data_cont, "Data"
+    = s.text_field :data_cont, class: "form-control datepicker", placeholder: "Data"
+  .col-lg-3.col-md-3
+    = button_tag(type: "submit", class: "btn btn-default", id: "btn_form_search_pdf") do
+      %b Pesquisar
+      %i.fa.fa-filter

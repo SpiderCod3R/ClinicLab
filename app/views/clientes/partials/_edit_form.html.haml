@@ -12,7 +12,7 @@
       %a{'data-toggle':"tab", href:"#texto_livre", id: "aba_texto_livre"} Texto-Livre
     %li
       %a{'data-toggle':"tab", href:"#pdf", id: "aba_texto_livre"} PDF
-  .container-fluid{style: "padding-top: 10px; padding-bottom: 25px;"}
+  .container{style: "padding-top: 10px; padding-bottom: 25px;"}
     .tab-content
       / aba dados_pessoais
       =render 'clientes/partials/dados_pessoais_edit', { f: f }
