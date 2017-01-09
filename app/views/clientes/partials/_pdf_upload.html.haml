@@ -21,7 +21,7 @@
                       =u.input :anotacoes, as: :text, input_html: {style: "margin: 5px 0px 3px; height: 150px; width: 499px;"}
           .col-md-6
             .container-fluid
-              -if !@cliente_pdfs.empty?
+              -if !@cliente_collection_pdfs.empty?
                 %table{class: "table table_pdf_cliente table-striped table-bordered", cellspacing: "0", width: "100%"}
                   %thead
                     %th Anotações
@@ -29,6 +29,6 @@
                     %th PDF
                     %th Excluir
                   %tbody#table_pdf
-                    =render 'clientes/partials/pdf_table', { cliente_pdfs: @cliente_pdfs }
+                    =render 'clientes/partials/pdf_table', { cliente_collection_pdfs: @cliente_collection_pdfs }
                 #paginator
-                  = paginate @cliente_pdfs, remote: true
+                  = paginate @cliente_collection_pdfs, remote: true, params: {controller: 'clientes', action: 'paginate_pdfs'}

@@ -14,6 +14,10 @@ class Support::ClienteSupportController < ApplicationController
     #only_partial
   end
 
+  def paginate_pdfs
+    @cliente_collection_pdfs = ClientePdfUpload.where(cliente_id: params[:id]).ultima_data.page params[:page]
+  end
+
   def change_or_create_new_paciente
     @agenda = Agenda.find(session[:agenda_id])
 
@@ -90,6 +94,72 @@ class Support::ClienteSupportController < ApplicationController
     @cliente_pdf = @cliente.cliente_pdf_uploads.find(params[:pdf])
     @cliente_pdf.destroy
     respond_to &:js
+  end
+
+  def retorna_historico
+    unless params[:historico_id].empty?
+      set_historico
+      @dados_historico = {}
+      @dados_historico[:data] = I18n.l(@historico.updated_at, format: :long)
+      @dados_historico[:usuario] = @historico.usuario.nome
+      @dados_historico[:idade] = @historico.idade
+      @dados_historico[:indice] = @historico.indice
+      respond_to do |format|
+        format.html
+        format.json { render json: @dados_historico.as_json }
+      end
+    end
+  end
+
+  def salva_historico
+    unless params[:historico].empty?
+      @historico = Historico.new
+      @historico.indice = params[:historico][:indice]
+      @historico.idade = params[:historico][:idade]
+      @historico.usuario_id = current_usuario.id
+      @historico.cliente_id = session[:cliente_id]
+      @historico.save
+    end
+    # get_historicos
+    respond_to do |format|
+      format.html
+      format.json { render json: session[:cliente_id].as_json }
+    end
+  end
+
+  def atualiza_historico
+    unless params[:historico].empty?
+      @historico = Historico.find(params[:historico][:id])
+      @historico.update_columns(indice: params[:historico][:indice])
+    end
+    get_historicos
+    respond_to do |format|
+      format.html
+      format.json { render json: session[:cliente_id].as_json }
+    end
+  end
+
+  def include_texto_livre
+    if params[:cliente_texto_livre][:id].to_i.eql?(0)
+      @cliente_texto_livre = ClienteTextoLivre.include(params[:texto_livre])
+    else
+      @cliente_texto_livre = ClienteTextoLivre.find(params[:cliente_texto_livre][:id])
+      @cliente_texto_livre.update_content(params)
+    end
+
+    respond_to do |format|
+      format.html
+      format.json { render json: session[:cliente_id].as_json }
+    end
+  end
+
+  def destroy_cliente_texto_livre
+    @cliente_texto_livre = ClienteTextoLivre.find(params[:id])
+    @cliente_texto_livre.destroy
+    respond_to do |format|
+      format.html
+      format.json { render json: session[:cliente_id].as_json }
+    end
   end
 
   private
