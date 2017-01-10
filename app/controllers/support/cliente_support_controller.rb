@@ -21,7 +21,7 @@ class Support::ClienteSupportController < ApplicationController
       @cliente = Cliente.find(params[:cliente][:id])
       @cliente.update_data(params[:cliente])
     else
-      @cliente = current_usuario.empresa.clientes.build(cliente_params)
+      @cliente = current_usuario.empresa.clientes.build(resource_params)
       @cliente.save
     end
 
