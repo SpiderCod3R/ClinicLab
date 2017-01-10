@@ -15,7 +15,7 @@ class Support::ClienteSupportController < ApplicationController
   end
 
   def paginate_pdfs
-    @cliente_collection_pdfs = ClientePdfUpload.where(cliente_id: params[:id]).ultima_data.page params[:page]
+    @cliente_collection_pdfs = ClientePdfUpload.where(cliente_id: params[:id]).ultima_data.page(params[:page]).per(10)
   end
 
   def change_or_create_new_paciente

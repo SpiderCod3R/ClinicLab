@@ -11,7 +11,7 @@ class ClientePdfUpload < ApplicationRecord
 
   scope :ultima_data, -> { order("created_at DESC") }
 
-  paginates_per 3
+  paginates_per 10
 
   private
     def cliente_pdf_upload
