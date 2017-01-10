@@ -63,13 +63,13 @@ class ClientesController < Support::ClienteSupportController
 
   private
     def send_back_with_error
-      @cliente_texto_livre = @cliente.cliente_texto_livres.first
       if params[:page].permitted?
         @@page = params[:page]
       else
         @@page = 7
       end
-      # binding.pry
+
+      @cliente_texto_livre     = @cliente.cliente_texto_livres.first
       @cliente_collection_pdfs = @cliente.cliente_pdf_uploads.ultima_data.page(@@page).per(2)
       @cliente_pdf_uploads     = @cliente.cliente_pdf_uploads.build if !@cliente.cliente_pdf_uploads.empty?
       render :edit

@@ -9,16 +9,15 @@
                 %b Envio de PDF's
               .panel-body
                 =f.simple_fields_for @cliente_pdf_uploads do |u|
-                  / .row
-                  /   .col-md-12
-                  /     =u.input :data, as: :date
                   .row
                     .col-md-12
                       =u.input :pdf, as: :file, label: "Documento"
-                      =error_custom_tag(@cliente, :"cliente_pdf_uploads.pdf_file_name", "Documento")
+                      / =error_custom_tag(@cliente, :"cliente_pdf_uploads.pdf_file_name", "Documento")
+                      =error_custom_tag(@cliente, :"cliente_pdf_uploads.pdf", "Documento")
                   .row
                     .col-md-12
-                      =u.input :anotacoes, as: :text, input_html: {style: "margin: 5px 0px 3px; height: 150px; width: 499px;"}
+                      =u.input :anotacoes, as: :text, input_html: {style: "margin: 5px 0px 3px; height: 150px; width: 499px;"}, label: "Anotações"
+                      =error_custom_tag(@cliente, :"cliente_pdf_uploads.anotacoes", "Anotações")
           .col-md-6
             .container-fluid
               -if !@cliente_collection_pdfs.empty?
