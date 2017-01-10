@@ -1,4 +1,5 @@
 class Profissional < ApplicationRecord
+  include AtivandoStatus
   include MetodosUteis
 
   validates :nome, :cargo_id, :data_nascimento,
