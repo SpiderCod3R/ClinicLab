@@ -1,3 +1,5 @@
+require_relative 'painel/globalnetsis.rb'
+
 namespace :samples do
   desc "Creating a company sample"
   task company: :environment do

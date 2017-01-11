@@ -1,15 +1,4 @@
 GIT
-  remote: git://github.com/activerecord-hackery/ransack.git
-  revision: cdf0bec982b9866f29a527a2390ebd1551fbd65a
-  specs:
-    ransack (1.8.2)
-      actionpack (>= 3.0)
-      activerecord (>= 3.0)
-      activesupport (>= 3.0)
-      i18n
-      polyamorous (~> 1.3)
-
-GIT
   remote: git://github.com/derekprior/momentjs-rails.git
   revision: fa8ac4899554775945704fd6b7a7b3c5ce1bde17
   specs:
@@ -138,6 +127,9 @@ GEM
       capistrano (>= 3.0)
     capistrano3-nginx (2.1.5)
       capistrano (>= 3.0.0)
+    capistrano3-puma (1.2.1)
+      capistrano (~> 3.0)
+      puma (>= 2.6)
     capybara (2.10.1)
       addressable
       mime-types (>= 1.16)
@@ -157,6 +149,7 @@ GEM
       activesupport (>= 3.0)
     cocaine (0.5.8)
       climate_control (>= 0.0.3, < 1.0)
+    cocoon (1.2.9)
     coderay (1.1.1)
     coffee-rails (4.2.1)
       coffee-script (>= 2.2.0)
@@ -177,6 +170,10 @@ GEM
       devise (>= 2.1.0)
     devise-i18n (1.1.1)
     diff-lcs (1.2.5)
+    dotenv (2.1.1)
+    dotenv-rails (2.1.1)
+      dotenv (= 2.1.1)
+      railties (>= 4.0, < 5.1)
     encryptor (3.0.0)
     erubis (2.7.0)
     execjs (2.7.0)
@@ -261,6 +258,7 @@ GEM
       cocaine (~> 0.5.5)
       mime-types
       mimemagic (~> 0.3.0)
+    paperclip-i18n (4.3.0)
     pdf-core (0.6.1)
     polyamorous (1.3.1)
       activerecord (>= 3.0)
@@ -319,6 +317,12 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (11.3.0)
+    ransack (1.8.2)
+      actionpack (>= 3.0)
+      activerecord (>= 3.0)
+      activesupport (>= 3.0)
+      i18n
+      polyamorous (~> 1.3)
     rb-fsevent (0.9.8)
     rb-inotify (0.9.7)
       ffi (>= 0.5.0)
@@ -431,14 +435,17 @@ DEPENDENCIES
   capistrano-rbenv (~> 2.0, >= 2.0.4)
   capistrano-upload-config
   capistrano3-nginx
+  capistrano3-puma
   capybara (~> 2.7, >= 2.7.1)
   chosen-rails (~> 1.5, >= 1.5.2)
   ckeditor (= 4.1.3)
+  cocoon
   coffee-rails (~> 4.2)
   datetimepicker-rails!
   devise
   devise-encryptable
   devise-i18n
+  dotenv-rails
   factory_girl_rails
   faker (~> 1.6, >= 1.6.6)
   font-awesome-rails (~> 4.6, >= 4.6.3.1)
@@ -451,13 +458,14 @@ DEPENDENCIES
   jbuilder (~> 2.5)
   jquery-rails
   jquery-ui-rails
-  kaminari
+  kaminari (~> 0.17.0)
   listen (~> 3.0.5)
   localized_country_select
   masonry-rails
   momentjs-rails!
   mysql2 (>= 0.3.18, < 0.5)
   paperclip (~> 5.0.0)
+  paperclip-i18n
   prawn
   prawn-table
   pry
@@ -470,7 +478,7 @@ DEPENDENCIES
   rails-erd
   rails-i18n (~> 5.0.0)
   rails-jquery-autocomplete
-  ransack!
+  ransack (~> 1.8.2)
   redis (~> 3.0)
   responders
   rspec (~> 3.5)

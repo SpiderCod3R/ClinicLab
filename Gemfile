@@ -27,7 +27,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'xray-rails', '~> 0.1.21'
 gem 'better_errors', '~> 2.1', '>= 2.1.1'
 
-gem 'ransack', github: 'activerecord-hackery/ransack'
+# gem 'ransack', github: 'activerecord-hackery/ransack'
 gem 'momentjs-rails', github: 'derekprior/momentjs-rails'
 gem 'datetimepicker-rails', github: 'zpaulovics/datetimepicker-rails', branch: 'master', submodules: true
 gem 'font-awesome-sass'
@@ -35,8 +35,9 @@ gem 'simple_form'
 gem 'haml'
 gem "haml-rails"
 gem "brazilian-rails"
-gem "kaminari"
-gem "bootstrap-kaminari-views"
+gem 'ransack', '~> 1.8.2'
+gem 'kaminari', '~> 0.17.0'
+gem 'bootstrap-kaminari-views'
 gem "sinatra",  require: false
 gem "responders"
 gem "devise"
@@ -47,7 +48,7 @@ gem "prawn"
 gem "prawn-table"
 gem "wicked"
 gem 'masonry-rails'
-gem 'paperclip', '~> 5.0.0'
+gem "bootstrap-table-rails"
 gem 'localized_country_select'
 
 group :development, :test do
@@ -76,18 +77,25 @@ gem 'friendly_id', '~> 5.1.0'
 gem 'time_difference', '~> 0.4.2'
 gem 'font-awesome-rails', '~> 4.6', '>= 4.6.3.1'
 
-
-# Use Capistrano for deployment
-gem 'capistrano', '~> 3.6'
-gem 'capistrano-rails', '~> 1.1', '>= 1.1.7', group: :development
-gem "capistrano-bundler"
-gem 'capistrano-rbenv', '~> 2.0', '>= 2.0.4'
-# gem 'capistrano3-puma'
-gem 'capistrano3-nginx'
-gem 'capistrano-puma', '~> 0.2.3'
-gem 'capistrano-upload-config'
-
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+gem 'paperclip', '~> 5.0.0'
+gem 'paperclip-i18n'
 
 gem 'htmlentities'
 gem 'htmltoword'
+
+gem "cocoon"
+
+group :development do
+  gem 'capistrano', '~> 3.6'
+  gem 'capistrano-rails', '~> 1.1', '>= 1.1.7', group: :development
+  gem "capistrano-bundler"
+  gem 'capistrano-rbenv', '~> 2.0', '>= 2.0.4'
+  gem 'capistrano-puma', '~> 0.2.3'
+  gem 'capistrano3-puma'
+  gem 'capistrano3-nginx'
+  gem 'capistrano-upload-config'
+end
+
+gem 'dotenv-rails'

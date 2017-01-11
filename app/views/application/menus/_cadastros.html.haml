@@ -6,7 +6,7 @@
 /     =elem.permissao
 
 -if can? :read, Agenda
-  %li=link_to 'Agendas', new_painel_empresa_agenda_path(current_usuario.empresa), style: "font-weight: bold;"
+  %li=link_to 'Agendas', painel_empresa_agendas_path(current_usuario.empresa), style: "font-weight: bold;"
 -if can? :read, Cabec
   %li=link_to 'Cabecs', new_cabec_path, style: "font-weight: bold;"
 -if can? :read, Cargo
@@ -25,6 +25,8 @@
   %li=link_to 'Imagem Cabec', new_imagem_cabec_path, style: "font-weight: bold;"
 -if can? :read, Operadora
   %li=link_to 'Operadoras', new_operadora_path, style: "font-weight: bold;"
+-if can? :read, Profissional
+  %li=link_to 'Profissionais', new_profissional_path, style: "font-weight: bold;"
 -if can? :read, Servico
   %li=link_to 'Serviços', new_empresa_servico_path(current_usuario.empresa), style: "font-weight: bold;"
 -if can? :read, TextoLivre

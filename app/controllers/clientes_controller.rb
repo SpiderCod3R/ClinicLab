@@ -1,10 +1,12 @@
 class ClientesController < Support::ClienteSupportController
-  before_action :authenticate_usuario!
   respond_to :html
 
   def index
-    @clientes = Cliente.da_empresa(current_usuario.empresa_id).pelo_nome
-    respond_with(@clientes)
+    # @clientes = Cliente.da_empresa(current_usuario.empresa_id).pelo_nome
+    # respond_with(@clientes)
+    @search = Cliente.da_empresa(current_usuario.empresa_id).ransack(params[:q])
+    @clientes = @search.result.order("id desc").page(params[:page]).per(10)
+    @search.build_condition if @search.conditions.empty?
   end
 
   def show
@@ -22,11 +24,18 @@ class ClientesController < Support::ClienteSupportController
   def edit
     session[:cliente_id] = @cliente.id
     @cliente_texto_livre = @cliente.cliente_texto_livres.first
+    if !@cliente.cliente_pdf_uploads.empty?
+      @cliente_pdf_uploads = @cliente.cliente_pdf_uploads.build
+    else
+      @cliente_pdf_uploads = @cliente.cliente_pdf_uploads.build
+    end
+    @cliente_pdfs  = ClientePdfUpload.where(cliente_id: @cliente).page params[:page]
     get_historicos
+    # binding.pry
   end
 
   def create
-    @cliente = current_usuario.empresa.clientes.build(cliente_params)
+    @cliente = current_usuario.empresa.clientes.build(resource_params)
     get_historicos
     if @cliente.save
       redirect_to new_cliente_path
@@ -39,8 +48,13 @@ class ClientesController < Support::ClienteSupportController
   def update
     session[:cliente_id] = @cliente.id
     get_historicos
-    @cliente.update(cliente_params)
-    redirect_to new_cliente_path
+    @cliente.upload_files(params[:cliente][:cliente_pdf_upload]) if !params[:cliente][:cliente_pdf_upload][:pdf].nil?
+    if @cliente.update(resource_params)
+      flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @cliente.class)
+      redirect_to :back
+    else
+      send_back_with_error
+    end
   end
 
   def retorna_historico
@@ -87,7 +101,6 @@ class ClientesController < Support::ClienteSupportController
   end
 
   def include_texto_livre
-    # binding.pry
     if params[:cliente_texto_livre][:id].to_i.eql?(0)
       @cliente_texto_livre = ClienteTextoLivre.include(params[:texto_livre])
     else
@@ -115,4 +128,11 @@ class ClientesController < Support::ClienteSupportController
     respond_with(@cliente)
     session[:cliente_id] = nil
   end
+
+  private
+    def send_back_with_error
+      @cliente_pdf_uploads = @cliente.cliente_pdf_uploads.build if !@cliente.cliente_pdf_uploads.empty?
+      @cliente_pdfs  = ClientePdfUpload.where(cliente_id: @cliente).page params[:page]
+      render :edit
+    end
 end

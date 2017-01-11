@@ -8,6 +8,8 @@
 #= require JQUERY/jquery.maskedinput-1.1.4.pack
 #= require jquery_ujs
 
+#= require cocoon
+
 #= require bootstrap
 #= require angular
 #= require leaflet
@@ -37,6 +39,7 @@
 #= require clientes/texto_livre
 #= require cliente_historicos
 #= require clientes/search
+#= require filtros
 #= require fornecedor
 #= require fornecedores
 #= require profissionais

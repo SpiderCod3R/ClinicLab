@@ -1,29 +1,23 @@
-# Painel::Permissao.create(nome: "Cargos", model_class: "Cargo")
-# Painel::Permissao.create(nome: "Centro De Custos", model_class: "CentroDeCusto")
-# Painel::Permissao.create(nome: "Convênios", model_class: "Convenio")
-# Painel::Permissao.create(nome: "Profissionais", model_class: "Profissional")
-# Painel::Permissao.create(nome: "Relatórios",model_class: "ConfiguracaoRelatorio")
-# Painel::Permissao.create(nome: "Operadoras", model_class: "Operadora")
-# Painel::Permissao.create(nome: "Conselhos Regionais", model_class: "ConselhoRegional")
-# Painel::Permissao.create(nome: "Clientes", model_class: "Cliente")
-# Painel::Permissao.create(nome: "Fornecedores", model_class: "Fornecedor")
-# Painel::Permissao.create(nome: "Cabecs", model_class: "Cabec")
-# Painel::Permissao.create(nome: "Imagem Cabecs", model_class: "ImagemCabec")
-# require 'globalnetsis'
-# Painel::Master.create(email: "globalnetsis@globalentsis.com.br",
-#                       nome: "globalnetsis",
-#                       login: "globalnetsis",
-#                       password: Globalnetsis::Secret.make)
-# puts "GLOBALNETSIS::ADMIN Importado"
+puts "IMPORTANDO ADMIN"
+Painel::Master.create(email: "globalnetsis@globalnetsis.com.br", nome: "globalnetsis", login: "globalnetsis", password: "#GSUPER4582?")
 
-# Painel::Master.create(email: "desenvolvimento@globalnetsis.com.br",
-#                       nome: "desenvolvedor",
-#                       login: "desenvolvimento",
-#                       password: Globalnetsis::Secret.make,
-#                       desenvolvedor: true)
-# puts "GLOBALNETSIS::DEVELOPER Importado"
+puts "IMPORTANDO PERMISSOES"
+Painel::Permissao.create(nome: "Agendas", model_class: "Agenda")
+Painel::Permissao.create(nome: "Referência Agendas", model_class: "ReferenciaAgenda")
+Painel::Permissao.create(nome: "Cargos", model_class: "Cargo")
+Painel::Permissao.create(nome: "Centro De Custos", model_class: "CentroDeCusto")
+Painel::Permissao.create(nome: "Convênios", model_class: "Convenio")
+Painel::Permissao.create(nome: "Profissionais", model_class: "Profissional")
+Painel::Permissao.create(nome: "Relatórios",model_class: "ConfiguracaoRelatorio")
+Painel::Permissao.create(nome: "Operadoras", model_class: "Operadora")
+Painel::Permissao.create(nome: "Conselhos Regionais", model_class: "ConselhoRegional")
+Painel::Permissao.create(nome: "Clientes", model_class: "Cliente")
+Painel::Permissao.create(nome: "Fornecedores", model_class: "Fornecedor")
+Painel::Permissao.create(nome: "Cabecs", model_class: "Cabec")
+Painel::Permissao.create(nome: "Imagem Cabecs", model_class: "ImagemCabec")
 
-puts "CRIANDO ESTADOS"
+
+puts "CRIANDO ESTADOS & CIDADES"
 e = Estado.create(:sigla => 'AC', :nome => "Acre")
 e.cidades.create(:nome => "Acrelândia")
 e.cidades.create(:nome => "Assis Brasil")
@@ -5743,9 +5737,5 @@ e.cidades.create(:nome => "Wanderlândia")
 e.cidades.create(:nome => "Xambioá")
 e.capital = Cidade.find_by_nome_and_estado_id('Palmas', Estado.find_by_nome('Tocantins').id)
 e.save
-# puts "CIDADES & ESTADOS IMPORTADOS"
-
-# puts "CRIANDO MODULOS ASSOCIADOS A PERMISSAO EMPRESA"
-
-
-# puts "TODOS OS DADOS CONTIDOS EM seed.rb IMPORTADOS COM SUCESSO"
+puts "CIDADES & ESTADOS IMPORTADOS"
+puts "TODOS OS DADOS CONTIDOS EM seed.rb IMPORTADOS COM SUCESSO"
