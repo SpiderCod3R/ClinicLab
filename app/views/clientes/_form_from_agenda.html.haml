@@ -8,12 +8,6 @@
   %li
     %a{'data-toggle':"tab", href:"#dados_pessoais"}
       Pessoais
-  %li
-    %a{'data-toggle':"tab", href:"#historico"}
-      Histórico
-  %li
-    %a{'data-toggle':"tab", href:"#texto_livre"}
-      Texto Livre
 
 = simple_form_for(@cliente, url: change_or_create_new_paciente_path) do |f|
   %div{class: "container", style: "margin-left: 5%; padding-top: 15px; padding-bottom: 15px;"}
