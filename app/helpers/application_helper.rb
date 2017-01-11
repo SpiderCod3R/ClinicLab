@@ -26,9 +26,16 @@ module ApplicationHelper
 
   def error_custom_tag(model, attribute, label)
     if model.errors.has_key? attribute
-      # binding.pry
+      binding.pry
       content_tag( :span, 
                    "#{label} - #{model.errors.details[attribute.to_s][0][:messages]}", class: 'help-block' )
+    end
+  end
+
+  def custom_error_tag(model, attribute, label)
+    if model.errors.has_key? attribute
+      content_tag( :span, 
+                   "#{label} - #{model.errors.messages[attribute].first}", class: 'help-block' )
     end
   end
 end
