@@ -3,6 +3,11 @@
 - if @operadoras.nil?
   -@operadoras = Array.new
 
+/ -if @profissional.telefone?
+/   - $phone = @profissional.telefone
+/ -if @profissional.celular?
+/   - $cellphone = @profissional.celular
+
 = simple_form_for([@empresa, @profissional]) do |f|
   .container-fluid{style: "padding-top: 15px; padding-bottom: 15px;"}
     .row

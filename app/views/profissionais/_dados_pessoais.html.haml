@@ -25,4 +25,8 @@
         = f.input :numero_conselho_regional, label: false
     .row
       .col-xs-2.col-sm-2.col-md-2.col-lg-2
+        =f.label "Cargo"
+        =f.collection_select(:cargo_id, @cargos, :id, :nome, {prompt: "Selecione"}, :class=>'form-control')
+        =custom_error_tag(@profissional, :"cargo_id", "Cargo")
+      .col-xs-2.col-sm-2.col-md-2.col-lg-2
         = f.input :imagem, as: :file, label: "Foto"
