@@ -1,0 +1,23 @@
+@include media(">tablet") {
+  select#q_c_0_a_0_name,
+  select#q_c_0_p,
+  input#q_c_0_v_0_value,
+  div.select_atributo_filtro select,
+  div.select_predicado_filtro select,
+  div.input_filtro input {
+    width: 200px;
+    height: 30px;
+  }
+}
+
+@include media("<=tablet") {
+  select#q_c_0_a_0_name,
+  select#q_c_0_p,
+  input#q_c_0_v_0_value,
+  div.select_atributo_filtro select,
+  div.select_predicado_filtro select,
+  div.input_filtro input {
+    width: 100px;
+    min-height: 25px;
+  }
+}
