@@ -3,24 +3,24 @@
 - if @operadoras.nil?
   -@operadoras = Array.new
 
-%ul.nav.nav-tabs
-  %li.active
-    %a{'data-toggle':"tab", href:"#dados"}
-      Dados profissionais
-  %li
-    %a{'data-toggle':"tab", href:"#endereco"}
-      Endereço
-
 = simple_form_for([@empresa, @profissional]) do |f|
-  .container{style: "padding-top: 15px; padding-bottom: 15px;"}
-    .tab-content
-      //Aba profissionais
-      #dados.tab-pane.fade.in.active
-        .row
-          .col-xs-9.col-sm-9.col-md-9.col-lg-9
-            = f.error_notification
-        =render 'dados_pessoais', {f: f}
+  .container-fluid{style: "padding-top: 15px; padding-bottom: 15px;"}
+    .row
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        = f.error_notification
+    .panel
+      %ul.nav.nav-tabs
+        %li.active
+          %a{'data-toggle':"tab", href:"#dados"}
+            Dados profissionais
+        %li
+          %a{'data-toggle':"tab", href:"#endereco"}
+            Endereço
+      .tab-content
+        //Aba profissionais
+        #dados.tab-pane.fade.in.active
+          =render 'dados_pessoais', {f: f}
 
-      //Aba endereco
-      #endereco.tab-pane.fade
-        =render 'endereco', {f: f}
+        //Aba endereco
+        #endereco.tab-pane.fade
+          =render 'endereco', {f: f}

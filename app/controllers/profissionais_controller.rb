@@ -82,6 +82,7 @@ class ProfissionaisController < ApplicationController
                                            :cpf,:rg, :telefone,
                                            :celular, :operadora_id,
                                            :conselho_regional_id, :estado_id,
-                                           :endereco, :complemento, :bairro, :cidade_id, :status)
+                                           :endereco, :complemento, :bairro, :cidade_id, :status,
+                                           :numero_conselho_regional)
     end
 end
