@@ -2,8 +2,11 @@ class ClientesController < Support::ClienteSupportController
   respond_to :html
 
   def index
-    @clientes = Cliente.da_empresa(current_usuario.empresa_id).pelo_nome
-    respond_with(@clientes)
+    # @clientes = Cliente.da_empresa(current_usuario.empresa_id).pelo_nome
+    # respond_with(@clientes)
+    @search = Cliente.da_empresa(current_usuario.empresa_id).ransack(params[:q])
+    @clientes = @search.result.order("id desc").page(params[:page]).per(10)
+    @search.build_condition if @search.conditions.empty?
   end
 
   def show
