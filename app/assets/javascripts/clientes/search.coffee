@@ -1,7 +1,7 @@
 $(document).ready ->
   localhost = window.location.origin
   # => Metodo para buscar pacientes já cadastrados no sistema
-  $("#cliente_nome").on 'change', (event) ->
+  $("#cliente_nome").focusout ->
     paciente = $(this)
     $.ajax
       type: 'get'
