@@ -3,29 +3,42 @@
   %div{class: "row"}
     %h1 Clientes
     %hr{style: "border: #323232 solid 0.5px;"}
-    %table{class: "table table-striped table-bordered", cellspacing: "0", width: "100%"}
-      %thead
-        %th= t('clientes.helpers.status')
-        %th= t('clientes.helpers.codigo')
-        %th= t('clientes.helpers.nome')
-        %th= t('clientes.helpers.cpf')
-        %th= t('clientes.helpers.endereço')
-        %th= t('clientes.helpers.complemento')
-        %th= t('clientes.helpers.bairro')
-        %th= t('bootstrap.helpers.actions')
-      %tbody
-        - @clientes.each do |cliente|
-          %tr
-            %td= cliente.status
-            %td= cliente.id
-            %td= cliente.nome
-            %td= cliente.cpf
-            %td= cliente.endereco
-            %td= cliente.complemento
-            %td= cliente.bairro
-            %td
-              .btn-group.pull-right
-                -if can? :read, Cliente
-                  = link_to_visualizar cliente
+    %div{class: "row", style: "margin: 0;"}
+      %div{class: "jumbotron"}
+        %div{class: "row", style: "margin: 0;"}
+          %div{class: "col-md-12 col-sm-12 col-xs-12 col-lg-12"}
+            = search_form_for @search do |f|
+              = f.condition_fields do |c|
+                = render "condition_fields", f: c
+              = link_to_add_fields "Adicionar Condições", f, :condition
+              %div{class: "actions", style: "margin-top: 2%;"}
+                = f.submit "Pesquisar", class: "btn btn-primary"
+      %br
+      %table{class: "table table-striped table-bordered", cellspacing: "0", width: "100%"}
+        %thead
+          %th= t('clientes.helpers.status')
+          %th= t('clientes.helpers.codigo')
+          %th= t('clientes.helpers.nome')
+          %th= t('clientes.helpers.cpf')
+          %th= t('clientes.helpers.endereço')
+          %th= t('clientes.helpers.complemento')
+          %th= t('clientes.helpers.bairro')
+          %th= t('bootstrap.helpers.actions')
+        %tbody
+          - @clientes.each do |cliente|
+            %tr
+              %td= status(cliente.status)
+              %td= cliente.id
+              %td= cliente.nome
+              %td= cliente.cpf
+              %td= cliente.endereco
+              %td= cliente.complemento
+              %td= cliente.bairro
+              %td
+                .btn-group.pull-right
+                  -if can? :read, Cliente
+                    = link_to_visualizar cliente
+      %div{class: "pull-right"}
+        = paginate @clientes
   %div{class: "row"}
     %hr{style: "border: #323232 solid 0.5px;"}

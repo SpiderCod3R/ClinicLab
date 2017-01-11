@@ -39,6 +39,7 @@
 #= require clientes/texto_livre
 #= require cliente_historicos
 #= require clientes/search
+#= require filtros
 #= require fornecedor
 #= require fornecedores
 #= require profissionais

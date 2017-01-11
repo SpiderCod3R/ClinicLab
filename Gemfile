@@ -44,7 +44,7 @@ end
 gem 'xray-rails', '~> 0.1.21'
 gem 'better_errors', '~> 2.1', '>= 2.1.1'
 
-gem 'ransack', github: 'activerecord-hackery/ransack'
+# gem 'ransack', github: 'activerecord-hackery/ransack'
 gem 'momentjs-rails', github: 'derekprior/momentjs-rails'
 gem 'datetimepicker-rails', github: 'zpaulovics/datetimepicker-rails', branch: 'master', submodules: true
 gem 'font-awesome-sass'
@@ -52,8 +52,9 @@ gem 'simple_form'
 gem 'haml'
 gem "haml-rails"
 gem "brazilian-rails"
-gem "kaminari"
-gem "bootstrap-kaminari-views"
+gem 'ransack', '~> 1.8.2'
+gem 'kaminari', '~> 0.17.0'
+gem 'bootstrap-kaminari-views'
 gem "sinatra",  require: false
 gem "responders"
 gem "devise"
