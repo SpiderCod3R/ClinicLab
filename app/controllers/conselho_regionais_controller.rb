@@ -5,9 +5,9 @@ class ConselhoRegionaisController < ApplicationController
 
   def index
     if params[:status] || params[:id] || params[:sigla] || params[:search]
-      @conselho_regionais = ConselhoRegional.search(params[:status]['status'], params[:id]['id'], params[:sigla]['sigla'], params[:search]).order("created_at DESC")
+      @conselho_regionais = ConselhoRegional.where(empresa_id: current_usuario.empresa_id).search(params[:status]['status'], params[:id]['id'], params[:sigla]['sigla'], params[:search]).order("created_at DESC")
     else
-      @conselho_regionais = ConselhoRegional.all
+      @conselho_regionais = ConselhoRegional.where(empresa_id: current_usuario.empresa_id).order("created_at DESC")
       respond_with(@conselho_regionais)
     end
   end
