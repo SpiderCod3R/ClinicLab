@@ -1,11 +1,15 @@
 class Profissional < ApplicationRecord
+  include AtivandoStatus
   include MetodosUteis
 
   validates :nome, :cargo_id, :data_nascimento,
             :cpf, :rg, :telefone, :celular,
             :operadora_id, :conselho_regional_id,
             :endereco, :complemento, :bairro,
-            :estado_id, :cidade_id,  presence: true
+            :estado_id, :cidade_id, :numero_conselho_regional,
+            presence: true
+
+  validates :numero_conselho_regional, length: { maximum: 50 }
 
   validates_associated :cargo, :estado, :cidade, :operadora
 
