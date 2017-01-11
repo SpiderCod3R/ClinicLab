@@ -32,6 +32,11 @@ class Cliente < ApplicationRecord
   has_attached_file :foto, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :foto, content_type: /\Aimage\/.*\Z/
 
+  RANSACKABLE_ATTRIBUTES = ["status","nome","cpf"]
+
+  def self.ransackable_attributes auth_object = nil
+    (RANSACKABLE_ATTRIBUTES) + _ransackers.keys
+  end
 
   def upcased_attributes
     self.nome.upcase!

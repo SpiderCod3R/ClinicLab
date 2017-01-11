@@ -3,84 +3,24 @@
 - if @operadoras.nil?
   -@operadoras = Array.new
 
-%ul{class: "nav nav-tabs"}
-  %li{class:"active"}
-    %a{'data-toggle':"tab", href:"#dados"}
-      Dados profissionais
-  %li
-    %a{'data-toggle':"tab", href:"#endereco"}
-      Endereço
-
 = simple_form_for([@empresa, @profissional]) do |f|
-  %div{class: "container", style: "margin-left: 5%; padding-top: 15px; padding-bottom: 15px;"}
-    %div{class:"tab-content"}
-      //Aba profissionais
-      %div{id:"dados", class:"tab-pane fade in active"}
-        %div{class: "row"}
-          %div{class: "col-xs-9 col-sm-9 col-md-9 col-lg-9"}
-            = f.error_notification
-        %div{class: "col-xs-4 col-sm-4 col-md-4 col-lg-4", style: 'margin: 0; padding: 0;'}
-          %div{class: "row"}
-            %div{class: "col-xs-9 col-sm-9 col-md-9 col-lg-9"}
-              = f.input :status, as: :select,
-                        :collection => [['Ativo',true],['Inativo',false]],
-                        :include_blank => false, :label => t('labels.status')
-          %div{class: "row"}
-            %div{class: "col-xs-9 col-sm-9 col-md-9 col-lg-9", style: 'margin: 0; padding: 0;'}
-          %div{class: "row"}
-            %div{class: "col-xs-9 col-sm-9 col-md-9 col-lg-9"}
-              = f.input :nome
-          %div{class: "row"}
-            %div{class: "col-xs-9 col-sm-9 col-md-9 col-lg-9"}
-              =f.label "Cargo"
-              =f.collection_select(:cargo_id, @cargos, :id, :nome, {include_blank: false}, {:class=>'form-control'})
-          %br
-          %div{class: "row"}
-            %div{class: "col-xs-9 col-sm-9 col-md-9 col-lg-9"}
-              = f.input :data_nascimento, as: :date, start_year: Date.today.year - 116,
-                              end_year: Date.today.year, discard_day: false,
-                              order: [:day, :month, :year]
-        %div{class: "col-xs-12 col-sm-4 col-md-4 col-lg-4", style: 'margin: 0; padding: 0;'}
-          %div{class: "row"}
-            %div{class: "col-xs-9 col-sm-9 col-md-9 col-lg-9"}
-              = f.input :cpf, input_html: {class: "cpf_maskara" }
-          %div{class: "row"}
-            %div{class: "col-xs-9 col-sm-9 col-md-9 col-lg-9"}
-              = f.input :rg, input_html: {class: "rg_maskara" }
-          %div{class: "row"}
-            %div{class: "col-xs-9 col-sm-9 col-md-9 col-lg-9"}
-              = f.input :telefone, input_html: {class: "telefone_maskara" }
-          %div{class: "row"}
-            %div{class: "col-xs-9 col-sm-9 col-md-9 col-lg-9"}
-              =f.label "Operadora"
-              =f.collection_select(:operadora_id, @operadoras, :id, :nome, {include_blank: false}, {:class=>'form-control'})
-        %div{class: "col-xs-12 col-sm-4 col-md-4 col-lg-4", style: 'margin: 0; padding: 0;'}
-          %div{class: "row"}
-            %div{class: "col-xs-9 col-sm-9 col-md-9 col-lg-9"}
-              = f.input :celular, input_html: {class: "celular_maskara" }
-          %div{class: "row"}
-            %div{class: "col-xs-9 col-sm-9 col-md-9 col-lg-9"}
-              = f.input :imagem, as: :file, label: "Foto"
-          %div{class: "row"}
-            %div{class: "col-xs-9 col-sm-9 col-md-9 col-lg-9"}
-              =f.label "Conselho regional"
-              =f.collection_select(:conselho_regional_id, @conselhos_regionais, :id, :sigla, {include_blank: false}, {:class=>'form-control'})
-      //Aba endereco
-      %div{id:"endereco", class:"tab-pane fade"}
-        %div{class: "row"}
-          %div{class: "col-xs-12 col-sm-4 col-md-4 col-lg-3"}
-            = f.input :endereco
-        %div{class: "row"}
-          %div{class: "col-xs-12 col-sm-4 col-md-4 col-lg-3"}
-            = f.input :complemento
-        %div{class: "row"}
-          %div{class: "col-xs-12 col-sm-4 col-md-4 col-lg-3"}
-            = f.input :bairro
-        %div{class: "row"}
-          %div{class: "col-xs-12 col-sm-4 col-md-4 col-lg-3"}
-            =f.label "Estado"
-            =f.collection_select(:estado_id, @estados, :id, :nome, {include_blank: "Selecione"}, {:class=>'form-control'})
-        %div{class: "row"}
-          %div{class: "col-xs-12 col-sm-4 col-md-4 col-lg-3"}
-            =f.label "Cidade"
-            = f.grouped_collection_select(:cidade_id, @estados, :cidades, :nome, :id, :nome, {include_blank: "Selecione"}, { :class=> "collection_select" })
+  .container-fluid{style: "padding-top: 15px; padding-bottom: 15px;"}
+    .row
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        = f.error_notification
+    .panel
+      %ul.nav.nav-tabs
+        %li.active
+          %a{'data-toggle':"tab", href:"#dados"}
+            Dados profissionais
+        %li
+          %a{'data-toggle':"tab", href:"#endereco"}
+            Endereço
+      .tab-content
+        //Aba profissionais
+        #dados.tab-pane.fade.in.active
+          =render 'dados_pessoais', {f: f}
+
+        //Aba endereco
+        #endereco.tab-pane.fade
+          =render 'endereco', {f: f}
