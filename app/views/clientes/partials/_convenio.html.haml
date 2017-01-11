@@ -4,7 +4,7 @@
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
       = f.label :status_convenio
       %br/
-      = f.collection_radio_buttons :status_convenio, [[true, 'Ativo'] ,[false, 'Inativo']], :first, :last
+      = f.collection_radio_buttons :status_convenio, [[true, 'Ativo'] ,[false, 'Inativo']], :first, :last, :checked => [true, 'Ativo']
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
       = f.input :matricula
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
