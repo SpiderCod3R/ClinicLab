@@ -5,7 +5,7 @@ class Profissional < ApplicationRecord
   validates :nome, :cargo_id, :data_nascimento,
             :cpf, :rg, :telefone, :celular,
             :operadora_id, :conselho_regional_id,
-            :endereco, :complemento, :bairro,
+            :endereco, :bairro,
             :estado_id, :cidade_id, :numero_conselho_regional,
             presence: true
 
