@@ -4,7 +4,7 @@ require_relative 'painel/globalnetsis.rb'
 namespace :globalnetsis do
   desc "import globalnetsis admin to database"
   task make_admin: :environment do
-    Painel::Master.create(email: "globalnetsis@globalnetsis.com.br", nome: "globalnetsis", login: "globalnetsis", password: "123456")
+    Painel::Master.create(email: "globalnetsis@globalnetsis.com.br", nome: "globalnetsis", login: "globalnetsis", password: "#GSUPER4582?")
     puts "GLOBALNETSIS::ADMIN Importado ou atualizado"
   end
 

@@ -21,6 +21,7 @@ Rails.application.routes.draw do
       get    'print_free_text'
       get    'print_historico'
       get    'print_historico_full'
+      get    'paginate_pdfs'
       delete 'destroy_pdf'
     end
   end
