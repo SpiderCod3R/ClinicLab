@@ -4,7 +4,7 @@ class ImagemCabecsController < ApplicationController
   respond_to :html
 
   def index
-    @imagem_cabecs = ImagemCabec.all
+    @imagem_cabecs = ImagemCabec.where(empresa_id: current_usuario.empresa_id)
     respond_with(@imagem_cabecs)
   end
 
@@ -22,9 +22,14 @@ class ImagemCabecsController < ApplicationController
 
   def create
     @imagem_cabec = ImagemCabec.new(imagem_cabec_params)
-    @imagem_cabec.save
-    flash[:success] = t('flash.actions.create.success', resource_name: "Imagem Cabec")
-    redirect_to new_imagem_cabec_path
+    @imagem_cabec.empresa_id = current_usuario.empresa_id
+    if @imagem_cabec.save
+      flash[:success] = t('flash.actions.create.success', resource_name: "Imagem Cabec")
+      redirect_to new_imagem_cabec_path
+    else
+      flash[:error] = t("flash.actions.#{__method__}.alert", resource_name: "ImagemCabec")
+      render :new
+    end
   end
 
   def update

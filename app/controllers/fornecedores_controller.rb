@@ -5,7 +5,7 @@ class FornecedoresController < ApplicationController
   respond_to :html
 
   def index
-    @fornecedores = Fornecedor.all
+    @fornecedores = Fornecedor.where(empresa_id: current_usuario.empresa_id)
     respond_with(@fornecedores)
   end
 
@@ -23,14 +23,14 @@ class FornecedoresController < ApplicationController
 
   def create
     @fornecedor = Fornecedor.new(fornecedor_params)
+    @fornecedor.empresa_id = current_usuario.empresa_id
     if @fornecedor.save
       flash[:notice] = t("flash.actions.#{__method__}.success", resource_name: @fornecedor.nome)
-      redirect_to new_fornecedor_path
+      respond_with(@fornecedor)
     else
       flash[:error] = t("flash.actions.#{__method__}.alert", resource_name: "Fornecedor")
       render :new
     end
-    respond_with(@fornecedor)
   end
 
   def update

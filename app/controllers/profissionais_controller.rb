@@ -34,12 +34,13 @@ class ProfissionaisController < ApplicationController
   end
 
   def update
+    # binding.pry
     if @profissional.update(resource_params)
       flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @profissional.class)
       redirect_to profissionais_path
     else
       flash[:error] = t("flash.actions.#{__method__}.alert", resource_name: @profissional.class)
-      render :new
+      render :edit
     end
   end
 
@@ -82,6 +83,7 @@ class ProfissionaisController < ApplicationController
                                            :cpf,:rg, :telefone,
                                            :celular, :operadora_id,
                                            :conselho_regional_id, :estado_id,
-                                           :endereco, :complemento, :bairro, :cidade_id, :status)
+                                           :endereco, :complemento, :bairro, :cidade_id, :status,
+                                           :numero_conselho_regional)
     end
 end

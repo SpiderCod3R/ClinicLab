@@ -4,7 +4,7 @@ class CabecsController < ApplicationController
   respond_to :html
 
   def index
-    @cabecs = Cabec.all
+    @cabecs = Cabec.where(empresa_id: current_usuario.empresa_id)
     respond_with(@cabecs)
   end
 
@@ -22,9 +22,14 @@ class CabecsController < ApplicationController
 
   def create
     @cabec = Cabec.new(cabec_params)
-    @cabec.save
-    flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @cabec.class)
-    redirect_to new_cabec_path
+    @cabec.empresa_id = current_usuario.empresa_id
+    if @cabec.save
+      flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @cabec.class)
+      redirect_to new_cabec_path
+    else
+      flash[:error] = t("flash.actions.#{__method__}.alert", resource_name: "Cabec")
+      render :new
+    end
   end
 
   def update

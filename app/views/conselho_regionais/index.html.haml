@@ -8,15 +8,15 @@
           %div{class: "col-lg-2"}
             %label
               Status
-            = select(:status, :status, [['Ativo',true],['Inativo',false]], {:include_blank => ''}, :class => "form-control")
+            = select(:status, :status, [['Ativo',1],['Inativo',0]], {:include_blank => ''}, :class => "form-control")
           %div{class: "col-lg-2"}
             %label
               ID
-            = select(:id, :id, ConselhoRegional.all.collect {|p| [p.id, p.id] }, {:include_blank => ''}, :class => "form-control") 
+            = select(:id, :id, ConselhoRegional.where(empresa_id: current_usuario.empresa_id).collect {|p| [p.id, p.id] }, {:include_blank => ''}, :class => "form-control") 
           %div{class: "col-lg-2"}
             %label
               Sigla
-            = select(:sigla, :sigla, ConselhoRegional.all.collect {|p| [p.sigla, p.sigla] }, {:include_blank => ''}, :class => "form-control") 
+            = select(:sigla, :sigla, ConselhoRegional.where(empresa_id: current_usuario.empresa_id).collect {|p| [p.sigla, p.sigla] }, {:include_blank => ''}, :class => "form-control") 
           %div{class: "col-lg-3"}
             %label
               Pesquisar

@@ -1,7 +1,8 @@
 $(document).ready ->
   localhost = window.location.origin
   # => Metodo para buscar pacientes já cadastrados no sistema
-  $("#cliente_nome").on 'change', (event) ->
+  $("#cliente_nome").focusout (event) ->
+    event.preventDefault()
     paciente = $(this)
     $.ajax
       type: 'get'
@@ -49,7 +50,7 @@ $(document).ready ->
     x = 0
     while x < pacientes.length
       cluster = pacientes[x]
-      dados_tabela.push("<tr><td id='paciente_search_result_link'>"+
+      dados_tabela.push("<tr><td id='cliente_search_result_link'>"+
                         "<a href='#' data-paciente-nome='#{cluster.nome}'"+
                         "data-paciente-id='#{cluster.id}'"+
                         "data-paciente-rg='#{cluster.rg}'"+
@@ -75,9 +76,10 @@ $(document).ready ->
       x = x + 1
     dados_tabela
 
-  $(document).on "click", "#paciente_search_result_link", ->
+  $(document).on "click", "#cliente_search_result_link", (event) ->
+    event.preventDefault()
     link = $(this).find("a")
-    $("#cliente_nome").val(link.data().pacienteNome).focus()
+    $("#cliente_nome").val(link.data().pacienteNome)
     $("#cliente_telefone").val(link.data().pacienteTelefone)
     $("#cliente_email").val(link.data().pacienteEmail)
     $("#cliente_cpf").val(link.data().pacienteCpf)

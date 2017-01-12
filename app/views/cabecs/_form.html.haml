@@ -11,5 +11,6 @@
         = f.input :nome
     %div{class: "row"}
       %div{class: "col-xs-11 col-sm-11 col-md-11 col-lg-11"}
-        = f.text_area :texto, :class => " tinymce", :language => "pt_BR"
-        =tinymce
+        = cktext_area :cabec, :texto, cols: 40, ckeditor: { uiColor: '#E2E2E2', toolbar: 'mini', height: 400 }, :id => "cabec_textarea", style: "height: 700px"
+
+= javascript_include_tag Ckeditor.asset_path
