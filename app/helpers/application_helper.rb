@@ -26,9 +26,7 @@ module ApplicationHelper
 
   def error_custom_tag(model, attribute, label)
     if model.errors.has_key? attribute
-      binding.pry
-      content_tag( :span, 
-                   "#{label} - #{model.errors.details[attribute.to_s][0][:messages]}", class: 'help-block' )
+      content_tag( :span, "#{label} - #{model.errors[attribute].first}", class: 'help-block' )
     end
   end
 
@@ -37,5 +35,11 @@ module ApplicationHelper
       content_tag( :span, 
                    "#{label} - #{model.errors.messages[attribute].first}", class: 'help-block' )
     end
+  end
+end
+
+class String
+  def rchomp(sep = $/)
+    self.start_with?(sep) ? self[sep.size..-1] : self
   end
 end

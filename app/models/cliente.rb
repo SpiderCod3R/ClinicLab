@@ -27,7 +27,7 @@ class Cliente < ApplicationRecord
   has_many :cliente_pdf_uploads
 
   accepts_nested_attributes_for :historicos, allow_destroy: true
-  accepts_nested_attributes_for :cliente_pdf_uploads, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :cliente_pdf_uploads, allow_destroy: true
 
   has_attached_file :foto, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :foto, content_type: /\Aimage\/.*\Z/
