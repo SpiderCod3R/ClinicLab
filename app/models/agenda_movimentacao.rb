@@ -15,7 +15,7 @@ class AgendaMovimentacao < ApplicationRecord
            prefix: true,
            allow_nil: true
 
-  validates :agenda_id, presence: true
+  validates :agenda_id, :nome_paciente, :telefone_paciente, presence: true
   validates_associated :agenda
 
   def no_convenio_registered?

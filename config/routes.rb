@@ -120,7 +120,7 @@ Rails.application.routes.draw do
         get 'block_day', to: 'agendas#block_day', as: :block_day
         put 'block_day', to: 'agendas#set_block_on_day', as: :set_block_on_day
         resources :agenda_movimentacoes
-        get 'movimentar', to: 'agenda_movimentacoes#verify', as: :movimentar_ou_atualizar
+        get 'movimentar', to: 'agenda_movimentacoes#new', as: :movimentar_ou_atualizar
       end
     end
     get 'usuario/:id/permissoes', to: "usuarios/accounts#show_permissions", as: :show_user_permissions
