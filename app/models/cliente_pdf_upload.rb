@@ -8,8 +8,6 @@ class ClientePdfUpload < ApplicationRecord
                         size: { in: 0..5.megabytes },
                         file_name: { matches: [/pdf\z/] }
 
-  # validates_attachment_file_name :pdf, message: "Formato inválido - Apenas documento pdf"
-
   validates :anotacoes, presence: { message: "Informe algo sobre este PDF" }, if: :file_is_present?
   validates :anotacoes, length: { maximum: 500, too_long: "%{count} número de caracteres excedido" }, if: :file_is_present?
 
@@ -20,7 +18,6 @@ class ClientePdfUpload < ApplicationRecord
   paginates_per 10
 
   def check_content_type
-    # binding.pry
     if ['image/png', 'image/jpeg', 'image/gif',
       "application/zip", "application/x-rar",
       "application/javascript", "text/plain",
