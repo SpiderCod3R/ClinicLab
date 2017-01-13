@@ -3,6 +3,8 @@ class OperadorasController < ApplicationController
   before_action :find_operadora, except: [:index, :new, :create]
 
   def index
+    @operadoras = Operadora.where(empresa_id: current_usuario.empresa_id)
+    respond_with(@operadoras)
   end
 
   def show
