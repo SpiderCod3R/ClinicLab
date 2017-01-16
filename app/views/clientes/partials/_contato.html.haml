@@ -1,5 +1,7 @@
 %div{id:"contato", class:"tab-pane fade"}
   %div{class: "row"}
+    =render 'clientes/partials/cliente_legend'
+    %hr/
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
       = f.input :foto, as: :file, label: "Foto"
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}

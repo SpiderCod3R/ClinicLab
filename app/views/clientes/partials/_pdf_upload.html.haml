@@ -2,8 +2,10 @@
   .container-fluid
     .row-fluid
       .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        =render 'clientes/partials/cliente_legend'
+        %hr/
         #updload_pdf_area
-          .col-md-6{ style: "margin-left: -10%;" }
+          .col-md-4
             .panel.panel-default
               .panel-heading
                 %b Envio de PDF's

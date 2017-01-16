@@ -1,5 +1,7 @@
 - validade = date_to_format(@cliente.validade_carteira) if @cliente.validade_carteira.present?
 %div{id:"convenio", class:"tab-pane fade"}
+  =render 'clientes/partials/cliente_legend'
+  %hr/
   %div{class: "row"}
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
       = f.label :status_convenio

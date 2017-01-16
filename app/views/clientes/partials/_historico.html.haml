@@ -1,4 +1,6 @@
 %div{id:"historico", class:"tab-pane fade"}
+  =render 'clientes/partials/cliente_legend'
+  %hr/
   %div{id:"old_historico"}
     =render 'clientes/partials/index_historico', { historicos: @historicos }
   %br
