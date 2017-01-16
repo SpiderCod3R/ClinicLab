@@ -1,5 +1,5 @@
 %div{id:"historico", class:"tab-pane fade"}
-  =render 'clientes/partials/cliente_legend'
+  =render 'clientes/partials/cliente_legend' if @cliente.id?
   %hr/
   %div{id:"old_historico"}
     =render 'clientes/partials/index_historico', { historicos: @historicos }

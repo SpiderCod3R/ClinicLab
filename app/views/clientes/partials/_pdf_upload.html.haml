@@ -2,7 +2,7 @@
   .container-fluid
     .row-fluid
       .col-xs-12.col-sm-12.col-md-12.col-lg-12
-        =render 'clientes/partials/cliente_legend'
+        =render 'clientes/partials/cliente_legend' if @cliente.id?
         %hr/
         #updload_pdf_area
           .col-md-4
@@ -32,4 +32,4 @@
                   %tbody#table_pdf
                     =render 'clientes/partials/pdf_table', { cliente_collection_pdfs: @cliente_collection_pdfs }
                 #paginator
-                  = paginate @cliente_collection_pdfs, remote: true, params: {controller: 'clientes', action: 'paginate_pdfs'}
+                  = paginate @cliente_collection_pdfs, remote: true

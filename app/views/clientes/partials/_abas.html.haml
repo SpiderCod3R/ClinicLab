@@ -1,0 +1,20 @@
+%div{class: "container", style: "margin-left: 5%; padding-top: 15px; padding-bottom: 15px;"}
+  %div{class:"tab-content"}
+    / aba dados_pessoais
+    =render 'clientes/partials/dados_pessoais_edit', { f: f }
+
+    / aba convenio
+    =render 'clientes/partials/convenio', { f: f }
+
+    / aba contato
+    =render 'clientes/partials/contato', { f: f }
+
+    -if @cliente.id?
+      / aba historico
+      =render 'clientes/partials/historico', { f: f }
+
+      / aba texto-livre
+      =render 'clientes/partials/texto_livre', { f: f }
+
+      / aba pdf
+      =render 'clientes/partials/pdf_upload', { f: f }

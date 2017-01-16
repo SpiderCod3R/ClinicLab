@@ -23,16 +23,7 @@ class ClientesController < Support::ClienteSupportController
 
   def edit
     session[:cliente_id] = @cliente.id
-    @cliente_texto_livre = @cliente.cliente_texto_livres.first
-    @cliente_collection_pdfs  = @cliente.cliente_pdf_uploads.ultima_data.page params[:page]
-
-    if !@cliente.cliente_pdf_uploads.empty?
-      @cliente_pdf_uploads = @cliente.cliente_pdf_uploads.build
-    else
-      @cliente_pdf_uploads = @cliente.cliente_pdf_uploads.build
-    end
-    get_historicos
-
+    load_tabs
   end
 
   def create

@@ -1,6 +1,6 @@
 #texto_livre.tab-pane.fade
   .container-fluid
-    =render 'clientes/partials/cliente_legend'
+    =render 'clientes/partials/cliente_legend' if @cliente.id?
     %hr/
     .col-md-12
       .row

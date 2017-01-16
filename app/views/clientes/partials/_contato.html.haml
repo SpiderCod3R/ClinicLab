@@ -1,6 +1,6 @@
 %div{id:"contato", class:"tab-pane fade"}
   %div{class: "row"}
-    =render 'clientes/partials/cliente_legend'
+    =render 'clientes/partials/cliente_legend' if @cliente.id?
     %hr/
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
       = f.input :foto, as: :file, label: "Foto"
@@ -18,10 +18,10 @@
   %div{class: "row"}
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
       =f.label "Estado"
-      =f.collection_select(:estado_id, @estados, :id, :nome, {include_blank: "Selecione"}, {:class=>'form-control'})
+      =f.collection_select(:estado_id, Estado.pelo_nome, :id, :nome, {include_blank: "Selecione"}, {:class=>'form-control'})
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
       =f.label "Cidade"
-      = f.grouped_collection_select(:cidade_id, @estados, :cidades, :nome, :id, :nome, {include_blank: "Selecione"}, { :class=> "collection_select" })
+      = f.grouped_collection_select(:cidade_id, Estado.pelo_nome, :cidades, :nome, :id, :nome, {include_blank: "Selecione"}, { :class=> "collection_select" })
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
       =f.label "Profissão"
       =f.collection_select(:cargo_id, Cargo.order(:nome).where(empresa_id: current_usuario.empresa_id), :id, :nome, {include_blank: "Selecione"}, {:class=>'form-control'})

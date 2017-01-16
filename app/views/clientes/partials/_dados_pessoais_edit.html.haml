@@ -1,6 +1,6 @@
-- nascimento = date_to_format(@cliente.nascimento) if @cliente.nascimento.present?
-- sexo  = @cliente.sexo if @cliente.sexo.present?
-- estado_civil  = @cliente.estado_civil if @cliente.estado_civil.present?
+- nascimento = date_to_format(@cliente.nascimento) if @cliente.nascimento?
+- estado_civil  = @cliente.estado_civil if @cliente.estado_civil?
+- sexo  = @cliente.sexo if @cliente.sexo?
 %div{id:"dados", class:"tab-pane fade in active"}
   %div{class: "row"}
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
@@ -15,12 +15,14 @@
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
       =f.label :sexo
       %br/
-      = f.collection_radio_buttons :sexo, [['M', 'Masculino'] ,['F', 'Feminino']], :first, :last
+      = f.select :sexo, options_for_select([ "Masculino", "Feminino"], sexo.to_s), {include_blank: "Selecione"} ,{ :class => "form-control"}
+      =error_custom_tag(@cliente, :"sexo", "Sexo")
   %div{class: "row"}
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
       = f.label :estado_civil
       %br/
-      = f.select :estado_civil, options_for_select([ "CASADO", "DIVORCIADO", "SOLTEIRO" ], estado_civil.to_s), {} ,{:class => "form-control"}
+      = f.select :estado_civil, options_for_select([ "CASADO", "DIVORCIADO", "SOLTEIRO" ], estado_civil.to_s), {include_blank: "Selecione"} ,{ :class => "form-control"}
+      =error_custom_tag(@cliente, :"estado_civil", "Estado Civil")
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
       = f.input :cpf,  input_html: {class: "cpf_maskara" }
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
