@@ -5,16 +5,7 @@
   %div{class: "row"}
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
       = f.input :id, as: :hidden
-      = f.label :status
-      %br/
-      = f.collection_radio_buttons :status, [[true, 'Ativo'] ,[false, 'Inativo']], :first, :last
-    %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
       = f.input :nome
-    %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
-      =f.label :sexo
-      %br/
-      = f.collection_radio_buttons :sexo, [['M', 'Masculino'] ,['F', 'Feminino']], :first, :last
-  %div{class: "row"}
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
       = f.input :nascimento, as: :string, input_html: {class: "datepicker_form", value: "#{nascimento}"}
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
@@ -22,10 +13,14 @@
         Idade
       %input{:type=>"text", :class => "form-control", :id => "cliente_idade"}
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
+      =f.label :sexo
+      %br/
+      = f.collection_radio_buttons :sexo, [['M', 'Masculino'] ,['F', 'Feminino']], :first, :last
+  %div{class: "row"}
+    %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
       = f.label :estado_civil
       %br/
       = f.select :estado_civil, options_for_select([ "CASADO", "DIVORCIADO", "SOLTEIRO" ], estado_civil.to_s), {} ,{:class => "form-control"}
-  %div{class: "row"}
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
       = f.input :cpf,  input_html: {class: "cpf_maskara" }
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
@@ -36,4 +31,4 @@
   %div{class: "row"}
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3", id: "naturalidade_cliente", style: "display: none;"}
       =f.label "Naturalidade"
-      =f.collection_select(:naturalidade, @estados, :id, :nome, {include_blank: "Selecione"}, {:class=>'form-control'})
+      =f.collection_select(:naturalidade, Estado.pelo_nome, :id, :nome, {include_blank: "Selecione"}, {:class=>'form-control'})
