@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170111121316) do
+ActiveRecord::Schema.define(version: 20170117121616) do
 
   create_table "agenda_movimentacoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "agenda_id"
@@ -160,6 +160,17 @@ ActiveRecord::Schema.define(version: 20170111121316) do
     t.integer  "pdf_file_size"
     t.datetime "pdf_updated_at"
     t.index ["cliente_id"], name: "index_cliente_pdf_uploads_on_cliente_id", using: :btree
+  end
+
+  create_table "cliente_permissoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "usuario_permissoes_id"
+    t.boolean  "historico"
+    t.boolean  "texto_livre"
+    t.boolean  "pdf_upload"
+    t.integer  "empresa_id"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.index ["empresa_id"], name: "index_cliente_permissoes_on_empresa_id", using: :btree
   end
 
   create_table "cliente_texto_livres", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
