@@ -167,15 +167,28 @@ class Support::ClienteSupportController < ApplicationController
 
   private
     def load_tabs
-      @cliente_texto_livre = @cliente.cliente_texto_livres.first
-      @cliente_collection_pdfs  = @cliente.cliente_pdf_uploads.ultima_data.page params[:page]
-
-      if !@cliente.cliente_pdf_uploads.empty?
-        @cliente_pdf_uploads = @cliente.cliente_pdf_uploads.build
-      else
-        @cliente_pdf_uploads = @cliente.cliente_pdf_uploads.build
+      if !current_usuario.admin?
+        @permissao = Painel::Permissao.find_by(model_class: "Cliente")
+        @usuario_permissao = current_usuario.usuario_permissoes.find_by(permissao_id: @permissao.id)
+        @cliente_permissao = ClientePermissao.find_by usuario_permissoes_id: @usuario_permissao.id
       end
-      get_historicos
+
+      if @cliente_permissao.historico?
+        get_historicos
+      end
+
+      if @cliente_permissao.texto_livre?
+        @cliente_texto_livre = @cliente.cliente_texto_livres.first
+      end
+
+      if @cliente_permissao.pdf_upload?
+        @cliente_collection_pdfs  = @cliente.cliente_pdf_uploads.ultima_data.page params[:page]
+        if !@cliente.cliente_pdf_uploads.empty?
+          @cliente_pdf_uploads = @cliente.cliente_pdf_uploads.build
+        else
+          @cliente_pdf_uploads = @cliente.cliente_pdf_uploads.build
+        end
+      end
     end
 
     def set_estados

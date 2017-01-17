@@ -19,4 +19,11 @@ class Painel::UsuarioPermissao < ApplicationRecord
     @permissao = @permissao.permissoes_adicionadas
     return true if !@permissao.empty?
   end
+
+  def self.possuiCliente?
+    @agenda_permissao = Painel::Permissao.find_by(model_class: "Cliente")
+    @permissao = where(permissao_id: @agenda_permissao.id)
+    @permissao = @permissao.permissoes_adicionadas
+    return true if !@permissao.empty?
+  end
 end
