@@ -8,4 +8,10 @@ class Fornecedor < ApplicationRecord
 
   usar_como_cpf :cpf
   usar_como_cnpj :cnpj
+
+  RANSACKABLE_ATTRIBUTES = ["nome", "telefone", "celular"]
+
+  def self.ransackable_attributes auth_object = nil
+    (RANSACKABLE_ATTRIBUTES) + _ransackers.keys
+  end
 end

@@ -5,8 +5,9 @@ class FornecedoresController < ApplicationController
   respond_to :html
 
   def index
-    @fornecedores = Fornecedor.where(empresa_id: current_usuario.empresa_id)
-    respond_with(@fornecedores)
+    @search = Fornecedor.where(empresa_id: current_usuario.empresa_id).ransack(params[:q])
+    @fornecedores = @search.result.order("id desc").page(params[:page]).per(10)
+    @search.build_condition if @search.conditions.empty?
   end
 
   def show
