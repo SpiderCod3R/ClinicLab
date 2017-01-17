@@ -59,6 +59,7 @@ $(document).ready ->
     $("#last_page").fadeOut(500)
     $("#change_free_text").fadeOut(500)
     $('#destroy_free_text').fadeOut(500)
+    $('#print_free_text').fadeOut(500)
 
   $('#destroy_free_text').click ->
     ctl_id     = $("#id_texto_livre").text()
@@ -135,5 +136,5 @@ $(document).ready ->
         cliente_texto_livre:
           id: ctl_id
       success: (response) ->
-        window.location.href = URL_BASE + "clientes/" + response + "/edit"
-        window.location.href = URL_BASE + "clientes/" + response + "/edit#texto_livre"
+        window.location.href = URL_BASE + "clientes/" + $("#cliente_id").val() + "/edit"
+        window.location.href = URL_BASE + "clientes/" + $("#cliente_id").val() + "/edit#texto_livre"
