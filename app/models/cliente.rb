@@ -4,7 +4,6 @@ require 'converters/date_converter'
 require 'converters/time_converter'
 class Cliente < ApplicationRecord
   include AtivandoStatus
-  before_save :upcased_attributes
 
   scope :pelo_nome, -> { order("nome ASC") }
 
@@ -38,13 +37,6 @@ class Cliente < ApplicationRecord
     (RANSACKABLE_ATTRIBUTES) + _ransackers.keys
   end
 
-  def upcased_attributes
-    self.nome.upcase!
-    self.sexo.upcase!
-    self.estado_civil.upcase!
-    self.bairro.upcase!
-  end
-
   class << self
     def da_empresa(resource)
       where(empresa_id: resource)
@@ -59,11 +51,9 @@ class Cliente < ApplicationRecord
   end
 
   def update_data(resource)
-    nascimento = Converter::DateConverter.new(resource["nascimento(1i)"].to_i, resource["nascimento(2i)"].to_i, resource["nascimento(3i)"].to_i)
-    validade_carteira = Converter::DateConverter.new(resource["validade_carteira(1i)"].to_i, resource["validade_carteira(2i)"].to_i, resource["validade_carteira(3i)"].to_i)
     update_attributes(status:       resource[:status],
                       nome:         resource[:nome],
-                      nascimento:   nascimento.to_american_format,
+                      nascimento:   resource[:nascimento],
                       sexo:         resource[:sexo],
                       estado_civil: resource[:estado_civil],
                       cpf:          resource[:cpf],
@@ -71,7 +61,7 @@ class Cliente < ApplicationRecord
                       status_convenio: resource[:status_convenio],
                       matricula:       resource[:matricula],
                       convenio_id:     resource[:convenio_id],
-                      validade_carteira: validade_carteira.to_american_format,
+                      validade_carteira: resource[:validade_carteira],
                       produto: resource[:produto],
                       titular: resource[:titular],
                       plano:   resource[:plano],

@@ -1,5 +1,7 @@
 #texto_livre.tab-pane.fade
   .container-fluid
+    =render 'clientes/partials/cliente_legend' if @cliente.id?
+    %hr/
     .col-md-12
       .row
         .col-md-3
@@ -15,17 +17,17 @@
         #manual_pagination
           =render 'manual_pagination' if !@cliente.cliente_texto_livres.empty?
   %br/
-  .container
-    .col-md-11
-      #free_text_area
-        .panel.panel-default
-          .panel-heading
-            %b Texto-Livre
-          .panel-body
-            #texto_livres_container
-              .clearfix
-                -if !@cliente_texto_livre.nil?
-                  =render 'clientes/partials/cliente_texto_livre'
+  .container-fluid
+    .col-md-12
+      -if !@cliente_texto_livre.nil?
+        #free_text_area
+          .panel.panel-default
+            .panel-heading
+              %b Texto-Livre
+            .panel-body
+              #texto_livres_container
+                .clearfix
+                =render 'clientes/partials/cliente_texto_livre'
       #select_free_text_modal
       #cktext_area_editor{style: "display: none"}
         =cktext_area :page, :info, cols: 40, ckeditor: { height: 400 }, :id => "texto_livre_textarea"

@@ -1,40 +1,43 @@
 class Support::ClienteSupportController < ApplicationController
   before_action :authenticate_usuario!
   before_action :set_cliente, only: [:show, :edit, :update, :destroy, :destroy_pdf]
-  before_action :set_estados, only: [:new, :edit, :create, :update, :ficha, :ficha_em_branco]
+  before_action :set_estados, only: [:new, :edit, :create, :update, :ficha, :clinic_sheet]
   respond_to :docx
 
-  def ficha
-    session[:agenda_id] = params[:agenda_id]
-    @cliente = current_usuario.empresa.clientes.build
-    render :ficha_em_branco
-  end
-
-  def ficha_em_branco
-    #only_partial
+  def clinic_sheet
+    session[:agenda_id]  = params[:agenda_id]
+    @cliente = current_usuario.empresa.clientes.find(params[:cliente_id]) if params[:cliente_id]
+    @cliente = current_usuario.empresa.clientes.build unless params[:cliente_id].present?
+    load_tabs if @cliente.id?
   end
 
   def paginate_pdfs
     @cliente_collection_pdfs = ClientePdfUpload.where(cliente_id: params[:id]).ultima_data.page(params[:page]).per(10)
   end
 
-  def change_or_create_new_paciente
+  def change_or_create_paciente
     @agenda = Agenda.find(session[:agenda_id])
-
     if params[:cliente][:id].present?
       @cliente = Cliente.find(params[:cliente][:id])
-      @cliente.update_data(params[:cliente])
+      @cliente.upload_files(params[:cliente][:cliente_pdf_upload]) if !params[:cliente][:cliente_pdf_upload][:pdf].nil?
+      if @cliente.update_data(params[:cliente])
+        @agenda.agenda_movimentacao.update_attributes(nome_paciente: @cliente.nome, telefone_paciente: @cliente.telefone,
+                                                      email_paciente: @cliente.email, convenio_id: @cliente.convenio_id, cliente_id: @cliente.id)
+      end
+      flash[:notice] = "Dados do cliente atualizados com sucesso."
+      redirect_to clinic_sheet_cliente_path(agenda_id: @agenda.id, cliente_id: @cliente.id)
     else
       @cliente = current_usuario.empresa.clientes.build(resource_params)
-      @cliente.save
+      if @cliente.save
+        @agenda.agenda_movimentacao.update_attributes(nome_paciente: @cliente.nome, telefone_paciente: @cliente.telefone,
+                                                      email_paciente: @cliente.email, convenio_id: @cliente.convenio_id, cliente_id: @cliente.id)
+        flash[:notice] = "Dados do cliente salvos com sucesso."
+        redirect_to clinic_sheet_cliente_path(agenda_id: @agenda.id, cliente_id: @cliente.id)
+      else
+        load_tabs if @cliente.id?
+        render :clinic_sheet
+      end
     end
-
-    @agenda.agenda_movimentacao.update_attributes(nome_paciente: @cliente.nome,
-                                                  telefone_paciente: @cliente.telefone,
-                                                  email_paciente: @cliente.email,
-                                                  convenio_id: @cliente.convenio_id
-                                                  )
-    redirect_to painel_empresa_agenda_path(current_usuario.empresa, @agenda)
   end
 
   '''
@@ -163,6 +166,18 @@ class Support::ClienteSupportController < ApplicationController
   end
 
   private
+    def load_tabs
+      @cliente_texto_livre = @cliente.cliente_texto_livres.first
+      @cliente_collection_pdfs  = @cliente.cliente_pdf_uploads.ultima_data.page params[:page]
+
+      if !@cliente.cliente_pdf_uploads.empty?
+        @cliente_pdf_uploads = @cliente.cliente_pdf_uploads.build
+      else
+        @cliente_pdf_uploads = @cliente.cliente_pdf_uploads.build
+      end
+      get_historicos
+    end
+
     def set_estados
       @estados = Estado.pelo_nome
     end

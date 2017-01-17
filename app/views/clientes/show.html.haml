@@ -7,121 +7,122 @@
       .col-xs-8.col-sm-8.col-md-8.col-lg-8
         .row
           .col-xs-3.col-sm-3.col-md-3.col-lg-3
-            = label_tag t('clientes.helpers.codigo')
-          .col-xs-6.col-sm-4.col-md-4.col-lg-4
-            = @cliente.id
-        .row
-          .col-xs-3.col-sm-3.col-md-3.col-lg-3
             = label_tag t('clientes.helpers.status')
-          .col-xs-8.col-sm-4.col-md-4.col-lg-4
+            %br
             = status @cliente.status
-        .row
+          .col-xs-3.col-sm-3.col-md-3.col-lg-3
+            = label_tag t('clientes.helpers.codigo')
+            %br
+            = @cliente.id
           .col-xs-3.col-sm-3.col-md-3.col-lg-3
             = label_tag t('clientes.helpers.nome')
-          .col-xs-6.col-sm-4.col-md-4.col-lg-4
+            %br
             = @cliente.nome
-        .row
-          .col-xs-3.col-sm-3.col-md-3.col-lg-3
-            = label_tag t('clientes.helpers.cpf')
-          .col-xs-8.col-sm-4.col-md-4.col-lg-4
-            = @cliente.cpf
-        .row
-          .col-xs-3.col-sm-3.col-md-3.col-lg-3
-            = label_tag t('clientes.helpers.endereco')
-          .col-xs-8.col-sm-4.col-md-4.col-lg-4
-            = @cliente.endereco
-        .row
-          .col-xs-3.col-sm-3.col-md-3.col-lg-3
-            = label_tag t('clientes.helpers.complemento')
-          .col-xs-6.col-sm-4.col-md-4.col-lg-4
-            = @cliente.complemento
-        .row
-          .col-xs-3.col-sm-3.col-md-3.col-lg-3
-            = label_tag t('clientes.helpers.bairro')
-          .col-xs-6.col-sm-4.col-md-4.col-lg-4
-            = @cliente.bairro
-        .row
-          .col-xs-3.col-sm-3.col-md-3.col-lg-3
-            = label_tag t('clientes.helpers.estado')
-          .col-xs-6.col-sm-4.col-md-4.col-lg-4
-            =  @cliente.estado.nome.titleize if @cliente.try(:estado_id)
-        .row
-          .col-xs-3.col-sm-3.col-md-3.col-lg-3
-            = label_tag t('clientes.helpers.cidade')
-          .col-xs-6.col-sm-4.col-md-4.col-lg-4
-            = @cliente.cidade.nome.titleize if @cliente.try(:cidade_id)
+        %br
         .row
           .col-xs-3.col-sm-3.col-md-3.col-lg-3
             = label_tag t('clientes.helpers.nascimento')
-          .col-xs-6.col-sm-4.col-md-4.col-lg-4
+            %br
             = @cliente.nascimento.strftime("%d/%m/%Y") unless @cliente.nascimento.nil?
-        .row
           .col-xs-3.col-sm-3.col-md-3.col-lg-3
             = label_tag t('clientes.helpers.sexo')
-          .col-xs-6.col-sm-4.col-md-4.col-lg-4
+            %br
             = sexo_formatado(@cliente.sexo)
-        .row
-          .col-xs-3.col-sm-3.col-md-3.col-lg-3
-            = label_tag t('clientes.helpers.rg')
-          .col-xs-6.col-sm-4.col-md-4.col-lg-4
-            = @cliente.rg
-        .row
           .col-xs-3.col-sm-3.col-md-3.col-lg-3
             = label_tag t('clientes.helpers.estado_civil')
-          .col-xs-6.col-sm-4.col-md-4.col-lg-4
+            %br
             = @cliente.estado_civil.titleize
+        %br
+        .row
+          .col-xs-3.col-sm-3.col-md-3.col-lg-3
+            = label_tag t('clientes.helpers.cpf')
+            %br
+            = @cliente.cpf
+          .col-xs-3.col-sm-3.col-md-3.col-lg-3
+            = label_tag t('clientes.helpers.rg')
+            %br
+            = @cliente.rg
+          .col-xs-3.col-sm-3.col-md-3.col-lg-3
+            = label_tag t('clientes.helpers.telefone')
+            %br
+            = @cliente.telefone
+        %br
         .row
           .col-xs-3.col-sm-3.col-md-3.col-lg-3
             = label_tag t('clientes.helpers.email')
-          .col-xs-6.col-sm-4.col-md-4.col-lg-4
-            = @cliente.email
+            %br
+            - if !@cliente.email.present?
+              Não mencionado
+            -else
+              = @cliente.email
+          .col-xs-3.col-sm-3.col-md-3.col-lg-3
+            = label_tag t('clientes.helpers.estado')
+            %br
+            =  @cliente.estado.nome.titleize if @cliente.try(:estado_id)
+          .col-xs-3.col-sm-3.col-md-3.col-lg-3
+            = label_tag t('clientes.helpers.cidade')
+            %br
+            = @cliente.cidade.nome.titleize if @cliente.try(:cidade_id)
+        %br
         .row
           .col-xs-3.col-sm-3.col-md-3.col-lg-3
-            = label_tag t('clientes.helpers.telefone')
-          .col-xs-6.col-sm-4.col-md-4.col-lg-4
-            = @cliente.telefone
+            = label_tag t('clientes.helpers.bairro')
+            %br
+            = @cliente.bairro
+          .col-xs-3.col-sm-3.col-md-3.col-lg-3
+            = label_tag t('clientes.helpers.endereco')
+            %br
+            = @cliente.endereco
+          .col-xs-3.col-sm-3.col-md-3.col-lg-3
+            = label_tag t('clientes.helpers.complemento')
+            %br
+            -if !@cliente.complemento.present?
+              Não mencionado
+            -else
+              = @cliente.complemento
+        %br
         .row
           .col-xs-3.col-sm-3.col-md-3.col-lg-3
             = label_tag t('clientes.helpers.cargo')
-          .col-xs-6.col-sm-4.col-md-4.col-lg-4
+            %br
             = @cliente.cargo.nome if @cliente.try(:cargo_id)
-        .row
           .col-xs-3.col-sm-3.col-md-3.col-lg-3
             = label_tag t('clientes.helpers.status_convenio')
-          .col-xs-6.col-sm-4.col-md-4.col-lg-4
+            %br
             = status @cliente.status_convenio
-        .row
           .col-xs-3.col-sm-3.col-md-3.col-lg-3
             = label_tag t('clientes.helpers.convenio')
-          .col-xs-6.col-sm-4.col-md-4.col-lg-4
-            = @cliente.convenio.nome if @cliente.try(:convenio_id)
+            %br
+            -if @cliente.try(:convenio_id)
+              = @cliente.convenio.nome
+            -else
+              Não mencionado
+        %br
         .row
           .col-xs-3.col-sm-3.col-md-3.col-lg-3
             = label_tag t('clientes.helpers.matricula')
-          .col-xs-6.col-sm-4.col-md-4.col-lg-4
+            %br
             = @cliente.matricula
-        .row
           .col-xs-3.col-sm-3.col-md-3.col-lg-3
             = label_tag t('clientes.helpers.plano')
-          .col-xs-6.col-sm-4.col-md-4.col-lg-4
+            %br
             = @cliente.plano
-        .row
           .col-xs-3.col-sm-3.col-md-3.col-lg-3
             = label_tag t('clientes.helpers.validade_carteira')
-          .col-xs-6.col-sm-4.col-md-4.col-lg-4
+            %br
             = @cliente.validade_carteira.strftime("%d/%m/%Y") unless @cliente.validade_carteira.nil?
+        %br
         .row
           .col-xs-3.col-sm-3.col-md-3.col-lg-3
             = label_tag t('clientes.helpers.produto')
-          .col-xs-6.col-sm-4.col-md-4.col-lg-4
+            %br
             = @cliente.produto
-        .row
           .col-xs-3.col-sm-3.col-md-3.col-lg-3
             = label_tag t('clientes.helpers.titular')
-          .col-xs-6.col-sm-4.col-md-4.col-lg-4
+            %br
             = @cliente.titular
       .col-xs-4.col-sm-4.col-md-4.col-lg-4
         -if @cliente.foto.present?
-          = image_tag @cliente.foto.url(:medium), :class => "img_profissional"
+          = image_tag @cliente.foto.url(:medium), :class => "img_profissional pull-right"
     .row
       %hr{style: "border: #323232 solid 0.5px;"}

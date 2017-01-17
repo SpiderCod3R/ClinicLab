@@ -1,0 +1,13 @@
+%fieldset#cliente
+  %legend
+    %h3="Cliente - #{@cliente.id}"
+  .row
+    .col-md-3
+      =label_tag "Nome: "
+      =@cliente.nome
+    .col-md-2
+      =label_tag "CPF: "
+      =@cliente.cpf
+    .col-md-2
+      =label_tag "Rg: "
+      =@cliente.rg
