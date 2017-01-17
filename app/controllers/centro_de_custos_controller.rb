@@ -5,8 +5,9 @@ class CentroDeCustosController < ApplicationController
   respond_to :html
 
   def index
-    @centro_de_custos = CentroDeCusto.da_empresa_atual(empresa_atual["id"])
-    respond_with(@centro_de_custos)
+    @search = CentroDeCusto.where(empresa_id: current_usuario.empresa_id).ransack(params[:q])
+    @centro_de_custos = @search.result.order("id desc").page(params[:page]).per(10)
+    @search.build_condition if @search.conditions.empty?
   end
 
   def show

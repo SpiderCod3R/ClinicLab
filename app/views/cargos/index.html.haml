@@ -5,16 +5,16 @@
       %h1 Cargos
       %hr{style: "border: #323232 solid 0.5px;"}
       %div{class: "row", style: "margin: 0;"}
-      %div{class: "jumbotron"}
-        %div{class: "row", style: "margin: 0;"}
-          %div{class: "col-md-12 col-sm-12 col-xs-12 col-lg-12"}
-            = search_form_for @search do |f|
-              = f.condition_fields do |c|
-                = render "condition_fields", f: c
-              = link_to_add_fields "Adicionar Condições", f, :condition
-              %div{class: "actions", style: "margin-top: 2%;"}
-                = f.submit "Pesquisar", class: "btn btn-primary"
-                = link_to "Recarregar", cargos_path, class: "btn btn-default"
+        %div{class: "jumbotron"}
+          %div{class: "row", style: "margin: 0;"}
+            %div{class: "col-md-12 col-sm-12 col-xs-12 col-lg-12"}
+              = search_form_for @search do |f|
+                = f.condition_fields do |c|
+                  = render "condition_fields", f: c
+                = link_to_add_fields "Adicionar Condições", f, :condition
+                %div{class: "actions", style: "margin-top: 2%;"}
+                  = f.submit "Pesquisar", class: "btn btn-primary"
+                  = link_to "Recarregar", cargos_path, class: "btn btn-default"
       %br/
       %br/
       %table{class: "table table-striped table-bordered", cellspacing: "0", width: "100%"}
