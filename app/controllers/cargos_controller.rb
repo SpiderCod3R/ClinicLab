@@ -2,8 +2,9 @@ class CargosController < ApplicationController
   load_and_authorize_resource param_method: :resource_params
 
   def index
-    @cargos = Cargo.da_empresa_atual(empresa_atual["id"])
-    respond_with(@cargos)
+    @search = Cargo.where(empresa_id: current_usuario.empresa_id).ransack(params[:q])
+    @cargos = @search.result.order("id desc").page(params[:page]).per(10)
+    @search.build_condition if @search.conditions.empty?
   end
 
   def show
