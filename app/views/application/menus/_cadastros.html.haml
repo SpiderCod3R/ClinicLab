@@ -16,7 +16,7 @@
 -if can? :read, Cliente
   %li=link_to 'Clientes', new_cliente_path, style: "font-weight: bold;"
 -if can? :read, Convenio
-  %li=link_to 'Convenio', new_convenio_path, style: "font-weight: bold;"
+  %li=link_to 'Convênio', new_convenio_path, style: "font-weight: bold;"
 -if can? :read, ConselhoRegional
   %li=link_to 'Conselho Regional', new_conselho_regional_path, style: "font-weight: bold;"
 -if can? :read, Fornecedor
@@ -31,3 +31,5 @@
   %li=link_to 'Serviços', new_empresa_servico_path(current_usuario.empresa), style: "font-weight: bold;"
 -if can? :read, TextoLivre
   %li=link_to 'Texto Livre', new_texto_livre_path, style: "font-weight: bold;"
+-if can? :read, ReferenciaAgenda
+  %li=link_to 'Referência Agendas', new_referencia_agenda_path(current_usuario.empresa), style: "font-weight: bold;"
