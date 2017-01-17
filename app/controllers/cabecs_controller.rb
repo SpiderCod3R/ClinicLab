@@ -4,8 +4,12 @@ class CabecsController < ApplicationController
   respond_to :html
 
   def index
-    @cabecs = Cabec.where(empresa_id: current_usuario.empresa_id)
-    respond_with(@cabecs)
+    # @cabecs = Cabec.where(empresa_id: current_usuario.empresa_id)
+    # respond_with(@cabecs)
+
+    @search = Cabec.where(empresa_id: current_usuario.empresa_id).ransack(params[:q])
+    @cabecs = @search.result.order("id desc").page(params[:page]).per(10)
+    @search.build_condition if @search.conditions.empty?
   end
 
   def show
