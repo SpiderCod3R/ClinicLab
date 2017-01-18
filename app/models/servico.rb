@@ -12,4 +12,10 @@ class Servico < ApplicationRecord
   def to_s
     "#{tipo} - #{abreviatura}"
   end
+
+  RANSACKABLE_ATTRIBUTES = ["tipo", "abreviatura"]
+
+  def self.ransackable_attributes auth_object = nil
+    (RANSACKABLE_ATTRIBUTES) + _ransackers.keys
+  end
 end
