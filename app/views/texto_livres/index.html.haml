@@ -4,6 +4,25 @@
   .panel.panel-default
     .container-fluid
       %h1 Textos Livre
+    %div{class: "row", style: "margin: 0;"}
+      %div{class: "jumbotron"}
+        %div{class: "row", style: "margin: 0;"}
+          %div{class: "col-md-12 col-sm-12 col-xs-12 col-lg-12"}
+            =form_tag texto_livres_path, :method => 'get' do
+              %row
+                %div{class: "col-lg-2"}
+                  %label
+                    Serviço
+                  = select(:servico, :id, Servico.where(empresa_id: current_usuario.empresa_id).collect {|p| [p.tipo, p.id] }, {:include_blank => ''}, :class => "form-control") 
+                %div{class: "col-lg-3"}
+                  %label
+                    Nome
+                  = text_field_tag :search, '', placeholder: "Pesquisar texto livre por sigla", class: "form-control"
+                %br
+                = submit_tag "Pesquisar", :name => nil, class: "btn btn-primary"
+                = link_to "Recarregar", texto_livres_path, class: "btn btn-default"
+                %br
+                %br
 
       %table{class: "table table-striped table-bordered", cellspacing: "0", width: "100%"}
         %thead

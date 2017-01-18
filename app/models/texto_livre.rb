@@ -11,4 +11,8 @@ class TextoLivre < ApplicationRecord
   def addEmpresa=(aEmpresa)
     self.empresa=aEmpresa
   end
+
+  def self.search(servico_id, nome) 
+    where("servico_id LIKE ? AND nome LIKE ?", "%#{servico_id}%", "%#{nome}%")
+  end
 end
