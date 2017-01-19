@@ -31,7 +31,7 @@ class Painel::AgendaMovimentacoesController < ApplicationController
     if @movimentacao.save
       @movimentacao.change_agenda_status
       flash[:notice] = "Agenda movimentada com sucesso"
-      redirect_to painel_empresa_agenda_path(@empresa, @agenda)
+      redirect_to painel_empresa_agendas_path(@empresa)
     else
       render :new
     end

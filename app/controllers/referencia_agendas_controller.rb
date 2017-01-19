@@ -4,7 +4,12 @@ class ReferenciaAgendasController < ApplicationController
   before_action :find_referencia, only: [:show, :edit, :update, :destroy]
 
   def index
-    @referencias = ReferenciaAgenda.where(empresa_id: @empresa.id).page(params[:page])
+    if params[:status] || params[:descricao] || params[:profissional]
+      @referencias = ReferenciaAgenda.where(empresa_id: current_usuario.empresa_id).search(params[:status], params[:descricao], params[:profissional]['id']).order("created_at DESC")
+    else
+      @referencias = ReferenciaAgenda.where(empresa_id: current_usuario.empresa_id).order("created_at DESC")
+      respond_with(@referencias)
+    end
   end
 
   def show
