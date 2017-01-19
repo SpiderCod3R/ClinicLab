@@ -44,11 +44,8 @@ Rails.application.routes.draw do
     end
   end
 
-<<<<<<< HEAD
-=======
   get 'ficha_cliente', to: "clientes#clinic_sheet", as: :clinic_sheet_cliente
 
->>>>>>> ficha_cliente
   resources :conselho_regionais
   resources :imagem_cabecs
   resources :fornecedores
