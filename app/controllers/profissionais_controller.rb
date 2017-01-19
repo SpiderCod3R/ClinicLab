@@ -6,8 +6,12 @@ class ProfissionaisController < ApplicationController
   before_action :find_profissional, only: [:show, :edit, :update, :destroy]
 
   def index
-    @profissionais = Profissional.da_empresa_atual(empresa_atual["id"])
-    respond_with(@profissionais)
+    if params[:status] || params[:cargo] || params[:nome]
+      @profissionais = Profissional.where(empresa_id: current_usuario.empresa_id).search(params[:status]['status'], params[:cargo]['id'], params[:nome]).order("created_at DESC")
+    else
+      @profissionais = Profissional.where(empresa_id: current_usuario.empresa_id).order("created_at DESC")
+      respond_with(@profissionais)
+    end
   end
 
   def show

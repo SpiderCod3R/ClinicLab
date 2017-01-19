@@ -41,4 +41,8 @@ class Profissional < ApplicationRecord
   def titulo_completo
     "#{id} - #{nome} - #{cargo_nome}"
   end
+
+  def self.search(status, cargo_id, nome) 
+    where("status LIKE ? AND cargo_id LIKE ? AND nome LIKE ?", "%#{status}%", "%#{cargo_id}%", "%#{nome}%")
+  end
 end

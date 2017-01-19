@@ -2,7 +2,12 @@ class TextoLivresController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @texto_livres = TextoLivre.where(empresa_id: current_usuario.empresa_id)
+    if params[:servico] || params[:search]
+      @texto_livres = TextoLivre.where(empresa_id: current_usuario.empresa_id).search(params[:servico]['id'], params[:search]).order("created_at DESC")
+    else
+      @texto_livres = TextoLivre.where(empresa_id: current_usuario.empresa_id).order("created_at DESC")
+      respond_with(@texto_livres)
+    end
   end
 
   def show

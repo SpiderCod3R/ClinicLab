@@ -11,6 +11,12 @@ class Operadora < ApplicationRecord
     "Operadora - #{nome}"
   end
 
+  RANSACKABLE_ATTRIBUTES = ["nome"]
+
+  def self.ransackable_attributes auth_object = nil
+    (RANSACKABLE_ATTRIBUTES) + _ransackers.keys
+  end
+
   private
     def upcase_nome
       self.nome.upcase!
