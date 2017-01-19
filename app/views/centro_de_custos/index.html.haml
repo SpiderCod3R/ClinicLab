@@ -15,20 +15,24 @@
                 %div{class: "actions", style: "margin-top: 2%;"}
                   = f.submit "Pesquisar", class: "btn btn-primary"
                   = link_to "Recarregar", centro_de_custos_path, class: "btn btn-default"
-      %table{class: "table table-striped table-bordered", cellspacing: "0", width: "100%"}
-        %thead
-          %th=t(:status, scope: [:bootstrap, :helpers, :labels])
-          %th=t(:código, scope: [:bootstrap, :helpers, :labels])
-          %th=t(:name, scope: [:bootstrap, :helpers, :labels])
-          %th{class: "pull-right"}=t(:show, scope: [:bootstrap, :helpers, :links])
-        %tbody
-          - @centro_de_custos.each do |centro_de_custo|
-            %tr
-              %td=status(centro_de_custo.status)
-              %td=centro_de_custo.id
-              %td=centro_de_custo.nome
-              %td{class: "pull-right"}
-                -if can? :read, CentroDeCusto
-                  = link_to_visualizar centro_de_custo
+      %div{class: "row", style: "margin: 0;"}
+        %table{class: "table table-striped table-bordered", cellspacing: "0", width: "100%"}
+          %thead
+            %th=t(:status, scope: [:bootstrap, :helpers, :labels])
+            %th=t(:código, scope: [:bootstrap, :helpers, :labels])
+            %th=t(:name, scope: [:bootstrap, :helpers, :labels])
+            %th{class: "pull-right"}=t(:show, scope: [:bootstrap, :helpers, :links])
+          %tbody
+            - @centro_de_custos.each do |centro_de_custo|
+              %tr
+                %td=status(centro_de_custo.status)
+                %td=centro_de_custo.id
+                %td=centro_de_custo.nome
+                %td{class: "pull-right"}
+                  -if can? :read, CentroDeCusto
+                    = link_to_visualizar centro_de_custo
+      %div{class: "row", style: "margin: 0;"}
+        %div{class: "pull-right"}
+          =paginate @centro_de_custos
   %div{class: "row"}
     %hr{style: "border: #323232 solid 0.5px;"}
