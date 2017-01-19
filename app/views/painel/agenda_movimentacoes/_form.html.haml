@@ -19,7 +19,7 @@
       .row
         .col-md-6
           =f.label "Convênio"
-          =f.collection_select :convenio_id, @convenios, :id, :title, { prompt: "Selecione um" }, class: "form-control"
+          =f.collection_select :convenio_id, Convenio.where(empresa_id: current_usuario.empresa_id), :id, :title, { prompt: "Selecione um" }, class: "form-control"
         .col-md-6
           #convenio_n_cadastrado{style: "display: inline-block; padding-top: 30px;"}
             =f.check_box :sem_convenio

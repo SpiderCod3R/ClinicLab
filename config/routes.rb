@@ -25,6 +25,9 @@ Rails.application.routes.draw do
       delete 'destroy_pdf'
     end
   end
+
+  get 'ficha_cliente', to: "clientes#clinic_sheet", as: :clinic_sheet_cliente
+
   resources :conselho_regionais
   resources :imagem_cabecs
   resources :fornecedores
@@ -41,7 +44,8 @@ Rails.application.routes.draw do
   get 'relatorios/new' => "configuracao_relatorios#new"
   get 'conselhos_regionais/new' => "conselho_regionais#new"
 
-  post 'agendas/clientes/new_paciente', to: "clientes#change_or_create_new_paciente", as: :change_or_create_new_paciente
+  post 'agendas/clientes/change_or_create_paciente', to: "clientes#change_or_create_paciente", as: :create_paciente
+  put  'agendas/clientes/change_or_create_paciente', to: "clientes#change_or_create_paciente", as: :change_paciente
   post 'clientes/retorna_historico', to: "clientes#retorna_historico"
   post 'clientes/salva_historico', to: "clientes#salva_historico"
   post 'clientes/atualiza_historico', to: "clientes#atualiza_historico"
@@ -55,8 +59,6 @@ Rails.application.routes.draw do
 
   get 'relatorios/new' => "configuracao_relatorios#new"
   get 'conselhos_regionais/new' => "conselho_regionais#new"
-
-  get 'ficha_cliente', to: "clientes#ficha", as: :new_ficha_cliente
 
   get 'search/conselho_regional', to: 'conselho_regionais#search'
   get 'search/buscar_pacientes' => "search#buscar_pacientes"
@@ -120,7 +122,7 @@ Rails.application.routes.draw do
         get 'block_day', to: 'agendas#block_day', as: :block_day
         put 'block_day', to: 'agendas#set_block_on_day', as: :set_block_on_day
         resources :agenda_movimentacoes
-        get 'movimentar', to: 'agenda_movimentacoes#verify', as: :movimentar_ou_atualizar
+        get 'movimentar', to: 'agenda_movimentacoes#new', as: :movimentar_ou_atualizar
       end
     end
     get 'usuario/:id/permissoes', to: "usuarios/accounts#show_permissions", as: :show_user_permissions

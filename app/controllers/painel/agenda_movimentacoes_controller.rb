@@ -7,19 +7,20 @@ class Painel::AgendaMovimentacoesController < ApplicationController
   before_action :authenticate_usuario!
   before_action :find_empresa
   before_action :find_agenda
-  before_action :find_agenda_movimentacao, only: [:verify, :edit, :update]
-  before_action :set_clientes, :set_convenios, only: [:verify]
+  before_action :find_agenda_movimentacao, only: [:edit, :update]
+  before_action :set_clientes, only: [:new, :edit]
 
-  def verify
-    unless @movimentacao.nil?
-      render action: :edit
-    else
-      @movimentacao = AgendaMovimentacao.new
-      render action: :new
-    end
-  end
+  # def verify
+  #   unless @movimentacao.nil?
+  #     render action: :edit
+  #   else
+      
+  #     render action: :new
+  #   end
+  # end
 
   def new
+    @movimentacao = AgendaMovimentacao.new
   end
 
   def edit
