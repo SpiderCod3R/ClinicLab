@@ -6,7 +6,7 @@ class Cargo < ApplicationRecord
   has_many :profissionais
   belongs_to :empresa
   has_many :profissionais
-
+  paginates_per 10
   scope :pelo_nome, -> { order("nome ASC") }
 
   RANSACKABLE_ATTRIBUTES = ["nome"]
