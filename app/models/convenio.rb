@@ -7,6 +7,7 @@ class Convenio < ApplicationRecord
   validates :nome, uniqueness: true
   usar_como_dinheiro :valor
 
+  paginates_per 10
   scope :pelo_nome, -> { order("nome ASC") }
 
   def title
