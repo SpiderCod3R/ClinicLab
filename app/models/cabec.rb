@@ -6,4 +6,6 @@ class Cabec < ApplicationRecord
   def self.ransackable_attributes auth_object = nil
     (RANSACKABLE_ATTRIBUTES) + _ransackers.keys
   end
+
+  paginates_per 10
 end

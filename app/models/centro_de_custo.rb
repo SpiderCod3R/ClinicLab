@@ -1,7 +1,7 @@
 class CentroDeCusto < ApplicationRecord
   include MetodosUteis
   validates :nome, presence: true
-
+  paginates_per 10
   def to_s
     "#{nome}"
   end

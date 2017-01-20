@@ -3,9 +3,9 @@ class TextoLivresController < ApplicationController
 
   def index
     if params[:servico] || params[:search]
-      @texto_livres = TextoLivre.where(empresa_id: current_usuario.empresa_id).search(params[:servico]['id'], params[:search]).order("created_at DESC")
+      @texto_livres = TextoLivre.where(empresa_id: current_usuario.empresa_id).search(params[:servico]['id'], params[:search]).order("created_at DESC").page(params[:page]).per(10)
     else
-      @texto_livres = TextoLivre.where(empresa_id: current_usuario.empresa_id).order("created_at DESC")
+      @texto_livres = TextoLivre.where(empresa_id: current_usuario.empresa_id).order("created_at DESC").page(params[:page]).per(10)
       respond_with(@texto_livres)
     end
   end

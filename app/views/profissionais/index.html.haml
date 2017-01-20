@@ -20,26 +20,30 @@
                 %div{class: "col-lg-3"}
                   %label
                     Pesquisar
-                  = text_field_tag :nome, '', placeholder: "Pesquisar conselho regional por sigla", class: "form-control"
+                  = text_field_tag :nome, '', placeholder: "Pesquisar profissional por sigla", class: "form-control"
                 %br
                 = submit_tag "Pesquisar", :name => nil, class: "btn btn-primary"
                 = link_to "Recarregar", profissionais_path, class: "btn btn-default"
                 %br
                 %br
-    %table{class: "table table-striped table-bordered", cellspacing: "0", width: "100%"}
-      %thead
-        %th=t(:status, scope: [:bootstrap, :helpers, :labels])
-        %th=t(:código, scope: [:bootstrap, :helpers, :labels])
-        %th=t(:name, scope: [:bootstrap, :helpers, :labels])
-        %th=t(:office, scope: [:bootstrap, :helpers, :labels])
-        %th{class: "pull-right"}=t(:show, scope: [:bootstrap, :helpers, :links])
-      %tbody
-        - @profissionais.each do |profissional|
-          %tr
-            %td=status(profissional.status)
-            %td=profissional.id
-            %td=profissional.nome
-            %td=profissional.cargo.nome
-            %td{class: "pull-right"}
-              = link_to_visualizar profissional
+    %div{class: "row", style: "margin: 0;"}
+      %table{class: "table table-striped table-bordered", cellspacing: "0", width: "100%"}
+        %thead
+          %th=t(:status, scope: [:bootstrap, :helpers, :labels])
+          %th=t(:código, scope: [:bootstrap, :helpers, :labels])
+          %th=t(:name, scope: [:bootstrap, :helpers, :labels])
+          %th=t(:office, scope: [:bootstrap, :helpers, :labels])
+          %th{class: "pull-right"}=t(:show, scope: [:bootstrap, :helpers, :links])
+        %tbody
+          - @profissionais.each do |profissional|
+            %tr
+              %td=status(profissional.status)
+              %td=profissional.id
+              %td=profissional.nome
+              %td=profissional.cargo.nome
+              %td{class: "pull-right"}
+                = link_to_visualizar profissional
+    %div{class: "row", style: "margin: 0;"}
+      %div{class: "pull-right"}
+        =paginate @profissionais
   %hr{style: "border: #323232 solid 0.5px;"}

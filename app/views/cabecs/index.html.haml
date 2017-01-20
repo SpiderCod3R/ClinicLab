@@ -14,20 +14,24 @@
               %div{class: "actions", style: "margin-top: 2%;"}
                 = f.submit "Pesquisar", class: "btn btn-primary"
                 = link_to "Recarregar", cabecs_path, class: "btn btn-default"
-    %table{class: "table table-striped table-bordered", cellspacing: "0", width: "100%"}
-      %thead
-        %th=t(:status, scope: [:bootstrap, :helpers, :labels])
-        %th=t(:código, scope: [:bootstrap, :helpers, :labels])
-        %th=t(:name, scope: [:bootstrap, :helpers, :labels])
-        %th Texto
-        %th{class: "pull-right"}=t(:show, scope: [:bootstrap, :helpers, :links])
-      %tbody
-        - @cabecs.each do |cabec|
-          %tr
-            %td= status(cabec.status)
-            %td=cabec.id
-            %td=cabec.nome
-            %td=raw cabec.texto.truncate(50)
-            %td{class: "pull-right"}
-              = link_to_visualizar cabec
+    %div{class: "row", style: "margin: 0;"}
+      %table{class: "table table-striped table-bordered", cellspacing: "0", width: "100%"}
+        %thead
+          %th=t(:status, scope: [:bootstrap, :helpers, :labels])
+          %th=t(:código, scope: [:bootstrap, :helpers, :labels])
+          %th=t(:name, scope: [:bootstrap, :helpers, :labels])
+          %th Texto
+          %th{class: "pull-right"}=t(:show, scope: [:bootstrap, :helpers, :links])
+        %tbody
+          - @cabecs.each do |cabec|
+            %tr
+              %td= status(cabec.status)
+              %td=cabec.id
+              %td=cabec.nome
+              %td=raw cabec.texto.truncate(50)
+              %td{class: "pull-right"}
+                = link_to_visualizar cabec
+    %div{class: "row", style: "margin: 0;"}
+      %div{class: "pull-right"}
+        =paginate @cabecs
   %hr{style: "border: #323232 solid 0.5px;"}

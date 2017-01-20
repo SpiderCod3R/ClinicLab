@@ -14,21 +14,25 @@
               %div{class: "actions", style: "margin-top: 2%;"}
                 = f.submit "Pesquisar", class: "btn btn-primary"
                 = link_to "Recarregar", empresa_servicos_path, class: "btn btn-default"
-    %table{class: "table table-striped table-bordered", cellspacing: "0", width: "100%"}
-      %thead
-        %th Código
-        %th Tipo
-        %th Abreviatura
-        %th
-      %tbody#servicos_content
-        - @servicos.each do |servico|
-          %tr{id: "servico_tr_id_#{servico.id}"}
-            %td{width: "8%"}= "##{servico.id}"
-            %td= servico.tipo
-            %td= servico.abreviatura
-            %td
-              .btn-group.pull-right
-                = link_to 'Editar', edit_empresa_servico_path(servico.empresa, servico)
-                = link_to 'Excluir', empresa_servico_path(servico.empresa, servico), :method => :delete, :data => { :confirm => 'Tem Certeza?' }
+    %div{class: "row", style: "margin: 0;"}
+      %table{class: "table table-striped table-bordered", cellspacing: "0", width: "100%"}
+        %thead
+          %th Código
+          %th Tipo
+          %th Abreviatura
+          %th
+        %tbody#servicos_content
+          - @servicos.each do |servico|
+            %tr{id: "servico_tr_id_#{servico.id}"}
+              %td{width: "8%"}= "##{servico.id}"
+              %td= servico.tipo
+              %td= servico.abreviatura
+              %td
+                .btn-group.pull-right
+                  = link_to 'Editar', edit_empresa_servico_path(servico.empresa, servico)
+                  = link_to 'Excluir', empresa_servico_path(servico.empresa, servico), :method => :delete, :data => { :confirm => 'Tem Certeza?' }
+    %div{class: "row", style: "margin: 0;"}
+      %div{class: "pull-right"}
+        =paginate @servicos
   %div{class: "row"}
     %hr{style: "border: #323232 solid 0.5px;"}

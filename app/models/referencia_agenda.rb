@@ -7,7 +7,6 @@ class ReferenciaAgenda < ApplicationRecord
 
   validates :profissional_id, :descricao, presence: true
 
-
   def self.localize(id, empresa)
     find_by(id: id, empresa_id: empresa.id)
   end
@@ -30,4 +29,8 @@ class ReferenciaAgenda < ApplicationRecord
            to: :empresa,
            prefix: true,
            allow_nil: true
+
+  def self.search(status, descricao, profissional_id) 
+    where("status LIKE ? AND descricao LIKE ? AND profissional_id LIKE ?", "%#{status}%", "%#{descricao}%", "%#{profissional_id}%")
+  end
 end

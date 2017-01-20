@@ -7,9 +7,9 @@ class ProfissionaisController < ApplicationController
 
   def index
     if params[:status] || params[:cargo] || params[:nome]
-      @profissionais = Profissional.where(empresa_id: current_usuario.empresa_id).search(params[:status]['status'], params[:cargo]['id'], params[:nome]).order("created_at DESC")
+      @profissionais = Profissional.where(empresa_id: current_usuario.empresa_id).search(params[:status]['status'], params[:cargo]['id'], params[:nome]).order("created_at DESC").page(params[:page]).per(10)
     else
-      @profissionais = Profissional.where(empresa_id: current_usuario.empresa_id).order("created_at DESC")
+      @profissionais = Profissional.where(empresa_id: current_usuario.empresa_id).order("created_at DESC").page(params[:page]).per(10)
       respond_with(@profissionais)
     end
   end

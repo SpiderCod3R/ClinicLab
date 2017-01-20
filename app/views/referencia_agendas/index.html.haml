@@ -8,10 +8,29 @@
   .jumbotron
     %hr{style: "border: #A5AFD7 dashed 1px"}
     .col-xs-12.col-sm-12.col-md-12.col-lg-12
-      .container
-        .row-fluid
-          .col-sm-8.col-md-8.col-lg-8
-            / =render 'search_form_for'
+      %div{class: "row", style: "margin: 0;"}
+        %div{class: "jumbotron"}
+          %div{class: "row", style: "margin: 0;"}
+            %div{class: "col-md-12 col-sm-12 col-xs-12 col-lg-12"}
+              =form_tag referencia_agendas_path, :method => 'get' do
+                %row
+                  %div{class: "col-lg-2"}
+                    %label
+                      Status
+                    = select(:status, :status, [['Ativo',1],['Inativo',0]], {:include_blank => ''}, :class => "form-control")
+                  %div{class: "col-lg-2"}
+                    %label
+                      Profissional
+                    = select(:profissional, :id, Profissional.where(empresa_id: current_usuario.empresa_id).collect {|p| [p.nome, p.id] }, {:include_blank => ''}, :class => "form-control") 
+                  %div{class: "col-lg-3"}
+                    %label
+                      Descrição
+                    = text_field_tag :descricao, '', placeholder: "Pesquisar referência pela descrição", class: "form-control"
+                  %br
+                  = submit_tag "Pesquisar", :name => nil, class: "btn btn-primary"
+                  = link_to "Recarregar", referencia_agendas_path, class: "btn btn-default"
+                  %br
+                  %br
           .clearfix
     %hr{style: "border: #A5AFD7 dashed 1px"}
 .container-fluid

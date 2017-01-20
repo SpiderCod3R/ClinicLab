@@ -15,22 +15,27 @@
                 %div{class: "actions", style: "margin-top: 2%;"}
                   = f.submit "Pesquisar", class: "btn btn-primary"
                   = link_to "Recarregar", convenios_path, class: "btn btn-default"
-      %table{class: "table table-striped table-bordered"}
-        %thead
-          %th=t(:status, scope: [:bootstrap, :helpers, :labels])
-          %th=t(:código, scope: [:bootstrap, :helpers, :labels])
-          %th=t(:nome, scope: [:bootstrap, :helpers, :labels])
-          %th=t(:value, scope: [:bootstrap, :helpers, :labels])
-          %th.pull-right=t(:show, scope: [:bootstrap, :helpers, :links])
-        %tbody
-          - @convenios.each do |convenio|
-            %tr
-              %td=status(convenio.status)
-              %td=convenio.id
-              %td=convenio.nome
-              %td=convenio.valor
-              %td.pull-right
-                -if can? :read, Convenio
-                  = link_to_visualizar convenio
+      %div{class: "row", style: "margin: 0;"}
+        %table{class: "table table-striped table-bordered"}
+          %thead
+            %th=t(:status, scope: [:bootstrap, :helpers, :labels])
+            %th=t(:código, scope: [:bootstrap, :helpers, :labels])
+            %th=t(:nome, scope: [:bootstrap, :helpers, :labels])
+            %th=t(:value, scope: [:bootstrap, :helpers, :labels])
+            %th.pull-right=t(:show, scope: [:bootstrap, :helpers, :links])
+          %tbody
+            - @convenios.each do |convenio|
+              %tr
+                %td=status(convenio.status)
+                %td=convenio.id
+                %td=convenio.nome
+                %td=convenio.valor
+                %td.pull-right
+                  -if can? :read, Convenio
+                    = link_to_visualizar convenio
+      %div{class: "row", style: "margin: 0;"}
+        %div{class: "pull-right"}
+          =paginate @convenios
+
   %div{class: "row"}
     %hr{style: "border: #323232 solid 0.5px;"}
