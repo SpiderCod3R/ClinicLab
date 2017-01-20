@@ -5,9 +5,9 @@ class ReferenciaAgendasController < ApplicationController
 
   def index
     if params[:status] || params[:descricao] || params[:profissional]
-      @referencias = ReferenciaAgenda.where(empresa_id: current_usuario.empresa_id).search(params[:status], params[:descricao], params[:profissional]['id']).order("created_at DESC")
+      @referencias = ReferenciaAgenda.where(empresa_id: current_usuario.empresa_id).search(params[:status]["status"], params[:descricao], params[:profissional]['id']).order("created_at DESC").page(params[:page]).per(10)
     else
-      @referencias = ReferenciaAgenda.where(empresa_id: current_usuario.empresa_id).order("created_at DESC")
+      @referencias = ReferenciaAgenda.where(empresa_id: current_usuario.empresa_id).order("created_at DESC").page(params[:page]).per(10)
       respond_with(@referencias)
     end
   end
