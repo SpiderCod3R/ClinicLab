@@ -4,6 +4,7 @@ class Servico < ApplicationRecord
   validates :tipo, :abreviatura, presence: true
   validates_uniqueness_of :tipo, :abreviatura, scope: :empresa_id
   validates_associated :empresa
+  paginates_per 10
 
   def addEmpresa=(aEmpresa)
     self.empresa = aEmpresa
