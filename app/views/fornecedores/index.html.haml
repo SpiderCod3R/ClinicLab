@@ -14,6 +14,7 @@
               %div{class: "actions", style: "margin-top: 2%;"}
                 = f.submit "Pesquisar", class: "btn btn-primary"
                 = link_to "Recarregar", fornecedores_path, class: "btn btn-default"
+  %div{class: "row-fluid"}
     %table{class: "table table-striped table-bordered", cellspacing: "0", width: "100%"}
       %thead
         %th=t(:status, scope: [:bootstrap, :helpers, :labels])
@@ -32,4 +33,7 @@
             %td= fornecedor.celular
             %td{class: "pull-right"}
               = link_to_visualizar fornecedor
+  %div{class: "row", style: "margin: 0;"}
+    %div{class: "pull-right"}
+      =paginate @fornecedores
   %hr{style: "border: #323232 solid 0.5px;"}
