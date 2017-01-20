@@ -34,6 +34,8 @@ class Profissional < ApplicationRecord
          prefix: true,
          allow_nil: true
 
+  paginates_per 10
+
   def titulo
     "#{nome} - #{cargo_nome}"
   end
