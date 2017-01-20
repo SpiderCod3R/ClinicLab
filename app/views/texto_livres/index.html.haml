@@ -24,6 +24,7 @@
                 %br
                 %br
 
+    %div{class: "row", style: "margin: 0;"}
       %table{class: "table table-striped table-bordered", cellspacing: "0", width: "100%"}
         %thead
           %tr
@@ -42,4 +43,7 @@
                   = link_to 'Editar', edit_texto_livre_path(texto_livre)
                   |
                   = link_to 'Excluir', texto_livre, :method => :delete, :data => { :confirm => 'Are you sure?' }
+    %div{class: "row", style: "margin: 0;"}
+      %div{class: "pull-right"}
+        =paginate @texto_livres
 #show_texto_livre

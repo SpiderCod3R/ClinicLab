@@ -3,6 +3,7 @@ class TextoLivre < ApplicationRecord
   belongs_to :empresa, class_name: "Painel::Empresa", foreign_key: "empresa_id"
   belongs_to :servico
   has_many :cliente_texto_livres
+  paginates_per 10
 
   validates :nome, :servico_id, :content, presence: true
   validates_uniqueness_of :content, scope: :empresa_id
