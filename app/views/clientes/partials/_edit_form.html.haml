@@ -6,13 +6,21 @@
       %a{'data-toggle':"tab", href:"#convenio", id: "aba_convenio"} Convênio
     %li
       %a{'data-toggle':"tab", href:"#contato", id: "aba_contato"} Contato
-    -if @cliente_permissao.historico?
+    -if !current_usuario.admin?
+      -if @cliente_permissao.historico?
+        %li
+          %a{'data-toggle':"tab", href:"#historico", id: "aba_historico"} Histórico
+      -if @cliente_permissao.texto_livre?
+        %li
+          %a{'data-toggle':"tab", href:"#texto_livre", id: "aba_texto_livre"} Texto-Livre
+      -if @cliente_permissao.pdf_upload?
+        %li
+          %a{'data-toggle':"tab", href:"#pdf", id: "aba_pdf_upload"} PDF
+    -else
       %li
         %a{'data-toggle':"tab", href:"#historico", id: "aba_historico"} Histórico
-    -if @cliente_permissao.texto_livre?
       %li
         %a{'data-toggle':"tab", href:"#texto_livre", id: "aba_texto_livre"} Texto-Livre
-    -if @cliente_permissao.pdf_upload?
       %li
         %a{'data-toggle':"tab", href:"#pdf", id: "aba_pdf_upload"} PDF
   %div{class: "container", style: "padding-top: 10px; padding-bottom: 25px;"}
@@ -26,14 +34,11 @@
       / aba contato
       =render 'clientes/partials/contato', { f: f }
 
-      -if @cliente_permissao.historico?
-        / aba historico
-        =render 'clientes/partials/historico', { f: f }
+      / aba historico
+      =render 'clientes/partials/historico', { f: f }
 
-      -if @cliente_permissao.texto_livre?
-        / aba texto-livre
-        =render 'clientes/partials/texto_livre', { f: f }
+      / aba texto-livre
+      =render 'clientes/partials/texto_livre', { f: f }
 
-      -if @cliente_permissao.pdf_upload?
-        / aba pdf
-        =render 'clientes/partials/pdf_upload', { f: f }
+      / aba pdf
+      =render 'clientes/partials/pdf_upload', { f: f }
