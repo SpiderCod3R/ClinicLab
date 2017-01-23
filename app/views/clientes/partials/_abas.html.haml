@@ -10,11 +10,17 @@
     =render 'clientes/partials/contato', { f: f }
 
     -if @cliente.id?
-      / aba historico
-      =render 'clientes/partials/historico', { f: f }
-
-      / aba texto-livre
-      =render 'clientes/partials/texto_livre', { f: f }
-
-      / aba pdf
-      =render 'clientes/partials/pdf_upload', { f: f }
+      -if !current_usuario.admin?
+        -if @cliente_permissao.historico?
+          =render 'clientes/partials/historico', { f: f }
+        -if @cliente_permissao.texto_livre?
+          =render 'clientes/partials/texto_livre', { f: f }
+        -if @cliente_permissao.pdf_upload?
+          =render 'clientes/partials/pdf_upload', { f: f }
+      -else
+        / aba historico
+        =render 'clientes/partials/historico', { f: f }
+        / aba texto-livre
+        =render 'clientes/partials/texto_livre', { f: f }
+        / aba pdf
+        =render 'clientes/partials/pdf_upload', { f: f }
