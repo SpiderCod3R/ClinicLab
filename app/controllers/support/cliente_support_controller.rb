@@ -2,6 +2,7 @@ class Support::ClienteSupportController < ApplicationController
   before_action :authenticate_usuario!
   before_action :set_cliente, only: [:show, :edit, :update, :destroy, :destroy_pdf]
   before_action :set_estados, only: [:new, :edit, :create, :update, :ficha, :clinic_sheet]
+  before_action :set_access, only: [:edit, :ficha, :clinic_sheet]
   respond_to :docx
 
   def clinic_sheet
@@ -19,7 +20,7 @@ class Support::ClienteSupportController < ApplicationController
     @agenda = Agenda.find(session[:agenda_id])
     if params[:cliente][:id].present?
       @cliente = Cliente.find(params[:cliente][:id])
-      @cliente.upload_files(params[:cliente][:cliente_pdf_upload]) if !params[:cliente][:cliente_pdf_upload][:pdf].nil?
+      @cliente.upload_files(params[:cliente][:cliente_pdf_upload]) if !params[:cliente][:cliente_pdf_upload].nil?
       if @cliente.update_data(params[:cliente])
         @agenda.agenda_movimentacao.update_attributes(nome_paciente: @cliente.nome, telefone_paciente: @cliente.telefone,
                                                       email_paciente: @cliente.email, convenio_id: @cliente.convenio_id, cliente_id: @cliente.id)
@@ -166,29 +167,24 @@ class Support::ClienteSupportController < ApplicationController
   end
 
   private
-    def load_tabs
+    def set_access
       if !current_usuario.admin?
         @permissao = Painel::Permissao.find_by(model_class: "Cliente")
         @usuario_permissao = current_usuario.usuario_permissoes.find_by(permissao_id: @permissao.id)
         @cliente_permissao = ClientePermissao.find_by usuario_permissoes_id: @usuario_permissao.id
       end
+    end
 
-      if @cliente_permissao.historico?
-        get_historicos
-      end
+    def load_tabs
+      @cliente_texto_livre = @cliente.cliente_texto_livres.first
+      @cliente_collection_pdfs  = @cliente.cliente_pdf_uploads.ultima_data.page params[:page]
 
-      if @cliente_permissao.texto_livre?
-        @cliente_texto_livre = @cliente.cliente_texto_livres.first
+      if !@cliente.cliente_pdf_uploads.empty?
+        @cliente_pdf_uploads = @cliente.cliente_pdf_uploads.build
+      else
+        @cliente_pdf_uploads = @cliente.cliente_pdf_uploads.build
       end
-
-      if @cliente_permissao.pdf_upload?
-        @cliente_collection_pdfs  = @cliente.cliente_pdf_uploads.ultima_data.page params[:page]
-        if !@cliente.cliente_pdf_uploads.empty?
-          @cliente_pdf_uploads = @cliente.cliente_pdf_uploads.build
-        else
-          @cliente_pdf_uploads = @cliente.cliente_pdf_uploads.build
-        end
-      end
+      get_historicos
     end
 
     def set_estados
