@@ -52,3 +52,5 @@
                     %td=f.check_box :pdf_upload, checked: false
             .pull-right
               =f.submit "Salvar", class: "btn btn-success", id: "btnFormPermissoesAgenda"
+            .pull-left
+              =link_to "Contas", painel_empresa_contas_path(current_usuario.empresa), class: "btn btn-default"
