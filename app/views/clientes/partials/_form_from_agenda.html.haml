@@ -6,13 +6,21 @@
   %li
     %a{'data-toggle':"tab", href:"#contato", id: "aba_contato"} Contato
   -if @cliente.id?
-    -if @cliente_permissao.historico?
+    -unless current_usuario.admin?
+      -if @cliente_permissao.historico?
+        %li
+          %a{'data-toggle':"tab", href:"#historico", id: "aba_historico"} Histórico
+      -if @cliente_permissao.texto_livre?
+        %li
+          %a{'data-toggle':"tab", href:"#texto_livre", id: "aba_texto_livre"} Texto-Livre
+      -if @cliente_permissao.pdf_upload?
+        %li
+          %a{'data-toggle':"tab", href:"#pdf", id: "aba_texto_livre"} PDF
+    -else
       %li
         %a{'data-toggle':"tab", href:"#historico", id: "aba_historico"} Histórico
-    -if @cliente_permissao.texto_livre?
       %li
         %a{'data-toggle':"tab", href:"#texto_livre", id: "aba_texto_livre"} Texto-Livre
-    -if @cliente_permissao.pdf_upload?
       %li
         %a{'data-toggle':"tab", href:"#pdf", id: "aba_texto_livre"} PDF
 -if @cliente.id?
