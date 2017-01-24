@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170117121616) do
+ActiveRecord::Schema.define(version: 20170124155609) do
 
   create_table "agenda_movimentacoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "agenda_id"
@@ -210,11 +210,18 @@ ActiveRecord::Schema.define(version: 20170117121616) do
     t.integer  "cidade_id"
     t.integer  "cargo_id"
     t.integer  "convenio_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.string   "nacionalidade"
     t.string   "naturalidade"
     t.integer  "empresa_id"
+    t.string   "mes"
+    t.string   "tipo_sanguineo"
+    t.date     "data_da_ultima_consulta"
+    t.date     "data_obito"
+    t.float    "peso",                    limit: 24
+    t.text     "como_soube",              limit: 65535
+    t.float    "altura",                  limit: 24
     t.index ["cargo_id"], name: "index_clientes_on_cargo_id", using: :btree
     t.index ["cidade_id"], name: "index_clientes_on_cidade_id", using: :btree
     t.index ["convenio_id"], name: "index_clientes_on_convenio_id", using: :btree
