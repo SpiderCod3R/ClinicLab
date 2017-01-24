@@ -51,6 +51,7 @@ class Painel::EmpresasController < ApplicationController
 
   def destroy
     @empresa.destroy
+    flash[:notice] = "Empresa excluida com sucesso"
     redirect_back(fallback_location: :index)
   end
 
