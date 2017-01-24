@@ -1,6 +1,8 @@
 class Convenio < ApplicationRecord
   include MetodosUteis
   belongs_to :empresa
+  belongs_to :estado
+  belongs_to :cidade
   has_many   :pacientes, dependent: :destroy
 
   validates :nome, :valor, presence: true
