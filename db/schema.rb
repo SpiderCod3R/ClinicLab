@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170124173834) do
+ActiveRecord::Schema.define(version: 20170124183559) do
 
   create_table "agenda_movimentacoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "agenda_id"
@@ -275,6 +275,7 @@ ActiveRecord::Schema.define(version: 20170124173834) do
     t.string   "registroons"
     t.string   "nundiasvalsenha"
     t.string   "sigla"
+    t.integer  "codigo"
     t.index ["empresa_id"], name: "index_convenios_on_empresa_id", using: :btree
   end
 
