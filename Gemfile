@@ -12,15 +12,18 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
 gem 'therubyracer', platforms: :ruby
 
+gem "sprockets", '3.6.3'
+
+gem 'jquery-rails', '~> 4.2', '>= 4.2.2'
+gem 'jquery-ui-rails', '~> 6.0', '>= 6.0.1'
+gem 'rails-jquery-autocomplete', '~> 1.0', '>= 1.0.3'
+
 source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap'
   gem 'rails-assets-angular'
   gem 'rails-assets-leaflet'
 end
 
-gem 'jquery-rails'
-gem 'jquery-ui-rails'
-gem 'rails-jquery-autocomplete'
 gem 'redis', '~> 3.0'
 gem 'jbuilder', '~> 2.5'
 
@@ -96,3 +99,4 @@ group :development do
 end
 
 gem 'dotenv-rails'
+gem "magic_multi_connections", "~> 1.2.1"
