@@ -1,6 +1,6 @@
-class DeviseCreatePainelUsuarios < ActiveRecord::Migration[5.0]
+class DeviseCreateGclinicAdmins < ActiveRecord::Migration[5.0]
   def change
-    create_table :painel_usuarios do |t|
+    create_table :gclinic_admins do |t|
       ## Database authenticatable
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
@@ -31,12 +31,13 @@ class DeviseCreatePainelUsuarios < ActiveRecord::Migration[5.0]
       # t.datetime :locked_at
 
 
-      t.timestamps null: false
+      # Uncomment below if timestamps were not included in your original model.
+      # t.timestamps null: false
     end
 
-    add_index :painel_usuarios, :email,                unique: true
-    add_index :painel_usuarios, :reset_password_token, unique: true
-    # add_index :painel_usuarios, :confirmation_token,   unique: true
-    # add_index :painel_usuarios, :unlock_token,         unique: true
+    add_index :gclinic_admins, :email,                unique: true
+    add_index :gclinic_admins, :reset_password_token, unique: true
+    # add_index :gclinic_admins, :confirmation_token,   unique: true
+    # add_index :gclinic_admins, :unlock_token,         unique: true
   end
 end

@@ -1,6 +1,6 @@
-class DeviseCreatePainelMasters < ActiveRecord::Migration[5.0]
+class DeviseCreateGclinicUsuarios < ActiveRecord::Migration[5.0]
   def change
-    create_table :painel_masters do |t|
+    create_table :gclinic_usuarios do |t|
       ## Database authenticatable
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
@@ -34,9 +34,9 @@ class DeviseCreatePainelMasters < ActiveRecord::Migration[5.0]
       t.timestamps null: false
     end
 
-    add_index :painel_masters, :email,                unique: true
-    add_index :painel_masters, :reset_password_token, unique: true
-    # add_index :painel_masters, :confirmation_token,   unique: true
-    # add_index :painel_masters, :unlock_token,         unique: true
+    add_index :gclinic_usuarios, :email,                unique: true
+    add_index :gclinic_usuarios, :reset_password_token, unique: true
+    # add_index :gclinic_usuarios, :confirmation_token,   unique: true
+    # add_index :gclinic_usuarios, :unlock_token,         unique: true
   end
 end
