@@ -29,6 +29,7 @@ class Painel::EmpresasController < ApplicationController
 
   def create
     @empresa = Painel::Empresa.new(empresa_params)
+    
     if @empresa.save
       redirect_to painel_empresa_path(@empresa)
       flash[:success] = "A empresa foi criada com sucesso."
