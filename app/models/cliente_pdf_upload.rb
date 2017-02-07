@@ -1,4 +1,6 @@
-class ClientePdfUpload < ApplicationRecord
+class ClientePdfUpload < Connection::Factory
+  include ActiveMethods
+
   belongs_to :cliente
 
   has_attached_file :pdf, styles: { thumbnail: "60x60#" }

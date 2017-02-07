@@ -1,5 +1,7 @@
 #-*- coding:utf-8 -*-
-class TextoLivre < ApplicationRecord
+class TextoLivre < Connection::Factory
+  include ActiveMethods
+
   belongs_to :empresa, class_name: "Painel::Empresa", foreign_key: "empresa_id"
   belongs_to :servico
   has_many :cliente_texto_livres

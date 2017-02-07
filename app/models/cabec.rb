@@ -1,4 +1,6 @@
-class Cabec < ApplicationRecord
+class Cabec < Connection::Factory
+  include ActiveMethods
+
   validates :nome, :texto, presence: true
 
   RANSACKABLE_ATTRIBUTES = ["texto", "nome"]

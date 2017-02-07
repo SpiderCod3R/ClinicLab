@@ -1,4 +1,6 @@
-class Fornecedor < ApplicationRecord
+class Fornecedor < Connection::Factory
+  include ActiveMethods
+
   validates :status, :nome, :telefone, :celular,  presence: true
   validates :endereco, :bairro, :estado_id, :cidade_id,  presence: true
 

@@ -2,7 +2,8 @@ require 'time'
 require 'date'
 require 'converters/date_converter'
 require 'converters/time_converter'
-class Cliente < ApplicationRecord
+class Cliente < Connection::Factory
+  include ActiveMethods
   include AtivandoStatus
 
   scope :pelo_nome, -> { order("nome ASC") }

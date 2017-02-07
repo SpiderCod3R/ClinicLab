@@ -1,6 +1,6 @@
-class Profissional < ApplicationRecord
+class Profissional < Connection::Factory
   include AtivandoStatus
-  include MetodosUteis
+  include ActiveMethods
 
   validates :nome, :cargo_id, :data_nascimento,
             :cpf, :rg, :telefone, :celular,

@@ -1,5 +1,6 @@
-class Funcao < ApplicationRecord
-  include MetodosUteis
+class Funcao < Connection::Factory
+  include ActiveMethods
+
   after_create :upcased_attributes
   validates :nome, :descricao, presence: true
   validates_uniqueness_of :nome

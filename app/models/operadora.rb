@@ -1,4 +1,6 @@
-class Operadora < ApplicationRecord
+class Operadora < Connection::Factory
+  include ActiveMethods
+
   belongs_to :empresa
   has_many :profissionais, dependent: :destroy
   paginates_per 10

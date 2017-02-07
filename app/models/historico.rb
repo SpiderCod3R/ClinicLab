@@ -1,4 +1,6 @@
-class Historico < ApplicationRecord
+class Historico < Connection::Factory
+  include ActiveMethods
+
   belongs_to :usuario, class_name: "Painel::Usuario", foreign_key: "usuario_id"
   belongs_to :cliente
 

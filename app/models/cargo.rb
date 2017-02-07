@@ -1,6 +1,7 @@
-class Cargo < ApplicationRecord
-  include MetodosUteis
+class Cargo < Connection::Factory
+  include ActiveMethods
   include AtivandoStatus
+
   validates :nome, presence: true, uniqueness: true
   validates :nome, presence: true
   has_many :profissionais

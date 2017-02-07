@@ -1,5 +1,6 @@
-class Convenio < ApplicationRecord
-  include MetodosUteis
+class Convenio < Connection::Factory
+  include ActiveMethods
+
   belongs_to :empresa
   belongs_to :estado
   belongs_to :cidade

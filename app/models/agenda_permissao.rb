@@ -1,4 +1,6 @@
-class AgendaPermissao < ApplicationRecord
+class AgendaPermissao < Connection::Factory
+  include ActiveMethods
+
   belongs_to :agenda
   belongs_to :usuario_permissao, class_name: 'Painel::UsuarioPermissao', foreign_key:  "usuario_permissoes_id"
   belongs_to :empresa

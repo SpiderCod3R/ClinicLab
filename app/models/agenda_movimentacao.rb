@@ -1,4 +1,6 @@
-class AgendaMovimentacao < ApplicationRecord
+class AgendaMovimentacao < Connection::Factory
+  include ActiveMethods
+
   belongs_to :agenda
   belongs_to :convenio
   belongs_to :cliente
