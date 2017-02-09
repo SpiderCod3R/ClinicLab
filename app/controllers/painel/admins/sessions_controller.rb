@@ -1,4 +1,4 @@
-class Painel::Masters::SessionsController < Devise::SessionsController
+class Painel::Admins::SessionsController < Devise::SessionsController
   before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in

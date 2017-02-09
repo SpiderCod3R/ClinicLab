@@ -1,6 +1,6 @@
 class Painel::DashboardsController < ApplicationController
   layout 'admin'
-  before_action :authenticate_master!
+  before_action :authenticate_admin!
 
   def index
   end

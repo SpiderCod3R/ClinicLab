@@ -1,5 +1,5 @@
-module Painel
+module Gclinic
   def self.table_name_prefix
-    'painel_'
+    'gclinic_'
   end
 end

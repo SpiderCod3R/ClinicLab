@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Ambientes Criados</h1>
+<%= link_to 'Novo Ambiente', new_painel_environment_path, class: "btn btn-default btn-sm" %>
+<hr>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th colspan="5">Name</th>
+      <th colspan="5">Database name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @environments.each do |environment| %>
+      <tr>
+        <td colspan="5"><%= environment.name %></td>
+        <td colspan="5"><%= environment.database_name %></td>
+        <td colspan="5"><%= link_to 'Show', painel_environment_path(environment) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+

@@ -1,5 +1,30 @@
 #-*-coding:utf-8-*-
 Rails.application.routes.draw do
+  namespace :painel do
+    resources :environments
+    resources :models, except: [:show, :new]
+  end
+
+  devise_for :admins, class_name: "Gclinic::Admin",
+                      patch: "gclinic/admins",
+                      controllers: { sessions: 'painel/admins/sessions' }
+
+  devise_for :users, class_name: "Gclinic::User",
+                     patch: "painel/usuarios",
+                     controllers: { sessions: 'painel/usuarios/sessions' }
+
+  devise_scope :user do
+    unauthenticated do
+      root "painel/usuarios/sessions#new", to: "painel/usuarios/sessions#new", as: :main, path: 'painel/usuarios'
+    end
+  end
+
+  authenticated :admin do
+    root 'painel/dashboards#index', as: "authenticated_admin_root"
+  end
+
+
+
   mount Ckeditor::Engine => '/ckeditor'
 
   resources :empresas do
@@ -86,9 +111,9 @@ Rails.application.routes.draw do
   end
   namespace :painel do
     resources :dashboards
-    resources :permissoes, except: [:show, :new] do
-      get 'excluir'
-    end
+    # resources :permissoes, except: [:show, :new] do
+    #   get 'excluir'
+    # end
 
     resources :empresas do
       put 'change_name'
@@ -138,26 +163,10 @@ Rails.application.routes.draw do
     put '/usuarios/:id/update_password', to: "usuarios/manager#update_password", as: :usuario_update_password
   end
 
-  devise_for :usuarios,
-              patch: "painel/usuarios",
-              class_name: "Painel::Usuario",
-              controllers: { sessions: 'painel/usuarios/sessions' }
-
-  devise_for :masters, 
-             path: 'painel/masters',
-             class_name: "Painel::Master",
-             controllers: { sessions: 'painel/masters/sessions' },
-             skip: [:registrations]
-
-  authenticated :master do
-    root 'painel/dashboards#index', as: "authenticated_master_root"
-  end
-
-  devise_scope :usuario do
-    unauthenticated do
-      root "painel/usuarios/sessions#new", to: "painel/usuarios/sessions#new", as: :main, path: 'painel/usuarios'
-    end
-  end
+  # devise_for :usuarios,
+  #             patch: "painel/usuarios",
+  #             class_name: "Painel::Usuario",
+  #             controllers: { sessions: 'painel/usuarios/sessions' }
 
   get 'pages/help'
   get 'pages/contact_us'

@@ -45,7 +45,7 @@
       %ul.dropdown-menu.dropdown-user
         %li.divider
         %li
-          = link_to destroy_master_session_path, method: 'delete', title: "SAIR" do
+          = link_to destroy_admin_session_path, method: 'delete', title: "SAIR" do
             %i.fa.fa-sign-out.fa-fw
             Logout
       / /.dropdown-user
@@ -68,15 +68,12 @@
         %li
           %a{:href => "#"}
             %i.fa.fa-bar-chart-o.fa-fw
-            Empresas
+            Ambientes
             %span.fa.arrow
           %ul.nav.nav-second-level
             %li
-              =link_to "Clinicas", painel_empresas_path
-            %li
-              %a{:href => "morris.html"} Usuários
-          / /.nav-second-level
+              =link_to "Criados", painel_environments_path
         %li
-          =link_to painel_permissoes_path do
+          =link_to painel_models_path do
             %i.fa.fa-table.fa-fw
             Permissões

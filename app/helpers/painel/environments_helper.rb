@@ -1,0 +1,2 @@
+module Painel::EnvironmentsHelper
+end

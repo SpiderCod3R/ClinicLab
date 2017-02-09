@@ -37,7 +37,7 @@
             =simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'form-horizontal' }) do |f|
               %fieldset
                 .form-group{style: "margin-right: 0 !important; margin-left: 0 !important"}
-                  = f.input :login, required: false, autofocus: true
+                  = f.input :name, required: false, autofocus: true
                 .form-group{style: "margin-right: 0 !important; margin-left: 0 !important"}
                   = f.input :password, required: false
               %input.btn.btn-lg.btn-success.btn-block{:type => "submit", :value => "Login"}/

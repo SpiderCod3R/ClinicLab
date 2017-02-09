@@ -1,21 +1,21 @@
 %nav.navbar.navbar-full.navbar-light.navbar-inverse.navbar-fixed-top.navbar-custom
   .navbar-header.fixed-brand
-    -if usuario_signed_in?
+    -if user_signed_in?
       =link_to root_path, class: "navbar-brand brand-logo" do
         =current_usuario.empresa_nome
       #menu-toggle.navbar-toggle.collapsed{"data-toggle" => "collapse"}
         %i.fa.fa-bars.fa-2x{"aria-hidden" => "true"}
     -else
       .col-xs-12.col-md-12.link_to_admin-panel.center
-        =link_to new_master_session_path, class: "navbar-brand brand-logo center" do
+        =link_to new_admin_session_path, class: "navbar-brand brand-logo center" do
           GClinicWeb
   %ul.nav.navbar-nav
-    -if usuario_signed_in?
+    -if user_signed_in?
       %li.nav-item.active
         =link_to root_path, class: "nav-link" do
           Home
           %span.sr-only (current)
-      -if usuario_signed_in?
+      -if user_signed_in?
         -if current_usuario.empresa.empresa_permissoes.any? || current_usuario.usuario_permissoes.any?
           %li.dropdown
             %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
@@ -23,7 +23,7 @@
               %span.caret
             %ul.dropdown-menu
               =render 'application/menus/cadastros'
-  -if usuario_signed_in?
+  -if user_signed_in?
     %ul.nav.navbar-nav.navbar-right
       %li.nav-item
         =link_to "Seja bem vindo - #{current_usuario.nome}", "#"
