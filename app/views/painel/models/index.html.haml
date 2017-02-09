@@ -1,8 +1,8 @@
 %main
   .container-fluid
     .row
-      %h1 Permissões
-      =link_to "Nova Permissão", "", :"data-toggle"=> "modal", :"data-target"=>"#new_permissao_modal_form"
+      %h1 Módulos
+      =link_to "Novo módulo", "", :"data-toggle"=> "modal", :"data-target"=>"#new_model_modal_form"
     .row
       %asside
         %table.table.table-striped
@@ -14,12 +14,13 @@
             %th 
               %h5 Nome do Modelo (CLASSE)
           %tbody#permissao_content
-            =render @permissoes
-        #paginator=paginate @permissoes
+            - @models.each do |model|
+              =render 'painel/models/model', {model: model}
+        #paginator=paginate @models
 
 / Modal  create action
-= simple_form_for @permissao, method: "POST", remote: true do |f|
-  #new_permissao_modal_form.modal.fade{ :"aria-hidden"=> "true", :"aria-labelledby"=> "myModalLabel", role: "dialog", tabindex: "-1"}
+= simple_form_for @model, url: painel_models_path, method: "POST", remote: true do |f|
+  #new_model_modal_form.modal.fade{ :"aria-hidden"=> "true", :"aria-labelledby"=> "myModalLabel", role: "dialog", tabindex: "-1"}
     .modal-dialog
       .modal-content
         .modal-header
@@ -29,7 +30,7 @@
           #permissao_error_messages
         .modal-body
           .field
-            = f.input :nome, required: true
+            = f.input :name, required: true
           .field
             = f.input :model_class, required: true, label: "Classe"
         .modal-footer

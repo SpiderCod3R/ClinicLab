@@ -1,0 +1,12 @@
+%tr{ id: "model_#{model.id}"}
+  %td
+    %strong=model.id
+  %td=model.name
+  %td=model.model_class
+  %td
+    =link_to edit_painel_model_path(model), remote: true do
+      %i.fa.fa-2x.fa-pencil-square-o{ style: "color: #2D2D2D" }
+  %td
+    =link_to painel_model_path(model), method: :delete, data: { confirm: "Tem certeza?" } do
+      %i.fa.fa-2x.fa-trash{ style: "color: #BC0000" }
+#update_form

@@ -15,9 +15,9 @@ toastr.options = {
   "hideMethod": "fadeOut"
 }
 
-<%- unless @permissao.valid? -%>
-  <%- unless @permissao.errors.nil? -%>
-    <%- @permissao_error_messages = @permissao.errors.messages -%>
+<%- unless @model.valid? -%>
+  <%- unless @model.errors.nil? -%>
+    <%- @model_error_messages = @model.errors.messages -%>
     <%- @permissao_error_messages.each do |_key, value| %>
       <%- @permissao_error_messages[_key].each do |v| %>
         toastr.error('<%= "#{v}" %>', '<%= "#{_key}" %>');
@@ -25,11 +25,11 @@ toastr.options = {
     <%- end -%>
   <%- end -%>
 <%- else -%>
-  $("#new_permissao_modal_form").modal('hide');
-  $("#painel_permissao_nome").val('');
-  $("#painel_permissao_model_class").val('');
+  $("#new_model_modal_form").modal('hide');
+  $("#painel_model_name").val('');
+  $("#painel_model_model_class").val('');
   $("#permissao_error_messages").empty();
-  $("#permissao_content").prepend('<%= j render @permissao %>');
-  $('#permissao_<%= @permissao.id %>').css({'background-color':'#9FFC73'}).animate({'background-color':'#FFFFFF'}, 1000);
+  $("#permissao_content").prepend('<%=j render "painel/models/model", {model: @model} %>');
+  $('#model_<%= @model.id %>').css({'background-color':'#9FFC73'}).animate({'background-color':'#FFFFFF'}, 1000);
   toastr.success('Módulo criado com sucesso!')
 <%end%>

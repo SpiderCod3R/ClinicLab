@@ -1,0 +1,20 @@
+/ Modal  update action only if master user
+%div{ id: "edit_model_#{model.id}", class: "modal fade", :"aria-hidden"=>"true", :"aria-labelledby"=> "myModalLabel", role: "dialog", tabindex: "-1"}
+  = simple_form_for(model, url: painel_models_path, method: "PUT", remote: true) do |f|
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button.close{:"aria-label"=>"Close", :"data-dismiss"=>"modal", type: "button"}
+            %span{:"aria-hidden"=>"true"} ×
+          %h4#myModalLabel.modal-title Modelo
+        .container
+          .row
+            #edit_permissao_error_messages
+        .modal-body
+          .field
+            = f.input :name, required: true
+          .field
+            = f.input :model_class, required: true
+        .modal-footer
+          =f.button :submit, "Editar", class: 'btn btn-success'
+          %button#permissao_formclose.btn.btn-default{ :"data-dismiss"=>"modal", type: "button" } Fechar
