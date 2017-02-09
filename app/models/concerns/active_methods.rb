@@ -11,6 +11,11 @@ module ActiveMethods
       super(id)
     end
 
+    def self.find_by(params={})
+      self.set_connection
+      super(params)
+    end
+
     def self.new(params={})
       self.set_connection
       super(params)

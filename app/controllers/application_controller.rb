@@ -21,9 +21,9 @@ class ApplicationController < ActionController::Base
 
   protected
     def configure_permitted_parameters
-      devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :nome])
-      devise_parameter_sanitizer.permit(:sign_in, keys: [:username, :password])
-      devise_parameter_sanitizer.permit(:account_update, keys: [:username, :nome])
+      devise_parameter_sanitizer.permit(:sign_in, keys: [:name, :password])
+      devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:empresa_id, :admin, :environment_id, :email, :password) }
+      devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:empresa_id, :admin, :environment_id, :email, :password, :current_password) }
     end
 
     def empresa_atual
