@@ -71,11 +71,11 @@ class ProfissionaisController < ApplicationController
     end
 
     def set_operadoras
-      @operadoras = Operadora.pelo_nome
+      @operadoras = Operadora.where(empresa_id: current_usuario.empresa.id).pelo_nome
     end
 
     def set_conselhos_regionais
-      @conselhos_regionais = ConselhoRegional.pela_sigla
+      @conselhos_regionais = ConselhoRegional.where(empresa_id: current_usuario.empresa.id).pela_sigla
     end
 
     def resource_params
