@@ -1,4 +1,4 @@
-namespace :second_db do
+namespace :shared do
   desc "Database setup Tasks"
   namespace :setup do
     namespace :db do |ns|
@@ -25,7 +25,7 @@ namespace :second_db do
       end
 
       desc 'Migrate de seed file on db_shards'
-      task :seed do
+      task :send_seed do
         Rake::Task["db:seed"].invoke
       end
 
@@ -52,13 +52,13 @@ namespace :second_db do
       
       # append and prepend proper tasks to all the tasks defined here above
       ns.tasks.each do |task|
-        task.enhance ["second_db:setup:set_second_db_database"] do
-          Rake::Task["second_db:setup:revert_to_original_config"].invoke
+        task.enhance ["shared:setup:set_shared_database"] do
+          Rake::Task["shared:setup:revert_to_original_config"].invoke
         end
       end
     end
     
-    task :set_second_db_database do
+    task :set_shared_database do
       # save current vars
       @original_config = {
         env_schema: ENV['SCHEMA'],
@@ -70,7 +70,7 @@ namespace :second_db do
       Rails.application.config.paths['db'] = ["db_shards"]
       Rails.application.config.paths['db/migrate'] = ["db_shards/migrate"]
       Rails.application.config.paths['db/seeds'] = ["db_shards/seeds.rb"]
-      Rails.application.config.paths['config/database'] = ["config/databases/database_second_db.yml"]
+      Rails.application.config.paths['config/database'] = ["config/databases/database_shared_db.yml"]
     end
 
     task :revert_to_original_config do
