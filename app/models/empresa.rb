@@ -19,12 +19,7 @@ class Empresa < Connection::Factory
     has_many :operadoras
     has_many :profissionais
     has_many :users, class_name: "Gclinic::User"
-    has_many :empresa_permissoes
   end
-
-  has_many :permissoes, through: :empresa_permissoes
-
-  scope :em_ordem_alfabetica, -> { order('nome ASC') }
 
   accepts_nested_attributes_for :users,
                                 reject_if: proc { |attributes| attributes['email'].blank?},
@@ -45,35 +40,11 @@ class Empresa < Connection::Factory
     self.status ? true : false
   end
 
-  def administradores
+  def admins
     users.where(admin: true)
   end
 
-  def funcionarios
+  def employees
     users.where(admin: false)
-  end
-
-  def import_todas_permissoes
-    Painel::Permissao.all.each do |permissao|
-      self.empresa_permissoes.build(permissao_id: permissao.id)
-    end
-    self.save
-  end
-
-  def import_permissoes(resource)
-    resource[:permissao_ids].delete("")
-    resource[:permissao_ids].each do |id|
-      self.empresa_permissoes.build(permissao_id: id)
-    end
-
-    begin
-      self.save
-    rescue ActiveRecord::RecordInvalid
-      Rails.logger.warn { "Encountered a non-fatal RecordNotUnique error for: #{handle}" }
-      retry
-    rescue => e
-      Rails.logger.error { "Encountered an error when trying to find or create Person for: #{handle}, #{e.message} #{e.backtrace.join("\n")}" }
-      nil
-    end
   end
 end

@@ -10,7 +10,8 @@ class Gclinic::Environment < ApplicationRecord
                                 allow_destroy: true
 
   before_create :set_slug
-  has_many :environment_models
+  has_many :environment_models, dependent: :destroy
+  has_many :models, through: :environment_models
 
   accepts_nested_attributes_for :environment_models,
                                 reject_if: proc { |attributes| attributes['model_id'].blank?},
