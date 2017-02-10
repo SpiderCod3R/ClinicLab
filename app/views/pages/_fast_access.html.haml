@@ -37,8 +37,8 @@
               %td
                 %span
                   %i.fa.fa-2x.fa-calendar
-                = link_to "Agenda", painel_empresa_agendas_path(current_usuario.empresa), title: "Acesso Rápido à Agenda"
-  -if usuario_signed_in? && current_usuario.admin?
+                = link_to "Agenda", painel_empresa_agendas_path(current_user.environment), title: "Acesso Rápido à Agenda"
+  -if user_signed_in? && current_user.admin?
     .panel.panel-default
       .panel-heading
         %h4.panel-title
@@ -51,7 +51,7 @@
           %table.table
             %tr
               %td
-                =link_to painel_empresa_contas_path(current_usuario.empresa) do
+                =link_to painel_empresa_contas_path(current_user.environment) do
                   %span
                     %i.fa.fa-2x.fa-users
                   Contas
@@ -74,13 +74,13 @@
           %tr
             %td
               #usuario_password
-              =link_to painel_change_user_password_path(current_usuario), remote: true, title: " Alterar Senha" do
+              =link_to painel_change_user_password_path(current_user), remote: true, title: " Alterar Senha" do
                 %span.text-info
                   %i.fa.fa-2x.fa-key
                   Alterar Senha
           %tr
             %td
-              = link_to destroy_usuario_session_path, method: 'delete', title: "SAIR" do
+              = link_to destroy_user_session_path, method: 'delete', title: "SAIR" do
                 %span.text-danger
                   %i.fa.fa-2x.fa-sign-out
                   Sair/Deslogar
@@ -92,16 +92,16 @@
         %button.close{ :"aria-label" =>"Close", :"data-dismiss"=>"modal", type: "button"}
           %span{:"aria-hidden"=>"true"} ×
         %h4#myModalLabel.modal-title
-          %center="Permissoes da Empresa #{current_usuario.empresa.nome}"
+          %center="Permissoes da Empresa #{current_user.environment.name}"
       .modal-body
         %fieldset{style: "border: #BBC0C3 1px solid;"}
           %br/
           %ol
             .container-fluid
               .col-md-12
-                -current_usuario.empresa.empresa_permissoes.select(:permissao_id).each do |f|
+                -current_user.environment.environment_models.select(:model_id).each do |f|
                   .col-md-4
-                    %li{style: "color: #524EFF;"}=f.permissao.nome
+                    %li{style: "color: #524EFF;"}=f.model.name
                     %hr{style: "border: #C7C4FF 0.5px dashed; margin-top: -2px"}
       .modal-footer
         %button#permissao_formclose.btn.btn-default{:"data-dismiss"=> "modal", type: "button"} Fechar

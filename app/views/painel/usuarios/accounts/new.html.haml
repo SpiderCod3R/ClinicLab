@@ -13,13 +13,13 @@
       %h1{style: "color: #636363; font-weight: bold"} Novo Usuário
       %br/
       %main
-        = form_for([@empresa, @usuario], controller: "painel/usuarios/manager", action: "create", method: "POST", ) do |z|
+        = form_for([@empresa, @usuario], url: painel_empresa_usuarios_path, controller: "painel/usuarios/manager", action: "create", method: "POST") do |z|
           %fieldset
             %legend
               %em Dados do Usuário
             .container-fluid
               .row
-                =z.hidden_field :empresa_id, value: current_usuario.empresa_id
+                =z.hidden_field :empresa_id, value: current_user.empresa_id
               .row
                 .col-md-6
                   = z.label "Administrador", for: "painel_usuario_admin_"
@@ -27,18 +27,8 @@
               %br/
               .row
                 .col-md-6
-                  = z.label :nome, required: true
-                  = z.text_field :nome, required: true, class: "form-control"
-                .col-md-6
-                  = z.label :login, required: true
-                  = z.text_field :login, required: true, class: "form-control"
-              .row
-                .col-md-2
-                  = z.label "Código"
-                  = z.text_field :codigo_pais, class: "form-control", value: "55"
-                .col-md-4
-                  = z.label :telefone
-                  = z.text_field :telefone, class: "form-control"
+                  = z.label :name, required: true
+                  = z.text_field :name, required: true, class: "form-control"
                 .col-md-6
                   =z.label :email, required: true
                   =z.email_field :email, placeholder: "example@email.com", class: "form-control", required: true
@@ -50,9 +40,10 @@
                   =z.label :password_confirmation
                   =z.password_field :password_confirmation, required: true, class: "form-control"
           %br/
+
           #permissoes_empresa
             .panel.panel.default
-              =content_tag(:div, @empresa.empresa_permissoes.count, id: "empresa_permissoes_count", style: "display: none")
+              =content_tag(:div, @environment.environment_models.count, id: "empresa_permissoes_count", style: "display: none")
               .panel-heading
                 %h3
                   %em=t('painel.helpers.models.permissoes')
@@ -65,39 +56,27 @@
                     %th Atualizar
                     %th Vizualizar
                   %tbody
-                    / -@empresa.empresa_permissoes.includes("permissao").order("painel_permissoes.nome ASC").select(:permissao_id).each do |f|
-                    /   %tr{id: "usuario_permissao_id_#{f.permissao.id}", style: "border: #C7C4FF 2px dashed;"}
-                    /     %td{style: "color: #524EFF; font-weight: bold"}
-                    /       %em=f.permissao.nome
-                    /       =z.hidden_field :permissao_id, value: "#{f.permissao.id}"
-                    /     %td
-                    /       =z.check_box :cadastrar
-                    /     %td
-                    /       =z.check_box :atualizar
-                    /     %td
-                    /       =z.check_box :exibir
-                    /     %td
-                    /       =z.check_box :deletar
-                    -@empresa.empresa_permissoes.includes("permissao").order("painel_permissoes.nome ASC").select(:permissao_id).each do |f|
-                      %tr{id: "indice_externo_#{f.permissao.id}", style: "border: #C7C4FF 2px dashed;"}
+                    -@environment.environment_models.includes("model").order("gclinic_models.name ASC").select(:model_id).each do |f|
+                      %tr{id: "indice_externo_#{f.model.id}", style: "border: #C7C4FF 2px dashed;"}
                         %td{style: "color: #524EFF; font-weight: bold"}
-                          %em=f.permissao.nome
-                          =z.hidden_field :permissao_id, value: "#{f.permissao.id}"
+                          %em=f.model.name
+                          =z.hidden_field :model_id, value: "#{f.model.id}"
                         %td
-                          -if @usuario.usuario_permissoes.find_by(permissao_id: f.permissao.id, cadastrar: true)
-                            =z.check_box :cadastrar, checked: true, data: { permissao_id: f.permissao.id }
+                          -if @usuario.user_models.find_by(model_id: f.model.id, cadastrar: true)
+                            =z.check_box :cadastrar, checked: true, data: { model_id: f.model.id }
                           -else
-                            =z.check_box :cadastrar, data: { permissao_id: f.permissao.id }
+                            =z.check_box :cadastrar, data: { model_id: f.model.id }
                         %td
-                          -if @usuario.usuario_permissoes.find_by(permissao_id: f.permissao.id, atualizar: true)
+                          -if @usuario.user_models.find_by(model_id: f.model.id, atualizar: true)
                             =z.check_box :atualizar, checked: true
                           -else
                             =z.check_box :atualizar
                         %td
-                          -if @usuario.usuario_permissoes.find_by(permissao_id: f.permissao.id, exibir: true)
+                          -if @usuario.user_models.find_by(model_id: f.model.id, exibir: true)
                             =z.check_box :exibir, checked: true
                           -else
                             =z.check_box :exibir
+          
           %br
           .form-actions
             %hr{style: "border: #C5B1FF 1px dashed"}

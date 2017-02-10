@@ -14,7 +14,7 @@
         .row
           %h1=t('painel.helpers.models.usuario')
           %br/
-          =link_to t('painel.helpers.actions.new', name: "Usuário"), new_painel_empresa_conta_path(current_usuario.empresa)
+          =link_to t('painel.helpers.actions.new', name: "Usuário"), new_painel_empresa_conta_path(current_user.empresa)
         .row
           .table-responsive
             %table.table.table-striped.table-hover.table-condensed
@@ -23,8 +23,6 @@
                   %h5{style: "font-weight: bold"} ID
                 %th
                   %h5{style: "font-weight: bold"} Nome
-                %th
-                  %h5{style: "font-weight: bold"} login
                 %th 
                   %h5{style: "font-weight: bold"} Data de Criação
                 %th 
