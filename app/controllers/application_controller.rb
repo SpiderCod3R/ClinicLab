@@ -26,17 +26,7 @@ class ApplicationController < ActionController::Base
       devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:empresa_id, :admin, :environment_id, :email, :password, :current_password) }
     end
 
-    def empresa_atual
-      @empresa_atual ||= current_usuario.empresa
-    end
-
     def current_ability
-      @current_ability ||= Ability.new(current_usuario)
-    end
-
-    def session_usuario
-      if session[:usuario_id]
-        @usuario ||= Usuario.retornar_objeto_pelo_id(session[:usuario_id])
-      end
+      @current_ability ||= Ability.new(current_user)
     end
 end
