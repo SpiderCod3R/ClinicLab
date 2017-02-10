@@ -16,10 +16,10 @@
         = f.input :celular, input_html: {class: "celular_maskara" }
       .col-xs-2.col-sm-2.col-md-2.col-lg-2
         =f.label "Operadora"
-        =f.collection_select(:operadora_id, @operadoras, :id, :nome, {include_blank: false}, {:class=>'form-control'})
+        =f.collection_select(:operadora_id, @operadoras, :id, :nome, {prompt: "Selecione"}, {:class=>'form-control'})
       .col-xs-2.col-sm-2.col-md-2.col-lg-2
         =f.label "Conselho regional"
-        =f.collection_select(:conselho_regional_id, @conselhos_regionais, :id, :sigla, {include_blank: false}, {:class=>'form-control'})
+        =f.collection_select(:conselho_regional_id, @conselhos_regionais, :id, :sigla, {prompt: "Selecione"}, {:class=>'form-control'})
       .col-xs-3.col-sm-3.col-md-3.col-lg-3
         = f.label :numero_conselho_regional, "Nº Conselho Regional"
         = f.input :numero_conselho_regional, label: false
