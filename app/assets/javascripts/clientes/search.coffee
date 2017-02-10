@@ -57,6 +57,9 @@ $(document).ready ->
                         "data-paciente-cpf='#{cluster.cpf.numero}'"+
                         "data-paciente-email='#{cluster.email}'"+
                         "data-paciente-matricula='#{cluster.matricula}'"+
+                        "data-paciente-nascimento='#{cluster.nascimento.data}'"+
+                        "data-paciente-validade_carteira='#{cluster.validade_carteira.data}'"+
+                        "data-paciente-sexo='#{cluster.sexo}'"+
                         "data-paciente-produto='#{cluster.produto}'"+
                         "data-paciente-titular='#{cluster.titular}'"+
                         "data-paciente-endereco='#{cluster.endereco}'"+
@@ -86,6 +89,9 @@ $(document).ready ->
     $("#cliente_rg").val(link.data().pacienteRg)
     $("#cliente_matricula").val(link.data().pacienteMatricula)
     $("#cliente_produto").val(link.data().pacienteProduto)
+    $("#cliente_nascimento").val(link.data().pacienteNascimento)
+    $("#cliente_validade_carteira").val(link.data().pacienteNascimento)
+    $("#cliente_sexo").val(link.data().pacientesexo)
     $("#cliente_titular").val(link.data().pacienteTitular)
     $("#cliente_plano").val(link.data().pacientePlano)
     $(".cliente_validade_carteira").val(link.data().pacienteValidade_carteira)

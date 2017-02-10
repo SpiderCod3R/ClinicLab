@@ -1,7 +1,7 @@
 class Operadora < ApplicationRecord
   belongs_to :empresa
   has_many :profissionais, dependent: :destroy
-
+  paginates_per 10
   scope :pelo_nome, -> {order("nome ASC")}
 
   validates :nome, presence: true, uniqueness: {case_sensitive: false}
@@ -9,6 +9,12 @@ class Operadora < ApplicationRecord
 
   def to_s
     "Operadora - #{nome}"
+  end
+
+  RANSACKABLE_ATTRIBUTES = ["nome"]
+
+  def self.ransackable_attributes auth_object = nil
+    (RANSACKABLE_ATTRIBUTES) + _ransackers.keys
   end
 
   private

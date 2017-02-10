@@ -6,8 +6,12 @@ class ProfissionaisController < ApplicationController
   before_action :find_profissional, only: [:show, :edit, :update, :destroy]
 
   def index
-    @profissionais = Profissional.da_empresa_atual(empresa_atual["id"])
-    respond_with(@profissionais)
+    if params[:status] || params[:cargo] || params[:nome]
+      @profissionais = Profissional.where(empresa_id: current_usuario.empresa_id).search(params[:status]['status'], params[:cargo]['id'], params[:nome]).order("created_at DESC").page(params[:page]).per(10)
+    else
+      @profissionais = Profissional.where(empresa_id: current_usuario.empresa_id).order("created_at DESC").page(params[:page]).per(10)
+      respond_with(@profissionais)
+    end
   end
 
   def show
@@ -67,11 +71,11 @@ class ProfissionaisController < ApplicationController
     end
 
     def set_operadoras
-      @operadoras = Operadora.pelo_nome
+      @operadoras = Operadora.where(empresa_id: current_usuario.empresa.id).pelo_nome
     end
 
     def set_conselhos_regionais
-      @conselhos_regionais = ConselhoRegional.pela_sigla
+      @conselhos_regionais = ConselhoRegional.where(empresa_id: current_usuario.empresa.id).pela_sigla
     end
 
     def resource_params

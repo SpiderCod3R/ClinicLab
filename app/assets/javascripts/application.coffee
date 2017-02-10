@@ -33,11 +33,11 @@
 #= require agenda/agenda
 #= require agenda/movimentar_agenda
 #= require atendimentos
-#= require clientes
-#= require cliente_idade
-#= require cliente_nacionalidade
+#= require clientes/estados_cidades
+#= require clientes/cliente_idade
+#= require clientes/cliente_nacionalidade
 #= require clientes/texto_livre
-#= require cliente_historicos
+#= require clientes/cliente_historicos
 #= require clientes/search
 #= require filtros
 #= require fornecedor

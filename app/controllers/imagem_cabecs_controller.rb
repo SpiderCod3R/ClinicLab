@@ -4,8 +4,9 @@ class ImagemCabecsController < ApplicationController
   respond_to :html
 
   def index
-    @imagem_cabecs = ImagemCabec.where(empresa_id: current_usuario.empresa_id)
-    respond_with(@imagem_cabecs)
+    @search = ImagemCabec.where(empresa_id: current_usuario.empresa_id).ransack(params[:q])
+    @imagem_cabecs = @search.result.order("id desc").page(params[:page]).per(10)
+    @search.build_condition if @search.conditions.empty?
   end
 
   def show

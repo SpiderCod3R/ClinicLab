@@ -16,9 +16,7 @@ class Painel::Empresa < ApplicationRecord
     has_many :centro_de_custos
     has_one  :configuracao_relatorio
     has_many :operadoras
-    has_many :pacientes
     has_many :profissionais
-    has_many :pacientes
     has_many :usuarios
     has_many :empresa_permissoes
   end

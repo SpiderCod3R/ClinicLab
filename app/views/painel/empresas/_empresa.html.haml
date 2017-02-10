@@ -18,7 +18,7 @@
     =link_to edit_painel_empresa_path(empresa), remote: true do
       %i.fa.fa-2x.fa-pencil-square-o{ style: "color: #2D2D2D"}
   %td
-    = link_to painel_empresa_path(empresa), method: :delete , remote: true, data: { confirm: "Excluir Empresa '#{empresa.nome}'" } do
+    = link_to painel_empresa_path(empresa), method: :delete, data: { confirm: "Excluir Empresa '#{empresa.nome}'" } do
       %i.fa.fa-2x.fa-trash{ style: "color: #BC0000" }
 
 / Modal  update action

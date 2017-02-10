@@ -3,7 +3,9 @@ class ServicosController < ApplicationController
   before_action :find_empresa
 
   def index
-    @servicos = Servico.where(empresa_id: @empresa.id)
+    @search = Servico.where(empresa_id: current_usuario.empresa_id).ransack(params[:q])
+    @servicos = @search.result.order("id desc").page(params[:page]).per(10)
+    @search.build_condition if @search.conditions.empty?
   end
 
   def show

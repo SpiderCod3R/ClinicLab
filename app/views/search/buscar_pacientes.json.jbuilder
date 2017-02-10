@@ -1,11 +1,15 @@
 json.array!(@pacientes) do |paciente|
   json.extract! paciente, :id,:nome, :rg, :cpf, :telefone, :endereco, :bairro,
                           :complemento, :sexo, :estado_civil, :matricula, :titular,
-                          :plano, :validade_carteira, :email, :produto
+                          :plano, :email, :produto
 
 
   json.set! :nascimento do
     json.data paciente.nascimento.strftime("%d/%m/%Y")
+  end
+
+  json.set! :validade_carteira do
+    json.data paciente.validade_carteira.strftime("%d/%m/%Y")
   end
 
   json.set! :cidade do

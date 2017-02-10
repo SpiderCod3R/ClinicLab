@@ -11,8 +11,6 @@ class Profissional < ApplicationRecord
 
   validates :numero_conselho_regional, length: { maximum: 50 }
 
-  validates_associated :cargo, :estado, :cidade, :operadora
-
   belongs_to :cargo
   belongs_to :estado
   belongs_to :cidade
@@ -34,11 +32,17 @@ class Profissional < ApplicationRecord
          prefix: true,
          allow_nil: true
 
+  paginates_per 10
+
   def titulo
     "#{nome} - #{cargo_nome}"
   end
 
   def titulo_completo
     "#{id} - #{nome} - #{cargo_nome}"
+  end
+
+  def self.search(status, cargo_id, nome) 
+    where("status LIKE ? AND cargo_id LIKE ? AND nome LIKE ?", "%#{status}%", "%#{cargo_id}%", "%#{nome}%")
   end
 end

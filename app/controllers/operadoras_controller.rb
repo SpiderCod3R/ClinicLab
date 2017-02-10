@@ -3,8 +3,9 @@ class OperadorasController < ApplicationController
   before_action :find_operadora, except: [:index, :new, :create]
 
   def index
-    @operadoras = Operadora.where(empresa_id: current_usuario.empresa_id)
-    respond_with(@operadoras)
+    @search = Operadora.where(empresa_id: current_usuario.empresa_id).ransack(params[:q])
+    @operadoras = @search.result.order("id desc").page(params[:page]).per(10)
+    @search.build_condition if @search.conditions.empty?
   end
 
   def show

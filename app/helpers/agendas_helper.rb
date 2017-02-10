@@ -46,7 +46,7 @@ module AgendasHelper
       end
 
       if resource.data != Date.today
-        concat(content_tag(:tr, block.binding, id: I18n.t('agendas.helpers.identity', resource_id: resource.id), class: "danger tr_agenda") do
+        concat(content_tag(:tr, block.binding, id: I18n.t('agendas.helpers.identity', resource_id: resource.id), class: "tr_agenda") do
           yield
         end)
       end

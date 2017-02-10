@@ -3,21 +3,36 @@
   %div{class: "row"}
     %h1 Serviços
     %hr{style: "border: #323232 solid 0.5px;"}
-    %table{class: "table table-striped table-bordered", cellspacing: "0", width: "100%"}
-      %thead
-        %th Código
-        %th Tipo
-        %th Abreviatura
-        %th
-      %tbody#servicos_content
-        - @servicos.each do |servico|
-          %tr{id: "servico_tr_id_#{servico.id}"}
-            %td{width: "8%"}= "##{servico.id}"
-            %td= servico.tipo
-            %td= servico.abreviatura
-            %td
-              .btn-group.pull-right
-                = link_to 'Editar', edit_empresa_servico_path(servico.empresa, servico)
-                = link_to 'Excluir', empresa_servico_path(servico.empresa, servico), :method => :delete, :data => { :confirm => 'Tem Certeza?' }
+    %div{class: "row", style: "margin: 0;"}
+      %div{class: "jumbotron"}
+        %div{class: "row", style: "margin: 0;"}
+          %div{class: "col-md-12 col-sm-12 col-xs-12 col-lg-12"}
+            = search_form_for [@empresa, @search], url: empresa_servicos_path do |f|
+              = f.condition_fields do |c|
+                = render "condition_fields", f: c
+              = link_to_add_fields "Adicionar Condições", f, :condition
+              %div{class: "actions", style: "margin-top: 2%;"}
+                = f.submit "Pesquisar", class: "btn btn-primary"
+                = link_to "Recarregar", empresa_servicos_path, class: "btn btn-default"
+    %div{class: "row", style: "margin: 0;"}
+      %table{class: "table table-striped table-bordered", cellspacing: "0", width: "100%"}
+        %thead
+          %th Código
+          %th Tipo
+          %th Abreviatura
+          %th
+        %tbody#servicos_content
+          - @servicos.each do |servico|
+            %tr{id: "servico_tr_id_#{servico.id}"}
+              %td{width: "8%"}= "##{servico.id}"
+              %td= servico.tipo
+              %td= servico.abreviatura
+              %td
+                .btn-group.pull-right
+                  = link_to 'Editar', edit_empresa_servico_path(servico.empresa, servico)
+                  = link_to 'Excluir', empresa_servico_path(servico.empresa, servico), :method => :delete, :data => { :confirm => 'Tem Certeza?' }
+    %div{class: "row", style: "margin: 0;"}
+      %div{class: "pull-right"}
+        =paginate @servicos
   %div{class: "row"}
     %hr{style: "border: #323232 solid 0.5px;"}
