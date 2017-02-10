@@ -5,7 +5,7 @@ class ClientePdfUpload < ApplicationRecord
 
   validates_attachment :pdf,
                         content_type: { content_type: "application/pdf" },
-                        size: { in: 0..5.megabytes },
+                        size: { in: 0..10.megabytes },
                         file_name: { matches: [/pdf\z/] }
 
   validates :anotacoes, presence: { message: "Informe algo sobre este PDF" }, if: :file_is_present?
