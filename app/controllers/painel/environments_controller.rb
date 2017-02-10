@@ -28,9 +28,13 @@ class Painel::EnvironmentsController < ApplicationController
   def create
     @environment = Gclinic::Environment.new(environment_params)
     Thread.current[:environment_type]= @environment.database_name
-    @empresa = Empresa.new(nome: @environment.name, environment_name: @environment.database_name, slug: @environment.database_name)
     if @environment.save
+      @empresa = Empresa.new(nome: @environment.name, environment_name: @environment.database_name, slug: @environment.database_name)
       @empresa.save
+      @admin = @environment.users.first
+      @admin.empresa= @empresa
+      @admin.admin= true
+      @admin.save
       redirect_to painel_environment_path(@environment), notice: 'Environment was successfully created.'
     else
       render :new
