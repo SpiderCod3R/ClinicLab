@@ -11,21 +11,21 @@ class Painel::DashboardsController < ApplicationController
   à uma empresa.
 =end
   def import_permissoes_to_company
-    @empresa = Painel::Empresa.find(params[:painel_empresa_permissao][:empresa_id])
+    @environment = Gclinic::Environment.find(params[:gclinic_environment][:environment_id])
     if params[:check_all]
-      if @empresa.import_todas_permissoes
+      if @environment.import_all_models
         flash[:info] = "Todas Permissoes vinculadas com sucesso."
       else
-        flash[:warning]    = "As Permissões já existem e não podem ser adicionadas novamente!"
+        flash[:warning] = "As Permissões já existem e não podem ser adicionadas novamente!"
       end
-    elsif params[:painel_empresa_permissao]
-      if @empresa.import_permissoes(params[:painel_empresa_permissao])
+    elsif params[:gclinic_environment]
+      if @environment.import_models(params[:gclinic_environment])
         flash[:success] = "Permissões vinculadas com sucesso."
       else
-        flash[:warning]    = "Não foi possivel adicionar a permissão. Talvez ela já exista!"
+        flash[:warning] = "Não foi possivel adicionar a permissão. Talvez ela já exista!"
       end
     end
-    redirect_back(fallback_location: @empresa)
+    redirect_back(fallback_location: @environment)
   end
 
 =begin

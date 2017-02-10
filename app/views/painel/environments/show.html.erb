@@ -52,12 +52,27 @@
   </div>
 </div>
 
-<div class="col-md-6">
+<div class="col-md-8">
   <div class="row">
     <div class="col-md-12">
       <div class="panel panel-default">
         <div class="panel-heading"><h4><center>Permissões</center></h4></div>
         <div class="panel-body">
+          <div id="environment_models_form">
+            <%= render 'environment_models' %>
+          </div>
+          <%-if @environment.environment_models.empty? %>
+            <em>Este Ambiente não possui permissões cadastradas</em>
+          <%-else -%>
+            <hr>
+            <%- @environment.environment_models.each do |model| %>
+              <div class="col-md-4">
+                <ul>
+                  <li><%= model.name %></li>
+                </ul>
+              </div>
+            <%- end -%>
+          <%- end -%>
         </div>
       </div>
     </div>
