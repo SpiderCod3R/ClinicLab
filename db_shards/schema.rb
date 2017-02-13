@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170213163433) do
+ActiveRecord::Schema.define(version: 20170213164956) do
 
   create_table "agenda_movimentacoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "agenda_id"
@@ -375,9 +375,11 @@ ActiveRecord::Schema.define(version: 20170213163433) do
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
     t.string   "numero_conselho_regional"
+    t.integer  "empresa_id"
     t.index ["cargo_id"], name: "index_profissionais_on_cargo_id", using: :btree
     t.index ["cidade_id"], name: "index_profissionais_on_cidade_id", using: :btree
     t.index ["conselho_regional_id"], name: "index_profissionais_on_conselho_regional_id", using: :btree
+    t.index ["empresa_id"], name: "index_profissionais_on_empresa_id", using: :btree
     t.index ["estado_id"], name: "index_profissionais_on_estado_id", using: :btree
     t.index ["operadora_id"], name: "index_profissionais_on_operadora_id", using: :btree
   end
@@ -440,6 +442,7 @@ ActiveRecord::Schema.define(version: 20170213163433) do
   add_foreign_key "profissionais", "cargos"
   add_foreign_key "profissionais", "cidades"
   add_foreign_key "profissionais", "conselho_regionais"
+  add_foreign_key "profissionais", "empresas"
   add_foreign_key "profissionais", "estados"
   add_foreign_key "profissionais", "operadoras"
   add_foreign_key "referencia_agendas", "profissionais"
