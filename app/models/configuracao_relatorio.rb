@@ -1,21 +1,17 @@
 class ConfiguracaoRelatorio < Connection::Factory
   include ActiveMethods
 
-  has_attached_file :logo, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
-  validates_attachment_content_type :logo, content_type: /\Aimage\/.*\Z/
-
-
   belongs_to :empresa
   validates :nome_empresa, :cnpj, :telefone, :endereco,
             :bairro, :cidade_estado, :email, presence: true
   after_create :upcased_attributes
 
-  def nome
-    nome_empresa
-  end
+  has_attached_file :logo, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
+  validates_attachment_content_type :logo, content_type: /\Aimage\/.*\Z/
+  validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
 
   def to_s
-    "#{nome_empresa} - #{cnpj}"
+    "#{empresa.nome} - #{cnpj}"
   end
 
   def upcased_attributes

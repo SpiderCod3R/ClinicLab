@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170213105532) do
+ActiveRecord::Schema.define(version: 20170213110742) do
 
   create_table "agenda_movimentacoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "agenda_id"
@@ -239,6 +239,8 @@ ActiveRecord::Schema.define(version: 20170213105532) do
     t.string   "email"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
+    t.integer  "empresa_id"
+    t.index ["empresa_id"], name: "index_configuracao_relatorios_on_empresa_id", using: :btree
   end
 
   create_table "conselho_regionais", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -420,6 +422,7 @@ ActiveRecord::Schema.define(version: 20170213105532) do
   add_foreign_key "clientes", "convenios"
   add_foreign_key "clientes", "empresas"
   add_foreign_key "clientes", "estados"
+  add_foreign_key "configuracao_relatorios", "empresas"
   add_foreign_key "convenios", "empresas"
   add_foreign_key "fornecedores", "cidades"
   add_foreign_key "fornecedores", "estados"
