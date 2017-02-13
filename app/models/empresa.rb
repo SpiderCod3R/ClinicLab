@@ -25,6 +25,11 @@ class Empresa < Connection::Factory
                                 reject_if: proc { |attributes| attributes['email'].blank?},
                                 allow_destroy: true
 
+  def has_report_conf?
+    configuracao_relatorio.present?
+  end
+
+
   def possui_todas_as_permissoes?
     Painel::Permissao.all.each do |permissao|
       empresa_permissoes.each do |empresa_permissao|
