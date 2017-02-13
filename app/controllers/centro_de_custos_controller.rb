@@ -1,11 +1,11 @@
 class CentroDeCustosController < Support::InsideController
-  load_and_authorize_resource param_method: :resource_params
+  load_and_authorize_resource
   before_action :set_centro_de_custo, only: [:show, :edit, :update, :destroy]
 
   respond_to :html
 
   def index
-    @search = CentroDeCusto.where(empresa_id: current_user.empresa_id).ransack(params[:q])
+    @search = CentroDeCusto.where(empresa: current_user.empresa).ransack(params[:q])
     @centro_de_custos = @search.result.order("id desc").page(params[:page]).per(10)
     @search.build_condition if @search.conditions.empty?
   end
@@ -26,7 +26,7 @@ class CentroDeCustosController < Support::InsideController
     @centro_de_custo = current_user.empresa.centro_de_custos.build(resource_params)
     if @centro_de_custo.save
       flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @centro_de_custo.class)
-      redirect_to new_centro_de_custo_path
+      redirect_to new_empresa_centro_de_custo_path(current_user.empresa)
     else
       render :new
     end
@@ -34,7 +34,7 @@ class CentroDeCustosController < Support::InsideController
 
   def update
     if @centro_de_custo.update(resource_params)
-      redirect_to centro_de_custos_path, notice: t("flash.actions.#{__method__}.notice", resource_name: @centro_de_custo.class)
+      redirect_to empresa_centro_de_custos_path(current_user.empresa), notice: t("flash.actions.#{__method__}.notice", resource_name: @centro_de_custo.class)
     else
       render :edit
     end
@@ -42,7 +42,7 @@ class CentroDeCustosController < Support::InsideController
 
   def destroy
     if @centro_de_custo.destroy
-      redirect_to centro_de_custos_path, notice: t("flash.actions.#{__method__}.notice", resource_name: @centro_de_custo.class)
+      redirect_to empresa_centro_de_custos_path(current_user.empresa), notice: t("flash.actions.#{__method__}.notice", resource_name: @centro_de_custo.class)
     end
   end
 

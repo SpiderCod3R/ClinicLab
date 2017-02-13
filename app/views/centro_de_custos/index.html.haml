@@ -1,4 +1,4 @@
-=build_form_toolbar(new_centro_de_custo_path,nil, @centro_de_custo, centro_de_custos_path, nil)
+=build_form_toolbar(new_empresa_centro_de_custo_path(current_user.empresa),nil, @centro_de_custo, empresa_centro_de_custos_path(current_user.empresa), nil)
 %div{class: "container-fluid"}
   %div{class: "row-fluid"}
     %div{class: "page-header"}
@@ -8,29 +8,29 @@
         %div{class: "jumbotron"}
           %div{class: "row", style: "margin: 0;"}
             %div{class: "col-md-12 col-sm-12 col-xs-12 col-lg-12"}
-              = search_form_for @search do |f|
+              = search_form_for @search, url: empresa_centro_de_custos_path(current_user.empresa) do |f|
                 = f.condition_fields do |c|
                   = render "condition_fields", f: c
                 = link_to_add_fields "Adicionar Condições", f, :condition
                 %div{class: "actions", style: "margin-top: 2%;"}
                   = f.submit "Pesquisar", class: "btn btn-primary"
-                  = link_to "Recarregar", centro_de_custos_path, class: "btn btn-default"
+                  = link_to "Recarregar", empresa_centro_de_custos_path(current_user.empresa), class: "btn btn-default"
       %div{class: "row", style: "margin: 0;"}
         %table{class: "table table-striped table-bordered", cellspacing: "0", width: "100%"}
           %thead
             %th=t(:status, scope: [:bootstrap, :helpers, :labels])
             %th=t(:código, scope: [:bootstrap, :helpers, :labels])
             %th=t(:name, scope: [:bootstrap, :helpers, :labels])
-            %th{class: "pull-right"}=t(:show, scope: [:bootstrap, :helpers, :links])
+            / %th{class: "pull-right"}=t(:show, scope: [:bootstrap, :helpers, :links])
           %tbody
             - @centro_de_custos.each do |centro_de_custo|
               %tr
                 %td=status(centro_de_custo.status)
                 %td=centro_de_custo.id
                 %td=centro_de_custo.nome
-                %td{class: "pull-right"}
-                  -if can? :read, CentroDeCusto
-                    = link_to_visualizar centro_de_custo
+                / %td{class: "pull-right"}
+                /   -if can? :read, CentroDeCusto
+                /     = link_to_visualizar centro_de_custo
       %div{class: "row", style: "margin: 0;"}
         %div{class: "pull-right"}
           =paginate @centro_de_custos
