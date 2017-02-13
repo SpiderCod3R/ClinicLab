@@ -2,7 +2,7 @@
 class TextoLivre < Connection::Factory
   include ActiveMethods
 
-  belongs_to :empresa, class_name: "Painel::Empresa", foreign_key: "empresa_id"
+  belongs_to :empresa
   belongs_to :servico
   has_many :cliente_texto_livres
   paginates_per 10
