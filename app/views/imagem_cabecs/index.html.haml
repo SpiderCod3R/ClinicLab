@@ -19,7 +19,7 @@
       %thead
         %th=t(:código, scope: [:bootstrap, :helpers, :labels])
         %th=t(:nome, scope: [:bootstrap, :helpers, :labels])
-        %th{class: "pull-right"}=t(:show, scope: [:bootstrap, :helpers, :links])
+        %th{class: "pull-right"}=t(:edit, scope: [:bootstrap, :helpers, :links])
       %tbody
         - @imagem_cabecs.each do |imagem|
           %tr
@@ -27,7 +27,7 @@
             %td 
               = link_to "#{imagem.nome}","#{imagem.imagem}", target: "blank"
             %td{class: "pull-right"}
-              = link_to_visualizar imagem
+              = link_to "Editar", edit_empresa_imagem_cabec_path(current_user.empresa, imagem)
   %div{class: "row", style: "margin: 0;"}
     %div{class: "pull-right"}
       =paginate @imagem_cabecs
