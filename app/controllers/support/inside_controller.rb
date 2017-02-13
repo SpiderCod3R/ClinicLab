@@ -4,8 +4,8 @@ class Support::InsideController < ApplicationController
 
   private
     def set_environment
-      @environment = Gclinic::Environment.friendly.find(current_user.environment)
-      Thread.current[:environment_type]= @environment.database_name
-      session[:environment_type]= @environment.database_name
+      # @environment = Gclinic::Environment.friendly.find(current_user.environment)
+      Thread.current[:environment_type]= current_user.environment.database_name
+      session[:environment_type]= current_user.environment.database_name
     end
 end
