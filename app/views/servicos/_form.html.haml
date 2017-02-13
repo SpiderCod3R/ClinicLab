@@ -1,0 +1,14 @@
+= simple_form_for([current_user.empresa, @servico]) do |f|
+  .container-fluid
+    .row
+      %br
+      .col-md-12
+        = f.error_notification
+  .container
+    .row
+      .col-md-4
+        .form-inputs
+          = f.input :tipo
+      .col-md-3
+        .form-inputs
+        = f.input :abreviatura
