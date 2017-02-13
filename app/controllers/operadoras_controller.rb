@@ -3,7 +3,7 @@ class OperadorasController < Support::InsideController
   before_action :find_operadora, except: [:index, :new, :create]
 
   def index
-    @search = Operadora.where(empresa_id: current_user.empresa_id).ransack(params[:q])
+    @search = Operadora.where(empresa: current_user.empresa).ransack(params[:q])
     @operadoras = @search.result.order("id desc").page(params[:page]).per(10)
     @search.build_condition if @search.conditions.empty?
   end
@@ -21,7 +21,7 @@ class OperadorasController < Support::InsideController
   def create
     @operadora = current_user.empresa.operadoras.build(resource_params)
     if @operadora.save
-      redirect_to new_operadora_path, notice: t("flash.actions.#{__method__}.notice", resource_name: @operadora.nome)
+      redirect_to new_empresa_operadora_path(current_user.empresa), notice: t("flash.actions.#{__method__}.notice", resource_name: @operadora.nome)
     else
       render :new
     end
@@ -29,7 +29,7 @@ class OperadorasController < Support::InsideController
 
   def update
     if @operadora.update(resource_params)
-      redirect_to operadoras_path, notice: t("flash.actions.#{__method__}.notice", resource_name: @operadora.nome)
+      redirect_to empresa_operadoras_path(current_user.empresa), notice: t("flash.actions.#{__method__}.notice", resource_name: @operadora.nome)
     else
       render :edit
     end
@@ -37,7 +37,7 @@ class OperadorasController < Support::InsideController
 
   def destroy
     if @operadora.destroy
-      redirect_to new_operadora_path, notice: t("flash.actions.#{__method__}.notice", resource_name: @operadora.nome)
+      redirect_to new_empresa_operadora_path(current_user.empresa), notice: t("flash.actions.#{__method__}.notice", resource_name: @operadora.nome)
     else
       redirect_to operadoras_path, alert: t("flash.actions.#{__method__}.alert", resource_name: @operadora.nome)
     end

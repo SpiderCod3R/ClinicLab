@@ -1,4 +1,4 @@
-=build_form_toolbar(new_operadora_path,nil, @operadora, operadoras_path, nil)
+=build_form_toolbar(new_empresa_operadora_path(current_user.empresa),nil, @operadora, empresa_operadoras_path(current_user.empresa), nil)
 %div{class: "container"}
   %div{class: "row"}
     %h1=t('labels.operadoras')
@@ -7,30 +7,30 @@
       %div{class: "jumbotron"}
         %div{class: "row", style: "margin: 0;"}
           %div{class: "col-md-12 col-sm-12 col-xs-12 col-lg-12"}
-            = search_form_for @search do |f|
+            = search_form_for @search, url: empresa_operadoras_path(current_user.empresa) do |f|
               = f.condition_fields do |c|
                 = render "condition_fields", f: c
               = link_to_add_fields "Adicionar Condições", f, :condition
               %div{class: "actions", style: "margin-top: 2%;"}
                 = f.submit "Pesquisar", class: "btn btn-primary"
-                = link_to "Recarregar", operadoras_path, class: "btn btn-default"
+                = link_to "Recarregar", empresa_operadoras_path(current_user.empresa), class: "btn btn-default"
   %div{class: "row"}
     %table{class: "table table-striped table-bordered", cellspacing: "0", width: "100%"}
       %thead
-        %th=t('labels.status')
         %th=t('labels.id')
+        %th=t('labels.status')
         %th=t('labels.name')
-        %th.pull-right=t('bootstrap.helpers.actions')
+        / %th.pull-right=t('bootstrap.helpers.actions')
       %tbody
         - @operadoras.each do |operadora|
           %tr
+            %td= "##{operadora.id}"
             %td= status(operadora.status)
-            %td= operadora.id
             %td= operadora.nome
-            %td
-              .btn-group.pull-right
-                -if can? :read, Operadora
-                  = link_to_visualizar operadora
+            / %td
+            /   .btn-group.pull-right
+            /     -if can? :read, Operadora
+            /       = link_to_visualizar operadora
   %div{class: "row", style: "margin: 0;"}
     %div{class: "pull-right"}
       =paginate @operadoras
