@@ -1,6 +1,7 @@
 class ConselhoRegional < Connection::Factory
   include ActiveMethods
 
+  belongs_to :empresa
   validates :sigla, presence: true
   validates :descricao, presence: true
   before_save :upcase_sigla
