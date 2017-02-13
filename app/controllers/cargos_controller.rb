@@ -1,8 +1,8 @@
-class CargosController < ApplicationController
+class CargosController < Support::InsideController
   load_and_authorize_resource param_method: :resource_params
 
   def index
-    @search = Cargo.where(empresa_id: current_usuario.empresa_id).ransack(params[:q])
+    @search = Cargo.where(empresa_id: current_user.empresa_id).ransack(params[:q])
     @cargos = @search.result.order("id desc").page(params[:page]).per(10)
     @search.build_condition if @search.conditions.empty?
   end
@@ -12,7 +12,7 @@ class CargosController < ApplicationController
   end
 
   def new
-    @cargo = current_usuario.empresa.cargos.build
+    @cargo = current_user.empresa.cargos.build
     respond_with(@cargo)
   end
 
@@ -20,8 +20,8 @@ class CargosController < ApplicationController
   end
 
   def create
-    @cargo = current_usuario.empresa.cargos.build(resource_params)
-    if @cargo.salvar
+    @cargo = current_user.empresa.cargos.build(resource_params)
+    if @cargo.save
       flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @cargo.class)
       redirect_to new_cargo_path
     else
