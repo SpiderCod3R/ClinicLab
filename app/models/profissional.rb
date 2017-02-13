@@ -1,6 +1,15 @@
 class Profissional < Connection::Factory
-  include AtivandoStatus
   include ActiveMethods
+  include AtivandoStatus
+
+  belongs_to :cargo
+  belongs_to :estado
+  belongs_to :cidade
+  belongs_to :conselho_regional
+  belongs_to :operadora
+  belongs_to :empresa
+  has_many :referencia_agendas
+  has_many :agendas, through: :referencia_agendas
 
   validates :nome, :cargo_id, :data_nascimento,
             :cpf, :rg, :telefone, :celular,
@@ -13,14 +22,6 @@ class Profissional < Connection::Factory
 
   validates_associated :cargo, :estado, :cidade, :operadora
 
-  belongs_to :cargo
-  belongs_to :estado
-  belongs_to :cidade
-  belongs_to :conselho_regional
-  belongs_to :operadora
-  belongs_to :empresa
-  has_many :referencia_agendas
-  has_many :agendas, through: :referencia_agendas
 
   usar_como_cpf :cpf
   scope :pelo_nome, -> {order("nome ASC")}
