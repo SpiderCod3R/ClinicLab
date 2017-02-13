@@ -16,6 +16,7 @@ class Empresa < Connection::Factory
     has_many :clientes
     has_many :centro_de_custos
     has_one  :configuracao_relatorio
+    has_many  :conselho_regionais
     has_many :operadoras
     has_many :profissionais
     has_many :users, class_name: "Gclinic::User"
