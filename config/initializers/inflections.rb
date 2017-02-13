@@ -16,4 +16,7 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.irregular 'agenda_movimentacao', 'agenda_movimentacoes'
   inflect.irregular 'agenda_permissao', 'agenda_permissoes'
   inflect.irregular 'cliente_permissao', 'cliente_permissoes'
+  inflect.irregular 'responsavel', 'responsaveis'
+  inflect.irregular 'paciente', 'pacientes'
+
 end

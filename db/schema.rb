@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170203191506) do
+ActiveRecord::Schema.define(version: 20170207183507) do
 
   create_table "agenda_movimentacoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "agenda_id"
@@ -112,8 +112,8 @@ ActiveRecord::Schema.define(version: 20170203191506) do
   create_table "cargos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "nome"
     t.boolean  "status",     default: true
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.integer  "empresa_id"
     t.index ["empresa_id"], name: "index_cargos_on_empresa_id", using: :btree
   end
@@ -210,8 +210,8 @@ ActiveRecord::Schema.define(version: 20170203191506) do
     t.integer  "cidade_id"
     t.integer  "cargo_id"
     t.integer  "convenio_id"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
     t.string   "nacionalidade"
     t.string   "naturalidade"
     t.integer  "empresa_id"
@@ -219,9 +219,36 @@ ActiveRecord::Schema.define(version: 20170203191506) do
     t.string   "tipo_sanguineo"
     t.date     "data_da_ultima_consulta"
     t.date     "data_obito"
-    t.float    "peso",                    limit: 24
-    t.text     "como_soube",              limit: 65535
-    t.float    "altura",                  limit: 24
+    t.float    "peso",                      limit: 24
+    t.text     "como_soube",                limit: 65535
+    t.float    "altura",                    limit: 24
+    t.string   "cep"
+    t.integer  "idade"
+    t.string   "cor"
+    t.string   "indicacao"
+    t.string   "profissao"
+    t.string   "responsavel"
+    t.string   "hora"
+    t.string   "observacao"
+    t.string   "correspondencia"
+    t.date     "data_validade_carteira"
+    t.string   "pai"
+    t.string   "mae"
+    t.date     "dia_vencimento_convenio"
+    t.integer  "sequencia"
+    t.string   "hora_cadastro"
+    t.date     "data_retorno"
+    t.date     "data_ultimo_servico"
+    t.float    "limite_vale",               limit: 24
+    t.string   "num_nacional_cartao_saude"
+    t.string   "empresa"
+    t.string   "setor"
+    t.string   "fonetica"
+    t.text     "observacao_convenio",       limit: 65535
+    t.string   "mes_retorno"
+    t.string   "ano_retorno"
+    t.string   "motivo_retorno"
+    t.string   "recem_nascido"
     t.index ["cargo_id"], name: "index_clientes_on_cargo_id", using: :btree
     t.index ["cidade_id"], name: "index_clientes_on_cidade_id", using: :btree
     t.index ["convenio_id"], name: "index_clientes_on_convenio_id", using: :btree
@@ -272,6 +299,7 @@ ActiveRecord::Schema.define(version: 20170203191506) do
     t.string   "cep"
     t.string   "cnpj"
     t.string   "referencia"
+    t.string   "registroons"
     t.string   "sigla"
     t.integer  "codigo"
     t.string   "registraons"
@@ -339,6 +367,73 @@ ActiveRecord::Schema.define(version: 20170203191506) do
     t.datetime "updated_at",                null: false
     t.integer  "empresa_id"
     t.index ["empresa_id"], name: "index_operadoras_on_empresa_id", using: :btree
+  end
+
+  create_table "pacientes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "foto_file_name"
+    t.string   "foto_content_type"
+    t.integer  "foto_file_size"
+    t.datetime "foto_updated_at"
+    t.string   "status"
+    t.string   "nome"
+    t.string   "cpf"
+    t.string   "endereco"
+    t.string   "complemento"
+    t.string   "bairro"
+    t.string   "email"
+    t.string   "telefone"
+    t.string   "sexo"
+    t.string   "rg"
+    t.string   "estado_civil"
+    t.date     "nascimento"
+    t.string   "produto"
+    t.string   "status_convenio"
+    t.string   "matricula"
+    t.string   "titular"
+    t.string   "plano"
+    t.date     "validade_carteira"
+    t.string   "nacionalidade"
+    t.string   "naturalidade"
+    t.string   "mes"
+    t.string   "tipo_sanguineo"
+    t.date     "data_da_ultima_consulta"
+    t.date     "data_obito"
+    t.float    "peso",                      limit: 24
+    t.text     "como_soube",                limit: 65535
+    t.float    "altura",                    limit: 24
+    t.string   "cep"
+    t.string   "cor"
+    t.string   "indicacao"
+    t.string   "profissional"
+    t.string   "observacao"
+    t.string   "correspondencia"
+    t.string   "pai"
+    t.string   "mae"
+    t.string   "dia_vencimento_convenio"
+    t.integer  "sequencia"
+    t.date     "data_retorno"
+    t.date     "data_ultimo_servico"
+    t.integer  "limite_vale"
+    t.string   "num_nacional_cartao_saude"
+    t.string   "empresa"
+    t.string   "setor"
+    t.string   "fonetica"
+    t.string   "cidade"
+    t.string   "uf"
+    t.string   "observacao_convenio"
+    t.string   "mes_retorno"
+    t.string   "ano_retorno"
+    t.string   "motivo_retorno"
+    t.string   "recem_nascido"
+    t.integer  "convenio_id"
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.string   "idade"
+    t.string   "profissao"
+    t.string   "responsavel"
+    t.date     "Data_VALIDADE_CARTEIRA"
+    t.string   "hora_cadastro"
+    t.index ["convenio_id"], name: "index_pacientes_on_convenio_id", using: :btree
   end
 
   create_table "painel_empresa_permissoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -460,6 +555,29 @@ ActiveRecord::Schema.define(version: 20170203191506) do
     t.index ["profissional_id"], name: "index_referencia_agendas_on_profissional_id", using: :btree
   end
 
+  create_table "responsaveis", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "nome"
+    t.string   "endereco"
+    t.integer  "cidade_id"
+    t.integer  "estado_id"
+    t.string   "cep"
+    t.string   "telefone"
+    t.string   "cpf"
+    t.string   "crm"
+    t.string   "observacao"
+    t.string   "siglaconselho"
+    t.string   "ufcrm"
+    t.string   "cbos"
+    t.string   "complementos"
+    t.boolean  "status"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.string   "bairro"
+    t.integer  "numero"
+    t.index ["cidade_id"], name: "index_responsaveis_on_cidade_id", using: :btree
+    t.index ["estado_id"], name: "index_responsaveis_on_estado_id", using: :btree
+  end
+
   create_table "servicos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "tipo"
     t.string   "abreviatura"
@@ -496,11 +614,14 @@ ActiveRecord::Schema.define(version: 20170203191506) do
   add_foreign_key "fornecedores", "cidades"
   add_foreign_key "fornecedores", "estados"
   add_foreign_key "historicos", "clientes"
+  add_foreign_key "pacientes", "convenios"
   add_foreign_key "profissionais", "cargos"
   add_foreign_key "profissionais", "cidades"
   add_foreign_key "profissionais", "conselho_regionais"
   add_foreign_key "profissionais", "estados"
   add_foreign_key "profissionais", "operadoras"
   add_foreign_key "referencia_agendas", "profissionais"
+  add_foreign_key "responsaveis", "cidades"
+  add_foreign_key "responsaveis", "estados"
   add_foreign_key "texto_livres", "servicos"
 end
