@@ -1,6 +1,7 @@
 class Cabec < Connection::Factory
   include ActiveMethods
 
+  belongs_to :empresa
   validates :nome, :texto, presence: true
 
   RANSACKABLE_ATTRIBUTES = ["texto", "nome"]
