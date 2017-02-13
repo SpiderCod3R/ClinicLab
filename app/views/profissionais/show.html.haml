@@ -1,4 +1,4 @@
-=build_object_viewer_toolbar(edit_profissional_path(@profissional), @profissional, profissionais_path, nil)
+=build_object_viewer_toolbar(edit_empresa_profissional_path(current_user.empresa, @profissional), @profissional, empresa_profissionais_path(current_user.empresa), nil)
 %section{id: "show_convenio"}
   %div{class: "container"}
     %div{class: "row"}
