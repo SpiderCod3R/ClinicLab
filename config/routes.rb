@@ -23,13 +23,7 @@ Rails.application.routes.draw do
     root 'painel/dashboards#index', as: "authenticated_admin_root"
   end
 
-
-
   mount Ckeditor::Engine => '/ckeditor'
-
-  resources :empresas do
-    resources :servicos
-  end
 
   resources :texto_livres do
     member do
@@ -44,34 +38,37 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :texto_livres
-  resources :imagem_cabecs
-  resources :fornecedores
-  resources :cabecs
-  resources :clientes do
-    member do
-      get    'print_free_text'
-      get    'print_historico'
-      get    'print_historico_full'
-      get    'paginate_pdfs'
-      delete 'destroy_pdf'
-    end
-  end
 
   get 'ficha_cliente', to: "clientes#clinic_sheet", as: :clinic_sheet_cliente
 
-  resources :conselho_regionais
-  resources :imagem_cabecs
-  resources :fornecedores
-  resources :cabecs
-  resources :conselho_regionais
-  resources :configuracao_relatorios
-  resources :centro_de_custos
-  resources :profissionais
-  resources :cargos
-  resources :convenios
+  resources :empresa do
+    resources :clientes do
+      member do
+        get    'print_free_text'
+        get    'print_historico'
+        get    'print_historico_full'
+        get    'paginate_pdfs'
+        delete 'destroy_pdf'
+      end
+    end
+    resources :configuracao_relatorios
+    resources :conselho_regionais
+    resources :convenios, except: [:show]
+    resources :cargos
+    resources :cabecs
+    resources :centro_de_custos
+    resources :imagem_cabecs, except: [:show]
+    resources :operadoras
+    resources :profissionais
+    resources :fornecedores
+    resources :servicos
+    resources :texto_livres
+    resources :referencia_agendas, except: [:show]
+  end
+
+
   resources :atendimentos
-  resources :operadoras
+
 
   get 'relatorios/new' => "configuracao_relatorios#new"
   get 'conselhos_regionais/new' => "conselho_regionais#new"
@@ -84,10 +81,6 @@ Rails.application.routes.draw do
   get  'clientes/:cliente_id/destroy_texto_livre', to: "clientes#destroy_cliente_texto_livre"
   get 'clientes/:cliente_id/textos_livres', to: "clientes#find_textos_livre", as: :cliente_find_textos_livres
 
-  resources :imagem_cabecs
-  resources :fornecedores
-  resources :cabecs
-  resources :conselho_regionais
 
   get 'relatorios/new' => "configuracao_relatorios#new"
   get 'conselhos_regionais/new' => "conselho_regionais#new"
@@ -100,8 +93,6 @@ Rails.application.routes.draw do
 
 
   post 'clientes/include_texto_livre', to: 'clientes#include_texto_livre'
-
-  resources :referencia_agendas, except: [:show]
 
   resources :agenda_permissoes, controller: "painel/agenda_permissoes", except: [:index, :show, :new, :create, :edit, :update, :destroy] do
     member do
@@ -123,7 +114,7 @@ Rails.application.routes.draw do
       delete 'remover_permissao_empresa_usaurio/:permissao_id', to: "dashboards#remover_permissao_empresa_usaurio", as: :remover_permissao_empresa_usaurio
       resources :contas, controller: 'usuarios/accounts'
 
-      resources :painel_usuarios, controller: 'usuarios/manager', except: [:index] do
+      resources :usuarios, controller: 'usuarios/manager', except: [:index] do
         get  'add_permissions'
         post 'save_permissions'
         member do
@@ -162,11 +153,6 @@ Rails.application.routes.draw do
     post '/dashboards/empresas/permissoes/create', to: "dashboards#import_permissoes_to_company", as: :dashboards_add_permissoes_to_company 
     put '/usuarios/:id/update_password', to: "usuarios/manager#update_password", as: :usuario_update_password
   end
-
-  # devise_for :usuarios,
-  #             patch: "painel/usuarios",
-  #             class_name: "Painel::Usuario",
-  #             controllers: { sessions: 'painel/usuarios/sessions' }
 
   get 'pages/help'
   get 'pages/contact_us'
