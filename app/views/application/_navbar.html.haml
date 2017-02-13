@@ -15,14 +15,13 @@
         =link_to root_path, class: "nav-link" do
           Home
           %span.sr-only (current)
-      / -if user_signed_in?
-      /   -if current_user.empresa.empresa_permissoes.any? || current_user.usuario_permissoes.any?
-      /     %li.dropdown
-      /       %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
-      /         Cadastros
-      /         %span.caret
-      /       %ul.dropdown-menu
-      /         =render 'application/menus/cadastros'
+      -if current_user.environment.environment_models.any? || current_user.user_models.any?
+        %li.dropdown
+          %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+            Cadastros
+            %span.caret
+          %ul.dropdown-menu
+            =render 'application/menus/cadastros'
   -if user_signed_in?
     %ul.nav.navbar-nav.navbar-right
       %li.nav-item

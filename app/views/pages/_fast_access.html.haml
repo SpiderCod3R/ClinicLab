@@ -14,7 +14,7 @@
               %td
                 %span
                   %i.fa.fa-2x.fa-heartbeat
-                = link_to "Clientes", new_cliente_path, title: "Acesso Rápido à Cliente"
+                = link_to "Clientes", new_empresa_cliente_path(current_user.empresa), title: "Acesso Rápido à Cliente"
           - if can? :read, Profissional
             %tr
               %td

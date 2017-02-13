@@ -11,10 +11,6 @@
         %li.active= link_to "#{image_tag("icons/glyphicons-191-circle-plus-white.png", width: 22, height: 22)} NOVO".html_safe, new_path
       -unless form.nil?
         %li.active= link_to "#{image_tag("icons/glyphicons-191-circle-plus-white.png", width: 22, height: 22)} SALVAR".html_safe, "#", onclick: "$('#{form}').submit()"
-      / -unless object.id.nil?
-      /   %li.active= link_to "#{image_tag("icons/glyphicons-193-circle-remove-white.png", width: 22, height: 22)} EXCLUIR".html_safe, {action: 'destroy', id: object }, method: "delete", class: 'delete-confirm', data: {confirm: "Excluir #{object.to_s}"}, title: "Excluir Empresa"
-      / -else
-      /   %li.disabled= link_to "#{image_tag("icons/glyphicons-193-circle-remove-white.png", width: 22, height: 22)} EXCLUIR".html_safe, "#"
       %li.active= link_to "#{image_tag("icons/glyphicons-28-search-white.png", width: 22, height: 22)} PROCURAR".html_safe, back_path
       -if report_path.nil?
         %li.disabled= link_to "#{image_tag("icons/glyphicons-16-print-white.png", width: 22, height: 22)} IMPRIMIR".html_safe, "#"
