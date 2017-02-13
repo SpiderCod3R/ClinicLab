@@ -2,15 +2,11 @@
 class Servico < Connection::Factory
   include ActiveMethods
 
-  belongs_to :empresa, class_name: "Painel::Empresa", foreign_key: "empresa_id"
+  belongs_to :empresa
   validates :tipo, :abreviatura, presence: true
   validates_uniqueness_of :tipo, :abreviatura, scope: :empresa_id
   validates_associated :empresa
   paginates_per 10
-
-  def addEmpresa=(aEmpresa)
-    self.empresa = aEmpresa
-  end
 
   def to_s
     "#{tipo} - #{abreviatura}"
