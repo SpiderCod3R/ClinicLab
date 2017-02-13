@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170209163204) do
+ActiveRecord::Schema.define(version: 20170210195018) do
 
   create_table "gclinic_admins", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "email",                  default: "", null: false
@@ -52,6 +52,17 @@ ActiveRecord::Schema.define(version: 20170209163204) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "gclinic_user_models", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "user_id"
+    t.integer  "model_id"
+    t.boolean  "cadastrar"
+    t.boolean  "atualizar"
+    t.boolean  "exibir"
+    t.boolean  "deletar"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "gclinic_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -67,6 +78,8 @@ ActiveRecord::Schema.define(version: 20170209163204) do
     t.datetime "updated_at",                          null: false
     t.string   "name"
     t.integer  "environment_id"
+    t.boolean  "admin"
+    t.integer  "empresa_id"
     t.index ["email"], name: "index_gclinic_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_gclinic_users_on_reset_password_token", unique: true, using: :btree
   end
