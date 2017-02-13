@@ -4,7 +4,7 @@ class Operadora < Connection::Factory
   belongs_to :empresa
   has_many :profissionais, dependent: :destroy
   paginates_per 10
-  scope :pelo_nome, -> {order("nome ASC")}
+  scope :by_name, -> {order("nome ASC")}
 
   validates :nome, presence: true, uniqueness: {case_sensitive: false}
   before_save :upcase_nome
