@@ -8,7 +8,7 @@ class Cargo < Connection::Factory
   belongs_to :empresa
   has_many :profissionais
   paginates_per 10
-  scope :pelo_nome, -> { order("nome ASC") }
+  scope :by_name, -> { order("nome ASC") }
 
   RANSACKABLE_ATTRIBUTES = ["nome"]
 

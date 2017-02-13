@@ -7,6 +7,7 @@ class Fornecedor < Connection::Factory
   validates_associated :estado, :cidade
   belongs_to :estado
   belongs_to :cidade
+  belongs_to :empresa
 
   usar_como_cpf :cpf
   usar_como_cnpj :cnpj
