@@ -1,4 +1,6 @@
-= simple_form_for(@cliente) do |f|
+= simple_form_for([current_user.empresa, @cliente]) do |f|
+  =f.hidden_field :empresa_id,   value: current_user.empresa.id
+  =f.hidden_field :empresa_name, value: current_user.empresa.slug
   %ul{class: "nav nav-tabs"}
     %li{class:"active"}
       %a{'data-toggle':"tab", href:"#dados", id: "aba_dados"} Dados Pessoais
@@ -6,7 +8,7 @@
       %a{'data-toggle':"tab", href:"#convenio", id: "aba_convenio"} Convênio
     %li
       %a{'data-toggle':"tab", href:"#contato", id: "aba_contato"} Contato
-    -if !current_usuario.admin?
+    -if !current_user.admin?
       -if @cliente_permissao.historico?
         %li
           %a{'data-toggle':"tab", href:"#historico", id: "aba_historico"} Histórico

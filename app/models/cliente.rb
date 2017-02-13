@@ -6,6 +6,8 @@ class Cliente < Connection::Factory
   include ActiveMethods
   include AtivandoStatus
 
+  attr_accessor :empresa_name
+
   scope :pelo_nome, -> { order("nome ASC") }
 
   validates_presence_of :nome, :cpf, :endereco, :bairro,
@@ -17,7 +19,7 @@ class Cliente < Connection::Factory
 
   usar_como_cpf :cpf
 
-  belongs_to :empresa, class_name: "Painel::Empresa", foreign_key: "empresa_id"
+  belongs_to :empresa
   belongs_to :estado
   belongs_to :cidade
   belongs_to :cargo

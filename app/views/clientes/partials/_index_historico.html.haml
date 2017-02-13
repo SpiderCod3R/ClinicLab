@@ -1,17 +1,17 @@
 - if @historicos.present?
   #tool_bar{style: "margin-bottom: 10px;"}
-    - if @historicos.first.created_at > 24.hours.ago && @historicos.first.usuario_id == current_usuario.id
+    - if @historicos.first.created_at > 24.hours.ago && @historicos.first.user == current_user
       = link_to "Incluir", "#", class: "btn btn-success", id: "editar_historico", data: {historico_id: @historicos.first.id}
     - else
       = link_to "Incluir", "#", class: "btn btn-success", id: "incluir_historico"
-    =link_to "Imprimir Tudo", print_historico_full_cliente_path(@cliente, format: "pdf"), class: "btn btn-default"
-    =link_to "Imprimir historico", print_historico_cliente_path(@cliente, format: "pdf"), class: "btn btn-default"
+    =link_to "Imprimir Tudo", print_historico_full_empresa_cliente_path(current_user.empresa, @cliente, format: "pdf"), class: "btn btn-default"
+    =link_to "Imprimir historico", print_historico_empresa_cliente_path(current_user.empresa, @cliente, format: "pdf"), class: "btn btn-default"
   %hr/
   #well_historicos.well.historico
     - @historicos.each do |historico|
       = data_e_hora_formatada(historico.created_at.to_date, historico.created_at.to_time)
       %br
-      = historico.usuario.nome
+      = historico.user.name
       %br
       = historico.idade
       %br

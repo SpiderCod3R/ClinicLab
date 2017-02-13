@@ -1,9 +1,7 @@
-class Support::ClienteSupportController < ApplicationController
-  before_action :authenticate_usuario!
+class Support::ClienteSupportController < Support::InsideController
   before_action :set_cliente, only: [:show, :edit, :update, :destroy, :destroy_pdf]
   before_action :set_estados, only: [:new, :edit, :create, :update, :ficha, :clinic_sheet]
   before_action :set_access, only: [:edit, :ficha, :clinic_sheet]
-  respond_to :docx
 
   def clinic_sheet
     session[:agenda_id]  = params[:agenda_id]
@@ -105,7 +103,7 @@ class Support::ClienteSupportController < ApplicationController
       set_historico
       @dados_historico = {}
       @dados_historico[:data] = I18n.l(@historico.updated_at, format: :long)
-      @dados_historico[:usuario] = @historico.usuario.nome
+      @dados_historico[:usuario] = @historico.user.name
       @dados_historico[:idade] = @historico.idade
       @dados_historico[:indice] = @historico.indice
       respond_to do |format|
@@ -120,7 +118,7 @@ class Support::ClienteSupportController < ApplicationController
       @historico = Historico.new
       @historico.indice = params[:historico][:indice]
       @historico.idade = params[:historico][:idade]
-      @historico.usuario_id = current_usuario.id
+      @historico.user = current_user
       @historico.cliente_id = session[:cliente_id]
       @historico.save
     end
@@ -168,8 +166,8 @@ class Support::ClienteSupportController < ApplicationController
 
   private
     def set_access
-      if !current_usuario.admin?
-        @permissao = Painel::Permissao.find_by(model_class: "Cliente")
+      if !current_user.admin?
+        @permissao = Gclinic::Model.find_by(model_class: "Cliente")
         @usuario_permissao = current_usuario.usuario_permissoes.find_by(permissao_id: @permissao.id)
         @cliente_permissao = ClientePermissao.find_by usuario_permissoes_id: @usuario_permissao.id
       end

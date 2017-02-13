@@ -12,14 +12,19 @@ class Empresa < Connection::Factory
     has_many :agendas
     has_many :atendimentos
     has_many :cargos
+    has_many :cabecs
     has_many :convenios
     has_many :clientes
     has_many :centro_de_custos
     has_one  :configuracao_relatorio
-    has_many  :conselho_regionais
+    has_many :conselho_regionais
     has_many :operadoras
     has_many :imagem_cabecs
     has_many :profissionais
+    has_many :fornecedores
+    has_many :servicos
+    has_many :texto_livres
+    has_many :referencia_agendas
     has_many :users, class_name: "Gclinic::User"
   end
 
