@@ -20,18 +20,18 @@
               %td
                 %span
                   %i.fa.fa-2x.fa-user-md
-                = link_to "Profissionais", new_profissional_path , title: "Acesso Rápido à Profissionais"
+                = link_to "Profissionais", new_empresa_profissional_path(current_user.empresa) , title: "Acesso Rápido à Profissionais"
           - if can? :read, Convenio
             %tr
               %td
                 %span
                   %i.fa.fa-2x.fa-contao
-                = link_to "Convênios", new_convenio_path, title: "Acesso Rápido à Convênio"
+                = link_to "Convênios", new_empresa_convenio_path(current_user.empresa), title: "Acesso Rápido à Convênio"
             %tr
               %td
                 %span
                   %i.mdi.mdi-clipboard-text.fa-2x
-                = link_to "Referências Agenda", new_referencia_agenda_path, title: "Acesso Rápido às Referências de Agenda"
+                = link_to "Referências Agenda", new_empresa_referencia_agenda_path(current_user.empresa), title: "Acesso Rápido às Referências de Agenda"
           -if (can? :read, Agenda) || (can? :create, Agenda)
             %tr
               %td
