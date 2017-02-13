@@ -1,4 +1,4 @@
-=simple_form_for @referencia do |f|
+=simple_form_for [current_user.empresa, @referencia] do |f|
   - if @referencia.errors.any?
     .row-fluid
       .col-md-12
@@ -24,5 +24,5 @@
                 =label_or_error_tag @referencia, :profissional_id, "Profissional"
               -else
                 =f.label :profissional_id, class: "control-label"
-              =f.collection_select :profissional_id, Profissional.where(empresa_id: current_usuario.empresa_id).order("nome ASC"), :id, :titulo_completo, { prompt: "Selecione um" }, class: "form-control selectpicker", :"data-live-search"=>"true"
+              =f.collection_select :profissional_id, current_user.empresa.profissionais.order("nome ASC"), :id, :titulo_completo, { prompt: "Selecione um" }, class: "form-control selectpicker", :"data-live-search"=>"true"
           %br/

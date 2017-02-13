@@ -1,4 +1,4 @@
-=build_form_toolbar(new_referencia_agenda_path(empresa_atual), nil, @referencia, referencia_agendas_path, nil)
+=build_form_toolbar(new_empresa_referencia_agenda_path(current_user.empresa), nil, @referencia, empresa_referencia_agendas_path(current_user.empresa), nil)
 .container-fluid
   .row-fluid
     %h1  Referências Agendas
@@ -12,7 +12,7 @@
         %div{class: "jumbotron"}
           %div{class: "row", style: "margin: 0;"}
             %div{class: "col-md-12 col-sm-12 col-xs-12 col-lg-12"}
-              =form_tag referencia_agendas_path, :method => 'get' do
+              =form_tag empresa_referencia_agendas_path(current_user.empresa), :method => 'get' do
                 %row
                   %div{class: "col-lg-2"}
                     %label
@@ -21,14 +21,14 @@
                   %div{class: "col-lg-2"}
                     %label
                       Profissional
-                    = select(:profissional, :id, Profissional.where(empresa_id: current_usuario.empresa_id).collect {|p| [p.nome, p.id] }, {:include_blank => ''}, :class => "form-control") 
+                    = select(:profissional, :id, current_user.empresa.profissionais.order(nome: :asc).collect {|p| [p.nome, p.id] }, {:include_blank => ''}, :class => "form-control") 
                   %div{class: "col-lg-3"}
                     %label
                       Descrição
                     = text_field_tag :descricao, '', placeholder: "Pesquisar referência pela descrição", class: "form-control"
                   %br
                   = submit_tag "Pesquisar", :name => nil, class: "btn btn-primary"
-                  = link_to "Recarregar", referencia_agendas_path, class: "btn btn-default"
+                  = link_to "Recarregar", empresa_referencia_agendas_path(current_user.empresa), class: "btn btn-default"
                   %br
                   %br
           .clearfix
