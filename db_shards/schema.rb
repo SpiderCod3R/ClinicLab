@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170213121812) do
+ActiveRecord::Schema.define(version: 20170213135251) do
 
   create_table "agenda_movimentacoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "agenda_id"
@@ -330,6 +330,8 @@ ActiveRecord::Schema.define(version: 20170213121812) do
     t.string   "nome"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.integer  "empresa_id"
+    t.index ["empresa_id"], name: "index_imagem_cabecs_on_empresa_id", using: :btree
   end
 
   create_table "operadoras", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -430,6 +432,7 @@ ActiveRecord::Schema.define(version: 20170213121812) do
   add_foreign_key "fornecedores", "cidades"
   add_foreign_key "fornecedores", "estados"
   add_foreign_key "historicos", "clientes"
+  add_foreign_key "imagem_cabecs", "empresas"
   add_foreign_key "operadoras", "empresas"
   add_foreign_key "profissionais", "cargos"
   add_foreign_key "profissionais", "cidades"
