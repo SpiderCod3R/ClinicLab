@@ -1,4 +1,4 @@
-class ServicosController  < Support::InsideController
+class ServicosController < Support::InsideController
   load_and_authorize_resource
 
   def index
