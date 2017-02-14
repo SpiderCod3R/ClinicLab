@@ -18,7 +18,6 @@ class ClientesController < Support::ClienteSupportController
   end
 
   def edit
-    session[:cliente_id] = @cliente.id
     load_tabs
   end
 

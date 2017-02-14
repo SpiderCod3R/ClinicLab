@@ -82,12 +82,5 @@ class Cliente < Connection::Factory
                                    anotacoes: resource[:anotacoes],
                                    pdf: resource[:pdf]
                                   )
-    # # binding.pry
-    # if self.cliente_pdf_uploads.last.valid?
-    #   self.save
-    #   return true
-    # else
-    #   return false
-    # end
   end
 end
