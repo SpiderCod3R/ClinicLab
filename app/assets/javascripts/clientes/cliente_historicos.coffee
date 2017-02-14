@@ -2,8 +2,8 @@ $(document).ready ->
   URL_BASE = window.location.origin + "/"
   error_messages = []
   historico_id = 0
-  environment_id   = $('#cliente_environment_id').val()
-  environment_name = $('#cliente_environment_name').val()
+  environment_id   = $('#cliente_empresa_id').val()
+  environment_name = $('#cliente_empresa_name').val()
 
   $('#incluir_historico').click ->
     $('div#old_historico').hide()

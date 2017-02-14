@@ -1,13 +1,12 @@
-class SearchController < ApplicationController
-  skip_authorize_resource
+class SearchController < Support::InsideController
   def buscar_pacientes
     if params[:nome_paciente] != ""
-      @pacientes = Cliente.where("nome LIKE ?", "#{params[:nome_paciente]}%").where(empresa_id: current_usuario.empresa_id).take(10)
+      @pacientes = current_user.empresa.clientes.where("nome LIKE ?", "#{params[:nome_paciente]}%").take(10)
     end
   end
 
   def collect_all_free_text
-    @textos_livres = TextoLivre.all.where(empresa_id: current_usuario.empresa_id)
+    @textos_livres = current_user.empresa.texto_livres.all
   end
 
   def find_cliente_texto_livre
