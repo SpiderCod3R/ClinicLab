@@ -1,4 +1,4 @@
-puts "CRIANDO ESTADOS & CIDADES"
+puts "CREATING ESTADOS & CIDADES"
 e = Estado.create(:sigla => 'AC', :nome => "Acre")
 e.cidades.create(:nome => "Acrelândia")
 e.cidades.create(:nome => "Assis Brasil")

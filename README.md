@@ -1,24 +1,23 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+- Para utilizar o Sistema use primeira mente essas tasks(tarefas)
+```ruby
+rails db:drop db:create db:migrate setup:create_admin setup:send_models
+```
+* Obs 
+  * *O sistema está configurada para ambientes distintos*  
 
-Things you may want to cover:
+Nesse caso em:  
 
-* Ruby version
+> ##### /config/databases  
+  - Existe um arquivo chamado ```database_shared_db.yml```
+    - Altere o nome da base de dados para o nome do banco da empresa e entrar em vigor
+    - Lembrese de alterar o usuario e senha do banco
 
-* System dependencies
+- Use as tarefas a seguir para criar o banco de dados
+```ruby
+rails shared:setup:db:create shared:setup:db:migrate
+```
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
 
 * ...

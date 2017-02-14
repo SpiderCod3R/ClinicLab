@@ -25,7 +25,7 @@ namespace :shared do
       end
 
       desc 'Migrate de seed file on db_shards'
-      task :send_seed do
+      task :seed do
         Rake::Task["db:seed"].invoke
       end
 
