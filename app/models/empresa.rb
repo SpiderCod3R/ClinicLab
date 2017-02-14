@@ -7,6 +7,8 @@ class Empresa < Connection::Factory
   validates :nome, presence: true
   validates :nome, uniqueness: true
 
+  belongs_to :environment, class_name: "Gclinic::Environment"
+
   # => Opções com reação em Cadeia apos o destroy da empresa
   with_options dependent: :destroy do
     has_many :agendas

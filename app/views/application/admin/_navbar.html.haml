@@ -66,14 +66,10 @@
             %i.fa.fa-dashboard.fa-fw
             Dashboard
         %li
-          %a{:href => "#"}
-            %i.fa.fa-bar-chart-o.fa-fw
+          =link_to painel_environments_path do
+            %i.fa.fa-pie-chart.fa-fw
             Ambientes
-            %span.fa.arrow
-          %ul.nav.nav-second-level
-            %li
-              =link_to "Criados", painel_environments_path
         %li
           =link_to painel_models_path do
             %i.fa.fa-table.fa-fw
-            Permissões
+            Modelos

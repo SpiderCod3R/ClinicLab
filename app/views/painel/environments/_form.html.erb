@@ -10,7 +10,8 @@
       </ul>
     </div>
   <% end %>
-
+  <h3>Dados de Conexão</h3>
+  <hr style="border: #AFAFAF 1px solid">
   <div class="row">
     <div class="field col-md-6">
       <%= f.label :name, "Nome" %><br>
@@ -26,7 +27,7 @@
   </div>
 
   <br>
-  <h1>Usuário</h1>
+  <h3>Administrador do Ambiente(Empresa)</h3>
   <hr style="border: #AFAFAF 1px solid">
   <%=f.fields_for :users do |builder| %>
     <%= render 'users', {f: builder} %>

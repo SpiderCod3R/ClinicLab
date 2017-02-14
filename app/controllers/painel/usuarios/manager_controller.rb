@@ -5,43 +5,46 @@ class Painel::Usuarios::ManagerController < ApplicationController
 
   def create
     if params[:usuario]
-      @usuario = Painel::Usuario.new_by(params[:usuario]["0"])
-      @usuario.empresa_id = current_usuario.empresa_id
+      @usuario = Gclinic::User.new_by(params[:usuario]["0"])
+      @usuario.empresa_id     = current_user.environment_id
+      @usuario.environment = current_user.environment
     end
+
     if params[:usuario_permissoes]
       @usuario.import_permissoes(params[:usuario_permissoes])
     end
+
     if @usuario.save
       respond_to &:json
     end
   end
 
   def update
-    if master_signed_in? || usuario_signed_in?
-      @usuario = Painel::Usuario.find(params[:id])
+    if user_signed_in?
+      @usuario = Gclinic::User.find(params[:id])
       @usuario.update_without_password(usuario_params)
     end
     respond_to &:js
   end
 
   def update_password
-    if master_signed_in? || usuario_signed_in?
-      @usuario = Painel::Usuario.find(password_params[:id])
+    if user_signed_in?
+      @usuario = Gclinic::User.find(password_params[:id])
       @usuario.update_with_password(password_params)
     end
     respond_to &:js
   end
 
   def add_permissions
-    @usuario = Painel::Usuario.find(params[:painel_usuario_id])
+    @usuario = Gclinic::User.find(params[:painel_usuario_id])
     @empresa_permissoes = @usuario.verify_permissions_not_added
   end
 
   def save_permissions
-    @permissao = Painel::Permissao.find_by(model_class: "Agenda")
+    @permissao = Gclinic::Model.find_by(model_class: "Agenda")
 
     if params[:usuario]
-      @usuario = Painel::Usuario.find(params[:usuario]["0"]["usuario_id"])
+      @usuario = Gclinic::User.find(params[:usuario]["0"]["usuario_id"])
     end
 
     @old_usuario_permissao = @usuario.usuario_permissoes.find_by(permissao_id: @permissao.id)
@@ -68,11 +71,11 @@ class Painel::Usuarios::ManagerController < ApplicationController
   end
 
   def change_account
-    @usuario = Painel::Usuario.find(params[:id])
+    @usuario = Gclinic::User.find(params[:id])
   end
 
   def change_data
-    @usuario = Painel::Usuario.find(params[:id])
+    @usuario = Gclinic::User.find(params[:id])
     if usuario_params[:password]==""
       if @usuario.update_without_password(usuario_params)
         flash[:info] = "Usuário atualizado."

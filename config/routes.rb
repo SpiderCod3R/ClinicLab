@@ -64,7 +64,7 @@ Rails.application.routes.draw do
     resources :servicos
     resources :texto_livres
     resources :referencia_agendas, except: [:show]
-    resources :contas, controller: 'usuarios/accounts'
+    resources :contas, controller: 'painel/usuarios/accounts'
   end
 
 

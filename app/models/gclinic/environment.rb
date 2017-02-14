@@ -5,6 +5,7 @@ class Gclinic::Environment < ApplicationRecord
   attr_writer   :model_ids
 
   has_many :users, class_name: "Gclinic::User", foreign_key: "environment_id", dependent: :destroy
+  has_one  :empresa
   accepts_nested_attributes_for :users,
                                 reject_if: proc { |attributes| attributes['email'].blank?},
                                 allow_destroy: true
