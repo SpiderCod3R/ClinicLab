@@ -68,7 +68,12 @@
             <%- @environment.environment_models.each do |model| %>
               <div class="col-md-4">
                 <ul>
-                  <li><%= model.name %></li>
+                  <li>
+                    <%= model.name %>
+                    <%= link_to "#" do %>
+                      <i class="fa fa-trash-o"></i>
+                    <%- end -%>
+                  </li>
                 </ul>
               </div>
             <%- end -%>

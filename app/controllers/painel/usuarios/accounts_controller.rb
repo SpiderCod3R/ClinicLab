@@ -1,12 +1,13 @@
 class Painel::Usuarios::AccountsController < ApplicationController
-  before_action :authenticate_usuario!, only: [:index]
+  before_action :authenticate_user!
+  before_action :set_environment
   before_action :find_usuario, only: [:show_permissions, :change_password ,:destroy]
   before_action :find_empresa, only: [:index]
 
   respond_to :html, :xml, :js, :json
 
   def index
-    @empresa_usuarios = Painel::Usuario.where(empresa_id: @empresa).page params[:page]
+    @empresa_usuarios = Gclinic::User.where(empresa_id: @empresa).page params[:page]
   end
 
   def show_permissions
@@ -16,9 +17,9 @@ class Painel::Usuarios::AccountsController < ApplicationController
   end
 
   def new
-    if master_signed_in? || usuario_signed_in?
-      @empresa = Painel::Empresa.find(current_usuario.empresa_id) if current_usuario
-      @usuario = Painel::Usuario.new
+    if user_signed_in?
+      @empresa = Empresa.find(current_user.empresa) if current_user
+      @usuario = Gclinic::User.new
     end
   end
 
@@ -27,12 +28,18 @@ class Painel::Usuarios::AccountsController < ApplicationController
   end
 
   private
+    def set_environment
+      @environment = Gclinic::Environment.friendly.find(current_user.environment)
+      Thread.current[:environment_type]= @environment.database_name
+      session[:environment_type]= @environment.database_name
+    end
+
     def find_empresa
-      @empresa = Painel::Empresa.friendly.find(params[:empresa_id])
+      @empresa = Empresa.friendly.find(params[:empresa_id])
     end
 
     def find_usuario
-      @usuario = Painel::Usuario.find(params[:id])
+      @usuario = Gclinic::User.find(params[:id])
     end
 
     def password_params

@@ -29,7 +29,7 @@ class Painel::EnvironmentsController < ApplicationController
     @environment = Gclinic::Environment.new(environment_params)
     Thread.current[:environment_type]= @environment.database_name
     if @environment.save
-      @empresa = Empresa.new(nome: @environment.name, environment_name: @environment.database_name, slug: @environment.database_name)
+      @empresa = Empresa.new(nome: @environment.name, environment_name: @environment.database_name, slug: @environment.name.downcase.gsub(" ", "-"))
       @empresa.save
       @admin = @environment.users.first
       @admin.empresa= @empresa

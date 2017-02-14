@@ -1,5 +1,6 @@
 FactoryGirl.define do
   factory :empresa do
-    nome { Faker::Space.company }
+    nome "MyString"
+    environment_name "MyString"
   end
 end
