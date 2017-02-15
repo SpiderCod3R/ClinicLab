@@ -11,8 +11,6 @@ class Profissional < ApplicationRecord
 
   validates :numero_conselho_regional, length: { maximum: 50 }
 
-  validates_associated :cargo, :estado, :cidade, :operadora
-
   belongs_to :cargo
   belongs_to :estado
   belongs_to :cidade
