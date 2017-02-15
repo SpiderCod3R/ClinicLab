@@ -16,10 +16,10 @@
       =link_to empresa_usuario_add_permissions_path(user.empresa, user), title: " Adicionar nova Permissão" do
         %i.fa.fa-2x.fa-plus-circle.text-center{style: "color: #0580DE"}
       -if user.user_models.has_agenda?
-        =link_to manager_empresa_agenda_permissao_path(user.empresa, user.id), title: "Permissões da Agenda" do
+        =link_to manager_empresa_agenda_permissao_path(user.empresa, user), title: "Permissões da Agenda" do
           %i.fa.fa-2x.fa-calendar.text-center{style: "color: #40783F"}
       -if user.user_models.has_cliente?
-        =link_to manager_cliente_permissao_path(user.id), title: "Permissões do Cliente" do
+        =link_to manager_empresa_cliente_permissao_path(user.empresa, user), title: "Permissões do Cliente" do
           %i.fa.fa-2x.fa-universal-access{style: "color: #008C7C"}
   %td
     %center

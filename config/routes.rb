@@ -31,14 +31,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :cliente_permissoes, controller: "cliente_permissoes", except: [:index, :show, :new, :create, :edit, :update, :destroy] do
-    member do
-      get  'manager'
-      post 'build_permissions'
-    end
-  end
-
-
   get 'ficha_cliente', to: "clientes#clinic_sheet", as: :clinic_sheet_cliente
 
   resources :empresa do
@@ -79,6 +71,13 @@ Rails.application.routes.draw do
       member do
         get 'manager'
         post 'build_agenda_permissions'
+      end
+    end
+
+    resources :cliente_permissoes, controller: "cliente_permissoes", except: [:index, :show, :new, :create, :edit, :update, :destroy] do
+      member do
+        get  'manager'
+        post 'build_permissions'
       end
     end
   end
