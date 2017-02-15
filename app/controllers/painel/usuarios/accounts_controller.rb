@@ -1,8 +1,6 @@
 class Painel::Usuarios::AccountsController < Support::InsideController
-  before_action :authenticate_user!
-  before_action :set_environment
+  before_action :find_environment
   before_action :find_usuario, only: [:show_permissions, :change_password ,:destroy]
-  before_action :find_empresa, only: [:index]
 
   respond_to :html, :xml, :js, :json
 
@@ -28,11 +26,11 @@ class Painel::Usuarios::AccountsController < Support::InsideController
   end
 
   private
-    def set_environment
+    def find_environment
       @environment = Gclinic::Environment.friendly.find(current_user.environment)
     end
 
-    def find_empresa
-      @empresa = Empresa.friendly.find(params[:empresa_id])
+    def find_usuario
+      @user = Gclinic::User.find(params[:id])
     end
 end

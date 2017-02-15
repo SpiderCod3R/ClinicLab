@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170214155543) do
+ActiveRecord::Schema.define(version: 20170215105833) do
 
   create_table "agenda_movimentacoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "agenda_id"
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 20170214155543) do
   end
 
   create_table "agenda_permissoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "usuario_permissoes_id"
+    t.integer  "user_model_id"
     t.boolean  "agendar"
     t.boolean  "excluir"
     t.boolean  "trocar_horario"
@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 20170214155543) do
     t.boolean  "desmarcar_pelo_paciente"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
-    t.index ["usuario_permissoes_id"], name: "index_agenda_permissoes_on_usuario_permissoes_id", using: :btree
+    t.index ["user_model_id"], name: "index_agenda_permissoes_on_user_model_id", using: :btree
   end
 
   create_table "agendas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

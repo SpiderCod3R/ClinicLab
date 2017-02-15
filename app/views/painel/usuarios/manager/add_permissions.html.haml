@@ -7,7 +7,7 @@
       %h1{style: "color: #636363; font-weight: bold"} Editando Usuário
       %br/
       %main
-        = form_for([@empresa, @usuario], url: painel_empresa_painel_usuario_save_permissions_path, method: "POST", html: {id: "edit_permissoes_usuario"} ) do |z|
+        = form_for([current_user.empresa, @user], url: empresa_usuario_save_permissions_path, method: "POST", html: {id: "edit_permissoes_usuario"} ) do |f|
           .col.md-12
             #error_explanation{style: "display:none;"}
               %h2#erros_count
@@ -17,30 +17,21 @@
               %em Dados do Usuário
             .container-fluid
               .row
-                =z.hidden_field :empresa_id, value: @usuario.empresa_id
-                =z.hidden_field :id, value: @usuario.id
+                =f.hidden_field :empresa_id, value: @user.empresa_id
+                =f.hidden_field :id, value: @user.id
               .row
                 .col-md-6
-                  = z.label :nome, required: true
-                  = z.text_field :nome, required: true, class: "form-control", disabled: true
-                .col-md-6
-                  = z.label :login, required: true
-                  = z.text_field :login, required: true, class: "form-control", disabled: true
+                  = f.label :name, required: true
+                  = f.text_field :name, required: true, class: "form-control", disabled: true
               .row
-                .col-md-2
-                  = z.label "Código", required: true
-                  = z.text_field :codigo_pais, required: true, class: "form-control", value: "55", disabled: true
-                .col-md-4
-                  = z.label :telefone, required: true
-                  = z.text_field :telefone, required: true, class: "form-control", disabled: true
                 .col-md-6
-                  =z.label :email, required: true
-                  =z.email_field :email, placeholder: "example@email.com", class: "form-control", required: true, disabled: true
+                  =f.label :email, required: true
+                  =f.email_field :email, placeholder: "example@email.com", class: "form-control", required: true, disabled: true
           %br/
           #edit_permissoes_usuario
             .panel.panel.default
               / =console
-              =content_tag(:div, @usuario.empresa.empresa_permissoes.last.permissao_id, id: "empresa_permissoes_count", style: "display: none")
+              =content_tag(:div, @user.environment.environment_models.last.model_id, id: "empresa_permissoes_count", style: "display: none")
               .panel-heading
                 %h3
                   %em=t('painel.helpers.models.permissoes')
@@ -54,36 +45,12 @@
                     %th Vizualizar
                     / %th Deletar
                   %tbody
-                    -@usuario.empresa.empresa_permissoes.includes("permissao").order("painel_permissoes.nome ASC").select(:permissao_id).each_with_index do |y,f|
-                      %tr{id: "indice_externo_#{f}", style: "border: #C7C4FF 2px dashed;"}
-                        %td{style: "color: #524EFF; font-weight: bold"}
-                          %em=y.permissao.nome
-                          =z.hidden_field :permissao_id, value: "#{y.permissao.id}"
-                        %td
-                          -if @usuario.usuario_permissoes.find_by(permissao_id: y.permissao.id, cadastrar: true)
-                            =z.check_box :cadastrar, checked: true, data: { permissao_id: y.permissao.id }
-                          -else
-                            =z.check_box :cadastrar, data: { permissao_id: y.permissao.id }
-                        %td
-                          -if @usuario.usuario_permissoes.find_by(permissao_id: y.permissao.id, atualizar: true)
-                            =z.check_box :atualizar, checked: true
-                          -else
-                            =z.check_box :atualizar
-                        %td
-                          -if @usuario.usuario_permissoes.find_by(permissao_id: y.permissao.id, exibir: true)
-                            =z.check_box :exibir, checked: true
-                          -else
-                            =z.check_box :exibir
-                        / %td
-                        /   -if @usuario.usuario_permissoes.find_by(permissao_id: y.modulo.id, deletar: true)
-                        /     =z.check_box :deletar, checked: true
-                        /   -else
-                        /     =z.check_box :deletar
+                    =render 'permissions_check_boxes', {z: f}
           %br
           .form-actions
             %hr{style: "border: #C5B1FF 1px dashed"}
             .pull-left
-              = z.button "Salvar", class: "btn btn-primary"
+              = f.button "Salvar", class: "btn btn-primary"
             .pull-right
               = link_to t('painel.helpers.actions.back'), root_path, class: "btn btn-danger"
 %br/

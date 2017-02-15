@@ -21,7 +21,7 @@ $(document).ready ->
     else
       $('#permissoes_empresa').slideDown(1000)
 
-  coleta_permissoes = (checked_admin) ->
+  coleta_permissoes = (counter,checked_admin) ->
     ary = []
     x=1
     # => While necessario para percorrer todas as permissoes
@@ -45,6 +45,7 @@ $(document).ready ->
           r = inputs.closest("#gclinic_user_exibir").val()
           u = inputs.closest("#gclinic_user_atualizar").val()
           d = inputs.closest("#gclinic_user_deletar").val()
+
           # Em caso do checkbox nao estar marcado
           if indice_externo.find("input:checked").closest("#gclinic_user_cadastrar").val() == undefined
             c = "0"
@@ -87,8 +88,6 @@ $(document).ready ->
 
     empresa_id = $("#gclinic_user_empresa_id").val()
     inputs = ""
-    indice_externo = ""
-    permissao_id = ""
 
     # => Adicionando dados do usuario no HASH
     data_usuario.push
@@ -99,7 +98,7 @@ $(document).ready ->
       'password_confirmation' : $("#gclinic_user_password").val()
       'admin'                 : checked_admin
 
-    data_usuario_permissoes = coleta_permissoes(checked_admin)
+    data_usuario_permissoes = coleta_permissoes(counter, checked_admin)
 
     # => AJAX request para enviar dados ao controller
     PATH = "painel/empresas/#{empresa_id}/usuarios"
@@ -107,26 +106,19 @@ $(document).ready ->
     # console.log data_usuario_permissoes
     ajax_request(data_usuario, data_usuario_permissoes, PATH)
 
-
   $('#edit_permissoes_usuario').submit (event) ->
     event.preventDefault()
-    data_usuario = []
-    data_usuario_permissoes = []
 
     empresa_id = $("#gclinic_user_empresa_id").val()
     usuario_id = $("#gclinic_user_id").val()
-    counter    = $("#empresa_permissoes_count").text()
-
-    inputs = ""
-    indice_externo = ""
-    permissao_id = ""
-
-    coleta_permissoes(i, false)
+    data_usuario = []
+    counter = $("#empresa_permissoes_count").text()
+    data_usuario_permissoes = coleta_permissoes(counter,false)
 
     # => Adicionando dados do usuario no HASH
     data_usuario.push
       'empresa_id' : empresa_id
       'usuario_id' : usuario_id
 
-    PATH = "painel/empresas/#{empresa_id}/painel_usuarios/#{usuario_id}/save_permissions"
+    PATH = "empresa/#{empresa_id}/usuarios/#{usuario_id}/save_permissions"
     ajax_request(data_usuario, data_usuario_permissoes, PATH)

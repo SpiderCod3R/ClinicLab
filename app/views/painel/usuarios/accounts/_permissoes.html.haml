@@ -6,16 +6,16 @@
         %button.close{ :"aria-label" =>"Close", :"data-dismiss"=>"modal", type: "button"}
           %span{:"aria-hidden"=>"true"} ×
         %h4#myModalLabel.modal-title
-          %center="Permissoes do(a) Funcionário(a) #{usuario.nome}"
+          %center="Permissoes do(a) Funcionário(a) #{user.name}"
       .modal-body
         %fieldset{style: "border: #BBC0C3 1px solid;"}
           %br/
           %ol
             .container-fluid
               .col-md-12
-                -usuario.usuario_permissoes.permissoes_adicionadas.select(:permissao_id).each do |f|
+                -user.user_models.models_added.select(:model_id).each do |f|
                   .col-md-4
-                    %li{style: "color: #524EFF;"}=f.permissao.nome
+                    %li{style: "color: #524EFF;"}=f.model.name
                     %hr{style: "border: #C7C4FF 0.5px dashed;"}
       .modal-footer
         .row

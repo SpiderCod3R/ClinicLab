@@ -65,6 +65,15 @@ Rails.application.routes.draw do
     resources :texto_livres
     resources :referencia_agendas, except: [:show]
     resources :contas, controller: 'painel/usuarios/accounts'
+
+    resources :usuarios, controller: 'painel/usuarios/manager', except: [:index] do
+      get  'add_permissions'
+      post 'save_permissions'
+      member do
+        get 'change_account'
+        put 'change_data'
+      end
+    end
   end
 
 
@@ -110,16 +119,6 @@ Rails.application.routes.draw do
       post 'create_admin', to: "dashboards#create_admin", as: :create_admin
       delete 'remove_administrador/:usuario_id', to: "dashboards#remove_admin", as: :remove_admin
       delete 'remover_permissao_empresa_usaurio/:permissao_id', to: "dashboards#remover_permissao_empresa_usaurio", as: :remover_permissao_empresa_usaurio
-      
-
-      resources :usuarios, controller: 'usuarios/manager', except: [:index] do
-        get  'add_permissions'
-        post 'save_permissions'
-        member do
-          get 'change_account'
-          put 'change_data'
-        end
-      end
 
       resources :agendas do
         collection do

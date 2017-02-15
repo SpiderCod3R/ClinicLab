@@ -13,32 +13,32 @@
       %h1{style: "color: #636363; font-weight: bold"} Novo Usuário
       %br/
       %main
-        = form_for([@empresa, @usuario], url: painel_empresa_usuarios_path, controller: "painel/usuarios/manager", action: "create", method: "POST") do |z|
+        = form_for([@empresa, @usuario], url: empresa_usuarios_path, controller: "painel/usuarios/manager", action: "create", method: "POST") do |f|
           %fieldset
             %legend
               %em Dados do Usuário
             .container-fluid
               .row
-                =z.hidden_field :empresa_id, value: current_user.empresa_id
+                =f.hidden_field :empresa_id, value: current_user.empresa_id
               .row
                 .col-md-6
-                  = z.label "Administrador", for: "painel_usuario_admin_"
-                  =z.check_box :admin
+                  = f.label "Administrador", for: "painel_usuario_admin_"
+                  =f.check_box :admin
               %br/
               .row
                 .col-md-6
-                  = z.label :name, required: true
-                  = z.text_field :name, required: true, class: "form-control"
+                  = f.label :name, required: true
+                  = f.text_field :name, required: true, class: "form-control"
                 .col-md-6
-                  =z.label :email, required: true
-                  =z.email_field :email, placeholder: "example@email.com", class: "form-control", required: true
+                  =f.label :email, required: true
+                  =f.email_field :email, placeholder: "example@email.com", class: "form-control", required: true
               .row
                 .col-md-6
-                  =z.label :password, "Senha"
-                  =z.password_field :password, required: true, class: "form-control"
+                  =f.label :password, "Senha"
+                  =f.password_field :password, required: true, class: "form-control"
                 .col-md-6
-                  =z.label :password_confirmation, "Confirmação de Senha"
-                  =z.password_field :password_confirmation, required: true, class: "form-control"
+                  =f.label :password_confirmation, "Confirmação de Senha"
+                  =f.password_field :password_confirmation, required: true, class: "form-control"
           %br/
 
           #permissoes_empresa
@@ -56,33 +56,11 @@
                     %th Atualizar
                     %th Vizualizar
                   %tbody
-                    -@environment.environment_models.includes("model").order("gclinic_models.name ASC").select(:model_id).each do |f|
-                      %tr{id: "indice_externo_#{f.model.id}", style: "border: #C7C4FF 2px dashed;"}
-                        %td{style: "color: #524EFF; font-weight: bold"}
-                          %em=f.model.name
-                          =z.hidden_field :model_id, value: "#{f.model.id}"
-                        %td
-                          -if @usuario.user_models.find_by(model_id: f.model.id, cadastrar: true)
-                            =z.check_box :cadastrar, checked: true, data: { model_id: f.model.id }
-                          -else
-                            =z.check_box :cadastrar, data: { model_id: f.model.id }
-                        %td
-                          -if @usuario.user_models.find_by(model_id: f.model.id, atualizar: true)
-                            =z.check_box :atualizar, checked: true
-                          -else
-                            =z.check_box :atualizar
-                        %td
-                          -if @usuario.user_models.find_by(model_id: f.model.id, exibir: true)
-                            =z.check_box :exibir, checked: true
-                          -else
-                            =z.check_box :exibir
-          
+                    =render 'permissions_check_boxes', {z: f}
           %br
           .form-actions
             %hr{style: "border: #C5B1FF 1px dashed"}
             .pull-left
-              = z.button "Salvar", class: "btn btn-primary"
+              = f.button "Salvar", class: "btn btn-primary"
             .pull-right
               = link_to t('painel.helpers.actions.back'), root_path, class: "btn btn-danger"
-%br/
-%br/

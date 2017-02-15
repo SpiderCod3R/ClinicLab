@@ -1,12 +1,12 @@
-unless @usuario.valid?
+unless @user.valid?
   json.set! :usuario do
     json.set! :invalid, true
   end
 
-  json.set! :message_count, @usuario.errors.messages.count
+  json.set! :message_count, @user.errors.messages.count
 
   json.set! :messages do
-    json.array! @usuario.errors.messages do |_key, value|
+    json.array! @user.errors.messages do |_key, value|
       if _key.eql?(:password)
         _key = :"Senha"
       end
@@ -15,11 +15,10 @@ unless @usuario.valid?
     end
   end
 else
-  json.set! :usuario do
-    json.set! :invalid, false
+  json.set! :environment do
+    json.set! :url, @user.empresa.slug
   end
-
-  json.set! :message do
-    json.set! :success, I18n.t("flash.actions.update.success", resource_name: @usuario.nome)
+  json.set! :messages do
+    json.set! :success, I18n.t("flash.actions.create.success", resource_name: @user.name)
   end
 end
