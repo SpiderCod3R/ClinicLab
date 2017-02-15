@@ -22,7 +22,7 @@ class Painel::Usuarios::ManagerController < Support::InsideController
   def update
     if user_signed_in?
       @user = Gclinic::User.find(params[:id])
-      @user.update_without_password(usuario_params)
+      @user.update_without_password(user_params)
     end
     respond_to &:js
   end
@@ -76,17 +76,17 @@ class Painel::Usuarios::ManagerController < Support::InsideController
 
   def change_data
     @user = Gclinic::User.find(params[:id])
-    if usuario_params[:password]==""
-      if @user.update_without_password(usuario_params)
+    if user_params[:password]==""
+      if @user.update_without_password(user_params)
         flash[:info] = "Usuário atualizado."
-        redirect_to painel_empresa_contas_path(current_usuario.empresa)
+        redirect_to empresa_contas_path(current_user.empresa)
       else
         render :edit
       end
-    elsif usuario_params[:password] != ""
-      if @user.update(usuario_params)
+    elsif user_params[:password] != ""
+      if @user.update(user_params)
         flash[:info] = "Usuário atualizado."
-        redirect_to painel_empresa_contas_path(current_usuario.empresa)
+        redirect_to empresa_contas_path(current_user.empresa)
       else
         render :change_account
       end
@@ -96,15 +96,15 @@ class Painel::Usuarios::ManagerController < Support::InsideController
 
   private
     def find_empresa
-      @empresa = Painel::Empresa.friendly.find(params[:empresa_id])
+      @empresa = Empresa.friendly.find(params[:empresa_id])
     end
 
     def password_params
-      params.require(:painel_usuario).permit(:id, :password, :password_confirmation)
+      params.require(:gclinic_user).permit(:id, :password, :password_confirmation)
     end
 
-    def usuario_params
-      params.require(:painel_usuario).permit(:nome, :login, :email, :password, :password_confirmation,
+    def user_params
+      params.require(:gclinic_user).permit(:nome, :login, :email, :password, :password_confirmation,
                                              :admin, :telefone, :codigo_pais, :empresa_id)
     end
 end

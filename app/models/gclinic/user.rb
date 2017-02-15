@@ -23,6 +23,10 @@ class Gclinic::User < ApplicationRecord
     end
   end
 
+  def employee?
+    !self.admin?
+  end
+
   def password_filled_in?
     return unless password.blank?
   end
