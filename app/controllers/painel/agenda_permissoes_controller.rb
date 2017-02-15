@@ -1,20 +1,15 @@
-class Painel::AgendaPermissoesController < ApplicationController
-  before_action :authenticate_usuario!
-  # before_action :find_empresa
-  # before_action :find_agenda
-
+class Painel::AgendaPermissoesController < Support::InsideController
   def manager
-    @usuario = Painel::Usuario.find(params[:id])
-    @permissao = Painel::Permissao.find_by(model_class: "Agenda")
-    @usuario_permissao = @usuario.usuario_permissoes.find_by(permissao_id: @permissao.id)
-    @agenda_permissao = AgendaPermissao.find_by usuario_permissoes_id: @usuario_permissao.id
-
+    @user       = Gclinic::User.find(params[:id])
+    @model      = Gclinic::Model.find_by(model_class: "Agenda")
+    @user_model = @user.user_models.find_by(model_id: @model.id)
+    @agenda_permissao = AgendaPermissao.find_by user_model_id: @user_model.id
     @agenda_permissao = AgendaPermissao.new if @agenda_permissao.nil?
   end
 
   def build_agenda_permissions
-    @usuario_permissao = Painel::UsuarioPermissao.find(resource_params[:usuario_permissoes_id])
-    @agenda_permissao  = AgendaPermissao.find_by(usuario_permissoes_id: resource_params[:usuario_permissoes_id])
+    @user_model = Gclinic::UserModel.find(resource_params[:user_model_id])
+    @agenda_permissao  = AgendaPermissao.find_by(user_model_id: resource_params[:user_model_id])
 
     if !@agenda_permissao.nil?
       @agenda_permissao  = AgendaPermissao.update_content(resource_params)
@@ -23,12 +18,12 @@ class Painel::AgendaPermissoesController < ApplicationController
     end
 
     flash[:notice] = "Permissões da Agenda adicionadas"
-    redirect_to manager_agenda_permissao_path(@usuario_permissao.usuario.id)
+    redirect_to manager_empresa_agenda_permissao_path(@user_model.user.empresa, @user_model.user)
   end
 
   private
     def resource_params
-      params.require(:agenda_permissao).permit(:usuario_permissoes_id, :agendar, :excluir,
+      params.require(:agenda_permissao).permit(:user_model_id, :agendar, :excluir,
                                                :trocar_horario, :realizar_atendimento,
                                                :visualizar_atendimento, :limpar_horario,
                                                :paciente_nao_veio, :remarcar_pelo_paciente,

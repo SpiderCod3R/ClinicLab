@@ -74,11 +74,16 @@ Rails.application.routes.draw do
         put 'change_data'
       end
     end
+
+    resources :agenda_permissoes, controller: "painel/agenda_permissoes", except: [:index, :show, :new, :create, :edit, :update, :destroy] do
+      member do
+        get 'manager'
+        post 'build_agenda_permissions'
+      end
+    end
   end
 
-
   resources :atendimentos
-
 
   get 'relatorios/new' => "configuracao_relatorios#new"
   get 'conselhos_regionais/new' => "conselho_regionais#new"
@@ -104,12 +109,6 @@ Rails.application.routes.draw do
 
   post 'clientes/include_texto_livre', to: 'clientes#include_texto_livre'
 
-  resources :agenda_permissoes, controller: "painel/agenda_permissoes", except: [:index, :show, :new, :create, :edit, :update, :destroy] do
-    member do
-      get 'manager'
-      post 'build_agenda_permissions'
-    end
-  end
   namespace :painel do
     resources :dashboards
 
