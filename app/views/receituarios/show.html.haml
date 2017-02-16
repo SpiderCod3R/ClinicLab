@@ -1,0 +1,16 @@
+=build_object_viewer_toolbar(edit_empresa_receituario_path(current_usuario.empresa, @receituario), @receituario, empresa_receituarios_path(current_usuario.empresa), nil)
+
+.container
+  .panel.panel-default
+    .container-fluid
+      .row-fluid
+        %p
+          %b Nome:
+          = @receituario.nome
+.container
+  .panel.panel-default
+    .container-fluid
+      .row-fluid
+        %p
+          %b Receita:
+          =raw @receituario.receita

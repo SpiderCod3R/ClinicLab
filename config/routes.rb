@@ -1,9 +1,11 @@
 #-*-coding:utf-8-*-
 Rails.application.routes.draw do
+
   mount Ckeditor::Engine => '/ckeditor'
 
   resources :empresas do
     resources :servicos
+    resources :receituarios
   end
 
   resources :texto_livres do

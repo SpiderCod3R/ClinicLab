@@ -65,7 +65,7 @@ class ClientesController < Support::ClienteSupportController
 
       @cliente_texto_livre     = @cliente.cliente_texto_livres.first
       @cliente_collection_pdfs = @cliente.cliente_pdf_uploads.ultima_data.page(@@page).per(2)
-      @cliente_pdf_uploads     = @cliente.cliente_pdf_uploads.build if !@cliente.cliente_pdf_uploads.empty?
+      @cliente_pdf_uploads     = @cliente.cliente_pdf_uploads.build
       render :edit
     end
 end
