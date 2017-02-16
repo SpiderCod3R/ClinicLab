@@ -1,0 +1,19 @@
+=build_form_toolbar(nil, ".edit_receituario", @receituario, empresa_receituarios_path(current_usuario.empresa), nil)
+%section{id: "edit_receituario"}
+  .container
+    .row
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        %h1 Editando Receituário
+        %hr{style: "border: #323232 solid 0.5px;"}
+    .row
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        = simple_form_for([current_usuario.empresa, @receituario], url: empresa_receituario_path) do |f|
+          = f.error_notification
+
+          .form-inputs
+            = f.input :nome
+            %hr/
+            =label_or_error_tag @receituario, :receita, "Receita"
+            = f.cktext_area :receita, ckeditor: { uiColor: '#D3E7EF', toolbar: 'mini', height: 400 }
+
+        = javascript_include_tag Ckeditor.asset_path

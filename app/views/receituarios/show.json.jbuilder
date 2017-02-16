@@ -1,0 +1,1 @@
+json.partial! "receituarios/receituario", receituario: @receituario
