@@ -4,6 +4,7 @@ module AgendaFiltrosConcern
     attr_accessor :paciente_nome_contain, :data_contain
     class << self
       def retorna_todos_os_medicos_do_dia(resource)
+        self.set_connection
         find_by_sql("SELECT DISTINCT r.id AS id, r.descricao AS descricao
                   FROM agendas AS a
                   INNER JOIN referencia_agendas ON referencia_agendas.id = a.referencia_agenda_id
@@ -13,6 +14,7 @@ module AgendaFiltrosConcern
       end
 
       def retorna_todos_os_medicos_com_agenda(resource)
+        self.set_connection
         find_by_sql("SELECT DISTINCT r.id AS id, r.descricao AS descricao
                   FROM agendas AS a
                   INNER JOIN referencia_agendas ON referencia_agendas.id = a.referencia_agenda_id

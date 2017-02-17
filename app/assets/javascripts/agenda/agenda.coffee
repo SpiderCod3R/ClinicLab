@@ -6,7 +6,6 @@ $(document).ready ->
   localhost = window.location.origin
 
 
-
   $('#q_agenda_movimentacao_nome_paciente_cont').bind 'railsAutocomplete.select', (event, data) ->
     $('#search-form').submit()
     return
@@ -254,7 +253,7 @@ $(document).ready ->
       horarios_turno_a = coletor_do_turno_a()
       horarios_turno_b = coletor_do_turno_b()
       $.ajax
-        url: localhost + "/painel/empresas/#{empresa_id}/agendas"
+        url: localhost + "/empresa/#{empresa_id}/agendas"
         type: 'POST'
         dataType: 'JSON'
         beforeSend: ->
@@ -288,7 +287,7 @@ $(document).ready ->
               $('.progress .progress-bar').progressbar({display_text: 'center', use_percentage: false})
               setTimeout (->
                 if (response.agenda.location)
-                  window.location.href = localhost + "/painel/empresas/#{empresa_id}/agendas?locale=pt-BR"
+                  window.location.href = localhost + "/empresa/#{empresa_id}/agendas?locale=pt-BR"
               ), 8000
             ), 7000
           else
@@ -298,5 +297,5 @@ $(document).ready ->
             ), 2000
             setTimeout (->
               if (response.agenda.location)
-                window.location.href = localhost + "/painel/empresas/#{empresa_id}/agendas?locale=pt-BR"
+                window.location.href = localhost + "/empresa/#{empresa_id}/agendas?locale=pt-BR"
             ), 8000

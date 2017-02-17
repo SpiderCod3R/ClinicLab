@@ -1,9 +1,4 @@
-'''
-  ATENÇÃO!!!
-  ZONA DE PERIGO EXTREMO
-  CUIDADO AO MANUSEAR ESTA FUNCIONALIDADE
-'''
-class Painel::AgendasController < Support::AgendaSupportController
+class AgendasController < Support::AgendaSupportController
   before_action :retorna_referencias_menu_lateral, only: [:index, :search, :search_agenda_medicos]
   before_action :find_agenda, only: [:show,
                                      :movimentar,
@@ -28,16 +23,16 @@ class Painel::AgendasController < Support::AgendaSupportController
   def index
     @search= ransack_params
     @agendas= Agenda.includes(:referencia_agenda).includes(:agenda_movimentacao).
-                     da_empresa(@empresa.id).
+                     da_empresa(current_user.empresa).
                      a_partir_da_data_do_dia.
                      order_data.
                      order_atendimento.
                      offset(0).
                      take(12)
-    if !current_usuario.admin?
-      @permissao = Painel::Permissao.find_by(model_class: "Agenda")
-      @usuario_permissao = current_usuario.usuario_permissoes.find_by(permissao_id: @permissao.id)
-      @agenda_permissao = AgendaPermissao.find_by usuario_permissoes_id: @usuario_permissao.id
+    if !current_user.admin?
+      @model = Gclinic::Model.find_by(model_class: "Agenda")
+      @user_model = current_user.user_models.find_by(model_id: @model.id)
+      @agenda_permissao = AgendaPermissao.find_by user_model_id: @user_model.id
     end
 
     @agenda= Agenda.new

@@ -80,15 +80,15 @@ module AgendasHelper
   end
 
   def carrega_navbar_da_agenda
-    render 'painel/agendas/componentes/navbar'
+    render 'agendas/componentes/navbar'
   end
 
   def carrega_setor_alpha_da_agenda
-    render 'painel/agendas/componentes/setor_alpha'
+    render 'agendas/componentes/setor_alpha'
   end
 
   def carrega_opcoes_agenda(agenda)
-    render 'painel/agendas/componentes/opcoes', { agenda: agenda}
+    render 'agendas/componentes/opcoes', { agenda: agenda}
   end
 
   def agenda_wants_distinct_results?
