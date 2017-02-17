@@ -47,7 +47,7 @@ module AgendaFiltrosConcern
 
       # => retorna agenda dos medicos
       def search_agenda_medicos(resource)
-        @empresa = Painel::Empresa.friendly.find(resource[:empresa_id]).id
+        @empresa = Empresa.friendly.find(resource[:empresa_id]).id
         where(referencia_agenda_id: resource[:referencia_agenda_id], empresa_id: @empresa).
         a_partir_da_data_do_dia.
         order_data.
@@ -58,7 +58,7 @@ module AgendaFiltrosConcern
 
       # => retorna agenda dos medicos de outro dia que nao
       def search_agenda_medicos_outro_dia(resource)
-        @empresa = Painel::Empresa.friendly.find(resource[:empresa_id]).id
+        @empresa = Empresa.friendly.find(resource[:empresa_id]).id
         where(referencia_agenda_id: resource[:referencia_agenda_id], empresa_id: @empresa).
         a_partir_da_data_do_dia.
         order_data.
