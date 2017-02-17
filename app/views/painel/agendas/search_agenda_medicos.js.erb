@@ -1,4 +1,0 @@
-$("#agenda_content_normal").empty();
-$('.table-agenda').find('tbody').attr("id","agenda_content_<%= @referencia.id %>");
-$("#agenda_content_<%= @referencia.id %>").empty();
-$("#agenda_content_<%= @referencia.id %>").append("<%=j render 'agendas' , { agendas: @agendas } %>");
