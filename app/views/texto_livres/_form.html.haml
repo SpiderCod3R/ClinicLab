@@ -9,6 +9,6 @@
       =f.collection_select :servico_id, Servico.where(empresa_id: current_usuario.empresa_id), :id, :to_s, { prompt: "Selecione um" }, class: "form-control selectpicker", :"data-live-search"=>"true"
   %hr/
   .row-fluid
-    = f.label "Texto Livre"
+    =label_or_error_tag @texto_livre, :content, "Texto Livre"
     = f.cktext_area :content, ckeditor: { uiColor: '#D3E7EF', toolbar: 'mini', height: 400 }
 = javascript_include_tag Ckeditor.asset_path
