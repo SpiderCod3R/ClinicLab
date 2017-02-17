@@ -42,7 +42,7 @@ class Cliente < Connection::Factory
 
   class << self
     def da_empresa(resource)
-      where(empresa_id: resource)
+      where(empresa: resource)
     end
   end
 
