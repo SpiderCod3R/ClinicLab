@@ -1,20 +1,24 @@
 %nav.navbar.navbar-full.navbar-light.navbar-inverse.navbar-fixed-top.navbar-custom
   .navbar-header.fixed-brand
-    -if usuario_signed_in?
+    -if user_signed_in?
       =link_to root_path, class: "navbar-brand brand-logo" do
-        =current_usuario.empresa_nome
+        =current_user.empresa.nome
       #menu-toggle.navbar-toggle.collapsed{"data-toggle" => "collapse"}
         %i.fa.fa-bars.fa-2x{"aria-hidden" => "true"}
   #bs-megadropdown-tabs.collapse.navbar-collapse
     %ul{class: "nav navbar-nav", style: "padding-left: 15px;"}
       %li.active= link_to "#{image_tag("icons/glyphicons-222-unshare-white.png", width: 22, height: 22)} VOLTAR PARA AGENDAS".html_safe, uri_path
       %li= link_to "#{image_tag("icons/glyphicons-389-exit-white.png", width: 22, height: 22)} SAIR".html_safe, root_path
-    -if usuario_signed_in?
+    -if user_signed_in?
       %div{style: "padding-right: 80px;"}
         %ul.nav.navbar-nav.navbar-right
           %li.dropdown
             %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
-              =current_usuario.nome
+              =current_user.name
               %span.caret
             %ul.dropdown-menu
-              =render 'application/usuario_logado'
+              %li
+                = link_to destroy_user_session_path, method: 'delete', title: "SAIR" do
+                  %span.text-danger
+                    %i.fa.fa-sign-out
+                    Sair/Deslogar

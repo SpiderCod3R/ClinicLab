@@ -30,10 +30,8 @@ Rails.application.routes.draw do
       get 'show_texto_livre'
     end
   end
-
-  get 'ficha_cliente', to: "clientes#clinic_sheet", as: :clinic_sheet_cliente
-
   resources :empresa do
+    get 'ficha_cliente', to: "clientes#clinic_sheet", as: :clinic_sheet_cliente
     resources :clientes do
       member do
         get    'print_free_text'
