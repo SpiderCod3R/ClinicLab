@@ -20,9 +20,6 @@ class Profissional < Connection::Factory
 
   validates :numero_conselho_regional, length: { maximum: 50 }
 
-  validates_associated :cargo, :estado, :cidade, :operadora
-
-
   usar_como_cpf :cpf
   scope :pelo_nome, -> {order("nome ASC")}
   scope :da_empresa, -> (empresa_id) { where(empresa_id: empresa_id) }
