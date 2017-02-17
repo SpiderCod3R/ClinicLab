@@ -6,7 +6,7 @@
 /     =elem.permissao
 
 -if can? :read, Agenda
-  %li=link_to 'Agendas', painel_empresa_agendas_path(current_user.empresa), style: "font-weight: bold;"
+  %li=link_to 'Agendas', empresa_agendas_path(current_user.empresa), style: "font-weight: bold;"
 -if can? :read, Cabec
   %li=link_to 'Cabecs', new_empresa_cabec_path(current_user.empresa), style: "font-weight: bold;"
 -if can? :read, Cargo
