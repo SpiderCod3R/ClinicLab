@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170124183559) do
+ActiveRecord::Schema.define(version: 20170214164624) do
 
-  create_table "agenda_movimentacoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+  create_table "agenda_movimentacoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "agenda_id"
     t.integer  "convenio_id"
     t.integer  "cliente_id"
@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 20170124183559) do
     t.index ["convenio_id"], name: "index_agenda_movimentacoes_on_convenio_id", using: :btree
   end
 
-  create_table "agenda_permissoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+  create_table "agenda_permissoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "usuario_permissoes_id"
     t.boolean  "agendar"
     t.boolean  "excluir"
@@ -54,29 +54,27 @@ ActiveRecord::Schema.define(version: 20170124183559) do
     t.index ["usuario_permissoes_id"], name: "index_agenda_permissoes_on_usuario_permissoes_id", using: :btree
   end
 
-  create_table "agendas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+  create_table "agendas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "status"
     t.date     "data"
-    t.boolean  "atendimento_sabado"
-    t.boolean  "atendimento_domingo"
-    t.boolean  "atendimento_parcial"
     t.string   "atendimento_duracao"
     t.string   "atendimento_inicio"
     t.string   "atendimento_final"
-    t.integer  "profissional_id"
+    t.time     "hora_atendimento"
+    t.boolean  "atendimento_sabado"
+    t.boolean  "atendimento_domingo"
     t.integer  "empresa_id"
     t.integer  "usuario_id"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
-    t.string   "status"
     t.integer  "referencia_agenda_id"
     t.string   "periodo"
     t.index ["empresa_id"], name: "index_agendas_on_empresa_id", using: :btree
-    t.index ["profissional_id"], name: "index_agendas_on_profissional_id", using: :btree
     t.index ["referencia_agenda_id"], name: "index_agendas_on_referencia_agenda_id", using: :btree
     t.index ["usuario_id"], name: "index_agendas_on_usuario_id", using: :btree
   end
 
-  create_table "atendimentos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "atendimentos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "nome"
     t.string   "rg"
     t.string   "cpf"
@@ -101,7 +99,7 @@ ActiveRecord::Schema.define(version: 20170124183559) do
     t.index ["estado_id"], name: "index_atendimentos_on_estado_id", using: :btree
   end
 
-  create_table "cabecs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "cabecs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "nome"
     t.text     "texto",      limit: 65535
     t.boolean  "status",                   default: true
@@ -111,7 +109,7 @@ ActiveRecord::Schema.define(version: 20170124183559) do
     t.index ["empresa_id"], name: "index_cabecs_on_empresa_id", using: :btree
   end
 
-  create_table "cargos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "cargos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "nome"
     t.boolean  "status",     default: true
     t.datetime "created_at",                null: false
@@ -120,7 +118,7 @@ ActiveRecord::Schema.define(version: 20170124183559) do
     t.index ["empresa_id"], name: "index_cargos_on_empresa_id", using: :btree
   end
 
-  create_table "centro_de_custos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "centro_de_custos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "nome"
     t.boolean  "status",     default: true
     t.datetime "created_at",                null: false
@@ -129,14 +127,14 @@ ActiveRecord::Schema.define(version: 20170124183559) do
     t.index ["empresa_id"], name: "index_centro_de_custos_on_empresa_id", using: :btree
   end
 
-  create_table "cidades", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "cidades", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "nome"
     t.integer  "estado_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "ckeditor_assets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+  create_table "ckeditor_assets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "data_file_name",               null: false
     t.string   "data_content_type"
     t.integer  "data_file_size"
@@ -149,6 +147,19 @@ ActiveRecord::Schema.define(version: 20170124183559) do
     t.datetime "updated_at"
     t.index ["assetable_type", "assetable_id"], name: "idx_ckeditor_assetable", using: :btree
     t.index ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type", using: :btree
+  end
+
+  create_table "cliente_convenios", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "cliente_id"
+    t.integer "convenio_id"
+    t.boolean "status_convenio"
+    t.string  "matricula"
+    t.string  "titular"
+    t.string  "plano"
+    t.date    "validade_carteira"
+    t.string  "produto"
+    t.index ["cliente_id"], name: "index_cliente_convenios_on_cliente_id", using: :btree
+    t.index ["convenio_id"], name: "index_cliente_convenios_on_convenio_id", using: :btree
   end
 
   create_table "cliente_pdf_uploads", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
@@ -164,7 +175,7 @@ ActiveRecord::Schema.define(version: 20170124183559) do
     t.index ["cliente_id"], name: "index_cliente_pdf_uploads_on_cliente_id", using: :btree
   end
 
-  create_table "cliente_permissoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+  create_table "cliente_permissoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "usuario_permissoes_id"
     t.boolean  "historico"
     t.boolean  "texto_livre"
@@ -175,7 +186,7 @@ ActiveRecord::Schema.define(version: 20170124183559) do
     t.index ["empresa_id"], name: "index_cliente_permissoes_on_empresa_id", using: :btree
   end
 
-  create_table "cliente_texto_livres", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+  create_table "cliente_texto_livres", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "cliente_id"
     t.text     "content_data",   limit: 65535
     t.integer  "texto_livre_id"
@@ -185,7 +196,7 @@ ActiveRecord::Schema.define(version: 20170124183559) do
     t.index ["texto_livre_id"], name: "index_cliente_texto_livres_on_texto_livre_id", using: :btree
   end
 
-  create_table "clientes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "clientes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "foto_file_name"
     t.string   "foto_content_type"
     t.integer  "foto_file_size"
@@ -202,16 +213,9 @@ ActiveRecord::Schema.define(version: 20170124183559) do
     t.string   "rg"
     t.string   "estado_civil"
     t.date     "nascimento"
-    t.string   "produto"
-    t.boolean  "status_convenio"
-    t.string   "matricula"
-    t.string   "titular"
-    t.string   "plano"
-    t.date     "validade_carteira"
     t.integer  "estado_id"
     t.integer  "cidade_id"
     t.integer  "cargo_id"
-    t.integer  "convenio_id"
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
     t.integer  "empresa_id"
@@ -226,12 +230,11 @@ ActiveRecord::Schema.define(version: 20170124183559) do
     t.float    "altura",                  limit: 24
     t.index ["cargo_id"], name: "index_clientes_on_cargo_id", using: :btree
     t.index ["cidade_id"], name: "index_clientes_on_cidade_id", using: :btree
-    t.index ["convenio_id"], name: "index_clientes_on_convenio_id", using: :btree
     t.index ["empresa_id"], name: "index_clientes_on_empresa_id", using: :btree
     t.index ["estado_id"], name: "index_clientes_on_estado_id", using: :btree
   end
 
-  create_table "configuracao_relatorios", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "configuracao_relatorios", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "logo_file_name"
     t.string   "logo_content_type"
     t.integer  "logo_file_size"
@@ -249,7 +252,7 @@ ActiveRecord::Schema.define(version: 20170124183559) do
     t.index ["empresa_id"], name: "index_configuracao_relatorios_on_empresa_id", using: :btree
   end
 
-  create_table "conselho_regionais", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "conselho_regionais", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "sigla"
     t.text     "descricao",  limit: 65535
     t.boolean  "status",                   default: true
@@ -259,8 +262,8 @@ ActiveRecord::Schema.define(version: 20170124183559) do
     t.index ["empresa_id"], name: "index_conselho_regionais_on_empresa_id", using: :btree
   end
 
-  create_table "convenios", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.string   "nome"
+  create_table "convenios", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "nome",                                                    null: false
     t.decimal  "valor",           precision: 14, scale: 2
     t.boolean  "status",                                   default: true
     t.datetime "created_at",                                              null: false
@@ -274,14 +277,14 @@ ActiveRecord::Schema.define(version: 20170124183559) do
     t.string   "cep"
     t.string   "cnpj"
     t.string   "referencia"
-    t.string   "registroons"
-    t.string   "nundiasvalsenha"
+    t.string   "registraons"
+    t.string   "numdiasvalsenha"
     t.string   "sigla"
     t.integer  "codigo"
     t.index ["empresa_id"], name: "index_convenios_on_empresa_id", using: :btree
   end
 
-  create_table "estados", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "estados", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "sigla"
     t.string   "nome"
     t.integer  "capital_id"
@@ -289,7 +292,7 @@ ActiveRecord::Schema.define(version: 20170124183559) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "fornecedores", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "fornecedores", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "status"
     t.string   "nome"
     t.string   "cpf"
@@ -311,17 +314,17 @@ ActiveRecord::Schema.define(version: 20170124183559) do
     t.index ["estado_id"], name: "index_fornecedores_on_estado_id", using: :btree
   end
 
-  create_table "historicos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+  create_table "historicos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.text     "indice",     limit: 65535
     t.integer  "cliente_id"
     t.string   "idade"
     t.integer  "usuario_id"
     t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "updated_at"
     t.index ["cliente_id"], name: "index_historicos_on_cliente_id", using: :btree
   end
 
-  create_table "imagem_cabecs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "imagem_cabecs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "imagem_file_name"
     t.string   "imagem_content_type"
     t.integer  "imagem_file_size"
@@ -334,7 +337,7 @@ ActiveRecord::Schema.define(version: 20170124183559) do
     t.index ["empresa_id"], name: "index_imagem_cabecs_on_empresa_id", using: :btree
   end
 
-  create_table "operadoras", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "operadoras", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "nome"
     t.boolean  "status",     default: true
     t.datetime "created_at",                null: false
@@ -343,14 +346,14 @@ ActiveRecord::Schema.define(version: 20170124183559) do
     t.index ["empresa_id"], name: "index_operadoras_on_empresa_id", using: :btree
   end
 
-  create_table "painel_empresa_permissoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "painel_empresa_permissoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "permissao_id"
     t.integer  "empresa_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
 
-  create_table "painel_empresas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "painel_empresas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "nome"
     t.boolean  "status"
     t.string   "slug"
@@ -359,7 +362,7 @@ ActiveRecord::Schema.define(version: 20170124183559) do
     t.index ["slug"], name: "index_painel_empresas_on_slug", unique: true, using: :btree
   end
 
-  create_table "painel_masters", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "painel_masters", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "email",                  default: "",    null: false
     t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
@@ -379,14 +382,14 @@ ActiveRecord::Schema.define(version: 20170124183559) do
     t.index ["reset_password_token"], name: "index_painel_masters_on_reset_password_token", unique: true, using: :btree
   end
 
-  create_table "painel_permissoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "painel_permissoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "nome"
     t.string   "model_class"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
 
-  create_table "painel_usuario_permissoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "painel_usuario_permissoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "usuario_id"
     t.integer  "permissao_id"
     t.boolean  "cadastrar"
@@ -397,7 +400,7 @@ ActiveRecord::Schema.define(version: 20170124183559) do
     t.datetime "updated_at",   null: false
   end
 
-  create_table "painel_usuarios", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "painel_usuarios", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
@@ -420,7 +423,7 @@ ActiveRecord::Schema.define(version: 20170124183559) do
     t.index ["reset_password_token"], name: "index_painel_usuarios_on_reset_password_token", unique: true, using: :btree
   end
 
-  create_table "profissionais", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "profissionais", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "imagem_file_name"
     t.string   "imagem_content_type"
     t.integer  "imagem_file_size"
@@ -452,7 +455,7 @@ ActiveRecord::Schema.define(version: 20170124183559) do
     t.index ["operadora_id"], name: "index_profissionais_on_operadora_id", using: :btree
   end
 
-  create_table "referencia_agendas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+  create_table "referencia_agendas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "descricao"
     t.boolean  "status"
     t.integer  "profissional_id"
@@ -462,7 +465,7 @@ ActiveRecord::Schema.define(version: 20170124183559) do
     t.index ["profissional_id"], name: "index_referencia_agendas_on_profissional_id", using: :btree
   end
 
-  create_table "servicos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+  create_table "servicos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "tipo"
     t.string   "abreviatura"
     t.integer  "empresa_id"
@@ -471,7 +474,7 @@ ActiveRecord::Schema.define(version: 20170124183559) do
     t.index ["empresa_id"], name: "index_servicos_on_empresa_id", using: :btree
   end
 
-  create_table "texto_livres", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+  create_table "texto_livres", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "nome"
     t.integer  "servico_id"
     t.integer  "empresa_id"
@@ -489,11 +492,12 @@ ActiveRecord::Schema.define(version: 20170124183559) do
   add_foreign_key "atendimentos", "cidades"
   add_foreign_key "atendimentos", "convenios"
   add_foreign_key "atendimentos", "estados"
+  add_foreign_key "cliente_convenios", "clientes"
+  add_foreign_key "cliente_convenios", "convenios"
   add_foreign_key "cliente_texto_livres", "clientes"
   add_foreign_key "cliente_texto_livres", "texto_livres"
   add_foreign_key "clientes", "cargos"
   add_foreign_key "clientes", "cidades"
-  add_foreign_key "clientes", "convenios"
   add_foreign_key "clientes", "estados"
   add_foreign_key "fornecedores", "cidades"
   add_foreign_key "fornecedores", "estados"
