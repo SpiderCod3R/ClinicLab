@@ -15,13 +15,13 @@
   <div class="row">
     <div class="field col-md-6">
       <%= f.label :name, "Nome" %><br>
-      <%= f.text_field :name, class: "form-control" %>
+      <%= f.text_field :name, class: "form-control", required: true %>
       <em>(Nome do ambiente - Exemplo: Drº Charles)</em>
     </div>
 
     <div class="field col-md-6">
       <%= f.label :database_name, "Nome do Banco de Dados" %><br>
-      <%= f.text_field :database_name, class: "form-control" %>
+      <%= f.text_field :database_name, class: "form-control", required: true %>
       <em>(Nome da base de dados para conexão)</em>
     </div>
   </div>
