@@ -70,7 +70,7 @@
                 <ul>
                   <li>
                     <%= model.name %>
-                    <%= link_to "#" do %>
+                    <%= link_to remove_model_painel_environment_path(@environment, environment_model_id: model.id), data: {confirm: "Are you sure?"} do %>
                       <i class="fa fa-trash-o"></i>
                     <%- end -%>
                   </li>

@@ -56,6 +56,19 @@ class Painel::EnvironmentsController < ApplicationController
     redirect_to environments_url, notice: 'Environment was successfully destroyed.'
   end
 
+  def remove_model
+    @environment = Gclinic::Environment.find(params[:id])
+    @environment_users = @environment.users
+    @environment_model = @environment.environment_models.find_by(model_id: params[:environment_model_id])
+    # binding.pry
+    @environment.users.each do |user|
+      @model = user.user_models.find_by(model_id: @environment_model.model.id)
+      @model.destroy if !@model.nil?
+    end
+    @environment_model.destroy
+    redirect_to :back
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_environment

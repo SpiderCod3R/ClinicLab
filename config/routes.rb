@@ -1,7 +1,11 @@
 #-*-coding:utf-8-*-
 Rails.application.routes.draw do
   namespace :painel do
-    resources :environments
+    resources :environments do
+      member do
+        get 'remove_model'
+      end
+    end
     resources :models, except: [:show, :new]
   end
 
@@ -30,6 +34,7 @@ Rails.application.routes.draw do
       get 'show_texto_livre'
     end
   end
+
   resources :empresa do
     get 'ficha_cliente', to: "clientes#clinic_sheet", as: :clinic_sheet_cliente
     resources :clientes do
@@ -105,7 +110,6 @@ Rails.application.routes.draw do
 
   get 'relatorios/new' => "configuracao_relatorios#new"
   get 'conselhos_regionais/new' => "conselho_regionais#new"
-
   post 'agendas/clientes/change_or_create_paciente', to: "clientes#change_or_create_paciente", as: :create_paciente
   put  'agendas/clientes/change_or_create_paciente', to: "clientes#change_or_create_paciente", as: :change_paciente
   post 'clientes/retorna_historico', to: "clientes#retorna_historico"
@@ -124,18 +128,14 @@ Rails.application.routes.draw do
 
   namespace :painel do
     resources :dashboards
-
-    resources :empresas do
-      put 'change_name'
-      get 'new_admin', to: "dashboards#new_company_admin", as: :novo_admin
-      post 'create_admin', to: "dashboards#create_admin", as: :create_admin
-      delete 'remove_administrador/:usuario_id', to: "dashboards#remove_admin", as: :remove_admin
-      delete 'remover_permissao_empresa_usaurio/:permissao_id', to: "dashboards#remover_permissao_empresa_usaurio", as: :remover_permissao_empresa_usaurio
-    end
-    get 'usuario/:id/permissoes', to: "usuarios/accounts#show_permissions", as: :show_user_permissions
-    get 'usuario/:id/password_change', to: "usuarios/accounts#change_password", as: :change_user_password
     post '/dashboards/empresas/permissoes/create', to: "dashboards#import_permissoes_to_company", as: :dashboards_add_permissoes_to_company 
-    put '/usuarios/:id/update_password', to: "usuarios/manager#update_password", as: :usuario_update_password
+    # resources :empresas do
+    #   put 'change_name'
+    #   get 'new_admin', to: "dashboards#new_company_admin", as: :novo_admin
+    #   post 'create_admin', to: "dashboards#create_admin", as: :create_admin
+    #   delete 'remove_administrador/:usuario_id', to: "dashboards#remove_admin", as: :remove_admin
+    #   delete 'remover_permissao_empresa_usaurio/:permissao_id', to: "dashboards#remover_permissao_empresa_usaurio", as: :remover_permissao_empresa_usaurio
+    # end
   end
 
   get 'pages/help'
