@@ -13,4 +13,5 @@ class ClienteConveniosController < ApplicationController
                                                :validade_carteira,
                                                :produto,
                                                :titular)
+    end
 end
