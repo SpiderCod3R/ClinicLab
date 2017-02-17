@@ -3,21 +3,12 @@
   ZONA DE PERIGO EXTREMO
   CUIDADO AO MANUSEAR ESTA FUNCIONALIDADE
 '''
-class Painel::AgendaMovimentacoesController < ApplicationController
-  before_action :authenticate_usuario!
-  before_action :find_empresa
+class AgendaMovimentacoesController < Support::InsideController
   before_action :find_agenda
   before_action :find_agenda_movimentacao, only: [:edit, :update]
   before_action :set_clientes, only: [:new, :edit]
-
-  # def verify
-  #   unless @movimentacao.nil?
-  #     render action: :edit
-  #   else
-      
-  #     render action: :new
-  #   end
-  # end
+  before_action :set_convenios, only: [:new, :edit]
+  before_action :set_profissionais, only: [:new, :edit]
 
   def new
     @movimentacao = AgendaMovimentacao.new
@@ -28,11 +19,11 @@ class Painel::AgendaMovimentacoesController < ApplicationController
 
   def create
     @movimentacao = AgendaMovimentacao.build_movimentacao(params[:agenda_movimentacao])
-    @movimentacao.atendente = current_usuario
+    @movimentacao.atendente = current_user
     if @movimentacao.save
       @movimentacao.change_agenda_status
       flash[:notice] = "Agenda movimentada com sucesso"
-      redirect_to painel_empresa_agendas_path(@empresa)
+      redirect_to empresa_agendas_path(current_user.empresa)
     else
       render :new
     end
@@ -43,31 +34,31 @@ class Painel::AgendaMovimentacoesController < ApplicationController
     if @movimentacao.update_movimentacao(params[:agenda_movimentacao])
       @movimentacao.change_agenda_status
       flash[:notice] = "Agenda atualizada com sucesso"
-      redirect_to painel_empresa_agenda_path(@empresa, @agenda)
+      redirect_to empresa_agenda_path(current_user.empresa, @agenda)
     else
       render :edit
     end
   end
 
   private
+    def find_agenda
+      @agenda = Agenda.find(params[:agenda_id])
+    end
+
     def find_agenda_movimentacao
       @movimentacao = AgendaMovimentacao.find_by(agenda_id: @agenda.id)
     end
 
     def set_clientes
-      @clientes = Cliente.where(empresa_id: @empresa.id)
+      @clientes = Cliente.all.order("nome ASC")
     end
 
     def set_convenios
-      @convenios = Convenio.where(empresa_id: @empresa.id)
+      @convenios = Convenio.all.order("nome ASC")
     end
 
-    def find_empresa
-      @empresa = Painel::Empresa.friendly.find(params[:empresa_id])
-    end
-
-    def find_agenda
-      @agenda = Agenda.find_by(empresa_id: @empresa.id, id: params[:agenda_id])
+    def set_profissionais
+      @profissionais = Profissional.all.order("nome ASC")
     end
 
     def resource_params

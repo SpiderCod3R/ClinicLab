@@ -1,4 +1,4 @@
-=simple_form_for [@empresa, @agenda, @movimentacao] do |f|
+=simple_form_for [current_user.empresa, @agenda, @movimentacao] do |f|
   %br/
   .container-fluid
     .row-fluid
@@ -19,7 +19,7 @@
       .row
         .col-md-6
           =f.label "Convênio"
-          =f.collection_select :convenio_id, Convenio.where(empresa_id: current_usuario.empresa_id), :id, :title, { prompt: "Selecione um" }, class: "form-control"
+          =f.collection_select :convenio_id, @convenios, :id, :title, { prompt: "Selecione um" }, class: "form-control"
         .col-md-6
           #convenio_n_cadastrado{style: "display: inline-block; padding-top: 30px;"}
             =f.check_box :sem_convenio
@@ -29,7 +29,7 @@
         .col-md-6
           .select_live
             =f.label :solicitante_id, "Solicitante"
-            =f.collection_select :solicitante_id, Profissional.where(empresa_id: current_usuario.empresa_id).order("nome ASC"), :id, :titulo, { prompt: "Selecione um" }, class: "form-control"
+            =f.collection_select :solicitante_id, @profissionais, :id, :titulo, { prompt: "Selecione um" }, class: "form-control"
         .col-md-3
           =f.input :confirmacao, label: "Confirmação", :as => :select,:collection => [['OK','OK'],['N.V','N.V'], ['D.M','D.M'], ['R.P','R.P'], ['R.M','R.M'], [ 'Desistiu', 'Desistiu']], :include_blank => true
       
@@ -38,4 +38,4 @@
         =f.input :observacoes, label: "Observações", input_html: { style: "margin-top: 5px; margin-bottom: 3px; height: 211px;" }
       .row
         -if @agenda.agenda_movimentacao.present?
-          =link_to "Visualizar", painel_empresa_agenda_path(current_usuario.empresa, @agenda) ,class: "btn btn-large btn-primary"
+          =link_to "Visualizar", empresa_agenda_path(current_user.empresa, @agenda) ,class: "btn btn-large btn-primary"
