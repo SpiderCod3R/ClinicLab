@@ -3,9 +3,6 @@
     %a{'data-toggle':"tab", href:"#dados"}
       Dados Pessoais
   %li
-    %a{'data-toggle':"tab", href:"#convenio"}
-      Convênio
-  %li
     %a{'data-toggle':"tab", href:"#contato"}
       Contato
 
@@ -15,9 +12,6 @@
 
       / aba dados_pessoais
       =render 'clientes/partials/dados_pessoais', { f: f }
-
-      / aba convenio
-      =render 'clientes/partials/convenio', { f: f }
 
       / aba contato
       =render 'clientes/partials/contato', { f: f }

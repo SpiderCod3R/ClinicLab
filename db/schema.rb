@@ -149,6 +149,19 @@ ActiveRecord::Schema.define(version: 20170216120049) do
     t.index ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type", using: :btree
   end
 
+  create_table "cliente_convenios", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "cliente_id"
+    t.integer "convenio_id"
+    t.boolean "status_convenio"
+    t.string  "matricula"
+    t.string  "titular"
+    t.string  "plano"
+    t.date    "validade_carteira"
+    t.string  "produto"
+    t.index ["cliente_id"], name: "index_cliente_convenios_on_cliente_id", using: :btree
+    t.index ["convenio_id"], name: "index_cliente_convenios_on_convenio_id", using: :btree
+  end
+
   create_table "cliente_pdf_uploads", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.text     "anotacoes",        limit: 65535
     t.date     "data"
@@ -200,16 +213,9 @@ ActiveRecord::Schema.define(version: 20170216120049) do
     t.string   "rg"
     t.string   "estado_civil"
     t.date     "nascimento"
-    t.string   "produto"
-    t.boolean  "status_convenio"
-    t.string   "matricula"
-    t.string   "titular"
-    t.string   "plano"
-    t.date     "validade_carteira"
     t.integer  "estado_id"
     t.integer  "cidade_id"
     t.integer  "cargo_id"
-    t.integer  "convenio_id"
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
     t.string   "nacionalidade"
@@ -224,7 +230,6 @@ ActiveRecord::Schema.define(version: 20170216120049) do
     t.float    "altura",                  limit: 24
     t.index ["cargo_id"], name: "index_clientes_on_cargo_id", using: :btree
     t.index ["cidade_id"], name: "index_clientes_on_cidade_id", using: :btree
-    t.index ["convenio_id"], name: "index_clientes_on_convenio_id", using: :btree
     t.index ["empresa_id"], name: "index_clientes_on_empresa_id", using: :btree
     t.index ["estado_id"], name: "index_clientes_on_estado_id", using: :btree
   end
@@ -497,11 +502,12 @@ ActiveRecord::Schema.define(version: 20170216120049) do
   add_foreign_key "atendimentos", "cidades"
   add_foreign_key "atendimentos", "convenios"
   add_foreign_key "atendimentos", "estados"
+  add_foreign_key "cliente_convenios", "clientes"
+  add_foreign_key "cliente_convenios", "convenios"
   add_foreign_key "cliente_texto_livres", "clientes"
   add_foreign_key "cliente_texto_livres", "texto_livres"
   add_foreign_key "clientes", "cargos"
   add_foreign_key "clientes", "cidades"
-  add_foreign_key "clientes", "convenios"
   add_foreign_key "clientes", "estados"
   add_foreign_key "fornecedores", "cidades"
   add_foreign_key "fornecedores", "estados"

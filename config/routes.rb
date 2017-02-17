@@ -68,6 +68,8 @@ Rails.application.routes.draw do
   post 'clientes/retorna_historico', to: "clientes#retorna_historico"
   post 'clientes/salva_historico', to: "clientes#salva_historico"
   post 'clientes/atualiza_historico', to: "clientes#atualiza_historico"
+  post 'clientes/salva_cliente_convenios', to: "clientes#salva_cliente_convenios"
+  get 'clientes/:id/destroy_cliente_convenio', to: "clientes#destroy_cliente_convenio", as: :destroy_cliente_convenio
   get  'clientes/:cliente_id/destroy_texto_livre', to: "clientes#destroy_cliente_texto_livre"
   get 'clientes/:cliente_id/textos_livres', to: "clientes#find_textos_livre", as: :cliente_find_textos_livres
 
