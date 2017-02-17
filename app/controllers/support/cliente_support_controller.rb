@@ -166,6 +166,30 @@ class Support::ClienteSupportController < ApplicationController
     end
   end
 
+  def salva_cliente_convenios
+    @cliente = Cliente.find(session[:cliente_id])
+    if params[:convenios_attributes]
+      dados = JSON.parse(params[:convenios_attributes].to_json)
+      dados.each do |_key, array |
+        @cliente_convenio = ClienteConvenio.new(convenio_id: array["convenio_id"],
+                                                status_convenio: array["status_convenio"],
+                                                validade_carteira: array["validade_carteira"],
+                                                matricula: array["matricula"],
+                                                produto: array["produto"],
+                                                titular: array["titular"],
+                                                plano: array["plano"],
+                                                cliente_id: @cliente.id)
+        @cliente_convenio.save!
+      end
+    end
+  end
+
+  def destroy_cliente_convenio
+    @cliente_convenio = ClienteConvenio.find(params[:cliente_convenio_id])
+    @cliente_convenio.destroy!
+    respond_to &:js
+  end
+
   private
     def set_access
       if !current_usuario.admin?
@@ -207,9 +231,9 @@ class Support::ClienteSupportController < ApplicationController
     def resource_params
       params.require(:cliente).permit(
         :id, :status, :nome, :cpf, :endereco, :complemento, :bairro, :estado_id,
-        :cidade_id, :empresa_id, :foto, :email, :telefone, :cargo_id, :status_convenio,
-        :matricula, :plano, :validade_carteira, :produto, :titular, :convenio_id, :nascimento,
-        :sexo, :rg, :estado_civil, :nacionalidade, :naturalidade, 
+        :cidade_id, :empresa_id, :foto, :email, :telefone, :cargo_id,
+        :nascimento, :sexo, :rg, :estado_civil, :nacionalidade, :naturalidade, 
+        cliente_convenios_attributes: [:id, :cliente_id, :convenio_id, :status_convenio, :matricula, :plano, :validade_carteira, :produto, :titular],
         cliente_pdf_upload_attributes: [:id, :cliente_id, :anotacoes, :data, :pdf, :_destroy])
     end
 end
