@@ -23,7 +23,9 @@
           %th= t('clientes.helpers.endereço')
           %th= t('clientes.helpers.complemento')
           %th= t('clientes.helpers.bairro')
-          %th= t('bootstrap.helpers.actions')
+          %th
+            %center
+              = t('bootstrap.helpers.actions')
         %tbody
           - @clientes.each do |cliente|
             %tr
@@ -35,9 +37,10 @@
               %td= cliente.complemento
               %td= cliente.bairro
               %td
-                .btn-group.pull-right
-                  -if can? :read, Cliente
-                    = link_to_visualizar cliente
+                %center
+                  .btn-group
+                    -if can? :read, Cliente
+                      = link_to_visualizar cliente
       %div{class: "pull-right"}
         = paginate @clientes
   %div{class: "row"}
