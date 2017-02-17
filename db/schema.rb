@@ -153,11 +153,11 @@ ActiveRecord::Schema.define(version: 20170216120049) do
     t.integer "cliente_id"
     t.integer "convenio_id"
     t.boolean "status_convenio"
-    t.string  "matricula"
-    t.string  "titular"
-    t.string  "plano"
+    t.string  "matricula",
+    t.string  "titular",
+    t.string  "plano",
     t.date    "validade_carteira"
-    t.string  "produto"
+    t.string  "produto",
     t.index ["cliente_id"], name: "index_cliente_convenios_on_cliente_id", using: :btree
     t.index ["convenio_id"], name: "index_cliente_convenios_on_convenio_id", using: :btree
   end
