@@ -19,6 +19,8 @@ class Painel::Empresa < ApplicationRecord
     has_many :profissionais
     has_many :usuarios
     has_many :empresa_permissoes
+    has_many :receituarios
+    has_many :texto_livres
   end
 
   has_many :permissoes, through: :empresa_permissoes

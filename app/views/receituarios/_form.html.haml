@@ -1,0 +1,10 @@
+= simple_form_for([current_usuario.empresa, @receituario], url: empresa_receituarios_path) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :nome
+    %hr/
+    =label_or_error_tag @receituario, :receita, "Receita"
+    = f.cktext_area :receita, ckeditor: { uiColor: '#D3E7EF', toolbar: 'mini', height: 400 }
+
+= javascript_include_tag Ckeditor.asset_path

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170214164624) do
+ActiveRecord::Schema.define(version: 20170216120049) do
 
   create_table "agenda_movimentacoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "agenda_id"
@@ -162,7 +162,7 @@ ActiveRecord::Schema.define(version: 20170214164624) do
     t.index ["convenio_id"], name: "index_cliente_convenios_on_convenio_id", using: :btree
   end
 
-  create_table "cliente_pdf_uploads", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+  create_table "cliente_pdf_uploads", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.text     "anotacoes",        limit: 65535
     t.date     "data"
     t.integer  "cliente_id"
@@ -218,9 +218,9 @@ ActiveRecord::Schema.define(version: 20170214164624) do
     t.integer  "cargo_id"
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
-    t.integer  "empresa_id"
     t.string   "nacionalidade"
     t.string   "naturalidade"
+    t.integer  "empresa_id"
     t.string   "mes"
     t.string   "tipo_sanguineo"
     t.date     "data_da_ultima_consulta"
@@ -453,6 +453,16 @@ ActiveRecord::Schema.define(version: 20170214164624) do
     t.index ["empresa_id"], name: "index_profissionais_on_empresa_id", using: :btree
     t.index ["estado_id"], name: "index_profissionais_on_estado_id", using: :btree
     t.index ["operadora_id"], name: "index_profissionais_on_operadora_id", using: :btree
+  end
+
+  create_table "receituarios", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.string   "nome"
+    t.string   "slug"
+    t.text     "receita",    limit: 65535
+    t.integer  "empresa_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.index ["empresa_id"], name: "index_receituarios_on_empresa_id", using: :btree
   end
 
   create_table "referencia_agendas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

@@ -1,0 +1,1 @@
+json.array! @receituarios, partial: 'receituarios/receituario', as: :receituario

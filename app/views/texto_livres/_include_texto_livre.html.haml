@@ -1,0 +1,10 @@
+- texto_livres.each do |f|
+  .row
+    .col-md-9
+      %p=f.nome
+    .col-md-2
+      #include_free_text
+        =link_to "#", data: {freetext_id: f.id, freetext: f.content}, class: "btn btn-sm" do
+          %i.fa.fa-clipboard.fa-2x
+          Copiar & Incluir
+          
