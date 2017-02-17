@@ -57,7 +57,6 @@ Rails.application.routes.draw do
     resources :texto_livres
     resources :referencia_agendas, except: [:show]
     resources :contas, controller: 'painel/usuarios/accounts'
-
     resources :usuarios, controller: 'painel/usuarios/manager', except: [:index] do
       get  'add_permissions'
       post 'save_permissions'
@@ -66,19 +65,41 @@ Rails.application.routes.draw do
         put 'change_data'
       end
     end
-
     resources :agenda_permissoes, controller: "painel/agenda_permissoes", except: [:index, :show, :new, :create, :edit, :update, :destroy] do
       member do
         get 'manager'
         post 'build_agenda_permissions'
       end
     end
-
     resources :cliente_permissoes, controller: "cliente_permissoes", except: [:index, :show, :new, :create, :edit, :update, :destroy] do
       member do
         get  'manager'
         post 'build_permissions'
       end
+    end
+    resources :agendas do
+      collection do
+        match 'search' => 'agendas#search', via: [:get], as: :search
+        match 'search-referencia/:referencia_agenda_id'=> 'agendas#search_agenda_medicos', via: [:get], as: :search_agenda_medicos
+        match 'search-referencia-proximo-dia/:referencia_agenda_id'=> 'agendas#search_agenda_medicos_outro_dia', via: [:get], as: :search_agenda_medicos_outro_dia
+        match 'load_more_data' => 'agendas#load_more_data', via: [:post], as: :load_more_data
+      end
+      get 'clean'
+      get 'didnt_came'
+      get 'change_day_or_time'
+      put 'change'
+      get 'remark_by_pacient'
+      put 'remarked_by_pacient'
+      get 'remark_by_doctor'
+      put 'remarked_by_doctor'
+      get 'unmarked_by_doctor'
+      get 'unmarked_by_pacient'
+      get 'make_appointment'
+      put 'attended'
+      get 'block_day', to: 'agendas#block_day', as: :block_day
+      put 'block_day', to: 'agendas#set_block_on_day', as: :set_block_on_day
+      resources :agenda_movimentacoes
+      get 'movimentar', to: 'agenda_movimentacoes#new', as: :movimentar_ou_atualizar
     end
   end
 
@@ -94,18 +115,13 @@ Rails.application.routes.draw do
   post 'clientes/atualiza_historico', to: "clientes#atualiza_historico"
   get  'clientes/:cliente_id/destroy_texto_livre', to: "clientes#destroy_cliente_texto_livre"
   get 'clientes/:cliente_id/textos_livres', to: "clientes#find_textos_livre", as: :cliente_find_textos_livres
-
-
   get 'relatorios/new' => "configuracao_relatorios#new"
   get 'conselhos_regionais/new' => "conselho_regionais#new"
-
   get 'search/conselho_regional', to: 'conselho_regionais#search'
   get 'search/buscar_pacientes' => "search#buscar_pacientes"
   get 'search/find-texto-livres'=> "search#collect_all_free_text" ,as: :collect_all_free_text
   get 'search/conselho_regional', to: 'conselho_regionais#search'
   get 'search/cliente-texto-livre', to: 'search#find_cliente_texto_livre'
-
-
   post 'clientes/include_texto_livre', to: 'clientes#include_texto_livre'
 
   namespace :painel do
@@ -117,31 +133,6 @@ Rails.application.routes.draw do
       post 'create_admin', to: "dashboards#create_admin", as: :create_admin
       delete 'remove_administrador/:usuario_id', to: "dashboards#remove_admin", as: :remove_admin
       delete 'remover_permissao_empresa_usaurio/:permissao_id', to: "dashboards#remover_permissao_empresa_usaurio", as: :remover_permissao_empresa_usaurio
-
-      resources :agendas do
-        collection do
-          match 'search' => 'agendas#search', via: [:get], as: :search
-          match 'search-referencia/:referencia_agenda_id'=> 'agendas#search_agenda_medicos', via: [:get], as: :search_agenda_medicos
-          match 'search-referencia-proximo-dia/:referencia_agenda_id'=> 'agendas#search_agenda_medicos_outro_dia', via: [:get], as: :search_agenda_medicos_outro_dia
-          match 'load_more_data' => 'agendas#load_more_data', via: [:post], as: :load_more_data
-        end
-        get 'clean'
-        get 'didnt_came'
-        get 'change_day_or_time'
-        put 'change'
-        get 'remark_by_pacient'
-        put 'remarked_by_pacient'
-        get 'remark_by_doctor'
-        put 'remarked_by_doctor'
-        get 'unmarked_by_doctor'
-        get 'unmarked_by_pacient'
-        get 'make_appointment'
-        put 'attended'
-        get 'block_day', to: 'agendas#block_day', as: :block_day
-        put 'block_day', to: 'agendas#set_block_on_day', as: :set_block_on_day
-        resources :agenda_movimentacoes
-        get 'movimentar', to: 'agenda_movimentacoes#new', as: :movimentar_ou_atualizar
-      end
     end
     get 'usuario/:id/permissoes', to: "usuarios/accounts#show_permissions", as: :show_user_permissions
     get 'usuario/:id/password_change', to: "usuarios/accounts#change_password", as: :change_user_password
