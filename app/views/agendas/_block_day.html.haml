@@ -1,0 +1,22 @@
+#block_day_modal.modal.fade{:role => "dialog", :tabindex => "-1"}
+  .modal-dialog{:role => "document"}
+    .modal-content
+      .modal-header
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} ×
+        %h4.modal-title="Bloquear Horário da Agenda - #{@agenda.id} as #{Time.parse(@agenda.atendimento_inicio).strftime('%H:%M')} do dia #{@agenda.data.strftime('%d/%m/%Y')}"
+      .modal-body
+        =simple_form_for [@empresa, @agenda], url: painel_empresa_agenda_set_block_on_day_path, html: { class: "modal_block_time"} do |f|
+          .container-fluid
+            .row-fluid
+              .col-md-12
+                .row
+                  =f.input :agenda_id, as: :hidden, input_html: {value: @agenda.id}
+                .row
+                  =f.label "Motivo"
+                  =f.input :motivo_bloqueio, label: false, input_html: { style: "margin-top: 5px; margin-bottom: 3px; height: 211px;" }
+            .row-fluid
+          .modal-footer
+            .pull-left
+              =f.button :submit, "Enviar", class: "btn btn-primary"
+            %button.btn.btn-default.close_modal_block_day{"data-dismiss" => "modal", :type => "button"} Fechar

@@ -1,0 +1,14 @@
+<%- if @acao == I18n.t('agendas.helpers.default_content') -%>
+  $("#<%= I18n.t('agendas.helpers.default_content') %>").append("<%=j render 'agendas' , { agendas: @agendas } %>");
+<%- else -%>
+  $("#agenda_content_<%= @acao.gsub('agenda_content_','') %>").append("<%=j render 'agendas' , { agendas: @agendas } %>");
+<%- end -%>
+
+<% if @agendas.empty? %>
+  $(".lendodados").text('Não existem mais dados.');
+  $(".lendodados").fadeIn(1000);
+<%- else -%>
+  $(".lendodados").empty();
+  $(".lendodados").append("<%=j render 'application/componentes/rolagem' %>").fadeIn(1000);
+  $(".lendodados").fadeOut(1000);
+<% end %>

@@ -1,0 +1,32 @@
+<%- if @changed -%>
+  $("#remark_by_pacient").modal('hide')
+
+  $("#agenda_id_<%= @old_agenda.id %>").fadeOut(500, function(){
+    $(this).empty();
+    $(this).prepend("<%= j render 'agenda_tr' , { agenda: @old_agenda } %>");
+    $(this).fadeIn(500).removeClass("success").addClass("info");
+  });
+
+  $("#agenda_id_<%= @new_agenda.id %>").fadeOut(500, function(){
+    $(this).empty();
+    $(this).prepend("<%= j render 'agenda_tr' , { agenda: @new_agenda } %>");
+    <%- if @new_agenda.status.eql?(I18n.t('agendas.helpers.scheduled'))-%>
+      $(this).fadeIn(500).removeClass("info").addClass("success");
+    <%- elsif @new_agenda.status.eql?(I18n.t('agendas.helpers.didnt_come')) or 
+        @new_agenda.status.eql?(I18n.t('agendas.helpers.unmarked_by_doctor')) or
+        @new_agenda.status.eql?(I18n.t('agendas.helpers.unmarked_by_pacient'))
+    -%>
+      $(this).fadeIn(500).removeClass("attention").addClass("info");
+    <%- end -%>
+  });
+
+  toastr.success('<%= I18n.t("agendas.messages.schedule_changed")%>', 'Atenção', {timeOut: 5000});
+<%- else -%>
+  <%- if @data_valida == false -%>
+    toastr.warning('<%= I18n.t("agendas.messages.invalid_date")%>', 'Atenção', {timeOut: 5000});
+  <%- else -%>
+    <%- unless @agenda_disponivel -%>
+      toastr.warning('<%= I18n.t("agendas.messages.schedule_not_found")%>', 'Atenção', {timeOut: 5000});
+    <%- end -%>
+  <%- end -%>
+<%- end -%>

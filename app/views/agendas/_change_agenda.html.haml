@@ -1,0 +1,41 @@
+#change_agenda_day_or_time.modal.fade{:role => "dialog", :tabindex => "-1", :"data-backdrop"=> true}
+  .modal-dialog{:role => "document"}
+    .modal-content
+      .modal-header
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} ×
+        %h4.modal-title=alterar_horario_agenda_numero(@agenda.id)
+      .modal-body
+        =simple_form_for [@empresa, @agenda], url: painel_empresa_agenda_change_path, method: "PUT", html: { class: "modal_change_agenda_day_or_time"}, remote: true do |f|
+          .container-fluid
+            .row-fluid
+              .col-md-12
+                =render 'main_line'
+            %hr{style: "border: #323232 solid 0.5px;"}
+            .row-fluid
+              .col-md-12
+                .col-md-5
+                  .row
+                    =f.label :referencia_agenda_id, "Referência"
+                    =f.collection_select :referencia_agenda_id, ReferenciaAgenda.where(empresa_id: current_usuario.empresa_id), :id, :descricao_completa, { prompt: "Selecione um" }, class: "form-control"
+                .col-md-5.col-md-offset-1
+                  .row
+                    =f.label "Dia"
+                    %br/
+                    / =f.input :param_data, as: :date, use_month_numbers: true, label: false, default: Date.today
+                    .form-group.date.optional
+                      .form-inline
+                        =f.date_select :param_data, use_month_numbers: true, default: Date.today
+                  .row
+                    =f.label "Hora"
+                    %br/
+                    =f.input :hora, as: :time, default: Time.now, label: false
+            %br/
+          .modal-footer
+            .pull-left
+              =f.button :submit, "Enviar", class: "btn btn-primary"
+            .pull-right
+              %button.btn.btn-default{"data-dismiss" => "modal", type: "button"} Fechar
+    / /.modal-content
+  / /.modal-dialog
+/ /.modal
