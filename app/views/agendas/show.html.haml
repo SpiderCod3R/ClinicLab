@@ -1,5 +1,5 @@
 =content_for :header do
-  = render "application/toolbars/dual_button_toolbar", { uri_path: painel_empresa_agendas_path(current_usuario.empresa), root_path: root_path }
+  = render "application/toolbars/dual_button_toolbar", { uri_path: empresa_agendas_path(current_user.empresa), root_path: root_path }
 
 %section#agenda
   .container

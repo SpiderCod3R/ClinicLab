@@ -24,7 +24,7 @@ module AgendaFiltrosConcern
       end
 
       def default(resource)
-        @empresa = Painel::Empresa.friendly.find(resource[:empresa_id]).id
+        @empresa = Empresa.friendly.find(resource[:empresa_id]).id
         includes(:referencia_agenda).includes(:agenda_movimentacao).
         da_empresa(@empresa).
         a_partir_da_data_do_dia.
@@ -35,7 +35,7 @@ module AgendaFiltrosConcern
       end
 
       def search_by_day(resource)
-        @empresa = Painel::Empresa.friendly.find(resource[:empresa_id]).id
+        @empresa = Empresa.friendly.find(resource[:empresa_id]).id
         includes(:referencia_agenda).includes(:agenda_movimentacao).
         da_empresa(@empresa).
         where("data >= '#{Date.parse(resource["data"]).strftime("%Y-%m-%d")}'").

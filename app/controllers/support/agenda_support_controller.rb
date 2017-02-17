@@ -6,6 +6,7 @@
 class Support::AgendaSupportController < Support::InsideController
   include AgendasHelper
   before_action :set_agenda_movimentacoes
+  before_action :set_referencia_agendas
   before_action :verify_agenda_authorization
   before_action :retorna_referencias_menu_lateral
 
@@ -68,6 +69,9 @@ class Support::AgendaSupportController < Support::InsideController
   end
 
   private
+    def set_referencia_agendas
+      ReferenciaAgenda.set_connection
+    end
 
     def set_agenda_movimentacoes
       AgendaMovimentacao.set_connection
@@ -75,9 +79,9 @@ class Support::AgendaSupportController < Support::InsideController
 
     def verify_agenda_authorization
       if !current_user.admin?
-        @permissao = Painel::Permissao.find_by(model_class: "Agenda")
-        @usuario_permissao = current_user.usuario_permissoes.find_by(permissao_id: @permissao.id)
-        @agenda_permissao = AgendaPermissao.find_by usuario_permissoes_id: @usuario_permissao.id
+        @model = Gclinic::Model.find_by(model_class: "Agenda")
+        @user_model = current_user.user_models.find_by(model_id: @model.id)
+        @agenda_permissao = AgendaPermissao.find_by user_model_id: @user.id
       end
     end
 
@@ -97,7 +101,7 @@ class Support::AgendaSupportController < Support::InsideController
 
     def find_agenda
       @id = check_params_for_agenda
-      @agenda = Agenda.find_by(empresa_id: @empresa.id, id: @id.call(params[:id], params[:agenda_id]))
+      @agenda = Agenda.find_by(id: @id.call(params[:id], params[:agenda_id]))
     end
 
     def ransack_params

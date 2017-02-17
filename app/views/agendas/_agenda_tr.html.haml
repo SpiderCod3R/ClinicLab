@@ -14,7 +14,7 @@
 %td
   %strong=agenda.agenda_movimentacao.nome_paciente.upcase if agenda.try(:agenda_movimentacao)
 %td
-  %strong=agenda.agenda_movimentacao.atendente.nome.upcase if agenda.try(:agenda_movimentacao)
+  %strong=agenda.agenda_movimentacao.atendente.name.upcase if agenda.try(:agenda_movimentacao)
 %td
   %label=agenda.hora_atendimento.strftime("%H:%M") unless agenda.hora_atendimento.blank?
 %td{align: "center"}

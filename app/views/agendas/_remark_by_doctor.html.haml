@@ -8,7 +8,7 @@
           =remarcar_agenda_numero(@agenda.id)
           %label{style: "color: #780202"}- Pedido do Médico
       .modal-body
-        =simple_form_for [@empresa, @agenda], url: painel_empresa_agenda_remarked_by_doctor_path, method: "PUT", html: { class: "modal_ramark_agenda_by_doctor"}, remote: true do |f|
+        =simple_form_for [current_user.empresa, @agenda], url: empresa_agenda_remarked_by_doctor_path, method: "PUT", html: { class: "modal_ramark_agenda_by_doctor"}, remote: true do |f|
           .container-fluid
             .row-fluid
               .col-md-12
@@ -19,12 +19,11 @@
                 .col-md-5
                   .row
                     =f.label :referencia_agenda_id, "Referência"
-                    =f.collection_select :referencia_agenda_id, ReferenciaAgenda.where(empresa_id: current_usuario.empresa_id), :id, :descricao_completa, { prompt: "Selecione um" }, class: "form-control"
+                    =f.collection_select :referencia_agenda_id, ReferenciaAgenda.all.order(descricao: :asc), :id, :descricao_completa, { prompt: "Selecione um" }, class: "form-control"
                 .col-md-5.col-md-offset-1
                   .row
                     =f.label "Dia"
                     %br/
-                    / =f.input :param_data, as: :date, use_month_numbers: true, label: false, default: Date.today
                     .form-group.date.optional
                       .form-inline
                         =f.date_select :param_data, use_month_numbers: true, default: Date.today
