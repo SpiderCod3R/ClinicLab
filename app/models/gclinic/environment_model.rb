@@ -10,4 +10,7 @@ class Gclinic::EnvironmentModel < ApplicationRecord
   def name
     model.name
   end
+
+  validates_associated :environment
+  validates_uniqueness_of :model_id, :scope => :environment_id
 end

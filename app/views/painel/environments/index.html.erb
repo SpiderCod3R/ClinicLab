@@ -18,11 +18,14 @@
       <tr>
         <td colspan="5"><%= environment.name %></td>
         <td colspan="5"><%= environment.database_name %></td>
-        <td colspan="5"><%= link_to 'Show', painel_environment_path(environment) %></td>
+        <td colspan="5">
+          <%= link_to  painel_environment_path(environment) do %>
+            <i class="fa fa-tag fa-2x"></i>
+          <%- end -%>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
