@@ -23,6 +23,8 @@ Rails.application.routes.draw do
     end
   end
 
+  mount Ckeditor::Engine => '/ckeditor'
+
   authenticated :admin do
     root 'painel/dashboards#index', as: "authenticated_admin_root"
   end
@@ -57,6 +59,7 @@ Rails.application.routes.draw do
     resources :profissionais
     resources :fornecedores
     resources :servicos
+    resources :receituarios
     resources :texto_livres
     resources :referencia_agendas, except: [:show]
     resources :contas, controller: 'painel/usuarios/accounts'

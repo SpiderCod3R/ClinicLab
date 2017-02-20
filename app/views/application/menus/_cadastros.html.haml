@@ -35,3 +35,5 @@
   %li=link_to 'Texto Livre', new_empresa_texto_livre_path(current_user.empresa), style: "font-weight: bold;"
 -if can? :read, ReferenciaAgenda
   %li=link_to 'Referência Agendas', new_empresa_referencia_agenda_path(current_user.empresa), style: "font-weight: bold;"
+-if can? :read, Receituario
+  %li=link_to 'Receiturários', new_empresa_receituario_path(current_usuario.empresa), style: "font-weight: bold;"

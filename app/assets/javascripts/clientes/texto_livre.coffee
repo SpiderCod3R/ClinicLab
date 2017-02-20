@@ -12,26 +12,7 @@ $(document).ready ->
 
   $('#include_new_free_text').click ->
     $('#free_text_area').hide()
-    $.ajax
-      type: 'get'
-      url: URL_BASE + 'search/find-texto-livres'
-      success: (response) ->
-        result = show_result_search(response)
-        if result != ""
-          BootstrapDialog.show
-            title: 'Textos Livres'
-            message: result
-            closable: false,
-            draggable: true,
-            buttons: [{
-               label: 'Fechar',
-               cssClass: 'btn-primary',
-               autospin: false,
-               action: (dialogRef) ->
-                dialogRef.close()
-                $("#free_text_area").fadeIn(500)
-                return false
-            }]
+    $("#textoLivresModal.modal").modal()
 
   show_result_search = (resource) ->
     content = []

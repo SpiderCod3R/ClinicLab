@@ -2,6 +2,15 @@ class Profissional < Connection::Factory
   include ActiveMethods
   include AtivandoStatus
 
+  validates :nome, :cargo_id, :data_nascimento,
+            :cpf, :rg, :telefone, :celular,
+            :operadora_id, :conselho_regional_id,
+            :endereco, :bairro,
+            :estado_id, :cidade_id, :numero_conselho_regional,
+            presence: true
+
+  validates :numero_conselho_regional, length: { maximum: 50 }
+
   belongs_to :cargo
   belongs_to :estado
   belongs_to :cidade

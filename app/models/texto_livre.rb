@@ -5,7 +5,7 @@ class TextoLivre < Connection::Factory
   belongs_to :empresa
   belongs_to :servico
   has_many :cliente_texto_livres
-  paginates_per 10
+  paginates_per 5
 
   validates :nome, :servico_id, :content, presence: true
   validates_uniqueness_of :content, scope: :empresa_id
