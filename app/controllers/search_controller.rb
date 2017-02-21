@@ -17,4 +17,9 @@ class SearchController < ApplicationController
   def find_receituario
     @receituario = Receituario.find(params[:id])
   end
+
+  def find_cliente_receituario
+    binding.pry
+    @receituario_cliente = ClienteReceituario.find_by( id: params[:id], cliente_id: params[:cliente_id])
+  end
 end

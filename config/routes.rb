@@ -78,6 +78,7 @@ Rails.application.routes.draw do
   get 'search/conselho_regional', to: 'conselho_regionais#search'
   get 'search/cliente-texto-livre', to: 'search#find_cliente_texto_livre'
   get 'search/receituario', to: 'search#find_receituario'
+  get 'search/cliente_receituario', to: 'search#find_cliente_receituario'
 
   post 'clientes/include_texto_livre', to: 'clientes#include_texto_livre'
   post 'clientes/include_recipe', to: 'clientes#include_recipe'

@@ -4,8 +4,9 @@ class ClientePermissao < ApplicationRecord
 
   def self.update_content(resource)
     update(usuario_permissoes_id: resource[:usuario_permissoes_id],
-           historico: resource[:historico],
+           historico:   resource[:historico],
            texto_livre: resource[:texto_livre],
-           pdf_upload: resource[:pdf_upload])
+           pdf_upload:  resource[:pdf_upload],
+           receituario: resource[:receituario])
   end
 end
