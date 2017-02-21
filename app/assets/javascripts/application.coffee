@@ -55,3 +55,4 @@
 #= require valida_cpf
 #= require bootbox.min.js
 #= require ckeditor/init
+#= require gallery/responsive
