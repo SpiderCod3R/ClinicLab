@@ -1,0 +1,18 @@
+<%- if @cliente_receituario.nil? -%>
+  var dialog = bootbox.dialog({
+    title: 'Aguarde ...',
+    message: '<p><i class="fa fa-spin fa-spinner"></i> Processando...</p>'
+  });
+  dialog.init(function(){
+      setTimeout(function(){
+          dialog.find('.bootbox-body').html("<%= t('helpers.messages.no_more_data')%>");
+      }, 3000);
+  });
+  setTimeout(function(){
+    dialog.modal('hide');
+  }, 6000);
+<% else %>
+  $('#recipe_content').empty()
+  $('#recipe_content').html("<%=j render 'clientes/partials/cliente_receituario' %>");
+  $('#recipe_manual_pagination').html("<%=j render 'recipe_pagination', { cliente_receituario: @cliente_receituario } %>");
+<%- end -%>

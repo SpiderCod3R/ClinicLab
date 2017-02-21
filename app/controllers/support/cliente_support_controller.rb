@@ -59,6 +59,21 @@ class Support::ClienteSupportController < ApplicationController
     respond_to &:js
   end
 
+  def find_recipe
+    @cliente = Cliente.find(params[:id])
+    @cliente_receituario = @cliente.cliente_receituarios.find(params[:cliente_receituario_id]) if params[:cliente_receituario_id].present?
+    if params[:first_page].present?
+      @cliente_receituario = @cliente.cliente_receituarios.first
+    elsif params[:previous_page].present?
+      @cliente_receituario = @cliente_receituario.previous
+    elsif params[:next_page].present?
+      @cliente_receituario = @cliente_receituario.next
+    elsif params[:last_page].present?
+      @cliente_receituario = @cliente.cliente_receituarios.last
+    end
+    respond_to &:js
+  end
+
   def print_free_text
     @cliente = Cliente.find(params[:id])
     @cliente_texto_livre = @cliente.cliente_texto_livres.find(params[:texto_livre_id]) if params[:texto_livre_id].present?
@@ -190,6 +205,20 @@ class Support::ClienteSupportController < ApplicationController
     respond_to &:js
   end
 
+  def include_recipe
+    if params[:cliente]
+      @cliente = Cliente.find(params[:cliente][:id])
+      @cliente_receituario = @cliente.cliente_receituarios.build(user_id: current_usuario.id, content: params[:cliente][:cliente_recipe][:content])
+      # binding.pry
+      @cliente_receituario.save
+    end
+
+    respond_to do |format|
+      format.html
+      format.json { render json: session[:cliente_id].as_json }
+    end
+  end
+
   private
     def set_access
       if !current_usuario.admin?
@@ -201,13 +230,16 @@ class Support::ClienteSupportController < ApplicationController
 
     def load_tabs
       @cliente_texto_livre = @cliente.cliente_texto_livres.first
+      @cliente_receituario = @cliente.cliente_receituarios.first
       @cliente_collection_pdfs  = @cliente.cliente_pdf_uploads.ultima_data.page params[:page]
       @texto_livres = current_usuario.empresa.texto_livres.page params[:page]
+      @cliente_receituarios = @cliente.cliente_receituarios.page params[:page]
       if !@cliente.cliente_pdf_uploads.empty?
         @cliente_pdf_uploads = @cliente.cliente_pdf_uploads.build
       else
         @cliente_pdf_uploads = @cliente.cliente_pdf_uploads.build
       end
+
       get_historicos
     end
 

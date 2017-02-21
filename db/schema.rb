@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170216120049) do
+ActiveRecord::Schema.define(version: 20170220124609) do
 
   create_table "agenda_movimentacoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "agenda_id"
@@ -149,15 +149,15 @@ ActiveRecord::Schema.define(version: 20170216120049) do
     t.index ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type", using: :btree
   end
 
-  create_table "cliente_convenios", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "cliente_convenios", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer "cliente_id"
     t.integer "convenio_id"
     t.boolean "status_convenio"
-    t.string  "matricula",
-    t.string  "titular",
-    t.string  "plano",
+    t.string  "matricula"
+    t.string  "titular"
+    t.string  "plano"
     t.date    "validade_carteira"
-    t.string  "produto",
+    t.string  "produto"
     t.index ["cliente_id"], name: "index_cliente_convenios_on_cliente_id", using: :btree
     t.index ["convenio_id"], name: "index_cliente_convenios_on_convenio_id", using: :btree
   end
@@ -184,6 +184,15 @@ ActiveRecord::Schema.define(version: 20170216120049) do
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
     t.index ["empresa_id"], name: "index_cliente_permissoes_on_empresa_id", using: :btree
+  end
+
+  create_table "cliente_receituarios", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.integer  "cliente_id"
+    t.integer  "user_id"
+    t.text     "content",    limit: 65535
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.index ["cliente_id"], name: "index_cliente_receituarios_on_cliente_id", using: :btree
   end
 
   create_table "cliente_texto_livres", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -504,6 +513,7 @@ ActiveRecord::Schema.define(version: 20170216120049) do
   add_foreign_key "atendimentos", "estados"
   add_foreign_key "cliente_convenios", "clientes"
   add_foreign_key "cliente_convenios", "convenios"
+  add_foreign_key "cliente_receituarios", "clientes"
   add_foreign_key "cliente_texto_livres", "clientes"
   add_foreign_key "cliente_texto_livres", "texto_livres"
   add_foreign_key "clientes", "cargos"

@@ -13,4 +13,8 @@ class SearchController < ApplicationController
   def find_cliente_texto_livre
     @texto_livre= ClienteTextoLivre.find_by( id: params[:id], cliente_id: params[:cliente_id])
   end
+
+  def find_receituario
+    @receituario = Receituario.find(params[:id])
+  end
 end
