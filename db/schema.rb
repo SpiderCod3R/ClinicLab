@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20170220124609) do
+=======
+ActiveRecord::Schema.define(version: 20170216120049) do
+>>>>>>> 25158a7956633b0be902153a8bf34fe7be41619f
 
   create_table "agenda_movimentacoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "agenda_id"
@@ -149,7 +153,11 @@ ActiveRecord::Schema.define(version: 20170220124609) do
     t.index ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type", using: :btree
   end
 
+<<<<<<< HEAD
   create_table "cliente_convenios", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+=======
+  create_table "cliente_convenios", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+>>>>>>> 25158a7956633b0be902153a8bf34fe7be41619f
     t.integer "cliente_id"
     t.integer "convenio_id"
     t.boolean "status_convenio"

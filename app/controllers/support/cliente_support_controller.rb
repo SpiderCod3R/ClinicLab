@@ -278,9 +278,9 @@ class Support::ClienteSupportController < ApplicationController
     def resource_params
       params.require(:cliente).permit(
         :id, :status, :nome, :cpf, :endereco, :complemento, :bairro, :estado_id,
-        :cidade_id, :empresa_id, :foto, :email, :telefone, :cargo_id, :status_convenio,
-        :matricula, :plano, :validade_carteira, :produto, :titular, :convenio_id, :nascimento,
-        :sexo, :rg, :estado_civil, :nacionalidade, :naturalidade,
+        :cidade_id, :empresa_id, :foto, :email, :telefone, :cargo_id,
+        :nascimento, :sexo, :rg, :estado_civil, :nacionalidade, :naturalidade,
+        cliente_convenios_attributes: [:id, :cliente_id, :convenio_id, :status_convenio, :matricula, :plano, :validade_carteira, :produto, :titular],
         cliente_pdf_upload_attributes: [:id, :cliente_id, :anotacoes, :data, :pdf, :_destroy])
     end
 end
