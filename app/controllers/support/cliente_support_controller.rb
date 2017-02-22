@@ -208,9 +208,14 @@ class Support::ClienteSupportController < ApplicationController
   def include_recipe
     if params[:cliente]
       @cliente = Cliente.find(params[:cliente][:id])
+    end
+
+    if params[:cliente][:cliente_recipe][:id].to_i.eql?(0)
       @cliente_receituario = @cliente.cliente_receituarios.build(user_id: current_usuario.id, content: params[:cliente][:cliente_recipe][:content])
-      # binding.pry
       @cliente_receituario.save
+    else
+      @cliente_receituario = @cliente.cliente_receituarios.find(params[:cliente][:cliente_recipe][:id])
+      @cliente_receituario.update_attributes(content: params[:cliente][:cliente_recipe][:content], user_id: current_usuario.id)
     end
 
     respond_to do |format|

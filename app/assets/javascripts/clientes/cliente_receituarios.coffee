@@ -39,6 +39,7 @@ $(document).ready ->
         cliente:
           id: $("#cliente_id").val()
           cliente_recipe:
+            id: $("#id_receituario").text()
             content: content
       success: (response) ->
         window.location.href = URL_BASE + "clientes/" + $("#cliente_id").val() + "/edit"
@@ -64,12 +65,14 @@ $(document).ready ->
       type: 'get'
       url: URL_BASE + 'search/cliente_receituario'
       data:
-        id: $("#id_cliente_receituario").text()
+        id: $("#id_receituario").text()
         cliente_id: $("#cliente_id").val()
       success: (response) ->
+        $('#cancel_recipe').show()
         $('#include_recipe_container').show()
         $("#include_new_recipe").hide()
         $("#save_new_recipe").fadeIn(500)
-        $("#recipe_manual_pagination").hide
-        $('#cancel_recipe').show()
+        $("#recipe_manual_pagination").hide()
+        $("#destroy_recipe").hide()
+        $("#recipes_container").hide()
         CKEDITOR.instances['receituario_content_textarea'].setData(response.content.recipe)

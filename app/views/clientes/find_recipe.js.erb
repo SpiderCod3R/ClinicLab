@@ -13,6 +13,6 @@
   }, 6000);
 <% else %>
   $('#recipe_content').empty()
-  $('#recipe_content').html("<%=j render 'clientes/partials/cliente_receituario' %>");
+  $('#recipe_content').html("<%=j render 'clientes/partials/cliente_receituario', { cliente_receituario: @cliente_receituario } %>");
   $('#recipe_manual_pagination').html("<%=j render 'recipe_pagination', { cliente_receituario: @cliente_receituario } %>");
 <%- end -%>
