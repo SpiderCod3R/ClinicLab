@@ -34,6 +34,7 @@ Rails.application.routes.draw do
       get    'paginate_pdfs'
       delete 'destroy_pdf'
     end
+    get 'receita/:recipe_id/remove', to: "clientes#destroy_cliente_receituario"
   end
 
   get 'ficha_cliente', to: "clientes#clinic_sheet", as: :clinic_sheet_cliente

@@ -76,3 +76,29 @@ $(document).ready ->
         $("#destroy_recipe").hide()
         $("#recipes_container").hide()
         CKEDITOR.instances['receituario_content_textarea'].setData(response.content.recipe)
+
+  $('#destroy_recipe').click ->
+    cliente_id = $("#cliente_id").val()
+    recipe_id = $("#id_receituario").text()
+    bootbox.confirm
+      message: 'Deseja mesmo excluir esta Receita?'
+      buttons:
+        confirm:
+          label: 'Sim'
+          className: 'btn-success'
+        cancel:
+          label: 'Ainda não'
+          className: 'btn-danger'
+      callback: (result) ->
+        if result == true
+          $.ajax
+            type: 'get'
+            url: URL_BASE + "/clientes/#{cliente_id}/receita/#{recipe_id}/remove"
+            data:
+              recipe_id: recipe_id
+              cliente_id: cliente_id
+            success: (response) ->
+              cliente_id = $("#cliente_id").val()
+              window.location.href = URL_BASE + "clientes/" + cliente_id + "/edit"
+              window.location.href = URL_BASE + "clientes/" + cliente_id + "/edit#texto_livre"
+              $('.nav-tabs a[href="#texto_livre"]').tab('show')

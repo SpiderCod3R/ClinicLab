@@ -181,6 +181,16 @@ class Support::ClienteSupportController < ApplicationController
     end
   end
 
+  def destroy_cliente_receituario
+    @cliente = Cliente.find(params[:cliente_id])
+    @cliente_receituario = @cliente.cliente_receituarios.find(params[:recipe_id])
+    @cliente_receituario.destroy
+    respond_to do |format|
+      format.html
+      format.json { render json: session[:cliente_id].as_json }
+    end
+  end
+
   def salva_cliente_convenios
     @cliente = Cliente.find(session[:cliente_id])
     if params[:convenios_attributes]
