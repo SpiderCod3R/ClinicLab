@@ -12,7 +12,7 @@ class ClientePermissoesController < ApplicationController
   def build_permissions
     @usuario_permissao = Painel::UsuarioPermissao.find(resource_params[:usuario_permissoes_id])
     @cliente_permissao  = ClientePermissao.find_by(usuario_permissoes_id: resource_params[:usuario_permissoes_id])
-
+    # binding.pry
     if !@cliente_permissao.nil?
       @cliente_permissao  = ClientePermissao.update_content(resource_params)
     else
@@ -25,6 +25,6 @@ class ClientePermissoesController < ApplicationController
 
   private
     def resource_params
-      params.require(:cliente_permissao).permit(:usuario_permissoes_id, :historico, :texto_livre, :pdf_upload)
+      params.require(:cliente_permissao).permit(:usuario_permissoes_id, :historico, :texto_livre, :pdf_upload, :receituario)
     end
 end
