@@ -59,6 +59,21 @@ class Support::ClienteSupportController < ApplicationController
     respond_to &:js
   end
 
+  def find_recipe
+    @cliente = Cliente.find(params[:id])
+    @cliente_receituario = @cliente.cliente_receituarios.find(params[:cliente_receituario_id]) if params[:cliente_receituario_id].present?
+    if params[:first_page].present?
+      @cliente_receituario = @cliente.cliente_receituarios.first
+    elsif params[:previous_page].present?
+      @cliente_receituario = @cliente_receituario.previous
+    elsif params[:next_page].present?
+      @cliente_receituario = @cliente_receituario.next
+    elsif params[:last_page].present?
+      @cliente_receituario = @cliente.cliente_receituarios.last
+    end
+    respond_to &:js
+  end
+
   def print_free_text
     @cliente = Cliente.find(params[:id])
     @cliente_texto_livre = @cliente.cliente_texto_livres.find(params[:texto_livre_id]) if params[:texto_livre_id].present?
@@ -166,6 +181,59 @@ class Support::ClienteSupportController < ApplicationController
     end
   end
 
+  def destroy_cliente_receituario
+    @cliente = Cliente.find(params[:cliente_id])
+    @cliente_receituario = @cliente.cliente_receituarios.find(params[:recipe_id])
+    @cliente_receituario.destroy
+    respond_to do |format|
+      format.html
+      format.json { render json: session[:cliente_id].as_json }
+    end
+  end
+
+  def salva_cliente_convenios
+    @cliente = Cliente.find(session[:cliente_id])
+    if params[:convenios_attributes]
+      dados = JSON.parse(params[:convenios_attributes].to_json)
+      dados.each do |_key, array |
+        @cliente_convenio = ClienteConvenio.new(convenio_id: array["convenio_id"],
+                                                status_convenio: array["status_convenio"],
+                                                validade_carteira: array["validade_carteira"],
+                                                matricula: array["matricula"],
+                                                produto: array["produto"],
+                                                titular: array["titular"],
+                                                plano: array["plano"],
+                                                cliente_id: @cliente.id)
+        @cliente_convenio.save!
+      end
+    end
+  end
+
+  def destroy_cliente_convenio
+    @cliente_convenio = ClienteConvenio.find(params[:cliente_convenio_id])
+    @cliente_convenio.destroy!
+    respond_to &:js
+  end
+
+  def include_recipe
+    if params[:cliente]
+      @cliente = Cliente.find(params[:cliente][:id])
+    end
+
+    if params[:cliente][:cliente_recipe][:id].to_i.eql?(0)
+      @cliente_receituario = @cliente.cliente_receituarios.build(user_id: current_usuario.id, content: params[:cliente][:cliente_recipe][:content])
+      @cliente_receituario.save
+    else
+      @cliente_receituario = @cliente.cliente_receituarios.find(params[:cliente][:cliente_recipe][:id])
+      @cliente_receituario.update_attributes(content: params[:cliente][:cliente_recipe][:content], user_id: current_usuario.id)
+    end
+
+    respond_to do |format|
+      format.html
+      format.json { render json: session[:cliente_id].as_json }
+    end
+  end
+
   private
     def set_access
       if !current_usuario.admin?
@@ -177,13 +245,16 @@ class Support::ClienteSupportController < ApplicationController
 
     def load_tabs
       @cliente_texto_livre = @cliente.cliente_texto_livres.first
+      @cliente_receituario = @cliente.cliente_receituarios.first
       @cliente_collection_pdfs  = @cliente.cliente_pdf_uploads.ultima_data.page params[:page]
       @texto_livres = current_usuario.empresa.texto_livres.page params[:page]
+      @cliente_receituarios = @cliente.cliente_receituarios.page params[:page]
       if !@cliente.cliente_pdf_uploads.empty?
         @cliente_pdf_uploads = @cliente.cliente_pdf_uploads.build
       else
         @cliente_pdf_uploads = @cliente.cliente_pdf_uploads.build
       end
+
       get_historicos
     end
 

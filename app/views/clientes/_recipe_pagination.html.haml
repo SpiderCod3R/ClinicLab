@@ -1,0 +1,10 @@
+.col-md-6
+  .pull-right
+    #first_page{style: "display: inline"}
+      = link_to_first_page path: find_recipe_cliente_path(@cliente, first_page: true), text: '<< Primeiro'
+    #previous_page{style: "display: inline"}
+      = link_to_back_page path: find_recipe_cliente_path(@cliente, previous_page: true, cliente_receituario_id: cliente_receituario.id), text: '< Anterior'
+    #next_page{style: "display: inline"}
+      = link_to_advance_page path: find_recipe_cliente_path(@cliente, next_page: true, cliente_receituario_id: cliente_receituario.id), text: 'Próxima >'
+    #last_page{style: "display: inline"}
+      = link_to_last_page path: find_recipe_cliente_path(@cliente, last_page: true), text: 'Último >>'

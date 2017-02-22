@@ -3,9 +3,9 @@
     %li{class:"active"}
       %a{'data-toggle':"tab", href:"#dados", id: "aba_dados"} Dados Pessoais
     %li
-      %a{'data-toggle':"tab", href:"#convenio", id: "aba_convenio"} Convênio
-    %li
       %a{'data-toggle':"tab", href:"#contato", id: "aba_contato"} Contato
+    %li
+      %a{'data-toggle':"tab", href:"#convenio", id: "aba_convenio"} Convênio
     -if !current_usuario.admin?
       -if @cliente_permissao.historico?
         %li
@@ -23,6 +23,8 @@
         %a{'data-toggle':"tab", href:"#texto_livre", id: "aba_texto_livre"} Texto-Livre
       %li
         %a{'data-toggle':"tab", href:"#pdf", id: "aba_pdf_upload"} PDF
+      %li
+        %a{'data-toggle':"tab", href:"#receituario", id: "aba_pdf_upload"} Receituário
   %div{class: "container", style: "padding-top: 10px; padding-bottom: 25px;"}
     %div{class:"tab-content"}
       / aba dados_pessoais
@@ -42,3 +44,6 @@
 
       / aba pdf
       =render 'clientes/partials/pdf_upload', { f: f }
+
+      / aba receituario
+      =render 'clientes/partials/receituario', { f: f }

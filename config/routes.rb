@@ -41,9 +41,11 @@ Rails.application.routes.draw do
       get    'print_free_text'
       get    'print_historico'
       get    'print_historico_full'
+      get    'find_recipe'
       get    'paginate_pdfs'
       delete 'destroy_pdf'
     end
+    get 'receita/:recipe_id/remove', to: "clientes#destroy_cliente_receituario"
   end
 
   get 'ficha_cliente', to: "clientes#clinic_sheet", as: :clinic_sheet_cliente
@@ -68,6 +70,8 @@ Rails.application.routes.draw do
   post 'clientes/retorna_historico', to: "clientes#retorna_historico"
   post 'clientes/salva_historico', to: "clientes#salva_historico"
   post 'clientes/atualiza_historico', to: "clientes#atualiza_historico"
+  post 'clientes/salva_cliente_convenios', to: "clientes#salva_cliente_convenios"
+  get 'clientes/:id/destroy_cliente_convenio', to: "clientes#destroy_cliente_convenio", as: :destroy_cliente_convenio
   get  'clientes/:cliente_id/destroy_texto_livre', to: "clientes#destroy_cliente_texto_livre"
   get 'clientes/:cliente_id/textos_livres', to: "clientes#find_textos_livre", as: :cliente_find_textos_livres
 
@@ -84,9 +88,11 @@ Rails.application.routes.draw do
   get 'search/find-texto-livres'=> "search#collect_all_free_text" ,as: :collect_all_free_text
   get 'search/conselho_regional', to: 'conselho_regionais#search'
   get 'search/cliente-texto-livre', to: 'search#find_cliente_texto_livre'
-
+  get 'search/receituario', to: 'search#find_receituario'
+  get 'search/cliente_receituario', to: 'search#find_cliente_receituario'
 
   post 'clientes/include_texto_livre', to: 'clientes#include_texto_livre'
+  post 'clientes/include_recipe', to: 'clientes#include_recipe'
 
   resources :referencia_agendas, except: [:show]
 

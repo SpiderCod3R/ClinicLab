@@ -1,0 +1,49 @@
+#receituario.tab-pane.fade
+  .container-fluid
+    .row-fluid
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        =render 'clientes/partials/cliente_legend' if @cliente.id?
+  %hr/
+  .container-fluid
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+      .row
+        .col-md-3
+          =link_to "Incluir Novo", "#", class: "btn btn-success", id: "include_new_recipe"
+          =link_to "Incluir", "#", class: "btn btn-success", id: "save_new_recipe"
+          =link_to "Cancelar Inclusão", "#", class: "btn btn-warning", id: "cancel_recipe"
+        .col-md-3
+          .pull-right
+            =link_to "Alterar", "#", class: "btn btn-info", id: "change_recipe" if !@cliente.cliente_receituarios.empty?
+            =link_to "Excluir", "#", class: "btn btn-danger", id: "destroy_recipe" if !@cliente.cliente_receituarios.empty?
+            #print_receituario{style: "display: inline;"}
+              / =link_to_print_free_text path: print_free_text_cliente_path(@cliente, texto_livre_id: @cliente_texto_livre.id, format: 'pdf'), text: 'Imprimir' if !@cliente.cliente_texto_livres.empty?
+        - if !@cliente.cliente_receituarios.empty?
+          #recipe_manual_pagination
+            =render 'recipe_pagination', { cliente_receituario: @cliente_receituario }
+  %hr/
+  #include_recipe_container{style: "display: none;"}
+    .container-fluid
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        .row-fluid
+          %h4 Receitas
+          .col-md-3
+            =f.collection_select :receituario, Receituario.all, :id, :nome, {include_blank: "Selecione"}, {class: 'form-control'}
+          .col-md-1
+            #add_recipe.btn.btn-primary{title: "Adicionar Receita"}
+              %i.fa.fa-plus-circle
+          .col-md-8
+            =cktext_area :receituario_content, :info, cols: 40, ckeditor: { height: 400 }, id: "receituario_content_textarea"
+  %br/
+  %br/
+  #recipes_container
+    .container-fluid
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        .panel.panel-default
+          .panel-heading
+            %b Receituário
+          .panel-body
+            #recipe_content
+              =render 'clientes/partials/cliente_receituarios'
+        .clearfix
+
+=javascript_include_tag Ckeditor.asset_path

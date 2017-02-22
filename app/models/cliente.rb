@@ -7,12 +7,11 @@ class Cliente < ApplicationRecord
 
   scope :pelo_nome, -> { order("nome ASC") }
 
-  validates_presence_of :nome, :cpf, :endereco, :bairro,
-            :nascimento, :sexo, :rg, :estado_civil, :telefone,
-            :status_convenio, :matricula, :plano, :validade_carteira,
-            :produto, :titular
+  validates_presence_of :nome, :cpf, :endereco,
+                        :bairro, :nascimento, :sexo,
+                        :rg, :estado_civil, :telefone
 
-  validates_associated :cargo, :estado, :cidade, :convenio
+  attr_accessor :receituario
 
   usar_como_cpf :cpf
 
@@ -20,11 +19,14 @@ class Cliente < ApplicationRecord
   belongs_to :estado
   belongs_to :cidade
   belongs_to :cargo
-  belongs_to :convenio
   has_many :historicos
   has_many :cliente_texto_livres
   has_many :cliente_pdf_uploads
+  has_many :cliente_receituarios
+  has_many :cliente_convenios, dependent: :destroy
+  has_many :convenios, through: :cliente_convenios
 
+  accepts_nested_attributes_for :cliente_convenios, allow_destroy: true
   accepts_nested_attributes_for :historicos, allow_destroy: true
   accepts_nested_attributes_for :cliente_pdf_uploads, allow_destroy: true
 
@@ -58,13 +60,13 @@ class Cliente < ApplicationRecord
                       estado_civil: resource[:estado_civil],
                       cpf:          resource[:cpf],
                       rg:           resource[:rg],
-                      status_convenio: resource[:status_convenio],
-                      matricula:       resource[:matricula],
-                      convenio_id:     resource[:convenio_id],
-                      validade_carteira: resource[:validade_carteira],
-                      produto: resource[:produto],
-                      titular: resource[:titular],
-                      plano:   resource[:plano],
+                      # status_convenio: resource[:status_convenio],
+                      # matricula:       resource[:matricula],
+                      # convenio_id:     resource[:convenio_id],
+                      # validade_carteira: resource[:validade_carteira],
+                      # produto: resource[:produto],
+                      # titular: resource[:titular],
+                      # plano:   resource[:plano],
                       email:   resource[:email],
                       telefone: resource[:telefone],
                       endereco: resource[:endereco],

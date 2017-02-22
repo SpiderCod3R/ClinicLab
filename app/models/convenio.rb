@@ -3,7 +3,8 @@ class Convenio < ApplicationRecord
   belongs_to :empresa
   belongs_to :estado
   belongs_to :cidade
-  has_many   :pacientes, dependent: :destroy
+  has_many :cliente_convenios, dependent: :destroy
+  has_many :clientes, through: :cliente_convenios
 
   validates :nome, :valor, presence: true
   validates :nome, uniqueness: true

@@ -34,10 +34,12 @@
 #= require agenda/movimentar_agenda
 #= require atendimentos
 #= require clientes/estados_cidades
+#= require clientes/cliente_convenios
 #= require clientes/cliente_idade
 #= require clientes/cliente_nacionalidade
 #= require clientes/texto_livre
 #= require clientes/cliente_historicos
+#= require clientes/cliente_receituarios
 #= require clientes/search
 #= require filtros
 #= require fornecedor
