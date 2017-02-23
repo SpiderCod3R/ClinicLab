@@ -1,11 +1,11 @@
 require 'yaml'
-require_relative 'painel/globalnetsis.rb'
+require_relative 'painel/setup.rb'
 
 namespace :setup do
   desc "import globalnetsis admin to database"
   task :create_admin do
     puts "-*- SENDING ADMIN -*-"
-    Gclinic::Admin.create(email: "globalnetsis@globalnetsis.com.br", name: "globalnetsis", password: "#GSUPER4582?")
+    Gclinic::Admin.create(email: "globalnetsis@globalnetsis.com.br", name: "globalnetsis", password: Setup::Secret.make)
   end
 
   desc "import models to database"
@@ -27,6 +27,7 @@ namespace :setup do
     Gclinic::Model.create(name: "Referência Agendas", model_class: "ReferenciaAgenda")
     Gclinic::Model.create(name: "Serviços", model_class: "Servico")
     Gclinic::Model.create(name: "Textos Livre", model_class: "TextoLivre")
+    Gclinic::Model.create(name: "Receituários", model_class: "Receituario")
     puts "-*- ALL DATA CONTAINED ON db/seed.rb SUCCESSFULLY IMPORTED -*-"
   end
 end

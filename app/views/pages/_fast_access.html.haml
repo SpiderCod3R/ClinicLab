@@ -72,12 +72,12 @@
       .panel-body
         %table.table
           %tr
-            %td
-              #usuario_password
-              =link_to painel_change_user_password_path(current_user), remote: true, title: " Alterar Senha" do
-                %span.text-info
-                  %i.fa.fa-2x.fa-key
-                  Alterar Senha
+            / %td
+            /   #usuario_password
+            /   =link_to painel_change_user_password_path(current_user), remote: true, title: " Alterar Senha" do
+            /     %span.text-info
+            /       %i.fa.fa-2x.fa-key
+            /       Alterar Senha
           %tr
             %td
               = link_to destroy_user_session_path, method: 'delete', title: "SAIR" do
