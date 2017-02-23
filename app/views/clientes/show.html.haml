@@ -1,4 +1,5 @@
 =build_object_viewer_toolbar(edit_empresa_cliente_path(current_user.empresa,@cliente), @cliente, empresa_clientes_path(current_user.empresa), nil)
+
 %section#cliente
   .container
     .row
@@ -85,42 +86,62 @@
           .col-xs-3.col-sm-3.col-md-3.col-lg-3
             = label_tag t('clientes.helpers.cargo')
             %br
-            = @cliente.cargo.nome if @cliente.try(:cargo_id)
-          .col-xs-3.col-sm-3.col-md-3.col-lg-3
-            = label_tag t('clientes.helpers.status_convenio')
-            %br
-            = status @cliente.status_convenio
-          .col-xs-3.col-sm-3.col-md-3.col-lg-3
-            = label_tag t('clientes.helpers.convenio')
-            %br
-            -if @cliente.try(:convenio_id)
-              = @cliente.convenio.nome
-            -else
+            - if @cliente.cargo_id.present?
+              = @cliente.cargo.nome
+            - else
               Não mencionado
         %br
-        .row
-          .col-xs-3.col-sm-3.col-md-3.col-lg-3
-            = label_tag t('clientes.helpers.matricula')
+        - if @cliente.cliente_convenios.present?
+          - @cliente.cliente_convenios.each do |c|
+            %hr{style: "border-color: #B7B7B7;"}
+            .row
+              .col-xs-3.col-sm-3.col-md-3.col-lg-3
+                = label_tag t('clientes.helpers.convenio')
+                %br
+                - if c.convenio_id.present?
+                  = c.convenio.nome
+                - else
+                  Não mencionado
+              .col-xs-3.col-sm-3.col-md-3.col-lg-3
+                = label_tag t('clientes.helpers.status_convenio')
+                %br
+                = status c.status_convenio
+              .col-xs-3.col-sm-3.col-md-3.col-lg-3
+                = label_tag t('clientes.helpers.matricula')
+                %br
+                - if c.matricula.present?
+                  = c.matricula
+                - else
+                  Não mencionado
             %br
-            = @cliente.matricula
-          .col-xs-3.col-sm-3.col-md-3.col-lg-3
-            = label_tag t('clientes.helpers.plano')
+            .row
+              .col-xs-3.col-sm-3.col-md-3.col-lg-3
+                = label_tag t('clientes.helpers.validade_carteira')
+                %br
+                = c.validade_carteira.strftime("%d/%m/%Y") unless c.validade_carteira.nil?
+              .col-xs-3.col-sm-3.col-md-3.col-lg-3
+                = label_tag t('clientes.helpers.produto')
+                %br
+                - if c.produto.present?
+                  = c.produto
+                - else
+                  Não mencionado
             %br
-            = @cliente.plano
-          .col-xs-3.col-sm-3.col-md-3.col-lg-3
-            = label_tag t('clientes.helpers.validade_carteira')
-            %br
-            = @cliente.validade_carteira.strftime("%d/%m/%Y") unless @cliente.validade_carteira.nil?
-        %br
-        .row
-          .col-xs-3.col-sm-3.col-md-3.col-lg-3
-            = label_tag t('clientes.helpers.produto')
-            %br
-            = @cliente.produto
-          .col-xs-3.col-sm-3.col-md-3.col-lg-3
-            = label_tag t('clientes.helpers.titular')
-            %br
-            = @cliente.titular
+            .row
+              .col-xs-3.col-sm-3.col-md-3.col-lg-3
+                = label_tag t('clientes.helpers.titular')
+                %br
+                - if c.titular.present?
+                  = c.titular
+                - else
+                  Não mencionado
+              .col-xs-3.col-sm-3.col-md-3.col-lg-3
+                = label_tag t('clientes.helpers.plano')
+                %br
+                - if c.plano.present?
+                  = c.plano
+                - else
+                  Não mencionado
       .col-xs-4.col-sm-4.col-md-4.col-lg-4
         -if @cliente.foto.present?
           = image_tag @cliente.foto.url(:medium), :class => "img_profissional pull-right"

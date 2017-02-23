@@ -38,6 +38,7 @@
 #= require clientes/cliente_nacionalidade
 #= require clientes/texto_livre
 #= require clientes/cliente_historicos
+#= require clientes/cliente_convenios
 #= require clientes/search
 #= require filtros
 #= require fornecedor

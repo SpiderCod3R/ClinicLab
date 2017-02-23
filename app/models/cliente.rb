@@ -10,12 +10,11 @@ class Cliente < Connection::Factory
 
   scope :pelo_nome, -> { order("nome ASC") }
 
-  validates_presence_of :nome, :cpf, :endereco, :bairro,
-            :nascimento, :sexo, :rg, :estado_civil, :telefone,
-            :status_convenio, :matricula, :plano, :validade_carteira,
-            :produto, :titular
+  validates_presence_of :nome, :cpf, :endereco,
+                        :bairro, :nascimento, :sexo,
+                        :rg, :estado_civil, :telefone
 
-  validates_associated :cargo, :estado, :cidade, :convenio
+  attr_accessor :receituario
 
   usar_como_cpf :cpf
 
@@ -23,11 +22,13 @@ class Cliente < Connection::Factory
   belongs_to :estado
   belongs_to :cidade
   belongs_to :cargo
-  belongs_to :convenio
   has_many :historicos
-  has_many :cliente_texto_livres
-  has_many :cliente_pdf_uploads
+  has_many :cliente_texto_livres, dependent: :destroy
+  has_many :cliente_pdf_uploads, dependent: :destroy
+  has_many :cliente_convenios, dependent: :destroy
+  has_many :convenios, through: :cliente_convenios
 
+  accepts_nested_attributes_for :cliente_convenios, allow_destroy: true
   accepts_nested_attributes_for :historicos, allow_destroy: true
   accepts_nested_attributes_for :cliente_pdf_uploads, allow_destroy: true
 

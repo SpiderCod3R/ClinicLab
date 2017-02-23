@@ -1,5 +1,6 @@
-#-*-coding:utf-8-*-
+  #-*-coding:utf-8-*-
 Rails.application.routes.draw do
+  mount Ckeditor::Engine => '/ckeditor'
   namespace :painel do
     resources :environments do
       member do
@@ -23,13 +24,9 @@ Rails.application.routes.draw do
     end
   end
 
-  mount Ckeditor::Engine => '/ckeditor'
-
   authenticated :admin do
     root 'painel/dashboards#index', as: "authenticated_admin_root"
   end
-
-  mount Ckeditor::Engine => '/ckeditor'
 
   resources :texto_livres do
     member do
@@ -128,6 +125,8 @@ Rails.application.routes.draw do
   get 'search/conselho_regional', to: 'conselho_regionais#search'
   get 'search/cliente-texto-livre', to: 'search#find_cliente_texto_livre'
   post 'clientes/include_texto_livre', to: 'clientes#include_texto_livre'
+  post 'clientes/salva_cliente_convenios', to: "clientes#salva_cliente_convenios"
+  get 'clientes/:id/destroy_cliente_convenio', to: "clientes#destroy_cliente_convenio", as: :destroy_cliente_convenio
 
   namespace :painel do
     resources :dashboards
