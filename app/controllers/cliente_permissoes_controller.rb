@@ -8,15 +8,9 @@ class ClientePermissoesController < Support::InsideController
   end
 
   def build_permissions
-<<<<<<< HEAD
-    @usuario_permissao = Painel::UsuarioPermissao.find(resource_params[:usuario_permissoes_id])
-    @cliente_permissao  = ClientePermissao.find_by(usuario_permissoes_id: resource_params[:usuario_permissoes_id])
-    # binding.pry
-=======
     @user_model = Gclinic::UserModel.find(resource_params[:user_model_id])
     @cliente_permissao  = ClientePermissao.find_by(user_model_id: resource_params[:user_model_id])
 
->>>>>>> connection_factory
     if !@cliente_permissao.nil?
       @cliente_permissao  = ClientePermissao.update_content(resource_params)
     else
@@ -29,10 +23,6 @@ class ClientePermissoesController < Support::InsideController
 
   private
     def resource_params
-<<<<<<< HEAD
-      params.require(:cliente_permissao).permit(:usuario_permissoes_id, :historico, :texto_livre, :pdf_upload, :receituario)
-=======
       params.require(:cliente_permissao).permit(:user_model_id, :historico, :texto_livre, :pdf_upload)
->>>>>>> connection_factory
     end
 end
