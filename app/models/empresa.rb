@@ -27,6 +27,7 @@ class Empresa < Connection::Factory
     has_many :servicos
     has_many :texto_livres
     has_many :referencia_agendas
+    has_many :receituarios
     has_many :users, class_name: "Gclinic::User"
   end
 

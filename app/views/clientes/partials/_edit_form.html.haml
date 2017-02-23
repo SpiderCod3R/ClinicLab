@@ -1,13 +1,12 @@
 = simple_form_for([current_user.empresa, @cliente]) do |f|
-  =f.hidden_field :empresa_id,   value: current_user.empresa.id
-  =f.hidden_field :empresa_name, value: current_user.empresa.slug
+  =f.input :empresa_name, as: :hidden, input_html: { value: current_user.empresa.slug }
   %ul{class: "nav nav-tabs"}
     %li{class:"active"}
       %a{'data-toggle':"tab", href:"#dados", id: "aba_dados"} Dados Pessoais
     %li
-      %a{'data-toggle':"tab", href:"#convenio", id: "aba_convenio"} Convênio
-    %li
       %a{'data-toggle':"tab", href:"#contato", id: "aba_contato"} Contato
+    %li
+      %a{'data-toggle':"tab", href:"#convenio", id: "aba_convenio"} Convênio
     -if !current_user.admin?
       -if @cliente_permissao.historico?
         %li
@@ -18,6 +17,9 @@
       -if @cliente_permissao.pdf_upload?
         %li
           %a{'data-toggle':"tab", href:"#pdf", id: "aba_pdf_upload"} PDF
+      -if @cliente_permissao.receituario?
+        %li
+          %a{'data-toggle':"tab", href:"#receituario", id: "aba_receituario"} Receituário
     -else
       %li
         %a{'data-toggle':"tab", href:"#historico", id: "aba_historico"} Histórico
@@ -25,6 +27,8 @@
         %a{'data-toggle':"tab", href:"#texto_livre", id: "aba_texto_livre"} Texto-Livre
       %li
         %a{'data-toggle':"tab", href:"#pdf", id: "aba_pdf_upload"} PDF
+      %li
+        %a{'data-toggle':"tab", href:"#receituario", id: "aba_receituario"} Receituário
   %div{class: "container", style: "padding-top: 10px; padding-bottom: 25px;"}
     %div{class:"tab-content"}
       / aba dados_pessoais
@@ -44,3 +48,6 @@
 
       / aba pdf
       =render 'clientes/partials/pdf_upload', { f: f }
+
+      / aba receituario
+      =render 'clientes/partials/receituario', { f: f }

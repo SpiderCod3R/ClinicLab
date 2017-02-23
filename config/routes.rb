@@ -42,6 +42,7 @@ Rails.application.routes.draw do
         get    'print_historico'
         get    'print_historico_full'
         get    'paginate_pdfs'
+        get    'find_recipe'
         delete 'destroy_pdf'
       end
     end
@@ -127,17 +128,15 @@ Rails.application.routes.draw do
   post 'clientes/include_texto_livre', to: 'clientes#include_texto_livre'
   post 'clientes/salva_cliente_convenios', to: "clientes#salva_cliente_convenios"
   get 'clientes/:id/destroy_cliente_convenio', to: "clientes#destroy_cliente_convenio", as: :destroy_cliente_convenio
+  get 'search/receituario', to: 'search#find_receituario'
+  get 'search/cliente_receituario', to: 'search#find_cliente_receituario'
+  post 'clientes/include_recipe', to: 'clientes#include_recipe'
+  get 'search/receituario', to: 'search#find_receituario'
+  get 'search/cliente_receituario', to: 'search#find_cliente_receituario'
 
   namespace :painel do
     resources :dashboards
-    post '/dashboards/empresas/permissoes/create', to: "dashboards#import_permissoes_to_company", as: :dashboards_add_permissoes_to_company 
-    # resources :empresas do
-    #   put 'change_name'
-    #   get 'new_admin', to: "dashboards#new_company_admin", as: :novo_admin
-    #   post 'create_admin', to: "dashboards#create_admin", as: :create_admin
-    #   delete 'remove_administrador/:usuario_id', to: "dashboards#remove_admin", as: :remove_admin
-    #   delete 'remover_permissao_empresa_usaurio/:permissao_id', to: "dashboards#remover_permissao_empresa_usaurio", as: :remover_permissao_empresa_usaurio
-    # end
+    post '/dashboards/empresas/permissoes/create', to: "dashboards#import_permissoes_to_company", as: :dashboards_add_permissoes_to_company
   end
 
   get 'pages/help'

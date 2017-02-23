@@ -1,5 +1,7 @@
-class Receituario < ApplicationRecord
+class Receituario < Connection::Factory
+  include ActiveMethods
   extend FriendlyId
+
   friendly_id :nome, use: :slugged
   before_create :set_slug
 

@@ -14,7 +14,7 @@ class Cliente < Connection::Factory
                         :bairro, :nascimento, :sexo,
                         :rg, :estado_civil, :telefone
 
-  attr_accessor :receituario
+  attr_accessor :receituario, :empresa_name
 
   usar_como_cpf :cpf
 
@@ -26,6 +26,7 @@ class Cliente < Connection::Factory
   has_many :cliente_texto_livres, dependent: :destroy
   has_many :cliente_pdf_uploads, dependent: :destroy
   has_many :cliente_convenios, dependent: :destroy
+  has_many :cliente_receituarios, dependent: :destroy
   has_many :convenios, through: :cliente_convenios
 
   accepts_nested_attributes_for :cliente_convenios, allow_destroy: true
