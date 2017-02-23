@@ -132,14 +132,10 @@ Rails.application.routes.draw do
   get 'search/find-texto-livres'=> "search#collect_all_free_text" ,as: :collect_all_free_text
   get 'search/conselho_regional', to: 'conselho_regionais#search'
   get 'search/cliente-texto-livre', to: 'search#find_cliente_texto_livre'
-  get 'search/receituario', to: 'search#find_receituario'
-  get 'search/cliente_receituario', to: 'search#find_cliente_receituario'
 
   post 'clientes/include_texto_livre', to: 'clientes#include_texto_livre'
   post 'clientes/include_recipe', to: 'clientes#include_recipe'
   post 'clientes/include_texto_livre', to: 'clientes#include_texto_livre'
-  post 'clientes/salva_cliente_convenios', to: "clientes#salva_cliente_convenios"
-  get 'clientes/:id/destroy_cliente_convenio', to: "clientes#destroy_cliente_convenio", as: :destroy_cliente_convenio
   get 'search/receituario', to: 'search#find_receituario'
   get 'search/cliente_receituario', to: 'search#find_cliente_receituario'
   post 'clientes/include_recipe', to: 'clientes#include_recipe'
