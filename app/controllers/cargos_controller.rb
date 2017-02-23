@@ -1,8 +1,8 @@
-class CargosController < ApplicationController
-  load_and_authorize_resource param_method: :resource_params
+class CargosController < Support::InsideController
+  load_and_authorize_resource
 
   def index
-    @search = Cargo.where(empresa_id: current_usuario.empresa_id).ransack(params[:q])
+    @search = Cargo.where(empresa_id: current_user.empresa_id).ransack(params[:q])
     @cargos = @search.result.order("id desc").page(params[:page]).per(10)
     @search.build_condition if @search.conditions.empty?
   end
@@ -12,7 +12,7 @@ class CargosController < ApplicationController
   end
 
   def new
-    @cargo = current_usuario.empresa.cargos.build
+    @cargo = current_user.empresa.cargos.build
     respond_with(@cargo)
   end
 
@@ -20,10 +20,10 @@ class CargosController < ApplicationController
   end
 
   def create
-    @cargo = current_usuario.empresa.cargos.build(resource_params)
-    if @cargo.salvar
+    @cargo = current_user.empresa.cargos.build(resource_params)
+    if @cargo.save
       flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @cargo.class)
-      redirect_to new_cargo_path
+      redirect_to new_empresa_cargo_path(current_user.empresa)
     else
       render :new
     end
@@ -31,10 +31,9 @@ class CargosController < ApplicationController
 
   def update
     @cargo.update(resource_params)
-
     if @cargo.update(resource_params)
       flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @cargo.class)
-      redirect_to cargos_path
+      redirect_to empresa_cargos_path(current_user.empresa)
     else
       render :edit
     end
@@ -43,7 +42,7 @@ class CargosController < ApplicationController
   def destroy
     if @cargo.destroy
       flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @cargo.class)
-      redirect_to cargos_url
+      redirect_to empresa_cargos_url(current_user.empresa)
     else
       flash[:alert] = t("flash.actions.#{__method__}.alert", resource_name: @cargo.class)
     end

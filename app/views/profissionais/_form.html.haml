@@ -8,7 +8,7 @@
 / -if @profissional.celular?
 /   - $cellphone = @profissional.celular
 
-= simple_form_for([@empresa, @profissional]) do |f|
+= simple_form_for([current_user.empresa, @profissional]) do |f|
   .container-fluid{style: "padding-top: 15px; padding-bottom: 15px;"}
     .row
       .col-xs-12.col-sm-12.col-md-12.col-lg-12

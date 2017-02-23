@@ -1,13 +1,11 @@
-class ReferenciaAgendasController < ApplicationController
-  before_action :authenticate_usuario!
-  before_action :find_empresa
+class ReferenciaAgendasController < Support::InsideController
   before_action :find_referencia, only: [:show, :edit, :update, :destroy]
 
   def index
     if params[:status] || params[:descricao] || params[:profissional]
-      @referencias = ReferenciaAgenda.where(empresa_id: current_usuario.empresa_id).search(params[:status]["status"], params[:descricao], params[:profissional]['id']).order("created_at DESC").page(params[:page]).per(10)
+      @referencias = ReferenciaAgenda.where(empresa: current_user.empresa).search(params[:status]["status"], params[:descricao], params[:profissional]['id']).order("created_at DESC").page(params[:page]).per(10)
     else
-      @referencias = ReferenciaAgenda.where(empresa_id: current_usuario.empresa_id).order("created_at DESC").page(params[:page]).per(10)
+      @referencias = ReferenciaAgenda.where(empresa: current_user.empresa).order("created_at DESC").page(params[:page]).per(10)
       respond_with(@referencias)
     end
   end
@@ -16,12 +14,11 @@ class ReferenciaAgendasController < ApplicationController
   end
 
   def new
-    @referencia = ReferenciaAgenda.new
+    @referencia = current_user.empresa.referencia_agendas.build
   end
 
   def create
-    @referencia = ReferenciaAgenda.new(resource_params)
-    @referencia.empresa_id = @empresa.id
+    @referencia = current_user.empresa.referencia_agendas.build(resource_params)
     if @referencia.save
       flash[:notice] = t('agendas.messages.referency_saved')
       redirect_to :back
@@ -32,10 +29,6 @@ class ReferenciaAgendasController < ApplicationController
 
 
   private
-    def find_empresa
-      @empresa = Painel::Empresa.friendly.find(current_usuario.empresa_id)
-    end
-
     def find_referencia
       @referencia = ReferenciaAgenda.localize(params[:id], @empresa)
     end

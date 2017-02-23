@@ -1,4 +1,4 @@
-=build_form_toolbar(new_empresa_servico_path(current_usuario.empresa_id),nil, @servicos, empresa_servicos_path(current_usuario.empresa_id), nil)
+=build_form_toolbar(new_empresa_servico_path(current_user.empresa_id),nil, @servicos, empresa_servicos_path(current_user.empresa_id), nil)
 %div{class: "container"}
   %div{class: "row"}
     %h1 Serviços
@@ -7,13 +7,13 @@
       %div{class: "jumbotron"}
         %div{class: "row", style: "margin: 0;"}
           %div{class: "col-md-12 col-sm-12 col-xs-12 col-lg-12"}
-            = search_form_for [@empresa, @search], url: empresa_servicos_path do |f|
+            = search_form_for @search, url: empresa_servicos_path(current_user.empresa) do |f|
               = f.condition_fields do |c|
                 = render "condition_fields", f: c
               = link_to_add_fields "Adicionar Condições", f, :condition
               %div{class: "actions", style: "margin-top: 2%;"}
                 = f.submit "Pesquisar", class: "btn btn-primary"
-                = link_to "Recarregar", empresa_servicos_path, class: "btn btn-default"
+                = link_to "Recarregar", empresa_servicos_path(current_user.empresa), class: "btn btn-default"
     %div{class: "row", style: "margin: 0;"}
       %table{class: "table table-striped table-bordered", cellspacing: "0", width: "100%"}
         %thead

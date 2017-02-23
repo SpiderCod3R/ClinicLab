@@ -1,6 +1,7 @@
-class Atendimento < ApplicationRecord
-  include MetodosUteis
+class Atendimento < Connection::Factory
+  include ActiveMethods
   include ActiveModel::Validations
+
   before_save :upcased_attributes
 
   belongs_to :convenio

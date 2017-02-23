@@ -2,11 +2,13 @@ $(document).ready ->
   URL_BASE = window.location.origin + "/"
   error_messages = []
   historico_id = 0
+  environment_id   = $('#cliente_empresa_id').val()
+  environment_name = $('#cliente_empresa_name').val()
 
   $('#incluir_historico').click ->
     $('div#old_historico').hide()
     $('div#new_historico').show()
-    return
+
   $('#editar_historico').click ->
     $('div#old_historico').hide()
     $('div#new_historico').show()
@@ -24,8 +26,7 @@ $(document).ready ->
           $('#show_historico').append('<p>' + historico.data + '</p><p>' + historico.usuario + '</p><p>' + historico.idade + '</p>')
           # tinyMCE.activeEditor.setContent(historico.indice)
           CKEDITOR.instances['historico_textarea'].setData(historico.indice)
-          return
-    return
+
   $('#salvar_historico').click ->
     i = 0
     idade = undefined
@@ -43,8 +44,8 @@ $(document).ready ->
           indice: indice
         success: (json) ->
           cliente_id = json
-          window.location.href = URL_BASE + "clientes/" + cliente_id + "/edit"
-          window.location.href = URL_BASE + "clientes/" + cliente_id + "/edit#historico"
+          window.location.href = URL_BASE + "empresa/" + environment_name + "/clientes/" + cliente_id + "/edit"
+          window.location.href = URL_BASE + "empresa/" + environment_name + "/clientes/" + cliente_id + "/edit#historico"
           return
       return
     else
@@ -76,8 +77,4 @@ $(document).ready ->
             indice: indice
           success: (json) ->
             cliente_id = json
-            window.location.href = URL_BASE + "clientes/" + cliente_id + "/edit"
-            return
-        return
-    return
-  return
+            window.location.href = URL_BASE + "empresa/" + environment_name + "/clientes/" + cliente_id + "/edit"

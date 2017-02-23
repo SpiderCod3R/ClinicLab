@@ -8,7 +8,7 @@
       = f.input :nome
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
       = f.input :sexo, :as => :select,
-              :collection => [['Masculino','m'],['Feminino','f']],
+              :collection => [['Masculino','Masculino'],['Feminino','Feminino']],
               :include_blank => "Selecione",
               :label => t('labels.sexo')
   %div{class: "row"}

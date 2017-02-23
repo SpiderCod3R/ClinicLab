@@ -2,7 +2,8 @@ require 'time'
 require 'date'
 require 'converters/date_converter'
 require 'converters/time_converter'
-class Agenda < ApplicationRecord
+class Agenda < Connection::Factory
+  include ActiveMethods
   include AgendaConcern
   include AgendaFiltrosConcern
 
@@ -39,8 +40,8 @@ class Agenda < ApplicationRecord
   has_many :agenda_permissoes
   belongs_to :referencia_agenda
   has_one :profissional, through: :referencia_agenda
-  belongs_to :usuario
-  belongs_to :empresa, class_name: "Painel::Empresa", foreign_key: "empresa_id"
+  belongs_to :user, class_name: "Gclinic::User", foreign_key: "usuario_id"
+  belongs_to :empresa
   has_one :agenda_movimentacao
 
   delegate :id, :descricao, :profissional,

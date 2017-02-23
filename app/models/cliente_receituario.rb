@@ -1,5 +1,7 @@
 #-*- coding:utf-8 -*-
-class ClienteReceituario < ApplicationRecord
+class ClienteReceituario < Connection::Factory
+  include ActiveMethods
+
   belongs_to :cliente
   belongs_to :user, class_name: "Painel::Usuario", foreign_key: :user_id
   validates  :content, presence: true

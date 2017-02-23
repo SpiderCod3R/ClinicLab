@@ -1,13 +1,11 @@
-class ConselhoRegionaisController < ApplicationController
+class ConselhoRegionaisController < Support::InsideController
   before_action :set_conselho_regional, only: [:show, :edit, :update, :destroy]
-
-  respond_to :html
 
   def index
     if params[:status] || params[:id] || params[:sigla] || params[:search]
-      @conselho_regionais = ConselhoRegional.where(empresa_id: current_usuario.empresa_id).search(params[:status]['status'], params[:id]['id'], params[:sigla]['sigla'], params[:search]).order("created_at DESC").page(params[:page]).per(10)
+      @conselho_regionais = current_user.empresa.conselho_regionais.where(empresa: current_user.empresa).search(params[:status]['status'], params[:id]['id'], params[:sigla]['sigla'], params[:search]).order("created_at DESC").page(params[:page]).per(10)
     else
-      @conselho_regionais = ConselhoRegional.where(empresa_id: current_usuario.empresa_id).order("id DESC").page(params[:page]).per(10)
+      @conselho_regionais = current_user.empresa.conselho_regionais.where(empresa: current_user.empresa).order("id DESC").page(params[:page]).per(10)
       respond_with(@conselho_regionais)
     end
   end
@@ -21,7 +19,7 @@ class ConselhoRegionaisController < ApplicationController
   end
 
   def new
-    @conselho_regional = ConselhoRegional.new
+    @conselho_regional = current_user.empresa.conselho_regionais.build
     respond_with(@conselho_regional)
   end
 
@@ -29,11 +27,10 @@ class ConselhoRegionaisController < ApplicationController
   end
 
   def create
-    @conselho_regional = ConselhoRegional.new(conselho_regional_params)
-    @conselho_regional.empresa_id = current_usuario.empresa_id
+    @conselho_regional = current_user.empresa.conselho_regionais.build(conselho_regional_params)
     if @conselho_regional.save
       flash[:notice] = t("flash.actions.#{__method__}.notice", resource_name: @conselho_regional.sigla)
-      redirect_to new_conselho_regional_path
+      redirect_to new_empresa_conselho_regional_path(current_user.empresa)
     else
       flash[:error] = t("flash.actions.#{__method__}.alert", resource_name: "Conselho Regional")
       render :new

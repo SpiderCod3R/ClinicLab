@@ -5,22 +5,19 @@
       %b Permissoes da Modalidade - Agenda
       %hr{style: "border: #5F5F5F 1px solid"}
   .col-md-12
-    =simple_form_for @agenda_permissao, url: build_agenda_permissions_agenda_permissao_path, method: "post" do |f|
-      =f.hidden_field :usuario_permissoes_id, value: "#{@usuario_permissao.id}"
-      .col-md-6
-        .panel.panel.default
-          .panel-heading
-            %h3
-              %label Usuário - 
-              %em=@usuario.nome
-            %hr{style: "border: #C5B1FF 1px dashed"}
-            %p
-              %label Tipo - 
-              %code=@usuario.tipo
-            %p
-              %label Ultima vez logado no sistema - 
-              %pre=@usuario.last_sign_in_at.to_formatted_s(:short) if !@usuario.last_sign_in_at.nil?
-      .col-md-6
+    .col-md-6
+      .panel.panel.default
+        .panel-heading
+          %h3
+            %label Usuário - 
+            %em=@user.name.capitalize
+          %hr{style: "border: #C5B1FF 1px dashed"}
+          %p
+            %label Ultima vez logado no sistema - 
+            %pre=@user.last_sign_in_at.to_formatted_s(:short) if !@user.last_sign_in_at.nil?
+    .col-md-6
+      =simple_form_for [current_user.empresa, @agenda_permissao], url: build_agenda_permissions_empresa_agenda_permissao_path, method: "post" do |f|
+        =f.hidden_field :user_model_id, value: "#{@user_model.id}"
         .panel.panel.default
           .panel-heading
             %h3

@@ -1,0 +1,38 @@
+%main
+  .container-fluid
+    .row
+      %h1 Módulos
+      =link_to "Novo módulo", "", :"data-toggle"=> "modal", :"data-target"=>"#new_model_modal_form"
+    .row
+      %asside
+        %table.table.table-striped
+          %thead
+            %th
+              %h5 ID
+            %th 
+              %h5 Nome de Exibição
+            %th 
+              %h5 Nome do Modelo (CLASSE)
+          %tbody#permissao_content
+            - @models.each do |model|
+              =render 'painel/models/model', {model: model}
+        #paginator=paginate @models
+
+/ Modal  create action
+= simple_form_for @model, url: painel_models_path, method: "POST", remote: true do |f|
+  #new_model_modal_form.modal.fade{ :"aria-hidden"=> "true", :"aria-labelledby"=> "myModalLabel", role: "dialog", tabindex: "-1"}
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button.close{ :"aria-label" =>"Close", :"data-dismiss"=>"modal", type: "button"}
+            %span{:"aria-hidden"=>"true"} ×
+          %h4#myModalLabel.modal-title=t('painel.helpers.actions.new', name: "Permissão")
+          #permissao_error_messages
+        .modal-body
+          .field
+            = f.input :name, required: true
+          .field
+            = f.input :model_class, required: true, label: "Classe"
+        .modal-footer
+          =f.button :submit, "Adicionar", class: 'btn btn-success'
+          %button#permissao_formclose.btn.btn-default{:"data-dismiss"=> "modal", type: "button"} Fechar

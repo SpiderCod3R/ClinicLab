@@ -2,6 +2,9 @@ $(document).ready ->
   URL_BASE = window.location.origin + "/"
   texto_livre_id = 0
   ctl_id =0
+  environment_id   = $('#cliente_empresa_id').val()
+  environment_name = $('#cliente_empresa_name').val()
+  cliente_id = $("#cliente_id").val()
   # $('.nav-tabs a[href="#texto_livre"]').tab('show')
 
   $("#cancelar_free_text").hide()
@@ -63,9 +66,9 @@ $(document).ready ->
               id: ctl_id
               cliente_id: cliente_id
             success: (response) ->
-              cliente_id = $("#cliente_id").val()
-              window.location.href = URL_BASE + "clientes/" + cliente_id + "/edit"
-              window.location.href = URL_BASE + "clientes/" + cliente_id + "/edit#texto_livre"
+              cliente_id = cliente_id
+              window.location.href = URL_BASE + "empresa/" + environment_name + "/clientes/" + $("#cliente_id").val() + "/edit"
+              window.location.href = URL_BASE + "empresa/" + environment_name + "/clientes/" + $("#cliente_id").val() + "/edit#texto_livre"
               $('.nav-tabs a[href="#texto_livre"]').tab('show')
 
 
@@ -117,5 +120,5 @@ $(document).ready ->
         cliente_texto_livre:
           id: ctl_id
       success: (response) ->
-        window.location.href = URL_BASE + "clientes/" + $("#cliente_id").val() + "/edit"
-        window.location.href = URL_BASE + "clientes/" + $("#cliente_id").val() + "/edit#texto_livre"
+        window.location.href = URL_BASE + "empresa/" + environment_name + "/clientes/" + $("#cliente_id").val() + "/edit"
+        window.location.href = URL_BASE + "empresa/" + environment_name + "/clientes/" + $("#cliente_id").val() + "/edit#texto_livre"

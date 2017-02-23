@@ -1,0 +1,43 @@
+/ =render 'application/navbar'
+/ .wrapper_with_padding
+/   .col-md-5
+/     #sessions_left_side_content
+/       .panel
+/         %h2.text-center Log in
+/         %hr
+/         .container
+/           =simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'form-horizontal' }) do |f|
+/             .container
+/               .row
+/                 .col-md-4
+/                   = f.input :login, required: false, autofocus: true
+/               .row
+/                 .col-md-4
+/                   = f.input :password, required: false
+/               .row
+/                 .col-md-4
+/                   .session-btn-actions
+/                     = f.button :submit, "Log in", class: "btn btn-success"
+/   .col-md-7
+/     #sessions_right_side_content
+/       .panel
+/         .container-fluid
+/           %h1.text-center GClinic
+/           %hr
+/           %p.company Globalnetsis - Safe System LTDA.
+/ =render 'application/footer'
+.container
+  .row.vertical-offset-100
+    .col-md-5.col-md-offset-4
+      .panel.panel-default
+        .panel-heading
+          %h3.panel-title Globalnetsis - ADMIN
+        .panel-body
+          .col-md-12
+            =simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'form-horizontal' }) do |f|
+              %fieldset
+                .form-group{style: "margin-right: 0 !important; margin-left: 0 !important"}
+                  = f.input :name, required: false, autofocus: true
+                .form-group{style: "margin-right: 0 !important; margin-left: 0 !important"}
+                  = f.input :password, required: false
+              %input.btn.btn-lg.btn-success.btn-block{:type => "submit", :value => "Login"}/

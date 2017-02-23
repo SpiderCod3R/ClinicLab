@@ -1,11 +1,13 @@
-class AgendaPermissao < ApplicationRecord
+class AgendaPermissao < Connection::Factory
+  include ActiveMethods
+
   belongs_to :agenda
-  belongs_to :usuario_permissao, class_name: 'Painel::UsuarioPermissao', foreign_key:  "usuario_permissoes_id"
+  belongs_to :user_model, class_name: 'Gclinic::UserModel'
   belongs_to :empresa
 
   class << self
     def update_content(resource_params)
-      update(usuario_permissoes_id: resource_params[:usuario_permissoes_id],
+      update(user_model_id: resource_params[:user_model_id],
              agendar: resource_params[:agendar],
              excluir: resource_params[:excluir],
              trocar_horario: resource_params[:trocar_horario],

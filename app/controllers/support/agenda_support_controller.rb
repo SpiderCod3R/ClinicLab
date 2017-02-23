@@ -3,32 +3,33 @@
   ZONA DE PERIGO EXTREMO
   CUIDADO AO MANUSEAR ESTA FUNCIONALIDADE
 '''
-class Support::AgendaSupportController < ApplicationController
+class Support::AgendaSupportController < Support::InsideController
   include AgendasHelper
-  before_action :authenticate_usuario!
-  before_action :find_empresa
+  before_action :set_agenda_movimentacoes
+  before_action :set_referencia_agendas
   before_action :verify_agenda_authorization
+  before_action :retorna_referencias_menu_lateral
 
   def search
     if nome_do_paciente_presente?
-      @agendas = Agenda.da_empresa(@empresa.id).paciente_a_partir_da_data(params[:q])
+      @agendas = Agenda.paciente_a_partir_da_data(params[:q])
     end
 
     if referencia_agenda_presente?
       @content = ReferenciaAgenda.find(params[:q][:referencia_agenda_id]).id
       @content = I18n.t('agendas.helpers.by_parameters', parameter: @content)
-      @agendas = Agenda.da_empresa(@empresa.id).pela_referencia_da_data(params[:q])
+      @agendas = Agenda.pela_referencia_da_data(params[:q])
     end
 
     if referencia_agenda_e_paciente_presentes?
       @content = ReferenciaAgenda.find(params[:q][:referencia_agenda_id]).id
       @content = I18n.t('agendas.helpers.by_parameters', parameter: @content)
-      @agendas = Agenda.da_empresa(@empresa.id).pela_referencia_e_paciente_da_data(params[:q])
+      @agendas = Agenda.pela_referencia_e_paciente_da_data(params[:q])
     end
 
     if somente_data_presente?
       @content = I18n.t('agendas.helpers.search_by_day_content')
-      @agendas = Agenda.da_empresa(@empresa.id).da_data(params[:q])
+      @agendas = Agenda.da_data(params[:q])
     end
 
     respond_to &:js
@@ -68,11 +69,19 @@ class Support::AgendaSupportController < ApplicationController
   end
 
   private
+    def set_referencia_agendas
+      ReferenciaAgenda.set_connection
+    end
+
+    def set_agenda_movimentacoes
+      AgendaMovimentacao.set_connection
+    end
+
     def verify_agenda_authorization
-      if !current_usuario.admin?
-        @permissao = Painel::Permissao.find_by(model_class: "Agenda")
-        @usuario_permissao = current_usuario.usuario_permissoes.find_by(permissao_id: @permissao.id)
-        @agenda_permissao = AgendaPermissao.find_by usuario_permissoes_id: @usuario_permissao.id
+      if !current_user.admin?
+        @model = Gclinic::Model.find_by(model_class: "Agenda")
+        @user_model = current_user.user_models.find_by(model_id: @model.id)
+        @agenda_permissao = AgendaPermissao.find_by user_model_id: @user.id
       end
     end
 
@@ -85,19 +94,14 @@ class Support::AgendaSupportController < ApplicationController
       end
     end
 
-    def find_empresa
-      @id = check_params_for_agenda
-      @empresa = Painel::Empresa.friendly.find(@id.call(current_usuario.empresa_id, params[:empresa_id]))
-    end
-
     def retorna_referencias_menu_lateral
-      @medicos_do_dia= Agenda.retorna_todos_os_medicos_do_dia(@empresa)
-      @outros_medicos= Agenda.retorna_todos_os_medicos_com_agenda(@empresa)
+      @medicos_do_dia= Agenda.retorna_todos_os_medicos_do_dia(current_user.empresa)
+      @outros_medicos= Agenda.retorna_todos_os_medicos_com_agenda(current_user.empresa)
     end
 
     def find_agenda
       @id = check_params_for_agenda
-      @agenda = Agenda.find_by(empresa_id: @empresa.id, id: @id.call(params[:id], params[:agenda_id]))
+      @agenda = Agenda.find_by(id: @id.call(params[:id], params[:agenda_id]))
     end
 
     def ransack_params

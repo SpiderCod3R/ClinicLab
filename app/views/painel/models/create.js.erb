@@ -1,0 +1,35 @@
+toastr.options = {
+  "closeButton": false,
+  "debug": false,
+  "newestOnTop": false,
+  "progressBar": true,
+  "positionClass": "toast-top-right",
+  "preventDuplicates": true,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "5000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "slideDown",
+  "hideMethod": "fadeOut"
+}
+
+<%- unless @model.valid? -%>
+  <%- unless @model.errors.nil? -%>
+    <%- @model_error_messages = @model.errors.messages -%>
+    <%- @permissao_error_messages.each do |_key, value| %>
+      <%- @permissao_error_messages[_key].each do |v| %>
+        toastr.error('<%= "#{v}" %>', '<%= "#{_key}" %>');
+      <%- end -%>
+    <%- end -%>
+  <%- end -%>
+<%- else -%>
+  $("#new_model_modal_form").modal('hide');
+  $("#painel_model_name").val('');
+  $("#painel_model_model_class").val('');
+  $("#permissao_error_messages").empty();
+  $("#permissao_content").prepend('<%=j render "painel/models/model", {model: @model} %>');
+  $('#model_<%= @model.id %>').css({'background-color':'#9FFC73'}).animate({'background-color':'#FFFFFF'}, 1000);
+  toastr.success('Módulo criado com sucesso!')
+<%end%>

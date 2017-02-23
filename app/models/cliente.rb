@@ -2,8 +2,11 @@ require 'time'
 require 'date'
 require 'converters/date_converter'
 require 'converters/time_converter'
-class Cliente < ApplicationRecord
+class Cliente < Connection::Factory
+  include ActiveMethods
   include AtivandoStatus
+
+  attr_accessor :empresa_name
 
   scope :pelo_nome, -> { order("nome ASC") }
 
@@ -11,19 +14,19 @@ class Cliente < ApplicationRecord
                         :bairro, :nascimento, :sexo,
                         :rg, :estado_civil, :telefone
 
-  attr_accessor :receituario
+  attr_accessor :receituario, :empresa_name
 
   usar_como_cpf :cpf
 
-  belongs_to :empresa, class_name: "Painel::Empresa", foreign_key: "empresa_id"
+  belongs_to :empresa
   belongs_to :estado
   belongs_to :cidade
   belongs_to :cargo
   has_many :historicos
-  has_many :cliente_texto_livres
-  has_many :cliente_pdf_uploads
-  has_many :cliente_receituarios
+  has_many :cliente_texto_livres, dependent: :destroy
+  has_many :cliente_pdf_uploads, dependent: :destroy
   has_many :cliente_convenios, dependent: :destroy
+  has_many :cliente_receituarios, dependent: :destroy
   has_many :convenios, through: :cliente_convenios
 
   accepts_nested_attributes_for :cliente_convenios, allow_destroy: true
@@ -41,7 +44,7 @@ class Cliente < ApplicationRecord
 
   class << self
     def da_empresa(resource)
-      where(empresa_id: resource)
+      where(empresa: resource)
     end
   end
 
@@ -81,12 +84,5 @@ class Cliente < ApplicationRecord
                                    anotacoes: resource[:anotacoes],
                                    pdf: resource[:pdf]
                                   )
-    # # binding.pry
-    # if self.cliente_pdf_uploads.last.valid?
-    #   self.save
-    #   return true
-    # else
-    #   return false
-    # end
   end
 end

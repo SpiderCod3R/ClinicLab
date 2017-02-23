@@ -1,19 +1,19 @@
-=build_form_toolbar(new_empresa_receituario_path(current_usuario.empresa), nil, @receituario, empresa_receituarios_path(current_usuario.empresa), nil)
+=build_form_toolbar(new_empresa_receituario_path(current_user.empresa), nil, @receituario, empresa_receituarios_path(current_user.empresa), nil)
 %div{class: "container-fluid"}
   %div{class: "row-fluid"}
-    %h1  Receituários
+    %h1 Receituários
     %hr{style: "border: #323232 solid 0.5px;"}
     %div{class: "row", style: "margin: 0;"}
       %div{class: "jumbotron"}
         %div{class: "row", style: "margin: 0;"}
           %div{class: "col-md-12 col-sm-12 col-xs-12 col-lg-12"}
-            =search_form_for @search, url: empresa_receituarios_path(current_usuario.empresa) do |f|
+            =search_form_for @search, url: empresa_receituarios_path(current_user.empresa) do |f|
               = f.condition_fields do |c|
                 = render "condition_fields", f: c
               = link_to_add_fields "Adicionar Condições", f, :condition
               %br
               = f.submit "Pesquisar", class: "btn btn-primary"
-              = link_to "Recarregar", empresa_receituarios_path(current_usuario.empresa), class: "btn btn-default"
+              = link_to "Recarregar", empresa_receituarios_path(current_user.empresa), class: "btn btn-default"
               %br
               %br
     %div{class: "row", style: "margin: 0;"}
@@ -27,9 +27,9 @@
             %tr
               %td= receituario.nome
               %td=raw receituario.receita.truncate(80)
-              %td= link_to 'Visualizar', empresa_receituario_path(current_usuario.empresa, receituario)
-              %td= link_to 'Editar', edit_empresa_receituario_path(current_usuario.empresa, receituario)
-              %td= link_to 'Remover', empresa_receituario_path(current_usuario.empresa, receituario), :method => :delete, :data => { :confirm => 'Are you sure?' }
+              %td= link_to 'Visualizar', empresa_receituario_path(current_user.empresa, receituario)
+              %td= link_to 'Editar', edit_empresa_receituario_path(current_user.empresa, receituario)
+              %td= link_to 'Remover', empresa_receituario_path(current_user.empresa, receituario), :method => :delete, :data => { :confirm => 'Are you sure?' }
     %div{class: "row", style: "margin: 0;"}
       %div{class: "pull-right"}
         =paginate @receituarios

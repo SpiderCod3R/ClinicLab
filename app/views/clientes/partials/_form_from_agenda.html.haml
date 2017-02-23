@@ -6,7 +6,7 @@
   %li
     %a{'data-toggle':"tab", href:"#contato", id: "aba_contato"} Contato
   -if @cliente.id?
-    -if !current_usuario.admin?
+    -if !current_user.admin?
       -if @cliente_permissao.historico?
         %li
           %a{'data-toggle':"tab", href:"#historico", id: "aba_historico"} Histórico

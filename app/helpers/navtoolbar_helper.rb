@@ -11,7 +11,7 @@ module NavtoolbarHelper
     render 'application/chromeframe'
   end
 
-  def build_form_toolbar(new_path=nil, form_id, object ,back_path, report)
+  def build_form_toolbar(new_path=nil, form_id, object, back_path, report)
     content_for :header do
       render "application/form_toolbar", {
                                           new_path: new_path,

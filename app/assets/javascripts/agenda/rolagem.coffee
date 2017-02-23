@@ -3,7 +3,7 @@
 $(document).ready ->
   localhost = window.location.origin
   empresa_id = $("#agenda_empresa_id").val()
-  urlPost= localhost + "/painel/empresas/#{empresa_id}/agendas/load_more_data"
+  urlPost= localhost + "/empresa/#{empresa_id}/agendas/load_more_data"
   offset = 12
 
   # travar o F5 nesta pagina

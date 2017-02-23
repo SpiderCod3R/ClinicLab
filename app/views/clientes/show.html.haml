@@ -1,4 +1,5 @@
-=build_object_viewer_toolbar(edit_cliente_path(@cliente), @cliente, clientes_path, nil)
+=build_object_viewer_toolbar(edit_empresa_cliente_path(current_user.empresa,@cliente), @cliente, empresa_clientes_path(current_user.empresa), nil)
+
 %section#cliente
   .container
     .row

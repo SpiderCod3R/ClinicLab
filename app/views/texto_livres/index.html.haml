@@ -1,4 +1,4 @@
-=build_form_toolbar(new_texto_livre_path,nil, @texto_livres, texto_livres_path, nil)
+=build_form_toolbar(new_empresa_texto_livre_path(current_user.empresa),nil, @texto_livres, empresa_texto_livres_path(current_user.empresa), nil)
 
 .container
   .panel.panel-default
@@ -8,19 +8,19 @@
       %div{class: "jumbotron"}
         %div{class: "row", style: "margin: 0;"}
           %div{class: "col-md-12 col-sm-12 col-xs-12 col-lg-12"}
-            =form_tag texto_livres_path, :method => 'get' do
+            =form_tag empresa_texto_livres_path(current_user.empresa), :method => 'get' do
               %row
                 %div{class: "col-lg-2"}
                   %label
                     Serviço
-                  = select(:servico, :id, Servico.where(empresa_id: current_usuario.empresa_id).collect {|p| [p.tipo, p.id] }, {:include_blank => ''}, :class => "form-control") 
+                  = select(:servico, :id, current_user.empresa.servicos.all.order(tipo: :asc).collect {|p| [p.tipo, p.id] }, {:include_blank => ''}, :class => "form-control") 
                 %div{class: "col-lg-3"}
                   %label
                     Nome
                   = text_field_tag :search, '', placeholder: "Pesquisar texto livre por sigla", class: "form-control"
                 %br
                 = submit_tag "Pesquisar", :name => nil, class: "btn btn-primary"
-                = link_to "Recarregar", texto_livres_path, class: "btn btn-default"
+                = link_to "Recarregar", empresa_texto_livres_path(current_user.empresa), class: "btn btn-default"
                 %br
                 %br
 

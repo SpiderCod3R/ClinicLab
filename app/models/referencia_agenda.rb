@@ -1,8 +1,10 @@
-class ReferenciaAgenda < ApplicationRecord
+class ReferenciaAgenda < Connection::Factory
+  include ActiveMethods
   include AtivandoStatus
+
+  belongs_to :empresa
   belongs_to :profissional
-  belongs_to :empresa, class_name: "Painel::Empresa", foreign_key: "empresa_id"
-  has_many :agendas
+  has_many   :agendas
   paginates_per 10
 
   validates :profissional_id, :descricao, presence: true

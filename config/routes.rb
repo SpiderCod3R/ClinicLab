@@ -1,11 +1,31 @@
-#-*-coding:utf-8-*-
+  #-*-coding:utf-8-*-
 Rails.application.routes.draw do
-
   mount Ckeditor::Engine => '/ckeditor'
+  namespace :painel do
+    resources :environments do
+      member do
+        get 'remove_model'
+      end
+    end
+    resources :models, except: [:show, :new]
+  end
 
-  resources :empresas do
-    resources :servicos
-    resources :receituarios
+  devise_for :admins, class_name: "Gclinic::Admin",
+                      patch: "gclinic/admins",
+                      controllers: { sessions: 'painel/admins/sessions' }
+
+  devise_for :users, class_name: "Gclinic::User",
+                     patch: "painel/usuarios",
+                     controllers: { sessions: 'painel/usuarios/sessions' }
+
+  devise_scope :user do
+    unauthenticated do
+      root "painel/usuarios/sessions#new", to: "painel/usuarios/sessions#new", as: :main, path: 'painel/usuarios'
+    end
+  end
+
+  authenticated :admin do
+    root 'painel/dashboards#index', as: "authenticated_admin_root"
   end
 
   resources :texto_livres do
@@ -14,47 +34,88 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :cliente_permissoes, controller: "cliente_permissoes", except: [:index, :show, :new, :create, :edit, :update, :destroy] do
-    member do
-      get  'manager'
-      post 'build_permissions'
+  resources :empresa do
+    get 'ficha_cliente', to: "clientes#clinic_sheet", as: :clinic_sheet_cliente
+    resources :clientes do
+      member do
+        get    'print_free_text'
+        get    'print_historico'
+        get    'print_historico_full'
+        get    'paginate_pdfs'
+        get    'find_recipe'
+        delete 'destroy_pdf'
+      end
     end
-  end
-
-  resources :texto_livres
-  resources :imagem_cabecs
-  resources :fornecedores
-  resources :cabecs
-  resources :clientes do
-    member do
-      get    'print_free_text'
-      get    'print_historico'
-      get    'print_historico_full'
-      get    'find_recipe'
-      get    'paginate_pdfs'
-      delete 'destroy_pdf'
+    resources :texto_livres
+    resources :imagem_cabecs
+    resources :fornecedores
+    resources :cabecs
+    resources :configuracao_relatorios
+    resources :conselho_regionais
+    resources :convenios, except: [:show]
+    resources :cargos
+    resources :cabecs
+    resources :centro_de_custos
+    resources :imagem_cabecs, except: [:show]
+    resources :operadoras
+    resources :profissionais
+    resources :fornecedores
+    resources :servicos
+    resources :receituarios
+    resources :texto_livres
+    resources :referencia_agendas, except: [:show]
+    resources :contas, controller: 'painel/usuarios/accounts'
+    resources :usuarios, controller: 'painel/usuarios/manager', except: [:index] do
+      get  'add_permissions'
+      post 'save_permissions'
+      member do
+        get 'change_account'
+        put 'change_data'
+      end
+    end
+    resources :agenda_permissoes, controller: "painel/agenda_permissoes", except: [:index, :show, :new, :create, :edit, :update, :destroy] do
+      member do
+        get 'manager'
+        post 'build_agenda_permissions'
+      end
+    end
+    resources :cliente_permissoes, controller: "cliente_permissoes", except: [:index, :show, :new, :create, :edit, :update, :destroy] do
+      member do
+        get  'manager'
+        post 'build_permissions'
+      end
+    end
+    resources :agendas do
+      collection do
+        match 'search' => 'agendas#search', via: [:get], as: :search
+        match 'search-referencia/:referencia_agenda_id'=> 'agendas#search_agenda_medicos', via: [:get], as: :search_agenda_medicos
+        match 'search-referencia-proximo-dia/:referencia_agenda_id'=> 'agendas#search_agenda_medicos_outro_dia', via: [:get], as: :search_agenda_medicos_outro_dia
+        match 'load_more_data' => 'agendas#load_more_data', via: [:post], as: :load_more_data
+      end
+      get 'clean'
+      get 'didnt_came'
+      get 'change_day_or_time'
+      put 'change'
+      get 'remark_by_pacient'
+      put 'remarked_by_pacient'
+      get 'remark_by_doctor'
+      put 'remarked_by_doctor'
+      get 'unmarked_by_doctor'
+      get 'unmarked_by_pacient'
+      get 'make_appointment'
+      put 'attended'
+      get 'block_day', to: 'agendas#block_day', as: :block_day
+      put 'block_day', to: 'agendas#set_block_on_day', as: :set_block_on_day
+      resources :agenda_movimentacoes
+      get 'movimentar', to: 'agenda_movimentacoes#new', as: :movimentar_ou_atualizar
     end
     get 'receita/:recipe_id/remove', to: "clientes#destroy_cliente_receituario"
   end
 
-  get 'ficha_cliente', to: "clientes#clinic_sheet", as: :clinic_sheet_cliente
-
-  resources :conselho_regionais
-  resources :imagem_cabecs
-  resources :fornecedores
-  resources :cabecs
-  resources :conselho_regionais
-  resources :configuracao_relatorios
-  resources :centro_de_custos
-  resources :profissionais
-  resources :cargos
-  resources :convenios
   resources :atendimentos
-  resources :operadoras
 
   get 'relatorios/new' => "configuracao_relatorios#new"
   get 'conselhos_regionais/new' => "conselho_regionais#new"
-
   post 'agendas/clientes/change_or_create_paciente', to: "clientes#change_or_create_paciente", as: :create_paciente
   put  'agendas/clientes/change_or_create_paciente', to: "clientes#change_or_create_paciente", as: :change_paciente
   post 'clientes/retorna_historico', to: "clientes#retorna_historico"
@@ -64,15 +125,8 @@ Rails.application.routes.draw do
   get 'clientes/:id/destroy_cliente_convenio', to: "clientes#destroy_cliente_convenio", as: :destroy_cliente_convenio
   get  'clientes/:cliente_id/destroy_texto_livre', to: "clientes#destroy_cliente_texto_livre"
   get 'clientes/:cliente_id/textos_livres', to: "clientes#find_textos_livre", as: :cliente_find_textos_livres
-
-  resources :imagem_cabecs
-  resources :fornecedores
-  resources :cabecs
-  resources :conselho_regionais
-
   get 'relatorios/new' => "configuracao_relatorios#new"
   get 'conselhos_regionais/new' => "conselho_regionais#new"
-
   get 'search/conselho_regional', to: 'conselho_regionais#search'
   get 'search/buscar_pacientes' => "search#buscar_pacientes"
   get 'search/find-texto-livres'=> "search#collect_all_free_text" ,as: :collect_all_free_text
@@ -83,88 +137,18 @@ Rails.application.routes.draw do
 
   post 'clientes/include_texto_livre', to: 'clientes#include_texto_livre'
   post 'clientes/include_recipe', to: 'clientes#include_recipe'
+  post 'clientes/include_texto_livre', to: 'clientes#include_texto_livre'
+  post 'clientes/salva_cliente_convenios', to: "clientes#salva_cliente_convenios"
+  get 'clientes/:id/destroy_cliente_convenio', to: "clientes#destroy_cliente_convenio", as: :destroy_cliente_convenio
+  get 'search/receituario', to: 'search#find_receituario'
+  get 'search/cliente_receituario', to: 'search#find_cliente_receituario'
+  post 'clientes/include_recipe', to: 'clientes#include_recipe'
+  get 'search/receituario', to: 'search#find_receituario'
+  get 'search/cliente_receituario', to: 'search#find_cliente_receituario'
 
-  resources :referencia_agendas, except: [:show]
-
-  resources :agenda_permissoes, controller: "painel/agenda_permissoes", except: [:index, :show, :new, :create, :edit, :update, :destroy] do
-    member do
-      get 'manager'
-      post 'build_agenda_permissions'
-    end
-  end
   namespace :painel do
     resources :dashboards
-    resources :permissoes, except: [:show, :new] do
-      get 'excluir'
-    end
-
-    resources :empresas do
-      put 'change_name'
-      get 'new_admin', to: "dashboards#new_company_admin", as: :novo_admin
-      post 'create_admin', to: "dashboards#create_admin", as: :create_admin
-      delete 'remove_administrador/:usuario_id', to: "dashboards#remove_admin", as: :remove_admin
-      delete 'remover_permissao_empresa_usaurio/:permissao_id', to: "dashboards#remover_permissao_empresa_usaurio", as: :remover_permissao_empresa_usaurio
-      resources :contas, controller: 'usuarios/accounts'
-
-      resources :painel_usuarios, controller: 'usuarios/manager', except: [:index] do
-        get  'add_permissions'
-        post 'save_permissions'
-        member do
-          get 'change_account'
-          put 'change_data'
-        end
-      end
-
-      resources :agendas do
-        collection do
-          match 'search' => 'agendas#search', via: [:get], as: :search
-          match 'search-referencia/:referencia_agenda_id'=> 'agendas#search_agenda_medicos', via: [:get], as: :search_agenda_medicos
-          match 'search-referencia-proximo-dia/:referencia_agenda_id'=> 'agendas#search_agenda_medicos_outro_dia', via: [:get], as: :search_agenda_medicos_outro_dia
-          match 'load_more_data' => 'agendas#load_more_data', via: [:post], as: :load_more_data
-        end
-        get 'clean'
-        get 'didnt_came'
-        get 'change_day_or_time'
-        put 'change'
-        get 'remark_by_pacient'
-        put 'remarked_by_pacient'
-        get 'remark_by_doctor'
-        put 'remarked_by_doctor'
-        get 'unmarked_by_doctor'
-        get 'unmarked_by_pacient'
-        get 'make_appointment'
-        put 'attended'
-        get 'block_day', to: 'agendas#block_day', as: :block_day
-        put 'block_day', to: 'agendas#set_block_on_day', as: :set_block_on_day
-        resources :agenda_movimentacoes
-        get 'movimentar', to: 'agenda_movimentacoes#new', as: :movimentar_ou_atualizar
-      end
-    end
-    get 'usuario/:id/permissoes', to: "usuarios/accounts#show_permissions", as: :show_user_permissions
-    get 'usuario/:id/password_change', to: "usuarios/accounts#change_password", as: :change_user_password
-    post '/dashboards/empresas/permissoes/create', to: "dashboards#import_permissoes_to_company", as: :dashboards_add_permissoes_to_company 
-    put '/usuarios/:id/update_password', to: "usuarios/manager#update_password", as: :usuario_update_password
-  end
-
-  devise_for :usuarios,
-              patch: "painel/usuarios",
-              class_name: "Painel::Usuario",
-              controllers: { sessions: 'painel/usuarios/sessions' }
-
-  devise_for :masters, 
-             path: 'painel/masters',
-             class_name: "Painel::Master",
-             controllers: { sessions: 'painel/masters/sessions' },
-             skip: [:registrations]
-
-  authenticated :master do
-    root 'painel/dashboards#index', as: "authenticated_master_root"
-  end
-
-  devise_scope :usuario do
-    unauthenticated do
-      root "painel/usuarios/sessions#new", to: "painel/usuarios/sessions#new", as: :main, path: 'painel/usuarios'
-    end
+    post '/dashboards/empresas/permissoes/create', to: "dashboards#import_permissoes_to_company", as: :dashboards_add_permissoes_to_company
   end
 
   get 'pages/help'

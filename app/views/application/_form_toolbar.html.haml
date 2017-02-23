@@ -1,8 +1,8 @@
 %nav.navbar.navbar-full.navbar-light.navbar-custom
   .navbar-header.fixed-brand
-    -if usuario_signed_in?
+    -if user_signed_in?
       =link_to root_path, class: "navbar-brand brand-logo" do
-        =current_usuario.empresa_nome
+        =current_user.empresa.nome
       #menu-toggle.navbar-toggle.collapsed{"data-toggle" => "collapse"}
         %i.fa.fa-bars.fa-2x{"aria-hidden" => "true"}
   #bs-megadropdown-tabs.collapse.navbar-collapse
@@ -11,22 +11,22 @@
         %li.active= link_to "#{image_tag("icons/glyphicons-191-circle-plus-white.png", width: 22, height: 22)} NOVO".html_safe, new_path
       -unless form.nil?
         %li.active= link_to "#{image_tag("icons/glyphicons-191-circle-plus-white.png", width: 22, height: 22)} SALVAR".html_safe, "#", onclick: "$('#{form}').submit()"
-      / -unless object.id.nil?
-      /   %li.active= link_to "#{image_tag("icons/glyphicons-193-circle-remove-white.png", width: 22, height: 22)} EXCLUIR".html_safe, {action: 'destroy', id: object }, method: "delete", class: 'delete-confirm', data: {confirm: "Excluir #{object.to_s}"}, title: "Excluir Empresa"
-      / -else
-      /   %li.disabled= link_to "#{image_tag("icons/glyphicons-193-circle-remove-white.png", width: 22, height: 22)} EXCLUIR".html_safe, "#"
       %li.active= link_to "#{image_tag("icons/glyphicons-28-search-white.png", width: 22, height: 22)} PROCURAR".html_safe, back_path
       -if report_path.nil?
         %li.disabled= link_to "#{image_tag("icons/glyphicons-16-print-white.png", width: 22, height: 22)} IMPRIMIR".html_safe, "#"
       -else
         %li.active= link_to "#{image_tag("icons/glyphicons-16-print-white.png", width: 22, height: 22)} IMPRIMIR".html_safe, report_path
       %li.active= link_to "#{image_tag("icons/glyphicons-389-exit-white.png", width: 22, height: 22)} PÁGINA INICIAL".html_safe, root_path
-    -if usuario_signed_in?
+    -if user_signed_in?
       %div{style: "padding-right: 80px;"}
         %ul.nav.navbar-nav.navbar-right
           %li.dropdown
             %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
-              =current_usuario.nome
+              =current_user.name
               %span.caret
             %ul.dropdown-menu
-              =render 'application/usuario_logado'
+              %li
+                = link_to destroy_user_session_path, method: 'delete', title: "SAIR" do
+                  %span.text-danger
+                    %i.fa.fa-sign-out
+                    Sair/Deslogar

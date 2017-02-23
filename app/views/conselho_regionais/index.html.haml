@@ -1,4 +1,4 @@
-=build_form_toolbar(new_conselho_regional_path,nil, @conselho_regional, conselho_regionais_path, nil)
+=build_form_toolbar(new_empresa_conselho_regional_path(current_user.empresa),nil, @conselho_regional, empresa_conselho_regionais_path(current_user.empresa), nil)
 %div{class: "container"}
   %div{class: "row"}
     %h1=t('labels.Conselho Regional')
@@ -12,11 +12,11 @@
           %div{class: "col-lg-2"}
             %label
               ID
-            = select(:id, :id, ConselhoRegional.where(empresa_id: current_usuario.empresa_id).collect {|p| [p.id, p.id] }, {:include_blank => ''}, :class => "form-control") 
+            = select(:id, :id, ConselhoRegional.where(empresa: current_user.empresa).collect {|p| [p.id, p.id] }, {:include_blank => ''}, :class => "form-control") 
           %div{class: "col-lg-2"}
             %label
               Sigla
-            = select(:sigla, :sigla, ConselhoRegional.where(empresa_id: current_usuario.empresa_id).collect {|p| [p.sigla, p.sigla] }, {:include_blank => ''}, :class => "form-control") 
+            = select(:sigla, :sigla, ConselhoRegional.where(empresa: current_user.empresa).collect {|p| [p.sigla, p.sigla] }, {:include_blank => ''}, :class => "form-control") 
           %div{class: "col-lg-3"}
             %label
               Pesquisar

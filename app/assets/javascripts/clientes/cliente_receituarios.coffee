@@ -1,6 +1,7 @@
 #= require bootbox.min.js
 $(document).ready ->
   URL_BASE = window.location.origin + "/"
+  environment_name = $('#cliente_empresa_name').val()
 
   $("#cancel_recipe").hide()
   $("#save_new_recipe").hide()
@@ -15,6 +16,7 @@ $(document).ready ->
     $('#include_recipe_container').show()
     $('#cancel_recipe').show()
     $('#recipe_manual_pagination').hide()
+    $("#id_receituario").empty()
 
   # => Cancelar inclusão da receita
   $('#cancel_recipe').click ->
@@ -42,8 +44,8 @@ $(document).ready ->
             id: $("#id_receituario").text()
             content: content
       success: (response) ->
-        window.location.href = URL_BASE + "clientes/" + $("#cliente_id").val() + "/edit"
-        window.location.href = URL_BASE + "clientes/" + $("#cliente_id").val() + "/edit#receituario"
+        window.location.href = URL_BASE + "empresa/" + environment_name + "/clientes/" + $("#cliente_id").val() + "/edit"
+        window.location.href = URL_BASE + "empresa/" + environment_name + "/clientes/" + $("#cliente_id").val() + "/edit#receituario"
 
   # => Incluir nova receita
   $('#add_recipe').click ->
@@ -99,6 +101,6 @@ $(document).ready ->
               cliente_id: cliente_id
             success: (response) ->
               cliente_id = $("#cliente_id").val()
-              window.location.href = URL_BASE + "clientes/" + cliente_id + "/edit"
-              window.location.href = URL_BASE + "clientes/" + cliente_id + "/edit#texto_livre"
+              window.location.href=URL_BASE + "empresa/" + environment_name + "/clientes/" + cliente_id + "/edit"
+              window.location.href=URL_BASE + "empresa/" + environment_name + "/clientes/" + cliente_id + "/edit#receituario"
               $('.nav-tabs a[href="#texto_livre"]').tab('show')

@@ -1,14 +1,12 @@
-class Support::ClienteSupportController < ApplicationController
-  before_action :authenticate_usuario!
+class Support::ClienteSupportController < Support::InsideController
   before_action :set_cliente, only: [:show, :edit, :update, :destroy, :destroy_pdf]
   before_action :set_estados, only: [:new, :edit, :create, :update, :ficha, :clinic_sheet]
   before_action :set_access, only: [:edit, :ficha, :clinic_sheet]
-  respond_to :docx
 
   def clinic_sheet
     session[:agenda_id]  = params[:agenda_id]
-    @cliente = current_usuario.empresa.clientes.find(params[:cliente_id]) if params[:cliente_id]
-    @cliente = current_usuario.empresa.clientes.build unless params[:cliente_id].present?
+    @cliente = current_user.empresa.clientes.find(params[:cliente_id]) if params[:cliente_id]
+    @cliente = current_user.empresa.clientes.build unless params[:cliente_id].present?
     load_tabs if @cliente.id?
   end
 
@@ -26,14 +24,14 @@ class Support::ClienteSupportController < ApplicationController
                                                       email_paciente: @cliente.email, convenio_id: @cliente.convenio_id, cliente_id: @cliente.id)
       end
       flash[:notice] = "Dados do cliente atualizados com sucesso."
-      redirect_to clinic_sheet_cliente_path(agenda_id: @agenda.id, cliente_id: @cliente.id)
+      redirect_to empresa_clinic_sheet_cliente_path(current_user.empresa, cliente_id: @cliente.id, agenda_id: @agenda.id)
     else
-      @cliente = current_usuario.empresa.clientes.build(resource_params)
+      @cliente = current_user.empresa.clientes.build(resource_params)
       if @cliente.save
         @agenda.agenda_movimentacao.update_attributes(nome_paciente: @cliente.nome, telefone_paciente: @cliente.telefone,
                                                       email_paciente: @cliente.email, convenio_id: @cliente.convenio_id, cliente_id: @cliente.id)
         flash[:notice] = "Dados do cliente salvos com sucesso."
-        redirect_to clinic_sheet_cliente_path(agenda_id: @agenda.id, cliente_id: @cliente.id)
+        redirect_to empresa_clinic_sheet_cliente_path(current_user.empresa, cliente_id: @cliente.id, agenda_id: @agenda.id)
       else
         load_tabs if @cliente.id?
         render :clinic_sheet
@@ -41,9 +39,6 @@ class Support::ClienteSupportController < ApplicationController
     end
   end
 
-  '''
-    Action para paginar textos livre dentro do cliente
-  '''
   def find_textos_livre
     @cliente = Cliente.find(params[:cliente_id])
     @cliente_texto_livre = @cliente.cliente_texto_livres.find(params[:texto_livre_id]) if params[:texto_livre_id].present?
@@ -120,7 +115,7 @@ class Support::ClienteSupportController < ApplicationController
       set_historico
       @dados_historico = {}
       @dados_historico[:data] = I18n.l(@historico.updated_at, format: :long)
-      @dados_historico[:usuario] = @historico.usuario.nome
+      @dados_historico[:usuario] = @historico.user.name
       @dados_historico[:idade] = @historico.idade
       @dados_historico[:indice] = @historico.indice
       respond_to do |format|
@@ -135,7 +130,7 @@ class Support::ClienteSupportController < ApplicationController
       @historico = Historico.new
       @historico.indice = params[:historico][:indice]
       @historico.idade = params[:historico][:idade]
-      @historico.usuario_id = current_usuario.id
+      @historico.user = current_user
       @historico.cliente_id = session[:cliente_id]
       @historico.save
     end
@@ -221,11 +216,11 @@ class Support::ClienteSupportController < ApplicationController
     end
 
     if params[:cliente][:cliente_recipe][:id].to_i.eql?(0)
-      @cliente_receituario = @cliente.cliente_receituarios.build(user_id: current_usuario.id, content: params[:cliente][:cliente_recipe][:content])
+      @cliente_receituario = @cliente.cliente_receituarios.build(user_id: current_user.id, content: params[:cliente][:cliente_recipe][:content])
       @cliente_receituario.save
     else
       @cliente_receituario = @cliente.cliente_receituarios.find(params[:cliente][:cliente_recipe][:id])
-      @cliente_receituario.update_attributes(content: params[:cliente][:cliente_recipe][:content], user_id: current_usuario.id)
+      @cliente_receituario.update_attributes(content: params[:cliente][:cliente_recipe][:content], user_id: current_user.id)
     end
 
     respond_to do |format|
@@ -236,8 +231,8 @@ class Support::ClienteSupportController < ApplicationController
 
   private
     def set_access
-      if !current_usuario.admin?
-        @permissao = Painel::Permissao.find_by(model_class: "Cliente")
+      if !current_user.admin?
+        @permissao = Gclinic::Model.find_by(model_class: "Cliente")
         @usuario_permissao = current_usuario.usuario_permissoes.find_by(permissao_id: @permissao.id)
         @cliente_permissao = ClientePermissao.find_by usuario_permissoes_id: @usuario_permissao.id
       end
@@ -247,14 +242,13 @@ class Support::ClienteSupportController < ApplicationController
       @cliente_texto_livre = @cliente.cliente_texto_livres.first
       @cliente_receituario = @cliente.cliente_receituarios.first
       @cliente_collection_pdfs  = @cliente.cliente_pdf_uploads.ultima_data.page params[:page]
-      @texto_livres = current_usuario.empresa.texto_livres.page params[:page]
+      @texto_livres = current_user.empresa.texto_livres.page params[:page]
       @cliente_receituarios = @cliente.cliente_receituarios.page params[:page]
       if !@cliente.cliente_pdf_uploads.empty?
         @cliente_pdf_uploads = @cliente.cliente_pdf_uploads.build
       else
         @cliente_pdf_uploads = @cliente.cliente_pdf_uploads.build
       end
-
       get_historicos
     end
 

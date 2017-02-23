@@ -1,4 +1,6 @@
-class ClienteTextoLivre < ApplicationRecord
+class ClienteTextoLivre < Connection::Factory
+  include ActiveMethods
+
   belongs_to :cliente
   belongs_to :texto_livre
   # paginates_per 1

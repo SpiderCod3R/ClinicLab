@@ -6,8 +6,8 @@
     %a{'data-toggle':"tab", href:"#contato"}
       Contato
 
-= simple_form_for(@cliente) do |f|
-  %div{class: "container", style: "margin-left: 5%; padding-top: 10px; padding-bottom: 25px;"}
+= simple_form_for([current_user.empresa, @cliente]) do |f|
+  %div{class: "container", style: "padding-top: 10px; padding-bottom: 25px;"}
     %div{class:"tab-content"}
 
       / aba dados_pessoais

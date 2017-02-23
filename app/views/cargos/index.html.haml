@@ -1,4 +1,4 @@
-=build_form_toolbar(new_cargo_path,nil, @cargo, cargos_path, nil)
+=build_form_toolbar(new_empresa_cargo_path(current_user.empresa),nil, @cargo, empresa_cargos_path(current_user.empresa), nil)
 %div{class: "container-fluid"}
   %div{class: "row-fluid"}
     %div{class: ".page-header"}
@@ -8,13 +8,13 @@
         %div{class: "jumbotron"}
           %div{class: "row", style: "margin: 0;"}
             %div{class: "col-md-12 col-sm-12 col-xs-12 col-lg-12"}
-              = search_form_for @search do |f|
+              = search_form_for @search, url: empresa_cargos_path(current_user.empresa) do |f|
                 = f.condition_fields do |c|
                   = render "condition_fields", f: c
                 = link_to_add_fields "Adicionar Condições", f, :condition
                 %div{class: "actions", style: "margin-top: 2%;"}
                   = f.submit "Pesquisar", class: "btn btn-primary"
-                  = link_to "Recarregar", cargos_path, class: "btn btn-default"
+                  = link_to "Recarregar", empresa_cargos_path(current_user.empresa), class: "btn btn-default"
   %br/
   %br/
   %div{class: "row-fluid"}
@@ -23,15 +23,15 @@
         %th=t(:status, scope: [:bootstrap, :helpers, :labels])
         %th=t(:código, scope: [:bootstrap, :helpers, :labels])
         %th=t(:name, scope: [:bootstrap, :helpers, :labels])
-        %th{class: "pull-right"}=t(:show, scope: [:bootstrap, :helpers, :links])
+        / %th{class: "pull-right"}=t(:show, scope: [:bootstrap, :helpers, :links])
       %tbody
         - @cargos.each do |cargo|
           %tr
             %td=status(cargo.status)
             %td=cargo.id
             %td=cargo.nome
-            %td{class: "pull-right"}
-              = link_to_visualizar cargo
+            / %td{class: "pull-right"}
+            /   = link_to_visualizar cargo
   %div{class: "row", style: "margin: 0;"}
     %div{class: "pull-right"}
       =paginate @cargos

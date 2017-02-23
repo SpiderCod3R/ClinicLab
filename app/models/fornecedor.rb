@@ -1,10 +1,13 @@
-class Fornecedor < ApplicationRecord
+class Fornecedor < Connection::Factory
+  include ActiveMethods
+
   validates :status, :nome, :telefone, :celular,  presence: true
   validates :endereco, :bairro, :estado_id, :cidade_id,  presence: true
 
   validates_associated :estado, :cidade
   belongs_to :estado
   belongs_to :cidade
+  belongs_to :empresa
 
   usar_como_cpf :cpf
   usar_como_cnpj :cnpj

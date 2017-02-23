@@ -1,1 +1,0 @@
-json.array! @texto_livres, partial: 'texto_livres/texto_livre', as: :texto_livre

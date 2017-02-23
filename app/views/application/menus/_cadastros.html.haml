@@ -1,37 +1,39 @@
-/ -if usuario_signed_in? && current_usuario.admin?
-/   -render_menu_tree(current_usuario.empresa.empresa_permissoes) do |elem|
+/ -if usuario_signed_in? && current_user.admin?
+/   -render_menu_tree(current_user.empresa.empresa_permissoes) do |elem|
 /     =elem.permissao
-/ -if usuario_signed_in? && current_usuario.funcionario?
-/   -render_menu_tree(current_usuario.usuario_permissoes) do |elem|
+/ -if usuario_signed_in? && current_user.funcionario?
+/   -render_menu_tree(current_user.usuario_permissoes) do |elem|
 /     =elem.permissao
 
 -if can? :read, Agenda
-  %li=link_to 'Agendas', painel_empresa_agendas_path(current_usuario.empresa), style: "font-weight: bold;"
+  %li=link_to 'Agendas', empresa_agendas_path(current_user.empresa), style: "font-weight: bold;"
 -if can? :read, Cabec
-  %li=link_to 'Cabecs', new_cabec_path, style: "font-weight: bold;"
+  %li=link_to 'Cabecs', new_empresa_cabec_path(current_user.empresa), style: "font-weight: bold;"
 -if can? :read, Cargo
-  %li=link_to 'Cargos', new_cargo_path, style: "font-weight: bold;"
+  %li=link_to 'Cargos', new_empresa_cargo_path(current_user.empresa), style: "font-weight: bold;"
 -if can? :read, CentroDeCusto
-  %li=link_to 'Centro de Custos', new_centro_de_custo_path, style: "font-weight: bold;"
+  %li=link_to 'Centro de Custos', new_empresa_centro_de_custo_path(current_user.empresa), style: "font-weight: bold;"
 -if can? :read, Cliente
-  %li=link_to 'Clientes', new_cliente_path, style: "font-weight: bold;"
+  %li=link_to 'Clientes', new_empresa_cliente_path(current_user.empresa), style: "font-weight: bold;"
 -if can? :read, Convenio
-  %li=link_to 'Convênio', new_convenio_path, style: "font-weight: bold;"
+  %li=link_to 'Convênio', new_empresa_convenio_path(current_user.empresa), style: "font-weight: bold;"
 -if can? :read, ConselhoRegional
-  %li=link_to 'Conselho Regional', new_conselho_regional_path, style: "font-weight: bold;"
+  %li=link_to 'Conselho Regional', new_empresa_conselho_regional_path(current_user.empresa), style: "font-weight: bold;"
+-if can? :read, ConfiguracaoRelatorio
+  %li=link_to 'Configuração de Relatórios', new_empresa_configuracao_relatorio_path(current_user.empresa), style: "font-weight: bold;"
 -if can? :read, Fornecedor
-  %li=link_to 'Fornecedores', new_fornecedor_path, style: "font-weight: bold;"
+  %li=link_to 'Fornecedores', new_empresa_fornecedor_path(current_user.empresa), style: "font-weight: bold;"
 -if can? :read, ImagemCabec
-  %li=link_to 'Imagem Cabec', new_imagem_cabec_path, style: "font-weight: bold;"
+  %li=link_to 'Imagem Cabec', new_empresa_imagem_cabec_path(current_user.empresa), style: "font-weight: bold;"
 -if can? :read, Operadora
-  %li=link_to 'Operadoras', new_operadora_path, style: "font-weight: bold;"
+  %li=link_to 'Operadoras', new_empresa_operadora_path(current_user.empresa), style: "font-weight: bold;"
 -if can? :read, Profissional
-  %li=link_to 'Profissionais', new_profissional_path, style: "font-weight: bold;"
+  %li=link_to 'Profissionais', new_empresa_profissional_path(current_user.empresa), style: "font-weight: bold;"
 -if can? :read, Servico
-  %li=link_to 'Serviços', new_empresa_servico_path(current_usuario.empresa), style: "font-weight: bold;"
+  %li=link_to 'Serviços', new_empresa_servico_path(current_user.empresa), style: "font-weight: bold;"
 -if can? :read, TextoLivre
-  %li=link_to 'Texto Livre', new_texto_livre_path, style: "font-weight: bold;"
+  %li=link_to 'Texto Livre', new_empresa_texto_livre_path(current_user.empresa), style: "font-weight: bold;"
 -if can? :read, ReferenciaAgenda
-  %li=link_to 'Referência Agendas', new_referencia_agenda_path(current_usuario.empresa), style: "font-weight: bold;"
+  %li=link_to 'Referência Agendas', new_empresa_referencia_agenda_path(current_user.empresa), style: "font-weight: bold;"
 -if can? :read, Receituario
-  %li=link_to 'Receiturários', new_empresa_receituario_path(current_usuario.empresa), style: "font-weight: bold;"
+  %li=link_to 'Receiturários', new_empresa_receituario_path(current_user.empresa), style: "font-weight: bold;"

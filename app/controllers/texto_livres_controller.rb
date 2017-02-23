@@ -1,11 +1,11 @@
-class TextoLivresController < ApplicationController
+class TextoLivresController < Support::InsideController
   load_and_authorize_resource
 
   def index
     if params[:servico] || params[:search]
-      @texto_livres = TextoLivre.where(empresa_id: current_usuario.empresa_id).search(params[:servico]['id'], params[:search]).order("created_at DESC").page(params[:page]).per(10)
+      @texto_livres = TextoLivre.where(empresa: current_user.empresa).search(params[:servico]['id'], params[:search]).order("created_at DESC").page(params[:page]).per(10)
     else
-      @texto_livres = TextoLivre.where(empresa_id: current_usuario.empresa_id).order("created_at DESC").page(params[:page]).per(10)
+      @texto_livres = TextoLivre.where(empresa: current_user.empresa).order("created_at DESC").page(params[:page]).per(10)
       respond_with(@texto_livres)
     end
   end
@@ -18,17 +18,16 @@ class TextoLivresController < ApplicationController
   end
 
   def new
-    @texto_livre = TextoLivre.new
+    @texto_livre = current_user.empresa.texto_livres.build
   end
 
   def edit
   end
 
   def create
-    @texto_livre = TextoLivre.new(resource_params)
-    @texto_livre.addEmpresa=current_usuario.empresa
+    @texto_livre = current_user.empresa.texto_livres.build(resource_params)
     if @texto_livre.save
-      redirect_to @texto_livre, notice: 'Texto livre was successfully created.'
+      redirect_to new_empresa_texto_livre_path(current_user.empresa), notice: 'Texto livre was successfully created.'
     else
       render :new
     end
@@ -37,7 +36,7 @@ class TextoLivresController < ApplicationController
   def update
     respond_to do |format|
       if @texto_livre.update(resource_params)
-        format.html { redirect_to @texto_livre, notice: 'Texto livre was successfully updated.' }
+        format.html { redirect_to empresa_texto_livre_path(current_user.empresa, @texto_livre), notice: 'Texto livre was successfully updated.' }
         format.json { render :show, status: :ok, location: @texto_livre }
       else
         format.html { render :edit }

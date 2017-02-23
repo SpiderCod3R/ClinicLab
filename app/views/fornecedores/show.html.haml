@@ -1,4 +1,4 @@
-=build_object_viewer_toolbar(edit_fornecedor_path(@fornecedor), @fornecedor, fornecedores_path, nil)
+=build_object_viewer_toolbar(edit_empresa_fornecedor_path(current_user.empresa ,@fornecedor), @fornecedor, empresa_fornecedores_path(current_user.empresa), nil)
 %section{id: "show_fornecedor"}
   %div{class: "container"}
     %div{class: "row"}

@@ -1,4 +1,4 @@
-=build_form_toolbar(".new_convenio", @convenio, convenios_path, nil)
+=build_form_toolbar(".new_convenio", @convenio, empresa_convenios_path(current_user.empresa), nil)
 %section{id: "new_convenio"}
   %div{class: "container"}
     %div{class: "row"}

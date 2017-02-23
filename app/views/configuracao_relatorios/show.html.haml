@@ -1,4 +1,4 @@
-=build_object_viewer_toolbar(edit_configuracao_relatorio_path(@configuracao_relatorio), @configuracao_relatorio, configuracao_relatorios_path, nil)
+=build_object_viewer_toolbar(edit_empresa_configuracao_relatorio_path(current_user.empresa, @configuracao_relatorio), @configuracao_relatorio, nil, nil)
 %section{id: "show_convenio"}
   %div{class: "container"}
     %div{class: "row"}
@@ -14,7 +14,7 @@
           %div{class: "row-fluid"}
             %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
               %strong Nome empresa:
-              = @configuracao_relatorio.nome
+              = @configuracao_relatorio.empresa.nome
           %div{class: "row-fluid"}
             %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
               %strong CNPJ:
@@ -35,10 +35,6 @@
             %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
               %strong Cidade/Estado:
               = @configuracao_relatorio.cidade_estado
-          %div{class: "row-fluid"}
-            %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
-              %strong Nome empresa:
-              = @configuracao_relatorio.nome
           %div{class: "row-fluid"}
             %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
               %strong Nome email:

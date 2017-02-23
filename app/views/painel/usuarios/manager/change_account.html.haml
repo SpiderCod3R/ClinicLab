@@ -1,18 +1,16 @@
-=build_form_toolbar(".edit_painel_usuario", @usuario, painel_empresa_contas_path(@usuario.empresa), nil)
+=build_form_toolbar(".edit_gclinic_user", @user, empresa_contas_path(current_user.empresa), nil)
 .container-fluid
-  %h4 Alterarando Dados
-  %em
-    %b{style: "text-decoration: underline"}=@usuario.nome
+  %h4
+    Alterarando Dados de - 
+    %em
+      %b{style: "text-decoration: underline"}=@user.name.capitalize
 .col-md-6
   .jumbotron
     .container
-      = simple_form_for([@usuario.empresa, @usuario], method: "PUT", url: change_data_painel_empresa_painel_usuario_path) do |f|
+      = simple_form_for([current_user.empresa, @user], method: "PUT", url: change_data_empresa_usuario_path) do |f|
         .row-fluid
           .field
-            = f.input :nome, required: true
-        .row-fluid
-          .field
-            = f.input :login, required: true
+            = f.input :name, required: true
         .row-fluid
           .field
             = f.input :email, required: true

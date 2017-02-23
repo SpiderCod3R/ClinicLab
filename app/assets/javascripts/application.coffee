@@ -39,6 +39,7 @@
 #= require clientes/cliente_nacionalidade
 #= require clientes/texto_livre
 #= require clientes/cliente_historicos
+#= require clientes/cliente_convenios
 #= require clientes/cliente_receituarios
 #= require clientes/search
 #= require filtros
@@ -46,9 +47,6 @@
 #= require fornecedores
 #= require profissionais
 #= require painel/permissoes
-
-# $("#session_modal.modal").modal()
-# 
 
 # -*- UTILITARIOS -*-
 #= require utility/maskaras

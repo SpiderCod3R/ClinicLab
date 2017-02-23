@@ -1,5 +1,5 @@
 %div{class: "container", style: "margin-left: 5%; padding-top: 15px; padding-bottom: 15px;"}
-  =simple_form_for(@centro_de_custo) do |f|
+  =simple_form_for([current_user.empresa, @centro_de_custo]) do |f|
     %div{class: "row"}
       %div{class: "col-xs-12 col-sm-6 col-md-6 col-lg-6", style: 'margin: 0; padding: 0;'}
         = f.error_notification

@@ -1,4 +1,4 @@
-= simple_form_for(@texto_livre) do |f|
+= simple_form_for([current_user.empresa, @texto_livre]) do |f|
   = f.error_notification
 
   .row
@@ -6,7 +6,7 @@
       = f.input :nome
     .col-md-4
       =f.label :servico_id, "Serviço"
-      =f.collection_select :servico_id, Servico.where(empresa_id: current_usuario.empresa_id), :id, :to_s, { prompt: "Selecione um" }, class: "form-control selectpicker", :"data-live-search"=>"true"
+      =f.collection_select :servico_id, current_user.empresa.servicos.all.order(tipo: :asc), :id, :to_s, { prompt: "Selecione um" }, class: "form-control selectpicker", :"data-live-search"=>"true"
   %hr/
   .row-fluid
     =label_or_error_tag @texto_livre, :content, "Texto Livre"

@@ -10,8 +10,8 @@ $(document).ready ->
 
   # => Localizando quantas permissoes existem na empresa
   # ainda não adicionadas no funcionario no form do create
-  if $('#new_painel_usuario').length
-    empresa_id = $("#painel_usuario_empresa_id").val()
+  if $('#new_gclinic_user').length
+    empresa_id = $("#gclinic_user_empresa_id").val()
     counter = $("#empresa_permissoes_count").text()
 
   $('#painel_usuario_admin').change ->
@@ -21,7 +21,9 @@ $(document).ready ->
     else
       $('#permissoes_empresa').slideDown(1000)
 
-  coleta_permissoes = (i, checked_admin) ->
+  coleta_permissoes = (counter,checked_admin) ->
+    ary = []
+    x=1
     # => While necessario para percorrer todas as permissoes
     # estejam elas marcadas ou não!
     c = 0
@@ -29,40 +31,40 @@ $(document).ready ->
     u = 0
     d = 0
     if checked_admin == false
-      while i <= counter
+      while x <= counter
         # => Localizando a Div da permissao
-        indice_externo = $("#indice_externo_#{i}")
-
+        indice_externo = $("#indice_externo_#{x}")
         if indice_externo.val() != undefined
           # => Localizando o id da permissao
-          permissao_id = indice_externo.find("input").closest("#painel_usuario_permissao_id").val()
+          permissao_id = indice_externo.find("input").closest("#gclinic_user_model_id").val()
 
           # => Localizando as permissões de CRUD
           inputs = indice_externo.find("input:checked")
 
-          c = inputs.closest("#painel_usuario_cadastrar").val()
-          r = inputs.closest("#painel_usuario_exibir").val()
-          u = inputs.closest("#painel_usuario_atualizar").val()
-          d = inputs.closest("#painel_usuario_deletar").val()
+          c = inputs.closest("#gclinic_user_cadastrar").val()
+          r = inputs.closest("#gclinic_user_exibir").val()
+          u = inputs.closest("#gclinic_user_atualizar").val()
+          d = inputs.closest("#gclinic_user_deletar").val()
 
           # Em caso do checkbox nao estar marcado
-          if indice_externo.find("input:checked").closest("#painel_usuario_cadastrar").val() == undefined
+          if indice_externo.find("input:checked").closest("#gclinic_user_cadastrar").val() == undefined
             c = "0"
-          if indice_externo.find("input:checked").closest("#painel_usuario_exibir").val() == undefined
+          if indice_externo.find("input:checked").closest("#gclinic_user_exibir").val() == undefined
             r = "0"
-          if indice_externo.find("input:checked").closest("#painel_usuario_atualizar").val() == undefined
+          if indice_externo.find("input:checked").closest("#gclinic_user_atualizar").val() == undefined
             u = "0"
-          if indice_externo.find("input:checked").closest("#painel_usuario_deletar").val() == undefined
+          if indice_externo.find("input:checked").closest("#gclinic_user_deletar").val() == undefined
             d = "0"
 
           # => Adicionando dados das permissoes do usuario no Hash
-          data_usuario_permissoes.push
+          ary.push
             'permissao_id' : permissao_id
             'cadastrar'    : c
             'exibir'       : r
             'atualizar'    : u
             'deletar'      : d
-        i++
+        x++
+      return ary
 
   ajax_request = (usuario_params, permissoes_params, PATH) ->
     $.ajax
@@ -77,55 +79,46 @@ $(document).ready ->
           toastr.success(response.messages.success, "Sucesso!", {timeOut: 5000})
         ), 2000
         setTimeout (->
-          window.location.href="/painel/empresas/#{empresa_id}/contas?locale=pt-BR"
+          window.location.href="/empresa/#{response.environment.url}/contas?locale=pt-BR"
         ), 5000
 
-  $('#new_painel_usuario').submit (event) ->
+  $('#new_gclinic_user').submit (event) ->
     event.preventDefault()
     data_usuario = []
 
-    empresa_id = $("#painel_usuario_empresa_id").val()
+    empresa_id = $("#gclinic_user_empresa_id").val()
     inputs = ""
-    indice_externo = ""
-    permissao_id = ""
-
-    coleta_permissoes(i, checked_admin)
 
     # => Adicionando dados do usuario no HASH
     data_usuario.push
-        'empresa_id'            : empresa_id
-        'nome'                  : $("#painel_usuario_nome").val()
-        'login'                 : $("#painel_usuario_login").val()
-        'email'                 : $("#painel_usuario_email").val()
-        'codigo_pais'           : $("#painel_usuario_codigo_pais").val()
-        'telefone'              : $("#painel_usuario_telefone").val()
-        'password'              : $("#painel_usuario_password").val()
-        'password_confirmation' : $("#painel_usuario_password").val()
-        'admin'                 : checked_admin
-    # => AJAX request para enviar dados ao controller
-    PATH = "painel/empresas/#{empresa_id}/painel_usuarios"
-    ajax_request(data_usuario, data_usuario_permissoes, PATH)
+      'empresa_id'            : empresa_id
+      'nome'                  : $("#gclinic_user_name").val()
+      'email'                 : $("#gclinic_user_email").val()
+      'password'              : $("#gclinic_user_password").val()
+      'password_confirmation' : $("#gclinic_user_password").val()
+      'admin'                 : checked_admin
 
+    data_usuario_permissoes = coleta_permissoes(counter, checked_admin)
+
+    # => AJAX request para enviar dados ao controller
+    PATH = "painel/empresas/#{empresa_id}/usuarios"
+
+    # console.log data_usuario_permissoes
+    ajax_request(data_usuario, data_usuario_permissoes, PATH)
 
   $('#edit_permissoes_usuario').submit (event) ->
     event.preventDefault()
+
+    empresa_id = $("#gclinic_user_empresa_id").val()
+    usuario_id = $("#gclinic_user_id").val()
     data_usuario = []
-    data_usuario_permissoes = []
-
-    empresa_id = $("#painel_usuario_empresa_id").val()
-    usuario_id = $("#painel_usuario_id").val()
-    counter    = $("#empresa_permissoes_count").text()
-
-    inputs = ""
-    indice_externo = ""
-    permissao_id = ""
-
-    coleta_permissoes(i, false)
+    counter = $("#empresa_permissoes_count").text()
+    data_usuario_permissoes = coleta_permissoes(counter,false)
 
     # => Adicionando dados do usuario no HASH
     data_usuario.push
       'empresa_id' : empresa_id
       'usuario_id' : usuario_id
 
-    PATH = "painel/empresas/#{empresa_id}/painel_usuarios/#{usuario_id}/save_permissions"
+    PATH = "empresa/#{empresa_id}/usuarios/#{usuario_id}/save_permissions"
     ajax_request(data_usuario, data_usuario_permissoes, PATH)

@@ -1,30 +1,38 @@
-class ClientePermissoesController < ApplicationController
-  before_action :authenticate_usuario!
-
+class ClientePermissoesController < Support::InsideController
   def manager
-    @usuario = Painel::Usuario.find(params[:id])
-    @permissao = Painel::Permissao.find_by(model_class: "Cliente")
-    @usuario_permissao = @usuario.usuario_permissoes.find_by(permissao_id: @permissao.id)
-    @cliente_permissao = ClientePermissao.find_by usuario_permissoes_id: @usuario_permissao.id
+    @user       = Gclinic::User.find(params[:id])
+    @model      = Gclinic::Model.find_by(model_class: "Cliente")
+    @user_model = @user.user_models.find_by(model_id: @model.id)
+    @cliente_permissao = ClientePermissao.find_by user_model_id: @user_model.id
     @cliente_permissao = ClientePermissao.new if @cliente_permissao.nil?
   end
 
   def build_permissions
+<<<<<<< HEAD
     @usuario_permissao = Painel::UsuarioPermissao.find(resource_params[:usuario_permissoes_id])
     @cliente_permissao  = ClientePermissao.find_by(usuario_permissoes_id: resource_params[:usuario_permissoes_id])
     # binding.pry
+=======
+    @user_model = Gclinic::UserModel.find(resource_params[:user_model_id])
+    @cliente_permissao  = ClientePermissao.find_by(user_model_id: resource_params[:user_model_id])
+
+>>>>>>> connection_factory
     if !@cliente_permissao.nil?
       @cliente_permissao  = ClientePermissao.update_content(resource_params)
     else
       @cliente_permissao  = ClientePermissao.create(resource_params)
     end
 
-    flash[:notice] = "Permissões do Cliente adicionadas"
-    redirect_to manager_cliente_permissao_path(@usuario_permissao.usuario.id)
+    flash[:notice] = "Permissões da Agenda adicionadas"
+    redirect_to manager_empresa_cliente_permissao_path(@user_model.user.empresa, @user_model.user)
   end
 
   private
     def resource_params
+<<<<<<< HEAD
       params.require(:cliente_permissao).permit(:usuario_permissoes_id, :historico, :texto_livre, :pdf_upload, :receituario)
+=======
+      params.require(:cliente_permissao).permit(:user_model_id, :historico, :texto_livre, :pdf_upload)
+>>>>>>> connection_factory
     end
 end

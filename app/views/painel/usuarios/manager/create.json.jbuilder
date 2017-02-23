@@ -8,7 +8,10 @@ unless @usuario.valid?
     end
   end
 else
+  json.set! :environment do
+    json.set! :url, @usuario.empresa.slug
+  end
   json.set! :messages do
-    json.set! :success, I18n.t("flash.actions.create.success", resource_name: @usuario.nome)
+    json.set! :success, I18n.t("flash.actions.create.success", resource_name: @usuario.name)
   end
 end

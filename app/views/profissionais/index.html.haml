@@ -1,4 +1,4 @@
-=build_form_toolbar(new_profissional_path, nil, @profissional, profissionais_path, nil)
+=build_form_toolbar(new_empresa_profissional_path(current_user.empresa), nil, @profissional, empresa_profissionais_path(current_user.empresa), nil)
 %div{class: "container-fluid"}
   %div{class: "row-fluid"}
     %h1  Profissionais
@@ -7,7 +7,7 @@
       %div{class: "jumbotron"}
         %div{class: "row", style: "margin: 0;"}
           %div{class: "col-md-12 col-sm-12 col-xs-12 col-lg-12"}
-            =form_tag profissionais_path, :method => 'get' do
+            =form_tag empresa_profissionais_path(current_user.empresa), :method => 'get' do
               %row
                 %div{class: "col-lg-2"}
                   %label
@@ -16,14 +16,14 @@
                 %div{class: "col-lg-2"}
                   %label
                     Cargo
-                  = select(:cargo, :id, Cargo.where(empresa_id: current_usuario.empresa_id).collect {|p| [p.nome, p.id] }, {:include_blank => ''}, :class => "form-control") 
+                  = select(:cargo, :id, current_user.empresa.cargos.collect {|p| [p.nome, p.id] }, {:include_blank => ''}, :class => "form-control") 
                 %div{class: "col-lg-3"}
                   %label
                     Pesquisar
                   = text_field_tag :nome, '', placeholder: "Pesquisar profissional por sigla", class: "form-control"
                 %br
                 = submit_tag "Pesquisar", :name => nil, class: "btn btn-primary"
-                = link_to "Recarregar", profissionais_path, class: "btn btn-default"
+                = link_to "Recarregar", empresa_profissionais_path(current_user.empresa), class: "btn btn-default"
                 %br
                 %br
     %div{class: "row", style: "margin: 0;"}
@@ -42,7 +42,8 @@
               %td=profissional.nome
               %td=profissional.cargo.nome
               %td{class: "pull-right"}
-                = link_to_visualizar profissional
+                = link_to "#{image_tag("icons/glyphicons-610-journal.png", width: 22, height: 22)}".html_safe,
+                  empresa_profissional_path(current_user.empresa, profissional), title: t(:show, scope: [:bootstrap, :helpers, :links]), class: 'btn btn-default'
     %div{class: "row", style: "margin: 0;"}
       %div{class: "pull-right"}
         =paginate @profissionais

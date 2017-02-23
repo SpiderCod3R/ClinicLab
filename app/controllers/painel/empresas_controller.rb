@@ -5,12 +5,12 @@ class Painel::EmpresasController < ApplicationController
   respond_to :html
 
   def index
-    @empresas = Painel::Empresa.em_ordem_alfabetica.page params[:page]
+    @empresas = Empresa.all.em_ordem_alfabetica.page params[:page]
     respond_with(@empresas)
   end
 
   def show
-    @usuario = Painel::Usuario.new
+    @usuario = Gclinic::Usuario.new
     @administradores = @empresa.administradores.page params[:administradores_pagina]
     @funcionarios    = @empresa.funcionarios.page params[:funcionarios_pagina]
     @empresa_permissoes = @empresa.empresa_permissoes.page params[:permissoes]

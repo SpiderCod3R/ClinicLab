@@ -1,4 +1,6 @@
-class Estado < ApplicationRecord
+class Estado < Connection::Factory
+  include ActiveMethods
+
   has_many :cidades
 
   scope :pelo_nome, -> {order("nome ASC")}

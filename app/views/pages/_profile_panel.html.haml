@@ -3,13 +3,11 @@
     .panel-body
       %table.table.table-striped{cellspacing: "0", width: "100%"}
         %thead
-          %th LOGIN
           %th NOME
           %th EMAIL
           %th ÚLTIMO LOGIN
         %tbody{style:"overflow: x;"}
           %tr
-            %td=current_usuario.login
-            %td=current_usuario.nome
-            %td=current_usuario.email
-            %td=current_usuario.last_sign_in_at.strftime("%d de %B de %Y às %H:%M")
+            %td=current_user.name
+            %td=current_user.email
+            %td=current_user.last_sign_in_at.strftime("%d de %B de %Y às %H:%M")

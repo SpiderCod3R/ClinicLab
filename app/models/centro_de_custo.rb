@@ -1,5 +1,7 @@
-class CentroDeCusto < ApplicationRecord
-  include MetodosUteis
+class CentroDeCusto < Connection::Factory
+  include ActiveMethods
+
+  belongs_to :empresa
   validates :nome, presence: true
   paginates_per 10
   def to_s

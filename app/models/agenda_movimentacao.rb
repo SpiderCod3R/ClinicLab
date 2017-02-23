@@ -1,8 +1,10 @@
-class AgendaMovimentacao < ApplicationRecord
+class AgendaMovimentacao < Connection::Factory
+  include ActiveMethods
+
   belongs_to :agenda
   belongs_to :convenio
   belongs_to :cliente
-  belongs_to :atendente, class_name: "Painel::Usuario", foreign_key: "atendente_id"
+  belongs_to :atendente, class_name: "Gclinic::User", foreign_key: "atendente_id"
 
   delegate :nome,
            :title,

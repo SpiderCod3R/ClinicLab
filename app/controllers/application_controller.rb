@@ -21,22 +21,12 @@ class ApplicationController < ActionController::Base
 
   protected
     def configure_permitted_parameters
-      devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :nome])
-      devise_parameter_sanitizer.permit(:sign_in, keys: [:username, :password])
-      devise_parameter_sanitizer.permit(:account_update, keys: [:username, :nome])
-    end
-
-    def empresa_atual
-      @empresa_atual ||= current_usuario.empresa
+      devise_parameter_sanitizer.permit(:sign_in, keys: [:name, :password])
+      devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:empresa_id, :admin, :environment_id, :email, :password) }
+      devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:empresa_id, :admin, :environment_id, :email, :password, :current_password) }
     end
 
     def current_ability
-      @current_ability ||= Ability.new(current_usuario)
-    end
-
-    def session_usuario
-      if session[:usuario_id]
-        @usuario ||= Usuario.retornar_objeto_pelo_id(session[:usuario_id])
-      end
+      @current_ability ||= Ability.new(current_user)
     end
 end

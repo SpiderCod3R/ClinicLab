@@ -4,6 +4,7 @@ module AgendaFiltrosConcern
     attr_accessor :paciente_nome_contain, :data_contain
     class << self
       def retorna_todos_os_medicos_do_dia(resource)
+        self.set_connection
         find_by_sql("SELECT DISTINCT r.id AS id, r.descricao AS descricao
                   FROM agendas AS a
                   INNER JOIN referencia_agendas ON referencia_agendas.id = a.referencia_agenda_id
@@ -13,6 +14,7 @@ module AgendaFiltrosConcern
       end
 
       def retorna_todos_os_medicos_com_agenda(resource)
+        self.set_connection
         find_by_sql("SELECT DISTINCT r.id AS id, r.descricao AS descricao
                   FROM agendas AS a
                   INNER JOIN referencia_agendas ON referencia_agendas.id = a.referencia_agenda_id
@@ -22,7 +24,7 @@ module AgendaFiltrosConcern
       end
 
       def default(resource)
-        @empresa = Painel::Empresa.friendly.find(resource[:empresa_id]).id
+        @empresa = Empresa.friendly.find(resource[:empresa_id]).id
         includes(:referencia_agenda).includes(:agenda_movimentacao).
         da_empresa(@empresa).
         a_partir_da_data_do_dia.
@@ -33,7 +35,7 @@ module AgendaFiltrosConcern
       end
 
       def search_by_day(resource)
-        @empresa = Painel::Empresa.friendly.find(resource[:empresa_id]).id
+        @empresa = Empresa.friendly.find(resource[:empresa_id]).id
         includes(:referencia_agenda).includes(:agenda_movimentacao).
         da_empresa(@empresa).
         where("data >= '#{Date.parse(resource["data"]).strftime("%Y-%m-%d")}'").
@@ -45,7 +47,7 @@ module AgendaFiltrosConcern
 
       # => retorna agenda dos medicos
       def search_agenda_medicos(resource)
-        @empresa = Painel::Empresa.friendly.find(resource[:empresa_id]).id
+        @empresa = Empresa.friendly.find(resource[:empresa_id]).id
         where(referencia_agenda_id: resource[:referencia_agenda_id], empresa_id: @empresa).
         a_partir_da_data_do_dia.
         order_data.
@@ -56,7 +58,7 @@ module AgendaFiltrosConcern
 
       # => retorna agenda dos medicos de outro dia que nao
       def search_agenda_medicos_outro_dia(resource)
-        @empresa = Painel::Empresa.friendly.find(resource[:empresa_id]).id
+        @empresa = Empresa.friendly.find(resource[:empresa_id]).id
         where(referencia_agenda_id: resource[:referencia_agenda_id], empresa_id: @empresa).
         a_partir_da_data_do_dia.
         order_data.

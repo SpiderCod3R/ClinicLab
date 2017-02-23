@@ -1,9 +1,8 @@
-class ServicosController < ApplicationController
+class ServicosController < Support::InsideController
   load_and_authorize_resource
-  before_action :find_empresa
 
   def index
-    @search = Servico.where(empresa_id: current_usuario.empresa_id).ransack(params[:q])
+    @search = Servico.where(empresa: current_user.empresa).ransack(params[:q])
     @servicos = @search.result.order("id desc").page(params[:page]).per(10)
     @search.build_condition if @search.conditions.empty?
   end
@@ -12,17 +11,16 @@ class ServicosController < ApplicationController
   end
 
   def new
-    @servico = Servico.new
+    @servico = current_user.empresa.servicos.build
   end
 
   def edit
   end
 
   def create
-    @servico = Servico.new(resource_params)
-    @servico.addEmpresa= current_usuario.empresa
+    @servico = current_user.empresa.servicos.build(resource_params)
     if @servico.save
-      redirect_to new_empresa_servico_path(@empresa), notice: 'Servico was successfully created.'
+      redirect_to new_empresa_servico_path(current_user.empresa), notice: 'Servico was successfully created.'
     else
       render :new
     end
@@ -42,9 +40,6 @@ class ServicosController < ApplicationController
   end
 
   private
-    def find_empresa
-      @empresa = Painel::Empresa.friendly.find(params[:empresa_id])
-    end
     def resource_params
       params.require(:servico).permit(:tipo, :abreviatura, :empresa_id)
     end

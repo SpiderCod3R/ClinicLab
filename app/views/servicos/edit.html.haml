@@ -1,4 +1,4 @@
-=build_form_toolbar(nil ,".edit_servico", @servicos, empresa_servicos_path(current_usuario.empresa_id), nil)
+=build_form_toolbar(nil ,".edit_servico", @servicos, empresa_servicos_path(current_user.empresa_id), nil)
 %section#new_servico
   .container
     .row
@@ -8,17 +8,5 @@
     .row
       .panel
         .container
-          = simple_form_for([@empresa, @servico], url: empresa_servico_path , method: "PUT") do |f|
-            .container-fluid
-              .row
-                %br
-                .col-md-12
-                  = f.error_notification
-            .container
-              .row
-                .col-md-4
-                  .form-inputs
-                    = f.input :tipo
-                .col-md-3
-                  .form-inputs
-                  = f.input :abreviatura
+          =render 'form'
+

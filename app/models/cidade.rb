@@ -1,4 +1,6 @@
-class Cidade < ApplicationRecord
+class Cidade < Connection::Factory
+  include ActiveMethods
+
   belongs_to :estado
 
   def to_s

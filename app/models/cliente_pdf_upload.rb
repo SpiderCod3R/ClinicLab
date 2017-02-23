@@ -1,11 +1,13 @@
-class ClientePdfUpload < ApplicationRecord
+class ClientePdfUpload < Connection::Factory
+  include ActiveMethods
+
   belongs_to :cliente
 
   has_attached_file :pdf, styles: { thumbnail: "60x60#" }
 
   validates_attachment :pdf,
                         content_type: { content_type: "application/pdf" },
-                        size: { in: 0..10.megabytes },
+                        size: { in: 0..6.megabytes },
                         file_name: { matches: [/pdf\z/] }
 
   validates :anotacoes, presence: { message: "Informe algo sobre este PDF" }, if: :file_is_present?

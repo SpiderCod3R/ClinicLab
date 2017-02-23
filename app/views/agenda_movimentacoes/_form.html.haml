@@ -1,0 +1,41 @@
+=simple_form_for [current_user.empresa, @agenda, @movimentacao] do |f|
+  %br/
+  .container-fluid
+    .row-fluid
+      =render @agenda
+  %hr{style: "border: #323232 dashed 0.5px;"}
+  .container-fluid
+    .col-md-8
+      .row
+        =f.input :agenda_id, as: :hidden, input_html: {value: @agenda.id}
+      .row
+        .col-md-6
+          =f.input :nome_paciente, input_html: { class: "buscar_paciente_4_agenda" }
+        .col-md-5
+          =f.input :telefone_paciente, input_html: { class: "txtboxToFilter" }, maxlength: "20"
+      .row
+        .col-md-6
+          =f.input :email_paciente
+      .row
+        .col-md-6
+          =f.label "Convênio"
+          =f.collection_select :convenio_id, @convenios, :id, :title, { prompt: "Selecione um" }, class: "form-control"
+        .col-md-6
+          #convenio_n_cadastrado{style: "display: inline-block; padding-top: 30px;"}
+            =f.check_box :sem_convenio
+            =f.label "Convênio não Cadastrado"
+      %br
+      .row
+        .col-md-6
+          .select_live
+            =f.label :solicitante_id, "Solicitante"
+            =f.collection_select :solicitante_id, @profissionais, :id, :titulo, { prompt: "Selecione um" }, class: "form-control"
+        .col-md-3
+          =f.input :confirmacao, label: "Confirmação", :as => :select,:collection => [['OK','OK'],['N.V','N.V'], ['D.M','D.M'], ['R.P','R.P'], ['R.M','R.M'], [ 'Desistiu', 'Desistiu']], :include_blank => true
+      
+    .col-md-4
+      .row
+        =f.input :observacoes, label: "Observações", input_html: { style: "margin-top: 5px; margin-bottom: 3px; height: 211px;" }
+      .row
+        -if @agenda.agenda_movimentacao.present?
+          =link_to "Visualizar", empresa_agenda_path(current_user.empresa, @agenda) ,class: "btn btn-large btn-primary"

@@ -1,0 +1,11 @@
+= simple_form_for(@environment, url: painel_dashboards_add_permissoes_to_company_path, method: :post) do |f|
+  .row
+    .col-md-3
+      ="Selecionar Tudo - "
+      = check_box_tag('check_all', 'check_all', false, :onClick => "checkAll(this);")
+  .row
+    .col-md-3
+      =f.input :environment_id, as: :hidden, :input_html => {value: @environment.id}
+      =f.collection_select :model_ids, Gclinic::Model.order("name ASC"), :id, :name, {}, { class: "multi-select", multiple: true}
+    .col-md-2.pull-right
+      =f.button :submit, "Adicionar", class: 'btn btn-primary'

@@ -1,6 +1,6 @@
-class Profissional < ApplicationRecord
+class Profissional < Connection::Factory
+  include ActiveMethods
   include AtivandoStatus
-  include MetodosUteis
 
   validates :nome, :cargo_id, :data_nascimento,
             :cpf, :rg, :telefone, :celular,
@@ -19,6 +19,15 @@ class Profissional < ApplicationRecord
   belongs_to :empresa
   has_many :referencia_agendas
   has_many :agendas, through: :referencia_agendas
+
+  validates :nome, :cargo_id, :data_nascimento,
+            :cpf, :rg, :telefone, :celular,
+            :operadora_id, :conselho_regional_id,
+            :endereco, :bairro,
+            :estado_id, :cidade_id, :numero_conselho_regional,
+            presence: true
+
+  validates :numero_conselho_regional, length: { maximum: 50 }
 
   usar_como_cpf :cpf
   scope :pelo_nome, -> {order("nome ASC")}
