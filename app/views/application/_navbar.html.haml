@@ -10,7 +10,7 @@
         =link_to new_admin_session_path, class: "navbar-brand brand-logo center" do
           GClinicWeb
   %ul.nav.navbar-nav
-    -if user_signed_in?
+    -if current_user
       %li.nav-item.active
         =link_to root_path, class: "nav-link" do
           Home
@@ -22,7 +22,7 @@
             %span.caret
           %ul.dropdown-menu
             =render 'application/menus/cadastros'
-  -if user_signed_in?
+  -if current_user
     %ul.nav.navbar-nav.navbar-right
       %li.nav-item
         =link_to "Seja bem vindo - #{current_user.name}", "#"
