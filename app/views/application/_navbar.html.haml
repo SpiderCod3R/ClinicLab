@@ -9,5 +9,26 @@
       .col-xs-12.col-md-12.link_to_admin-panel.center
         =link_to new_admin_session_path, class: "navbar-brand brand-logo center" do
           GClinicWeb
+  %ul.nav.navbar-nav
+    -if user_signed_in?
+      %li.nav-item.active
+        =link_to root_path, class: "nav-link" do
+          Home
+          %span.sr-only (current)
+      -if current_user.environment.environment_models.any? || current_user.user_models.any?
+        %li.dropdown
+          %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+            Cadastros
+            %span.caret
+          %ul.dropdown-menu
+            =render 'application/menus/cadastros'
+  -if user_signed_in?
+    %ul.nav.navbar-nav.navbar-right
+      %li.nav-item
+        =link_to "Seja bem vindo - #{current_user.name}", "#"
+      %li.nav-item
+        =link_to destroy_user_session_path, method: 'delete', title: "SAIR" do
+          Sair
+          %i.fa.fa-sign-out
     / /.navbar-collapse
   / /.container-fluid
