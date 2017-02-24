@@ -232,9 +232,9 @@ class Support::ClienteSupportController < Support::InsideController
   private
     def set_access
       if !current_user.admin?
-        @permissao = Gclinic::Model.find_by(model_class: "Cliente")
-        @usuario_permissao = current_usuario.usuario_permissoes.find_by(permissao_id: @permissao.id)
-        @cliente_permissao = ClientePermissao.find_by usuario_permissoes_id: @usuario_permissao.id
+        @model = Gclinic::Model.find_by(model_class: "Cliente")
+        @user_model = current_user.user_models.find_by(model_id: @model.id)
+        @cliente_permissao = ClientePermissao.find_by user_model_id: @user_model.id
       end
     end
 
