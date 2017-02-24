@@ -56,7 +56,7 @@ class Painel::Usuarios::ManagerController < Support::InsideController
 
     if @user.save(validate: false)
       if !@old_user_model.nil?
-        @agenda_permissao = AgendaPermissao.find_by usuario_permissoes_id: @old_user_model.id
+        @agenda_permissao = AgendaPermissao.find_by user_model_id: @old_user_model.id
         if !@agenda_permissao.nil?
           @new_user_model=@user.user_models.find_by(model_id: @model.id)
           @agenda_permissao.update_attributes(user_model_id: @new_user_model.id)

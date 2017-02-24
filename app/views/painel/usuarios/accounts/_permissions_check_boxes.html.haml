@@ -1,0 +1,11 @@
+-current_user.environment.environment_models.includes("model").order("gclinic_models.name ASC").select(:model_id).each do |f|
+  %tr{id: "indice_externo_#{f.model.id}", style: "border: #C7C4FF 2px dashed;"}
+    %td{style: "color: #524EFF; font-weight: bold"}
+      %em=f.model.name
+      =z.hidden_field :model_id, value: "#{f.model.id}"
+    %td
+      =z.check_box :cadastrar, data: { model_id: f.model.id }
+    %td
+      =z.check_box :atualizar
+    %td
+      =z.check_box :exibir

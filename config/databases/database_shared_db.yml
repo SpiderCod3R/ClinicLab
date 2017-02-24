@@ -8,12 +8,12 @@ default: &default
 
 development:
   <<: *default
-  database: db_teste_development
+  database: db_raira_nutricionista_development
 
 production:
   <<: *default
-  database: db_teste_production
+  database: db_raira_nutricionista_production
 
 test:
   <<: *default
-  database: db_teste_test
+  database: db_raira_nutricionista_test

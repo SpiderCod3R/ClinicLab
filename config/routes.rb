@@ -110,6 +110,8 @@ Rails.application.routes.draw do
       get 'movimentar', to: 'agenda_movimentacoes#new', as: :movimentar_ou_atualizar
     end
     get 'receita/:recipe_id/remove', to: "clientes#destroy_cliente_receituario"
+
+    get 'usuario/:id/permissoes', to: "painel/usuarios/accounts#show_permissions", as: :show_user_permissions
   end
 
   resources :atendimentos

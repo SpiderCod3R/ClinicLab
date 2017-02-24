@@ -1,4 +1,4 @@
--@user.environment.environment_models.includes("model").order("gclinic_models.name ASC").select(:model_id).each do |f|
+-current_user.environment.environment_models.includes("model").order("gclinic_models.name ASC").select(:model_id).each do |f|
   %tr{id: "indice_externo_#{f.model.id}", style: "border: #C7C4FF 2px dashed;"}
     %td{style: "color: #524EFF; font-weight: bold"}
       %em=f.model.name

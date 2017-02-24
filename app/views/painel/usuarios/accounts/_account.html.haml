@@ -11,7 +11,7 @@
         %i.fa.fa-2x.fa-times-circle-o{style: "color: #CC3B00"}
   %td
     -unless user.admin?
-      =link_to painel_show_user_permissions_path(user), remote: true, title: " Visualizar Permissões" do
+      =link_to empresa_show_user_permissions_path(user.empresa, user), remote: true, title: " Visualizar Permissões" do
         %i.fa.fa-2x.fa-warning.text-center{style: "color: #778A96"}
       =link_to empresa_usuario_add_permissions_path(user.empresa, user), title: " Adicionar nova Permissão" do
         %i.fa.fa-2x.fa-plus-circle.text-center{style: "color: #0580DE"}

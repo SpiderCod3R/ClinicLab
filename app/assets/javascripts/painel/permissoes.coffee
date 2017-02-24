@@ -101,7 +101,7 @@ $(document).ready ->
     data_usuario_permissoes = coleta_permissoes(counter, checked_admin)
 
     # => AJAX request para enviar dados ao controller
-    PATH = "painel/empresas/#{empresa_id}/usuarios"
+    PATH = "empresa/#{empresa_id}/usuarios"
 
     # console.log data_usuario_permissoes
     ajax_request(data_usuario, data_usuario_permissoes, PATH)
