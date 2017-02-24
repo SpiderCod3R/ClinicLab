@@ -1,4 +1,4 @@
-=build_object_viewer_toolbar(edit_conselho_regional_path(@conselho_regional), @conselho_regional, conselho_regionais_path, nil)
+=build_object_viewer_toolbar(edit_empresa_conselho_regional_path(current_user.empresa, @conselho_regional), @conselho_regional, empresa_conselho_regionais_path(current_user.empresa), nil)
 %section{id: "show_conselho_regional"}
   %div{class: "container"}
     %div{class: "row"}

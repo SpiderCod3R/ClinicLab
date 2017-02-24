@@ -3,7 +3,7 @@
   %div{class: "row"}
     %h1=t('labels.Conselho Regional')
     %hr{style: "border: #323232 solid 0.5px;"}
-      =form_tag conselho_regionais_path, :method => 'get' do
+      =form_tag empresa_conselho_regionais_path(current_user.empresa), :method => 'get' do
         %row
           %div{class: "col-lg-2"}
             %label
@@ -12,11 +12,11 @@
           %div{class: "col-lg-2"}
             %label
               ID
-            = select(:id, :id, ConselhoRegional.where(empresa: current_user.empresa).collect {|p| [p.id, p.id] }, {:include_blank => ''}, :class => "form-control") 
+            = select(:id, :id, ConselhoRegional.all.collect {|p| [p.id, p.id] }, {:include_blank => ''}, :class => "form-control") 
           %div{class: "col-lg-2"}
             %label
               Sigla
-            = select(:sigla, :sigla, ConselhoRegional.where(empresa: current_user.empresa).collect {|p| [p.sigla, p.sigla] }, {:include_blank => ''}, :class => "form-control") 
+            = select(:sigla, :sigla, ConselhoRegional.all.collect {|p| [p.sigla, p.sigla] }, {:include_blank => ''}, :class => "form-control") 
           %div{class: "col-lg-3"}
             %label
               Pesquisar
@@ -43,7 +43,7 @@
             %td
               .btn-group.pull-right
                 -if can? :read, ConselhoRegional
-                  =link_to "#{image_tag("icons/glyphicons-30-notes-2.png", width: 22, height: 22)}".html_safe, conselho_regional, title: "Visualizar", class: 'btn btn-default'
+                  =link_to "#{image_tag("icons/glyphicons-30-notes-2.png", width: 22, height: 22)}".html_safe, empresa_conselho_regional_path(current_user.empresa, conselho_regional), title: "Visualizar", class: 'btn btn-default'
   %div{class: "row", style: "margin: 0;"}
     %div{class: "pull-right"}
       =paginate @conselho_regionais
