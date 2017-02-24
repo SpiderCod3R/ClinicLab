@@ -53,6 +53,6 @@
                   -else
                     %td=f.check_box :receituario, checked: false
             .pull-right
-              =link_to "Contas", painel_empresa_contas_path(current_usuario.empresa), class: "btn btn-default"
-            .pull-left
               =link_to "Contas", empresa_contas_path(current_user.empresa), class: "btn btn-default"
+            .pull-left
+              =f.submit "Salvar", class: "btn btn-success", id: "btnFormPermissoesAgenda"

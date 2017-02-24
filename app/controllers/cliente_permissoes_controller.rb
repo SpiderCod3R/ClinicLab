@@ -23,6 +23,6 @@ class ClientePermissoesController < Support::InsideController
 
   private
     def resource_params
-      params.require(:cliente_permissao).permit(:user_model_id, :historico, :texto_livre, :pdf_upload)
+      params.require(:cliente_permissao).permit(:user_model_id, :historico, :texto_livre, :pdf_upload, :receituario)
     end
 end
