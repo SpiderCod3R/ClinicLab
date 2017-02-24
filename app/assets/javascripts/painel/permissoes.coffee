@@ -75,12 +75,24 @@ $(document).ready ->
         usuario_permissoes: permissoes_params,
         usuario: usuario_params
       success: (response) ->
-        setTimeout (->
-          toastr.success(response.messages.success, "Sucesso!", {timeOut: 5000})
-        ), 2000
-        setTimeout (->
-          window.location.href="/empresa/#{response.environment.url}/contas?locale=pt-BR"
-        ), 5000
+        if response.valid.success == true
+          setTimeout (->
+            toastr.success(response.messages.success, "Sucesso!", {timeOut: 5000})
+          ), 2000
+          setTimeout (->
+            window.location.href="/empresa/#{response.environment.url}/contas?locale=pt-BR"
+          ), 5000
+        else
+          i =0
+          setTimeout (->
+            toastr.error(response.messages.alert, "Erro!", {timeOut: 5000})
+          ), 2000
+          while i <= response.errors.length
+            if response.errors[i] != undefined
+              toastr.error(response.errors[i].erro, "Erro!")
+            i++
+
+
 
   $('#new_gclinic_user').submit (event) ->
     event.preventDefault()
