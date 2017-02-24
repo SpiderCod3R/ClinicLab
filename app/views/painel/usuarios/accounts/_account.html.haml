@@ -11,18 +11,18 @@
         %i.fa.fa-2x.fa-times-circle-o{style: "color: #CC3B00"}
   %td
     -unless user.admin?
-      =link_to empresa_show_user_permissions_path(user.empresa, user), remote: true, title: " Visualizar Permissões" do
+      =link_to empresa_show_user_permissions_path(current_user.empresa, user), remote: true, title: " Visualizar Permissões" do
         %i.fa.fa-2x.fa-warning.text-center{style: "color: #778A96"}
-      =link_to empresa_usuario_add_permissions_path(user.empresa, user), title: " Adicionar nova Permissão" do
+      =link_to empresa_usuario_add_permissions_path(current_user.empresa, user), title: " Adicionar nova Permissão" do
         %i.fa.fa-2x.fa-plus-circle.text-center{style: "color: #0580DE"}
       -if user.user_models.has_agenda?
-        =link_to manager_empresa_agenda_permissao_path(user.empresa, user), title: "Permissões da Agenda" do
+        =link_to manager_empresa_agenda_permissao_path(current_user.empresa, user), title: "Permissões da Agenda" do
           %i.fa.fa-2x.fa-calendar.text-center{style: "color: #40783F"}
       -if user.user_models.has_cliente?
-        =link_to manager_empresa_cliente_permissao_path(user.empresa, user), title: "Permissões do Cliente" do
+        =link_to manager_empresa_cliente_permissao_path(current_user.empresa, user), title: "Permissões do Cliente" do
           %i.fa.fa-2x.fa-universal-access{style: "color: #008C7C"}
   %td
     %center
       -unless user.admin?
-        =link_to change_account_empresa_usuario_path(user.empresa, user), title: " Alterar Dados" do
+        =link_to change_account_empresa_usuario_path(current_user.empresa, user), title: " Alterar Dados" do
           %i.fa.fa-2x.fa-pencil-square-o{style: "color: #4F5558"}
