@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170222145255) do
+ActiveRecord::Schema.define(version: 20170223080330) do
   create_table "agenda_movimentacoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "agenda_id"
     t.integer  "convenio_id"
@@ -148,11 +148,7 @@ ActiveRecord::Schema.define(version: 20170222145255) do
     t.index ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type", using: :btree
   end
 
-<<<<<<< HEAD
-  create_table "cliente_convenios", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-=======
   create_table "cliente_convenios", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
->>>>>>> 25158a7956633b0be902153a8bf34fe7be41619f
     t.integer "cliente_id"
     t.integer "convenio_id"
     t.boolean "status_convenio"
@@ -190,7 +186,7 @@ ActiveRecord::Schema.define(version: 20170222145255) do
     t.index ["empresa_id"], name: "index_cliente_permissoes_on_empresa_id", using: :btree
   end
 
-  create_table "cliente_receituarios", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "cliente_receituarios", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "cliente_id"
     t.integer  "user_id"
     t.text     "content",    limit: 65535
@@ -348,6 +344,21 @@ ActiveRecord::Schema.define(version: 20170222145255) do
     t.datetime "updated_at",          null: false
     t.integer  "empresa_id"
     t.index ["empresa_id"], name: "index_imagem_cabecs_on_empresa_id", using: :btree
+  end
+
+  create_table "imagens_externas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "foto_antes_file_name"
+    t.string   "foto_antes_content_type"
+    t.integer  "foto_antes_file_size"
+    t.datetime "foto_antes_updated_at"
+    t.string   "foto_depois_file_name"
+    t.string   "foto_depois_content_type"
+    t.integer  "foto_depois_file_size"
+    t.datetime "foto_depois_updated_at"
+    t.integer  "cliente_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.index ["cliente_id"], name: "index_imagens_externas_on_cliente_id", using: :btree
   end
 
   create_table "operadoras", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -526,6 +537,7 @@ ActiveRecord::Schema.define(version: 20170222145255) do
   add_foreign_key "fornecedores", "cidades"
   add_foreign_key "fornecedores", "estados"
   add_foreign_key "historicos", "clientes"
+  add_foreign_key "imagens_externas", "clientes"
   add_foreign_key "profissionais", "cargos"
   add_foreign_key "profissionais", "cidades"
   add_foreign_key "profissionais", "conselho_regionais"

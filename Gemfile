@@ -81,6 +81,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'paperclip', '~> 5.0.0'
 gem 'paperclip-i18n'
+gem 'rails-gallery', '~> 0.3.3'
 
 gem 'htmlentities'
 gem 'htmltoword'

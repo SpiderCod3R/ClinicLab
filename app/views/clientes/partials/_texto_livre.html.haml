@@ -43,10 +43,11 @@
         %button.close{"data-dismiss" => "modal", :type => "button"} ×
         %h4.modal-title Textos Livres
       .modal-body
-        #include_texto_livre
-          =render 'texto_livres/include_texto_livre', {texto_livres: @texto_livres}
-        #paginator_texto_livres
-          =paginate @texto_livres, remote: true
+        - if @texto_livres.present?
+          #include_texto_livre
+            =render 'texto_livres/include_texto_livre', {texto_livres: @texto_livres}
+          #paginator_texto_livres
+            =paginate @texto_livres, remote: true
       .modal-footer
         %button.btn.btn-danger{"data-dismiss" => "modal", :type => "button"} Fechar
 

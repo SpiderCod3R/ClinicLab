@@ -1,6 +1,7 @@
 #-*-coding:utf-8-*-
 Rails.application.routes.draw do
 
+  resources :imagens_externas
   mount Ckeditor::Engine => '/ckeditor'
 
   resources :empresas do

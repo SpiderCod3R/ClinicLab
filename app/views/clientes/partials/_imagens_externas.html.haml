@@ -1,0 +1,17 @@
+%div{id:"imagens_externas", class:"tab-pane fade"}
+  = simple_form_for :imagens_externas do |i|
+    %div{class: "row", style: "margin-bottom: 20px;"}
+      %div{class: "col-xs-12 col-sm-10 col-md-6 col-lg-6"}
+        = i.input :foto_antes, as: :file, label: "Foto Antes"
+      %div{class: "col-xs-12 col-sm-10 col-md-6 col-lg-6"}
+        = i.input :foto_depois, as: :file, label: "Foto Depois"
+  - if @cliente.imagens_externas.count > 0
+    = render 'clientes/partials/carousel_imagens_externas', {imagens_externas: @cliente.imagens_externas}
+    / %div{class: "row"}
+    /   - @cliente.imagens_externas.each do |img|
+    /     - if img.foto_antes.present?
+    /       %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-4"}
+    /         = image_tag img.foto_antes, :class => "img_profissional pull-right"
+    /     - if img.foto_depois.present?
+    /       %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-4"}
+    /         = image_tag img.foto_depois, :class => "img_profissional pull-right"
