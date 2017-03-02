@@ -65,6 +65,7 @@ class ClientesController < Support::ClienteSupportController
       @cliente_texto_livre     = @cliente.cliente_texto_livres.first
       @cliente_collection_pdfs = @cliente.cliente_pdf_uploads.ultima_data.page(@@page).per(2)
       @cliente_pdf_uploads     = @cliente.cliente_pdf_uploads.build
+      @cliente_receituarios = @cliente.cliente_receituarios.page(@@page).per(2)
       @texto_livres = current_user.empresa.texto_livres.page(@@page).per(2)
       render :edit
     end
