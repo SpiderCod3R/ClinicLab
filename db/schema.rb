@@ -11,6 +11,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 20170223080330) do
+
   create_table "agenda_movimentacoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "agenda_id"
     t.integer  "convenio_id"
@@ -148,7 +149,7 @@ ActiveRecord::Schema.define(version: 20170223080330) do
     t.index ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type", using: :btree
   end
 
-  create_table "cliente_convenios", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "cliente_convenios", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer "cliente_id"
     t.integer "convenio_id"
     t.boolean "status_convenio"
@@ -186,7 +187,7 @@ ActiveRecord::Schema.define(version: 20170223080330) do
     t.index ["empresa_id"], name: "index_cliente_permissoes_on_empresa_id", using: :btree
   end
 
-  create_table "cliente_receituarios", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "cliente_receituarios", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "cliente_id"
     t.integer  "user_id"
     t.text     "content",    limit: 65535
@@ -346,7 +347,7 @@ ActiveRecord::Schema.define(version: 20170223080330) do
     t.index ["empresa_id"], name: "index_imagem_cabecs_on_empresa_id", using: :btree
   end
 
-  create_table "imagens_externas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "imagens_externas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "foto_antes_file_name"
     t.string   "foto_antes_content_type"
     t.integer  "foto_antes_file_size"
