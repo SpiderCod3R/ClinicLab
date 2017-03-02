@@ -69,6 +69,32 @@ class Painel::EnvironmentsController < ApplicationController
     redirect_to :back
   end
 
+  def edit_environment_admin_account
+    @environment = Gclinic::Environment.find(params[:id])
+    @empresa = Empresa.find_by(nome: @environment.name)
+    @environment_admin_account = @environment.users.find(params[:admin_id])
+  end
+
+  def update_environment_admin_account
+    @environment = Gclinic::Environment.find(user_params[:environment_id])
+    @environment_admin_account = @environment.users.find(user_params[:id])
+    if user_params[:password]==""
+      if @environment_admin_account.update_without_password(user_params)
+        flash[:info] = "Usuário atualizado."
+        redirect_to painel_environment_path(@environment)
+      else
+        render :edit_environment_admin_account
+      end
+    elsif user_params[:password] != ""
+      if @environment_admin_account.update(user_params)
+        flash[:info] = "Usuário atualizado."
+        redirect_to painel_environment_path(@environment)
+      else
+        render :edit_environment_admin_account
+      end
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_environment
@@ -78,7 +104,6 @@ class Painel::EnvironmentsController < ApplicationController
     end
 
     # Only allow a trusted parameter "white list" through.
-    
     def environment_params
       params.require(:gclinic_environment).permit(:name, :database_name, :slug,
                                                   users_attributes: [:name,
@@ -87,5 +112,9 @@ class Painel::EnvironmentsController < ApplicationController
                                                                      :password_confirmation,
                                                                      :admin,
                                                                      :_destroy])
+    end
+
+    def user_params
+      params.require(:gclinic_user).permit(:id, :name,  :email, :password, :password_confirmation, :admin, :empresa_id, :environment_id)
     end
 end

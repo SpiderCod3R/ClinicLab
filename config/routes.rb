@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   namespace :painel do
     resources :environments do
       member do
+        get 'edit_environment_admin_account'
+        put 'update_environment_admin_account'
         get 'remove_model'
       end
     end

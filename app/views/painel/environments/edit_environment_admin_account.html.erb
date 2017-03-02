@@ -1,0 +1,27 @@
+<%= render 'environment_data' %>
+
+<div class="col-md-8">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading"><h4><center>Permissões</center></h4></div>
+        <div class="panel-body">
+          <%= simple_form_for [@environment_admin_account.environment, @environment_admin_account], url: update_environment_admin_account_painel_environment_path, method: "PUT" do |f| %>
+            <%= f.input :environment_id, as: :hidden, input_html: { value: @environment_admin_account.environment.id } %>
+            <%= f.input :id, as: :hidden, input_html: { value: @environment_admin_account.id } %>
+            <%= f.input :name %>
+            <%= f.input :email %>
+            <%= f.hint "Deixe os campos a seguir caso não deseje alterar a senha" %>
+            <hr>
+            <%= f.input :password %>
+            <%= f.input :password_confirmation %>
+            <div class="actions">
+              <%= f.submit class: "btn btn-primary btn-sm"%>
+              <%= link_to "Cancelar", painel_environment_path(@environment_admin_account.environment), class: "btn btn-danger btn-sm pull-right"%>
+            </div>
+          <%- end -%>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
