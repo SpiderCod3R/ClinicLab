@@ -7,6 +7,9 @@
 #= require JQUERY/jquery.numeric.pack
 #= require JQUERY/jquery.maskedinput-1.1.4.pack
 #= require jquery_ujs
+#= require jquery/jquery.easing-1.3
+#= require jquery/jquery.elastislide
+#= require jquery/jquery.tmpl.min
 
 #= require cocoon
 
@@ -27,12 +30,14 @@
 #= require utility/__init__
 #= require TEMPLATE/accounting
 #= require TEMPLATE/parsley.min
+#= require GALLERY/gallery
 
 # -*- REQUIRES DO GCLINIC
 #= require date_time_inputs
 #= require agenda/agenda
 #= require agenda/movimentar_agenda
 #= require atendimentos
+#= require clientes/carousel
 #= require clientes/estados_cidades
 #= require clientes/cliente_convenios
 #= require clientes/cliente_idade
@@ -55,4 +60,3 @@
 #= require valida_cpf
 #= require bootbox.min.js
 #= require ckeditor/init
-#= require gallery/responsive
