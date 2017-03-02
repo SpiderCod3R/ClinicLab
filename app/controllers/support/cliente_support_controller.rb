@@ -190,6 +190,23 @@ class Support::ClienteSupportController < ApplicationController
     respond_to &:js
   end
 
+  def salva_imagens_externas
+    unless params[:imagens_externas].empty?
+      if params[:imagens_externas]["foto_antes"].present?
+        @imagem_externa = ImagemExterna.new
+        @imagem_externa.cliente_id = params[:cliente][:id]
+        @imagem_externa.foto_antes = params[:imagens_externas]["foto_antes"]
+        @imagem_externa.save!
+      end
+      if params[:imagens_externas]["foto_depois"].present?
+        @imagem_externa = ImagemExterna.new
+        @imagem_externa.cliente_id = params[:cliente][:id]
+        @imagem_externa.foto_depois = params[:imagens_externas]["foto_depois"]
+        @imagem_externa.save!
+      end
+    end
+  end
+
   private
     def set_access
       if !current_usuario.admin?
@@ -209,6 +226,7 @@ class Support::ClienteSupportController < ApplicationController
         @cliente_pdf_uploads = @cliente.cliente_pdf_uploads.build
       end
       get_historicos
+      @cliente.imagens_externas.build
     end
 
     def set_estados
@@ -234,6 +252,7 @@ class Support::ClienteSupportController < ApplicationController
         :cidade_id, :empresa_id, :foto, :email, :telefone, :cargo_id,
         :nascimento, :sexo, :rg, :estado_civil, :nacionalidade, :naturalidade, 
         cliente_convenios_attributes: [:id, :cliente_id, :convenio_id, :status_convenio, :matricula, :plano, :validade_carteira, :produto, :titular],
+        imagens_externas_attributes: [:foto_antes, :foto_depois, :cliente_id],
         cliente_pdf_upload_attributes: [:id, :cliente_id, :anotacoes, :data, :pdf, :_destroy])
     end
 end
