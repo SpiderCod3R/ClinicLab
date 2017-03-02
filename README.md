@@ -22,4 +22,19 @@ Nesse caso em:
 ```
 
 
-* ...
+* Ao criar o banco com base em ```database_shared_db.yml```  
+  *  **Importar manualmente** o SQL de Estados e Cidades em db_shards  
+
+> 
+* Entre como Administrador do Sistema e cadastre o Ambiente da Empresa
+  * Obs.: O **nome do banco** deve ser o mesmo colocado em ```database_shared_db.yml```
+    porem **sem** o _production, _develpment ou _test.
+  * Crie o Admin desse ambiente e Adicione modalidades permitidas para esse Ambiente
+
+* Em caso de **Criação** de novos Módulos Independentes - 
+  * Adicione na área de criação de módulos -   
+    coloque o **nome de exibição e nome da classe**.  
+
+  ```ruby
+    Ex: Users - User
+  ```
