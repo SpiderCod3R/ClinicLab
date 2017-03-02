@@ -24,7 +24,7 @@
       %li
         %a{'data-toggle':"tab", href:"#pdf", id: "aba_pdf_upload"} PDF
     %li
-      %a{'data-toggle':"tab", href:"#imagens_extenas", id: "aba_imagens_extenas"} Imagens Extenas
+      %a{'data-toggle':"tab", href:"#imagens_externas", id: "aba_imagens_externas"} Imagens Externas
   %div{class: "container", style: "padding-top: 10px; padding-bottom: 25px;"}
     %div{class:"tab-content"}
       / aba dados_pessoais
@@ -45,5 +45,5 @@
       / aba pdf
       =render 'clientes/partials/pdf_upload', { f: f }
 
-      / aba imagens_extenas
-      =render 'clientes/partials/imagens_extenas', { f: f }
+      / aba imagens_externas
+      =render 'clientes/partials/imagens_externas', { f: f }

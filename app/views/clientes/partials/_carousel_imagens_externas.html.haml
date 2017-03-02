@@ -1,0 +1,49 @@
+%div{class: "row", style: "margin-bottom: 20px;"}
+  %div{class: "col-xs-12 col-sm-10 col-md-6 col-lg-6"}
+    %div{class: "rg-gallery", id: "rg-gallery1"}
+      - if @cliente.imagens_externas.where.not(foto_antes_file_name: "").present?
+        %div{class: "rg-thumbs"}
+          / Elastislide Carousel Thumbnail Viewer
+          %div{class: "es-carousel-wrapper"}
+            %div{class: "es-nav"}
+              %span.es-nav-prev Anterior
+              %span.es-nav-next Próximo
+            %div{class: "es-carousel"}
+              %ul{class: "elastislide-list my-carousel"}
+                - @cliente.imagens_externas.each do |img|
+                  - if img.foto_antes.present?
+                    %li
+                      %a{:href => "#{img.foto_antes.url}"}
+                        %img{:alt => "foto_antes", "data-description" => "Foto Antes", "data-large" => "#{img.foto_antes.url}", :src => "#{img.foto_antes.url}", :id => "carousel-img-externas"}/
+          / End Elastislide Carousel Thumbnail Viewer
+        / rg-thumbs
+        %div{class: "rg-image-wrapper"}
+          %div{class: "rg-image"}
+            - img = @cliente.imagens_externas.where.not(foto_antes_file_name: "").first
+            %img{:alt => "foto_antes", "data-description" => "Foto Antes", "data-large" => "#{img.foto_antes.url}", :src => "#{img.foto_antes.url}"}/
+          %div{class: "rg-loading", style: "display: none;"}
+      / rg-gallery
+  %div{class: "col-xs-12 col-sm-10 col-md-6 col-lg-6"}
+    %div{class: "rg-gallery", id: "rg-gallery2"}
+      - if @cliente.imagens_externas.where.not(foto_depois_file_name: "").present?
+        %div{class: "rg-thumbs"}
+          / Elastislide Carousel Thumbnail Viewer
+          %div{class: "es-carousel-wrapper"}
+            %div{class: "es-nav"}
+              %span.es-nav-prev Anterior
+              %span.es-nav-next Próximo
+            %div{class: "es-carousel"}
+              %ul{class: "elastislide-list my-carousel"}
+                - @cliente.imagens_externas.each do |img|
+                  - if img.foto_depois.present?
+                    %li
+                      %a{:href => "#{img.foto_depois.url}"}
+                        %img{:alt => "foto_depois", "data-description" => "Foto Depois", "data-large" => "#{img.foto_depois.url}", :src => "#{img.foto_depois.url}", :id => "carousel-img-externas"}/
+          / End Elastislide Carousel Thumbnail Viewer
+        / rg-thumbs
+        %div{class: "rg-image-wrapper"}
+          %div{class: "rg-image"}
+            - img = @cliente.imagens_externas.where.not(foto_depois_file_name: "").first
+            %img{:alt => "foto_depois", "data-description" => "Foto Depois", "data-large" => "#{img.foto_depois.url}", :src => "#{img.foto_depois.url}"}/
+          %div{class: "rg-loading", style: "display: none;"}
+      / rg-gallery
