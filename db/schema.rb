@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170216120049) do
+ActiveRecord::Schema.define(version: 20170223080330) do
 
   create_table "agenda_movimentacoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "agenda_id"
@@ -186,6 +186,15 @@ ActiveRecord::Schema.define(version: 20170216120049) do
     t.index ["empresa_id"], name: "index_cliente_permissoes_on_empresa_id", using: :btree
   end
 
+  create_table "cliente_receituarios", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "cliente_id"
+    t.integer  "user_id"
+    t.text     "content",    limit: 65535
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.index ["cliente_id"], name: "index_cliente_receituarios_on_cliente_id", using: :btree
+  end
+
   create_table "cliente_texto_livres", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "cliente_id"
     t.text     "content_data",   limit: 65535
@@ -335,6 +344,21 @@ ActiveRecord::Schema.define(version: 20170216120049) do
     t.datetime "updated_at",          null: false
     t.integer  "empresa_id"
     t.index ["empresa_id"], name: "index_imagem_cabecs_on_empresa_id", using: :btree
+  end
+
+  create_table "imagens_externas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "foto_antes_file_name"
+    t.string   "foto_antes_content_type"
+    t.integer  "foto_antes_file_size"
+    t.datetime "foto_antes_updated_at"
+    t.string   "foto_depois_file_name"
+    t.string   "foto_depois_content_type"
+    t.integer  "foto_depois_file_size"
+    t.datetime "foto_depois_updated_at"
+    t.integer  "cliente_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.index ["cliente_id"], name: "index_imagens_externas_on_cliente_id", using: :btree
   end
 
   create_table "operadoras", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -504,6 +528,7 @@ ActiveRecord::Schema.define(version: 20170216120049) do
   add_foreign_key "atendimentos", "estados"
   add_foreign_key "cliente_convenios", "clientes"
   add_foreign_key "cliente_convenios", "convenios"
+  add_foreign_key "cliente_receituarios", "clientes"
   add_foreign_key "cliente_texto_livres", "clientes"
   add_foreign_key "cliente_texto_livres", "texto_livres"
   add_foreign_key "clientes", "cargos"
@@ -512,6 +537,7 @@ ActiveRecord::Schema.define(version: 20170216120049) do
   add_foreign_key "fornecedores", "cidades"
   add_foreign_key "fornecedores", "estados"
   add_foreign_key "historicos", "clientes"
+  add_foreign_key "imagens_externas", "clientes"
   add_foreign_key "profissionais", "cargos"
   add_foreign_key "profissionais", "cidades"
   add_foreign_key "profissionais", "conselho_regionais"
