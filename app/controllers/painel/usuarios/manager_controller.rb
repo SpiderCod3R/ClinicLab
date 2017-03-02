@@ -27,14 +27,6 @@ class Painel::Usuarios::ManagerController < Support::InsideController
     respond_to &:js
   end
 
-  def update_password
-    if user_signed_in?
-      @user = Gclinic::User.find(password_params[:id])
-      @user.update_with_password(password_params)
-    end
-    respond_to &:js
-  end
-
   def add_permissions
     @user = Gclinic::User.find(params[:usuario_id])
     @empresa_permissoes = @user.verify_permissions_not_added
@@ -70,37 +62,9 @@ class Painel::Usuarios::ManagerController < Support::InsideController
     
   end
 
-  def change_account
-    @user = Gclinic::User.find(params[:id])
-  end
-
-  def change_data
-    @user = Gclinic::User.find(params[:id])
-    if user_params[:password]==""
-      if @user.update_without_password(user_params)
-        flash[:info] = "Usuário atualizado."
-        redirect_to empresa_contas_path(current_user.empresa)
-      else
-        render :edit
-      end
-    elsif user_params[:password] != ""
-      if @user.update(user_params)
-        flash[:info] = "Usuário atualizado."
-        redirect_to empresa_contas_path(current_user.empresa)
-      else
-        render :change_account
-      end
-    end
-  end
-
-
   private
     def find_empresa
       @empresa = Empresa.friendly.find(params[:empresa_id])
-    end
-
-    def password_params
-      params.require(:gclinic_user).permit(:id, :password, :password_confirmation)
     end
 
     def user_params

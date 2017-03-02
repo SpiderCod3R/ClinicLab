@@ -24,5 +24,5 @@
   %td
     %center
       -unless user.admin?
-        =link_to change_account_empresa_usuario_path(current_user.empresa, user), title: " Alterar Dados" do
+        =link_to edit_empresa_conta_path(current_user.empresa, user), title: " Alterar Dados" do
           %i.fa.fa-2x.fa-pencil-square-o{style: "color: #4F5558"}

@@ -1,0 +1,31 @@
+=build_form_toolbar(".edit_gclinic_user", @user, empresa_contas_path(current_user.empresa), nil)
+.container-fluid
+  .row-fluid
+    %h4
+      %span.text-info
+        %i.fa.fa-question-circle-o
+        =link_to "Precisa de Ajuda", "#"
+    %br/
+  .row
+    .col-md-3
+      =render "pages/fast_access"
+    .col-md-9
+      %h4
+        Alterarando Dados de - 
+        %em
+          %b{style: "text-decoration: underline"}=@user.name.capitalize
+      .jumbotron
+        .container
+          = simple_form_for([current_user.empresa, @user], method: "PUT", url: change_account_empresa_conta_path) do |f|
+            .row-fluid
+              .field
+                = f.input :name, required: true
+            .row-fluid
+              .field
+                = f.input :email, required: true
+            .row-fluid
+              .field
+                = f.input :password
+            .row-fluid
+              .field
+                = f.input :password_confirmation, label: "Confirme sua senha"

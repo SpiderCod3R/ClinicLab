@@ -64,7 +64,11 @@ Rails.application.routes.draw do
     resources :receituarios
     resources :texto_livres
     resources :referencia_agendas, except: [:show]
-    resources :contas, controller: 'painel/usuarios/accounts'
+    resources :contas, controller: 'painel/usuarios/accounts' do
+      member do
+        put 'change_account'
+      end
+    end
     resources :usuarios, controller: 'painel/usuarios/manager', except: [:index] do
       get  'add_permissions'
       post 'save_permissions'
