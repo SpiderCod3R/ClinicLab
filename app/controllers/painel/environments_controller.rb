@@ -71,6 +71,7 @@ class Painel::EnvironmentsController < ApplicationController
 
   def edit_environment_admin_account
     @environment = Gclinic::Environment.find(params[:id])
+    Thread.current[:environment_type]= @environment.database_name
     @empresa = Empresa.find_by(nome: @environment.name)
     @environment_admin_account = @environment.users.find(params[:admin_id])
   end
