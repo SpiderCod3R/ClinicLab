@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170222174907) do
+ActiveRecord::Schema.define(version: 20170303121358) do
 
   create_table "agenda_movimentacoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "agenda_id"
@@ -125,11 +125,12 @@ ActiveRecord::Schema.define(version: 20170222174907) do
     t.index ["empresa_id"], name: "index_centro_de_custos_on_empresa_id", using: :btree
   end
 
-  create_table "cidades", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "cidades", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "nome"
     t.integer  "estado_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["estado_id"], name: "index_cidades_on_estado_id", using: :btree
   end
 
   create_table "ckeditor_assets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -301,7 +302,7 @@ ActiveRecord::Schema.define(version: 20170222174907) do
     t.integer  "environment_id"
   end
 
-  create_table "estados", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "estados", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "sigla"
     t.string   "nome"
     t.integer  "capital_id"
@@ -422,6 +423,23 @@ ActiveRecord::Schema.define(version: 20170222174907) do
     t.index ["profissional_id"], name: "index_referencia_agendas_on_profissional_id", using: :btree
   end
 
+  create_table "sala_esperas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "cliente_id"
+    t.integer  "agenda_id"
+    t.integer  "referencia_agenda_id"
+    t.date     "data"
+    t.string   "status"
+    t.string   "hora_agendada"
+    t.string   "hora_chegada"
+    t.string   "hora_inicio_atendimento"
+    t.string   "hora_fim_atendimento"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.index ["agenda_id"], name: "index_sala_esperas_on_agenda_id", using: :btree
+    t.index ["cliente_id"], name: "index_sala_esperas_on_cliente_id", using: :btree
+    t.index ["referencia_agenda_id"], name: "index_sala_esperas_on_referencia_agenda_id", using: :btree
+  end
+
   create_table "servicos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "tipo"
     t.string   "abreviatura"
@@ -477,5 +495,8 @@ ActiveRecord::Schema.define(version: 20170222174907) do
   add_foreign_key "profissionais", "estados"
   add_foreign_key "profissionais", "operadoras"
   add_foreign_key "referencia_agendas", "profissionais"
+  add_foreign_key "sala_esperas", "agendas"
+  add_foreign_key "sala_esperas", "clientes"
+  add_foreign_key "sala_esperas", "referencia_agendas"
   add_foreign_key "texto_livres", "servicos"
 end
