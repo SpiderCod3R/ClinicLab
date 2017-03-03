@@ -426,18 +426,16 @@ ActiveRecord::Schema.define(version: 20170303121358) do
   create_table "sala_esperas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "cliente_id"
     t.integer  "agenda_id"
-    t.integer  "referencia_agenda_id"
     t.date     "data"
     t.string   "status"
-    t.string   "hora_agendada"
-    t.string   "hora_chegada"
-    t.string   "hora_inicio_atendimento"
-    t.string   "hora_fim_atendimento"
+    t.time     "hora_agendada"
+    t.time     "hora_chegada"
+    t.time     "hora_inicio_atendimento"
+    t.time     "hora_fim_atendimento"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.index ["agenda_id"], name: "index_sala_esperas_on_agenda_id", using: :btree
     t.index ["cliente_id"], name: "index_sala_esperas_on_cliente_id", using: :btree
-    t.index ["referencia_agenda_id"], name: "index_sala_esperas_on_referencia_agenda_id", using: :btree
   end
 
   create_table "servicos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -497,6 +495,5 @@ ActiveRecord::Schema.define(version: 20170303121358) do
   add_foreign_key "referencia_agendas", "profissionais"
   add_foreign_key "sala_esperas", "agendas"
   add_foreign_key "sala_esperas", "clientes"
-  add_foreign_key "sala_esperas", "referencia_agendas"
   add_foreign_key "texto_livres", "servicos"
 end

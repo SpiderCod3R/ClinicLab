@@ -3,4 +3,5 @@ class SalaEspera < Connection::Factory
 
   belongs_to :cliente
   belongs_to :referencia_agenda
+  belongs_to :agenda
 end
