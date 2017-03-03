@@ -49,9 +49,9 @@ $(function() {
 
 	SelectRgGallery = function(rgTemp) {
 		// gallery container
-		// var $(rgTemp)			= $(rgTemp),
+		var $rgGallery			= $(rgTemp),
 		// carousel container
-		$esCarousel			= $(rgTemp).find('div.es-carousel-wrapper'),
+		$esCarousel			= $rgGallery.find('div.es-carousel-wrapper'),
 		// the carousel items
 		$items				= $esCarousel.find('ul > li'),
 		// total number of items
@@ -89,7 +89,7 @@ $(function() {
 					// we are using the elastislide plugin:
 					// http://tympanus.net/codrops/2011/09/12/elastislide-responsive-carousel/
 					$esCarousel.show().elastislide({
-						imageW 	: 65,
+						imageW 	: 70,
 						onClick	: function( $item ) {
 							if( anim ) return false;
 							anim	= true;
@@ -111,7 +111,7 @@ $(function() {
 					var $viewfull	= $('<a href="#" class="rg-view-full"></a>'),
 						$viewthumbs	= $('<a href="#" class="rg-view-thumbs rg-view-selected"></a>');
 					
-					$(rgTemp).prepend( $('<div class="rg-view"/>').append( $viewfull ).append( $viewthumbs ) );
+					$rgGallery.prepend( $('<div class="rg-view"/>').append( $viewfull ).append( $viewthumbs ) );
 					
 					$viewfull.on('click.rgGallery', function( event ) {
 							if( mode === 'carousel' )
@@ -140,13 +140,13 @@ $(function() {
 					// adds the structure for the large image and the navigation buttons (if total items > 1)
 					// also initializes the navigation events
 					
-					$('#img-wrapper-tmpl').tmpl( {itemsCount : itemsCount} ).appendTo( $(rgTemp) );
+					$('#img-wrapper-tmpl').tmpl( {itemsCount : itemsCount} ).appendTo( $rgGallery );
 					
 					if( itemsCount > 1 ) {
 						// addNavigation
-						var $navPrev		= $(rgTemp).find('a.rg-image-nav-prev'),
-							$navNext		= $(rgTemp).find('a.rg-image-nav-next'),
-							$imgWrapper		= $(rgTemp).find('div.rg-image');
+						var $navPrev		= $rgGallery.find('a.rg-image-nav-prev'),
+							$navNext		= $rgGallery.find('a.rg-image-nav-next'),
+							$imgWrapper		= $rgGallery.find('div.rg-image');
 							
 						$navPrev.on('click.rgGallery', function( event ) {
 							_navigate( 'left' );
@@ -206,7 +206,7 @@ $(function() {
 					
 					// shows the large image that is associated to the $item
 					
-					var $loader	= $(rgTemp).find('div.rg-loading').show();
+					var $loader	= $rgGallery.find('div.rg-loading').show();
 					
 					$items.removeClass('selected');
 					$item.addClass('selected');
@@ -217,10 +217,10 @@ $(function() {
 					
 					$('<img/>').load( function() {
 						
-						$(rgTemp).find('div.rg-image').empty().append('<img src="' + largesrc + '"/>');
+						$rgGallery.find('div.rg-image').empty().append('<img src="' + largesrc + '"/>');
 						
 						if( title )
-							$(rgTemp).find('div.rg-caption').show().children('p').empty().text( title );
+							$rgGallery.find('div.rg-caption').show().children('p').empty().text( title );
 						
 						$loader.hide();
 						
