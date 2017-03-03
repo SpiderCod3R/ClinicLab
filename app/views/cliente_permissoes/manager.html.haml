@@ -56,6 +56,12 @@
                     %td=f.check_box :receituario, checked: true
                   -else
                     %td=f.check_box :receituario, checked: false
+                %tr
+                  %th Imagens Externas
+                  -if @cliente_permissao.imagens_externas?
+                    %td=f.check_box :imagens_externas, checked: true
+                  -else
+                    %td=f.check_box :imagens_externas, checked: false
             .pull-right
               =link_to "Contas", painel_empresa_contas_path(current_usuario.empresa), class: "btn btn-default"
             .pull-left

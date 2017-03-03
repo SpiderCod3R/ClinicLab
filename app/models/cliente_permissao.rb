@@ -7,6 +7,7 @@ class ClientePermissao < ApplicationRecord
            historico:   resource[:historico],
            texto_livre: resource[:texto_livre],
            pdf_upload:  resource[:pdf_upload],
-           receituario: resource[:receituario])
+           receituario: resource[:receituario],
+           imagens_externas: resource[:imagens_externas])
   end
 end

@@ -10,6 +10,7 @@
 #= require jquery/jquery.easing-1.3
 #= require jquery/jquery.elastislide
 #= require jquery/jquery.tmpl.min
+#= require GALLERY/responsive
 
 #= require cocoon
 
@@ -30,7 +31,6 @@
 #= require utility/__init__
 #= require TEMPLATE/accounting
 #= require TEMPLATE/parsley.min
-#= require GALLERY/gallery
 
 # -*- REQUIRES DO GCLINIC
 #= require date_time_inputs

@@ -25,6 +25,6 @@ class ClientePermissoesController < ApplicationController
 
   private
     def resource_params
-      params.require(:cliente_permissao).permit(:usuario_permissoes_id, :historico, :texto_livre, :pdf_upload, :receituario)
+      params.require(:cliente_permissao).permit(:usuario_permissoes_id, :historico, :texto_livre, :pdf_upload, :receituario, :imagens_externas)
     end
 end

@@ -19,6 +19,9 @@
       -if @cliente_permissao.receituario?
         %li
           %a{'data-toggle':"tab", href:"#receituario", id: "aba_receituario"} Receituário
+      -if @cliente_permissao.imagens_externas?
+        %li
+          %a{'data-toggle':"tab", href:"#imagens_externas", id: "aba_imagens_externas"} Imagens Externas
     -else
       %li
         %a{'data-toggle':"tab", href:"#historico", id: "aba_historico"} Histórico
@@ -28,8 +31,8 @@
         %a{'data-toggle':"tab", href:"#pdf", id: "aba_pdf_upload"} PDF
       %li
         %a{'data-toggle':"tab", href:"#receituario", id: "aba_receituario"} Receituário
-    %li
-      %a{'data-toggle':"tab", href:"#imagens_externas", id: "aba_imagens_externas"} Imagens Externas
+      %li
+        %a{'data-toggle':"tab", href:"#imagens_externas", id: "aba_imagens_externas"} Imagens Externas
   %div{class: "container", style: "padding-top: 10px; padding-bottom: 25px;"}
     %div{class:"tab-content"}
       / aba dados_pessoais
