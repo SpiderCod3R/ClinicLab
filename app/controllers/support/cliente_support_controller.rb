@@ -6,6 +6,7 @@ class Support::ClienteSupportController < Support::InsideController
   def clinic_sheet
     session[:agenda_id]  = params[:agenda_id]
     @cliente = current_user.empresa.clientes.find(params[:cliente_id]) if params[:cliente_id]
+    session[:cliente_id] = @cliente.id
     @cliente = current_user.empresa.clientes.build unless params[:cliente_id].present?
     load_tabs if @cliente.id?
   end
@@ -21,7 +22,7 @@ class Support::ClienteSupportController < Support::InsideController
       @cliente.upload_files(params[:cliente][:cliente_pdf_upload]) if !params[:cliente][:cliente_pdf_upload].nil?
       if @cliente.update_data(params[:cliente])
         @agenda.agenda_movimentacao.update_attributes(nome_paciente: @cliente.nome, telefone_paciente: @cliente.telefone,
-                                                      email_paciente: @cliente.email, convenio_id: @cliente.convenio_id, cliente_id: @cliente.id)
+                                                      email_paciente: @cliente.email, cliente_id: @cliente.id)
       end
       flash[:notice] = "Dados do cliente atualizados com sucesso."
       redirect_to empresa_clinic_sheet_cliente_path(current_user.empresa, cliente_id: @cliente.id, agenda_id: @agenda.id)
@@ -29,7 +30,7 @@ class Support::ClienteSupportController < Support::InsideController
       @cliente = current_user.empresa.clientes.build(resource_params)
       if @cliente.save
         @agenda.agenda_movimentacao.update_attributes(nome_paciente: @cliente.nome, telefone_paciente: @cliente.telefone,
-                                                      email_paciente: @cliente.email, convenio_id: @cliente.convenio_id, cliente_id: @cliente.id)
+                                                      email_paciente: @cliente.email, cliente_id: @cliente.id)
         flash[:notice] = "Dados do cliente salvos com sucesso."
         redirect_to empresa_clinic_sheet_cliente_path(current_user.empresa, cliente_id: @cliente.id, agenda_id: @agenda.id)
       else

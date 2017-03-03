@@ -2,10 +2,10 @@
   %li{class:"active"}
     %a{'data-toggle':"tab", href:"#dados", id: "aba_dados"} Dados Pessoais
   %li
-    %a{'data-toggle':"tab", href:"#convenio", id: "aba_convenio"} Convênio
-  %li
     %a{'data-toggle':"tab", href:"#contato", id: "aba_contato"} Contato
   -if @cliente.id?
+    %li
+      %a{'data-toggle':"tab", href:"#convenio", id: "aba_convenio"} Convênio
     -if !current_user.admin?
       -if @cliente_permissao.historico?
         %li

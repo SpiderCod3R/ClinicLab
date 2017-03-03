@@ -3,8 +3,9 @@
     / aba dados_pessoais
     =render 'clientes/partials/dados_pessoais_edit', { f: f }
 
-    / aba convenio
-    =render 'clientes/partials/convenio', { f: f }
+    -if @cliente.id?
+      / aba convenio
+      =render 'clientes/partials/convenio', { f: f }
 
     / aba contato
     =render 'clientes/partials/contato', { f: f }

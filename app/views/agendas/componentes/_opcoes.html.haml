@@ -4,6 +4,7 @@
       %i.glyphicon.glyphicon-chevron-up
     %ul.dropdown-menu.drop-up
       %li=link_to "Ficha do Paciente", empresa_clinic_sheet_cliente_path(current_user.empresa, cliente_id: agenda.agenda_movimentacao.cliente_id, agenda_id: agenda.id)
+      %li=link_to "Sala de Espera", new_empresa_agenda_sala_de_espera_path(current_user.empresa, agenda.id, cliente_id: agenda.agenda_movimentacao.cliente_id)
       %li.divider{:role => "separator"}
       %li=link_to "Visualizar Atendimento", empresa_agenda_path(current_user.empresa, agenda)
       -unless agenda.status.eql?(I18n.t("agendas.helpers.attended"))
