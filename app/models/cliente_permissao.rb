@@ -6,6 +6,7 @@ class ClientePermissao < ApplicationRecord
     update(usuario_permissoes_id: resource[:usuario_permissoes_id],
            historico: resource[:historico],
            texto_livre: resource[:texto_livre],
-           pdf_upload: resource[:pdf_upload])
+           pdf_upload: resource[:pdf_upload],
+           imagens_externas: resource[:imagens_externas])
   end
 end
