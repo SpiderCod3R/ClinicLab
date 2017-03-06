@@ -1,4 +1,6 @@
-class ImagemExterna < ApplicationRecord
+class ImagemExterna < Connection::Factory
+  include ActiveMethods
+
   belongs_to :cliente
 
   class << self
