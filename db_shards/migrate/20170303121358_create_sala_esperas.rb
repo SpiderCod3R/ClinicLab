@@ -6,10 +6,10 @@ class CreateSalaEsperas < ActiveRecord::Migration[5.0]
       # t.belongs_to :referencia_agenda, foreign_key: true
       t.date :data
       t.string :status
-      t.time :hora_agendada
-      t.time :hora_chegada
-      t.time :hora_inicio_atendimento
-      t.time :hora_fim_atendimento
+      t.datetime :hora_agendada
+      t.datetime :hora_chegada
+      t.datetime :hora_inicio_atendimento
+      t.datetime :hora_fim_atendimento
 
       t.timestamps
     end

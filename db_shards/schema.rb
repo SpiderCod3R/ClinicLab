@@ -428,10 +428,10 @@ ActiveRecord::Schema.define(version: 20170303121358) do
     t.integer  "agenda_id"
     t.date     "data"
     t.string   "status"
-    t.time     "hora_agendada"
-    t.time     "hora_chegada"
-    t.time     "hora_inicio_atendimento"
-    t.time     "hora_fim_atendimento"
+    t.datetime "hora_agendada"
+    t.datetime "hora_chegada"
+    t.datetime "hora_inicio_atendimento"
+    t.datetime "hora_fim_atendimento"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.index ["agenda_id"], name: "index_sala_esperas_on_agenda_id", using: :btree
