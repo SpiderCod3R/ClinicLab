@@ -4,11 +4,22 @@ class Support::ClienteSupportController < Support::InsideController
   before_action :set_access, only: [:edit, :ficha, :clinic_sheet]
 
   def clinic_sheet
-    session[:agenda_id]  = params[:agenda_id]
-    @cliente = current_user.empresa.clientes.find(params[:cliente_id]) if params[:cliente_id]
-    session[:cliente_id] = @cliente.id
+    session[:agenda_id] = params[:agenda_id]
+    @agenda = Agenda.find(session[:agenda_id])
+    if params[:cliente_id]
+      @cliente = current_user.empresa.clientes.find(params[:cliente_id])
+      session[:cliente_id] = @cliente.id
+    end
+
     @cliente = current_user.empresa.clientes.build unless params[:cliente_id].present?
     load_tabs if @cliente.id?
+
+    if params[:sala_espera_id].present?
+      session[:sala_espera_id] = params[:sala_espera_id]
+      @sala_espera=@agenda.sala_de_esperas.find(params[:sala_espera_id])
+      @sala_espera.hora_inicio_atendimento= DateTime.now
+      @sala_espera.save
+    end
   end
 
   def paginate_pdfs
@@ -23,6 +34,9 @@ class Support::ClienteSupportController < Support::InsideController
       if @cliente.update_data(params[:cliente])
         @agenda.agenda_movimentacao.update_attributes(nome_paciente: @cliente.nome, telefone_paciente: @cliente.telefone,
                                                       email_paciente: @cliente.email, cliente_id: @cliente.id)
+        if session[:sala_espera_id].present?
+          redirect_to empresa_agendas_path(current_user.empresa) and return
+        end
       end
       flash[:notice] = "Dados do cliente atualizados com sucesso."
       redirect_to empresa_clinic_sheet_cliente_path(current_user.empresa, cliente_id: @cliente.id, agenda_id: @agenda.id)
