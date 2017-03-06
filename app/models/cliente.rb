@@ -22,17 +22,18 @@ class Cliente < Connection::Factory
   belongs_to :estado
   belongs_to :cidade
   belongs_to :cargo
-  has_many :historicos
-<<<<<<< HEAD
-  has_many :cliente_texto_livres, dependent: :destroy
-  has_many :cliente_pdf_uploads, dependent: :destroy
-=======
-  has_many :imagens_externas
-  has_many :cliente_texto_livres
-  has_many :cliente_pdf_uploads
->>>>>>> cliente_imagens_externas
-  has_many :cliente_convenios, dependent: :destroy
-  has_many :cliente_receituarios, dependent: :destroy
+
+  with_options dependent: :destroy do
+    has_many :historicos
+    has_many :cliente_texto_livres
+    has_many :cliente_pdf_uploads
+    has_many :imagens_externas
+    has_many :cliente_texto_livres
+    has_many :cliente_pdf_uploads
+    has_many :cliente_convenios
+    has_many :cliente_receituarios
+  end
+
   has_many :convenios, through: :cliente_convenios
 
   accepts_nested_attributes_for :cliente_convenios, allow_destroy: true

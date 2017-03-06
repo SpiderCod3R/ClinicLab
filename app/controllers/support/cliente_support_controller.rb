@@ -210,7 +210,6 @@ class Support::ClienteSupportController < Support::InsideController
     respond_to &:js
   end
 
-<<<<<<< HEAD
   def include_recipe
     if params[:cliente]
       @cliente = Cliente.find(params[:cliente][:id])
@@ -227,7 +226,9 @@ class Support::ClienteSupportController < Support::InsideController
     respond_to do |format|
       format.html
       format.json { render json: session[:cliente_id].as_json }
-=======
+    end
+  end
+
   def salva_imagens_externas
     unless params[:imagens_externas].empty?
       if params[:imagens_externas]["foto_antes"].present?
@@ -242,7 +243,6 @@ class Support::ClienteSupportController < Support::InsideController
         @imagem_externa.foto_depois = params[:imagens_externas]["foto_depois"]
         @imagem_externa.save!
       end
->>>>>>> cliente_imagens_externas
     end
   end
 
