@@ -38,7 +38,7 @@ class Agenda < Connection::Factory
   scope :nome_paciente_like, -> (name) { where("agenda_movimentacao.nome_paciente ilike ?", name)}
 
   has_many :agenda_permissoes
-  has_many :sala_de_esperas, dependent: :destroy
+  has_many :sala_de_esperas, class_name: "SalaEspera", dependent: :destroy
   belongs_to :referencia_agenda
   has_one :profissional, through: :referencia_agenda
   belongs_to :user, class_name: "Gclinic::User", foreign_key: "usuario_id"
