@@ -37,6 +37,7 @@ Rails.application.routes.draw do
   end
 
   resources :empresa do
+    resources :imagens_externas
     get 'ficha_cliente', to: "clientes#clinic_sheet", as: :clinic_sheet_cliente
     resources :clientes do
       member do

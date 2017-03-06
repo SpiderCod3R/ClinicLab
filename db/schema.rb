@@ -10,11 +10,394 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20170210195018) do
 
   create_table "gclinic_admins", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
+=======
+ActiveRecord::Schema.define(version: 20170303171253) do
+
+  create_table "agenda_movimentacoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "agenda_id"
+    t.integer  "convenio_id"
+    t.integer  "cliente_id"
+    t.text     "observacoes",       limit: 65535
+    t.string   "confirmacao"
+    t.boolean  "sem_convenio"
+    t.date     "data"
+    t.time     "hora"
+    t.time     "hora_chegada"
+    t.string   "sala_espera"
+    t.date     "data_sala_espera"
+    t.integer  "atendente_id"
+    t.integer  "solicitante_id"
+    t.string   "nome_paciente"
+    t.string   "telefone_paciente"
+    t.string   "email_paciente"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.index ["agenda_id"], name: "index_agenda_movimentacoes_on_agenda_id", using: :btree
+    t.index ["cliente_id"], name: "index_agenda_movimentacoes_on_cliente_id", using: :btree
+    t.index ["convenio_id"], name: "index_agenda_movimentacoes_on_convenio_id", using: :btree
+  end
+
+  create_table "agenda_permissoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "usuario_permissoes_id"
+    t.boolean  "agendar"
+    t.boolean  "excluir"
+    t.boolean  "trocar_horario"
+    t.boolean  "realizar_atendimento"
+    t.boolean  "visualizar_atendimento"
+    t.boolean  "limpar_horario"
+    t.boolean  "paciente_nao_veio"
+    t.boolean  "remarcar_pelo_paciente"
+    t.boolean  "remarcar_pelo_medico"
+    t.boolean  "desmarcar_pelo_medico"
+    t.boolean  "desmarcar_pelo_paciente"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.index ["usuario_permissoes_id"], name: "index_agenda_permissoes_on_usuario_permissoes_id", using: :btree
+  end
+
+  create_table "agendas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "status"
+    t.date     "data"
+    t.string   "atendimento_duracao"
+    t.string   "atendimento_inicio"
+    t.string   "atendimento_final"
+    t.time     "hora_atendimento"
+    t.boolean  "atendimento_sabado"
+    t.boolean  "atendimento_domingo"
+    t.integer  "empresa_id"
+    t.integer  "usuario_id"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.integer  "referencia_agenda_id"
+    t.string   "periodo"
+    t.index ["empresa_id"], name: "index_agendas_on_empresa_id", using: :btree
+    t.index ["referencia_agenda_id"], name: "index_agendas_on_referencia_agenda_id", using: :btree
+    t.index ["usuario_id"], name: "index_agendas_on_usuario_id", using: :btree
+  end
+
+  create_table "atendimentos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "nome"
+    t.string   "rg"
+    t.string   "cpf"
+    t.date     "data_nascimento"
+    t.string   "telefone"
+    t.string   "celular"
+    t.string   "nome_da_mae"
+    t.string   "endereco"
+    t.string   "bairro"
+    t.string   "cep"
+    t.integer  "cidade_id"
+    t.integer  "estado_id"
+    t.date     "data"
+    t.time     "hora"
+    t.integer  "convenio_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "empresa_id"
+    t.index ["cidade_id"], name: "index_atendimentos_on_cidade_id", using: :btree
+    t.index ["convenio_id"], name: "index_atendimentos_on_convenio_id", using: :btree
+    t.index ["empresa_id"], name: "index_atendimentos_on_empresa_id", using: :btree
+    t.index ["estado_id"], name: "index_atendimentos_on_estado_id", using: :btree
+  end
+
+  create_table "cabecs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "nome"
+    t.text     "texto",      limit: 65535
+    t.boolean  "status",                   default: true
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.integer  "empresa_id"
+    t.index ["empresa_id"], name: "index_cabecs_on_empresa_id", using: :btree
+  end
+
+  create_table "cargos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "nome"
+    t.boolean  "status",     default: true
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.integer  "empresa_id"
+    t.index ["empresa_id"], name: "index_cargos_on_empresa_id", using: :btree
+  end
+
+  create_table "centro_de_custos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "nome"
+    t.boolean  "status",     default: true
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.integer  "empresa_id"
+    t.index ["empresa_id"], name: "index_centro_de_custos_on_empresa_id", using: :btree
+  end
+
+  create_table "cidades", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "nome"
+    t.integer  "estado_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "ckeditor_assets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "data_file_name",               null: false
+    t.string   "data_content_type"
+    t.integer  "data_file_size"
+    t.integer  "assetable_id"
+    t.string   "assetable_type",    limit: 30
+    t.string   "type",              limit: 30
+    t.integer  "width"
+    t.integer  "height"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["assetable_type", "assetable_id"], name: "idx_ckeditor_assetable", using: :btree
+    t.index ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type", using: :btree
+  end
+
+  create_table "cliente_convenios", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "cliente_id"
+    t.integer "convenio_id"
+    t.boolean "status_convenio"
+    t.string  "matricula",
+    t.string  "titular",
+    t.string  "plano",
+    t.date    "validade_carteira"
+    t.string  "produto",
+    t.index ["cliente_id"], name: "index_cliente_convenios_on_cliente_id", using: :btree
+    t.index ["convenio_id"], name: "index_cliente_convenios_on_convenio_id", using: :btree
+  end
+
+  create_table "cliente_pdf_uploads", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.text     "anotacoes",        limit: 65535
+    t.date     "data"
+    t.integer  "cliente_id"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.string   "pdf_file_name"
+    t.string   "pdf_content_type"
+    t.integer  "pdf_file_size"
+    t.datetime "pdf_updated_at"
+    t.index ["cliente_id"], name: "index_cliente_pdf_uploads_on_cliente_id", using: :btree
+  end
+
+  create_table "cliente_permissoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.integer  "usuario_permissoes_id"
+    t.boolean  "historico"
+    t.boolean  "texto_livre"
+    t.boolean  "pdf_upload"
+    t.integer  "empresa_id"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.boolean  "imagens_externas"
+    t.index ["empresa_id"], name: "index_cliente_permissoes_on_empresa_id", using: :btree
+  end
+
+  create_table "cliente_receituarios", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "cliente_id"
+    t.integer  "user_id"
+    t.text     "content",    limit: 65535
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.index ["cliente_id"], name: "index_cliente_receituarios_on_cliente_id", using: :btree
+  end
+
+  create_table "cliente_texto_livres", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "cliente_id"
+    t.text     "content_data",   limit: 65535
+    t.integer  "texto_livre_id"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.index ["cliente_id"], name: "index_cliente_texto_livres_on_cliente_id", using: :btree
+    t.index ["texto_livre_id"], name: "index_cliente_texto_livres_on_texto_livre_id", using: :btree
+  end
+
+  create_table "clientes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "foto_file_name"
+    t.string   "foto_content_type"
+    t.integer  "foto_file_size"
+    t.datetime "foto_updated_at"
+    t.boolean  "status"
+    t.string   "nome"
+    t.string   "cpf"
+    t.string   "endereco"
+    t.string   "complemento"
+    t.string   "bairro"
+    t.string   "email"
+    t.string   "telefone"
+    t.string   "sexo"
+    t.string   "rg"
+    t.string   "estado_civil"
+    t.date     "nascimento"
+    t.integer  "estado_id"
+    t.integer  "cidade_id"
+    t.integer  "cargo_id"
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.string   "nacionalidade"
+    t.string   "naturalidade"
+    t.integer  "empresa_id"
+    t.string   "mes"
+    t.string   "tipo_sanguineo"
+    t.date     "data_da_ultima_consulta"
+    t.date     "data_obito"
+    t.float    "peso",                    limit: 24
+    t.text     "como_soube",              limit: 65535
+    t.float    "altura",                  limit: 24
+    t.index ["cargo_id"], name: "index_clientes_on_cargo_id", using: :btree
+    t.index ["cidade_id"], name: "index_clientes_on_cidade_id", using: :btree
+    t.index ["empresa_id"], name: "index_clientes_on_empresa_id", using: :btree
+    t.index ["estado_id"], name: "index_clientes_on_estado_id", using: :btree
+  end
+
+  create_table "configuracao_relatorios", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "logo_file_name"
+    t.string   "logo_content_type"
+    t.integer  "logo_file_size"
+    t.datetime "logo_updated_at"
+    t.string   "nome_empresa"
+    t.string   "cnpj"
+    t.string   "telefone"
+    t.string   "endereco"
+    t.string   "bairro"
+    t.string   "cidade_estado"
+    t.string   "email"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.integer  "empresa_id"
+    t.index ["empresa_id"], name: "index_configuracao_relatorios_on_empresa_id", using: :btree
+  end
+
+  create_table "conselho_regionais", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "sigla"
+    t.text     "descricao",  limit: 65535
+    t.boolean  "status",                   default: true
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.integer  "empresa_id"
+    t.index ["empresa_id"], name: "index_conselho_regionais_on_empresa_id", using: :btree
+  end
+
+  create_table "convenios", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "nome",                                                    null: false
+    t.decimal  "valor",           precision: 14, scale: 2
+    t.boolean  "status",                                   default: true
+    t.datetime "created_at",                                              null: false
+    t.datetime "updated_at",                                              null: false
+    t.integer  "empresa_id"
+    t.string   "telefone"
+    t.string   "endereco"
+    t.string   "bairro"
+    t.integer  "cidade_id"
+    t.integer  "estado_id"
+    t.string   "cep"
+    t.string   "cnpj"
+    t.string   "referencia"
+    t.string   "registraons"
+    t.string   "numdiasvalsenha"
+    t.string   "sigla"
+    t.integer  "codigo"
+    t.index ["empresa_id"], name: "index_convenios_on_empresa_id", using: :btree
+  end
+
+  create_table "estados", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "sigla"
+    t.string   "nome"
+    t.integer  "capital_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "fornecedores", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "status"
+    t.string   "nome"
+    t.string   "cpf"
+    t.string   "cnpj"
+    t.string   "email"
+    t.string   "telefone"
+    t.string   "celular"
+    t.string   "endereco"
+    t.string   "complemento"
+    t.string   "bairro"
+    t.integer  "estado_id"
+    t.integer  "cidade_id"
+    t.string   "documento"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "empresa_id"
+    t.index ["cidade_id"], name: "index_fornecedores_on_cidade_id", using: :btree
+    t.index ["empresa_id"], name: "index_fornecedores_on_empresa_id", using: :btree
+    t.index ["estado_id"], name: "index_fornecedores_on_estado_id", using: :btree
+  end
+
+  create_table "historicos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.text     "indice",     limit: 65535
+    t.integer  "cliente_id"
+    t.string   "idade"
+    t.integer  "usuario_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at"
+    t.index ["cliente_id"], name: "index_historicos_on_cliente_id", using: :btree
+  end
+
+  create_table "imagem_cabecs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "imagem_file_name"
+    t.string   "imagem_content_type"
+    t.integer  "imagem_file_size"
+    t.datetime "imagem_updated_at"
+    t.string   "imagem"
+    t.string   "nome"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.integer  "empresa_id"
+    t.index ["empresa_id"], name: "index_imagem_cabecs_on_empresa_id", using: :btree
+  end
+
+  create_table "imagens_externas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "foto_antes_file_name"
+    t.string   "foto_antes_content_type"
+    t.integer  "foto_antes_file_size"
+    t.datetime "foto_antes_updated_at"
+    t.string   "foto_depois_file_name"
+    t.string   "foto_depois_content_type"
+    t.integer  "foto_depois_file_size"
+    t.datetime "foto_depois_updated_at"
+    t.integer  "cliente_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.index ["cliente_id"], name: "index_imagens_externas_on_cliente_id", using: :btree
+  end
+
+  create_table "operadoras", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "nome"
+    t.boolean  "status",     default: true
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.integer  "empresa_id"
+    t.index ["empresa_id"], name: "index_operadoras_on_empresa_id", using: :btree
+  end
+
+  create_table "painel_empresa_permissoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "permissao_id"
+    t.integer  "empresa_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "painel_empresas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "nome"
+    t.boolean  "status"
+    t.string   "slug"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["slug"], name: "index_painel_empresas_on_slug", unique: true, using: :btree
+  end
+
+  create_table "painel_masters", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
+>>>>>>> cliente_imagens_externas
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -84,4 +467,33 @@ ActiveRecord::Schema.define(version: 20170210195018) do
     t.index ["reset_password_token"], name: "index_gclinic_users_on_reset_password_token", unique: true, using: :btree
   end
 
+<<<<<<< HEAD
+=======
+  add_foreign_key "agenda_movimentacoes", "agendas"
+  add_foreign_key "agenda_movimentacoes", "clientes"
+  add_foreign_key "agenda_movimentacoes", "convenios"
+  add_foreign_key "agendas", "referencia_agendas"
+  add_foreign_key "atendimentos", "cidades"
+  add_foreign_key "atendimentos", "convenios"
+  add_foreign_key "atendimentos", "estados"
+  add_foreign_key "cliente_convenios", "clientes"
+  add_foreign_key "cliente_convenios", "convenios"
+  add_foreign_key "cliente_receituarios", "clientes"
+  add_foreign_key "cliente_texto_livres", "clientes"
+  add_foreign_key "cliente_texto_livres", "texto_livres"
+  add_foreign_key "clientes", "cargos"
+  add_foreign_key "clientes", "cidades"
+  add_foreign_key "clientes", "estados"
+  add_foreign_key "fornecedores", "cidades"
+  add_foreign_key "fornecedores", "estados"
+  add_foreign_key "historicos", "clientes"
+  add_foreign_key "imagens_externas", "clientes"
+  add_foreign_key "profissionais", "cargos"
+  add_foreign_key "profissionais", "cidades"
+  add_foreign_key "profissionais", "conselho_regionais"
+  add_foreign_key "profissionais", "estados"
+  add_foreign_key "profissionais", "operadoras"
+  add_foreign_key "referencia_agendas", "profissionais"
+  add_foreign_key "texto_livres", "servicos"
+>>>>>>> cliente_imagens_externas
 end

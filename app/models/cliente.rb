@@ -23,14 +23,21 @@ class Cliente < Connection::Factory
   belongs_to :cidade
   belongs_to :cargo
   has_many :historicos
+<<<<<<< HEAD
   has_many :cliente_texto_livres, dependent: :destroy
   has_many :cliente_pdf_uploads, dependent: :destroy
+=======
+  has_many :imagens_externas
+  has_many :cliente_texto_livres
+  has_many :cliente_pdf_uploads
+>>>>>>> cliente_imagens_externas
   has_many :cliente_convenios, dependent: :destroy
   has_many :cliente_receituarios, dependent: :destroy
   has_many :convenios, through: :cliente_convenios
 
   accepts_nested_attributes_for :cliente_convenios, allow_destroy: true
   accepts_nested_attributes_for :historicos, allow_destroy: true
+  accepts_nested_attributes_for :imagens_externas, allow_destroy: true
   accepts_nested_attributes_for :cliente_pdf_uploads, allow_destroy: true
 
   has_attached_file :foto, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"

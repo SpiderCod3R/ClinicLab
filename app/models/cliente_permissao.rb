@@ -10,5 +10,7 @@ class ClientePermissao < Connection::Factory
            texto_livre: resource[:texto_livre],
            pdf_upload:  resource[:pdf_upload],
            receituario: resource[:receituario])
+           pdf_upload: resource[:pdf_upload],
+           imagens_externas: resource[:imagens_externas])
   end
 end
