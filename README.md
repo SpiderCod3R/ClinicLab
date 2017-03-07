@@ -18,6 +18,9 @@
     ...
     end
     ```
+  * As rotas por sua vez devem se enquadrar dentro de ```resources :empresa```
+    * Dessa forma ao entrar em tal modelo o nome do Ambiente da empresa aparecerá na url
+    * Dúvidas sobre as rotas utilize com o server startado -- ```127.0.0.1:3000/rails/info```
 
 # Como utilizar?
 - Para utilizar o Sistema use primeira mente essas tasks(tarefas)  
