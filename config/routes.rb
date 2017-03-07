@@ -48,24 +48,22 @@ Rails.application.routes.draw do
         delete 'destroy_pdf'
       end
     end
-    resources :texto_livres
-    resources :imagem_cabecs
-    resources :fornecedores
     resources :cabecs
+    resources :cargos
+    resources :centro_de_custos
     resources :configuracao_relatorios
     resources :conselho_regionais
     resources :convenios, except: [:show]
-    resources :cargos
-    resources :cabecs
-    resources :centro_de_custos
+    resources :fornecedores
     resources :imagem_cabecs, except: [:show]
+    resources :movimento_servico_servicos
+    resources :movimento_servicos
     resources :operadoras
     resources :profissionais
-    resources :fornecedores
-    resources :servicos
     resources :receituarios
-    resources :texto_livres
     resources :referencia_agendas, except: [:show]
+    resources :servicos
+    resources :texto_livres
     resources :contas, controller: 'painel/usuarios/accounts' do
       member do
         put 'change_account'
@@ -140,6 +138,8 @@ Rails.application.routes.draw do
   get 'search/find-texto-livres'=> "search#collect_all_free_text" ,as: :collect_all_free_text
   get 'search/conselho_regional', to: 'conselho_regionais#search'
   get 'search/cliente-texto-livre', to: 'search#find_cliente_texto_livre'
+  post 'movimento_servicos/salva_movimento_servico_servicos', to: "movimento_servicos#salva_movimento_servico_servicos"
+  get 'movimento_servicos/:id/destroy_movimento_servico_servico', to: "movimento_servicos#destroy_movimento_servico_servico"
 
   post 'clientes/include_texto_livre', to: 'clientes#include_texto_livre'
   post 'clientes/include_recipe', to: 'clientes#include_recipe'
