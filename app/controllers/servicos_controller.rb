@@ -27,8 +27,9 @@ class ServicosController < Support::InsideController
   end
 
   def update
+    @servico.empresa_id = current_user.empresa.id
     if @servico.update(resource_params)
-      redirect_to empresa_servicos_path(@empresa), notice: 'Servico was successfully updated.'
+      redirect_to edit_empresa_servico_path(current_user.empresa, @servico.id)
     else
       render :edit
     end
@@ -41,6 +42,6 @@ class ServicosController < Support::InsideController
 
   private
     def resource_params
-      params.require(:servico).permit(:tipo, :abreviatura, :empresa_id)
+      params.require(:servico).permit(:tipo, :abreviatura, :empresa_id, :valor)
     end
 end

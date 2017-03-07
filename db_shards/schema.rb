@@ -426,8 +426,9 @@ ActiveRecord::Schema.define(version: 20170222174907) do
     t.string   "tipo"
     t.string   "abreviatura"
     t.integer  "empresa_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.decimal  "valor",       precision: 14, scale: 2
     t.index ["empresa_id"], name: "index_servicos_on_empresa_id", using: :btree
   end
 
