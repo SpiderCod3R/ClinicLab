@@ -55,5 +55,5 @@
 
     * Entre como Administrador do Sistema e cadastre o Ambiente da Empresa  
       * Obs.: O **nome do banco** deve ser o mesmo colocado em ```database_shared_db.yml```
-        porem **sem** o _production, _develpment ou _test.
+        porem **sem** o _production, _development ou _test.
       * Crie o Admin desse ambiente e Adicione modalidades permitidas para esse Ambiente
