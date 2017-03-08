@@ -13,6 +13,25 @@ class SalaEspera < Connection::Factory
   scope :atendido, -> {where.not(status: "ESPERA")}
 
   class << self
+    def search_by_data(params)
+      self.set_connection
+      @param_data = Converter::DateConverter.new(params[:data]["sala_espera(1i)"].to_i, params[:data]["sala_espera(2i)"].to_i, params[:data]["sala_espera(3i)"].to_i)
+      find_by_sql("SELECT DISTINCT 
+                    s.id AS id,
+                    m.cliente_id As cliente_id,
+                    s.agenda_id As agenda_id,
+                    s.status As status,
+                    s.data As data,
+                    s.hora_agendada As hora_agendada,
+                    s.hora_chegada As hora_chegada,
+                    s.hora_inicio_atendimento As hora_inicio_atendimento,
+                    s.hora_fim_atendimento As hora_fim_atendimento,
+                    m.nome_paciente As nome_paciente
+                   FROM sala_esperas as s
+                   INNER JOIN agenda_movimentacoes as m ON m.agenda_id = s.agenda_id
+                   WHERE s.data='#{@param_data.to_american_format}'")
+    end
+
     def search(params)
       self.set_connection
       @param_data = Converter::DateConverter.new(params[:data]["sala_espera(1i)"].to_i, params[:data]["sala_espera(2i)"].to_i, params[:data]["sala_espera(3i)"].to_i)
@@ -23,13 +42,14 @@ class SalaEspera < Connection::Factory
       end
 
       if params[:status][0] == "Atendidos"
-        status "Atendido"
+        status = "Atendido"
         collection = _select_without_pacient(@param_data.to_american_format, status)
       end
 
       if params[:status][0] == "Todos"
         collection = _select_without_pacient_and_status_todos(@param_data.to_american_format)
       end
+      return collection
     end
 
     def search_whith_name(params)

@@ -48,14 +48,19 @@ class SalaDeEsperaController  < Support::InsideController
   end
 
   def localize
-    if params[:status] && params[:data] && params[:paciente_nome]==""
+    if params[:status][0] != "" && params[:data] && params[:paciente_nome]==""
       @sala_de_esperas = SalaEspera.search(params)
     end
 
-    if params[:status] && params[:data] && params[:paciente_nome] !=""
+    if params[:status][0] != "" && params[:data] && params[:paciente_nome] !=""
       @sala_de_esperas = SalaEspera.search_whith_name(params)
+      binding.pry
     end
-    # binding.pry
+
+    if params[:data] && params[:status][0] == "" && params[:paciente_nome] ==""
+      @sala_de_esperas = SalaEspera.search_by_data(params)
+    end
+
     respond_to &:js
   end
 end
