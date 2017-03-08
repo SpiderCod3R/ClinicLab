@@ -1,0 +1,24 @@
+=build_form_toolbar(new_empresa_movimento_servico_path(current_user.empresa), nil, @movimento_servico, empresa_movimento_servicos_path(current_user.empresa), nil)
+%div{class: "container-fluid"}
+  %div{class: "row-fluid"}
+    %h1 Movimento Serviços
+    %hr{style: "border: #323232 solid 0.5px;"}
+    %div{class: "row", style: "margin: 0;"}
+      %table{class: "table table-striped table-bordered", cellspacing: "0", width: "100%"}
+        %thead
+          %tr
+            %th=t(:código, scope: [:bootstrap, :helpers, :labels])
+            %th=t(:status, scope: [:bootstrap, :helpers, :labels])
+            %th Cliente
+            %th Médico
+            %th=t(:show, scope: [:bootstrap, :helpers, :links])
+        %tbody
+          - @movimento_servicos.each do |movimento_servico|
+            %tr
+              %td= movimento_servico.id
+              %td= movimento_servico.status.upcase
+              %td= movimento_servico.cliente.nome
+              %td= movimento_servico.medico.nome
+              %td{class: "pull-right"}
+                = link_to "#{image_tag("icons/glyphicons-610-journal.png", width: 22, height: 22)}".html_safe,
+                  empresa_movimento_servico_path(current_user.empresa,movimento_servico), title: t(:show, scope: [:bootstrap, :helpers, :links]), class: 'btn btn-default'

@@ -1,0 +1,40 @@
+%div{id:"servicos", class:"tab-pane fade"}
+  %div{class: "row", style: "margin-bottom: 15px;"}
+    %div{class: "col-xs-12 col-sm-10 col-md-5 col-lg-5"}
+      %div{class: "row"}
+        %div{class: "col-xs-12 col-sm-6 col-md-6 col-lg-6"}
+          %label{class: "string control-label"} Serviço
+          = select(:movimento_servico_servico, :servico_id, Servico.where(empresa_id: current_user.empresa.id).order(:tipo).collect {|s| ["#{s.tipo}", "#{s.id}"] }, {include_blank: "Selecione"}, class: "form-control")
+      %div{class: "row", style: "margin-top: 15px;"}
+        %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-4"}
+          %label{class: "string control-label"}
+            Valor Serviço
+          %input{:type=>"text", class: "form-control money_money_money", id: "movimento_servico_valor_servico", readonly: true}
+        %div{class: "col-xs-1 col-sm-1 col-md-1 col-lg-1", style: "margin-top: 20px;"}
+          = link_to "#{image_tag("icons/glyphicons-191-circle-plus-white.png", width: 22, height: 22)}".html_safe, "#", {id: "adicionar_servico_em_movimento_servico", class: "btn btn-primary", title: "Adicionar Serviço", remote: true}
+    %div{class: "col-xs-12 col-sm-10 col-md-6 col-lg-6 pull-left"}
+      %div{class: "panel panel-default"}
+        %div{class: "panel-heading"}
+          = "Serviço(s) Associado(s) ao Movimento Serviço"
+        %div{class: "panel-body"}
+          %table{class: "table table-striped table-bordered table-hover table-responsive"}
+            %thead
+              %th Serviço
+              %th Valor
+              %th Excluir
+            %tbody#tabela_movimento_servicos
+              - if @movimento_servico.movimento_servico_servicos.present?
+                - @movimento_servico.movimento_servico_servicos.each do |m|
+                  %tr
+                    %td
+                      = m.servico.tipo
+                    %td
+                      = m.servico.valor
+                    %td
+                      %center
+                        = link_to "#{image_tag("icons/glyphicons-17-bin.png", width: 20, height: 27)}".html_safe, destroy_movimento_servico_servico_path, data: {movimento_servico_servico_id: m.id, movimento_servico_id: @movimento_servico.id}, class: "delete_movimento_servico_servico"
+      %div{class: "row"}
+        %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-4"}
+          = f.input :valor_desconto, as: :string, input_html: { class: "money_money_money" }
+        %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-4 pull-right", style: "margin-right: 3%;"}
+          = f.input :valor_total, as: :string, input_html: { class: "money_money_money", readonly: true }
