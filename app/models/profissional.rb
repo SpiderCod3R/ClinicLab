@@ -43,6 +43,10 @@ class Profissional < Connection::Factory
 
   paginates_per 10
 
+  def titulo_resumido
+    "#{id} - #{nome}"
+  end
+
   def titulo
     "#{nome} - #{cargo_nome}"
   end
@@ -53,5 +57,10 @@ class Profissional < Connection::Factory
 
   def self.search(status, cargo_id, nome) 
     where("status LIKE ? AND cargo_id LIKE ? AND nome LIKE ?", "%#{status}%", "%#{cargo_id}%", "%#{nome}%")
+  end
+
+  def self.cargo_medico
+    @cargo = Cargo.find_by(nome: 'Médico')
+    self.where(cargo_id: @cargo.id).order(:nome)
   end
 end
