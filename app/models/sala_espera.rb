@@ -42,7 +42,7 @@ class SalaEspera < Connection::Factory
       end
 
       if params[:status][0] == "Atendidos"
-        status "Atendido"
+        status = "Atendido"
         collection = _select_pacient_with_status(@param_data.to_american_format, status, params[:paciente_nome])
       end
 
