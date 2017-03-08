@@ -139,7 +139,8 @@ Rails.application.routes.draw do
   get 'search/conselho_regional', to: 'conselho_regionais#search'
   get 'search/cliente-texto-livre', to: 'search#find_cliente_texto_livre'
   post 'movimento_servicos/salva_movimento_servico_servicos', to: "movimento_servicos#salva_movimento_servico_servicos"
-  get 'movimento_servicos/:id/destroy_movimento_servico_servico', to: "movimento_servicos#destroy_movimento_servico_servico"
+  get 'movimento_servicos/:id/destroy_movimento_servico_servico', to: "movimento_servicos#destroy_movimento_servico_servico", as: :destroy_movimento_servico_servico
+  post 'movimento_servicos/retorna_servico', to: "movimento_servicos#retorna_servico"
 
   post 'clientes/include_texto_livre', to: 'clientes#include_texto_livre'
   post 'clientes/include_recipe', to: 'clientes#include_recipe'
