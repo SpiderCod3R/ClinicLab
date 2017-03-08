@@ -54,7 +54,7 @@ class SalaDeEsperaController  < Support::InsideController
 
     if params[:status][0] != "" && params[:data] && params[:paciente_nome] !=""
       @sala_de_esperas = SalaEspera.search_whith_name(params)
-      binding.pry
+      # binding.pry
     end
 
     if params[:data] && params[:status][0] == "" && params[:paciente_nome] ==""
