@@ -45,6 +45,7 @@
 #= require filtros
 #= require fornecedor
 #= require fornecedores
+#= require movimento_servicos
 #= require profissionais
 #= require painel/permissoes
 
