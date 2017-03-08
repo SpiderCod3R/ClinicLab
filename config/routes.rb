@@ -114,6 +114,9 @@ Rails.application.routes.draw do
       put 'block_day', to: 'agendas#set_block_on_day', as: :set_block_on_day
       resources :agenda_movimentacoes
       resources :sala_de_espera do
+        collection do
+          get 'search', to: 'sala_de_espera#localize', as: :localize, via: [:get]
+        end
         member do
           get 'back'
           get 'attended'

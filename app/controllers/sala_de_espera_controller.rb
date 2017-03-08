@@ -46,4 +46,16 @@ class SalaDeEsperaController  < Support::InsideController
     @sala_de_espera.save
     redirect_to empresa_agendas_path(current_user.empresa)
   end
+
+  def localize
+    if params[:status] && params[:data] && params[:paciente_nome]==""
+      @sala_de_esperas = SalaEspera.search(params)
+    end
+
+    if params[:status] && params[:data] && params[:paciente_nome] !=""
+      @sala_de_esperas = SalaEspera.search_whith_name(params)
+    end
+    # binding.pry
+    respond_to &:js
+  end
 end

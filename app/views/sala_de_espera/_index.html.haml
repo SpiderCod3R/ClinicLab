@@ -1,3 +1,24 @@
+%div{class: "col-md-12 col-sm-12 col-xs-12 col-lg-12"}
+  =form_tag localize_empresa_agenda_sala_de_espera_index_path(current_user.empresa, 0), :method => 'get', remote: true do
+    %row
+      %div{class: "col-lg-2"}
+        %label
+          Status
+        = select(:status, '', [['Todos','Todos'],['Atendidos','Atendidos'], ['Agendados', 'Agendados']], {:include_blank => 'Selecione'}, :class => "form-control")
+      %div{class: "col-lg-3"}
+        %label
+          Data
+        .form-group
+          =date_select :"data", :sala_espera, :order => [:day, :month, :year], default: Date.today, :html=>{ :class => "form-control"}
+      %div{class: "col-lg-3"}
+        %label
+          Pesquisar Paciente
+        = text_field_tag :paciente_nome, '', placeholder: "Pesquisar paciente", class: "form-control"
+      %br
+      = submit_tag "Pesquisar", :name => nil, class: "btn btn-primary"
+
+%hr{style: "border: #B1B1B1 1px solid"}
+
 %table{class: "table table-striped"}
   %thead
     %tr
@@ -12,24 +33,5 @@
       %th Inicio do Atendimento
       %th Fim do Atendimento
       %th Opções
-  %tbody
-    - SalaEspera.all.em_espera.each do |f|
-      %tr
-        %td="##{f.id}"
-        %td=f.status
-        %td=f.agenda.agenda_movimentacao.cliente.nome
-        %td
-        %td=l f.data
-        %td=f.agenda.referencia_agenda.descricao
-        %td=f.hora_agendada.strftime("%H:%M") if f.hora_agendada
-        %td=f.hora_chegada.strftime("%H:%M") if f.hora_chegada
-        %td=f.hora_inicio_atendimento.strftime("%H:%M") if f.hora_inicio_atendimento
-        %td=f.hora_fim_atendimento.strftime("%H:%M") if f.hora_fim_atendimento
-        %td
-          .btn-group
-            %button.btn.btn-default.btn-circle.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
-              %i.glyphicon.glyphicon-chevron-up
-            %ul.dropdown-menu.drop-up
-              %li=link_to "Ficha do Paciente", empresa_clinic_sheet_cliente_path(current_user.empresa, cliente_id: f.agenda.agenda_movimentacao.cliente_id, agenda_id: f.agenda, sala_espera_id: f)
-              %li=link_to "Atendido", attended_empresa_agenda_sala_de_espera_path(current_user.empresa, f.agenda, f)
-              %li=link_to "Voltar para agenda", back_empresa_agenda_sala_de_espera_path(current_user.empresa, f.agenda, f)
+  %tbody#sala_esperas
+    =render 'sala_de_espera/sala_de_esperas', {sala_esperas: @sala_esperas}

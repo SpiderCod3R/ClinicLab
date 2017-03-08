@@ -20,3 +20,7 @@
     .col-xs-12.col-sm-12.col-md-12.col-lg-12
       .panel
         =render 'clientes/partials/form_from_agenda'
+  - if params[:agenda_id]
+    .container-fluid
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        =link_to "voltar para a agenda", empresa_agendas_path(current_user.empresa), class: "btn btn-success"

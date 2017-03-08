@@ -1,0 +1,20 @@
+- sala_esperas.each do |f|
+  %tr{id: "sala_espera_id_#{f.id}"}
+    %td="##{f.id}"
+    %td=f.status
+    %td=f.agenda.agenda_movimentacao.cliente.nome
+    %td
+    %td=l f.data
+    %td=f.agenda.referencia_agenda.descricao
+    %td=f.hora_agendada.strftime("%H:%M") if f.hora_agendada
+    %td=f.hora_chegada.strftime("%H:%M") if f.hora_chegada
+    %td=f.hora_inicio_atendimento.strftime("%H:%M") if f.hora_inicio_atendimento
+    %td=f.hora_fim_atendimento.strftime("%H:%M") if f.hora_fim_atendimento
+    %td
+      .btn-group
+        %button.btn.btn-default.btn-circle.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+          %i.glyphicon.glyphicon-chevron-up
+        %ul.dropdown-menu.drop-up
+          %li=link_to "Ficha do Paciente", empresa_clinic_sheet_cliente_path(current_user.empresa, cliente_id: f.agenda.agenda_movimentacao.cliente_id, agenda_id: f.agenda, sala_espera_id: f)
+          %li=link_to "Atendido", attended_empresa_agenda_sala_de_espera_path(current_user.empresa, f.agenda, f)
+          %li=link_to "Voltar para agenda", back_empresa_agenda_sala_de_espera_path(current_user.empresa, f.agenda, f)

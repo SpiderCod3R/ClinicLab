@@ -6,23 +6,29 @@
   -if @cliente.id?
     %li
       %a{'data-toggle':"tab", href:"#convenio", id: "aba_convenio"} Convênio
-    -if !current_user.admin?
-      -if @cliente_permissao.historico?
-        %li
-          %a{'data-toggle':"tab", href:"#historico", id: "aba_historico"} Histórico
-      -if @cliente_permissao.texto_livre?
-        %li
-          %a{'data-toggle':"tab", href:"#texto_livre", id: "aba_texto_livre"} Texto-Livre
-      -if @cliente_permissao.pdf_upload?
-        %li
-          %a{'data-toggle':"tab", href:"#pdf", id: "aba_texto_livre"} PDF
+    -if !current_user.admin? 
+      -if !@cliente_permissao.nil?
+        -if @cliente_permissao.historico?
+          %li
+            %a{'data-toggle':"tab", href:"#historico", id: "aba_historico"} Histórico
+        -if @cliente_permissao.texto_livre?
+          %li
+            %a{'data-toggle':"tab", href:"#texto_livre", id: "aba_texto_livre"} Texto-Livre
+        -if @cliente_permissao.pdf_upload?
+          %li
+            %a{'data-toggle':"tab", href:"#pdf", id: "aba_pdf_upload"} PDF
+        -if @cliente_permissao.receituario?
+          %li
+            %a{'data-toggle':"tab", href:"#receituario", id: "aba_receituario"} Receituário
     -else
       %li
         %a{'data-toggle':"tab", href:"#historico", id: "aba_historico"} Histórico
       %li
         %a{'data-toggle':"tab", href:"#texto_livre", id: "aba_texto_livre"} Texto-Livre
       %li
-        %a{'data-toggle':"tab", href:"#pdf", id: "aba_texto_livre"} PDF
+        %a{'data-toggle':"tab", href:"#pdf", id: "aba_pdf_upload"} PDF
+      %li
+        %a{'data-toggle':"tab", href:"#receituario", id: "aba_receituario"} Receituário
 -if @cliente.id?
   = simple_form_for(@cliente, url: create_paciente_path, method: 'POST') do |f|
     =render "clientes/partials/abas", { f: f}

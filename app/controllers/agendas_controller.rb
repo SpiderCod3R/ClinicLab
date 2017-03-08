@@ -29,6 +29,7 @@ class AgendasController < Support::AgendaSupportController
                      order_atendimento.
                      offset(0).
                      take(12)
+    @sala_esperas = SalaEspera.all.em_espera
     if !current_user.admin?
       @model = Gclinic::Model.find_by(model_class: "Agenda")
       @user_model = current_user.user_models.find_by(model_id: @model.id)
