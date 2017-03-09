@@ -5,8 +5,9 @@
     %ul.dropdown-menu.drop-up
       %li=link_to "Ficha do Paciente", empresa_clinic_sheet_cliente_path(current_user.empresa, cliente_id: agenda.agenda_movimentacao.cliente_id, agenda_id: agenda.id)
       %li.divider{:role => "separator"}
-      %li=link_to "Movimento Serviço", new_empresa_movimento_servico_path(current_user.empresa)
-      %li.divider{:role => "separator"}
+      - if agenda.agenda_movimentacao.cliente_id.present?
+        %li=link_to "Movimento Serviço", new_empresa_movimento_servico_path(current_user.empresa, cliente_id: agenda.agenda_movimentacao.cliente_id, agenda_id: agenda.id)
+        %li.divider{:role => "separator"}
       %li=link_to "Visualizar Atendimento", empresa_agenda_path(current_user.empresa, agenda)
       -unless agenda.status.eql?(I18n.t("agendas.helpers.attended"))
         -if agenda.status.eql?(I18n.t("agendas.helpers.scheduled")) or agenda.status.eql?(I18n.t("agendas.helpers.free"))
