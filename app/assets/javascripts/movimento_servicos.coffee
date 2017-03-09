@@ -93,7 +93,7 @@ $(document).ready ->
       'servico_valor': valor_servico
     # fazendo calculo do valor_total
     somatorio_servicos_tabela = somatorio_servicos_tabela + valor_servico
-    valor_total_atual = valor_total_salvo + somatorio_servicos_tabela
+    valor_total_atual = valor_total_salvo + valor_desconto_salvo + somatorio_servicos_tabela
     calcula_valor_total()
     return
 
@@ -105,9 +105,7 @@ $(document).ready ->
 
   # quanto modificado o desconto, refaz o calculo do valor_total
   $('#movimento_servico_valor_desconto').change ->
-    console.log valor_total_atual
-    valor_total_atual = valor_total_salvo + valor_desconto_salvo
-    console.log valor_total_atual
+    valor_total_atual = valor_total_salvo + valor_desconto_salvo + somatorio_servicos_tabela
     calcula_valor_total()
     return
 
