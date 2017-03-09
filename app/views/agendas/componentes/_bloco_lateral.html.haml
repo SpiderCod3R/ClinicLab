@@ -11,6 +11,7 @@
       -if can? :create, Agenda
         %li{:role => "presentation"}
           %a{"aria-controls" => "gerar_agenda", "data-toggle" => "tab", :href => "#gerar_agenda", :role => "tab"} Gerar Agenda
+    / -if @agenda_permissao.sala_espera?
     %li{:role => "presentation"}
       %a{"aria-controls" => "gerar_agenda", "data-toggle" => "tab", :href => "#sala_espera", :role => "tab"} Sala de Espera
   / Tab panes
@@ -24,6 +25,7 @@
         .panel
           .container-fluid
             =render 'form'
+    / -if @agenda_permissao.sala_espera?
     #sala_espera.tab-pane{:role => "tabpanel"}
       .panel
         .container-fluid

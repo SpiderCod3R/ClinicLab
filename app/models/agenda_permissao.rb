@@ -8,6 +8,7 @@ class AgendaPermissao < Connection::Factory
   class << self
     def update_content(resource_params)
       update(user_model_id: resource_params[:user_model_id],
+             sala_espera: resource_params[:sala_espera],
              agendar: resource_params[:agendar],
              excluir: resource_params[:excluir],
              trocar_horario: resource_params[:trocar_horario],

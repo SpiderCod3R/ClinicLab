@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170303121358) do
+ActiveRecord::Schema.define(version: 20170308190520) do
 
   create_table "agenda_movimentacoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "agenda_id"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20170303121358) do
     t.boolean  "desmarcar_pelo_paciente"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.boolean  "sala_espera"
     t.index ["user_model_id"], name: "index_agenda_permissoes_on_user_model_id", using: :btree
   end
 

@@ -10,7 +10,7 @@
           %label{class: "string control-label"}
             Status Convênio
           %br
-          = collection_radio_buttons(:cliente_convenio, :status_convenio, [[true, 'Ativo'] ,[false, 'Inativo']], :first, :last, :class => "status_convenio_radio_buttons")
+          = collection_radio_buttons(:cliente_convenio, :status_convenio, [[true, 'Ativo'] ,[false, 'Inativo']], :first, :last, :class => "status_convenio_radio_buttons", checked: true)
         %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-4"}
           %label{class: "string control-label"}
             Matrícula
@@ -48,13 +48,19 @@
           %table{class: "table table-striped table-bordered table-hover table-responsive"}
             %thead
               %th Convênio
-              %th Excluir
+              %th Visualizar
+              %th Inativo
+              -if params[:agenda_id]
+                %th Convênio Utilizado?
             %tbody#tabela_cliente_convenios
               - if @cliente.cliente_convenios.present?
                 - @cliente.cliente_convenios.each do |c|
                   %tr
                     %td
                       = c.convenio.nome
-                    %td
-                      %center
-                        = link_to "#{image_tag("icons/glyphicons-17-bin.png", width: 20, height: 27)}".html_safe, destroy_cliente_convenio_path, data: {cliente_convenio_id: c.id, cliente_id: @cliente.id}, class: "delete_cliente_convenio"
+                    -if params[:agenda_id]
+                      %td
+                        %center
+                          = link_to "", class: "pull-left" do
+                            %i.fa.fa-pencil-square.fa-2x
+                    -if params[:agenda_id]
