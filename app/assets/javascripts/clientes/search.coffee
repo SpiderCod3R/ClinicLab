@@ -50,7 +50,6 @@ $(document).ready ->
     x = 0
     while x < pacientes.length
       cluster = pacientes[x]
-      console.log cluster.nome
       dados_tabela.push("<tr><td id='cliente_search_result_link'>"+
                         "<a href='#' data-paciente-nome='#{cluster.nome}'"+
                         "data-paciente-id='#{cluster.id}'"+

@@ -45,22 +45,27 @@
         %div{class: "panel-heading"}
           = "Convênio(s) Associado(s) ao Cliente"
         %div{class: "panel-body"}
-          %table{class: "table table-striped table-bordered table-hover table-responsive"}
-            %thead
-              %th Convênio
-              %th Visualizar
-              %th Inativo
-              -if params[:agenda_id]
-                %th Convênio Utilizado?
-            %tbody#tabela_cliente_convenios
-              - if @cliente.cliente_convenios.present?
-                - @cliente.cliente_convenios.each do |c|
-                  %tr
-                    %td
-                      = c.convenio.nome
-                    -if params[:agenda_id]
+          #table_cliente_convenios
+            %table{class: "table table-striped table-bordered table-hover table-responsive"}
+              %thead
+                %th Convênio
+                %th Visualizar
+                %th Inativo
+                -if params[:agenda_id]
+                  %th Convênio Utilizado?
+              %tbody#tabela_cliente_convenios
+                - if @cliente.cliente_convenios.present?
+                  - @cliente.cliente_convenios.each_with_index do |c, key|
+                    %tr
                       %td
-                        %center
-                          = link_to "", class: "pull-left" do
-                            %i.fa.fa-pencil-square.fa-2x
-                    -if params[:agenda_id]
+                        = c.convenio.nome
+                      -if params[:agenda_id]
+                        %td
+                          %center
+                            =link_to "#", class: "pull-left" do
+                              %i.fa.fa-pencil-square.fa-2x
+                      %td
+                      -if params[:agenda_id]
+                        %td
+                          %center
+                            %input{ type: "radio", name: "cliente_convenio_agenda", id: "cliente_convenio_agenda", value: c.id}

@@ -120,6 +120,7 @@ Rails.application.routes.draw do
         member do
           get 'back'
           get 'attended'
+          get 'get_convenio'
         end
       end
       get 'movimentar', to: 'agenda_movimentacoes#new', as: :movimentar_ou_atualizar

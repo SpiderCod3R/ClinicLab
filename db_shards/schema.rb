@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170308190520) do
+ActiveRecord::Schema.define(version: 20170309204542) do
 
   create_table "agenda_movimentacoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "agenda_id"
     t.integer  "convenio_id"
     t.integer  "cliente_id"
-    t.text     "observacoes",       limit: 65535
+    t.text     "observacoes",         limit: 65535
     t.string   "confirmacao"
     t.boolean  "sem_convenio"
     t.date     "data"
@@ -29,9 +29,11 @@ ActiveRecord::Schema.define(version: 20170308190520) do
     t.string   "nome_paciente"
     t.string   "telefone_paciente"
     t.string   "email_paciente"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.integer  "cliente_convenio_id"
     t.index ["agenda_id"], name: "index_agenda_movimentacoes_on_agenda_id", using: :btree
+    t.index ["cliente_convenio_id"], name: "index_agenda_movimentacoes_on_cliente_convenio_id", using: :btree
     t.index ["cliente_id"], name: "index_agenda_movimentacoes_on_cliente_id", using: :btree
     t.index ["convenio_id"], name: "index_agenda_movimentacoes_on_convenio_id", using: :btree
   end
@@ -158,6 +160,7 @@ ActiveRecord::Schema.define(version: 20170308190520) do
     t.string  "plano"
     t.date    "validade_carteira"
     t.string  "produto"
+    t.boolean "utilizando_agora",  default: false
     t.index ["cliente_id"], name: "index_cliente_convenios_on_cliente_id", using: :btree
     t.index ["convenio_id"], name: "index_cliente_convenios_on_convenio_id", using: :btree
   end
@@ -460,6 +463,7 @@ ActiveRecord::Schema.define(version: 20170308190520) do
   end
 
   add_foreign_key "agenda_movimentacoes", "agendas"
+  add_foreign_key "agenda_movimentacoes", "cliente_convenios"
   add_foreign_key "agenda_movimentacoes", "clientes"
   add_foreign_key "agenda_movimentacoes", "convenios"
   add_foreign_key "agendas", "referencia_agendas"

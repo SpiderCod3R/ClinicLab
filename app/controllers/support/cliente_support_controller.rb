@@ -35,7 +35,7 @@ class Support::ClienteSupportController < Support::InsideController
         @agenda.agenda_movimentacao.update_attributes(nome_paciente: @cliente.nome, telefone_paciente: @cliente.telefone,
                                                       email_paciente: @cliente.email, cliente_id: @cliente.id)
         if session[:sala_espera_id].present?
-          redirect_to empresa_agendas_path(current_user.empresa) and return
+          redirect_to :back
         end
       end
       flash[:notice] = "Dados do cliente atualizados com sucesso."

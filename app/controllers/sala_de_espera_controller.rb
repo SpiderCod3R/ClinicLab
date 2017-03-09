@@ -63,4 +63,12 @@ class SalaDeEsperaController  < Support::InsideController
 
     respond_to &:js
   end
+
+  def get_convenio
+    @cliente = Cliente.find(params[:cliente_id])
+    @agenda = Agenda.find(params[:agenda_id])
+    @agenda.agenda_movimentacao.cliente_convenio_id=params[:cliente_convenio_id]
+    @agenda.agenda_movimentacao.save
+    # redirect_to empresa_agendas_path(current_user.empresa)
+  end
 end
