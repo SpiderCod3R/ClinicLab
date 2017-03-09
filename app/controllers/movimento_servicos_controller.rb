@@ -49,7 +49,7 @@ class MovimentoServicosController < Support::InsideController
   def update
     if @movimento_servico.update(movimento_servico_params)
       flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @movimento_servico.class)
-      redirect_to edit_empresa_movimento_servico_servico_path(current_user.empresa, @movimento_servico.id)
+      redirect_to edit_empresa_movimento_servico_path(current_user.empresa, @movimento_servico.id)
     else
       flash[:error] = t("flash.actions.#{__method__}.alert", resource_name: @movimento_servico.class)
       render :edit
@@ -93,8 +93,17 @@ class MovimentoServicosController < Support::InsideController
 
   def destroy_movimento_servico_servico
     @movimento_servico_servico = MovimentoServicoServico.find(params[:movimento_servico_servico_id])
-    @movimento_servico_servico.destroy!
-    respond_to &:js
+    @movimento_servico = MovimentoServico.find(@movimento_servico_servico.movimento_servico_id)
+    @valor_servico = @movimento_servico_servico.valor_servico
+    if @movimento_servico_servico.destroy!
+      @movimento_servico.valor_total = @movimento_servico.valor_total - @valor_servico
+      @movimento_servico.save!
+      respond_to do |format|
+        format.html
+        format.json { render json: @movimento_servico.valor_total.as_json }
+      end
+    end
+    # respond_to &:js
   end
 
   private

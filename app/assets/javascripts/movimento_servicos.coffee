@@ -115,9 +115,10 @@ $(document).ready ->
     i = 0
     while i < dados_servicos.length
       if parseInt($(this).attr('href')) == parseInt(dados_servicos[i]['servico_id'])
+        valor_servico_excluido = dados_servicos[i]['servico_valor']
         dados_servicos.splice i, 1
         $(this).closest('tr').fadeOut()
-        calcula_valor_apos_exclusao()
+        calcula_valor_apos_exclusao(valor_servico_excluido)
       i = i + 1
     false
 
@@ -146,29 +147,34 @@ $(document).ready ->
             dataType: 'JSON'
             data:
               movimento_servico_servico_id: link.data().movimentoServicoServicoId
-            success: () ->
+            success: (json) ->
               # remove linha da tabela_movimento_servico_servicos
               link.closest('tr').find('td').detach()
-              calcula_valor_apos_exclusao()
+              $('#movimento_servico_valor_total').val(formata_valor(json))
+              valor_total_salvo = json
               return
         return
     false
 
   # refaz o calculo do valor_total apos a exclusao de um servico da tabela
-  calcula_valor_apos_exclusao = ->
+  calcula_valor_apos_exclusao = (valor_servico_excluido) ->
+    valor_total_anterior = converte_float($('#movimento_servico_valor_total').val())
+    valor_total_atual = valor_total_anterior - valor_servico_excluido
+    $('#movimento_servico_valor_total').val(formata_valor(valor_total_atual))
     return
 
   $('form.edit_movimento_servico').submit (event) ->
     event.preventDefault()
-    $.ajax
-      type: 'POST'
-      url: URL_BASE + 'movimento_servicos/salva_movimento_servico_servicos'
-      dataType: 'JSON'
-      data:
-        servicos_attributes: dados_servicos
-      success: () ->
-        $('form.edit_movimento_servico').unbind('submit').submit()
-        return
-    return
+    if dados_servicos.length > 0
+      $.ajax
+        type: 'POST'
+        url: URL_BASE + 'movimento_servicos/salva_movimento_servico_servicos'
+        dataType: 'JSON'
+        data:
+          servicos_attributes: dados_servicos
+        success: () ->
+          $('form.edit_movimento_servico').unbind('submit').submit()
+          return
+      return
 
   return

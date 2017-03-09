@@ -1,5 +1,5 @@
 class MovimentoServicoServicosController < ApplicationController
-  before_action :set_movimento_servico_servico, only: [:show, :edit, :update, :destroy]
+  # before_action :set_movimento_servico_servico, only: [:show, :edit, :update, :destroy]
 
   # GET /movimento_servico_servicos
   # GET /movimento_servico_servicos.json
