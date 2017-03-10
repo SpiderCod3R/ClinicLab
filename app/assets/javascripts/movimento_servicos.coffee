@@ -30,10 +30,14 @@ $(document).ready ->
     desconto = converte_float($('#movimento_servico_valor_desconto').val())
     if isNaN(desconto)
       desconto = 0.0
-    # subtrai desconto do valor_total_atual
-    valor_total_a_pagar = valor_total_atual - desconto
+    # verifica se desconto menor que o valor a pagar
+    if desconto < valor_total_atual
+      # subtrai desconto do valor_total_atual
+      valor_total_a_pagar = valor_total_atual - desconto
+    else
+      valor_total_a_pagar = 0.00
     # coloca o resultado no campo valor_total
-    $('#movimento_servico_valor_total').val formata_valor(valor_total_a_pagar)
+    $('#movimento_servico_valor_total').val(formata_valor(valor_total_a_pagar))
     return
 
   # quando um serviço for selecionado
@@ -151,19 +155,39 @@ $(document).ready ->
             data:
               movimento_servico_servico_id: link.data().movimentoServicoServicoId
             success: (json) ->
+              # pega valor do movimento_servico_servicos excluido
+              valor_servico_excluido = link.data().movimentoServicoServicoValor
               # remove linha da tabela_movimento_servico_servicos
               link.closest('tr').find('td').detach()
-              $('#movimento_servico_valor_total').val(formata_valor(json))
-              valor_total_salvo = json
+              # chama metodo que refaz o calculo do valor_total
+              calcula_valor_apos_exclusao(valor_servico_excluido)
               return
-        return
     false
 
   # refaz o calculo do valor_total apos a exclusao de um servico da tabela
   calcula_valor_apos_exclusao = (valor_servico_excluido) ->
-    valor_total_anterior = converte_float($('#movimento_servico_valor_total').val())
-    valor_total_atual = valor_total_anterior - valor_servico_excluido
-    $('#movimento_servico_valor_total').val(formata_valor(valor_total_atual))
+    valor_total_atual = valor_total_salvo
+    if (valor_total_atual <= 0.00)
+      valor_desconto_salvo = 0.00
+      $('#movimento_servico_valor_desconto').val(formata_valor(valor_desconto_salvo))
+    desconto = converte_float($('#movimento_servico_valor_desconto').val())
+    if desconto > valor_total_atual
+      valor_total_atual = valor_total_atual + desconto
+      $('#movimento_servico_valor_total').val(formata_valor(valor_total_atual))
+      return BootstrapDialog.show
+        type: BootstrapDialog.TYPE_DANGER
+        title: 'Erros Encontrados: Para prosseguir resolva os seguintes problemas'
+        message: 'Valor desconto não pode ser maior que Valor total'
+        closable: false
+        buttons: [ {
+          label: 'Fechar'
+          action: (dialogRef) ->
+            dialogRef.close()
+            error_messages = []
+            false
+        } ]
+    else
+      $('#movimento_servico_valor_total').val(formata_valor(valor_total_atual))
     return
 
   # validacao dos campos obrigatorios

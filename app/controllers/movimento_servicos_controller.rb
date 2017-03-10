@@ -107,17 +107,8 @@ class MovimentoServicosController < Support::InsideController
 
   def destroy_movimento_servico_servico
     @movimento_servico_servico = MovimentoServicoServico.find(params[:movimento_servico_servico_id])
-    @movimento_servico = MovimentoServico.find(@movimento_servico_servico.movimento_servico_id)
-    @valor_servico = @movimento_servico_servico.valor_servico
-    if @movimento_servico_servico.destroy!
-      @movimento_servico.valor_total = @movimento_servico.valor_total - @valor_servico
-      @movimento_servico.save!
-      respond_to do |format|
-        format.html
-        format.json { render json: @movimento_servico.valor_total.as_json }
-      end
-    end
-    # respond_to &:js
+    @movimento_servico_servico.destroy!
+    respond_to &:js
   end
 
   private
