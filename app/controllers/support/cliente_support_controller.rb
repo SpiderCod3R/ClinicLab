@@ -14,12 +14,9 @@ class Support::ClienteSupportController < Support::InsideController
     @cliente = current_user.empresa.clientes.build unless params[:cliente_id].present?
     load_tabs if @cliente.id?
 
-    if params[:sala_espera_id].present?
-      session[:sala_espera_id] = params[:sala_espera_id]
-      @sala_espera=@agenda.sala_de_esperas.find(params[:sala_espera_id])
-      @sala_espera.hora_inicio_atendimento= DateTime.now
-      @sala_espera.save
-    end
+    # => Entrará nesse contexto se e somente si a ficha do paciente
+    # estiver vindo da agenda no que diz respeito a sala de espera
+    load_waiting_room
   end
 
   def paginate_pdfs
@@ -250,6 +247,17 @@ class Support::ClienteSupportController < Support::InsideController
         @model = Gclinic::Model.find_by(model_class: "Cliente")
         @user_model = current_user.user_models.find_by(model_id: @model.id)
         @cliente_permissao = ClientePermissao.find_by user_model_id: @user_model.id
+      end
+    end
+
+    def load_waiting_room
+      if params[:sala_espera_id].present?
+        session[:sala_espera_id] = params[:sala_espera_id]
+        @sala_espera=@agenda.sala_de_esperas.find(params[:sala_espera_id])
+        if @sala_espera.hora_inicio_atendimento.nil?
+          @sala_espera.hora_inicio_atendimento= DateTime.now
+          @sala_espera.save
+        end
       end
     end
 
