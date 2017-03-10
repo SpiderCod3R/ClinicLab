@@ -52,6 +52,7 @@ $(document).ready ->
           valor_servico = json.toFixed(2).replace(",", "").replace(".", ",")
           $('#movimento_servico_valor_servico').val(valor_servico)
           return
+      return
 
   # quando clicar no botão '+'
   $('#adicionar_servico_em_movimento_servico').click (event) ->
@@ -163,21 +164,72 @@ $(document).ready ->
     $('#movimento_servico_valor_total').val(formata_valor(valor_total_atual))
     return
 
+  # validacao dos campos obrigatorios
+  valida_campos_form = ->
+    error_messages = []
+    if $('#movimento_servico_status option:selected').val() == ""
+      error_messages.push('<li>Status deve ser selecionado</li>')
+    if $('#movimento_servico_cliente_id option:selected').val() == ""
+      error_messages.push('<li>Cliente deve ser selecionado</li>')
+    if $('#movimento_servico_convenio_id option:selected').val() == ""
+      error_messages.push('<li>Convênio deve ser selecionado</li>')
+    if $('#movimento_servico_solicitante_id option:selected').val() == ""
+      error_messages.push('<li>Solicitante deve ser selecionado</li>')
+    if $('#movimento_servico_medico_id option:selected').val() == ""
+      error_messages.push('<li>Médico deve ser selecionado</li>')
+    return error_messages
+
+  $('form.new_movimento_servico').submit (event) ->
+    event.preventDefault()
+    error_messages = valida_campos_form()
+    if error_messages.length != 0
+      return BootstrapDialog.show
+        type: BootstrapDialog.TYPE_DANGER
+        title: 'Erros Encontrados: Para prosseguir resolva os seguintes problemas'
+        message: error_messages
+        closable: false
+        buttons: [ {
+          label: 'Fechar'
+          action: (dialogRef) ->
+            dialogRef.close()
+            error_messages = []
+            false
+        } ]
+    else
+      $('form.new_movimento_servico').unbind('submit').submit()
+    return
+
   $('form.edit_movimento_servico').submit (event) ->
     event.preventDefault()
-    if dados_servicos.length > 0
-      $.ajax
-        type: 'POST'
-        url: URL_BASE + 'movimento_servicos/salva_movimento_servico_servicos'
-        dataType: 'JSON'
-        data:
-          servicos_attributes: dados_servicos
-        success: () ->
-          $('form.edit_movimento_servico').unbind('submit').submit()
-          return
-      return
+    error_messages = valida_campos_form()
+    if error_messages.length != 0
+      return BootstrapDialog.show
+        type: BootstrapDialog.TYPE_DANGER
+        title: 'Erros Encontrados: Para prosseguir resolva os seguintes problemas'
+        message: error_messages
+        closable: false
+        buttons: [ {
+          label: 'Fechar'
+          action: (dialogRef) ->
+            dialogRef.close()
+            error_messages = []
+            false
+        } ]
     else
-      $('form.edit_movimento_servico').unbind('submit').submit()
-      return
+      if dados_servicos.length > 0
+        $.ajax
+          type: 'POST'
+          url: URL_BASE + 'movimento_servicos/salva_movimento_servico_servicos'
+          dataType: 'JSON'
+          data:
+            servicos_attributes: dados_servicos
+          success: () ->
+            $('form.edit_movimento_servico').unbind('submit').submit()
+            return
+        return
+      else
+        $('form.edit_movimento_servico').unbind('submit').submit()
+        return
+    return
 
   return
