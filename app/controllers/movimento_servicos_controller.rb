@@ -15,12 +15,26 @@ class MovimentoServicosController < Support::InsideController
 
   # GET /movimento_servicos/new
   def new
-    # @movimento_servico = MovimentoServico.new
     @movimento_servico = current_user.empresa.movimento_servicos.build
     if MovimentoServico.last.present?
       @movimento_servico.id = MovimentoServico.last.id + 1
     else
       @movimento_servico.id = 1
+    end
+    if params[:agenda_id].present?
+      @agenda = Agenda.find(params[:agenda_id])
+      if @agenda.agenda_movimentacao.present?
+        @agenda_movimentacao = AgendaMovimentacao.find_by(agenda_id: @agenda.id)
+        if @agenda_movimentacao.cliente_id.present?
+          @cliente = Cliente.find(@agenda_movimentacao.cliente_id)
+        end
+        if @agenda_movimentacao.convenio_id.present?
+          @convenio = Convenio.find(@agenda_movimentacao.convenio_id)
+        end
+        if @agenda_movimentacao.solicitante_id.present?
+          @solicitante = Profissional.find(@agenda_movimentacao.solicitante_id)
+        end
+      end
     end
     respond_with(@movimento_servico)
   end
@@ -37,7 +51,7 @@ class MovimentoServicosController < Support::InsideController
     @movimento_servico = current_user.empresa.movimento_servicos.build(movimento_servico_params)
     if @movimento_servico.save
       flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @movimento_servico.class)
-      redirect_to new_empresa_movimento_servico_path(current_user.empresa)
+      redirect_to edit_empresa_movimento_servico_path(current_user.empresa, @movimento_servico.id)
     else
       flash[:error] = t("flash.actions.#{__method__}.alert", resource_name: @movimento_servico.class)
       render :new

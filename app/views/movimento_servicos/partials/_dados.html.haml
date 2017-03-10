@@ -16,17 +16,30 @@
   %div{class: "row", style: "margin-bottom: 15px;"}
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
       = f.label "Cliente"
-      = f.collection_select :cliente_id, Cliente.all, :id, :nome, {include_blank: "Selecione"}, {class: 'form-control'}
+      - if @cliente.present?
+        = f.collection_select :cliente_id, Cliente.all, :id, :nome, {include_blank: "Selecione", selected: @cliente.id}, {class: 'form-control'}
+      - else
+        = f.collection_select :cliente_id, Cliente.all, :id, :nome, {include_blank: "Selecione"}, {class: 'form-control'}
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
       = f.label "Convênio"
-      = f.collection_select :convenio_id, Convenio.all, :id, :nome, {include_blank: "Selecione"}, {class: 'form-control'}
+      - if @convenio.present?
+        = f.collection_select :convenio_id, Convenio.all, :id, :nome, {include_blank: "Selecione", selected: @convenio.id}, {class: 'form-control'}
+      - else
+        = f.collection_select :convenio_id, Convenio.all, :id, :nome, {include_blank: "Selecione"}, {class: 'form-control'}
   %div{class: "row", style: "margin-bottom: 15px;"}
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
       = f.label "Solicitante"
-      = f.collection_select :solicitante_id, Profissional.where(empresa_id: current_user.empresa.id), :id, :titulo_completo, {include_blank: "Selecione"}, {class: 'form-control'}
+      - if @solicitante.present?
+        = f.collection_select :solicitante_id, Profissional.where(empresa_id: current_user.empresa.id), :id, :titulo_completo, {include_blank: "Selecione", selected: @solicitante.id}, {class: 'form-control'}
+      - else
+        = f.collection_select :solicitante_id, Profissional.where(empresa_id: current_user.empresa.id), :id, :titulo_completo, {include_blank: "Selecione"}, {class: 'form-control'}
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
       = f.label "Médico"
-      = f.collection_select :medico_id, Profissional.cargo_medico.where(empresa_id: current_user.empresa.id), :id, :titulo_resumido, {include_blank: "Selecione"}, {class: 'form-control'}
+      - if @agenda.present?
+        - if @agenda.referencia_agenda.profissional.present?
+          = f.collection_select :medico_id, Profissional.cargo_medico.where(empresa_id: current_user.empresa.id), :id, :titulo_resumido, {include_blank: "Selecione", selected: @agenda.referencia_agenda.profissional_id}, {class: 'form-control'}
+      - else
+        = f.collection_select :medico_id, Profissional.cargo_medico.where(empresa_id: current_user.empresa.id), :id, :titulo_resumido, {include_blank: "Selecione"}, {class: 'form-control'}
   %div{class: "row"}
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
       = f.input :data_entrada, as: :string, input_html: { value: date_to_format(Date.today) }, class: "form-control", readonly: true
