@@ -59,13 +59,21 @@
                     %tr
                       %td
                         = c.convenio.nome
-                      -if params[:agenda_id]
-                        %td
+                      %td
+                        -if params[:agenda_id]
                           %center
-                            =link_to "#", class: "pull-left" do
+                            =link_to "#" do
                               %i.fa.fa-pencil-square.fa-2x
                       %td
-                      -if params[:agenda_id]
-                        %td
+                        %center
+                          -if c.status_convenio?
+                            %input{type: "checkbox", name: "cliente_convenio_status_convenio", id: "cliente_convenio_status_convenio", value: c.id}
+                          -else
+                            %input{type: "checkbox", name: "cliente_convenio_status_convenio", id: "cliente_convenio_status_convenio", value: c.id, checked: "checked"}
+                      %td
+                        -if params[:agenda_id]
                           %center
-                            %input{ type: "radio", name: "cliente_convenio_agenda", id: "cliente_convenio_agenda", value: c.id}
+                            -if c.utilizando_agora?
+                              %input{ type: "radio", name: "cliente_convenio_agenda", id: "cliente_convenio_agenda", value: c.id, checked: "checked"}
+                            -else
+                              %input{ type: "radio", name: "cliente_convenio_agenda", id: "cliente_convenio_agenda", value: c.id}
