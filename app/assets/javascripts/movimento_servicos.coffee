@@ -16,12 +16,14 @@ $(document).ready ->
 
   # pega valor_total salvo na tabela movimento_servicos
   if $('#movimento_servico_valor_total').length
-    valor_total_salvo = converte_float($('#movimento_servico_valor_total').val())
-    # if !isNaN(valor_total_salvo)
-    #   valor_total_atual = valor_total_salvo
+    if $('#movimento_servico_valor_total').val().length > 0
+      valor_total_salvo = converte_float($('#movimento_servico_valor_total').val())
+      # if !isNaN(valor_total_salvo)
+      #   valor_total_atual = valor_total_salvo
   # pega valor_desconto salvo na tabela movimento_servicos
   if $('#movimento_servico_valor_desconto').length
-    valor_desconto_salvo = converte_float($('#movimento_servico_valor_desconto').val())
+    if $('#movimento_servico_valor_desconto').val().length > 0
+      valor_desconto_salvo = converte_float($('#movimento_servico_valor_desconto').val())
 
   # calcula valor_total
   calcula_valor_total = ->
