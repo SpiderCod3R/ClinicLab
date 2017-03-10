@@ -64,11 +64,18 @@ class SalaDeEsperaController  < Support::InsideController
     respond_to &:js
   end
 
+  # => Coleta o convenio selecionado do cliente e adiciona o mesmo na agenda
   def get_convenio
-    @cliente = Cliente.find(params[:cliente_id])
-    @agenda = Agenda.find(params[:agenda_id])
+    @cliente=Cliente.find(params[:cliente_id])
+    @agenda=Agenda.find(params[:agenda_id])
     @agenda.agenda_movimentacao.cliente_convenio_id=params[:cliente_convenio_id]
+    @cliente.cliente_convenios.each do |f|
+      f.utilizando_agora= false
+      f.save
+    end
+    @cliente_convenio=@cliente.cliente_convenios.find(params[:cliente_convenio_id])
+    @cliente_convenio.utilizando_agora= true
+    @cliente_convenio.save
     @agenda.agenda_movimentacao.save
-    # redirect_to empresa_agendas_path(current_user.empresa)
   end
 end
