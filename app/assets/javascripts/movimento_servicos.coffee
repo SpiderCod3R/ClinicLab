@@ -176,5 +176,8 @@ $(document).ready ->
           $('form.edit_movimento_servico').unbind('submit').submit()
           return
       return
+    else
+      $('form.edit_movimento_servico').unbind('submit').submit()
+      return
 
   return
