@@ -107,7 +107,7 @@ $(document).ready ->
     return
 
   # quanto modificado o desconto, refaz o calculo do valor_total
-  $('#movimento_servico_valor_desconto').change ->
+  $('#movimento_servico_valor_desconto').focusout ->
     valor_total_atual = valor_total_salvo + valor_desconto_salvo + somatorio_servicos_tabela
     calcula_valor_total()
     return
