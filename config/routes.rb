@@ -48,6 +48,7 @@ Rails.application.routes.draw do
         delete 'destroy_pdf'
       end
       get 'inativar_convenio', to: "cliente_convenios#deactivate", as: :deactivate_convenio
+      get 'ativar_convenio', to: "cliente_convenios#activate", as: :activate_convenio
     end
     resources :texto_livres
     resources :imagem_cabecs

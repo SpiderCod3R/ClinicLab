@@ -159,6 +159,35 @@ $(document).ready ->
               data:
                 cliente_convenio_id: cliente_convenio_id
                 cliente_id: cliente_id
+                status: false
+              success: (response) ->
+                if $("#agenda_id").text() != "" && $("#sala_espera_id").text() != ""
+                  window.location.href = URL_BASE + "empresa/#{empresa_id}/ficha_cliente?agenda_id=#{agenda_id}&cliente_id=#{cliente_id}&locale=pt-BR&sala_espera_id=#{sala_espera_id}"
+                if $("#agenda_id").text() != "" && $("#sala_espera_id").text() == ""
+                  window.location.href = URL_BASE + "empresa/#{empresa_id}/ficha_cliente?agenda_id=#{agenda_id}&cliente_id=#{cliente_id}&locale=pt-BR"
+          else
+            $('#cliente_convenio_status_convenio').attr('checked', result)
+    else
+      cliente_convenio_id = $(this).val()
+      bootbox.confirm
+        message: 'Deseja mesmo reativar este Convênio?'
+        buttons:
+          confirm:
+            label: 'Sim'
+            className: 'btn-success'
+          cancel:
+            label: 'Ainda não'
+            className: 'btn-danger'
+        callback: (result) ->
+          if result == true
+            $('#cliente_convenio_status_convenio').attr('checked', result)
+            $.ajax
+              type: 'get'
+              url: URL_BASE + "empresa/#{empresa_id}/clientes/#{cliente_id}/ativar_convenio"
+              data:
+                cliente_convenio_id: cliente_convenio_id
+                cliente_id: cliente_id
+                status: true
               success: (response) ->
                 if $("#agenda_id").text() != "" && $("#sala_espera_id").text() != ""
                   window.location.href = URL_BASE + "empresa/#{empresa_id}/ficha_cliente?agenda_id=#{agenda_id}&cliente_id=#{cliente_id}&locale=pt-BR&sala_espera_id=#{sala_espera_id}"

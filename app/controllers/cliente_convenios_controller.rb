@@ -5,8 +5,15 @@ class ClienteConveniosController < ApplicationController
   def deactivate
     @cliente = Cliente.find(params[:cliente_id])
     @cliente_convenio = @cliente.cliente_convenios.find(params[:cliente_convenio_id])
-    @cliente_convenio.status_convenio= false
+    @cliente_convenio.status_convenio=  false
     @cliente_convenio.utilizando_agora= false
+    @cliente_convenio.save
+  end
+
+  def activate
+    @cliente = Cliente.find(params[:cliente_id])
+    @cliente_convenio = @cliente.cliente_convenios.find(params[:cliente_convenio_id])
+    @cliente_convenio.status_convenio= true
     @cliente_convenio.save
   end
 
