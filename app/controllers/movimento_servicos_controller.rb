@@ -15,28 +15,31 @@ class MovimentoServicosController < Support::InsideController
 
   # GET /movimento_servicos/new
   def new
-    @movimento_servico = current_user.empresa.movimento_servicos.build
-    if MovimentoServico.last.present?
-      @movimento_servico.id = MovimentoServico.last.id + 1
-    else
-      @movimento_servico.id = 1
-    end
-    if params[:agenda_id].present?
-      @agenda = Agenda.find(params[:agenda_id])
-      if @agenda.agenda_movimentacao.present?
-        @agenda_movimentacao = AgendaMovimentacao.find_by(agenda_id: @agenda.id)
-        if @agenda_movimentacao.cliente_id.present?
-          @cliente = Cliente.find(@agenda_movimentacao.cliente_id)
-        end
-        if @agenda_movimentacao.convenio_id.present?
-          @convenio = Convenio.find(@agenda_movimentacao.convenio_id)
-        end
-        if @agenda_movimentacao.solicitante_id.present?
-          @solicitante = Profissional.find(@agenda_movimentacao.solicitante_id)
+    if params[:cliente_id].present?
+      @cliente = Cliente.find(params[:cliente_id])
+      if params[:agenda_id].present?
+        @agenda = Agenda.find(params[:agenda_id])
+        if @agenda.agenda_movimentacao.present?
+          @agenda_movimentacao = AgendaMovimentacao.find_by(agenda_id: @agenda.id)
+          if @agenda_movimentacao.convenio_id.present?
+            @convenio = Convenio.find(@agenda_movimentacao.convenio_id)
+          end
+          if @agenda_movimentacao.solicitante_id.present?
+            @solicitante = Profissional.find(@agenda_movimentacao.solicitante_id)
+          end
         end
       end
+      @movimento_servico = current_user.empresa.movimento_servicos.build
+      if MovimentoServico.last.present?
+        @movimento_servico.id = MovimentoServico.last.id + 1
+      else
+        @movimento_servico.id = 1
+      end
+      respond_with(@movimento_servico)
+    else
+      redirect_to :back
+      flash[:error] = "É necessário que haja um Paciente relacionado a este agendamento"
     end
-    respond_with(@movimento_servico)
   end
 
   # GET /movimento_servicos/1/edit
