@@ -47,6 +47,7 @@ Rails.application.routes.draw do
         get    'find_recipe'
         delete 'destroy_pdf'
       end
+      get 'inativar_convenio', to: "cliente_convenios#deactivate", as: :deactivate_convenio
     end
     resources :texto_livres
     resources :imagem_cabecs
@@ -112,6 +113,7 @@ Rails.application.routes.draw do
       put 'attended'
       get 'block_day', to: 'agendas#block_day', as: :block_day
       put 'block_day', to: 'agendas#set_block_on_day', as: :set_block_on_day
+      get 'get_convenio', to: 'sala_de_espera#get_convenio', as: :get_convenio
       resources :agenda_movimentacoes
       resources :sala_de_espera do
         collection do

@@ -1,6 +1,11 @@
 $(document).ready ->
   URL_BASE = window.location.origin + '/'
   dados_convenios = []
+  cliente_convenio_id = 0
+  agenda_id = $("#agenda_id").text()
+  sala_espera_id = $("#sala_espera_id").text()
+  empresa_id = $("#empresa_id").text()
+  cliente_id = $("#cliente_id").val()
 
   $('#adicionar_convenio_em_cliente').click (event) ->
     event.preventDefault()
@@ -42,7 +47,19 @@ $(document).ready ->
     titular = $('#cliente_convenio_titular').val()
     plano = $('#cliente_convenio_plano').val()
     # montando a tabela
-    $('#tabela_cliente_convenios').append '<tr>' + '<td>' + nome_convenio + '</td><td><a href="' + id_convenio + '" class="excluir_convenio"><center><div id="icon-trash"></div></center></a></td>' + '</tr>'
+    $('#tabela_cliente_convenios').append "<tr>" +
+                                            "<td>#{nome_convenio}</td>" +
+                                            "<td></td>" +
+                                            "<td></td>" +
+                                            "<td></td>" +
+                                            "<td>" + 
+                                              "<a href='#{id_convenio}' class=excluir_convenio>" +
+                                                "<center>" +
+                                                  "<div id='icon-trash'></div>" +
+                                                "</center>" +
+                                              "</a>" +
+                                            "</td>" +
+                                          "</tr>"
     # armazenando os valores em um array
     dados_convenios.push
       'convenio_id': id_convenio
@@ -120,3 +137,34 @@ $(document).ready ->
         $('form.edit_cliente').unbind('submit').submit()
         return
     return
+
+  $('#cliente_convenio_status_convenio').change ->
+    if $(this).is(':checked')
+      cliente_convenio_id = $(this).val()
+      bootbox.confirm
+        message: 'Deseja mesmo inativar este Convênio?'
+        buttons:
+          confirm:
+            label: 'Sim'
+            className: 'btn-success'
+          cancel:
+            label: 'Ainda não'
+            className: 'btn-danger'
+        callback: (result) ->
+          if result == true
+            $('#cliente_convenio_status_convenio').attr('checked', result)
+            $.ajax
+              type: 'get'
+              url: URL_BASE + "empresa/#{empresa_id}/clientes/#{cliente_id}/inativar_convenio"
+              data:
+                cliente_convenio_id: cliente_convenio_id
+                cliente_id: cliente_id
+              success: (response) ->
+                if $("#agenda_id").text() != "" && $("#sala_espera_id").text() != ""
+                  window.location.href = URL_BASE + "empresa/#{empresa_id}/ficha_cliente?agenda_id=#{agenda_id}&cliente_id=#{cliente_id}&locale=pt-BR&sala_espera_id=#{sala_espera_id}"
+                if $("#agenda_id").text() != "" && $("#sala_espera_id").text() == ""
+                  window.location.href = URL_BASE + "empresa/#{empresa_id}/ficha_cliente?agenda_id=#{agenda_id}&cliente_id=#{cliente_id}&locale=pt-BR"
+          else
+            $('#cliente_convenio_status_convenio').attr('checked', result)
+    return
+
