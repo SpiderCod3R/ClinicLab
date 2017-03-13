@@ -6,6 +6,7 @@ class Support::ClienteSupportController < Support::InsideController
   def clinic_sheet
     session[:agenda_id] = params[:agenda_id]
     @agenda = Agenda.find(session[:agenda_id])
+    binding.pry
     if params[:cliente_id]
       @cliente = current_user.empresa.clientes.find(params[:cliente_id])
       session[:cliente_id] = @cliente.id
@@ -31,9 +32,6 @@ class Support::ClienteSupportController < Support::InsideController
       if @cliente.update_data(params[:cliente])
         @agenda.agenda_movimentacao.update_attributes(nome_paciente: @cliente.nome, telefone_paciente: @cliente.telefone,
                                                       email_paciente: @cliente.email, cliente_id: @cliente.id)
-        if session[:sala_espera_id] != ""
-          redirect_to :back and return
-        end
       end
       flash[:notice] = "Dados do cliente atualizados com sucesso."
       redirect_to empresa_clinic_sheet_cliente_path(current_user.empresa, cliente_id: @cliente.id, agenda_id: @agenda.id) and return

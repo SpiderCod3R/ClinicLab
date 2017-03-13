@@ -23,7 +23,8 @@
   - if params[:agenda_id]
     .container-fluid
       .col-xs-12.col-sm-12.col-md-12.col-lg-12
-        =link_to "voltar para a agenda", "#", class: "btn btn-success", id: "return_to_agenda"
+        -if params[:cliente_id].present?
+          =link_to "voltar para a agenda", "#", class: "btn btn-success", id: "return_to_agenda"
         #empresa_id{style: "display: none"}=params[:empresa_id]
         #agenda_id{style: "display: none"}=params[:agenda_id]
         #sala_espera_id{style: "display: none"}=params[:sala_espera_id]
