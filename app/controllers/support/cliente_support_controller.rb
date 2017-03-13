@@ -31,12 +31,12 @@ class Support::ClienteSupportController < Support::InsideController
       if @cliente.update_data(params[:cliente])
         @agenda.agenda_movimentacao.update_attributes(nome_paciente: @cliente.nome, telefone_paciente: @cliente.telefone,
                                                       email_paciente: @cliente.email, cliente_id: @cliente.id)
-        if session[:sala_espera_id].present?
-          redirect_to :back
+        if session[:sala_espera_id] != ""
+          redirect_to :back and return
         end
       end
       flash[:notice] = "Dados do cliente atualizados com sucesso."
-      redirect_to empresa_clinic_sheet_cliente_path(current_user.empresa, cliente_id: @cliente.id, agenda_id: @agenda.id)
+      redirect_to empresa_clinic_sheet_cliente_path(current_user.empresa, cliente_id: @cliente.id, agenda_id: @agenda.id) and return
     else
       @cliente = current_user.empresa.clientes.build(resource_params)
       if @cliente.save
