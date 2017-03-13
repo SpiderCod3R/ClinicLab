@@ -6,7 +6,8 @@
     %ul.dropdown-menu.drop-up
       %li=link_to "Ficha do Paciente", empresa_clinic_sheet_cliente_path(current_user.empresa, cliente_id: agenda.agenda_movimentacao.cliente_id, agenda_id: agenda.id, sala_espera_id: @sala_espera)
       -if !@sala_espera
-        %li=link_to "Sala de Espera", new_empresa_agenda_sala_de_espera_path(current_user.empresa, agenda.id, cliente_id: agenda.agenda_movimentacao.cliente_id)
+        -if @agenda_permissao.sala_espera?
+          %li=link_to "Sala de Espera", new_empresa_agenda_sala_de_espera_path(current_user.empresa, agenda.id, cliente_id: agenda.agenda_movimentacao.cliente_id)
         %li.divider{:role => "separator"}
         -if @agenda_permissao.visualizar_atendimento?
           %li=link_to "Visualizar Atendimento", empresa_agenda_path(current_user.empresa, agenda)

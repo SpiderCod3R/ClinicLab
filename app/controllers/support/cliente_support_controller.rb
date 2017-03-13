@@ -6,7 +6,6 @@ class Support::ClienteSupportController < Support::InsideController
   def clinic_sheet
     session[:agenda_id] = params[:agenda_id]
     @agenda = Agenda.find(session[:agenda_id])
-    binding.pry
     if params[:cliente_id]
       @cliente = current_user.empresa.clientes.find(params[:cliente_id])
       session[:cliente_id] = @cliente.id
