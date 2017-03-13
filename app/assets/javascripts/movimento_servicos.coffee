@@ -150,7 +150,7 @@ $(document).ready ->
           # passa os dados para o controller
           $.ajax
             type: 'GET'
-            url: URL_BASE + 'movimento_servicos/' + $('#movimento_servico_id').val() + '/destroy_movimento_servico_servico'
+            url: URL_BASE + 'empresa/' + link.data().empresaId + '/movimento_servicos/' + $('#movimento_servico_id').val() + '/destroy_movimento_servico_servico'
             dataType: 'JSON'
             data:
               movimento_servico_servico_id: link.data().movimentoServicoServicoId

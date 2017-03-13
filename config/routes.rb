@@ -57,7 +57,11 @@ Rails.application.routes.draw do
     resources :fornecedores
     resources :imagem_cabecs, except: [:show]
     resources :movimento_servico_servicos
-    resources :movimento_servicos
+    resources :movimento_servicos do
+      get 'add_servicos', to: "movimento_servicos#add_servicos", as: :add_servicos
+      get 'edit_servicos', to: "movimento_servicos#edit_servicos", as: :edit_servicos
+      get 'destroy_movimento_servico_servico', to: "movimento_servicos#destroy_movimento_servico_servico", as: :destroy_servico
+    end
     resources :operadoras
     resources :profissionais
     resources :receituarios
@@ -139,8 +143,8 @@ Rails.application.routes.draw do
   get 'search/conselho_regional', to: 'conselho_regionais#search'
   get 'search/cliente-texto-livre', to: 'search#find_cliente_texto_livre'
   post 'movimento_servicos/salva_movimento_servico_servicos', to: "movimento_servicos#salva_movimento_servico_servicos"
-  get 'movimento_servicos/:id/destroy_movimento_servico_servico', to: "movimento_servicos#destroy_movimento_servico_servico", as: :destroy_movimento_servico_servico
   post 'movimento_servicos/retorna_servico', to: "movimento_servicos#retorna_servico"
+  post 'movimento_servicos/prosseguir_servicos', to: "movimento_servicos#prosseguir_servicos", as: :prosseguir_servicos
 
   post 'clientes/include_texto_livre', to: 'clientes#include_texto_livre'
   post 'clientes/include_recipe', to: 'clientes#include_recipe'

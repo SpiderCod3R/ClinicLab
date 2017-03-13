@@ -1,18 +1,4 @@
 = simple_form_for([current_user.empresa, @movimento_servico]) do |f|
-  %ul{class: "nav nav-tabs"}
-    %li{class:"active"}
-      %a{'data-toggle':"tab", href:"#dados"}
-        Dados
-    %li
-      %a{'data-toggle':"tab", href:"#servicos"}
-        Serviços
-
-  = simple_form_for([current_user.empresa, @movimento_servico]) do |f|
-    %div{class: "container", style: "padding-top: 10px; padding-bottom: 25px;"}
-      %div{class:"tab-content"}
-
-        / aba dados
-        =render 'movimento_servicos/partials/edit_dados', { f: f }
-
-        / aba servicos
-        =render 'movimento_servicos/partials/servicos', { f: f }
+  %div{class: "container", style: "padding-top: 10px; padding-bottom: 25px;"}
+    / aba dados
+    =render 'movimento_servicos/partials/edit_dados', { f: f }

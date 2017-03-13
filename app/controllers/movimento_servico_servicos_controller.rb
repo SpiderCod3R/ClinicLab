@@ -1,4 +1,4 @@
-class MovimentoServicoServicosController < ApplicationController
+class MovimentoServicoServicosController < Support::InsideController
   # before_action :set_movimento_servico_servico, only: [:show, :edit, :update, :destroy]
 
   # GET /movimento_servico_servicos

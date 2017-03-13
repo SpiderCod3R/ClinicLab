@@ -1,4 +1,4 @@
-%div{id:"servicos", class:"tab-pane fade"}
+%div{id:"servicos"}
   %div{class: "row", style: "margin-bottom: 15px;"}
     %div{class: "col-xs-12 col-sm-10 col-md-5 col-lg-5"}
       %div{class: "row"}
@@ -32,7 +32,7 @@
                       = m.servico.valor
                     %td
                       %center
-                        = link_to "#{image_tag("icons/glyphicons-17-bin.png", width: 20, height: 27)}".html_safe, destroy_movimento_servico_servico_path, data: {movimento_servico_servico_id: m.id, movimento_servico_id: @movimento_servico.id, movimento_servico_servico_valor: m.servico.valor.to_f}, class: "delete_movimento_servico_servico"
+                        = link_to "#{image_tag("icons/glyphicons-17-bin.png", width: 20, height: 27)}".html_safe, empresa_movimento_servico_destroy_servico_path, data: {movimento_servico_servico_id: m.id, movimento_servico_id: @movimento_servico.id, movimento_servico_servico_valor: m.servico.valor.to_f, empresa_id: current_user.empresa.id}, class: "delete_movimento_servico_servico"
       %div{class: "row"}
         %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-4"}
           = f.input :valor_desconto, as: :string, input_html: { class: "money_money_money" }

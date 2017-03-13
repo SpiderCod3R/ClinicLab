@@ -83,6 +83,53 @@ class MovimentoServicosController < Support::InsideController
     end
   end
 
+  def add_servicos
+    @movimento_servico = MovimentoServico.find(params[:movimento_servico_id])
+    session[:movimento_servico_id] = @movimento_servico.id
+  end
+
+  def edit_servicos
+    @movimento_servico = MovimentoServico.find(params[:movimento_servico_id])
+    session[:movimento_servico_id] = @movimento_servico.id
+  end
+
+  def prosseguir_servicos
+    @dados_movimento_servico = {}
+    unless params.empty?
+      if params[:id].present?
+        @movimento_servico = MovimentoServico.find(params[:id])
+      else
+        @movimento_servico = MovimentoServico.new
+        if MovimentoServico.last.present?
+          @movimento_servico.id = MovimentoServico.last.id + 1
+        else
+          @movimento_servico.id = 1
+        end
+      end
+      @movimento_servico.empresa_id = current_user.empresa.id
+      @movimento_servico.status = params[:status]
+      @movimento_servico.cliente_id = params[:cliente_id]
+      @movimento_servico.convenio_id = params[:convenio_id]
+      @movimento_servico.solicitante_id = params[:solicitante_id]
+      @movimento_servico.medico_id = params[:medico_id]
+      @movimento_servico.data_entrada = params[:data_entrada]
+      @movimento_servico.hora_entrada = params[:hora_entrada]
+      @movimento_servico.atendente_id = current_user.id
+      @movimento_servico.atualizador_id = current_user.id
+      if @movimento_servico.save
+        # redirect_to add_servicos_path(current_user.empresa, @movimento_servico.id)
+        @dados_movimento_servico = {empresa_id: current_user.empresa.id, movimento_servico_id: @movimento_servico.id}
+        respond_to do |format|
+          format.html
+          format.json { render json: @dados_movimento_servico.as_json }
+        end
+      else
+        flash[:error] = t("flash.actions.#{__method__}.alert", resource_name: @movimento_servico.class)
+        redirect_to :back
+      end
+    end
+  end
+
   def retorna_servico
     unless params[:servico_id].empty?
       @servico = Servico.find_by(empresa_id: current_user.empresa.id, id: params[:servico_id])

@@ -1,0 +1,13 @@
+=build_form_toolbar(nil, ".edit_movimento_servico", @movimento_servico, empresa_movimento_servicos_path(current_user.empresa), nil)
+%section{id: "movimento_servico_edit_servicos"}
+  %div{class: "container"}
+    %div{class: "row"}
+      %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+        %h1 Movimento Serviço
+        %hr{style: "border: #323232 solid 0.5px;"}
+    %div{class: "row"}
+      %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+        %div{class: "panel"}
+          = simple_form_for([current_user.empresa, @movimento_servico]) do |f|
+            %div{class: "container", style: "padding-top: 10px; padding-bottom: 25px;"}
+              =render 'movimento_servicos/partials/servicos', { f: f }

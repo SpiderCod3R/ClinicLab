@@ -1,4 +1,4 @@
-%div{id:"dados", class:"tab-pane fade in active"}
+%div{id:"dados"}
   %div{class: "row"}
     %div{class: "col-xs-12 col-sm-6 col-md-6 col-lg-6", style: 'margin: 0; padding: 0;'}
       %div{style: "font-weight: bold;"}
@@ -7,10 +7,9 @@
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
       = f.input :status, :as => :select,
                 :collection => [['Aberto','Aberto'],['Finalizado','Finalizado']],
-                :prompt => 'Selecione',
                 :label => t('labels.status')
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
-      = f.input :atendente_id, as: :hidden, input_html: { value: current_user.id }
+      = f.input :atendente_id, as: :hidden
       = f.input :atualizador_id, as: :hidden, input_html: { value: current_user.id }
       = f.input :id, input_html: { value: @movimento_servico.id }, class: "form-control", readonly: true, label: "Código"
   %div{class: "row", style: "margin-bottom: 15px;"}
@@ -32,3 +31,7 @@
       = f.input :data_entrada, as: :string, input_html: { value: date_to_format(@movimento_servico.data_entrada) }, class: "form-control", readonly: true
     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
       = f.input :hora_entrada, as: :string, input_html: { value: hora_formatada(@movimento_servico.hora_entrada) }, class: "form-control", readonly: true
+
+  %div{class: "row"}
+    %div{class: "col-xs-2 col-sm-2 col-md-2 col-lg-2", style: "margin-top: 20px;"}
+      = link_to "Prosseguir", "#", {id: "redirect_to_edit_servicos", class: "btn btn-success", title: "Prosseguir", remote: true}
