@@ -25,4 +25,9 @@ $(document).ready ->
         cliente_id: $("#cliente_id").val()
         cliente_convenio_id: $("input[name=cliente_convenio_agenda]:checked").val()
       success: (response) ->
-        window.location.href = localhost + "empresa/" + empresa_id + "/agendas#sala_espera"
+        setTimeout (->
+          toastr.info("Convênio adicionando", "Informação")
+          setTimeout (->
+            window.location.href = localhost + "empresa/" + empresa_id + "/agendas#sala_espera"
+          ), 3000
+        ), 3000
