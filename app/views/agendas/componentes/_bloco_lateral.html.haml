@@ -11,23 +11,36 @@
       -if can? :create, Agenda
         %li{:role => "presentation"}
           %a{"aria-controls" => "gerar_agenda", "data-toggle" => "tab", :href => "#gerar_agenda", :role => "tab"} Gerar Agenda
+    -if !current_user.admin && @agenda_permissao.sala_espera?
+      %li{:role => "presentation"}
+        %a{"aria-controls" => "gerar_agenda", "data-toggle" => "tab", :href => "  #sala_espera", :role => "tab"} Sala de Espera
+    -if current_user.admin
+      %li{:role => "presentation"}
+        %a{"aria-controls" => "gerar_agenda", "data-toggle" => "tab", :href => "  #sala_espera", :role => "tab"} Sala de Espera
   / Tab panes
   .tab-content
     -if can? :read, Agenda
       #agendas.tab-pane.active{:role => "tabpanel"}
         .panel
           =render 'result'
-    -if !(can? :read, Agenda) && (can? :create, Agenda)
-      #gerar_agenda.tab-pane.active{:role => "tabpanel"}
+    -if can? :create, Agenda
+      #gerar_agenda.tab-pane{:role => "tabpanel"}
         .panel
           .container-fluid
             =render 'form'
-    -else
-      -if can? :create, Agenda
-        #gerar_agenda.tab-pane{:role => "tabpanel"}
-          .panel
-            .container-fluid
-              =render 'form'
+    -if !current_user.admin && @agenda_permissao.sala_espera?
+      #sala_espera.tab-pane{:role => "tabpanel"}
+        .panel
+          .container-fluid
+            %hr
+            =render 'sala_de_espera/index'
+    -if current_user.admin
+      #sala_espera.tab-pane{:role => "tabpanel"}
+        .panel
+          .container-fluid
+            %hr
+            =render 'sala_de_espera/index'
+
 %hr{style: "border: #323232 solid 0.5px;"}
 #movimentar_agenda_section
 #block_day

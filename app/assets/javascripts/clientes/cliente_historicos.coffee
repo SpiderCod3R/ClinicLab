@@ -2,8 +2,9 @@ $(document).ready ->
   URL_BASE = window.location.origin + "/"
   error_messages = []
   historico_id = 0
-  environment_id   = $('#cliente_empresa_id').val()
-  environment_name = $('#cliente_empresa_name').val()
+  agenda_id  = $('#agenda_id').text()
+  empresa_id = $('#empresa_id').text()
+  cliente_id = $('#cliente_id').text()
 
   $('#incluir_historico').click ->
     $('div#old_historico').hide()
@@ -44,8 +45,12 @@ $(document).ready ->
           indice: indice
         success: (json) ->
           cliente_id = json
-          window.location.href = URL_BASE + "empresa/" + environment_name + "/clientes/" + cliente_id + "/edit"
-          window.location.href = URL_BASE + "empresa/" + environment_name + "/clientes/" + cliente_id + "/edit#historico"
+          if agenda_id == ""
+            window.location.href = URL_BASE + "empresa/" + empresa_id + "/clientes/" + cliente_id + "/edit"
+            window.location.href = URL_BASE + "empresa/" + empresa_id + "/clientes/" + cliente_id + "/edit#historico"
+          else
+            window.location.href = URL_BASE + "empresa/#{empresa_id}/ficha_cliente?agenda_id=#{agenda_id}&cliente_id=#{cliente_id}
+            "
           return
       return
     else
@@ -77,4 +82,8 @@ $(document).ready ->
             indice: indice
           success: (json) ->
             cliente_id = json
-            window.location.href = URL_BASE + "empresa/" + environment_name + "/clientes/" + cliente_id + "/edit"
+            if agenda_id == ""
+              window.location.href = URL_BASE + "empresa/" + empresa_id + "/clientes/" + cliente_id + "/edit"
+            else
+              window.location.href = URL_BASE + "empresa/#{empresa_id}/ficha_cliente?agenda_id=#{agenda_id}&cliente_id=#{cliente_id}
+              "

@@ -2,9 +2,10 @@ $(document).ready ->
   URL_BASE = window.location.origin + "/"
   texto_livre_id = 0
   ctl_id =0
-  environment_id   = $('#cliente_empresa_id').val()
-  environment_name = $('#cliente_empresa_name').val()
-  cliente_id = $("#cliente_id").val()
+  agenda_id  = $('#agenda_id').text()
+  empresa_id = $('#empresa_id').text()
+  cliente_id = $('#cliente_id').val()
+
   # $('.nav-tabs a[href="#texto_livre"]').tab('show')
 
   $("#cancelar_free_text").hide()
@@ -67,8 +68,11 @@ $(document).ready ->
               cliente_id: cliente_id
             success: (response) ->
               cliente_id = cliente_id
-              window.location.href = URL_BASE + "empresa/" + environment_name + "/clientes/" + $("#cliente_id").val() + "/edit"
-              window.location.href = URL_BASE + "empresa/" + environment_name + "/clientes/" + $("#cliente_id").val() + "/edit#texto_livre"
+              if agenda_id == ""
+                window.location.href = URL_BASE + "empresa/" + empresa_id + "/clientes/" + cliente_id + "/edit"
+                window.location.href = URL_BASE + "empresa/" + empresa_id + "/clientes/" + cliente_id + "/edit#texto_livre"
+              else
+                window.location.href = URL_BASE + "empresa/#{empresa_id}/ficha_cliente?agenda_id=#{agenda_id}&cliente_id=#{cliente_id}"
               $('.nav-tabs a[href="#texto_livre"]').tab('show')
 
 
@@ -93,7 +97,7 @@ $(document).ready ->
       url: URL_BASE + 'search/cliente-texto-livre'
       data:
         id: ctl_id
-        cliente_id: $("#cliente_id").val()
+        cliente_id: cliente_id
       success: (response) ->
         $("#free_text_area").hide()
         $('#cktext_area_editor').show()
@@ -115,10 +119,15 @@ $(document).ready ->
       data: 
         texto_livre:
           texto_livre_id: texto_livre_id
-          cliente_id: $("#cliente_id").val()
+          cliente_id: cliente_id
           content: content
         cliente_texto_livre:
           id: ctl_id
       success: (response) ->
-        window.location.href = URL_BASE + "empresa/" + environment_name + "/clientes/" + $("#cliente_id").val() + "/edit"
-        window.location.href = URL_BASE + "empresa/" + environment_name + "/clientes/" + $("#cliente_id").val() + "/edit#texto_livre"
+        if agenda_id == ""
+          window.location.href = URL_BASE + "empresa/" + empresa_id + "/clientes/" + cliente_id + "/edit"
+          window.location.href = URL_BASE + "empresa/" + empresa_id + "/clientes/" + cliente_id + "/edit#texto_livre"
+        else
+          window.location.href = URL_BASE + "empresa/#{empresa_id}/ficha_cliente?agenda_id=#{agenda_id}&cliente_id=#{cliente_id}"
+        
+        

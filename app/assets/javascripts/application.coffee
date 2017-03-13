@@ -45,6 +45,7 @@
 #= require clientes/texto_livre
 #= require clientes/cliente_historicos
 #= require clientes/cliente_convenios
+#= require clientes/cliente_convenio_agenda
 #= require clientes/cliente_receituarios
 #= require clientes/search
 #= require filtros

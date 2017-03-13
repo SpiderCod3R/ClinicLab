@@ -23,7 +23,7 @@ class Painel::AgendaPermissoesController < Support::InsideController
 
   private
     def resource_params
-      params.require(:agenda_permissao).permit(:user_model_id, :agendar, :excluir,
+      params.require(:agenda_permissao).permit(:user_model_id, :sala_espera, :agendar, :excluir,
                                                :trocar_horario, :realizar_atendimento,
                                                :visualizar_atendimento, :limpar_horario,
                                                :paciente_nao_veio, :remarcar_pelo_paciente,

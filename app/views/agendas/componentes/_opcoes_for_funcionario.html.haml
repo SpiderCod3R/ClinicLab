@@ -1,44 +1,48 @@
+-@sala_espera = SalaEspera.find_by(agenda_id: agenda.id)
 -unless agenda.agenda_movimentacao.nil?
   .btn-group
     %button.btn.btn-default.btn-circle.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
       %i.glyphicon.glyphicon-chevron-up
     %ul.dropdown-menu.drop-up
-      %li=link_to "Ficha do Paciente", clinic_sheet_cliente_path(agenda_id: agenda, cliente_id: agenda.agenda_movimentacao.cliente_id)
-      %li.divider{:role => "separator"}
-      -if @agenda_permissao.visualizar_atendimento?
-        %li=link_to "Visualizar Atendimento", painel_empresa_agenda_path(current_usuario.empresa, agenda)
-      -unless agenda.status.eql?(I18n.t("agendas.helpers.attended"))
-        -if agenda.status.eql?(I18n.t("agendas.helpers.scheduled")) or agenda.status.eql?(I18n.t("agendas.helpers.free"))
-          -if @agenda_permissao.realizar_atendimento?
-            %li=link_to "Realizar Atendimento", painel_empresa_agenda_make_appointment_path(current_usuario.empresa, agenda), remote: true
-          %li.divider{:role => "separator"}
-          -if @agenda_permissao.trocar_horario?
-            %li=link_to "Trocar Horário", painel_empresa_agenda_change_day_or_time_path(current_usuario.empresa, agenda), remote: true
-          -if @agenda_permissao.limpar_horario?
-            %li=link_to "Limpar Horário", painel_empresa_agenda_clean_path(current_usuario.empresa, agenda)
-        -unless agenda.status.eql?(I18n.t("agendas.helpers.unmarked_by_doctor")) or agenda.status.eql?(I18n.t("agendas.helpers.unmarked_by_pacient")) or agenda.status.eql?(I18n.t("agendas.helpers.didnt_came"))
-          -if @agenda_permissao.paciente_nao_veio?
-            %li=link_to "Paciente não veio", painel_empresa_agenda_didnt_came_path(current_usuario.empresa, agenda), remote: true
-          -if @agenda_permissao.remarcar_pelo_paciente?
+      %li=link_to "Ficha do Paciente", empresa_clinic_sheet_cliente_path(current_user.empresa, cliente_id: agenda.agenda_movimentacao.cliente_id, agenda_id: agenda.id, sala_espera_id: @sala_espera)
+      -if !@sala_espera
+        -if @agenda_permissao.sala_espera?
+          %li=link_to "Sala de Espera", new_empresa_agenda_sala_de_espera_path(current_user.empresa, agenda.id, cliente_id: agenda.agenda_movimentacao.cliente_id)
+        %li.divider{:role => "separator"}
+        -if @agenda_permissao.visualizar_atendimento?
+          %li=link_to "Visualizar Atendimento", empresa_agenda_path(current_user.empresa, agenda)
+        -unless agenda.status.eql?(I18n.t("agendas.helpers.attended"))
+          -if agenda.status.eql?(I18n.t("agendas.helpers.scheduled")) or agenda.status.eql?(I18n.t("agendas.helpers.free"))
+            -if @agenda_permissao.realizar_atendimento?
+              %li=link_to "Realizar Atendimento", empresa_agenda_make_appointment_path(current_user.empresa, agenda), remote: true
             %li.divider{:role => "separator"}
-            %li=link_to "Remarcar pelo Paciente", painel_empresa_agenda_remark_by_pacient_path(current_usuario.empresa, agenda), remote: true
-          -if @agenda_permissao.remarcar_pelo_medico?
-            %li=link_to "Remarcar pelo Médico", painel_empresa_agenda_remark_by_doctor_path(current_usuario.empresa, agenda), remote: true
-        -if agenda.status.eql?(I18n.t("agendas.helpers.scheduled")) or agenda.status.eql?(I18n.t("agendas.helpers.free"))
-          -if @agenda_permissao.desmarcar_pelo_paciente?
-            %li.divider{:role => "separator"}
-            %li=link_to "Desmarcar pelo Paciente", painel_empresa_agenda_unmarked_by_pacient_path(agenda.empresa, agenda)
-          -if @agenda_permissao.desmarcar_pelo_medico?
-            %li=link_to "Desmarcar pelo Médico", painel_empresa_agenda_unmarked_by_doctor_path(agenda.empresa, agenda)
-  #change_agenda_section
+            -if @agenda_permissao.trocar_horario?
+              %li=link_to "Trocar Horário", empresa_agenda_change_day_or_time_path(current_user.empresa, agenda), remote: true
+            -if @agenda_permissao.limpar_horario?
+              %li=link_to "Limpar Horário", empresa_agenda_clean_path(current_user.empresa, agenda)
+          -unless agenda.status.eql?(I18n.t("agendas.helpers.unmarked_by_doctor")) or agenda.status.eql?(I18n.t("agendas.helpers.unmarked_by_pacient")) or agenda.status.eql?(I18n.t("agendas.helpers.didnt_came"))
+            -if @agenda_permissao.paciente_nao_veio?
+              %li=link_to "Paciente não veio", empresa_agenda_didnt_came_path(current_user.empresa, agenda), remote: true
+            -if @agenda_permissao.remarcar_pelo_paciente?
+              %li.divider{:role => "separator"}
+              %li=link_to "Remarcar pelo Paciente", empresa_agenda_remark_by_pacient_path(current_user.empresa, agenda), remote: true
+            -if @agenda_permissao.remarcar_pelo_medico?
+              %li=link_to "Remarcar pelo Médico", empresa_agenda_remark_by_doctor_path(current_user.empresa, agenda), remote: true
+          -if agenda.status.eql?(I18n.t("agendas.helpers.scheduled")) or agenda.status.eql?(I18n.t("agendas.helpers.free"))
+            -if @agenda_permissao.desmarcar_pelo_paciente?
+              %li.divider{:role => "separator"}
+              %li=link_to "Desmarcar pelo Paciente", empresa_agenda_unmarked_by_pacient_path(agenda.empresa, agenda)
+            -if @agenda_permissao.desmarcar_pelo_medico?
+              %li=link_to "Desmarcar pelo Médico", empresa_agenda_unmarked_by_doctor_path(agenda.empresa, agenda)
+    #change_agenda_section
 -else
   .btn-group
     %button.btn.btn-default.btn-circle.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
       %i.glyphicon.glyphicon-chevron-up
     %ul.dropdown-menu.drop-up
       -if @agenda_permissao.agendar?
-        %li=link_to "Agendar atendimento", painel_empresa_agenda_movimentar_ou_atualizar_path(@empresa,agenda.id), class: "hands_cursor"
+        %li=link_to "Agendar atendimento", empresa_agenda_movimentar_ou_atualizar_path(current_user.empresa,agenda.id), class: "hands_cursor"
       %li.divider{:role => "separator"}
       -if @agenda_permissao.excluir?
-        %li=link_to "Excluir Agenda", painel_empresa_agenda_path(current_usuario.empresa, agenda), method: :delete, data: { confirm: "Deseja mesmo excluir a agenda #{agenda.referencia_agenda.descricao} no periodo de #{Time.parse(agenda.atendimento_inicio).strftime('%H:%M')}?" }
+        %li=link_to "Excluir Agenda", empresa_agenda_path(current_user.empresa, agenda), method: :delete, data: { confirm: "Deseja mesmo excluir a agenda #{agenda.referencia_agenda.descricao} no periodo de #{Time.parse(agenda.atendimento_inicio).strftime('%H:%M')}?" }
 

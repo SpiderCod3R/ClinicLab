@@ -48,6 +48,9 @@ Rails.application.routes.draw do
         get    'find_recipe'
         delete 'destroy_pdf'
       end
+      put 'atualizar_convenio', to: "cliente_convenios#update_convenio", as: :update_convenio
+      get 'inativar_convenio', to: "cliente_convenios#deactivate", as: :deactivate_convenio
+      get 'ativar_convenio', to: "cliente_convenios#activate", as: :activate_convenio
     end
     resources :texto_livres
     resources :imagem_cabecs
@@ -113,7 +116,18 @@ Rails.application.routes.draw do
       put 'attended'
       get 'block_day', to: 'agendas#block_day', as: :block_day
       put 'block_day', to: 'agendas#set_block_on_day', as: :set_block_on_day
+      get 'get_convenio', to: 'sala_de_espera#get_convenio', as: :get_convenio
       resources :agenda_movimentacoes
+      resources :sala_de_espera do
+        collection do
+          get 'search', to: 'sala_de_espera#localize', as: :localize, via: [:get]
+        end
+        member do
+          get 'back'
+          get 'attended'
+          get 'get_convenio'
+        end
+      end
       get 'movimentar', to: 'agenda_movimentacoes#new', as: :movimentar_ou_atualizar
     end
     get 'receita/:recipe_id/remove', to: "clientes#destroy_cliente_receituario"
@@ -143,10 +157,6 @@ Rails.application.routes.draw do
   get 'search/cliente-texto-livre', to: 'search#find_cliente_texto_livre'
 
   post 'clientes/include_texto_livre', to: 'clientes#include_texto_livre'
-  post 'clientes/include_recipe', to: 'clientes#include_recipe'
-  post 'clientes/include_texto_livre', to: 'clientes#include_texto_livre'
-  get 'search/receituario', to: 'search#find_receituario'
-  get 'search/cliente_receituario', to: 'search#find_cliente_receituario'
   post 'clientes/include_recipe', to: 'clientes#include_recipe'
   get 'search/receituario', to: 'search#find_receituario'
   get 'search/cliente_receituario', to: 'search#find_cliente_receituario'

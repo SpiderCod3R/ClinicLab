@@ -4,10 +4,19 @@ class Support::ClienteSupportController < Support::InsideController
   before_action :set_access, only: [:edit, :ficha, :clinic_sheet]
 
   def clinic_sheet
-    session[:agenda_id]  = params[:agenda_id]
-    @cliente = current_user.empresa.clientes.find(params[:cliente_id]) if params[:cliente_id]
+    session[:agenda_id] = params[:agenda_id]
+    @agenda = Agenda.find(session[:agenda_id])
+    if params[:cliente_id]
+      @cliente = current_user.empresa.clientes.find(params[:cliente_id])
+      session[:cliente_id] = @cliente.id
+    end
+
     @cliente = current_user.empresa.clientes.build unless params[:cliente_id].present?
     load_tabs if @cliente.id?
+
+    # => Entrará nesse contexto se e somente si a ficha do paciente
+    # estiver vindo da agenda no que diz respeito a sala de espera
+    load_waiting_room
   end
 
   def paginate_pdfs
@@ -21,15 +30,15 @@ class Support::ClienteSupportController < Support::InsideController
       @cliente.upload_files(params[:cliente][:cliente_pdf_upload]) if !params[:cliente][:cliente_pdf_upload].nil?
       if @cliente.update_data(params[:cliente])
         @agenda.agenda_movimentacao.update_attributes(nome_paciente: @cliente.nome, telefone_paciente: @cliente.telefone,
-                                                      email_paciente: @cliente.email, convenio_id: @cliente.convenio_id, cliente_id: @cliente.id)
+                                                      email_paciente: @cliente.email, cliente_id: @cliente.id)
       end
       flash[:notice] = "Dados do cliente atualizados com sucesso."
-      redirect_to empresa_clinic_sheet_cliente_path(current_user.empresa, cliente_id: @cliente.id, agenda_id: @agenda.id)
+      redirect_to empresa_clinic_sheet_cliente_path(current_user.empresa, cliente_id: @cliente.id, agenda_id: @agenda.id) and return
     else
       @cliente = current_user.empresa.clientes.build(resource_params)
       if @cliente.save
         @agenda.agenda_movimentacao.update_attributes(nome_paciente: @cliente.nome, telefone_paciente: @cliente.telefone,
-                                                      email_paciente: @cliente.email, convenio_id: @cliente.convenio_id, cliente_id: @cliente.id)
+                                                      email_paciente: @cliente.email, cliente_id: @cliente.id)
         flash[:notice] = "Dados do cliente salvos com sucesso."
         redirect_to empresa_clinic_sheet_cliente_path(current_user.empresa, cliente_id: @cliente.id, agenda_id: @agenda.id)
       else
@@ -252,6 +261,17 @@ class Support::ClienteSupportController < Support::InsideController
         @model = Gclinic::Model.find_by(model_class: "Cliente")
         @user_model = current_user.user_models.find_by(model_id: @model.id)
         @cliente_permissao = ClientePermissao.find_by user_model_id: @user_model.id
+      end
+    end
+
+    def load_waiting_room
+      if params[:sala_espera_id].present?
+        session[:sala_espera_id] = params[:sala_espera_id]
+        @sala_espera=@agenda.sala_de_esperas.find(params[:sala_espera_id])
+        if @sala_espera.hora_inicio_atendimento.nil?
+          @sala_espera.hora_inicio_atendimento= DateTime.now
+          @sala_espera.save
+        end
       end
     end
 

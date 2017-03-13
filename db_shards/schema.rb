@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170222174907) do
+ActiveRecord::Schema.define(version: 20170309204542) do
 
   create_table "agenda_movimentacoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "agenda_id"
     t.integer  "convenio_id"
     t.integer  "cliente_id"
-    t.text     "observacoes",       limit: 65535
+    t.text     "observacoes",         limit: 65535
     t.string   "confirmacao"
     t.boolean  "sem_convenio"
     t.date     "data"
@@ -29,9 +29,11 @@ ActiveRecord::Schema.define(version: 20170222174907) do
     t.string   "nome_paciente"
     t.string   "telefone_paciente"
     t.string   "email_paciente"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.integer  "cliente_convenio_id"
     t.index ["agenda_id"], name: "index_agenda_movimentacoes_on_agenda_id", using: :btree
+    t.index ["cliente_convenio_id"], name: "index_agenda_movimentacoes_on_cliente_convenio_id", using: :btree
     t.index ["cliente_id"], name: "index_agenda_movimentacoes_on_cliente_id", using: :btree
     t.index ["convenio_id"], name: "index_agenda_movimentacoes_on_convenio_id", using: :btree
   end
@@ -51,6 +53,7 @@ ActiveRecord::Schema.define(version: 20170222174907) do
     t.boolean  "desmarcar_pelo_paciente"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.boolean  "sala_espera"
     t.index ["user_model_id"], name: "index_agenda_permissoes_on_user_model_id", using: :btree
   end
 
@@ -125,11 +128,12 @@ ActiveRecord::Schema.define(version: 20170222174907) do
     t.index ["empresa_id"], name: "index_centro_de_custos_on_empresa_id", using: :btree
   end
 
-  create_table "cidades", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "cidades", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "nome"
     t.integer  "estado_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["estado_id"], name: "index_cidades_on_estado_id", using: :btree
   end
 
   create_table "ckeditor_assets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -156,6 +160,7 @@ ActiveRecord::Schema.define(version: 20170222174907) do
     t.string  "plano"
     t.date    "validade_carteira"
     t.string  "produto"
+    t.boolean "utilizando_agora",  default: false
     t.index ["cliente_id"], name: "index_cliente_convenios_on_cliente_id", using: :btree
     t.index ["convenio_id"], name: "index_cliente_convenios_on_convenio_id", using: :btree
   end
@@ -301,7 +306,7 @@ ActiveRecord::Schema.define(version: 20170222174907) do
     t.integer  "environment_id"
   end
 
-  create_table "estados", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "estados", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "sigla"
     t.string   "nome"
     t.integer  "capital_id"
@@ -422,6 +427,21 @@ ActiveRecord::Schema.define(version: 20170222174907) do
     t.index ["profissional_id"], name: "index_referencia_agendas_on_profissional_id", using: :btree
   end
 
+  create_table "sala_esperas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "cliente_id"
+    t.integer  "agenda_id"
+    t.date     "data"
+    t.string   "status"
+    t.datetime "hora_agendada"
+    t.datetime "hora_chegada"
+    t.datetime "hora_inicio_atendimento"
+    t.datetime "hora_fim_atendimento"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.index ["agenda_id"], name: "index_sala_esperas_on_agenda_id", using: :btree
+    t.index ["cliente_id"], name: "index_sala_esperas_on_cliente_id", using: :btree
+  end
+
   create_table "servicos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "tipo"
     t.string   "abreviatura"
@@ -443,6 +463,7 @@ ActiveRecord::Schema.define(version: 20170222174907) do
   end
 
   add_foreign_key "agenda_movimentacoes", "agendas"
+  add_foreign_key "agenda_movimentacoes", "cliente_convenios"
   add_foreign_key "agenda_movimentacoes", "clientes"
   add_foreign_key "agenda_movimentacoes", "convenios"
   add_foreign_key "agendas", "referencia_agendas"
@@ -477,5 +498,7 @@ ActiveRecord::Schema.define(version: 20170222174907) do
   add_foreign_key "profissionais", "estados"
   add_foreign_key "profissionais", "operadoras"
   add_foreign_key "referencia_agendas", "profissionais"
+  add_foreign_key "sala_esperas", "agendas"
+  add_foreign_key "sala_esperas", "clientes"
   add_foreign_key "texto_livres", "servicos"
 end

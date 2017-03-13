@@ -1,0 +1,2 @@
+module SalaDeEsperaHelper
+end

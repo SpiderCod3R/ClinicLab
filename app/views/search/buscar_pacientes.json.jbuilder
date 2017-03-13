@@ -1,16 +1,15 @@
 json.array!(@pacientes) do |paciente|
   json.extract! paciente, :id,:nome, :rg, :cpf, :telefone, :endereco, :bairro,
-                          :complemento, :sexo, :estado_civil, :matricula, :titular,
-                          :plano, :email, :produto
+                          :complemento, :sexo, :estado_civil, :email
 
 
   json.set! :nascimento do
     json.data paciente.nascimento.strftime("%d/%m/%Y")
   end
 
-  json.set! :validade_carteira do
-    json.data paciente.validade_carteira.strftime("%d/%m/%Y")
-  end
+  # json.set! :validade_carteira do
+  #   json.data paciente.validade_carteira.strftime("%d/%m/%Y")
+  # end
 
   json.set! :cidade do
     if paciente.cidade.present?
@@ -30,10 +29,10 @@ json.array!(@pacientes) do |paciente|
     end
   end
 
-  json.set! :convenio do
-    if paciente.convenio.present?
-      json.id paciente.convenio.id
-      json.nome paciente.convenio.nome
-    end
-  end
+  # json.set! :convenio do
+  #   if paciente.convenio.present?
+  #     json.id paciente.convenio.id
+  #     json.nome paciente.convenio.nome
+  #   end
+  # end
 end

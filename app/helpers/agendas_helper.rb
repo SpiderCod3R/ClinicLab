@@ -8,6 +8,12 @@ module AgendasHelper
   end
 
   def change_color_by_status(resource, &block)
+    if resource.status.eql?("ESPERA") && resource.data.eql?(Date.today)
+      concat(content_tag(:tr, block.binding, id: I18n.t('agendas.helpers.identity', resource_id: resource.id), class: "success tr_agenda") do
+        yield
+      end)
+    end
+
     if resource.status.eql?(I18n.t("agendas.helpers.scheduled")) && resource.data.eql?(Date.today)
       concat(content_tag(:tr, block.binding, id: I18n.t('agendas.helpers.identity', resource_id: resource.id), class: "success tr_agenda") do
         yield
