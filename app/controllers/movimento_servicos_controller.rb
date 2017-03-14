@@ -21,6 +21,7 @@ class MovimentoServicosController < Support::InsideController
         @agenda = Agenda.find(params[:agenda_id])
         if @agenda.agenda_movimentacao.present?
           @agenda_movimentacao = AgendaMovimentacao.find_by(agenda_id: @agenda.id)
+          session[:agenda_movimentacao_id] = @agenda_movimentacao.id
           if @agenda_movimentacao.convenio_id.present?
             @convenio = Convenio.find(@agenda_movimentacao.convenio_id)
           end
@@ -50,11 +51,12 @@ class MovimentoServicosController < Support::InsideController
   # POST /movimento_servicos
   # POST /movimento_servicos.json
   def create
-    # @movimento_servico = MovimentoServico.new(movimento_servico_params)
+    @agenda_movimentacao = AgendaMovimentacao.find(session[:agenda_movimentacao_id])
     @movimento_servico = current_user.empresa.movimento_servicos.build(movimento_servico_params)
+    @movimento_servico.agenda_movimentacao_id = @agenda_movimentacao.id
     if @movimento_servico.save
       flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @movimento_servico.class)
-      redirect_to edit_empresa_movimento_servico_path(current_user.empresa, @movimento_servico.id)
+      redirect_to empresa_agendas_path(current_user.empresa)
     else
       flash[:error] = t("flash.actions.#{__method__}.alert", resource_name: @movimento_servico.class)
       render :new
@@ -64,12 +66,18 @@ class MovimentoServicosController < Support::InsideController
   # PATCH/PUT /movimento_servicos/1
   # PATCH/PUT /movimento_servicos/1.json
   def update
-    if @movimento_servico.update(movimento_servico_params)
-      flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @movimento_servico.class)
-      redirect_to edit_empresa_movimento_servico_path(current_user.empresa, @movimento_servico.id)
+    @movimento_servico_servico = MovimentoServicoServico.find_by(movimento_servico_id: @movimento_servico.id)
+    if @movimento_servico_servico
+      if @movimento_servico.update(movimento_servico_params)
+        flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @movimento_servico.class)
+        redirect_to empresa_agendas_path(current_user.empresa)
+      else
+        flash[:error] = t("flash.actions.#{__method__}.alert", resource_name: @movimento_servico.class)
+        render :edit
+      end
     else
-      flash[:error] = t("flash.actions.#{__method__}.alert", resource_name: @movimento_servico.class)
-      render :edit
+      redirect_to :back
+      flash[:error] = "É necessário que haja pelo menos um Servico relacionado a este Movimento Serviço"
     end
   end
 
@@ -94,6 +102,7 @@ class MovimentoServicosController < Support::InsideController
   end
 
   def prosseguir_servicos
+    @agenda_movimentacao = AgendaMovimentacao.find(session[:agenda_movimentacao_id])
     @dados_movimento_servico = {}
     unless params.empty?
       if params[:id].present?
@@ -116,6 +125,9 @@ class MovimentoServicosController < Support::InsideController
       @movimento_servico.hora_entrada = params[:hora_entrada]
       @movimento_servico.atendente_id = current_user.id
       @movimento_servico.atualizador_id = current_user.id
+      if @agenda_movimentacao.present?
+        @movimento_servico.agenda_movimentacao_id = @agenda_movimentacao.id
+      end
       if @movimento_servico.save
         # redirect_to add_servicos_path(current_user.empresa, @movimento_servico.id)
         @dados_movimento_servico = {empresa_id: current_user.empresa.id, movimento_servico_id: @movimento_servico.id}
@@ -184,6 +196,7 @@ class MovimentoServicosController < Support::InsideController
                                                 :updated_at,
                                                 :status,
                                                 :valor_desconto,
+                                                :valor_servicos,
                                                 movimento_servico_servicos_attributes: [:id, :servico_id, :movimento_servico_id, :valor_servico, :empresa_id])
     end
 end
