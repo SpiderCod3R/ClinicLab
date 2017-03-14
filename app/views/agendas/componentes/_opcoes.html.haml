@@ -6,9 +6,9 @@
       %li=link_to "Ficha do Paciente", empresa_clinic_sheet_cliente_path(current_user.empresa, cliente_id: agenda.agenda_movimentacao.cliente_id, agenda_id: agenda.id)
       %li.divider{:role => "separator"}
       - if agenda.agenda_movimentacao.movimento_servico.present?
-        %li=link_to "Movimento Serviço", edit_empresa_movimento_servico_path(current_user.empresa, agenda.agenda_movimentacao.movimento_servico.id)
+        %li=link_to "Movimento de Serviço", edit_empresa_movimento_servico_path(current_user.empresa, agenda.agenda_movimentacao.movimento_servico.id)
       - else
-        %li=link_to "Movimento Serviço", new_empresa_movimento_servico_path(current_user.empresa, agenda_id: agenda.id, cliente_id: agenda.agenda_movimentacao.cliente_id)
+        %li=link_to "Movimento de Serviço", new_empresa_movimento_servico_path(current_user.empresa, agenda_id: agenda.id, cliente_id: agenda.agenda_movimentacao.cliente_id)
       %li.divider{:role => "separator"}
       %li=link_to "Visualizar Atendimento", empresa_agenda_path(current_user.empresa, agenda)
       -unless agenda.status.eql?(I18n.t("agendas.helpers.attended"))
