@@ -8,10 +8,11 @@ class MovimentoServico < Connection::Factory
   belongs_to :solicitante, class_name: "Profissional", foreign_key: :solicitante_id
   belongs_to :medico, class_name: "Profissional", foreign_key: :medico_id
   belongs_to :empresa
+  belongs_to :agenda_movimentacao
   has_many :movimento_servico_servicos, dependent: :destroy
   has_many :servicos, through: :movimento_servico_servicos
 
   accepts_nested_attributes_for :movimento_servico_servicos, allow_destroy: true
 
-  usar_como_dinheiro :valor_total, :valor_desconto
+  usar_como_dinheiro :valor_total, :valor_desconto, :valor_servicos
 end
