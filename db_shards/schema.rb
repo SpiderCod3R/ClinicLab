@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170308114600) do
+ActiveRecord::Schema.define(version: 20170314140534) do
 
   create_table "agenda_movimentacoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "agenda_id"
@@ -376,12 +376,15 @@ ActiveRecord::Schema.define(version: 20170308114600) do
     t.integer  "medico_id"
     t.date     "data_entrada"
     t.time     "hora_entrada"
-    t.decimal  "valor_total",               precision: 14, scale: 2
+    t.decimal  "valor_total",                       precision: 14, scale: 2
     t.integer  "empresa_id"
-    t.datetime "created_at",                                         null: false
-    t.datetime "updated_at",                                         null: false
-    t.string   "status",         limit: 30
-    t.decimal  "valor_desconto",            precision: 14, scale: 2
+    t.datetime "created_at",                                                 null: false
+    t.datetime "updated_at",                                                 null: false
+    t.string   "status",                 limit: 30
+    t.decimal  "valor_desconto",                    precision: 14, scale: 2
+    t.decimal  "valor_servicos",                    precision: 14, scale: 2
+    t.integer  "agenda_movimentacao_id"
+    t.index ["agenda_movimentacao_id"], name: "index_movimento_servicos_on_agenda_movimentacao_id", using: :btree
     t.index ["cliente_id"], name: "index_movimento_servicos_on_cliente_id", using: :btree
     t.index ["convenio_id"], name: "index_movimento_servicos_on_convenio_id", using: :btree
     t.index ["empresa_id"], name: "index_movimento_servicos_on_empresa_id", using: :btree
@@ -505,6 +508,7 @@ ActiveRecord::Schema.define(version: 20170308114600) do
   add_foreign_key "imagem_cabecs", "empresas"
   add_foreign_key "movimento_servico_servicos", "movimento_servicos"
   add_foreign_key "movimento_servico_servicos", "servicos"
+  add_foreign_key "movimento_servicos", "agenda_movimentacoes"
   add_foreign_key "movimento_servicos", "clientes"
   add_foreign_key "movimento_servicos", "convenios"
   add_foreign_key "operadoras", "empresas"
