@@ -7,6 +7,8 @@ $(document).ready ->
   somatorio_servicos_tabela = 0.00
   valor_desconto = 0.00
   valor_desconto_salvo = 0.00
+  valor_servicos = 0.00
+  valor_servicos_salvo = 0.00
 
   formata_valor = (v) ->
     v.toFixed(2).replace(',', '').replace '.', ','
@@ -18,8 +20,12 @@ $(document).ready ->
   if $('#movimento_servico_valor_total').length
     if $('#movimento_servico_valor_total').val().length > 0
       valor_total_salvo = converte_float($('#movimento_servico_valor_total').val())
-      # if !isNaN(valor_total_salvo)
-      #   valor_total_atual = valor_total_salvo
+  # pega valor_servicos salvo na tabela movimento_servicos
+  if $('#movimento_servico_valor_servicos').length
+    if $('#movimento_servico_valor_servicos').val().length > 0
+      valor_servicos_salvo = converte_float($('#movimento_servico_valor_servicos').val())
+      if !isNaN(valor_servicos_salvo)
+        valor_total_atual = valor_servicos_salvo
   # pega valor_desconto salvo na tabela movimento_servicos
   if $('#movimento_servico_valor_desconto').length
     if $('#movimento_servico_valor_desconto').val().length > 0
@@ -36,8 +42,10 @@ $(document).ready ->
       valor_total_a_pagar = valor_total_atual - desconto
     else
       valor_total_a_pagar = 0.00
-    # coloca o resultado no campo valor_total
+    # coloca o valor com desconto no campo valor_total
     $('#movimento_servico_valor_total').val(formata_valor(valor_total_a_pagar))
+    # coloca o valor_total_atual no campo valor_servicos
+    $('#movimento_servico_valor_servicos').val(formata_valor(valor_total_atual))
     return
 
   # quando um serviço for selecionado
@@ -66,8 +74,6 @@ $(document).ready ->
     error_messages = []
     if $('#movimento_servico_servico_servico_id option:selected').val() == undefined
       error_messages.push('<li>Serviço deve ser selecionado</li>')
-    if $('#movimento_servico_valor_servico').val() == ''
-      error_messages.push('<li>Valor Serviço deve ser preenchido</li>')
     if error_messages.length != 0
       return BootstrapDialog.show
         type: BootstrapDialog.TYPE_DANGER
@@ -100,7 +106,7 @@ $(document).ready ->
       'servico_valor': valor_servico
     # fazendo calculo do valor_total
     somatorio_servicos_tabela = somatorio_servicos_tabela + valor_servico
-    valor_total_atual = valor_total_salvo + valor_desconto_salvo + somatorio_servicos_tabela
+    valor_total_atual = valor_servicos_salvo + somatorio_servicos_tabela
     calcula_valor_total()
     return
 
@@ -112,7 +118,7 @@ $(document).ready ->
 
   # quanto modificado o desconto, refaz o calculo do valor_total
   $('#movimento_servico_valor_desconto').focusout ->
-    valor_total_atual = valor_total_salvo + valor_desconto_salvo + somatorio_servicos_tabela
+    valor_total_atual = valor_servicos_salvo + somatorio_servicos_tabela
     calcula_valor_total()
     return
 
@@ -125,7 +131,8 @@ $(document).ready ->
         valor_servico_excluido = dados_servicos[i]['servico_valor']
         dados_servicos.splice i, 1
         $(this).closest('tr').fadeOut()
-        calcula_valor_apos_exclusao(valor_servico_excluido)
+        somatorio_servicos_tabela = somatorio_servicos_tabela - valor_servico_excluido
+        calcula_valor_apos_exclusao()
       i = i + 1
     false
 
@@ -160,35 +167,25 @@ $(document).ready ->
               # remove linha da tabela_movimento_servico_servicos
               link.closest('tr').find('td').detach()
               # chama metodo que refaz o calculo do valor_total
-              calcula_valor_apos_exclusao(valor_servico_excluido)
+              valor_servicos_salvo = valor_servicos_salvo - valor_servico_excluido
+              calcula_valor_apos_exclusao()
               return
     false
 
   # refaz o calculo do valor_total apos a exclusao de um servico da tabela
-  calcula_valor_apos_exclusao = (valor_servico_excluido) ->
-    valor_total_atual = valor_total_salvo
+  calcula_valor_apos_exclusao = ->
+    # calculando valor_total_atual
+    valor_total_atual = valor_servicos_salvo + somatorio_servicos_tabela
+    $('#movimento_servico_valor_servicos').val(formata_valor(valor_total_atual))
+    # verificando se valor_total_atual igual ou menor que zero
     if (valor_total_atual <= 0.00)
-      valor_desconto_salvo = 0.00
-      $('#movimento_servico_valor_desconto').val(formata_valor(valor_desconto_salvo))
-    desconto = converte_float($('#movimento_servico_valor_desconto').val())
-    if desconto > valor_total_atual
-      valor_total_atual = valor_total_atual + desconto
+      valor_desconto = 0.00
+      valor_total_atual = 0.00
+      $('#movimento_servico_valor_desconto').val(formata_valor(valor_desconto))
       $('#movimento_servico_valor_total').val(formata_valor(valor_total_atual))
-      return BootstrapDialog.show
-        type: BootstrapDialog.TYPE_DANGER
-        title: 'Erros Encontrados: Para prosseguir resolva os seguintes problemas'
-        message: 'Valor desconto não pode ser maior que Valor total'
-        closable: false
-        buttons: [ {
-          label: 'Fechar'
-          action: (dialogRef) ->
-            dialogRef.close()
-            error_messages = []
-            false
-        } ]
     else
-      $('#movimento_servico_valor_total').val(formata_valor(valor_total_atual))
-    return
+      calcula_valor_total()
+      return
 
   # validacao dos campos obrigatorios
   valida_campos_form = ->
@@ -256,6 +253,17 @@ $(document).ready ->
       else
         $('form.edit_movimento_servico').unbind('submit').submit()
         return
+        # return BootstrapDialog.show
+        #   type: BootstrapDialog.TYPE_DANGER
+        #   title: 'Erros Encontrados: Para prosseguir resolva os seguintes problemas'
+        #   message: '<li>Pelo menos um Serviço deve ser adicionado</li>'
+        #   closable: false
+        #   buttons: [ {
+        #     label: 'Fechar'
+        #     action: (dialogRef) ->
+        #       dialogRef.close()
+        #       false
+        #   } ]
     return
 
   return

@@ -34,7 +34,9 @@
                       %center
                         = link_to "#{image_tag("icons/glyphicons-17-bin.png", width: 20, height: 27)}".html_safe, empresa_movimento_servico_destroy_servico_path, data: {movimento_servico_servico_id: m.id, movimento_servico_id: @movimento_servico.id, movimento_servico_servico_valor: m.servico.valor.to_f, empresa_id: current_user.empresa.id}, class: "delete_movimento_servico_servico"
       %div{class: "row"}
-        %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-4"}
-          = f.input :valor_desconto, as: :string, input_html: { class: "money_money_money" }
-        %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-4 pull-right", style: "margin-right: 3%;"}
-          = f.input :valor_total, as: :string, input_html: { class: "money_money_money", readonly: true }
+        %div{class: "col-xs-12 col-sm-4 col-md-3 col-lg-3", style: "margin: 0px;"}
+          = f.input :valor_servicos, as: :string, input_html: { class: "money_money_money", readonly: true }, label: "Valor Serviços"
+        %div{class: "col-xs-12 col-sm-4 col-md-3 col-lg-3", style: "margin: 0px;"}
+          = f.input :valor_desconto, as: :string, input_html: { class: "money_money_money" }, label: "Valor Desconto"
+        %div{class: "col-xs-12 col-sm-4 col-md-3 col-lg-3 pull-right", style: "margin-right: 3%;"}
+          = f.input :valor_total, as: :string, input_html: { class: "money_money_money", readonly: true }, label: "Valor Total"
