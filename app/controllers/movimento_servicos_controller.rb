@@ -5,7 +5,7 @@ class MovimentoServicosController < Support::InsideController
   # GET /movimento_servicos
   # GET /movimento_servicos.json
   def index
-    @movimento_servicos = MovimentoServico.all
+    # @movimento_servicos = MovimentoServico.all
   end
 
   # GET /movimento_servicos/1

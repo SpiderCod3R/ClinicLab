@@ -1,4 +1,4 @@
-=build_object_viewer_toolbar(edit_empresa_movimento_servico_path(current_user.empresa, @movimento_servico), @movimento_servico, empresa_movimento_servicos_path(current_user.empresa), nil)
+=build_movimento_servico_object_viewer_toolbar(edit_empresa_movimento_servico_path(current_user.empresa, @movimento_servico), @movimento_servico, nil, nil)
 %section{id: "show_movimento_servico"}
   %div{class: "container"}
     %div{class: "row"}
@@ -49,6 +49,14 @@
               = @movimento_servico.atualizador.name
           %div{class: "row-fluid"}
             %div{class: "col-xs-6 col-sm-6 col-md-6 col-lg-6"}
+              %strong Valor Serviços:
+              = number_to_currency(@movimento_servico.valor_servicos)
+          %div{class: "row-fluid"}
+            %div{class: "col-xs-6 col-sm-6 col-md-6 col-lg-6"}
+              %strong Valor Desconto:
+              = number_to_currency(@movimento_servico.valor_desconto)
+          %div{class: "row-fluid"}
+            %div{class: "col-xs-6 col-sm-6 col-md-6 col-lg-6"}
               %strong Valor Total:
-              = @movimento_servico.valor_total
+              = number_to_currency(@movimento_servico.valor_total)
       %hr{style: "border: #323232 solid 0.5px;"}
