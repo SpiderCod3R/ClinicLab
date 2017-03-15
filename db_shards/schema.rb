@@ -53,8 +53,8 @@ ActiveRecord::Schema.define(version: 20170315134312) do
     t.boolean  "desmarcar_pelo_paciente"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
-    t.boolean  "sala_espera"
     t.boolean  "movimento_servico"
+    t.boolean  "sala_espera"
     t.index ["user_model_id"], name: "index_agenda_permissoes_on_user_model_id", using: :btree
   end
 
@@ -185,9 +185,10 @@ ActiveRecord::Schema.define(version: 20170315134312) do
     t.boolean  "texto_livre"
     t.boolean  "pdf_upload"
     t.integer  "empresa_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.boolean  "receituario"
+    t.boolean  "imagens_externas"
     t.index ["empresa_id"], name: "index_cliente_permissoes_on_empresa_id", using: :btree
   end
 
@@ -360,6 +361,21 @@ ActiveRecord::Schema.define(version: 20170315134312) do
     t.index ["empresa_id"], name: "index_imagem_cabecs_on_empresa_id", using: :btree
   end
 
+  create_table "imagens_externas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "foto_antes_file_name"
+    t.string   "foto_antes_content_type"
+    t.integer  "foto_antes_file_size"
+    t.datetime "foto_antes_updated_at"
+    t.string   "foto_depois_file_name"
+    t.string   "foto_depois_content_type"
+    t.integer  "foto_depois_file_size"
+    t.datetime "foto_depois_updated_at"
+    t.integer  "cliente_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.index ["cliente_id"], name: "index_imagens_externas_on_cliente_id", using: :btree
+  end
+
   create_table "movimento_servico_servicos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "servico_id"
     t.integer  "movimento_servico_id"
@@ -527,6 +543,7 @@ ActiveRecord::Schema.define(version: 20170315134312) do
   add_foreign_key "fornecedores", "estados"
   add_foreign_key "historicos", "clientes"
   add_foreign_key "imagem_cabecs", "empresas"
+  add_foreign_key "imagens_externas", "clientes"
   add_foreign_key "movimento_servico_servicos", "movimento_servicos"
   add_foreign_key "movimento_servico_servicos", "servicos"
   add_foreign_key "movimento_servicos", "agenda_movimentacoes"
