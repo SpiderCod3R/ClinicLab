@@ -36,16 +36,32 @@ $(document).ready ->
     desconto = converte_float($('#movimento_servico_valor_desconto').val())
     if isNaN(desconto)
       desconto = 0.0
-    # verifica se desconto menor que o valor a pagar
-    if desconto < valor_total_atual
-      # subtrai desconto do valor_total_atual
-      valor_total_a_pagar = valor_total_atual - desconto
-    else
-      valor_total_a_pagar = 0.00
-    # coloca o valor com desconto no campo valor_total
-    $('#movimento_servico_valor_total').val(formata_valor(valor_total_a_pagar))
+    # subtrai desconto do valor_total_atual
+    valor_total_a_pagar = valor_total_atual - desconto
     # coloca o valor_total_atual no campo valor_servicos
     $('#movimento_servico_valor_servicos').val(formata_valor(valor_total_atual))
+    # coloca o valor com desconto no campo valor_total
+    $('#movimento_servico_valor_total').val(formata_valor(valor_total_a_pagar))
+    # verifica se desconto maior que o valor a pagar
+    if desconto > valor_total_atual
+      return BootstrapDialog.show
+        type: BootstrapDialog.TYPE_DANGER
+        title: 'AVISO!'
+        message: 'Valor Desconto é maior que Valor Serviços. Tem certeza?'
+        closable: false
+        draggable: true
+        buttons: [ {
+          label: 'Sim'
+          action: (dialogRef) ->
+            dialogRef.close()
+            false
+        }, {
+          label: 'Não'
+          action: (dialogRef) ->
+            dialogRef.close()
+            $('#movimento_servico_valor_desconto').focus()
+            false
+        } ]
     return
 
   # quando um serviço for selecionado
@@ -268,17 +284,6 @@ $(document).ready ->
       else
         $('form.edit_movimento_servico').unbind('submit').submit()
         return
-        # return BootstrapDialog.show
-        #   type: BootstrapDialog.TYPE_DANGER
-        #   title: 'Erros Encontrados: Para prosseguir resolva os seguintes problemas'
-        #   message: '<li>Pelo menos um Serviço deve ser adicionado</li>'
-        #   closable: false
-        #   buttons: [ {
-        #     label: 'Fechar'
-        #     action: (dialogRef) ->
-        #       dialogRef.close()
-        #       false
-        #   } ]
     return
 
   return
