@@ -18,7 +18,8 @@ class AgendaPermissao < Connection::Factory
              remarcar_pelo_paciente: resource_params[:remarcar_pelo_paciente],
              remarcar_pelo_medico: resource_params[:remarcar_pelo_medico],
              desmarcar_pelo_paciente: resource_params[:desmarcar_pelo_paciente],
-             desmarcar_pelo_medico: resource_params[:desmarcar_pelo_medico])
+             desmarcar_pelo_medico: resource_params[:desmarcar_pelo_medico],
+             movimento_servico: resource_params[:movimento_servico])
     end
   end
 end
