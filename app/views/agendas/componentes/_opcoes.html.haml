@@ -4,7 +4,6 @@
       %i.glyphicon.glyphicon-chevron-up
     %ul.dropdown-menu.drop-up
       %li=link_to "Ficha do Paciente", empresa_clinic_sheet_cliente_path(current_user.empresa, cliente_id: agenda.agenda_movimentacao.cliente_id, agenda_id: agenda.id)
-      %li.divider{:role => "separator"}
       - if agenda.agenda_movimentacao.movimento_servico.present?
         %li=link_to "Movimento de Serviço", edit_empresa_movimento_servico_path(current_user.empresa, agenda.agenda_movimentacao.movimento_servico.id)
       - else
