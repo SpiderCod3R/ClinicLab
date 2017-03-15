@@ -219,7 +219,22 @@ $(document).ready ->
             false
         } ]
     else
-      $('form.new_movimento_servico').unbind('submit').submit()
+      if dados_servicos.length == 0
+        error_messages.push("É necessário que haja pelo menos um Servico relacionado a este Movimento Serviço")
+        return BootstrapDialog.show
+          type: BootstrapDialog.TYPE_DANGER
+          title: 'Erros Encontrados: Para prosseguir resolva os seguintes problemas'
+          message: error_messages
+          closable: false
+          buttons: [ {
+            label: 'Fechar'
+            action: (dialogRef) ->
+              dialogRef.close()
+              error_messages = []
+              false
+          } ]
+      else
+        $('form.new_movimento_servico').unbind('submit').submit()
     return
 
   $('form.edit_movimento_servico').submit (event) ->
