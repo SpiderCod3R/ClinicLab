@@ -35,6 +35,7 @@ class Cliente < Connection::Factory
   end
 
   has_many :convenios, through: :cliente_convenios
+  has_many :movimento_servicos
 
   accepts_nested_attributes_for :cliente_convenios, allow_destroy: true
   accepts_nested_attributes_for :historicos, allow_destroy: true

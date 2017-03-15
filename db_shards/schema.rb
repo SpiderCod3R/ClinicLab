@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170309204542) do
+ActiveRecord::Schema.define(version: 20170315134312) do
 
   create_table "agenda_movimentacoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "agenda_id"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 20170309204542) do
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.boolean  "sala_espera"
+    t.boolean  "movimento_servico"
     t.index ["user_model_id"], name: "index_agenda_permissoes_on_user_model_id", using: :btree
   end
 
@@ -359,6 +360,41 @@ ActiveRecord::Schema.define(version: 20170309204542) do
     t.index ["empresa_id"], name: "index_imagem_cabecs_on_empresa_id", using: :btree
   end
 
+  create_table "movimento_servico_servicos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "servico_id"
+    t.integer  "movimento_servico_id"
+    t.decimal  "valor_servico",        precision: 14, scale: 2
+    t.integer  "empresa_id"
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+    t.index ["empresa_id"], name: "index_movimento_servico_servicos_on_empresa_id", using: :btree
+    t.index ["movimento_servico_id"], name: "index_movimento_servico_servicos_on_movimento_servico_id", using: :btree
+    t.index ["servico_id"], name: "index_movimento_servico_servicos_on_servico_id", using: :btree
+  end
+
+  create_table "movimento_servicos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "atendente_id"
+    t.integer  "atualizador_id"
+    t.integer  "cliente_id"
+    t.integer  "convenio_id"
+    t.integer  "solicitante_id"
+    t.integer  "medico_id"
+    t.date     "data_entrada"
+    t.time     "hora_entrada"
+    t.decimal  "valor_total",                       precision: 14, scale: 2
+    t.integer  "empresa_id"
+    t.datetime "created_at",                                                 null: false
+    t.datetime "updated_at",                                                 null: false
+    t.string   "status",                 limit: 30
+    t.decimal  "valor_desconto",                    precision: 14, scale: 2
+    t.decimal  "valor_servicos",                    precision: 14, scale: 2
+    t.integer  "agenda_movimentacao_id"
+    t.index ["agenda_movimentacao_id"], name: "index_movimento_servicos_on_agenda_movimentacao_id", using: :btree
+    t.index ["cliente_id"], name: "index_movimento_servicos_on_cliente_id", using: :btree
+    t.index ["convenio_id"], name: "index_movimento_servicos_on_convenio_id", using: :btree
+    t.index ["empresa_id"], name: "index_movimento_servicos_on_empresa_id", using: :btree
+  end
+
   create_table "operadoras", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "nome"
     t.boolean  "status",     default: true
@@ -446,8 +482,9 @@ ActiveRecord::Schema.define(version: 20170309204542) do
     t.string   "tipo"
     t.string   "abreviatura"
     t.integer  "empresa_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.decimal  "valor",       precision: 14, scale: 2
     t.index ["empresa_id"], name: "index_servicos_on_empresa_id", using: :btree
   end
 
@@ -490,6 +527,11 @@ ActiveRecord::Schema.define(version: 20170309204542) do
   add_foreign_key "fornecedores", "estados"
   add_foreign_key "historicos", "clientes"
   add_foreign_key "imagem_cabecs", "empresas"
+  add_foreign_key "movimento_servico_servicos", "movimento_servicos"
+  add_foreign_key "movimento_servico_servicos", "servicos"
+  add_foreign_key "movimento_servicos", "agenda_movimentacoes"
+  add_foreign_key "movimento_servicos", "clientes"
+  add_foreign_key "movimento_servicos", "convenios"
   add_foreign_key "operadoras", "empresas"
   add_foreign_key "profissionais", "cargos"
   add_foreign_key "profissionais", "cidades"

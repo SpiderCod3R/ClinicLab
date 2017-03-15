@@ -28,6 +28,6 @@ class Painel::AgendaPermissoesController < Support::InsideController
                                                :visualizar_atendimento, :limpar_horario,
                                                :paciente_nao_veio, :remarcar_pelo_paciente,
                                                :remarcar_pelo_medico, :desmarcar_pelo_paciente,
-                                               :desmarcar_pelo_medico)
+                                               :desmarcar_pelo_medico, :movimento_servico)
     end
 end

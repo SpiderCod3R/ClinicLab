@@ -6,6 +6,7 @@ class Convenio < Connection::Factory
   belongs_to :cidade
   has_many :cliente_convenios, dependent: :destroy
   has_many :clientes, through: :cliente_convenios
+  has_many :movimento_servicos
 
   validates :nome, :valor, presence: true
   validates :nome, uniqueness: true

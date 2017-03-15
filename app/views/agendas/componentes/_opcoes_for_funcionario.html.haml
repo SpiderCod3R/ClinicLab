@@ -8,6 +8,11 @@
       -if !@sala_espera
         -if @agenda_permissao.sala_espera?
           %li=link_to "Sala de Espera", new_empresa_agenda_sala_de_espera_path(current_user.empresa, agenda.id, cliente_id: agenda.agenda_movimentacao.cliente_id)
+        - if @agenda_permissao.movimento_servico?
+          - if agenda.agenda_movimentacao.movimento_servico.present?
+            %li=link_to "Movimento de Serviço", edit_empresa_movimento_servico_path(current_user.empresa, agenda.agenda_movimentacao.movimento_servico.id)
+          - else
+            %li=link_to "Movimento de Serviço", new_empresa_movimento_servico_path(current_user.empresa, agenda_id: agenda.id, cliente_id: agenda.agenda_movimentacao.cliente_id)
         %li.divider{:role => "separator"}
         -if @agenda_permissao.visualizar_atendimento?
           %li=link_to "Visualizar Atendimento", empresa_agenda_path(current_user.empresa, agenda)

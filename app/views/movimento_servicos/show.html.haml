@@ -1,0 +1,62 @@
+=build_movimento_servico_object_viewer_toolbar(edit_empresa_movimento_servico_path(current_user.empresa, @movimento_servico), @movimento_servico, nil, nil)
+%section{id: "show_movimento_servico"}
+  %div{class: "container"}
+    %div{class: "row"}
+      %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+        %div{class: "row-fluid"}
+          %h2 Movimento de Serviço
+          %hr{style: "border: #323232 solid 0.5px;"}
+        %div{class: "col-xs-8 col-sm-8 col-md-8 col-lg-8"}
+          %div{class: "row-fluid"}
+            %div{class: "col-xs-6 col-sm-6 col-md-6 col-lg-6"}
+              %strong Código:
+              = @movimento_servico.id
+          %div{class: "row-fluid"}
+            %div{class: "col-xs-6 col-sm-6 col-md-6 col-lg-6"}
+              %strong Status:
+              = @movimento_servico.status.upcase
+          %div{class: "row-fluid"}
+            %div{class: "col-xs-6 col-sm-6 col-md-6 col-lg-6"}
+              %strong Cliente:
+              = @movimento_servico.cliente.nome
+          %div{class: "row-fluid"}
+            %div{class: "col-xs-6 col-sm-6 col-md-6 col-lg-6"}
+              %strong Convênio:
+              = @movimento_servico.convenio.nome
+          %div{class: "row-fluid"}
+            %div{class: "col-xs-6 col-sm-6 col-md-6 col-lg-6"}
+              %strong Solicitante:
+              = @movimento_servico.solicitante.nome
+          %div{class: "row-fluid"}
+            %div{class: "col-xs-6 col-sm-6 col-md-6 col-lg-6"}
+              %strong Médico:
+              = @movimento_servico.medico.nome
+          %div{class: "row-fluid"}
+            %div{class: "col-xs-6 col-sm-6 col-md-6 col-lg-6"}
+              %strong Data Entrada:
+              = date_to_format(@movimento_servico.data_entrada)
+          %div{class: "row-fluid"}
+            %div{class: "col-xs-6 col-sm-6 col-md-6 col-lg-6"}
+              %strong Hora Entrada:
+              = hora_formatada(@movimento_servico.hora_entrada)
+          %div{class: "row-fluid"}
+            %div{class: "col-xs-6 col-sm-6 col-md-6 col-lg-6"}
+              %strong Atendente:
+              = @movimento_servico.atendente.name
+          %div{class: "row-fluid"}
+            %div{class: "col-xs-6 col-sm-6 col-md-6 col-lg-6"}
+              %strong Atualizador:
+              = @movimento_servico.atualizador.name
+          %div{class: "row-fluid"}
+            %div{class: "col-xs-6 col-sm-6 col-md-6 col-lg-6"}
+              %strong Valor Serviços:
+              = number_to_currency(@movimento_servico.valor_servicos)
+          %div{class: "row-fluid"}
+            %div{class: "col-xs-6 col-sm-6 col-md-6 col-lg-6"}
+              %strong Valor Desconto:
+              = number_to_currency(@movimento_servico.valor_desconto)
+          %div{class: "row-fluid"}
+            %div{class: "col-xs-6 col-sm-6 col-md-6 col-lg-6"}
+              %strong Valor Total:
+              = number_to_currency(@movimento_servico.valor_total)
+      %hr{style: "border: #323232 solid 0.5px;"}

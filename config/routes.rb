@@ -52,24 +52,26 @@ Rails.application.routes.draw do
       get 'inativar_convenio', to: "cliente_convenios#deactivate", as: :deactivate_convenio
       get 'ativar_convenio', to: "cliente_convenios#activate", as: :activate_convenio
     end
-    resources :texto_livres
-    resources :imagem_cabecs
-    resources :fornecedores
     resources :cabecs
+    resources :cargos
+    resources :centro_de_custos
     resources :configuracao_relatorios
     resources :conselho_regionais
     resources :convenios, except: [:show]
-    resources :cargos
-    resources :cabecs
-    resources :centro_de_custos
+    resources :fornecedores
     resources :imagem_cabecs, except: [:show]
+    resources :movimento_servico_servicos
+    resources :movimento_servicos do
+      get 'add_servicos', to: "movimento_servicos#add_servicos", as: :add_servicos
+      get 'edit_servicos', to: "movimento_servicos#edit_servicos", as: :edit_servicos
+      get 'destroy_movimento_servico_servico', to: "movimento_servicos#destroy_movimento_servico_servico", as: :destroy_servico
+    end
     resources :operadoras
     resources :profissionais
-    resources :fornecedores
-    resources :servicos
     resources :receituarios
-    resources :texto_livres
     resources :referencia_agendas, except: [:show]
+    resources :servicos
+    resources :texto_livres
     resources :contas, controller: 'painel/usuarios/accounts' do
       member do
         put 'change_account'
@@ -155,6 +157,9 @@ Rails.application.routes.draw do
   get 'search/find-texto-livres'=> "search#collect_all_free_text" ,as: :collect_all_free_text
   get 'search/conselho_regional', to: 'conselho_regionais#search'
   get 'search/cliente-texto-livre', to: 'search#find_cliente_texto_livre'
+  post 'movimento_servicos/salva_movimento_servico_servicos', to: "movimento_servicos#salva_movimento_servico_servicos"
+  post 'movimento_servicos/retorna_servico', to: "movimento_servicos#retorna_servico"
+  post 'movimento_servicos/prosseguir_servicos', to: "movimento_servicos#prosseguir_servicos", as: :prosseguir_servicos
 
   post 'clientes/include_texto_livre', to: 'clientes#include_texto_livre'
   post 'clientes/include_recipe', to: 'clientes#include_recipe'

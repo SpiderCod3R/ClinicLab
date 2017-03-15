@@ -1,0 +1,4 @@
+= simple_form_for([current_user.empresa, @movimento_servico]) do |f|
+  %div{class: "container", style: "padding-top: 10px; padding-bottom: 25px;"}
+    / aba dados
+    =render 'movimento_servicos/partials/edit_dados', { f: f }
