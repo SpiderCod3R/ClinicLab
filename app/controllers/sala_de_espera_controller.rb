@@ -2,6 +2,7 @@ class SalaDeEsperaController  < Support::InsideController
 
   # => Move cliente agendado para a sala de espera
   def new
+    @agenda = Agenda.find(params[:agenda_id])
     if !params[:cliente_id].present?
       flash[:alert] = "Por-favor preencha todos os dados do cliente"
       redirect_to empresa_clinic_sheet_cliente_path(params[:empresa_id], agenda_id: params[:agenda_id])
