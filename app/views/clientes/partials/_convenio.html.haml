@@ -64,7 +64,8 @@
                         = c.convenio.nome
                       %td
                         %center
-                          =link_to "#", data: { id: c.id ,convenio_id: c.convenio.id, convenio_matricula: c.matricula, convenio_validade: c.validade_carteira.strftime("%d/%m/%Y"), convenio_titular: c.titular, convenio_plano: c.plano, convenio_produto: c.produto, convenio_status: c.status_convenio}, id: "change_convenio_cliente" do
+                          -validade = c.validade_carteira.strftime("%d/%m/%Y") if c.validade_carteira?
+                          =link_to "#", data: { id: c.id ,convenio_id: c.convenio.id, convenio_matricula: c.matricula, convenio_validade: validade, convenio_titular: c.titular, convenio_plano: c.plano, convenio_produto: c.produto, convenio_status: c.status_convenio}, id: "change_convenio_cliente" do
                             %i.fa.fa-pencil-square.fa-2x
                       %td
                         %center
