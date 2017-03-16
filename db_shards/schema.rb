@@ -53,8 +53,8 @@ ActiveRecord::Schema.define(version: 20170315134312) do
     t.boolean  "desmarcar_pelo_paciente"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
-    t.boolean  "movimento_servico"
     t.boolean  "sala_espera"
+    t.boolean  "movimento_servico"
     t.index ["user_model_id"], name: "index_agenda_permissoes_on_user_model_id", using: :btree
   end
 
