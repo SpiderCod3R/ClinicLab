@@ -29,6 +29,6 @@
               %td=configuracao_relatorio.cidade_estado
               %td=configuracao_relatorio.email
               %td{class: "pull-right"}
-                = link_to_visualizar configuracao_relatorio
+                = link_to "Visualizar", empresa_configuracao_relatorio_path(current_user.empresa, configuracao_relatorio.id)
   %div{class: "row-fluid"}
     %hr{style: "border: #323232 solid 0.5px;"}

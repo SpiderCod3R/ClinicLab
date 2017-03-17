@@ -40,6 +40,6 @@
               %strong Nome email:
               = @configuracao_relatorio.email
         %div{class: "col-xs-4 col-sm-4 col-md-4 col-lg-4"}
-          = image_tag @configuracao_relatorio.logo.url(:medium), :class => "img_profissional"
+          = image_tag @configuracao_relatorio.logo.url, style: "height: 150px; width: auto;"
         
     %hr{style: "border: #323232 solid 0.5px;"}
