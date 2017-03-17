@@ -159,6 +159,13 @@ class Agenda < Connection::Factory
     self.save
   end
 
+  def attended_by_waiting_room(hora_atendimento)
+    self.agenda_movimentacao.update_attributes(confirmacao: "ATD")
+    self.status=(I18n.t('agendas.helpers.attended'))
+    self.hora_atendimento=hora_atendimento
+    self.save
+  end
+
   private_class_method :ransackable_scopes
 
   private

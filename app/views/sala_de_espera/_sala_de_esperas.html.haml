@@ -23,4 +23,5 @@
           - if f.status == "ESPERA"
             -if !f.hora_inicio_atendimento.nil?
               %li=link_to "Atendido", attended_empresa_agenda_sala_de_espera_path(current_user.empresa, f.agenda, f)
-            %li=link_to "Voltar para agenda", back_empresa_agenda_sala_de_espera_path(current_user.empresa, f.agenda, f)
+            -if f.hora_inicio_atendimento.nil?
+              %li=link_to "Voltar para agenda", back_empresa_agenda_sala_de_espera_path(current_user.empresa, f.agenda, f)

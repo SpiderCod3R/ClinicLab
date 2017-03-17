@@ -44,6 +44,7 @@ class SalaDeEsperaController  < Support::InsideController
     @sala_de_espera.hora_fim_atendimento = DateTime.now
     @sala_de_espera.status=(I18n.t('agendas.helpers.attended'))
     @sala_de_espera.save
+    @agenda.attended_by_waiting_room(@sala_de_espera.hora_fim_atendimento.strftime("%H:%M"))
     redirect_to empresa_agendas_path(current_user.empresa)
   end
 
