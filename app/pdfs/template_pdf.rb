@@ -19,7 +19,7 @@ class TemplatePdf < Prawn::Document
   def imprimir_pdf
     formata_datas
     exibir_cabecalho
-    exibir_itens
+    # exibir_itens
   end
 
   def formata_datas
@@ -29,27 +29,31 @@ class TemplatePdf < Prawn::Document
 
   def exibir_cabecalho
     repeat(:all) do
-      bounding_box([bounds.left, bounds.top], width: 320) do
-        text "#{@relatorio.nome.upcase}", style: :bold
+      if @relatorio.logo.present?
+        image ("public/system/configuracao_relatorios/logos/000/000/001/original/#{@relatorio.logo_file_name}"), height: 70, valign: :top, position: :left
       end
+      bounding_box([100, bounds.top], width: 200, height: 50) do
+        text "#{@relatorio.nome_empresa.upcase}", style: :bold, size: 12, align: :left, valign: :center
+      end
+      move_down 10
+      text @titulo, style: :bold, size: 12, align: :center
+      line [0, 700], [522, 700]
+      stroke
       bounding_box([390, bounds.top], width: 200) do
         text "Emissão: #{@data} - #{@hora}", style: :bold
       end
-      text @titulo, style: :bold, size: 12, align: :center
-      line [0, 730], [522, 730]
-      stroke
     end
   end
 
-  def exibir_itens
-    bounding_box([0, 650], width: 522, height: 600) do
-      table itens_tabela do
-        row(0).font_style = :bold
-        row(0..row_length).align = :center
-        self.width  = 522
-        self.header = true
-        style(row(0), background_color: 'DDDDDD')
-      end
-    end
-  end
+  # def exibir_itens
+  #   bounding_box([0, 650], width: 522, height: 600) do
+  #     table itens_tabela do
+  #       row(0).font_style = :bold
+  #       row(0..row_length).align = :center
+  #       self.width  = 522
+  #       self.header = true
+  #       style(row(0), background_color: 'DDDDDD')
+  #     end
+  #   end
+  # end
 end

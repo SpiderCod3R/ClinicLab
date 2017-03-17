@@ -1,32 +1,34 @@
 require "prawn"
-class PrintFreeText
+class PrintFreeText < TemplatePdf
   include ActionView::Helpers::SanitizeHelper
   attr_accessor :resource
 
-  PDF_OPTIONS = {
-    :page_size   => "A4",
-    :page_layout => :landscape,
-    :margin      => [40, 75]
-  }
-
-  def initialize(resource)
+  def initialize(resource, relatorio, titulo)
+    super(resource, relatorio, titulo)
     @resource = resource
-    pdf
+    @relatorio = relatorio
+    @titulo = titulo
+    imprime_pdf
   end
 
   def remove_html(string)
     sanitize(string, :tags => {}) # empty tags hash tells it to allow no tags
   end
 
-  def pdf
-    Prawn::Document.new(PDF_OPTIONS) do |pdf|
-      pdf.font "Helvetica"
-      pdf.move_down 50
-      pdf.text remove_html(resource)
+  def imprime_pdf
+    bounding_box([0, 680], width: 522, height: 620) do
+      text remove_html(resource)
     end
+    exibe_rodape
   end
 
-  def render
-    pdf.render
+  def exibe_rodape
+    repeat(:all) do
+      bounding_box([0, 40], width: 520, height: 40) do
+        text "CNPJ: #{@relatorio.cnpj} - Telefone: #{@relatorio.telefone}", align: :center
+        text "#{@relatorio.endereco}, #{@relatorio.bairro}, #{@relatorio.cidade_estado}", align: :center
+        text "E-mail:#{@relatorio.email}", align: :center
+      end
+    end
   end
 end

@@ -1,5 +1,5 @@
 require "prawn"
-class PrintHistoricoCompleto < Prawn::Document
+class PrintHistoricoCompleto < TemplatePdf
   include ActionView::Helpers::SanitizeHelper
   attr_accessor :resources
 
@@ -9,38 +9,50 @@ class PrintHistoricoCompleto < Prawn::Document
     :margin      => [40, 75]
   }
 
-  def initialize(resources)
-    super(PDF_OPTIONS)
+  def initialize(resources, relatorio, titulo)
+    super(resources, relatorio, titulo)
     @resources = resources
-    pdf
+    @relatorio = relatorio
+    @titulo = titulo
+    imprime_pdf
   end
 
   def remove_html(string)
     sanitize(string, :tags => {}) # empty tags hash tells it to allow no tags
   end
 
-  def pdf
-    resources.collect do |resource|
-      header(resource)
-      stroke_horizontal_rule
-      move_down 30
-      font "Courier"
-      text remove_html(resource.indice)
-      move_down 40
+  def imprime_pdf
+    bounding_box([0, 680], width: 522, height: 620) do
+      resources.collect do |resource|
+        exibe_item(resource)
+      end
     end
+    exibe_rodape
   end
 
-  def header(resource)
-    font "Courier", style: :bold
-    text formatDateHour(resource.created_at.to_date, resource.created_at.to_time)
-    text "Elaborado por - #{resource.usuario.nome}"
-    text "Cliente - #{resource.cliente.nome}"
-    text resource.idade
+  def exibe_item(resource)
+    text formatDateHour(resource.created_at.to_date, resource.created_at.to_time), style: :bold
+    text "Elaborado por - #{resource.user.name}", style: :bold
+    text "Cliente - #{resource.cliente.nome}", style: :bold
+    text resource.idade, style: :bold
+    move_down 10
+    text remove_html(resource.indice)
+    move_down 40
   end
 
   def formatDateHour(date, hour)
     if date.present? && hour.present?
       date.strftime("%d/%m/%Y") + " - " + hour.strftime("%H:%M")
+    end
+  end
+
+  def exibe_rodape
+    repeat(:all) do
+      bounding_box([0, 40], width: 520, height: 40) do
+        text "CNPJ: #{@relatorio.cnpj} - Telefone: #{@relatorio.telefone}", align: :center
+        text "#{@relatorio.endereco}, #{@relatorio.bairro}, #{@relatorio.cidade_estado}", align: :center
+        text "E-mail:#{@relatorio.email}", align: :center
+      end
     end
   end
 end
