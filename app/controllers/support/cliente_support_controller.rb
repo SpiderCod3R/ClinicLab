@@ -79,34 +79,37 @@ class Support::ClienteSupportController < Support::InsideController
   end
 
   def print_free_text
+    @relatorio = ConfiguracaoRelatorio.find_by(empresa_id: current_user.empresa.id)
     @cliente = Cliente.find(params[:id])
     @cliente_texto_livre = @cliente.cliente_texto_livres.find(params[:texto_livre_id]) if params[:texto_livre_id].present?
     respond_to do |format|
       format.html
       format.pdf do
-        pdf = PrintFreeText.new(@cliente_texto_livre.content_data)
+        pdf = PrintFreeText.new(@cliente_texto_livre.content_data, @relatorio, "Texto Livre")
         send_data pdf.render, filename: "#{@cliente_texto_livre.texto_livre.nome}", type: 'application/pdf', disposition: 'inline'
       end
     end
   end
 
   def print_historico
+    @relatorio = ConfiguracaoRelatorio.find_by(empresa_id: current_user.empresa.id)
     get_historicos
     respond_to do |format|
       format.html
       format.pdf do
-        pdf = PrintHistoricoIndividual.new(@historicos.first)
+        pdf = PrintHistoricoIndividual.new(@historicos.first, @relatorio, "Histórico Individual")
         send_data pdf.render, filename: "historico", type: 'application/pdf', disposition: 'inline'
       end
     end
   end
 
   def print_historico_full
+    @relatorio = ConfiguracaoRelatorio.find_by(empresa_id: current_user.empresa.id)
     get_historicos
     respond_to do |format|
       format.html
       format.pdf do
-        pdf = PrintHistoricoCompleto.new(@historicos)
+        pdf = PrintHistoricoCompleto.new(@historicos, @relatorio, "Históricos")
         send_data pdf.render, filename: "historico", type: 'application/pdf', disposition: 'inline'
       end
     end

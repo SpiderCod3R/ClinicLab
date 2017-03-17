@@ -36,11 +36,11 @@ class ConfiguracaoRelatoriosController < Support::InsideController
   end
 
   def update
-    @configuracao_relatorio.associado_com_a_empresa=empresa_atual
+    @configuracao_relatorio.empresa = current_user.empresa
     if @configuracao_relatorio.update(resource_params)
       flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @configuracao_relatorio.class)
     end
-    redirect_to edit_configuracao_relatorio_path(@configuracao_relatorio)
+    redirect_to edit_empresa_configuracao_relatorio_path(@configuracao_relatorio)
   end
 
   def destroy
