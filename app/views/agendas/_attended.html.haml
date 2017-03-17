@@ -6,7 +6,7 @@
           %span{"aria-hidden" => "true"} ×
         %h4.modal-title Realizar Atendimento
       .modal-body
-        =simple_form_for [@empresa, @agenda], url: painel_empresa_agenda_attended_path, method: "PUT", html: { class: "modal_attended_agenda"}, remote: true do |f|
+        =simple_form_for [current_user.empresa, @agenda], url: empresa_agenda_attended_path, method: "PUT", html: { class: "modal_attended_agenda"}, remote: true do |f|
           .container-fluid
             .row-fluid
               .col-md-12
@@ -28,3 +28,4 @@
     / /.modal-content
   / /.modal-dialog
 / /.modal
+

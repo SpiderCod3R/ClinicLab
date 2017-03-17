@@ -25,6 +25,7 @@ class Support::ClienteSupportController < Support::InsideController
 
   def change_or_create_paciente
     @agenda = Agenda.find(session[:agenda_id])
+    # binding.pry
     if params[:cliente][:id].present?
       @cliente = Cliente.find(params[:cliente][:id])
       @cliente.upload_files(params[:cliente][:cliente_pdf_upload]) if !params[:cliente][:cliente_pdf_upload].nil?
