@@ -6,7 +6,8 @@
     %ul.dropdown-menu.drop-up
       %li=link_to "Ficha do Paciente", empresa_clinic_sheet_cliente_path(current_user.empresa, cliente_id: agenda.agenda_movimentacao.cliente_id, agenda_id: agenda.id, sala_espera_id: @sala_espera)
       -if !@sala_espera
-        %li=link_to "Sala de Espera", new_empresa_agenda_sala_de_espera_path(current_user.empresa, agenda.id, cliente_id: agenda.agenda_movimentacao.cliente_id)
+        -if Time.now.strftime("%Y-%m-%d") == agenda.data.strftime("%Y-%m-%d")
+          %li=link_to "Sala de Espera", new_empresa_agenda_sala_de_espera_path(current_user.empresa, agenda.id, cliente_id: agenda.agenda_movimentacao.cliente_id)
         - if agenda.agenda_movimentacao.movimento_servico.present?
           %li=link_to "Movimento de Serviço", edit_empresa_movimento_servico_path(current_user.empresa, agenda.agenda_movimentacao.movimento_servico.id)
         - else
