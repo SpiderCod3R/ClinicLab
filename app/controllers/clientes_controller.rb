@@ -37,7 +37,9 @@ class ClientesController < Support::ClienteSupportController
     get_historicos
     @cliente.upload_files(params[:cliente][:cliente_pdf_upload]) if !params[:cliente][:cliente_pdf_upload][:pdf].nil?
     if @cliente.update(resource_params)
-      salva_imagens_externas
+      if params[:imagens_externas].present?
+        salva_imagens_externas
+      end
       flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @cliente.class)
       redirect_to empresa_cliente_path(current_user.empresa, @cliente)
     else
