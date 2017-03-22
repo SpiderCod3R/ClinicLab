@@ -28,15 +28,18 @@ class Support::ClienteSupportController < Support::InsideController
     if params[:cliente][:id].present?
       @cliente = Cliente.find(params[:cliente][:id])
       @cliente.upload_files(params[:cliente][:cliente_pdf_upload]) if !params[:cliente][:cliente_pdf_upload].nil?
-      if @cliente.update_data(params[:cliente])
+      if @cliente.update(resource_params)
         @agenda.agenda_movimentacao.update_attributes(nome_paciente: @cliente.nome, telefone_paciente: @cliente.telefone,
                                                       email_paciente: @cliente.email, cliente_id: @cliente.id)
+        if params[:imagens_externas].present?
+          salva_imagens_externas
+        end
+        flash[:notice] = "Dados do cliente atualizados com sucesso."
+        redirect_to empresa_clinic_sheet_cliente_path(current_user.empresa, cliente_id: @cliente.id, agenda_id: @agenda.id) and return
+      else
+        send_back_with_error
+        render :clinic_sheet
       end
-      if params[:imagens_externas].present?
-        salva_imagens_externas
-      end
-      flash[:notice] = "Dados do cliente atualizados com sucesso."
-      redirect_to empresa_clinic_sheet_cliente_path(current_user.empresa, cliente_id: @cliente.id, agenda_id: @agenda.id) and return
     else
       @cliente = current_user.empresa.clientes.build(resource_params)
       if @cliente.save
@@ -48,7 +51,7 @@ class Support::ClienteSupportController < Support::InsideController
         flash[:notice] = "Dados do cliente salvos com sucesso."
         redirect_to empresa_clinic_sheet_cliente_path(current_user.empresa, cliente_id: @cliente.id, agenda_id: @agenda.id)
       else
-        load_tabs if @cliente.id?
+        send_back_with_error
         render :clinic_sheet
       end
     end
@@ -297,6 +300,20 @@ class Support::ClienteSupportController < Support::InsideController
       end
       get_historicos
       @cliente.imagens_externas.build
+    end
+
+    def send_back_with_error
+      if params[:page].permitted?
+        @@page = params[:page]
+      else
+        @@page = 7
+      end
+
+      @cliente_texto_livre     = @cliente.cliente_texto_livres.first
+      @cliente_collection_pdfs = @cliente.cliente_pdf_uploads.ultima_data.page(@@page).per(2)
+      @cliente_pdf_uploads     = @cliente.cliente_pdf_uploads.build
+      @cliente_receituarios = @cliente.cliente_receituarios.page(@@page).per(2)
+      @texto_livres = current_user.empresa.texto_livres.page(@@page).per(2)
     end
 
     def set_estados

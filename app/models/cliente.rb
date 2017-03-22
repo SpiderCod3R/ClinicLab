@@ -10,13 +10,14 @@ class Cliente < Connection::Factory
 
   scope :pelo_nome, -> { order("nome ASC") }
 
-  validates_presence_of :nome, :cpf, :endereco,
+  validates_presence_of :nome, :endereco,
                         :bairro, :nascimento, :sexo,
-                        :rg, :estado_civil, :telefone
+                        :estado_civil, :telefone
 
   attr_accessor :receituario, :empresa_name
 
-  usar_como_cpf :cpf
+  validates :cpf, uniqueness: true, presence: true, cpf: true
+  validates :rg, uniqueness: true, presence: true
 
   belongs_to :empresa
   belongs_to :estado
