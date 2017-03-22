@@ -25,13 +25,15 @@ class Support::ClienteSupportController < Support::InsideController
 
   def change_or_create_paciente
     @agenda = Agenda.find(session[:agenda_id])
-    # binding.pry
     if params[:cliente][:id].present?
       @cliente = Cliente.find(params[:cliente][:id])
       @cliente.upload_files(params[:cliente][:cliente_pdf_upload]) if !params[:cliente][:cliente_pdf_upload].nil?
       if @cliente.update_data(params[:cliente])
         @agenda.agenda_movimentacao.update_attributes(nome_paciente: @cliente.nome, telefone_paciente: @cliente.telefone,
                                                       email_paciente: @cliente.email, cliente_id: @cliente.id)
+      end
+      if params[:imagens_externas].present?
+        salva_imagens_externas
       end
       flash[:notice] = "Dados do cliente atualizados com sucesso."
       redirect_to empresa_clinic_sheet_cliente_path(current_user.empresa, cliente_id: @cliente.id, agenda_id: @agenda.id) and return
@@ -40,6 +42,9 @@ class Support::ClienteSupportController < Support::InsideController
       if @cliente.save
         @agenda.agenda_movimentacao.update_attributes(nome_paciente: @cliente.nome, telefone_paciente: @cliente.telefone,
                                                       email_paciente: @cliente.email, cliente_id: @cliente.id)
+        if params[:imagens_externas].present?
+          salva_imagens_externas
+        end
         flash[:notice] = "Dados do cliente salvos com sucesso."
         redirect_to empresa_clinic_sheet_cliente_path(current_user.empresa, cliente_id: @cliente.id, agenda_id: @agenda.id)
       else

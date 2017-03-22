@@ -20,6 +20,9 @@
         -if @cliente_permissao.receituario?
           %li
             %a{'data-toggle':"tab", href:"#receituario", id: "aba_receituario"} Receituário
+        -if @cliente_permissao.imagens_externas?
+          %li
+            %a{'data-toggle':"tab", href:"#imagens_externas", id: "aba_imagens_externas"} Imagens Externas
     -else
       %li
         %a{'data-toggle':"tab", href:"#historico", id: "aba_historico"} Histórico
@@ -29,6 +32,8 @@
         %a{'data-toggle':"tab", href:"#pdf", id: "aba_pdf_upload"} PDF
       %li
         %a{'data-toggle':"tab", href:"#receituario", id: "aba_receituario"} Receituário
+      %li
+        %a{'data-toggle':"tab", href:"#imagens_externas", id: "aba_imagens_externas"} Imagens Externas
 -if @cliente.id?
   = simple_form_for(@cliente, url: create_paciente_path, method: 'POST') do |f|
     =render "clientes/partials/abas", { f: f}
