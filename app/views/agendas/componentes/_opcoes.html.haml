@@ -12,11 +12,8 @@
         - else
           %li=link_to "Movimento de Serviço", new_empresa_movimento_servico_path(current_user.empresa, agenda_id: agenda.id, cliente_id: agenda.agenda_movimentacao.cliente_id)
         %li.divider{:role => "separator"}
-        %li=link_to "Visualizar Atendimento", empresa_agenda_path(current_user.empresa, agenda)
         -unless agenda.status.eql?(I18n.t("agendas.helpers.attended"))
           -if agenda.status.eql?(I18n.t("agendas.helpers.scheduled")) or agenda.status.eql?(I18n.t("agendas.helpers.free"))
-            %li=link_to "Realizar Atendimento", empresa_agenda_make_appointment_path(current_user.empresa, agenda), remote: true
-            %li.divider{:role => "separator"}
             %li=link_to "Trocar Horário", empresa_agenda_change_day_or_time_path(current_user.empresa, agenda), remote: true
             %li=link_to "Limpar Horário", empresa_agenda_clean_path(current_user.empresa, agenda)
           -unless agenda.status.eql?(I18n.t("agendas.helpers.unmarked_by_doctor")) or agenda.status.eql?(I18n.t("agendas.helpers.unmarked_by_pacient")) or agenda.status.eql?(I18n.t("agendas.helpers.didnt_came"))
