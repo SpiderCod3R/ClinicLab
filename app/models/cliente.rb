@@ -16,8 +16,14 @@ class Cliente < Connection::Factory
 
   attr_accessor :receituario, :empresa_name
 
-  validates :cpf, uniqueness: true, presence: true, cpf: true
+  validates :cpf, cpf: true, presence: true
   validates :rg, uniqueness: true, presence: true
+  # usar_como_cpf :cpf
+
+  # validate :validates_uniqueness_of_cnpj
+  # def validates_uniqueness_of_cnpj
+  #   errors.add(:cpf, "deve ser único") unless find(:conditions => ["cpf = ?", cpf]).nil?
+  # end 
 
   belongs_to :empresa
   belongs_to :estado

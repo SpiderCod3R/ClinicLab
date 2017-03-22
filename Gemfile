@@ -97,4 +97,4 @@ group :development do
 end
 
 gem 'dotenv-rails'
-gem 'validates_cpf_cnpj'
+gem "cpf_cnpj", "~> 0.2.1"

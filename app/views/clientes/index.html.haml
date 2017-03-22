@@ -32,7 +32,7 @@
               %td= status(cliente.status)
               %td= cliente.id
               %td= cliente.nome
-              %td= cliente.cpf
+              %td= CPF.new(cliente.cpf).formatted
               %td= cliente.endereco
               %td= cliente.complemento
               %td= cliente.bairro
