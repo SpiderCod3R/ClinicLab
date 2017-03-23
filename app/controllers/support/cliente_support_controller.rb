@@ -25,6 +25,7 @@ class Support::ClienteSupportController < Support::InsideController
 
   def change_or_create_paciente
     @agenda = Agenda.find(session[:agenda_id])
+    # => Caso o Cliente já exista esse primeiro if é executado
     if params[:cliente][:id].present?
       @cliente = Cliente.find(params[:cliente][:id])
       @cliente.upload_files(params[:cliente][:cliente_pdf_upload]) if !params[:cliente][:cliente_pdf_upload].nil?
@@ -37,7 +38,11 @@ class Support::ClienteSupportController < Support::InsideController
         flash[:notice] = "Dados do cliente atualizados com sucesso."
         redirect_to empresa_clinic_sheet_cliente_path(current_user.empresa, cliente_id: @cliente.id, agenda_id: @agenda.id) and return
       else
-        send_back_with_error
+        if params[:page].present?
+          send_back_with_error
+        else
+          load_tabs
+        end
         render :clinic_sheet
       end
     else
@@ -51,7 +56,11 @@ class Support::ClienteSupportController < Support::InsideController
         flash[:notice] = "Dados do cliente salvos com sucesso."
         redirect_to empresa_clinic_sheet_cliente_path(current_user.empresa, cliente_id: @cliente.id, agenda_id: @agenda.id)
       else
-        send_back_with_error
+        if params[:page].present?
+          send_back_with_error
+        else
+          load_tabs
+        end
         render :clinic_sheet
       end
     end
@@ -303,15 +312,15 @@ class Support::ClienteSupportController < Support::InsideController
     end
 
     def send_back_with_error
+      @cliente_texto_livre=@cliente.cliente_texto_livres.first
+      @cliente_pdf_uploads=@cliente.cliente_pdf_uploads.build
+      @cliente.imagens_externas.build
       if params[:page].permitted?
         @@page = params[:page]
       else
         @@page = 7
       end
-
-      @cliente_texto_livre     = @cliente.cliente_texto_livres.first
       @cliente_collection_pdfs = @cliente.cliente_pdf_uploads.ultima_data.page(@@page).per(2)
-      @cliente_pdf_uploads     = @cliente.cliente_pdf_uploads.build
       @cliente_receituarios = @cliente.cliente_receituarios.page(@@page).per(2)
       @texto_livres = current_user.empresa.texto_livres.page(@@page).per(2)
     end
