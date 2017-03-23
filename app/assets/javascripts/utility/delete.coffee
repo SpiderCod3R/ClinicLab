@@ -7,7 +7,7 @@ $.rails.allowAction = (element) ->
     .addClass('btn').addClass('btn-primary')
     .html("Sim")
   modal_html = """
-               <div class="modal fade">
+               <div class="modal fade" id="delete_dialog">
                  <div class="modal-dialog">
                    <div class="modal-content">
                      <div class="modal-header">
