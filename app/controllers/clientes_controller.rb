@@ -41,7 +41,7 @@ class ClientesController < Support::ClienteSupportController
         salva_imagens_externas
       end
       flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @cliente.class)
-      redirect_to empresa_cliente_path(current_user.empresa, @cliente)
+      redirect_to edit_empresa_cliente_path(current_user.empresa, @cliente)
     else
       send_back_with_error
       render :edit
