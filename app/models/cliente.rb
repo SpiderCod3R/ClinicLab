@@ -18,12 +18,6 @@ class Cliente < Connection::Factory
 
   validates :cpf, cpf: true, presence: true, uniqueness: true
   validates :rg, uniqueness: true, presence: true
-  # usar_como_cpf :cpf
-
-  # validate :validates_uniqueness_of_cnpj
-  # def validates_uniqueness_of_cnpj
-  #   errors.add(:cpf, "deve ser único") unless find(:conditions => ["cpf = ?", cpf]).nil?
-  # end 
 
   belongs_to :empresa
   belongs_to :estado

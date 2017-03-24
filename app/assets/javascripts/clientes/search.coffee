@@ -48,10 +48,17 @@ $(document).ready ->
   montar_resultado_busca_agenda_pacientes = (clientes) ->
     dados_tabela = []
     x = 0
+    cargo_id =0
+    cargo_nome =""
     while x < clientes.length
       cluster = clientes[x]
+      if cluster.cargo != null
+        cargo_id = cluster.cargo.id
+        cargo_nome = cluster.cargo.nome
+      
       dados_tabela.push("<tr><td id='cliente_search_result_link'>"+
                         "<a href='#' data-cliente-nome='#{cluster.nome}'"+
+                        "data-cliente-status='#{cluster.status}'"+
                         "data-cliente-id='#{cluster.id}'"+
                         "data-cliente-rg='#{cluster.rg}'"+
                         "data-cliente-cpf='#{cluster.cpf.numero}'"+
@@ -62,7 +69,15 @@ $(document).ready ->
                         "data-cliente-complemento='#{cluster.complemento}'"+
                         "data-cliente-bairro='#{cluster.bairro}'"+
                         "data-cliente-sexo='#{cluster.sexo}'"+
-                        "data-cliente-estado_civil='#{cluster.estado_civil}'"+
+                        "data-cliente-estado-civil='#{cluster.estado_civil}'"+
+                        "data-cliente-cargo-id='#{cargo_id}'"+
+                        "data-cliente-cargo-nome='#{cargo_nome}'"+
+                        "data-cliente-cidade-id='#{cluster.cidade.id}'"+
+                        "data-cliente-cidade-nome='#{cluster.cidade.nome}'"+
+                        "data-cliente-estado-id='#{cluster.estado.id}'"+
+                        "data-cliente-estado-nome='#{cluster.estado.nome}'"+
+                        "data-cliente-nacionalidade='#{cluster.nacionalidade.nome}'"+
+                        "data-cliente-naturalidade='#{cluster.naturalidade.nome}'"+
                         "data-cliente-telefone='#{cluster.telefone}'>"+
                         cluster.nome.toUpperCase() + "</a></td>" + 
                         "<td>#{cluster.rg }</td>" +
@@ -80,12 +95,20 @@ $(document).ready ->
     $("#cliente_cpf").val(link.data().clienteCpf)
     $("#cliente_rg").val(link.data().clienteRg)
     $("#cliente_nascimento").val(link.data().clienteNascimento)
-    $("#cliente_sexo").val(link.data().clientesexo)
     $("#cliente_endereco").val(link.data().clienteEndereco)
     $("#cliente_complemento").val(link.data().clienteComplemento)
     $("#cliente_bairro").val(link.data().clienteBairro)
     $("#cliente_sexo").val(link.data().clienteSexo)
-    $("#cliente_estado_civil").val(link.data().clienteEstado_civil)
+    $("#cliente_estado_civil").val(link.data().clienteEstadoCivil)
+    $("#cliente_nacionalidade").val(link.data().clienteNacionalidade)
+    console.log link.data().clienteStatus
+    $("#cliente_status").val(link.data().clienteStatus.toString())
+
+    if $('#cliente_nacionalidade :selected').text() == 'Brasil'
+      $('#naturalidade_cliente').show()
+      $("#cliente_naturalidade").val(link.data().clienteNaturalidade)
+    document.getElementById("cliente_estado_id").selectedIndex = link.data().clienteEstadoId
+    document.getElementById("cliente_cidade_id").selectedIndex = link.data().clienteCidadeId
 
     if link.data().clienteId != "undefined"
       $("#cliente_id").val(link.data().clienteId)
