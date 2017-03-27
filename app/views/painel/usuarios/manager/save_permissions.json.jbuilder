@@ -1,4 +1,8 @@
 unless @user.valid?
+  json.set! :valid do
+    json.set! :success, false
+  end
+
   json.set! :usuario do
     json.set! :invalid, true
   end
@@ -15,6 +19,10 @@ unless @user.valid?
     end
   end
 else
+  json.set! :valid do
+    json.set! :success, true
+  end
+
   json.set! :environment do
     json.set! :url, @user.empresa.slug
   end
