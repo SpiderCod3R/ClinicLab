@@ -35,7 +35,6 @@ class AgendasController < Support::AgendaSupportController
       @user_model = current_user.user_models.find_by(model_id: @model.id)
       @agenda_permissao = AgendaPermissao.find_by user_model_id: @user_model.id
     end
-    binding.pry
     @agenda= Agenda.new
   end
 
