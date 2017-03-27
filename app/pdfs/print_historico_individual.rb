@@ -39,7 +39,7 @@ class PrintHistoricoIndividual < TemplatePdf
     text "Cliente - #{resource.cliente.nome}", style: :bold
     text resource.idade, style: :bold
     move_down 10
-    text remove_html(resource.indice)
+    text remove_html(resource.indice), align: :justify
   end
 
   def formatDateHour(date, hour)

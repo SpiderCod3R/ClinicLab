@@ -44,6 +44,7 @@ Rails.application.routes.draw do
         get    'print_free_text'
         get    'print_historico'
         get    'print_historico_full'
+        get    'print_recipe'
         get    'paginate_pdfs'
         get    'find_recipe'
         delete 'destroy_pdf'
