@@ -16,7 +16,7 @@
             =link_to "Alterar", "#", class: "btn btn-info", id: "change_recipe" if !@cliente.cliente_receituarios.empty?
             =link_to "Excluir", "#", class: "btn btn-danger", id: "destroy_recipe" if !@cliente.cliente_receituarios.empty?
             #print_receituario{style: "display: inline;"}
-              / =link_to_print_free_text path: print_free_text_cliente_path(@cliente, texto_livre_id: @cliente_texto_livre.id, format: 'pdf'), text: 'Imprimir' if !@cliente.cliente_texto_livres.empty?
+              =link_to_print_recipe path: print_recipe_empresa_cliente_path(current_user.empresa, @cliente, receituario_id: @cliente_receituario.id, format: 'pdf'), text: 'Imprimir' if !@cliente.cliente_receituarios.empty?
         - if !@cliente.cliente_receituarios.empty?
           #recipe_manual_pagination
             =render 'recipe_pagination', { cliente_receituario: @cliente_receituario }

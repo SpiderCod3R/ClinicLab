@@ -138,4 +138,8 @@ module ToolHelper
   def link_to_print_free_text(options={})
     link_to options[:text], options[:path], class: 'btn btn-default'
   end
+
+  def link_to_print_recipe(options={})
+    link_to options[:text], options[:path], class: 'btn btn-default'
+  end
 end
