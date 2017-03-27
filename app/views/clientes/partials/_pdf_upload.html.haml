@@ -4,32 +4,44 @@
       .col-xs-12.col-sm-12.col-md-12.col-lg-12
         =render 'clientes/partials/cliente_legend' if @cliente.id?
         %hr/
-        #updload_pdf_area
-          .col-md-4
-            .panel.panel-default
-              .panel-heading
-                %b Envio de PDF's
-              .panel-body
-                =f.simple_fields_for @cliente_pdf_uploads do |u|
-                  .row
-                    .col-md-12
-                      =u.input :pdf, as: :file, label: "Documento"
-                      / =error_custom_tag(@cliente, :"cliente_pdf_uploads.pdf_file_name", "Documento")
-                      =error_custom_tag(@cliente, :"cliente_pdf_uploads.pdf", "Documento")
-                  .row
-                    .col-md-12
-                      =u.input :anotacoes, as: :text, input_html: {style: "margin: 5px 0px 3px; height: 150px; width: 499px;"}, label: "Anotações"
-                      =error_custom_tag(@cliente, :"cliente_pdf_uploads.anotacoes", "Anotações")
-          .col-md-6
-            .container-fluid
-              -if !@cliente_collection_pdfs.empty?
-                %table{class: "table table_pdf_cliente table-striped table-bordered", cellspacing: "0", width: "100%"}
-                  %thead
-                    %th Anotações
-                    %th Data
-                    %th PDF
-                    %th Excluir
-                  %tbody#table_pdf
-                    =render 'clientes/partials/pdf_table', { cliente_collection_pdfs: @cliente_collection_pdfs }
-                #paginator
-                  = paginate @cliente_collection_pdfs, remote: true
+    .row-fluid
+      #updload_pdf_area
+        .col-md-4
+          .panel.panel-default
+            .panel-heading
+              %b Envio de PDF's
+            .panel-body
+              =f.simple_fields_for @cliente_pdf_uploads do |u|
+                .row
+                  .col-md-12
+                    =u.input :anotacoes, as: :string, label: "Nome"
+                    =error_custom_tag(@cliente, :"cliente_pdf_uploads.anotacoes", "Nome")
+                .row
+                  .col-md-12
+                    =u.input :pdf, as: :file, label: "Documento"
+                    / =error_custom_tag(@cliente, :"cliente_pdf_uploads.pdf_file_name", "Documento")
+                    =error_custom_tag(@cliente, :"cliente_pdf_uploads.pdf", "Documento")
+        .col-md-8
+          .container-fluid
+            .row
+              .col-md-4
+                %label Nome do PDF
+                %input{ type: "text", name: "search_pdf_name", id: "search_pdf_name", placeholder: "Buscar nome do pdf", class: "form-control"}
+              .col-md-3
+                %label Data
+                %input{ type: "text", name: "search_pdf_data", id: "search_pdf_data", class: "form-control datepicker"}
+              .col-md-2
+                =link_to "#", class: "btn btn-default", id: "btn_search_pdf", style: "margin-top: 33%" do
+                  %i{ class: "fa fa-search" }
+            -if !@cliente_collection_pdfs.empty?
+              %table{class: "table table_pdf_cliente table-striped table-bordered", cellspacing: "0", width: "100%"}
+                %thead
+                  %th Nome
+                  %th Data
+                  %th PDF
+                  %th Excluir
+                %tbody#cliente_pdf_uploads
+                  .loaderPDFs
+                  =render 'clientes/partials/pdf_table', { cliente_collection_pdfs: @cliente_collection_pdfs }
+              #paginator
+                = paginate @cliente_collection_pdfs, remote: true

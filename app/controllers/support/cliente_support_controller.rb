@@ -276,6 +276,12 @@ class Support::ClienteSupportController < Support::InsideController
     end
   end
 
+  def search_pdf_remotely
+    @cliente = Cliente.find(params[:cliente][:id])
+    @cliente_collection_pdfs = @cliente.cliente_pdf_uploads.search(params[:search])
+    respond_to &:js
+  end
+
   private
     def set_access
       if !current_user.admin?

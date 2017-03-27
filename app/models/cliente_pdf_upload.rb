@@ -31,6 +31,12 @@ class ClientePdfUpload < Connection::Factory
     end
   end
 
+  class << self
+    def search(resource)
+      where("anotacoes LIKE ? AND data LIKE ?", "%#{resource[:pdf]}%", "%#{resource[:data]}%")
+    end
+  end
+
   private
     def cliente_pdf_upload
       params.require(:cliente_pdf_upload).permit(:anotacoes, :data, :cliente_id, :pdf)

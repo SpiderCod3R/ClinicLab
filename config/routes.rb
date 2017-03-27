@@ -47,6 +47,7 @@ Rails.application.routes.draw do
         get    'paginate_pdfs'
         get    'find_recipe'
         delete 'destroy_pdf'
+        get    'search_pdf_remotely'
       end
       put 'atualizar_convenio', to: "cliente_convenios#update_convenio", as: :update_convenio
       get 'inativar_convenio', to: "cliente_convenios#deactivate", as: :deactivate_convenio
