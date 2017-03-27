@@ -33,7 +33,7 @@ class AgendasController < Support::AgendaSupportController
     if !current_user.admin?
       @model = Gclinic::Model.find_by(model_class: "Agenda")
       @user_model = current_user.user_models.find_by(model_id: @model.id)
-      @agenda_permissao = AgendaPermissao.find_by user_model_id: @user_model.id
+      @agenda_permissao = AgendaPermissao.find_by user_model_id: @user_model.model.id
     end
 
     @agenda= Agenda.new
