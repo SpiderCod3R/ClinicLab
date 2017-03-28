@@ -13,7 +13,7 @@
           %th Atendente
           %th{align: "center"} Hora
           %th{align: "center", style:"text-align: center" }
-            -if @agenda_permissao.nil?
+            -if !current_user.admin? && @agenda_permissao.nil?
               %strong{style: "color: #A60F0F; font-weight: bold;"} Opções não Cadastradas
             -else
               Opções
