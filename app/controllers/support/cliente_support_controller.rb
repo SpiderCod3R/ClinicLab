@@ -7,11 +7,12 @@ class Support::ClienteSupportController < Support::InsideController
     session[:agenda_id] = params[:agenda_id]
     @agenda = Agenda.find(session[:agenda_id])
     if params[:cliente_id]
-      @cliente = current_user.empresa.clientes.find(params[:cliente_id])
+      @cliente = Cliente.find(params[:cliente_id])
       session[:cliente_id] = @cliente.id
+    else
+      @cliente = current_user.empresa.clientes.build
     end
 
-    @cliente = current_user.empresa.clientes.build unless params[:cliente_id].present?
     load_tabs if @cliente.id?
 
     # => Entrará nesse contexto se e somente si a ficha do paciente

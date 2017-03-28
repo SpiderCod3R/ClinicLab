@@ -76,8 +76,8 @@ $(document).ready ->
                         "data-cliente-cidade-nome='#{cluster.cidade.nome}'"+
                         "data-cliente-estado-id='#{cluster.estado.id}'"+
                         "data-cliente-estado-nome='#{cluster.estado.nome}'"+
-                        "data-cliente-nacionalidade='#{cluster.nacionalidade.nome}'"+
-                        "data-cliente-naturalidade='#{cluster.naturalidade.nome}'"+
+                        "data-cliente-nacionalidade='#{cluster.nacionalidade}'"+
+                        "data-cliente-naturalidade='#{cluster.naturalidade}'"+
                         "data-cliente-telefone='#{cluster.telefone}'>"+
                         cluster.nome.toUpperCase() + "</a></td>" + 
                         "<td>#{cluster.rg }</td>" +
@@ -101,8 +101,9 @@ $(document).ready ->
     $("#cliente_sexo").val(link.data().clienteSexo)
     $("#cliente_estado_civil").val(link.data().clienteEstadoCivil)
     $("#cliente_nacionalidade").val(link.data().clienteNacionalidade)
-    console.log link.data().clienteStatus
-    $("#cliente_status").val(link.data().clienteStatus.toString())
+
+    if link.data().clienteStatus != null
+      $("#cliente_status").val(link.data().clienteStatus.toString())
 
     if $('#cliente_nacionalidade :selected').text() == 'Brasil'
       $('#naturalidade_cliente').show()
@@ -110,7 +111,6 @@ $(document).ready ->
     document.getElementById("cliente_estado_id").selectedIndex = link.data().clienteEstadoId
     document.getElementById("cliente_cidade_id").selectedIndex = link.data().clienteCidadeId
 
-    if link.data().clienteId != "undefined"
-      $("#cliente_id").val(link.data().clienteId)
+    $("#cliente_id").val(link.data().clienteId)
     if link.data().clienteConvenio_id != "undefined"
       $("#cliente_convenio_id").val(link.data().clienteConvenio_id) #"<option value=\"" + link.data().pacienteEstado_id  + "\">" + link.data().pacienteEstado_nome + "</option>"
