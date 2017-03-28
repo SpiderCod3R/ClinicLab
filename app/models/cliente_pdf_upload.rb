@@ -16,6 +16,8 @@ class ClientePdfUpload < Connection::Factory
 
   paginates_per 10
 
+  # attr_accessor :_data
+
   def check_content_type
     if ['image/png', 'image/jpeg', 'image/gif',
       "application/zip", "application/x-rar",
@@ -30,7 +32,9 @@ class ClientePdfUpload < Connection::Factory
 
   class << self
     def search(resource)
-      where("anotacoes LIKE ? AND data LIKE ?", "%#{resource[:pdf]}%", "%#{Date.parse(resource[:data])}%")
+      _data=""
+      _data= Date.parse(resource[:data]) if resource[:data].present?
+      where("anotacoes LIKE ? AND data LIKE ?", "%#{resource[:pdf]}%", "%#{_data}%")
     end
   end
 

@@ -23,7 +23,8 @@ $(document).ready ->
           pdf:  $("#search_pdf_name").val()
           data: $("#search_pdf_data").val()
       success: (response) ->
-        # console.log response
+        $("#search_pdf_name").val("")
+        $("#search_pdf_data").val("")
         $('.loader').css({display:"none"})
         $('#cliente_pdf_uploads').empty()
         create_search_pdf_table(response)
