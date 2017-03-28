@@ -14,8 +14,7 @@ $(document).ready ->
       type: 'GET'
       dataType: 'JSON'
       beforeSend: ->
-        $("#cliente_pdf_uploads").empty()
-        $('.loaderPDFs').css({display:"block"});
+        $('.loader').css({display:"block"})
       data:
         cliente:
           id: cliente_id
@@ -24,14 +23,21 @@ $(document).ready ->
           pdf:  $("#search_pdf_name").val()
           data: $("#search_pdf_data").val()
       success: (response) ->
-  
-  create_preview_pdf_table = (anotacoes, data)->
-    $('#table_pdf').append("<tr>" +
-      "<td class='center'><img src='/assets/load.gif', height= '20', width= '20'></td>" +
-      "<td>" + anotacoes + "</td>" +
-      "<td>" + data + "</td>" +
-      "<td></td>" +
-      "<td><center><div id='icon-trash'></div></center></td></tr>")
+        # console.log response
+        $('.loader').css({display:"none"})
+        $('#cliente_pdf_uploads').empty()
+        create_search_pdf_table(response)
+
+  create_search_pdf_table = (response)->
+    x = 0
+    while x <= response.length
+      if response[x] != undefined
+        $('#cliente_pdf_uploads').append("<tr>" +
+          "<td>" + response[x]["anotacoes"] + "</td>" +
+          "<td class='center'>" + response[x]["data"] + "</td>" +
+          "<td class='center'><a target='_blank' href='#{response[x]["url"]}'>Visualizar</a></td>" +
+          "<td class='center'><center><div id='icon-trash'></div></center></td></tr>")
+      x = x + 1
 
 
 

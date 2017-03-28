@@ -19,8 +19,7 @@
                 .row
                   .col-md-12
                     =u.input :pdf, as: :file, label: "Documento"
-                    / =error_custom_tag(@cliente, :"cliente_pdf_uploads.pdf_file_name", "Documento")
-                    =error_custom_tag(@cliente, :"cliente_pdf_uploads.pdf", "Documento")
+                    =error_custom_tag(@cliente, :"cliente_pdf_uploads", "Documento")
         .col-md-8
           .container-fluid
             .row
@@ -41,7 +40,7 @@
                   %th PDF
                   %th Excluir
                 %tbody#cliente_pdf_uploads
-                  .loaderPDFs
+                  .loader
                   =render 'clientes/partials/pdf_table', { cliente_collection_pdfs: @cliente_collection_pdfs }
               #paginator
                 = paginate @cliente_collection_pdfs, remote: true

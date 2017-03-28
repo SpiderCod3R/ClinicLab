@@ -312,7 +312,7 @@ class Support::ClienteSupportController < Support::InsideController
   def search_pdf_remotely
     @cliente = Cliente.find(params[:cliente][:id])
     @cliente_collection_pdfs = @cliente.cliente_pdf_uploads.search(params[:search])
-    respond_to &:js
+    respond_to &:json
   end
 
   private

@@ -5,10 +5,7 @@ class ClientePdfUpload < Connection::Factory
 
   has_attached_file :pdf, styles: { thumbnail: "60x60#" }
 
-  validates_attachment :pdf,
-                        content_type: { content_type: "application/pdf" },
-                        size: { in: 0..6.megabytes },
-                        file_name: { matches: [/pdf\z/] }
+  validates_attachment :pdf, content_type: { content_type: "application/pdf" }, size: { in: 0..10.megabytes }
 
   validates :anotacoes, presence: { message: "Informe algo sobre este PDF" }, if: :file_is_present?
   validates :anotacoes, length: { maximum: 500, too_long: "%{count} número de caracteres excedido" }, if: :file_is_present?
@@ -33,7 +30,7 @@ class ClientePdfUpload < Connection::Factory
 
   class << self
     def search(resource)
-      where("anotacoes LIKE ? AND data LIKE ?", "%#{resource[:pdf]}%", "%#{resource[:data]}%")
+      where("anotacoes LIKE ? AND data LIKE ?", "%#{resource[:pdf]}%", "%#{Date.parse(resource[:data])}%")
     end
   end
 
