@@ -11,7 +11,7 @@
     =render 'clientes/partials/contato', { f: f }
 
     -if @cliente.id?
-      -if !current_user.admin?
+      -if !current_user.admin? && !@cliente_permissao.nil?
         -if @cliente_permissao.historico?
           =render 'clientes/partials/historico', { f: f }
         -if @cliente_permissao.texto_livre?
