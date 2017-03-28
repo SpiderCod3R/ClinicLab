@@ -4,12 +4,6 @@ pre {
   font-size: 11px;
 }
 
-div {
-  &.field, &.actions {
-    margin-bottom: 10px;
-  }
-}
-
 #notice {
   color: green;
 }
@@ -45,10 +39,6 @@ div {
   }
 }
 
-label {
-  display: block;
-}
-
 .loader {
     display:    none;
     position:   fixed;
@@ -61,4 +51,12 @@ label {
                 url('loading.gif') 
                 50% 50% 
                 no-repeat;
+}
+
+@media (min-width: 768px) {
+  .form-horizontal .control-label {
+    padding-top: 7px;
+    margin-bottom: 0;
+    text-align: left !important;
+  }
 }
