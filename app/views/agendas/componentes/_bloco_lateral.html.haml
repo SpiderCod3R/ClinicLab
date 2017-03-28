@@ -4,16 +4,9 @@
     -if can? :read, Agenda
       %li.active{:role => "presentation"}
         %a{"aria-controls" => "agendas", "data-toggle" => "tab", :href => "#agendas", :role => "tab"} Agendas
-    -if !(can? :read, Agenda) && (can? :create, Agenda)
-      %li.active{:role => "presentation"}
+    -if can? :create, Agenda
+      %li{:role => "presentation"}
         %a{"aria-controls" => "gerar_agenda", "data-toggle" => "tab", :href => "#gerar_agenda", :role => "tab"} Gerar Agenda
-    -else
-      -if can? :create, Agenda
-        %li{:role => "presentation"}
-          %a{"aria-controls" => "gerar_agenda", "data-toggle" => "tab", :href => "#gerar_agenda", :role => "tab"} Gerar Agenda
-    / -if !current_user.admin && @agenda_permissao.sala_espera?
-    /   %li{:role => "presentation"}
-    /     %a{"aria-controls" => "gerar_agenda", "data-toggle" => "tab", :href => "  #sala_espera", :role => "tab"} Sala de Espera
     -if current_user.admin
       %li{:role => "presentation"}
         %a{"aria-controls" => "gerar_agenda", "data-toggle" => "tab", :href => "  #sala_espera", :role => "tab"} Sala de Espera
