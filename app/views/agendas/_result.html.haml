@@ -12,7 +12,11 @@
           %th Paciente
           %th Atendente
           %th{align: "center"} Hora
-          %th{align: "center"} Opções
+          %th{align: "center", style:"text-align: center" }
+            -if @agenda_permissao.nil?
+              %strong{style: "color: #A60F0F; font-weight: bold;"} Opções não Cadastradas
+            -else
+              Opções
         =content_tag(:tbody, id: I18n.t('agendas.helpers.default_content')) do
           =render 'agendas'
 %br/

@@ -1,12 +1,13 @@
 -@sala_espera = SalaEspera.find_by(agenda_id: agenda.id)
 -unless agenda.agenda_movimentacao.nil?
-  .btn-group
-    %button.btn.btn-default.btn-circle.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
-      %i.glyphicon.glyphicon-chevron-up
-    %ul.dropdown-menu.drop-up
-      %li=link_to "Ficha do Paciente", empresa_clinic_sheet_cliente_path(current_user.empresa, cliente_id: agenda.agenda_movimentacao.cliente_id, agenda_id: agenda.id, sala_espera_id: @sala_espera)
-      -if !@sala_espera
-        -if !@agenda_permissao.nil?
+  -if !@agenda_permissao.nil?
+    .btn-group
+      %button.btn.btn-default.btn-circle.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+        %i.glyphicon.glyphicon-chevron-up
+      %ul.dropdown-menu.drop-up
+        -if can? :read, Cliente
+          %li=link_to "Ficha do Paciente", empresa_clinic_sheet_cliente_path(current_user.empresa, cliente_id: agenda.agenda_movimentacao.cliente_id, agenda_id: agenda.id, sala_espera_id: @sala_espera)
+        -if !@sala_espera
           -if @agenda_permissao.sala_espera?
             %li=link_to "Sala de Espera", new_empresa_agenda_sala_de_espera_path(current_user.empresa, agenda.id, cliente_id: agenda.agenda_movimentacao.cliente_id)
           - if @agenda_permissao.movimento_servico?
@@ -40,13 +41,13 @@
                 %li=link_to "Desmarcar pelo Paciente", empresa_agenda_unmarked_by_pacient_path(agenda.empresa, agenda)
               -if @agenda_permissao.desmarcar_pelo_medico?
                 %li=link_to "Desmarcar pelo Médico", empresa_agenda_unmarked_by_doctor_path(agenda.empresa, agenda)
-    #change_agenda_section
+      #change_agenda_section
 -else
-  .btn-group
-    %button.btn.btn-default.btn-circle.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
-      %i.glyphicon.glyphicon-chevron-up
-    %ul.dropdown-menu.drop-up
-      -if !@agenda_permissao.nil?
+  -if !@agenda_permissao.nil?
+    .btn-group
+      %button.btn.btn-default.btn-circle.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+        %i.glyphicon.glyphicon-chevron-up
+      %ul.dropdown-menu.drop-up
         -if @agenda_permissao.agendar?
           %li=link_to "Agendar atendimento", empresa_agenda_movimentar_ou_atualizar_path(current_user.empresa,agenda.id), class: "hands_cursor"
         %li.divider{:role => "separator"}

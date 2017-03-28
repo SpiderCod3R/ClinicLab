@@ -28,12 +28,13 @@
         .panel
           .container-fluid
             =render 'form'
-    -if !current_user.admin && @agenda_permissao.sala_espera?
-      #sala_espera.tab-pane{:role => "tabpanel"}
-        .panel
-          .container-fluid
-            %hr
-            =render 'sala_de_espera/index'
+    -if !current_user.admin && !@agenda_permissao.nil?
+      -if @agenda_permissao.sala_espera?
+        #sala_espera.tab-pane{:role => "tabpanel"}
+          .panel
+            .container-fluid
+              %hr
+              =render 'sala_de_espera/index'
     -if current_user.admin
       #sala_espera.tab-pane{:role => "tabpanel"}
         .panel
