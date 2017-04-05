@@ -33,6 +33,12 @@ body
     background:      -o-linear-gradient(90deg,  #565656 10%, #403F40 90%)
     background:         linear-gradient(90deg,  #565656 10%, #403F40 90%)
 
+@include media(">=phone", "<=tablet")
+  h1
+    color: white
+  hr.white_stroke
+    border: white solid 0.5px
+
 .navigation
   position: fixed
   height: 60px
@@ -273,7 +279,7 @@ section#gclinic
 /*- FOOTER AREA -*/
 .footer
   width: 100%
-  height: 50px
+  // height: 50px
   background-color: $darkBlue
   border-color: #274d84
   background-image: -webkit-gradient(linear, left 0%, left 100%, from(#273FA9), to($darkBlue))
