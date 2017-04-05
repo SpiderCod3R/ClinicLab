@@ -12,13 +12,12 @@
 
     =stylesheet_link_tag "application", :media => "all"
     =csrf_meta_tag
-  %body{class: controller.controller_name}
+  %body
     =render 'application/chromeframe'
-    #wrapper_with_padding
-      =yield :header
-      / =render 'application/sidebar_navigation'
-      =render 'layouts/flash'
-      %section#gclinic
-        = yield
+    =yield :header
+    =render 'layouts/flash'
+    .container
+      = yield
     .clearfix
+    =render 'application/footer'
     = javascript_include_tag "application", :media => "all"

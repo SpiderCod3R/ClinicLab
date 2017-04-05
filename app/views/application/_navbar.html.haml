@@ -1,34 +1,50 @@
-%nav.navbar.navbar-full.navbar-light.navbar-inverse.navbar-fixed-top.navbar-custom
-  .navbar-header.fixed-brand
-    -if user_signed_in?
-      =link_to root_path, class: "navbar-brand brand-logo" do
-        =current_user.environment.name
-      #menu-toggle.navbar-toggle.collapsed{"data-toggle" => "collapse"}
-        %i.fa.fa-bars.fa-2x{"aria-hidden" => "true"}
-    -else
-      .col-xs-12.col-md-12.link_to_admin-panel.center
-        =link_to new_admin_session_path, class: "navbar-brand brand-logo center" do
+%nav.navbar.navbar-full.navbar-light.navbar-fixed-top.navbar-custom
+  .container-fluid
+    / Brand and toggle get grouped for better mobile display
+    .navbar-header
+      %button.navbar-toggle.collapsed{"aria-expanded" => "false", "data-target" => "#bs-example-navbar-collapse-1", "data-toggle" => "collapse", :type => "button"}
+        %span.sr-only Toggle navigation
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      -if user_signed_in?
+        =link_to root_path, class: "navbar-brand" do
+          =current_user.environment.name
+      -else
+        =link_to new_admin_session_path, class: "navbar-brand" do
           GClinicWeb
-  %ul.nav.navbar-nav
-    -if user_signed_in?
-      %li.nav-item.active
-        =link_to root_path, class: "nav-link" do
-          Home
-          %span.sr-only (current)
-      -if current_user.environment.environment_models.any? || current_user.user_models.any?
-        %li.dropdown
-          %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
-            Cadastros
-            %span.caret
-          %ul.dropdown-menu
-            =render 'application/menus/cadastros'
-  -if user_signed_in?
-    %ul.nav.navbar-nav.navbar-right
-      %li.nav-item
-        =link_to "Seja bem vindo - #{current_user.name}", "#"
-      %li.nav-item
-        =link_to destroy_user_session_path, method: 'delete', title: "SAIR" do
-          Sair
-          %i.fa.fa-sign-out
+    / Collect the nav links, forms, and other content for toggling
+    #bs-example-navbar-collapse-1.collapse.navbar-collapse
+      %ul.nav.navbar-nav
+        -if user_signed_in?
+          %li.nav-item.active
+            =link_to root_path, class: "nav-link" do
+              Home
+              %span.sr-only (current)
+          -if current_user.environment.environment_models.any? || current_user.user_models.any?
+            %li.dropdown
+              %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+                Cadastros
+                %span.caret
+              %ul.dropdown-menu
+                =render 'application/menus/cadastros'
+      %ul.nav.navbar-nav.navbar-right
+        -if user_signed_in?
+          %li.nav-item
+            =link_to "Seja bem vindo - #{current_user.name}", "#"
+          %li.nav-item
+            =link_to destroy_user_session_path, method: 'delete', title: "SAIR" do
+              Sair
+              %i.fa.fa-sign-out
+        -else
+          .center{ style: "color: white; font-weight: bold"}
+            %strong="Seja bem vindo"
     / /.navbar-collapse
   / /.container-fluid
+
+
+/ Ela me chamou na casa dela
+/ deixou a janela aberta tudo 
+/ certo pra eu entrar... Sua mãe
+/ foi no mercado pra comprar um frango assado 
+/ e a gente no sofá kkkk

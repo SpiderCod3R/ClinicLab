@@ -1,28 +1,16 @@
-=render 'application/navbar'
-.wrapper_with_padding
-  .col-md-5
-    #sessions_left_side_content
-      .panel
-        %h2.text-center Log in
-        %hr
-        .container
-          =simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'form-horizontal' }) do |f|
-            .container
-              .row
-                .col-md-4
-                  = f.input :name, required: false, autofocus: true
-              .row
-                .col-md-4
-                  = f.input :password, required: false
-              .row
-                .col-md-4
-                  .session-btn-actions
-                    = f.button :submit, "Log in", class: "btn btn-success"
-  .col-md-7
-    #sessions_right_side_content
-      .panel
-        .container-fluid
-          %h1.text-center GClinic
-          %hr
-          %p.company Globalnetsis - Safe System LTDA.
-=render 'application/footer'
+=content_for :header do
+  =render 'application/navbar'
+
+=simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'form-horizontal' }) do |f|
+  .login-form
+    %h1.login GClinic
+    .form-group
+      .col-md-4
+        = f.input :name, required: true, autofocus: true,:placeholder => "Nome de Usuário"
+    .form-group.log-status
+      .col-md-4
+        = f.input :password, required: false,:placeholder => "Senha"
+    %span.alert Invalid Credentials
+    / %a.link{:href => "#"} Lost your password?
+    / %button.log-btn{:type => "button"} Log in
+    = f.button :submit, "Log in", class: "btn btn-success"
