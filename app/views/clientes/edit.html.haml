@@ -1,22 +1,24 @@
 =build_form_toolbar(nil, ".edit_cliente", @cliente, empresa_clientes_path(current_user.empresa), nil)
 %section{id: "edit_clientes"}
   .container-fluid
+    %br
+    %br
+    %h1=t('bootstrap.helpers.links.edit')
+    %hr.white_stroke
+    .row-fluid
+      - if @cliente.errors.any?
+        .alert.alert-danger
+          .container
+            .panel-heading
+              %h2{ class: "panel-title" }
+                Alguns erros impediram este cliente de ser salvo.
+                %br
+                Verifique-os e tente novamente.
+  .container
     .col-xs-12.col-sm-12.col-md-12.col-lg-12
-      %h1=t('bootstrap.helpers.links.edit')
-      %hr{style: "border: #323232 solid 0.5px;"}
-      .row-fluid
-        - if @cliente.errors.any?
-          .alert.alert-danger
-            .container
-              .panel-heading
-                %h2{ class: "panel-title" }
-                  Alguns erros impediram este cliente de ser salvo.
-                  %br
-                  Verifique-os e tente novamente.
-  .container-fluid
-    .col-xs-12.col-sm-12.col-md-12.col-lg-12
-      .panel
-        =render 'clientes/partials/edit_form'
+      .row
+        .panel
+          =render 'clientes/partials/edit_form'
 
 #empresa_id{style: "display: none"}=params[:empresa_id]
 #cliente_id{style: "display: none"}=params[:cliente_id]
