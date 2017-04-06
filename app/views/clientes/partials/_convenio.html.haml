@@ -1,18 +1,20 @@
-%div{id:"convenio", class:"tab-pane fade"}
-  %div{class: "container"}
+#convenio.tab-pane.fade
+  .container
     - if @cliente.id?
-      =render 'clientes/partials/cliente_legend'
-      %hr
-    %div{class: "col-xs-12 col-sm-10 col-md-6 col-lg-6"}
-      %div{class: "row"}
+      .row
+        .col-sm-11.col-md-11
+          =render 'clientes/partials/cliente_legend'
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+      .row
         %input{:type=>"hidden", :class => "form-control", :id => "cliente_convenio_id"}
-      %div{class: "row"}
-        %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-4"}
+      .row
+        .col-xs-12.col-sm-6.col-md-4.col-lg-4
           %label{class: "string control-label"}
             Status Convênio
           %br
           = collection_radio_buttons(:cliente_convenio, :status_convenio, [[true, 'Ativo'] ,[false, 'Inativo']], :first, :last, :class => "status_convenio_radio_buttons", checked: true)
-        %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-4"}
+      .row
+        .col-xs-12.col-sm-6.col-md-4.col-lg-4
           %label{class: "string control-label"}
             Matrícula
           %input{:type=>"text", :class => "form-control", :id => "cliente_convenio_matricula"}
