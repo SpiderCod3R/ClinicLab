@@ -5,8 +5,12 @@
         .col-sm-11.col-md-11
           =render 'clientes/partials/cliente_legend'
     .row
-      .col-xs-12.col-sm-6.col-md-4.col-lg-3
-        = f.input :foto, as: :file, label: "Foto"
+      .col-xs-12.col-sm-6.col-md-4.col-lg-6
+        %label Foto
+        %label{for: "cliente_foto", class: "custom-file-upload"}
+          %i.fa.fa-cloud-upload Foto Upload
+        = f.input :foto, as: :file, label: false
+        #foto_contato_selected
     .row
       .col-xs-12.col-sm-6.col-md-4.col-lg-3
         = f.input :email

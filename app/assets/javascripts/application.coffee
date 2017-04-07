@@ -48,6 +48,7 @@
 #= require clientes/cliente_convenio_agenda
 #= require clientes/cliente_receituarios
 #= require clientes/cliente_imagem_externa
+#= require clientes/cliente_contato
 #= require clientes/cliente_pdfs
 #= require clientes/search
 #= require filtros
