@@ -7,6 +7,11 @@ $(document).ready ->
   pdfs_params=[]
   upload = undefined
 
+  $('#cliente_cliente_pdf_upload_pdf').change ->
+    $("#pdf_selected").text("Arquivo selecionado - " + $('#cliente_cliente_pdf_upload_pdf').val().replace(/C:\\fakepath\\/i, ''))
+    $("#pdf_selected").animate({ color: "#253095" }, 1000);
+
+
   $("#btn_search_pdf").click (event), ->
     event.preventDefault()
     $.ajax
