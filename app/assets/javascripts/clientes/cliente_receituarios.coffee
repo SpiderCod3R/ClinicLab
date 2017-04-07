@@ -17,6 +17,7 @@ $(document).ready ->
     $('#cancel_recipe').show()
     $('#recipe_manual_pagination').hide()
     $("#id_receituario").empty()
+    $("#print_receituario").hide()
 
   # => Cancelar inclusão da receita
   $('#cancel_recipe').click ->
@@ -28,6 +29,7 @@ $(document).ready ->
     $('#recipe_manual_pagination').show()
     $('#include_recipe_container').hide()
     $('#cancel_recipe').hide()
+    $("#print_receituario").show()
     CKEDITOR.instances['receituario_content_textarea'].setData()
 
   # => Salvar ou Alterar
