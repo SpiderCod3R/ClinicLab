@@ -1,29 +1,28 @@
 #texto_livre.tab-pane.fade
-  .container
-    - if @cliente.id?
-      .row
-        .col-sm-11.col-md-11
-          =render 'clientes/partials/cliente_legend'
-    %br/
+  - if @cliente.id?
     .row
-      %center
-        .col-sm-12.col-md-12.pull-left
-          = link_to "Incluir Novo", "#", class: "btn btn-success", id: "include_new_free_text"
-          = link_to "Incluir", "#", class: "btn btn-success", id: "salvar_new_free_text"
-          = link_to "Cancelar Inclusão", "#", class: "btn btn-warning", id: "cancelar_free_text"
-          = link_to "Alterar", "#", class: "btn btn-info", id: "change_free_text" if !@cliente.cliente_texto_livres.empty?
-          = link_to "Excluir", "#", class: "btn btn-danger", id: "destroy_free_text" if !@cliente.cliente_texto_livres.empty?
-          #print_free_text{style: "display: inline;"}
-            = link_to "Imprimir", print_free_text_empresa_cliente_path(current_user.empresa, @cliente, texto_livre_id: @cliente_texto_livre.id, format: 'pdf'), target: :_blank, class: "btn btn-default" if !@cliente.cliente_texto_livres.empty?
-    .row
-      %br
-      %center
-        .col-sm-12.col-md-12
-          #manual_pagination
-            =render 'manual_pagination' if !@cliente.cliente_texto_livres.empty?
+      .col-sm-10.col-md-11
+        =render 'clientes/partials/cliente_legend'
+  %br/
+  .row
+    %center
+      .col-sm-12.col-md-12.pull-left
+        = link_to "Incluir Novo", "#", class: "btn btn-success", id: "include_new_free_text"
+        = link_to "Incluir", "#", class: "btn btn-success", id: "salvar_new_free_text"
+        = link_to "Cancelar Inclusão", "#", class: "btn btn-warning", id: "cancelar_free_text"
+        = link_to "Alterar", "#", class: "btn btn-info", id: "change_free_text" if !@cliente.cliente_texto_livres.empty?
+        = link_to "Excluir", "#", class: "btn btn-danger", id: "destroy_free_text" if !@cliente.cliente_texto_livres.empty?
+        #print_free_text{style: "display: inline;"}
+          = link_to "Imprimir", print_free_text_empresa_cliente_path(current_user.empresa, @cliente, texto_livre_id: @cliente_texto_livre.id, format: 'pdf'), target: :_blank, class: "btn btn-default" if !@cliente.cliente_texto_livres.empty?
+  .row
+    %br
+    %center
+      .col-sm-12.col-md-12
+        #manual_pagination
+          =render 'manual_pagination' if !@cliente.cliente_texto_livres.empty?
   %br/
   .container-fluid
-    .col-md-12
+    .col-md-10
       -if !@cliente_texto_livre.nil?
         #free_text_area
           .panel.panel-default

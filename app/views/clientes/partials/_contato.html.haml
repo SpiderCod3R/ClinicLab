@@ -1,36 +1,35 @@
 #contato.tab-pane.fade
-  .container
-    - if @cliente.id?
-      .row
-        .col-sm-11.col-md-11
-          =render 'clientes/partials/cliente_legend'
+  - if @cliente.id?
     .row
-      .col-xs-12.col-sm-6.col-md-4.col-lg-6
-        %label Foto
-        %label{for: "cliente_foto", class: "custom-file-upload"}
-          %i.fa.fa-cloud-upload Foto Upload
-        = f.input :foto, as: :file, label: false
-        #foto_contato_selected
-    .row
-      .col-xs-12.col-sm-6.col-md-4.col-lg-3
-        = f.input :email
-      .col-xs-12.col-sm-4.col-md-4.col-lg-3
-        = f.input :telefone,  input_html: {class: "telefone_maskara" }
-    .row
-      .col-xs-12.col-sm-6.col-md-4.col-lg-3
-        = f.input :endereco
-      .col-xs-12.col-sm-4.col-md-4.col-lg-3
-        = f.input :complemento
-    .row
-      .col-xs-12.col-sm-6.col-md-4.col-lg-3
-        = f.input :bairro
-      .col-xs-12.col-sm-4.col-md-4.col-lg-3
-        =f.label "Estado"
-        =f.collection_select(:estado_id, Estado.pelo_nome, :id, :nome, {include_blank: "Selecione"}, {:class=>'form-control'})
-    .row
-      .col-xs-12.col-sm-6.col-md-4.col-lg-3
-        =f.label "Cidade"
-        = f.grouped_collection_select(:cidade_id, Estado.pelo_nome, :cidades, :nome, :id, :nome, {include_blank: "Selecione"}, { :class=> "collection_select form-control" })
-      .col-xs-12.col-sm-4.col-md-4.col-lg-3
-        =f.label "Profissão"
-        =f.collection_select(:cargo_id, Cargo.order(:nome), :id, :nome, {include_blank: "Selecione"}, {:class=>'form-control'})
+      .col-sm-10.col-md-11
+        =render 'clientes/partials/cliente_legend'
+  .row
+    .col-xs-12.col-sm-6.col-md-4.col-lg-6
+      %label Foto
+      %label{for: "cliente_foto", class: "custom-file-upload"}
+        %i.fa.fa-cloud-upload Foto Upload
+      = f.input :foto, as: :file, label: false
+      #foto_contato_selected
+  .row
+    .col-xs-12.col-sm-6.col-md-4.col-lg-3
+      = f.input :email
+    .col-xs-12.col-sm-4.col-md-4.col-lg-3
+      = f.input :telefone,  input_html: {class: "telefone_maskara" }
+  .row
+    .col-xs-12.col-sm-6.col-md-4.col-lg-3
+      = f.input :endereco
+    .col-xs-12.col-sm-4.col-md-4.col-lg-3
+      = f.input :complemento
+  .row
+    .col-xs-12.col-sm-6.col-md-4.col-lg-3
+      = f.input :bairro
+    .col-xs-12.col-sm-4.col-md-4.col-lg-3
+      =f.label "Estado"
+      =f.collection_select(:estado_id, Estado.pelo_nome, :id, :nome, {include_blank: "Selecione"}, {:class=>'form-control'})
+  .row
+    .col-xs-12.col-sm-6.col-md-4.col-lg-3
+      =f.label "Cidade"
+      = f.grouped_collection_select(:cidade_id, Estado.pelo_nome, :cidades, :nome, :id, :nome, {include_blank: "Selecione"}, { :class=> "collection_select form-control" })
+    .col-xs-12.col-sm-4.col-md-4.col-lg-3
+      =f.label "Profissão"
+      =f.collection_select(:cargo_id, Cargo.order(:nome), :id, :nome, {include_blank: "Selecione"}, {:class=>'form-control'})

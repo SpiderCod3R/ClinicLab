@@ -2,39 +2,39 @@
 - estado_civil  = @cliente.estado_civil if @cliente.estado_civil?
 - sexo  = @cliente.sexo if @cliente.sexo?
 #dados.tab-pane.fade.in.active
-  .container
+  .container-fluid
     .row
-      .col-xs-12.col-sm-11.col-md-4.col-lg-3
+      .col-xs-12.col-sm-10.col-md-4.col-lg-3
         = f.input :status, :as => :select, :collection => [['Ativo',"true"],['Inativo', "false"]], :include_blank => "Selecione", :label => "Status"
-      .col-xs-12.col-sm-11.col-md-4.col-lg-4
+      .col-xs-12.col-sm-10.col-md-4.col-lg-4
         = f.input :id, as: :hidden
         = f.input :nome
     .row
-      .col-xs-12.col-sm-11.col-md-4.col-lg-3
+      .col-xs-12.col-sm-10.col-md-4.col-lg-3
         = f.input :nascimento, as: :string, input_html: {class: "datepicker_form", value: "#{nascimento}"}
-      .col-xs-12.col-sm-11.col-md-4.col-lg-4
+      .col-xs-12.col-sm-10.col-md-4.col-lg-4
         %label.string.required.control-label Idade
         %input{:type=>"text", :class => "form-control", :id => "cliente_idade"}
     .row
-      .col-xs-12.col-sm-11.col-md-4.col-lg-3
+      .col-xs-12.col-sm-10.col-md-4.col-lg-3
         =f.label :sexo
         %br/
         = f.select :sexo, options_for_select([ "Masculino", "Feminino"], sexo.to_s), {include_blank: "Selecione"} ,{ :class => "form-control"}
         =error_custom_tag(@cliente, :"sexo", "Sexo")
-      .col-xs-12.col-sm-11.col-md-4.col-lg-4
+      .col-xs-12.col-sm-10.col-md-4.col-lg-4
         = f.label :estado_civil
         %br/
         = f.select :estado_civil, options_for_select([ "CASADO", "DIVORCIADO", "SOLTEIRO" ], estado_civil.to_s), {include_blank: "Selecione"} ,{ :class => "form-control"}
         =error_custom_tag(@cliente, :"estado_civil", "Estado Civil")
     .row
-      .col-xs-12.col-sm-11.col-md-4.col-lg-3
+      .col-xs-12.col-sm-10.col-md-4.col-lg-3
         = f.input :cpf,  input_html: {class: "cpf_maskara" }
-      .col-xs-12.col-sm-11.col-md-4.col-lg-4
+      .col-xs-12.col-sm-10.col-md-4.col-lg-4
         = f.input :rg,  input_html: {class: "rg_maskara" }
     .row
-      .col-xs-12.col-sm-11.col-md-4.col-lg-3
+      .col-xs-12.col-sm-10.col-md-4.col-lg-3
         =f.label "Nacionalidade"
         =f.localized_country_select(:nacionalidade, [], {include_blank: "Selecione"}, {:class => "form-control"})
-      .col-xs-12.col-sm-11.col-md-4.col-lg-4#naturalidade_cliente{style: "display: none;"}
+      .col-xs-12.col-sm-10.col-md-4.col-lg-4#naturalidade_cliente{style: "display: none;"}
         =f.label "Naturalidade"
         =f.collection_select(:naturalidade, Estado.pelo_nome, :id, :nome, {include_blank: "Selecione"}, {:class=>'form-control'})
