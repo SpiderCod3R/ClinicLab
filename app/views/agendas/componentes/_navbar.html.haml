@@ -1,25 +1,35 @@
 =content_for :header do
-  %nav.navbar.navbar-full.navbar-light.navbar-inverse.navbar-custom
-    .navbar-header.fixed-brand
-      -if user_signed_in?
-        =link_to root_path, class: "navbar-brand brand-logo" do
-          =current_user.empresa.nome
-        #menu-toggle.navbar-toggle.collapsed{"data-toggle" => "collapse"}
-          %i.fa.fa-bars.fa-2x{"aria-hidden" => "true"}
-    #bs-megadropdown-tabs.collapse.navbar-collapse
-      %ul{class: "nav navbar-nav", style: "padding-left: 15px;"}
-        %li.active= link_to "#{image_tag("icons/glyphicons-46-calendar-white.png", width: 22, height: 22)} AGENDAS".html_safe, empresa_agendas_path(current_user.empresa)
-        %li= link_to "#{image_tag("icons/glyphicons-389-exit-white.png", width: 22, height: 22)} SAIR".html_safe, root_path
-      -if user_signed_in?
-        %div{style: "padding-right: 80px;"}
-          %ul.nav.navbar-nav.navbar-right
-            %li.dropdown
-              %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
-                =current_user.name
-                %span.caret
-              %ul.dropdown-menu
-                %li
-                  = link_to destroy_user_session_path, method: 'delete', title: "SAIR" do
-                    %span.text-danger
-                      %i.fa.fa-sign-out
-                      Sair/Deslogar
+  %nav.navbar.navbar-full.navbar-light.navbar-fixed-top.navbar-custom
+    .container-fluid
+      / Brand and toggle get grouped for better mobile display
+      .navbar-header
+        %button.navbar-toggle.collapsed{"aria-expanded" => "false", "data-target" => "#bs-example-navbar-collapse-1", "data-toggle" => "collapse", :type => "button"}
+          %span.sr-only Toggle navigation
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
+        -if user_signed_in?
+          =link_to root_path, class: "navbar-brand" do
+            =current_user.environment.name
+        -else
+          =link_to new_admin_session_path, class: "navbar-brand" do
+            GClinicWeb
+      / Collect the nav links, forms, and other content for toggling
+      #bs-example-navbar-collapse-1.collapse.navbar-collapse
+        %ul.nav.navbar-nav
+          -if user_signed_in?
+            %li.nav-item= link_to "#{image_tag("icons/glyphicons-46-calendar-white.png", width: 22, height: 22)} AGENDAS".html_safe, empresa_agendas_path(current_user.empresa)
+            %li= link_to "#{image_tag("icons/glyphicons-389-exit-white.png", width: 22, height: 22)} SAIR".html_safe, root_path
+        %ul.nav.navbar-nav.navbar-right
+          -if user_signed_in?
+            / %li.nav-item
+            /   =link_to "Seja bem vindo - #{current_user.name}", "#"
+            %li.nav-item
+              =link_to destroy_user_session_path, method: 'delete', title: "SAIR" do
+                Sair
+                %i.fa.fa-sign-out
+          -else
+            .center{ style: "color: white; font-weight: bold"}
+              %strong="Seja bem vindo"
+      / /.navbar-collapse
+    / /.container-fluid

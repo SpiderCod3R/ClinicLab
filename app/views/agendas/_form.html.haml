@@ -1,95 +1,99 @@
-=simple_form_for [current_user.empresa, @agenda] do |f|
-  - if @agenda.errors.any?
-    .row-fluid
-      .col-md-12
-        %div{class: "alert", style: "color: #B11515;"}
-          %h4="#{pluralize(@agenda.errors.count, "erro")} impede(m) este agenda de ser salvo:"
-  .row-fluid
-    .col-md-12
-      %hr
-      .container-fluid{style: "margin: 0 auto; padding-top: 15px; padding-bottom: 15px;"}
+.panel.panel-default
+  .panel-body
+    =simple_form_for [current_user.empresa, @agenda] do |f|
+      - if @agenda.errors.any?
         .row-fluid
-          =f.input :empresa_id, as: :hidden, input_html: { value: current_user.empresa.id }
-          =f.input :usuario_id, as: :hidden, input_html: { value: current_user.id }
-        .row-fluid
-          .col-md-3
-            =f.label :referencia_agenda_id, "Referência"
-            =f.collection_select :referencia_agenda_id, ReferenciaAgenda.where(empresa: current_user.empresa), :id, :descricao_completa, { prompt: "Selecione um" }, class: "form-control selectpicker", :"data-live-search"=>"true"
-          .col-md-3
-            =f.input :data_inicial, as: :string, input_html: { class: "datepicker" }
-          .col-md-3
-            =f.input :data_final, as: :string, input_html: { class: "datepicker" }
-        .row-fluid
-          .col-md-3
-            #atendimento_sabado
-              =f.label t('agendas.helpers.atendimento_sabado')
-              %br/
-              =f.collection_radio_buttons :atendimento_sabado, [[1, 'Sim'] ,[0, 'Não']], :first, :last, checked: 0
-          .col-md-3
-            #atendimento_domingo
-              =f.label t('agendas.helpers.atendimento_domingo')
-              %br/
-              =f.collection_radio_buttons :atendimento_domingo, [[1, 'Sim'] ,[0, 'Não']], :first, :last, checked: 0
-  .row-fluid
-    .col-md-6
-      .panel.panel-default
-        .panel-heading.center.bolder Turno da Manhã
-        .panel-body
-          .row-fluid
-            #atendimento_manha
-              .container-fluid
-                .col-md-2
-                  =f.input :atendimento_turno_a_duracao, label: "Minutos",pattern: "[0-9]+$"
-              %hr{style: "border: #A2A2A2 0.5px dashed"}
-          .row-fluid
-            .panel
-              -indice_manha = 0
-              -while indice_manha <= 6
-                .row{style: "margin: 0 auto"}
-                  =content_tag(:div, id: "manha_dia_#{indice_manha}") do
-                    .col-md-3
-                      =content_tag(:label, "" ,id: "dia_#{indice_manha}")
-                    .col-md-3
-                      =f.label "Inicio"
-                      =f.time_field :atendimento_manha_inicio, class: "form-control", id: "agenda_atendimento_manha_inicio_#{indice_manha}_attribute"
-                    .col-md-3
-                      =f.label "Termino"
-                      =f.time_field :atendimento_manha_final, class: "form-control", id: "agenda_atendimento_manha_final_#{indice_manha}_attribute"
-                -indice_manha += 1
-                %br/
-  .row-fluid
-    .col-md-6
-      .panel.panel-default
-        .panel-heading.center.bolder Turno da Tarde
-        .panel-body
-          .row-fluid
-            #atendimento_tarde
-              .container-fluid
-                .col-md-2
-                  =f.input :atendimento_turno_b_duracao, label: "Minutos"
-              %hr{style: "border: #A2A2A2 0.5px dashed"}
-          .row-fluid
-            .panel
-              -indice_tarde = 0
-              -while indice_tarde <= 6
-                .row{style: "margin: 0 auto"}
-                  =content_tag(:div, id: "tarde_dia_#{indice_tarde}") do
-                    .col-md-3
-                      =content_tag(:label, "" ,id: "tarde_#{indice_tarde}")
-                    .col-md-3
-                      =f.label "Inicio"
-                      =f.time_field :atendimento_tarde_inicio, class: "form-control", id: "agenda_atendimento_tarde_inicio_#{indice_tarde}_attribute"
-                    .col-md-3
-                      =f.label "Termino"
-                      =f.time_field :atendimento_tarde_final, class: "form-control", id: "agenda_atendimento_tarde_final_#{indice_tarde}_attribute"
-                -indice_tarde += 1
-                %br/
-  .row-fluid
-    .col-md-12
-      %hr
-      =render 'agendas/componentes/progress_bar'
-  .pull-right
-    =f.submit "Gerar Agenda", class: "btn btn-success btn-form-agenda"
+          .col-md-12
+            %div{class: "alert", style: "color: #B11515;"}
+              %h4="#{pluralize(@agenda.errors.count, "erro")} impede(m) este agenda de ser salvo:"
+      .row-fluid
+        .col-md-12
+          %hr
+          .container-fluid{style: "margin: 0 auto; padding-top: 15px; padding-bottom: 15px;"}
+            .row-fluid
+              =f.input :empresa_id, as: :hidden, input_html: { value: current_user.empresa.id }
+              =f.input :usuario_id, as: :hidden, input_html: { value: current_user.id }
+            .row-fluid
+              .col-md-3
+                =f.label :referencia_agenda_id, "Referência"
+                =f.collection_select :referencia_agenda_id, ReferenciaAgenda.where(empresa: current_user.empresa), :id, :descricao_completa, { prompt: "Selecione um" }, class: "form-control selectpicker", :"data-live-search"=>"true"
+              .col-md-3
+                =f.input :data_inicial, as: :string, input_html: { class: "datepicker" }
+              .col-md-3
+                =f.input :data_final, as: :string, input_html: { class: "datepicker" }
+            .row-fluid
+              .col-md-3
+                #atendimento_sabado
+                  =f.label t('agendas.helpers.atendimento_sabado')
+                  %br/
+                  =f.collection_radio_buttons :atendimento_sabado, [[1, 'Sim'] ,[0, 'Não']], :first, :last, checked: 0
+              .col-md-3
+                #atendimento_domingo
+                  =f.label t('agendas.helpers.atendimento_domingo')
+                  %br/
+                  =f.collection_radio_buttons :atendimento_domingo, [[1, 'Sim'] ,[0, 'Não']], :first, :last, checked: 0
+      .row-fluid
+        .col-md-6
+          .panel.panel-default
+            .panel-heading.center.bolder Turno da Manhã
+            .panel-body
+              .row-fluid
+                #atendimento_manha
+                  .container-fluid
+                    .col-md-2
+                      =f.input :atendimento_turno_a_duracao, label: "Minutos",pattern: "[0-9]+$"
+                  %hr{style: "border: #A2A2A2 0.5px dashed"}
+              .row-fluid
+                .panel
+                  -indice_manha = 0
+                  -while indice_manha <= 6
+                    .row{style: "margin: 0 auto"}
+                      =content_tag(:div, id: "manha_dia_#{indice_manha}") do
+                        .col-md-3
+                          =content_tag(:label, "" ,id: "dia_#{indice_manha}")
+                        .col-md-3
+                          =f.label "Inicio"
+                          =f.time_field :atendimento_manha_inicio, class: "form-control", id: "agenda_atendimento_manha_inicio_#{indice_manha}_attribute"
+                        .col-md-3
+                          =f.label "Termino"
+                          =f.time_field :atendimento_manha_final, class: "form-control", id: "agenda_atendimento_manha_final_#{indice_manha}_attribute"
+                    -indice_manha += 1
+                    %br/
+      .row-fluid
+        .col-md-6
+          .panel.panel-default
+            .panel-heading.center.bolder Turno da Tarde
+            .panel-body
+              .row-fluid
+                #atendimento_tarde
+                  .container-fluid
+                    .col-md-2
+                      =f.input :atendimento_turno_b_duracao, label: "Minutos"
+                  %hr{style: "border: #A2A2A2 0.5px dashed"}
+              .row-fluid
+                .panel
+                  -indice_tarde = 0
+                  -while indice_tarde <= 6
+                    .row{style: "margin: 0 auto"}
+                      =content_tag(:div, id: "tarde_dia_#{indice_tarde}") do
+                        .col-md-3
+                          =content_tag(:label, "" ,id: "tarde_#{indice_tarde}")
+                        .col-md-3
+                          =f.label "Inicio"
+                          =f.time_field :atendimento_tarde_inicio, class: "form-control", id: "agenda_atendimento_tarde_inicio_#{indice_tarde}_attribute"
+                        .col-md-3
+                          =f.label "Termino"
+                          =f.time_field :atendimento_tarde_final, class: "form-control", id: "agenda_atendimento_tarde_final_#{indice_tarde}_attribute"
+                    -indice_tarde += 1
+                    %br/
+      .row-fluid
+        .col-md-12
+          %hr
+          =render 'agendas/componentes/progress_bar'
+      .row-fluid
+        .pull-right
+          =f.submit "Gerar Agenda", class: "btn btn-success btn-form-agenda"
     %br/
     %br/
 =render 'error_messages'
+

@@ -1,12 +1,13 @@
-/ =build_form_toolbar(new_painel_empresa_agenda_path(empresa_atual), nil, @agenda, painel_empresa_agendas_path(empresa_atual), nil)
 =carrega_navbar_da_agenda
-%hr{style: "border: #323232 solid 0.5px;"}
-=carrega_setor_alpha_da_agenda
+%br/
+%br/
 .container-fluid
+  =carrega_setor_alpha_da_agenda
   .row
-    .col-md-2
+    .col-md-3
       =render "agendas/componentes/menu_lateral"
-    .col-md-10
+    .col-md-9
       =render "agendas/componentes/bloco_lateral"
 
 = javascript_include_tag "agenda/rolagem", :media => "all"
+
