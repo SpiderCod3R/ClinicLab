@@ -1,28 +1,27 @@
 %section#dados_principais_da_agenda
   .container
     .row
-      .col-md-3
+      .col-xs-4.col-sm-4.col-md-3
         %b Código Responsável
         %br
         %label=agenda.referencia_agenda_id
-      .col-md-3
+      .col-xs-6.col-sm-4.col-md-3
         %b Responsável
         %br
         %label=agenda.referencia
-      .col-md-2
+      .col-xs-4.col-sm-4.col-md-2
         %b Data
         %br
         %label=agenda.data.strftime("%d/%m/%Y")
-      .col-md-2
-        %b Data
+      .col-xs-4.col-sm-4.col-md-2
+        %b Dia
         %br
         %label=day_name(agenda.data.wday)
-      .col-md-2
+      .col-xs-4.col-sm-4.col-md-2
         %b Hora
         %br
         %label{style: "color: #9F0303"}=show_clock_period(agenda)
     .row
-      %hr{style: "border: 0.5px #D9E7EF solid;"}
       .col-md-3
         %b Status
         %br

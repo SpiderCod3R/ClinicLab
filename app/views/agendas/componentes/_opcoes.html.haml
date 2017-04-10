@@ -3,7 +3,7 @@
   .btn-group
     %button.btn.btn-default.btn-circle.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
       %i.glyphicon.glyphicon-chevron-up
-    %ul.dropdown-menu.drop-up
+    %ul.dropdown-menu.drop-down.pull-right
       %li=link_to "Ficha do Paciente", empresa_clinic_sheet_cliente_path(current_user.empresa, cliente_id: agenda.agenda_movimentacao.cliente_id, agenda_id: agenda.id, sala_espera_id: @sala_espera)
       -if !@sala_espera
         -if Time.now.strftime("%Y-%m-%d") == agenda.data.strftime("%Y-%m-%d")
@@ -31,7 +31,7 @@
   .btn-group
     %button.btn.btn-default.btn-circle.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
       %i.glyphicon.glyphicon-chevron-up
-    %ul.dropdown-menu.drop-up
+    %ul.dropdown-menu.drop-down.pull-right
       %li=link_to "Agendar atendimento", empresa_agenda_movimentar_ou_atualizar_path(current_user.empresa,agenda), class: "hands_cursor"
       %li.divider{:role => "separator"}
       %li=link_to "Excluir Agenda", empresa_agenda_path(current_user.empresa, agenda), method: :delete, data: { confirm: "Deseja mesmo excluir a agenda #{agenda.referencia_agenda.descricao} no periodo de #{Time.parse(agenda.atendimento_inicio).strftime('%H:%M')}?" }

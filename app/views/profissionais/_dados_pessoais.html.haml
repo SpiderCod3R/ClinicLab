@@ -29,4 +29,7 @@
         =f.collection_select(:cargo_id, @cargos, :id, :nome, {prompt: "Selecione"}, :class=>'form-control')
         =custom_error_tag(@profissional, :"cargo_id", "Cargo")
       .col-xs-2.col-sm-2.col-md-2.col-lg-2
-        = f.input :imagem, as: :file, label: "Foto"
+        %label Imagem
+        %label{for: "profissional_imagem", class: "custom-file-upload"}
+          %i.fa.fa-cloud-upload Imagem Upload
+        = f.input :imagem, as: :file, label: false
