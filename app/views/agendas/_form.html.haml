@@ -11,25 +11,25 @@
           .hidden_fields_agenda
             =f.input :empresa_id, as: :hidden, input_html: { value: current_user.empresa.id }
             =f.input :usuario_id, as: :hidden, input_html: { value: current_user.id }
-          .row
-            .col-sm-4.col-md-3
-              =f.label :referencia_agenda_id, "Referência"
-              %br
-              =f.collection_select :referencia_agenda_id, ReferenciaAgenda.where(empresa: current_user.empresa), :id, :descricao_completa, { prompt: "Selecione um" }, class: "form-control selectpicker", :"data-live-search"=>"true"
-            .col-sm-4.col-md-3
-              =f.input :data_inicial, as: :string, input_html: { class: "datepicker" }
-            .col-sm-4.col-md-3
-              =f.input :data_final, as: :string, input_html: { class: "datepicker" }
-          .row
-            .col-md-3
-              %b Atendimento
-              %br
-              #atendimento_sabado
-                =f.label t('agendas.helpers.atendimento_sabado')
-                =f.collection_radio_buttons :atendimento_sabado, [[1, 'Sim'] ,[0, 'Não']], :first, :last, checked: 0
-              #atendimento_domingo
-                =f.label t('agendas.helpers.atendimento_domingo')
-                =f.collection_radio_buttons :atendimento_domingo, [[1, 'Sim'] ,[0, 'Não']], :first, :last, checked: 0
+          .well
+            .row
+              .col-sm-4.col-md-3
+                =f.label :referencia_agenda_id, "Referência"
+                %br
+                =f.collection_select :referencia_agenda_id, ReferenciaAgenda.where(empresa: current_user.empresa), :id, :descricao_completa, { prompt: "Selecione um" }, class: "form-control selectpicker", :"data-live-search"=>"true"
+              .col-sm-4.col-md-3
+                =f.input :data_inicial, as: :string, input_html: { class: "datepicker" }
+              .col-sm-4.col-md-3
+                =f.input :data_final, as: :string, input_html: { class: "datepicker" }
+            .row
+              .atendimento{style: "display: inline-block"}
+                .col-md-12
+                  %b Atendimento -
+                  =f.label t('agendas.helpers.atendimento_sabado')
+                  =f.collection_radio_buttons :atendimento_sabado, [[1, 'Sim'] ,[0, 'Não']], :first, :last, checked: 0
+                  |
+                  =f.label t('agendas.helpers.atendimento_domingo')
+                  =f.collection_radio_buttons :atendimento_domingo, [[1, 'Sim'] ,[0, 'Não']], :first, :last, checked: 0
       .row-fluid
         .col-md-6
           .panel.panel-default
