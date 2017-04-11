@@ -6,11 +6,8 @@
     %h1.login GClinic
     .form-group
       .col-xs-12.col-sm-12.col-md-12.col-lg-12
-        = f.input :name, required: true, autofocus: true,:placeholder => "Nome de Usuário"
+        =f.input :name, required: true, autofocus: true,:placeholder => "Nome de Usuário", input_html: { class: "form-control" }
     .form-group.log-status
       .col-xs-12.col-sm-12.col-md-12.col-lg-12
-        = f.input :password, required: false,:placeholder => "Senha"
-    %span.alert Invalid Credentials
-    / %a.link{:href => "#"} Lost your password?
-    / %button.log-btn{:type => "button"} Log in
+        =f.input :password, required: false,:placeholder => "Senha", input_html: { class: "form-control" }
     = f.button :submit, "Log in", class: "btn btn-success"
