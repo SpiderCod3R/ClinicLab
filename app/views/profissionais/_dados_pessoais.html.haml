@@ -1,34 +1,36 @@
 .container
   .col-xs-12.col-sm-12.col-md-12.col-lg-12{style: 'margin: 0; padding: 0;'}
     .row
-      .col-xs-4.col-sm-4.col-md-4.col-lg-4
+      .col-xs-12.col-sm-11.col-md-4.col-lg-4
         = f.input :nome
-      .col-xs-2.col-sm-2.col-md-2.col-lg-2
+      .col-xs-12.col-sm-4.col-md-2.col-lg-2
         = f.input :cpf, input_html: {class: "cpf_maskara" }
-      .col-xs-2.col-sm-2.col-md-2.col-lg-2
+      .col-xs-12.col-sm-4.col-md-2.col-lg-2
         = f.input :rg, input_html: {class: "rg_maskara" }
-      .col-xs-4.col-sm-4.col-md-4.col-lg-4
-        = f.input :data_nascimento, as: :date, start_year: Date.today.year - 116, end_year: Date.today.year, discard_day: false, order: [:day, :month, :year]
+      .col-xs-12.col-sm-3.col-md-3.col-lg-4
+        = f.input :data_nascimento, as: :string, input_html: {class: "datepicker"}
     .row
-      .col-xs-2.col-sm-2.col-md-2.col-lg-2
+      .col-xs-12.col-sm-4.col-md-2.col-lg-2
         = f.input :telefone, input_html: {class: "telefone_maskara" }
-      .col-xs-2.col-sm-2.col-md-2.col-lg-2
+      .col-xs-12.col-sm-4.col-md-2.col-lg-2
         = f.input :celular, input_html: {class: "celular_maskara" }
-      .col-xs-2.col-sm-2.col-md-2.col-lg-2
+      .col-xs-12.col-sm-3.col-md-2.col-lg-2
         =f.label "Operadora"
         =f.collection_select(:operadora_id, @operadoras, :id, :nome, {prompt: "Selecione"}, {:class=>'form-control'})
-      .col-xs-2.col-sm-2.col-md-2.col-lg-2
+    .row
+      .col-xs-12.col-sm-4.col-md-2.col-lg-2
         =f.label "Conselho regional"
         =f.collection_select(:conselho_regional_id, @conselhos_regionais, :id, :sigla, {prompt: "Selecione"}, {:class=>'form-control'})
-      .col-xs-3.col-sm-3.col-md-3.col-lg-3
+      .col-xs-12.col-sm-4.col-md-3.col-lg-3
         = f.label :numero_conselho_regional, "Nº Conselho Regional"
         = f.input :numero_conselho_regional, label: false
-    .row
-      .col-xs-2.col-sm-2.col-md-2.col-lg-2
+      .col-xs-12.col-sm-3.col-md-2.col-lg-2
         =f.label "Cargo"
         =f.collection_select(:cargo_id, @cargos, :id, :nome, {prompt: "Selecione"}, :class=>'form-control')
         =custom_error_tag(@profissional, :"cargo_id", "Cargo")
-      .col-xs-2.col-sm-2.col-md-2.col-lg-2
+    .row
+      %br
+      .col-xs-12.col-sm-5.col-md-2.col-lg-2
         %label Imagem
         %label{for: "profissional_imagem", class: "custom-file-upload"}
           %i.fa.fa-cloud-upload Imagem Upload
