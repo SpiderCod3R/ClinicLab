@@ -24,3 +24,7 @@ jQuery ->
     else
       $('#profissional_cidade_id').empty()
       return $('#profissional_cidade_id').prop 'disabled', true
+
+  $('#profissional_imagem').change ->
+    $("#profissional_imagem_selected").text("Arquivo selecionado - " + $('#profissional_imagem').val().replace(/C:\\fakepath\\/i, ''))
+    $("#profissional_imagem_selected").animate({ color: "#253095" }, 1000);

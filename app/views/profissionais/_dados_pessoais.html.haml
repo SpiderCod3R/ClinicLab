@@ -7,7 +7,7 @@
         = f.input :cpf, input_html: {class: "cpf_maskara" }
       .col-xs-12.col-sm-4.col-md-2.col-lg-2
         = f.input :rg, input_html: {class: "rg_maskara" }
-      .col-xs-12.col-sm-3.col-md-3.col-lg-4
+      .col-xs-12.col-sm-3.col-md-3.col-lg-3
         = f.input :data_nascimento, as: :string, input_html: {class: "datepicker"}
     .row
       .col-xs-12.col-sm-4.col-md-2.col-lg-2
@@ -21,7 +21,7 @@
       .col-xs-12.col-sm-4.col-md-2.col-lg-2
         =f.label "Conselho regional"
         =f.collection_select(:conselho_regional_id, @conselhos_regionais, :id, :sigla, {prompt: "Selecione"}, {:class=>'form-control'})
-      .col-xs-12.col-sm-4.col-md-3.col-lg-3
+      .col-xs-12.col-sm-4.col-md-2.col-lg-2
         = f.label :numero_conselho_regional, "Nº Conselho Regional"
         = f.input :numero_conselho_regional, label: false
       .col-xs-12.col-sm-3.col-md-2.col-lg-2
@@ -35,3 +35,4 @@
         %label{for: "profissional_imagem", class: "custom-file-upload"}
           %i.fa.fa-cloud-upload Imagem Upload
         = f.input :imagem, as: :file, label: false
+        #profissional_imagem_selected

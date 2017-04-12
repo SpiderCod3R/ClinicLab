@@ -1,74 +1,78 @@
 =build_object_viewer_toolbar(edit_empresa_profissional_path(current_user.empresa, @profissional), @profissional, empresa_profissionais_path(current_user.empresa), nil)
-%section{id: "show_convenio"}
-  %div{class: "container"}
-    %div{class: "row"}
-      %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
-        %div{class: "row-fluid"}
-          %h2 Exibindo profissional
-          %hr{style: "border: #323232 solid 0.5px;"}
-        %div{class: "col-xs-8 col-sm-8 col-md-8 col-lg-8"}
-          %div{class: "row-fluid"}
-            %div{class: "col-xs-6 col-sm-6 col-md-6 col-lg-6"}
+
+%section#profissional
+  .panel.panel-default
+    .panel-heading
+      %h1.center{style: "color: #232323; align: center; font-weight: bolder;"}
+        Profissional -
+        = @profissional.id
+        |
+        = status @profissional.status
+    .panel-body
+      .row-fluid
+        .col-xs-8.col-sm-8.col-md-8.col-lg-8
+          .row-fluid
+            .col-xs-6.col-sm-6.col-md-6.col-lg-6
               %strong Código:
               = @profissional.id
-          %div{class: "row-fluid"}
-            %div{class: "col-xs-6 col-sm-6 col-md-6 col-lg-6"}
+          .row-fluid
+            .col-xs-6.col-sm-6.col-md-6.col-lg-6
               %strong Status:
               =status(@profissional.status)
-          %div{class: "row-fluid"}
-            %div{class: "col-xs-6 col-sm-6 col-md-6 col-lg-6"}
+          .row-fluid
+            .col-xs-6.col-sm-6.col-md-6.col-lg-6
               %strong Nome:
               = @profissional.nome
-          %div{class: "row-fluid"}
-            %div{class: "col-xs-6 col-sm-6 col-md-6 col-lg-6"}
+          .row-fluid
+            .col-xs-6.col-sm-6.col-md-6.col-lg-6
               %strong Cargo:
               = @profissional.cargo
-          %div{class: "row-fluid"}
-            %div{class: "col-xs-6 col-sm-6 col-md-6 col-lg-6"}
+          .row-fluid
+            .col-xs-6.col-sm-6.col-md-6.col-lg-6
               %strong Data de nascimento:
               = @profissional.data_nascimento
-          %div{class: "row-fluid"}
-            %div{class: "col-xs-6 col-sm-6 col-md-6 col-lg-6"}
+          .row-fluid
+            .col-xs-6.col-sm-6.col-md-6.col-lg-6
               %strong CPF:
               = @profissional.cpf
-          %div{class: "row-fluid"}
-            %div{class: "col-xs-6 col-sm-6 col-md-6 col-lg-6"}
+          .row-fluid
+            .col-xs-6.col-sm-6.col-md-6.col-lg-6
               %strong RG:
               = @profissional.rg
-          %div{class: "row-fluid"}
-            %div{class: "col-xs-6 col-sm-6 col-md-6 col-lg-6"}
+          .row-fluid
+            .col-xs-6.col-sm-6.col-md-6.col-lg-6
               %strong Telefone:
               = @profissional.telefone
-          %div{class: "row-fluid"}
-            %div{class: "col-xs-6 col-sm-6 col-md-6 col-lg-6"}
+          .row-fluid
+            .col-xs-6.col-sm-6.col-md-6.col-lg-6
               %strong Celular:
               = @profissional.celular
-          %div{class: "row-fluid"}
-            %div{class: "col-xs-6 col-sm-6 col-md-6 col-lg-6"}
+          .row-fluid
+            .col-xs-6.col-sm-6.col-md-6.col-lg-6
               %strong Operadora:
               = @profissional.operadora.nome
-          %div{class: "row-fluid"}
-            %div{class: "col-xs-6 col-sm-6 col-md-6 col-lg-6"}
+          .row-fluid
+            .col-xs-6.col-sm-6.col-md-6.col-lg-6
               %strong Conselho regional:
               = @profissional.conselho_regional.sigla
-          %div{class: "row-fluid"}
-            %div{class: "col-xs-6 col-sm-6 col-md-6 col-lg-6"}
+          .row-fluid
+            .col-xs-6.col-sm-6.col-md-6.col-lg-6
               %strong Endereço:
               = @profissional.endereco
-          %div{class: "row-fluid"}
-            %div{class: "col-xs-6 col-sm-6 col-md-6 col-lg-6"}
+          .row-fluid
+            .col-xs-6.col-sm-6.col-md-6.col-lg-6
               %strong Complemento:
               = @profissional.complemento
-          %div{class: "row-fluid"}
-            %div{class: "col-xs-6 col-sm-6 col-md-6 col-lg-6"}
+          .row-fluid
+            .col-xs-6.col-sm-6.col-md-6.col-lg-6
               %strong Bairro:
               = @profissional.bairro
-          %div{class: "row-fluid"}
-            %div{class: "col-xs-6 col-sm-6 col-md-6 col-lg-6"}
+          .row-fluid
+            .col-xs-6.col-sm-6.col-md-6.col-lg-6
               %strong Estado:
               = @profissional.estado.nome
-          %div{class: "row-fluid"}
-            %div{class: "col-xs-6 col-sm-6 col-md-6 col-lg-6"}
+          .row-fluid
+            .col-xs-6.col-sm-6.col-md-6.col-lg-6
               %strong Cidade:
               = @profissional.cidade.nome
 
@@ -76,5 +80,5 @@
           -if @profissional.imagem.present?
             = image_tag @profissional.imagem.url(:medium), :class => "img_profissional"
           / img-responsive img-circle
-      %div{class: "row-fluid"}
+      .row-fluid
         %hr{style: "border: #323232 solid 0.5px;"}
