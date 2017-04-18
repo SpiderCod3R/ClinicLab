@@ -27,7 +27,7 @@ set :rails_env, :production
 set :application, 'gclinic'
 set :repo_url, 'git@gitlab.com:gclinic/gclinic2.0.git'
 set :branch, 'responsive_layout'
-set :deploy_to, "/home/#{fetch(:user)}/www/#{fetch(:application)}"
+set :deploy_to, "/var/www/#{fetch(:application)}"
 set :scm, :git
 
 set :format, :airbrussh
