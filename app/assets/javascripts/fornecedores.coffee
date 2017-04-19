@@ -4,6 +4,19 @@ jQuery ->
   escaped_estados = undefined
   options = undefined
 
+  $(".fornecedor_cpf").hide()
+  $(".fornecedor_cnpj").hide()
+
+  $('#fornecedor_documento').change ->
+    value = undefined
+    value = $('#fornecedor_documento').val()
+    if value == 1
+      $('.fornecedor_cpf').fadeIn()
+      $('.fornecedor_cnpj').hide()
+    else if value == 2
+      $('.fornecedor_cpf').hide()
+      $('.fornecedor_cnpj').fadeIn()
+
   cidades = $('#fornecedor_cidade_id').html()
   if $('#fornecedor_estado_id').val() != ""
     $('#fornecedor_cidade_id').prop 'disabled', false

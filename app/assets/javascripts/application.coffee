@@ -26,14 +26,7 @@
 #= require BOOTSTRAP-PLUGINS/bootstrap-waitingfor
 #= require BOOTSTRAP-PLUGINS/bootstrap-progressbar.min
 
-# -*- UTILITARIOS -*-
-#= require utility/maskaras
-#= require utility/__init__
-#= require TEMPLATE/accounting
-#= require TEMPLATE/parsley.min
-
-# -*- REQUIRES DO GCLINIC
-#= require date_time_inputs
+# -*- REQUIRES DO GCLINIC -*-
 #= require agenda/agenda
 #= require agenda/movimentar_agenda
 #= require atendimentos
@@ -51,8 +44,6 @@
 #= require clientes/cliente_contato
 #= require clientes/cliente_pdfs
 #= require clientes/search
-#= require filtros
-#= require fornecedor
 #= require fornecedores
 #= require movimento_servicos
 #= require movimento_servicos_prosseguir
@@ -60,8 +51,12 @@
 #= require painel/permissoes
 
 # -*- UTILITARIOS -*-
-#= require utility/maskaras
 #= require utility/__init__
-#= require valida_cpf
-#= require bootbox.min.js
+#= require utility/date_time_inputs
+#= require utility/maskaras
+#= require utility/add_remove_fields
+#= require utility/valida_cpf
+#= require utility/bootbox.min.js
+#= require utility/accounting
+#= require utility/parsley.min
 #= require ckeditor/init

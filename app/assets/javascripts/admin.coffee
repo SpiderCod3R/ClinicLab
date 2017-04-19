@@ -6,7 +6,6 @@
 #= require jquery_ujs
 #= require chosen-jquery
 
-
 # -*- BOOTSTRAP -*-
 #= require BOOTSTRAP-PLUGINS/bootstrap
 #= require BOOTSTRAP-PLUGINS/bootstrap-dialog

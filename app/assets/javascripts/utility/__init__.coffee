@@ -1,5 +1,5 @@
-#= require toastr
-#= require search
+#= require utility/toastr
+#= require utility/search
 #= require utility/check_all
 #= require utility/beautyMessages
 #= require utility/delete
