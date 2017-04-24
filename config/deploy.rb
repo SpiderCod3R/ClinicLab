@@ -26,7 +26,7 @@ set :stage,     :production
 set :rails_env, :production
 set :application, 'gclinic'
 set :repo_url, 'git@gitlab.com:gclinic/gclinic2.0.git'
-set :branch, 'responsive_layout'
+set :branch, 'master'
 set :deploy_to, "/var/www/#{fetch(:application)}"
 set :scm, :git
 
