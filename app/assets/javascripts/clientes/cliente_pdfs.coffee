@@ -1,4 +1,4 @@
-#= require bootbox.min.js
+#= require utility/bootbox.min.js
 $(document).ready ->
   localhost   = window.location.origin + "/"
   agenda_id  = $('#agenda_id').text()

@@ -1,4 +1,4 @@
-#= require bootbox.min.js
+#= require utility/bootbox.min.js
 $(document).ready ->
   URL_BASE = window.location.origin + "/"
   environment_name = $('#cliente_empresa_name').val()

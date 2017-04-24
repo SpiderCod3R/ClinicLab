@@ -56,7 +56,7 @@
 #= require utility/maskaras
 #= require utility/add_remove_fields
 #= require utility/valida_cpf
-#= require utility/bootbox.min.js
+#= require utility/bootbox.min
 #= require utility/accounting
 #= require utility/parsley.min
 #= require ckeditor/init

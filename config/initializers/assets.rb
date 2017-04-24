@@ -10,4 +10,7 @@ Rails.application.config.assets.version = '1.0'
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 Rails.application.config.assets.precompile += %w( admin.css admin.coffee)
 Rails.application.config.assets.precompile += %w( agenda/rolagem.coffee)
+Rails.application.config.assets.precompile += %w( dhtmlXSuite/dhtmlxCalendar/dhtmlx_material.css )
+Rails.application.config.assets.precompile += %w( dhtmlXSuite/dhtmlxCalendar/dhx_web.css )
+Rails.application.config.assets.precompile += %w( utility/load_index_calendar.coffee )
 Rails.application.config.assets.precompile += %w(ckeditor/config.js)

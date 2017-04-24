@@ -175,6 +175,7 @@ Rails.application.routes.draw do
 
   get 'pages/help'
   get 'pages/contact_us'
+  get 'pages/index'
 
   root to: "pages#index"
 end

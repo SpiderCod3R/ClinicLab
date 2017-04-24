@@ -9,3 +9,24 @@
   .row
     .col-md-3
       =render "fast_access"
+    .col-md-9
+      .row-fluid
+        %header
+          %h1.center Calendários
+          %hr
+          %section.calendar
+            .col-xs-12.col-sm-8.col-md-4.col-lg-4
+              #calendarOne
+              #calendarOneHolidays
+            .col-xs-12.col-sm-8.col-md-4.col-lg-4
+              #calendarTwo
+              #calendarTwoHolidays
+            .col-xs-12.col-sm-8.col-md-4.col-lg-4
+              #calendarThre
+              #calendarThreHolidays
+        %br
+        %br
+        %br
+
+=stylesheet_link_tag "dhtmlXSuite/dhtmlxCalendar/dhtmlx_material.css"
+=javascript_include_tag "utility/load_index_calendar"

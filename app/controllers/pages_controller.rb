@@ -1,6 +1,7 @@
 class PagesController < Support::InsideController
 
   def index
+    # respond_to &:jbuilder
   end
 
   def help
