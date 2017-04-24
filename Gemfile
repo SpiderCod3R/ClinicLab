@@ -23,6 +23,7 @@ gem 'jquery-ui-rails'
 gem 'rails-jquery-autocomplete'
 gem 'redis', '~> 3.0'
 gem 'jbuilder', '~> 2.5'
+gem 'holidays', '~> 5.4'
 
 group :development, :test do
   gem 'rails-erd'

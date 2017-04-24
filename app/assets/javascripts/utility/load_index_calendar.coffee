@@ -61,6 +61,7 @@ jQuery ->
     type: 'GET'
     dataType: 'JSON'
     success: (response) ->
+      console.log response
       FirstCalendar = new dhtmlXCalendarObject('calendarOne')
       SecondCalendar = new dhtmlXCalendarObject('calendarTwo')
       ThirdCalendar = new dhtmlXCalendarObject('calendarThre')
