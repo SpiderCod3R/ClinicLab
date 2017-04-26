@@ -9,31 +9,34 @@
   .row
     .col-md-3
       =render "fast_access"
-    .col-md-9
-      .row-fluid
-        %header
-          %h1.center Calendários
-          %hr
-          %section.calendar
-            .col-xs-12.col-sm-8.col-md-4.col-lg-4
-              #calendarOne
-              .panel{style: "width: 245px;"}
-                .container-fluid
-                  #FirstCalendarHolidays
-            .col-xs-12.col-sm-8.col-md-4.col-lg-4
-              #calendarTwo
-              / %input{ type: "text", id: "current_month_input"}
-              .panel{style: "width: 245px;"}
-                .container-fluid
-                  #SecondCalendarHolidays
-            .col-xs-12.col-sm-8.col-md-4.col-lg-4
-              #calendarThre
-              .panel{style: "width: 245px;"}
-                .container-fluid
-                  #ThirdCalendarHolidays
-        %br
-        %br
-        %br
+    #desktopCalendar
+      .col-md-9
+        .row-fluid
+          %header
+            %h1.center Calendários
+            %h8 Alguma data não aparece? Clique no link ao lado
+            =link_to "Cadastrar data comemorativa", new_empresa_feriado_e_data_comemorativa_path(current_user.empresa)
+            %hr
+            %section.calendar
+              .col-xs-12.col-sm-8.col-md-4.col-lg-4
+                #calendarOne
+                .panel{style: "width: 245px;"}
+                  .container-fluid
+                    #FirstCalendarHolidays
+              .col-xs-12.col-sm-8.col-md-4.col-lg-4
+                #calendarTwo
+                / %input{ type: "text", id: "current_month_input"}
+                .panel{style: "width: 245px;"}
+                  .container-fluid
+                    #SecondCalendarHolidays
+              .col-xs-12.col-sm-8.col-md-4.col-lg-4
+                #calendarThre
+                .panel{style: "width: 245px;"}
+                  .container-fluid
+                    #ThirdCalendarHolidays
+          %br
+          %br
+          %br
 
 =stylesheet_link_tag "dhtmlXSuite/dhtmlxCalendar/dhtmlx_material.css"
 =javascript_include_tag "utility/load_index_calendar"

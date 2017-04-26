@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170315134312) do
+ActiveRecord::Schema.define(version: 20170426132623) do
 
   create_table "agenda_movimentacoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "agenda_id"
@@ -312,6 +312,13 @@ ActiveRecord::Schema.define(version: 20170315134312) do
     t.string   "sigla"
     t.string   "nome"
     t.integer  "capital_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "feriado_e_data_comemorativas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.date     "data"
+    t.string   "descricao"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

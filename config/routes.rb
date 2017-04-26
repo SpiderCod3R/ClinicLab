@@ -1,6 +1,5 @@
   #-*-coding:utf-8-*-
 Rails.application.routes.draw do
-  resources :feriado_e_data_comemorativas
   mount Ckeditor::Engine => '/ckeditor'
   namespace :painel do
     resources :environments do
@@ -38,6 +37,7 @@ Rails.application.routes.draw do
   end
 
   resources :empresa do
+    resources :feriado_e_data_comemorativas
     resources :imagens_externas
     get 'ficha_cliente', to: "clientes#clinic_sheet", as: :clinic_sheet_cliente
     resources :clientes do

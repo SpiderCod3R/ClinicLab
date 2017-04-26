@@ -8,12 +8,12 @@ default: &default
 
 development:
   <<: *default
-  database: db_centro_nutricao_development
+  database: db_centro_sorriso_perfeito_development
 
 production:
   <<: *default
-  database: db_centro_nutricao_production
+  database: db_centro_sorriso_perfeito_production
 
 test:
   <<: *default
-  database: db_centro_nutricao_test
+  database: db_centro_sorriso_perfeito_test

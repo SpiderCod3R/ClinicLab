@@ -1,5 +1,7 @@
-%h1 New feriado_e_data_comemorativa
+=build_form_toolbar(nil, "", @referencia, empresa_feriado_e_data_comemorativas_path(current_user.empresa), nil)
+%h1=t('labels.nova_data_comemorativa')
 
 = render 'form'
 
-= link_to 'Back', feriado_e_data_comemorativas_path
+=stylesheet_link_tag "dhtmlXSuite/dhtmlxCalendar/dhtmlx_material.css"
+=javascript_include_tag "utility/form_new_holiday"

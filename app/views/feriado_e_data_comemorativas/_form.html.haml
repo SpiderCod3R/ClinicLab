@@ -1,9 +1,17 @@
-= simple_form_for(@feriado_e_data_comemorativa) do |f|
+= simple_form_for([current_user.empresa, @feriado_e_data_comemorativa]) do |f|
   = f.error_notification
-
-  .form-inputs
-    = f.input :data
-    = f.input :descricao
-
-  .form-actions
-    = f.button :submit
+  .panel
+    .container
+      %br
+      .row
+        .col-md-3
+          = f.input :descricao
+      .row
+        .col-md-3
+          = f.input :data
+          #calendarDHTMLX
+      .row
+        .col-md-3
+          .form-actions
+            = f.button :submit
+      %br

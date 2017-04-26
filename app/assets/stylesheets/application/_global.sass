@@ -11,7 +11,8 @@ $darkBlue: #0d274c
 $break-320:  320px
 $break-1200: 1200px
 
-$breakpoints: (little: 320px, phone: 640px, tablet: 768px, desktop: 1024px) !default
+$breakpoints: ('little': 320px, 'phone': 640px, 'tablet': 768px, 'desktop': 1024px) !default
+// $breakpoints: ('ipad-pro': 1366px)
 
 body
   width:  100%
@@ -28,9 +29,6 @@ body
   background:         linear-gradient(90deg,  #E3E9FF 10%, #E1E1E3 90%)
   @include media(">=phone", "<=tablet")
     background: #323232
-
-.dxcalmonth td.month_btn_left, .dxcalmonth td.month_btn_right
-  background: none !important
 
 
 #cliente,
@@ -738,4 +736,8 @@ fieldset#cliente legend
   .image_thumb_canvas
     display: block
   .image_medium_canvas
+    display: none
+
+@media (max-width: 1023px)
+  #desktopCalendar
     display: none

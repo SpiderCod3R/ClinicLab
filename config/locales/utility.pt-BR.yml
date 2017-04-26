@@ -14,4 +14,19 @@ pt-BR:
       messages: 
         nao_pode_estar_em_branco: "%{class_name} não pode estar vazio!"
         permissoes_adicionadas: "Permissões adicionadas com successo ao usuario %{resource_name}"
-        
+  usuarios:
+    links:
+      new: Novo Usuário
+  labels:
+    operadoras: Operadoras
+    new_operadora: Nova Operadora
+    edit_operadora: Editando Operadora
+    name: Nome
+    id: ID
+    administrador: ADMINISTRADOR
+    status: Status
+    nova_data_comemorativa: Nova Data Comemorativa
+  helpers:
+    messages:
+      wait: Aguarde, obtendo dados
+      no_more_data: Não existem, mais dados para serem carregados
