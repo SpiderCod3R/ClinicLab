@@ -1,5 +1,6 @@
   #-*-coding:utf-8-*-
 Rails.application.routes.draw do
+  resources :feriado_e_data_comemorativas
   mount Ckeditor::Engine => '/ckeditor'
   namespace :painel do
     resources :environments do

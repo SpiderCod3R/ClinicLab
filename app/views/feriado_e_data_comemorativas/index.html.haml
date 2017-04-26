@@ -1,0 +1,23 @@
+%h1 Listing feriado_e_data_comemorativas
+
+%table
+  %thead
+    %tr
+      %th Data
+      %th Descricao
+      %th
+      %th
+      %th
+
+  %tbody
+    - @feriado_e_data_comemorativas.each do |feriado_e_data_comemorativa|
+      %tr
+        %td= feriado_e_data_comemorativa.data
+        %td= feriado_e_data_comemorativa.descricao
+        %td= link_to 'Show', feriado_e_data_comemorativa
+        %td= link_to 'Edit', edit_feriado_e_data_comemorativa_path(feriado_e_data_comemorativa)
+        %td= link_to 'Destroy', feriado_e_data_comemorativa, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Feriado e data comemorativa', new_feriado_e_data_comemorativa_path

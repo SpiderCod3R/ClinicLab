@@ -1,0 +1,2 @@
+class FeriadoEDataComemorativa < ApplicationRecord
+end

@@ -1,0 +1,1 @@
+json.partial! "feriado_e_data_comemorativas/feriado_e_data_comemorativa", feriado_e_data_comemorativa: @feriado_e_data_comemorativa

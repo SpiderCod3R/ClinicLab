@@ -1,0 +1,1 @@
+json.array! @feriado_e_data_comemorativas, partial: 'feriado_e_data_comemorativas/feriado_e_data_comemorativa', as: :feriado_e_data_comemorativa
