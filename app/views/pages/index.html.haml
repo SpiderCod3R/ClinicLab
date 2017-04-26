@@ -17,13 +17,20 @@
           %section.calendar
             .col-xs-12.col-sm-8.col-md-4.col-lg-4
               #calendarOne
-              #calendarOneHolidays
+              .panel{style: "width: 245px;"}
+                .container-fluid
+                  #FirstCalendarHolidays
             .col-xs-12.col-sm-8.col-md-4.col-lg-4
               #calendarTwo
-              #calendarTwoHolidays
+              / %input{ type: "text", id: "current_month_input"}
+              .panel{style: "width: 245px;"}
+                .container-fluid
+                  #SecondCalendarHolidays
             .col-xs-12.col-sm-8.col-md-4.col-lg-4
               #calendarThre
-              #calendarThreHolidays
+              .panel{style: "width: 245px;"}
+                .container-fluid
+                  #ThirdCalendarHolidays
         %br
         %br
         %br

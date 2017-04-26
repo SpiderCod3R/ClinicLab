@@ -99,6 +99,7 @@ Copyright UAB Dinamenta http://www.dhtmlx.com
 .dhtmlxcalendar_material div.dhtmlxcalendar_month_cont ul.dhtmlxcalendar_line li.dhtmlxcalendar_cell.dhtmlxcalendar_month_hdr div.dhtmlxcalendar_month_arrow {
 	position: absolute;
 	top: 0px;
+	display: none;
 	width: 18px;
 	height: 31px;
 	color: inherit;
@@ -116,8 +117,7 @@ Copyright UAB Dinamenta http://www.dhtmlx.com
 	right: 4px;
 	background-image: url("dhxcalendar_arrow_right.png");
 }
-.dhtmlxcalendar_material div.dhtmlxcalendar_month_cont ul.dhtmlxcalendar_line li.dhtmlxcalendar_cell.dhtmlxcalendar_month_hdr span.dhtmlxcalendar_month_label_month,
-.dhtmlxcalendar_material div.dhtmlxcalendar_month_cont ul.dhtmlxcalendar_line li.dhtmlxcalendar_cell.dhtmlxcalendar_month_hdr span.dhtmlxcalendar_month_label_year {
+.dhtmlxcalendar_material div.dhtmlxcalendar_month_cont ul.dhtmlxcalendar_line li.dhtmlxcalendar_cell.dhtmlxcalendar_month_hdr span.dhtmlxcalendar_month_label_month{
 	position: relative;
 	font: inherit;
 }
@@ -598,7 +598,6 @@ Copyright UAB Dinamenta http://www.dhtmlx.com
 	width: 0px;
 }
 .dhtmlxcalendar_material div.dhtmlxcalendar_selector_obj div.dhtmlxcalendar_area_selector_month,
-.dhtmlxcalendar_material div.dhtmlxcalendar_selector_obj div.dhtmlxcalendar_area_selector_year,
 .dhtmlxcalendar_material div.dhtmlxcalendar_selector_obj div.dhtmlxcalendar_area_selector_hours,
 .dhtmlxcalendar_material div.dhtmlxcalendar_selector_obj div.dhtmlxcalendar_area_selector_hours2,
 .dhtmlxcalendar_material div.dhtmlxcalendar_selector_obj div.dhtmlxcalendar_area_selector_minutes,
@@ -607,13 +606,12 @@ Copyright UAB Dinamenta http://www.dhtmlx.com
 	display: none;
 }
 .dhtmlxcalendar_material div.dhtmlxcalendar_selector_obj.dhtmlxcalendar_selector_month div.dhtmlxcalendar_area_selector_month,
-.dhtmlxcalendar_material div.dhtmlxcalendar_selector_obj.dhtmlxcalendar_selector_year div.dhtmlxcalendar_area_selector_year,
 .dhtmlxcalendar_material div.dhtmlxcalendar_selector_obj.dhtmlxcalendar_selector_hours div.dhtmlxcalendar_area_selector_hours,
 .dhtmlxcalendar_material div.dhtmlxcalendar_selector_obj.dhtmlxcalendar_selector_hours2 div.dhtmlxcalendar_area_selector_hours,
 .dhtmlxcalendar_material div.dhtmlxcalendar_selector_obj.dhtmlxcalendar_selector_minutes div.dhtmlxcalendar_area_selector_minutes,
 .dhtmlxcalendar_material div.dhtmlxcalendar_selector_obj.dhtmlxcalendar_selector_minutes div.dhtmlxcalendar_area_selector_minutes4,
 .dhtmlxcalendar_material div.dhtmlxcalendar_selector_obj.dhtmlxcalendar_selector_minutes div.dhtmlxcalendar_area_selector_minutes5 {
-	display: block;
+	display: none;
 }
 .dhtmlxcalendar_ifr {
 	position: absolute;
