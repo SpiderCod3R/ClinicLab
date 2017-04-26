@@ -3,7 +3,6 @@
 
 jQuery ->
   URL_BASE = window.location.origin + '/'
-  _object_month = ""
   month = $("#feriado_e_data_comemorativa_data_2i").val()
   day   = $("#feriado_e_data_comemorativa_data_3i").val()
   year  = $("#feriado_e_data_comemorativa_data_1i").val()
@@ -58,26 +57,32 @@ jQuery ->
     weekstart: 7
 
   load_month= ->
-    index = 0
     Month = new dhtmlXCalendarObject('calendarDHTMLX')
     Month.hideTime()
     Month.show()
     Month.loadUserLanguage('pt-BR')
-    return Month
 
-  _object_month = load_month()
+  load_month()
+
+  load_month_date= (year, month, day) ->
+    $("#calendarDHTMLX").empty()
+    newDate = new dhtmlXCalendarObject('calendarDHTMLX')
+    newDate.hideTime()
+    if month < 10
+      month = "0#{month}"
+    if day < 10
+      day = "0#{day}"
+    console.log month
+    newDate.setDate("#{year}-#{month}-#{day}")
+    newDate.loadUserLanguage('pt-BR')
+    newDate.show()
 
   $("#feriado_e_data_comemorativa_data_2i").change ->
-    month = $("#feriado_e_data_comemorativa_data_2i").val()
-    load_month_date("#{year}-#{month}-#{day}")
+    month = $(this).val()
+    load_month_date(year, month, day)
   $("#feriado_e_data_comemorativa_data_3i").change ->
-    day = $("#feriado_e_data_comemorativa_data_3i").val()
-    load_month_date("#{year}-#{month}-#{day}")
+    day = $(this).val()
+    load_month_date(year, month, day)
   $("#feriado_e_data_comemorativa_data_1i").change ->
-    year = $("#feriado_e_data_comemorativa_data_1i").val()
-    load_month_date("#{year}-#{month}-#{day}")
-
-  load_month_date= (american_date_format) ->
-    console.log "Hey"
-    _object_month.setDate american_date_format
-    _object_month.show()
+    year = $(this).val()
+    load_month_date(year, month, day)
