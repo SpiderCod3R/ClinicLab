@@ -5,13 +5,16 @@
       %br
       .row
         .col-md-3
-          = f.input :descricao
+          = f.input :descricao, label: "Descrição"
       .row
         .col-md-3
           = f.input :data
+          %hr{style: "border: #696969 solid 1px"}
+          %h4.center{style: "text-decoration: underline; font-weight: bold"}
+            %em Pré Visualização
           #calendarDHTMLX
-      .row
-        .col-md-3
-          .form-actions
-            = f.button :submit
+          .panel{style: "width: 245px;"}
+            .container-fluid
+              #PreviewHolidays
+          %hr{style: "border: #696969 solid 1px"}
       %br

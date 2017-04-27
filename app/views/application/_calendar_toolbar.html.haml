@@ -1,0 +1,35 @@
+%nav.navbar.navbar-full.navbar-light.navbar-fixed-top.navbar-custom
+  .container-fluid
+    / Brand and toggle get grouped for better mobile display
+    .navbar-header
+      %button.navbar-toggle.collapsed{"aria-expanded" => "false", "data-target" => "#bs-example-navbar-collapse-1", "data-toggle" => "collapse", :type => "button"}
+        %span.sr-only Toggle navigation
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      -if user_signed_in?
+        =link_to root_path, class: "navbar-brand" do
+          =current_user.environment.name
+      -else
+        =link_to new_admin_session_path, class: "navbar-brand" do
+          GClinicWeb
+    #bs-example-navbar-collapse-1.collapse.navbar-collapse
+      %ul.nav.navbar-nav
+        -unless new_path.nil?
+          %li.nav-item= link_to "#{image_tag("icons/glyphicons-191-circle-plus-white.png", width: 22, height: 22)} NOVO".html_safe, new_path
+        -unless form.nil?
+          %li.nav-item= link_to "#{image_tag("icons/glyphicons-191-circle-plus-white.png", width: 22, height: 22)} SALVAR".html_safe, "#", onclick: "$('#{form}').submit()"
+        %li.nav-item= link_to "#{image_tag("icons/glyphicons-28-search-white.png", width: 22, height: 22)} VISUALIZAR".html_safe, back_path
+        %li.active= link_to "#{image_tag("icons/glyphicons-389-exit-white.png", width: 22, height: 22)} PÁGINA INICIAL".html_safe, root_path
+      %ul.nav.navbar-nav.navbar-right
+        -if user_signed_in?
+          %li.dropdown
+            %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+              =current_user.name
+              %span.caret
+            %ul.dropdown-menu
+              %li
+                = link_to destroy_user_session_path, method: 'delete', title: "SAIR" do
+                  %span.text-danger
+                    %i.fa.fa-sign-out
+                    Sair/Deslogar

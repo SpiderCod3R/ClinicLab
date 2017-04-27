@@ -23,6 +23,17 @@ module NavtoolbarHelper
     end
   end
 
+  def build_calendar_toolbar(new_path=nil, form_id, object, back_path)
+    content_for :header do
+      render "application/calendar_toolbar", {
+                                          new_path: new_path,
+                                          form: form_id,
+                                          object: object,
+                                          back_path: back_path
+                                        }
+    end
+  end
+
   def build_object_viewer_toolbar(edit_path, object ,back_path, report)
     content_for :header do
       render "application/toolbar_viewer", {
