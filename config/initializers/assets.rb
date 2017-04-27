@@ -14,4 +14,5 @@ Rails.application.config.assets.precompile += %w( dhtmlXSuite/dhtmlxCalendar/dht
 Rails.application.config.assets.precompile += %w( dhtmlXSuite/dhtmlxCalendar/dhx_web.css )
 Rails.application.config.assets.precompile += %w( utility/load_index_calendar.coffee )
 Rails.application.config.assets.precompile += %w( utility/form_new_holiday.coffee )
+Rails.application.config.assets.precompile += %w( utility/load_year_months_calendar.coffee )
 Rails.application.config.assets.precompile += %w(ckeditor/config.js)

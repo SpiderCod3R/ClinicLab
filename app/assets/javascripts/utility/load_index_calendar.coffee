@@ -1,58 +1,8 @@
 #= require JQUERY/jquery.min
 #= require dhtmlXSuite/dhtmlx.js
-
+#= require utility/DHTMLXCalendar/pt-BR
 jQuery ->
   URL_BASE = window.location.origin + '/'
-  _current_month = ""
-  dhtmlXCalendarObject::langData['pt-BR'] =
-    dateformat: '%d.%m.%Y'
-    monthesFNames: [
-      'Janeiro'
-      'Fevereiro'
-      'Março'
-      'Abril'
-      'Maio'
-      'Junho'
-      'Julho'
-      'Agosto'
-      'Setembro'
-      'Outubro'
-      'Novembro'
-      'Dezembro'
-    ]
-    monthesSNames: [
-      'Jan'
-      'Feb'
-      'Maç'
-      'Abr'
-      'Mai'
-      'Jun'
-      'Jul'
-      'Ago'
-      'Set'
-      'Out'
-      'Nov'
-      'Dez'
-    ]
-    daysFNames: [
-      'Domingo'
-      'Segunda'
-      'Terça'
-      'Quarta'
-      'Quinta'
-      'Sexta'
-      'Sabado'
-    ]
-    daysSNames: [
-      'Do'
-      'Se'
-      'Te'
-      'Qua'
-      'Qui'
-      'Sex'
-      'Sa'
-    ]
-    weekstart: 7
 
   load_last_month= (JSONObject)->
     index = 0

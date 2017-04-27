@@ -1,60 +1,12 @@
 #= require JQUERY/jquery.min
 #= require dhtmlXSuite/dhtmlx.js
+#= require utility/DHTMLXCalendar/pt-BR
 
 jQuery ->
   URL_BASE = window.location.origin + '/'
   month = $("#feriado_e_data_comemorativa_data_2i").val()
   day   = $("#feriado_e_data_comemorativa_data_3i").val()
   year  = $("#feriado_e_data_comemorativa_data_1i").val()
-  dhtmlXCalendarObject::langData['pt-BR'] =
-    dateformat: '%d.%m.%Y'
-    monthesFNames: [
-      'Janeiro'
-      'Fevereiro'
-      'Março'
-      'Abril'
-      'Maio'
-      'Junho'
-      'Julho'
-      'Agosto'
-      'Setembro'
-      'Outubro'
-      'Novembro'
-      'Dezembro'
-    ]
-    monthesSNames: [
-      'Jan'
-      'Feb'
-      'Maç'
-      'Abr'
-      'Mai'
-      'Jun'
-      'Jul'
-      'Ago'
-      'Set'
-      'Out'
-      'Nov'
-      'Dez'
-    ]
-    daysFNames: [
-      'Domingo'
-      'Segunda'
-      'Terça'
-      'Quarta'
-      'Quinta'
-      'Sexta'
-      'Sabado'
-    ]
-    daysSNames: [
-      'Do'
-      'Se'
-      'Te'
-      'Qua'
-      'Qui'
-      'Sex'
-      'Sa'
-    ]
-    weekstart: 7
 
   load_month= ->
     Month = new dhtmlXCalendarObject('calendarDHTMLX')

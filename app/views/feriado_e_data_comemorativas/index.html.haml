@@ -1,23 +1,83 @@
-%h1 Listing feriado_e_data_comemorativas
+=build_calendar_toolbar(new_empresa_feriado_e_data_comemorativa_path(current_user.empresa), nil, nil, empresa_feriado_e_data_comemorativas_path(current_user.empresa))
 
-%table
-  %thead
-    %tr
-      %th Data
-      %th Descricao
-      %th
-      %th
-      %th
-
-  %tbody
-    - @feriado_e_data_comemorativas.each do |feriado_e_data_comemorativa|
-      %tr
-        %td= feriado_e_data_comemorativa.data
-        %td= feriado_e_data_comemorativa.descricao
-        %td= link_to 'Show', feriado_e_data_comemorativa
-        %td= link_to 'Edit', edit_feriado_e_data_comemorativa_path(feriado_e_data_comemorativa)
-        %td= link_to 'Destroy', feriado_e_data_comemorativa, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Feriado e data comemorativa', new_feriado_e_data_comemorativa_path
+.container-fluid
+  .row-fluid
+    %h4
+      %span.text-info
+        %i.fa.fa-question-circle-o
+        =link_to "Precisa de Ajuda", "#"
+    %br/
+  .row
+    .col-md-3
+      =render "pages/fast_access"
+    .col-md-9
+      %h1.center Calendário - #{Time.now.year}
+      %hr{style: "border: #696969 solid 1px"}
+      .load_year_calendar
+        .row
+          .col-xs-12.col-sm-8.col-md-4.col-lg-4
+            =content_tag :div, "", id: "Janeiro"
+            .panel{style: "width: 245px;"}
+              .container-fluid
+                =content_tag :div, "", id: "JaneiroFeriados"
+          .col-xs-12.col-sm-8.col-md-4.col-lg-4
+            =content_tag :div, "", id: "Fevereiro"
+            .panel{style: "width: 245px;"}
+              .container-fluid
+                =content_tag :div, "", id: "FevereiroFeriados"
+          .col-xs-12.col-sm-8.col-md-4.col-lg-4
+            =content_tag :div, "", id: "Março"
+            .panel{style: "width: 245px;"}
+              .container-fluid
+                =content_tag :div, "", id: "MarcoFeriados"
+        .row
+          .col-xs-12.col-sm-8.col-md-4.col-lg-4
+            =content_tag :div, "", id: "Abril"
+            .panel{style: "width: 245px;"}
+              .container-fluid
+                =content_tag :div, "", id: "AbrilFeriados"
+          .col-xs-12.col-sm-8.col-md-4.col-lg-4
+            =content_tag :div, "", id: "Maio"
+            .panel{style: "width: 245px;"}
+              .container-fluid
+                =content_tag :div, "", id: "MaioFeriados"
+          .col-xs-12.col-sm-8.col-md-4.col-lg-4
+            =content_tag :div, "", id: "Junho"
+            .panel{style: "width: 245px;"}
+              .container-fluid
+                =content_tag :div, "", id: "JunhoFeriados"
+        .row
+          .col-xs-12.col-sm-8.col-md-4.col-lg-4
+            =content_tag :div, "", id: "Julho"
+            .panel{style: "width: 245px;"}
+              .container-fluid
+                =content_tag :div, "", id: "JulhoFeriados"
+          .col-xs-12.col-sm-8.col-md-4.col-lg-4
+            =content_tag :div, "", id: "Agosto"
+            .panel{style: "width: 245px;"}
+              .container-fluid
+                =content_tag :div, "", id: "AgostoFeriados"
+          .col-xs-12.col-sm-8.col-md-4.col-lg-4
+            =content_tag :div, "", id: "Setembro"
+            .panel{style: "width: 245px;"}
+              .container-fluid
+                =content_tag :div, "", id: "SetembroFeriados"
+        .row
+          .col-xs-12.col-sm-8.col-md-4.col-lg-4
+            =content_tag :div, "", id: "Outubro"
+            .panel{style: "width: 245px;"}
+              .container-fluid
+                =content_tag :div, "", id: "OutubroFeriados"
+          .col-xs-12.col-sm-8.col-md-4.col-lg-4
+            =content_tag :div, "", id: "Novembro"
+            .panel{style: "width: 245px;"}
+              .container-fluid
+                =content_tag :div, "", id: "NovembroFeriados"
+          .col-xs-12.col-sm-8.col-md-4.col-lg-4
+            =content_tag :div, "", id: "Dezembro"
+            .panel{style: "width: 245px;"}
+              .container-fluid
+                =content_tag :div, "", id: "DezembroFeriados"
+#empresa_id{style: "display: none"}=current_user.empresa_id
+=stylesheet_link_tag "dhtmlXSuite/dhtmlxCalendar/dhtmlx_material.css"
+=javascript_include_tag "utility/load_year_months_calendar"
