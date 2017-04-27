@@ -27,3 +27,14 @@ json.set! :holidays do
     json.name holiday[:name]
   end
 end
+
+json.set! :celebration_dates do
+  json.array!(@feriado_e_data_comemorativas) do |holiday|
+    json.date  holiday.data
+    json.day   holiday.data.day
+    json.month_name   Date::MONTHNAMES[holiday.data.month]
+    json.month_number holiday.data.month
+    json.year  holiday.data.year
+    json.name  holiday.descricao
+  end
+end

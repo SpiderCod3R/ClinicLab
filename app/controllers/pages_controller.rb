@@ -1,6 +1,7 @@
 class PagesController < Support::InsideController
 
   def index
+    @feriado_e_data_comemorativas = FeriadoEDataComemorativa.all
     # respond_to &:jbuilder
   end
 
