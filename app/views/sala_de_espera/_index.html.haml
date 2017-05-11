@@ -19,21 +19,20 @@
 
 %hr{style: "border: #B1B1B1 1px solid"}
 
-.table-responsive
-  .container-fluid
-    %table{class: "table table-striped"}
-      %thead
-        %tr
-          %th Código
-          %th Status
-          %th Nome
-          %th Convênio
-          %th Data(Agendada)
-          %th Nome do Responsável
-          %th Hora Agendada
-          %th Hora Chegada
-          %th Inicio do Atendimento
-          %th Fim do Atendimento
-          %th Opções
-      %tbody#sala_esperas
-        =render 'sala_de_espera/sala_de_esperas', {sala_esperas: @sala_esperas}
+.container-fluid
+  %table{class: "table table-striped"}
+    %thead
+      %tr
+        %th Código
+        %th Status
+        %th Nome
+        %th Convênio
+        %th Data(Agendada)
+        %th Nome do Responsável
+        %th Hora Agendada
+        %th Hora Chegada
+        %th Inicio do Atendimento
+        %th Fim do Atendimento
+        %th Opções
+    %tbody#sala_esperas
+      =render 'sala_de_espera/sala_de_esperas', {sala_esperas: @sala_esperas}
