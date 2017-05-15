@@ -1,5 +1,4 @@
-CREATE DATABASE  IF NOT EXISTS `db_centro_nutricao_development` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */;
-USE `db_centro_nutricao_development`;
+USE `db_user_name_production`;
 -- MySQL dump 10.13  Distrib 5.5.54, for debian-linux-gnu (x86_64)
 --
 -- Host: 127.0.0.1    Database: gempresa_production

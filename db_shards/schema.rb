@@ -129,12 +129,11 @@ ActiveRecord::Schema.define(version: 20170426132623) do
     t.index ["empresa_id"], name: "index_centro_de_custos_on_empresa_id", using: :btree
   end
 
-  create_table "cidades", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "cidades", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "nome"
     t.integer  "estado_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["estado_id"], name: "index_cidades_on_estado_id", using: :btree
   end
 
   create_table "ckeditor_assets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -308,7 +307,7 @@ ActiveRecord::Schema.define(version: 20170426132623) do
     t.integer  "environment_id"
   end
 
-  create_table "estados", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "estados", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "sigla"
     t.string   "nome"
     t.integer  "capital_id"

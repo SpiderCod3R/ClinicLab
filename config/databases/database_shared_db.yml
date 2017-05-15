@@ -8,12 +8,12 @@ default: &default
 
 development:
   <<: *default
-  database: db_centro_sorriso_perfeito_development
+  database: db_tercio_development
 
 production:
   <<: *default
-  database: db_centro_sorriso_perfeito_production
+  database: db_tercio_production
 
 test:
   <<: *default
-  database: db_centro_sorriso_perfeito_test
+  database: db_tercio_test
