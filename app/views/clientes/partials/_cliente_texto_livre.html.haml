@@ -1,3 +1,10 @@
-#texto_livre_content
-  =content_tag(:div, @cliente_texto_livre.id, id: "id_texto_livre", style: "display: none")
-  =raw @cliente_texto_livre.content_data
+%tr
+  %td=strip_tags(cliente_texto_livre.content_data.truncate(150))
+  %td
+    =link_to "#", class: "change_line_client_free_text" do
+      =content_tag(:div, cliente_texto_livre.id, class: "change_cliete_texto_livre", style: "display: none")
+      %i.fa.fa-pencil-square.fa-2x
+    = link_to "#", id: "destroy_free_text" do
+      %i.fa.fa-trash-o.fa-2x
+    = link_to print_free_text_empresa_cliente_path(current_user.empresa, @cliente, texto_livre_id: cliente_texto_livre.id, format: 'pdf'), target: :_blank do
+      %i.fa.fa-print.fa-2x

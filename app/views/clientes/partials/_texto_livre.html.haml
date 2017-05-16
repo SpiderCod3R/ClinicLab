@@ -1,37 +1,31 @@
 #texto_livre.tab-pane.fade
-  - if @cliente.id?
-    .row
-      .col-sm-10.col-md-11
-        =render 'clientes/partials/cliente_legend'
-  %br/
-  .row
-    %center
+  .container-fluid
+    - if @cliente.id?
+      .row-fluid
+        .col-sm-10.col-md-12
+          =render 'clientes/partials/cliente_legend'
+    %br/
+    .row-fluid
       .col-sm-12.col-md-12.pull-left
         = link_to "Incluir Novo", "#", class: "btn btn-success", id: "include_new_free_text"
         = link_to "Incluir", "#", class: "btn btn-success", id: "salvar_new_free_text"
         = link_to "Cancelar Inclusão", "#", class: "btn btn-warning", id: "cancelar_free_text"
-        = link_to "Alterar", "#", class: "btn btn-info", id: "change_free_text" if !@cliente.cliente_texto_livres.empty?
-        = link_to "Excluir", "#", class: "btn btn-danger", id: "destroy_free_text" if !@cliente.cliente_texto_livres.empty?
-        #print_free_text{style: "display: inline;"}
-          = link_to "Imprimir", print_free_text_empresa_cliente_path(current_user.empresa, @cliente, texto_livre_id: @cliente_texto_livre.id, format: 'pdf'), target: :_blank, class: "btn btn-default" if !@cliente.cliente_texto_livres.empty?
-  .row
-    %br
-    %center
-      .col-sm-12.col-md-12
-        #manual_pagination
-          =render 'manual_pagination' if !@cliente.cliente_texto_livres.empty?
+
   %br/
   .container-fluid
-    .col-md-11
-      -if !@cliente_texto_livre.nil?
+    .col-md-12
+      -if !@cliente_texto_livres.empty?
         #free_text_area
-          .panel.panel-default
-            .panel-heading
-              %b Texto-Livre
-            .panel-body
-              #texto_livres_container
-                .clearfix
-                =render 'clientes/partials/cliente_texto_livre'
+          %table.table
+            %thead
+              %tr
+                %th Texto-livre
+                %th Opções
+            %tbody#texto_livres_container
+              -@cliente_texto_livres.each do |cliente_texto_livre|
+                =render 'clientes/partials/cliente_texto_livre', {cliente_texto_livre: cliente_texto_livre}
+          #paginator_cliente_text_livre
+            =paginate @cliente_texto_livres, remote: true
       #select_free_text_modal
       #cktext_area_editor{style: "display: none"}
         =cktext_area :page, :info, cols: 40, ckeditor: { height: 400 }, :id => "texto_livre_textarea"

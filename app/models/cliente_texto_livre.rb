@@ -3,7 +3,7 @@ class ClienteTextoLivre < Connection::Factory
 
   belongs_to :cliente
   belongs_to :texto_livre
-  # paginates_per 1
+  paginates_per 1
 
 
   class << self

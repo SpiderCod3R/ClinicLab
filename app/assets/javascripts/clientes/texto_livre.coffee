@@ -89,26 +89,26 @@ $(document).ready ->
     $('#destroy_free_text').fadeIn(500)
     $(this).hide()
 
-  $("#change_free_text").click ->
-    $(this).hide()
-    ctl_id = $("#id_texto_livre").text()
-    $.ajax
-      type: 'get'
-      url: URL_BASE + 'search/cliente-texto-livre'
-      data:
-        id: ctl_id
-        cliente_id: cliente_id
-      success: (response) ->
-        $("#free_text_area").hide()
-        $('#cktext_area_editor').show()
-        $("#include_new_free_text").fadeOut(500)
-        $("#salvar_new_free_text").fadeIn(500)
-        $("#next_page").fadeOut(500)
-        $("#previous_page").fadeOut(500)
-        $("#first_page").fadeOut(500)
-        $("#last_page").fadeOut(500)
-        $('#cancelar_free_text').show()
-        CKEDITOR.instances['texto_livre_textarea'].setData(response.content_data)
+  # $(".change_line_client_free_text").click ->
+  #   $(this).hide()
+  #   ctl_id = $(".change_cliete_texto_livre").text()
+  #   $.ajax
+  #     type: 'get'
+  #     url: URL_BASE + 'search/cliente-texto-livre'
+  #     data:
+  #       id: ctl_id
+  #       cliente_id: cliente_id
+  #     success: (response) ->
+  #       $("#free_text_area").hide()
+  #       $('#cktext_area_editor').show()
+  #       $("#include_new_free_text").fadeOut(500)
+  #       $("#salvar_new_free_text").fadeIn(500)
+  #       $("#next_page").fadeOut(500)
+  #       $("#previous_page").fadeOut(500)
+  #       $("#first_page").fadeOut(500)
+  #       $("#last_page").fadeOut(500)
+  #       $('#cancelar_free_text').show()
+  #       CKEDITOR.instances['texto_livre_textarea'].setData(response.content_data)
 
   $('#salvar_new_free_text').click ->
     content=CKEDITOR.instances['texto_livre_textarea'].getData()

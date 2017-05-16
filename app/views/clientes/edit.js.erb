@@ -7,3 +7,8 @@ if ($("#paginator_texto_livres").length) {
   $('#include_texto_livre').html("<%=j render 'texto_livres/include_texto_livre', { texto_livres: @texto_livres } %>");
   $('#paginator_texto_livres').html("<%=j paginate(@texto_livres, :remote => true).to_s %>");
 }
+
+if ($("#paginator_cliente_text_livre").length) {
+  $('#texto_livres_container').html("<%=j render 'clientes/partials/cliente_texto_livres', { cliente_texto_livres:  @cliente_texto_livres } %>");
+  $('#paginator_cliente_text_livre').html("<%=j paginate( @cliente_texto_livres, :remote => true).to_s %>");
+}

@@ -1,5 +1,9 @@
   #-*-coding:utf-8-*-
 Rails.application.routes.draw do
+  namespace :clientes do
+    get 'cliente_textos_livre/edit'
+  end
+
   mount Ckeditor::Engine => '/ckeditor'
   namespace :painel do
     resources :environments do

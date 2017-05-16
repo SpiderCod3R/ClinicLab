@@ -337,7 +337,7 @@ class Support::ClienteSupportController < Support::InsideController
     end
 
     def load_tabs
-      @cliente_texto_livre = @cliente.cliente_texto_livres.first
+      @cliente_texto_livres = @cliente.cliente_texto_livres.page params[:page]
       @cliente_receituario = @cliente.cliente_receituarios.first
       @cliente_collection_pdfs  = @cliente.cliente_pdf_uploads.ultima_data.page params[:page]
       @texto_livres = current_user.empresa.texto_livres.page params[:page]

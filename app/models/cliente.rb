@@ -29,8 +29,6 @@ class Cliente < Connection::Factory
     has_many :cliente_texto_livres
     has_many :cliente_pdf_uploads
     has_many :imagens_externas
-    has_many :cliente_texto_livres
-    has_many :cliente_pdf_uploads
     has_many :cliente_convenios
     has_many :cliente_receituarios
   end
