@@ -1,10 +1,10 @@
 #pdf.tab-pane.fade
-  - if @cliente.id?
-    .row
-      .col-sm-10.col-md-11
-        =render 'clientes/partials/cliente_legend'
-  .container
-    .row
+  .container-fluid
+    - if @cliente.id?
+      .row-fluid
+        .col-sm-10.col-md-12
+          =render 'clientes/partials/cliente_legend'
+    .row-fluid
       #updload_pdf_area
         .col-sm-11.col-md-4
           .panel.panel-default
@@ -23,7 +23,7 @@
                     =u.input :pdf, as: :file, label: false
                     #pdf_selected
                     =error_custom_tag(@cliente, :"cliente_pdf_uploads", "Documento")
-        .col-sm-09.col-md-7
+        .col-sm-9.col-md-8
           .panel.panel-default
             .panel-heading
               %b Pesquisar PDF's
@@ -40,17 +40,18 @@
                     %i{ class: "fa fa-search" }
               %br
               %br
-              .row-fluid
-                -if !@cliente_collection_pdfs.empty?
-                  .table-responsive
-                    %table{class: "table table_pdf_cliente table-striped table-bordered"}
-                      %thead
-                        %th Nome
-                        %th Data
-                        %th PDF
-                        %th Excluir
-                      %tbody#cliente_pdf_uploads
-                        .loader
-                        =render 'clientes/partials/pdf_table', { cliente_collection_pdfs: @cliente_collection_pdfs }
-                  #paginator
-                    =paginate @cliente_collection_pdfs, remote: true
+    .row-fluid
+      .col-sm-12.col-md-12
+        -if !@cliente_collection_pdfs.empty?
+          .table-responsive
+            %table{class: "table table_pdf_cliente table-striped table-bordered"}
+              %thead
+                %th Nome
+                %th Data
+                %th PDF
+                %th Excluir
+              %tbody#cliente_pdf_uploads
+                .loader
+                =render 'clientes/partials/pdf_table', { cliente_collection_pdfs: @cliente_collection_pdfs }
+          #paginator
+            =paginate @cliente_collection_pdfs, remote: true
