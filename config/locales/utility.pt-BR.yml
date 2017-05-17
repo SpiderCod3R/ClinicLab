@@ -30,3 +30,4 @@ pt-BR:
     messages:
       wait: Aguarde, obtendo dados
       no_more_data: Não existem, mais dados para serem carregados
+      prevented_this_record_from_being_saved: Impediram este registro de ser salvo com sucesso.

@@ -1,0 +1,10 @@
+- if target.errors.any?
+  .panel.panel-danger.error_explanation
+    .panel-heading
+      %h4
+        %strong= pluralize(target.errors.count, "erros")
+        =t('helpers.messages.prevented_this_record_from_being_saved')
+      %hr
+      %ul
+        - target.errors.full_messages.each do |msg|
+          %li= msg
