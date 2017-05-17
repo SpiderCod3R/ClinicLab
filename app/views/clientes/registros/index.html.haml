@@ -1,19 +1,21 @@
-=build_form_toolbar(new_empresa_cliente_path(current_user.empresa),nil, @clientes, empresa_clientes_path(current_user.empresa), nil)
-%h1 Clientes
-%hr.white_stroke
-.container
-  .jumbotron
-    .row
-      .col-xs-6.col-sm-6.col-md-12.col-lg-12
-        = search_form_for @search, url: empresa_clientes_path(current_user.empresa) do |f|
-          = f.condition_fields do |c|
-            = render "condition_fields", f: c
-          = link_to_add_fields "Adicionar Condições", f, :condition
-          %div{class: "actions", style: "margin-top: 2%;"}
-            = f.submit "Pesquisar", class: "btn btn-primary"
-%br
-%hr.white_stroke
-.container
+=build_form_toolbar(new_empresa_clientes_registro_path(current_user.empresa),nil, @clientes, empresa_clientes_registros_path(current_user.empresa), nil)
+.container-fluid
+  %header
+    %br
+    %br
+    %br
+    %h1 Clientes
+    .page-header
+    %br
+    .well
+      .row
+        .col-xs-6.col-sm-6.col-md-12.col-lg-12
+          = search_form_for @search, url: empresa_clientes_registros_path(current_user.empresa) do |f|
+            = f.condition_fields do |c|
+              = render "condition_fields", f: c
+            = link_to_add_fields "Adicionar Condições", f, :condition
+            %div{class: "actions", style: "margin-top: 2%;"}
+              = f.submit "Pesquisar", class: "btn btn-primary"
   .table-responsive{style:"overflow-x:auto;"}
     %table.table.table-striped.table-bordered.table-condensed
       %thead
@@ -27,7 +29,7 @@
         %th
           %center
             = t('bootstrap.helpers.actions')
-      %tbody
+      %tbody#clientes_content
         - @clientes.each do |cliente|
           %tr
             %td= status(cliente.status)
@@ -41,8 +43,6 @@
               .btn-group.pull-right
                 -if can? :read, Cliente
                   = link_to "#{image_tag("icons/glyphicons-610-journal.png", width: 22, height: 22)}".html_safe,
-                    empresa_cliente_path(current_user.empresa, cliente), title: t(:show, scope: [:bootstrap, :helpers, :links]), class: 'btn btn-default'
-      %div{class: "pull-right"}
-        = paginate @clientes
-%div{class: "row"}
-  %hr{style: "border: #323232 solid 0.5px;"}
+                    empresa_clientes_registro_path(current_user.empresa, cliente), title: t(:show, scope: [:bootstrap, :helpers, :links]), class: 'btn btn-default'
+  #paginator_index_cliente.pull-right
+    = paginate @clientes
