@@ -8,9 +8,9 @@ class Clientes::TextosLivreController < Support::InsideController
   end
 
   def destroy
-    @cliente_texto_livre.destroy
-    @cliente_texto_livres = @cliente.cliente_texto_livres.page(params[:page])
-    respond_to &:js
+    if @cliente_texto_livre.destroy
+      redirect_to :back
+    end
   end
 
   private
