@@ -1,4 +1,4 @@
-class ClientesController < Support::ClienteSupportController
+class Clientes::RegistrosController < Support::ClienteSupportController
   def index
     @search = Cliente.where(empresa: current_user.empresa).ransack(params[:q])
     @clientes = @search.result.order("id desc").page(params[:page]).per(10)
@@ -25,7 +25,7 @@ class ClientesController < Support::ClienteSupportController
     @cliente = current_user.empresa.clientes.build(resource_params)
     get_historicos
     if @cliente.save
-      redirect_to new_empresa_cliente_path(current_user.empresa)
+      redirect_to new_empresa_clientes_registro_path(current_user.empresa)
       flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @cliente.class)
     else
       render :new

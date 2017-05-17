@@ -1,4 +1,4 @@
-class ClienteConveniosController < Support::AgendaSupportController
+class Clientes::ConveniosController < Support::AgendaSupportController
   def destroy
   end
 
