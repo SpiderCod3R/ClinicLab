@@ -1,9 +1,9 @@
-=build_object_viewer_toolbar(edit_empresa_cliente_path(current_user.empresa,@cliente), @cliente, empresa_clientes_path(current_user.empresa), nil)
+=build_object_viewer_toolbar(edit_empresa_clientes_registro_path(current_user.empresa,@cliente), @cliente, empresa_clientes_registros_path(current_user.empresa), nil)
 
 %section#cliente
   .panel.panel-default
     .panel-heading
-      %h1.center{style: "color: #232323; align: center; font-weight: bolder;"}
+      %h3.center{style: "color: #232323; align: center; font-weight: bolder;"}
         Cliente -
         = @cliente.id
         |
@@ -16,7 +16,7 @@
             = label_tag t('clientes.helpers.nome')
             %br
             = @cliente.nome
-          .col-xs-4.col-sm-3.col-md-3.col-lg-3
+          .col-xs-5.col-sm-3.col-md-3.col-lg-3
             = label_tag t('clientes.helpers.estado_civil')
             %br
             = @cliente.estado_civil.titleize
@@ -78,6 +78,7 @@
           - if @cliente.complemento.present?
             .col-xs-3.col-sm-3.col-md-3.col-lg-3
               = label_tag t('clientes.helpers.complemento')
+              %br
               = @cliente.complemento
           - if @cliente.cargo_id.present?
             .col-xs-3.col-sm-3.col-md-3.col-lg-3
