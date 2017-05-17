@@ -3,7 +3,7 @@
   %td.client_free_text_options
     =link_to empresa_clientes_edit_texto_livre_path(current_user.empresa, cliente_texto_livre.cliente_id ,cliente_texto_livre.id), remote: true, class: "change_line_client_free_text" do
       %i.fa.fa-pencil-square.fa-2x
-    =link_to empresa_clientes_destroy_texto_livre_path(current_user.empresa, cliente_texto_livre.cliente_id ,cliente_texto_livre.id), method: :delete, data:{ confirm: "Are you Sure" }, remote: true do
+    =link_to empresa_clientes_destroy_texto_livre_path(current_user.empresa, cliente_texto_livre.cliente_id ,cliente_texto_livre.id), method: :delete, data:{ confirm: "Removendo Texto livre #{cliente_texto_livre.id}" } do
       %i.fa.fa-trash-o.fa-2x
     =link_to print_free_text_empresa_clientes_registro_path(current_user.empresa, @cliente, texto_livre_id: cliente_texto_livre.id, format: 'pdf'), target: :_blank do
       %i.fa.fa-print.fa-2x
