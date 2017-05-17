@@ -1,0 +1,7 @@
+$("#free_text_area").hide()
+$('#cktext_area_editor').show()
+$("#include_new_free_text").fadeOut(500)
+$("#salvar_new_free_text").fadeIn(500)
+$("#paginator_cliente_text_livre").fadeOut(500)
+$('#cancelar_free_text').show()
+CKEDITOR.instances['texto_livre_textarea'].setData("<%=j raw(@cliente_texto_livre.content_data) %>")

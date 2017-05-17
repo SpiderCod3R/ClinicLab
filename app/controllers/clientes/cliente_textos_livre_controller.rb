@@ -3,7 +3,7 @@ class Clientes::ClienteTextosLivreController < Support::InsideController
   respond_to :html, :js
 
   def edit
-    @cliente.cliente_texto_livres.find(params[:cliente_texto_livre_id])
+    @cliente_texto_livre = @cliente.cliente_texto_livres.find(params[:cliente_texto_livre_id])
     respond_to &:js
   end
 

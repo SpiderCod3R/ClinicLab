@@ -1,9 +1,5 @@
   #-*-coding:utf-8-*-
 Rails.application.routes.draw do
-  namespace :clientes do
-    get 'cliente_textos_livre/edit'
-  end
-
   mount Ckeditor::Engine => '/ckeditor'
   namespace :painel do
     resources :environments do
@@ -44,6 +40,10 @@ Rails.application.routes.draw do
     resources :feriado_e_data_comemorativas
     resources :imagens_externas
     get 'ficha_cliente', to: "clientes#clinic_sheet", as: :clinic_sheet_cliente
+    namespace :clientes do
+      get '/:cliente_id/cliente_textos_livre/:cliente_texto_livre_id/edit', to: "cliente_textos_livre#edit", as: :edit_texto_livre
+    end
+
     resources :clientes do
       member do
         get    'print_free_text'
