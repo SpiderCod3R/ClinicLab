@@ -1,4 +1,4 @@
-= simple_form_for([current_user.empresa, @cliente], url: empresa_clientes_registro_path, method: :put) do |f|
+= simple_form_for([current_user.empresa, @cliente], url: empresa_clientes_registro_path, method: "PUT") do |f|
   =render 'application/form/error_messages', target: @cliente
   =f.input :empresa_name, as: :hidden, input_html: { value: current_user.empresa.slug }
   %ul{class: "nav nav-tabs"}

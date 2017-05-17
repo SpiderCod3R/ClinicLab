@@ -4,8 +4,8 @@
       = link_to "Incluir", "#", class: "btn btn-success", id: "editar_historico", data: {historico_id: @historicos.first.id}
     - else
       = link_to "Incluir", "#", class: "btn btn-success", id: "incluir_historico"
-    = link_to "Imprimir Tudo", print_historico_full_empresa_cliente_path(current_user.empresa, @cliente, format: "pdf"), target: :_blank, class: "btn btn-default"
-    = link_to "Imprimir historico", print_historico_empresa_cliente_path(current_user.empresa, @cliente, format: "pdf"), target: :_blank, class: "btn btn-default"
+    = link_to "Imprimir Tudo", print_historico_full_empresa_clientes_registro_path(current_user.empresa, @cliente, format: "pdf"), target: :_blank, class: "btn btn-default"
+    = link_to "Imprimir historico", print_historico_empresa_clientes_registro_path(current_user.empresa, @cliente, format: "pdf"), target: :_blank, class: "btn btn-default"
   %br/
   #well_historicos.well.historico
     - @historicos.each do |historico|
