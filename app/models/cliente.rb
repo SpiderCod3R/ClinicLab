@@ -71,13 +71,6 @@ class Cliente < Connection::Factory
                       estado_civil: resource[:estado_civil],
                       cpf:          resource[:cpf],
                       rg:           resource[:rg],
-                      # status_convenio: resource[:status_convenio],
-                      # matricula:       resource[:matricula],
-                      # convenio_id:     resource[:convenio_id],
-                      # validade_carteira: resource[:validade_carteira],
-                      # produto: resource[:produto],
-                      # titular: resource[:titular],
-                      # plano:   resource[:plano],
                       email:   resource[:email],
                       telefone: resource[:telefone],
                       endereco: resource[:endereco],
@@ -88,9 +81,6 @@ class Cliente < Connection::Factory
   end
 
   def upload_files(resource)
-    self.cliente_pdf_uploads.build(data: Date.today,
-                                   anotacoes: resource[:anotacoes],
-                                   pdf: resource[:pdf]
-                                  )
+    self.cliente_pdf_uploads.build(data: Date.today, anotacoes: resource[:anotacoes], pdf: resource[:pdf])
   end
 end
