@@ -115,7 +115,7 @@ $(document).ready ->
       event.preventDefault()
       $.ajax
         type: 'PUT'
-        url: URL_BASE + "empresa/#{empresa_id}/clientes/#{cliente_id}/atualizar_convenio"
+        url: URL_BASE + "empresa/#{empresa_id}/clientes/registros/#{cliente_id}/atualizar_convenio"
         dataType: 'JSON'
         data:
           cliente_id: $('#cliente_id').val()

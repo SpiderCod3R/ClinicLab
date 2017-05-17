@@ -46,8 +46,8 @@ $(document).ready ->
             id: $("#id_receituario").text()
             content: content
       success: (response) ->
-        window.location.href = URL_BASE + "empresa/" + environment_name + "/clientes/" + $("#cliente_id").val() + "/edit"
-        window.location.href = URL_BASE + "empresa/" + environment_name + "/clientes/" + $("#cliente_id").val() + "/edit#receituario"
+        window.location.href = URL_BASE + "empresa/" + environment_name + "/clientes/registros" + $("#cliente_id").val() + "/edit"
+        window.location.href = URL_BASE + "empresa/" + environment_name + "/clientes/registros" + $("#cliente_id").val() + "/edit#receituario"
 
   # => Incluir nova receita
   $('#add_recipe').click ->

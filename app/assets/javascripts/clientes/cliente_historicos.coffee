@@ -46,8 +46,8 @@ $(document).ready ->
         success: (json) ->
           cliente_id = json
           if agenda_id == ""
-            window.location.href = URL_BASE + "empresa/" + empresa_id + "/clientes/" + cliente_id + "/edit"
-            window.location.href = URL_BASE + "empresa/" + empresa_id + "/clientes/" + cliente_id + "/edit#historico"
+            window.location.href = URL_BASE + "empresa/" + empresa_id + "/clientes/registros/" + cliente_id + "/edit"
+            window.location.href = URL_BASE + "empresa/" + empresa_id + "/clientes/registros/" + cliente_id + "/edit#historico"
           else
             window.location.href = URL_BASE + "empresa/#{empresa_id}/ficha_cliente?agenda_id=#{agenda_id}&cliente_id=#{cliente_id}
             "
@@ -83,7 +83,7 @@ $(document).ready ->
           success: (json) ->
             cliente_id = json
             if agenda_id == ""
-              window.location.href = URL_BASE + "empresa/" + empresa_id + "/clientes/" + cliente_id + "/edit"
+              window.location.href = URL_BASE + "empresa/" + empresa_id + "/clientes/registros/" + cliente_id + "/edit"
             else
               window.location.href = URL_BASE + "empresa/#{empresa_id}/ficha_cliente?agenda_id=#{agenda_id}&cliente_id=#{cliente_id}
               "

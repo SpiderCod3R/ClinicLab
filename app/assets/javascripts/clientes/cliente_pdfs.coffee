@@ -15,7 +15,7 @@ $(document).ready ->
   $("#btn_search_pdf").click (event), ->
     event.preventDefault()
     $.ajax
-      url: localhost + "empresa/#{empresa_id}/clientes/#{cliente_id}/search_pdf_remotely"
+      url: localhost + "empresa/#{empresa_id}/clientes/registros/#{cliente_id}/search_pdf_remotely"
       type: 'GET'
       dataType: 'JSON'
       beforeSend: ->
