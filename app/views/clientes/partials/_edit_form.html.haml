@@ -1,4 +1,5 @@
-= simple_form_for([current_user.empresa, @cliente]) do |f|
+= simple_form_for([current_user.empresa, @cliente], url: empresa_clientes_registro_path, method: :put) do |f|
+  =render 'application/form/error_messages', target: @cliente
   =f.input :empresa_name, as: :hidden, input_html: { value: current_user.empresa.slug }
   %ul{class: "nav nav-tabs"}
     %li{class:"active"}
@@ -7,57 +8,20 @@
       %a{'data-toggle':"tab", href:"#contato", id: "aba_contato"} Contato
     %li
       %a{'data-toggle':"tab", href:"#convenio", id: "aba_convenio"} Convênio
-    -if !current_user.admin? 
-      -if !@cliente_permissao.nil?
-        -if @cliente_permissao.historico?
-          %li
-            %a{'data-toggle':"tab", href:"#historico", id: "aba_historico"} Histórico
-        -if @cliente_permissao.texto_livre?
-          %li
-            %a{'data-toggle':"tab", href:"#texto_livre", id: "aba_texto_livre"} Texto-Livre
-        -if @cliente_permissao.pdf_upload?
-          %li
-            %a{'data-toggle':"tab", href:"#pdf", id: "aba_pdf_upload"} PDF
-        -if @cliente_permissao.receituario?
-          %li
-            %a{'data-toggle':"tab", href:"#receituario", id: "aba_receituario"} Receituário
-        -if @cliente_permissao.imagens_externas?
-          %li
-            %a{'data-toggle':"tab", href:"#imagens_externas", id: "aba_imagens_externas"} Imagens Externas
-    -else
-      %li
-        %a{'data-toggle':"tab", href:"#historico", id: "aba_historico"} Histórico
-      %li
-        %a{'data-toggle':"tab", href:"#texto_livre", id: "aba_texto_livre"} Texto-Livre
-      %li
-        %a{'data-toggle':"tab", href:"#pdf", id: "aba_pdf_upload"} PDF
-      %li
-        %a{'data-toggle':"tab", href:"#receituario", id: "aba_receituario"} Receituário
-      %li
-        %a{'data-toggle':"tab", href:"#imagens_externas", id: "aba_imagens_externas"} Imagens Externas
+    =render 'clientes/partials/permissions/user_tabs'
+    =render 'clientes/partials/permissions/admin_tabs'
 
   %div{class: "container-fluid", style: "padding-top: 7px; padding-bottom: 25px;"}
     %div{class:"tab-content"}
       / aba dados_pessoais
-      =render 'clientes/partials/dados_pessoais_edit', { f: f }
+      =render 'clientes/partials/abas/dados_pessoais_edit', { f: f }
 
       / aba convenio
-      =render 'clientes/partials/convenio', { f: f }
+      =render 'clientes/partials/abas/convenio', { f: f }
 
       / aba contato
-      =render 'clientes/partials/contato', { f: f }
+      =render 'clientes/partials/abas/contato', { f: f }
 
-      / aba historico
-      =render 'clientes/partials/historico', { f: f }
-
-      / aba texto-livre
-      =render 'clientes/partials/texto_livre', { f: f }
-
-      / aba pdf
-      =render 'clientes/partials/pdf_upload', { f: f }
-
-      / aba receituario
-      =render 'clientes/partials/receituario', { f: f }
-
-      / aba imagens_externas
-      =render 'clientes/partials/imagens_externas', { f: f }
+      /Permissoes de Usuario e Admin do Cliente
+      =render 'clientes/partials/permissions/user' , { f: f }
+      =render 'clientes/partials/permissions/admin', { f: f }

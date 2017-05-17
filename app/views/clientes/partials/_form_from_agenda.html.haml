@@ -36,7 +36,7 @@
         %a{'data-toggle':"tab", href:"#imagens_externas", id: "aba_imagens_externas"} Imagens Externas
 -if @cliente.id?
   = simple_form_for(@cliente, url: create_paciente_path, method: 'POST') do |f|
-    =render "clientes/partials/abas", { f: f}
+    =render "clientes/partials/abas/abas", { f: f}
 -else
   = simple_form_for(@cliente, url: change_paciente_path, method: 'PUT') do |f|
-    =render "clientes/partials/abas", {f: f}
+    =render "clientes/partials/abas/abas", {f: f}

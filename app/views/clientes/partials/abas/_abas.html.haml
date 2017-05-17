@@ -1,0 +1,15 @@
+%div{class: "container", style: "margin-left: 5%; padding-top: 15px; padding-bottom: 15px;"}
+  %div{class:"tab-content"}
+    / aba dados_pessoais
+    =render 'clientes/partials/abas/dados_pessoais_edit', { f: f }
+
+    -if @cliente.id?
+      / aba convenio
+      =render 'clientes/partials/abas/convenio', { f: f }
+
+    / aba contato
+    =render 'clientes/partials/abas/contato', { f: f }
+
+    -if @cliente.id?
+      =render 'clientes/partials/permissions/user' , { f: f }
+      =render 'clientes/partials/permissions/admin', { f: f }
