@@ -40,25 +40,29 @@ Rails.application.routes.draw do
     resources :feriado_e_data_comemorativas
     resources :imagens_externas
     get 'ficha_cliente', to: "clientes#clinic_sheet", as: :clinic_sheet_cliente
+
     namespace :clientes do
       get '/:cliente_id/cliente_textos_livre/:cliente_texto_livre_id/edit', to: "cliente_textos_livre#edit", as: :edit_texto_livre
+      delete '/:cliente_id/cliente_textos_livre/:cliente_texto_livre_id/delete', to: "cliente_textos_livre#destroy", as: :destroy_texto_livre
+    
+      resources :registros do
+        member do
+          get    'print_free_text'
+          get    'print_historico'
+          get    'print_historico_full'
+          get    'print_recipe'
+          get    'paginate_pdfs'
+          get    'find_recipe'
+          delete 'destroy_pdf'
+          get    'search_pdf_remotely'
+        end
+        put 'atualizar_convenio', to: "cliente_convenios#update_convenio", as: :update_convenio
+        get 'inativar_convenio', to: "cliente_convenios#deactivate", as: :deactivate_convenio
+        get 'ativar_convenio', to: "cliente_convenios#activate", as: :activate_convenio
+      end
     end
 
-    resources :clientes do
-      member do
-        get    'print_free_text'
-        get    'print_historico'
-        get    'print_historico_full'
-        get    'print_recipe'
-        get    'paginate_pdfs'
-        get    'find_recipe'
-        delete 'destroy_pdf'
-        get    'search_pdf_remotely'
-      end
-      put 'atualizar_convenio', to: "cliente_convenios#update_convenio", as: :update_convenio
-      get 'inativar_convenio', to: "cliente_convenios#deactivate", as: :deactivate_convenio
-      get 'ativar_convenio', to: "cliente_convenios#activate", as: :activate_convenio
-    end
+    
     resources :cabecs
     resources :cargos
     resources :centro_de_custos
