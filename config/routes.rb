@@ -42,8 +42,8 @@ Rails.application.routes.draw do
     get 'ficha_cliente', to: "clientes/registros#clinic_sheet", as: :clinic_sheet_cliente
 
     namespace :clientes do
-      get '/:cliente_id/cliente_textos_livre/:cliente_texto_livre_id/edit', to: "cliente_textos_livre#edit", as: :edit_texto_livre
-      delete '/:cliente_id/cliente_textos_livre/:cliente_texto_livre_id/delete', to: "cliente_textos_livre#destroy", as: :destroy_texto_livre
+      get '/:cliente_id/cliente_textos_livre/:cliente_texto_livre_id/edit', to: "textos_livre#edit", as: :edit_texto_livre
+      delete '/:cliente_id/cliente_textos_livre/:cliente_texto_livre_id/delete', to: "textos_livre#destroy", as: :destroy_texto_livre
       resources :registros do
         member do
           get    'print_free_text'
