@@ -1,0 +1,11 @@
+-if current_user.admin?
+  / aba historico
+  =render 'clientes/partials/abas/historico', { f: f }
+  / aba texto-livre
+  =render 'clientes/partials/abas/texto_livre', { f: f }
+  / aba pdf
+  =render 'clientes/partials/abas/pdf_upload', { f: f }
+  / aba receituario
+  =render 'clientes/partials/abas/receituario', { f: f }
+  / aba imagens_externas
+  =render 'clientes/partials/abas/imagens_externas', { f: f }

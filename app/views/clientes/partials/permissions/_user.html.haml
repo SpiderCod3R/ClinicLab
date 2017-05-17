@@ -1,0 +1,16 @@
+-if !current_user.admin? && !@cliente_permissao.nil?
+  / aba historico
+  -if @cliente_permissao.historico?
+    =render 'clientes/partials/abas/historico', { f: f }
+  / aba texto-livre
+  -if @cliente_permissao.texto_livre?
+    =render 'clientes/partials/abas/texto_livre', { f: f }
+  / aba pdf
+  -if @cliente_permissao.pdf_upload?
+    =render 'clientes/partials/abas/pdf_upload', { f: f }
+  / aba receituario
+  -if @cliente_permissao.receituario?
+    =render 'clientes/partials/abas/receituario', { f: f }
+  / aba imagens_externas
+  -if @cliente_permissao.imagens_externas?
+    =render 'clientes/partials/abas/imagens_externas', { f: f }
