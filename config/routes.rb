@@ -39,12 +39,11 @@ Rails.application.routes.draw do
   resources :empresa do
     resources :feriado_e_data_comemorativas
     resources :imagens_externas
-    get 'ficha_cliente', to: "clientes#clinic_sheet", as: :clinic_sheet_cliente
+    get 'ficha_cliente', to: "clientes/registros#clinic_sheet", as: :clinic_sheet_cliente
 
     namespace :clientes do
       get '/:cliente_id/cliente_textos_livre/:cliente_texto_livre_id/edit', to: "cliente_textos_livre#edit", as: :edit_texto_livre
       delete '/:cliente_id/cliente_textos_livre/:cliente_texto_livre_id/delete', to: "cliente_textos_livre#destroy", as: :destroy_texto_livre
-    
       resources :registros do
         member do
           get    'print_free_text'
@@ -62,7 +61,6 @@ Rails.application.routes.draw do
       end
     end
 
-    
     resources :cabecs
     resources :cargos
     resources :centro_de_custos
@@ -77,6 +75,7 @@ Rails.application.routes.draw do
       get 'edit_servicos', to: "movimento_servicos#edit_servicos", as: :edit_servicos
       get 'destroy_movimento_servico_servico', to: "movimento_servicos#destroy_movimento_servico_servico", as: :destroy_servico
     end
+
     resources :operadoras
     resources :profissionais
     resources :receituarios
@@ -88,6 +87,7 @@ Rails.application.routes.draw do
         put 'change_account'
       end
     end
+
     resources :usuarios, controller: 'painel/usuarios/manager', except: [:index] do
       get  'add_permissions'
       post 'save_permissions'
@@ -96,18 +96,21 @@ Rails.application.routes.draw do
         put 'change_data'
       end
     end
+
     resources :agenda_permissoes, controller: "painel/agenda_permissoes", except: [:index, :show, :new, :create, :edit, :update, :destroy] do
       member do
         get 'manager'
         post 'build_agenda_permissions'
       end
     end
+
     resources :cliente_permissoes, controller: "cliente_permissoes", except: [:index, :show, :new, :create, :edit, :update, :destroy] do
       member do
         get  'manager'
         post 'build_permissions'
       end
     end
+
     resources :agendas do
       collection do
         match 'search' => 'agendas#search', via: [:get], as: :search
@@ -144,7 +147,6 @@ Rails.application.routes.draw do
       get 'movimentar', to: 'agenda_movimentacoes#new', as: :movimentar_ou_atualizar
     end
     get 'receita/:recipe_id/remove', to: "clientes#destroy_cliente_receituario"
-
     get 'usuario/:id/permissoes', to: "painel/usuarios/accounts#show_permissions", as: :show_user_permissions
   end
 
@@ -152,15 +154,15 @@ Rails.application.routes.draw do
 
   get 'relatorios/new' => "configuracao_relatorios#new"
   get 'conselhos_regionais/new' => "conselho_regionais#new"
-  post 'agendas/clientes/change_or_create_paciente', to: "clientes#change_or_create_paciente", as: :create_paciente
-  put  'agendas/clientes/change_or_create_paciente', to: "clientes#change_or_create_paciente", as: :change_paciente
-  post 'clientes/retorna_historico', to: "clientes#retorna_historico"
-  post 'clientes/salva_historico', to: "clientes#salva_historico"
-  post 'clientes/atualiza_historico', to: "clientes#atualiza_historico"
-  post 'clientes/salva_cliente_convenios', to: "clientes#salva_cliente_convenios"
-  get 'clientes/:id/destroy_cliente_convenio', to: "clientes#destroy_cliente_convenio", as: :destroy_cliente_convenio
-  get  'clientes/:cliente_id/destroy_texto_livre', to: "clientes#destroy_cliente_texto_livre"
-  get 'clientes/:cliente_id/textos_livres', to: "clientes#find_textos_livre", as: :cliente_find_textos_livres
+  post 'agendas/clientes/change_or_create_paciente', to: "clientes/registros#change_or_create_paciente", as: :create_paciente
+  put  'agendas/clientes/change_or_create_paciente', to: "clientes/registros#change_or_create_paciente", as: :change_paciente
+  post 'clientes/retorna_historico', to: "clientes/registros#retorna_historico"
+  post 'clientes/salva_historico', to: "clientes/registros#salva_historico"
+  post 'clientes/atualiza_historico', to: "clientes/registros#atualiza_historico"
+  post 'clientes/salva_cliente_convenios', to: "clientes/registros#salva_cliente_convenios"
+  get 'clientes/:id/destroy_cliente_convenio', to: "clientes/registros#destroy_cliente_convenio", as: :destroy_cliente_convenio
+  get  'clientes/:cliente_id/destroy_texto_livre', to: "clientes/registros#destroy_cliente_texto_livre"
+  get 'clientes/:cliente_id/textos_livres', to: "clientes/registros#find_textos_livre", as: :cliente_find_textos_livres
   get 'relatorios/new' => "configuracao_relatorios#new"
   get 'conselhos_regionais/new' => "conselho_regionais#new"
   get 'search/conselho_regional', to: 'conselho_regionais#search'
@@ -172,8 +174,8 @@ Rails.application.routes.draw do
   post 'movimento_servicos/retorna_servico', to: "movimento_servicos#retorna_servico"
   post 'movimento_servicos/prosseguir_servicos', to: "movimento_servicos#prosseguir_servicos", as: :prosseguir_servicos
 
-  post 'clientes/include_texto_livre', to: 'clientes#include_texto_livre'
-  post 'clientes/include_recipe', to: 'clientes#include_recipe'
+  post 'clientes/include_texto_livre', to: 'clientes/registros#include_texto_livre'
+  post 'clientes/include_recipe', to: 'clientes/registros#include_recipe'
   get 'search/receituario', to: 'search#find_receituario'
   get 'search/cliente_receituario', to: 'search#find_cliente_receituario'
 
