@@ -24,6 +24,7 @@
             %tbody#texto_livres_container
               -@cliente_texto_livres.each do |cliente_texto_livre|
                 =render 'clientes/partials/cliente_texto_livre', {cliente_texto_livre: cliente_texto_livre}
+          %input{type: "hidden", id: "id_cliente_texto_livre"}
           #paginator_cliente_text_livre
             =paginate @cliente_texto_livres, remote: true
       #select_free_text_modal
