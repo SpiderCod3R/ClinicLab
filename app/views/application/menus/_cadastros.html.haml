@@ -14,7 +14,7 @@
 -if can? :read, CentroDeCusto
   %li=link_to 'Centro de Custos', new_empresa_centro_de_custo_path(current_user.empresa), style: "font-weight: bold;"
 -if can? :read, Cliente
-  %li=link_to 'Clientes', new_empresa_cliente_path(current_user.empresa), style: "font-weight: bold;"
+  %li=link_to 'Clientes', new_empresa_clientes_registro_path(current_user.empresa), style: "font-weight: bold;"
 -if can? :read, Convenio
   %li=link_to 'Convênio', new_empresa_convenio_path(current_user.empresa), style: "font-weight: bold;"
 -if can? :read, ConselhoRegional
