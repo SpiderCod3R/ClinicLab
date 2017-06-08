@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170426132623) do
+ActiveRecord::Schema.define(version: 20170608134216) do
 
   create_table "agenda_movimentacoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "agenda_id"
@@ -134,6 +134,7 @@ ActiveRecord::Schema.define(version: 20170426132623) do
     t.integer  "estado_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["estado_id"], name: "index_cidades_on_estado_id", using: :btree
   end
 
   create_table "ckeditor_assets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -230,18 +231,45 @@ ActiveRecord::Schema.define(version: 20170426132623) do
     t.integer  "estado_id"
     t.integer  "cidade_id"
     t.integer  "cargo_id"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
     t.string   "nacionalidade"
     t.string   "naturalidade"
     t.string   "mes"
     t.string   "tipo_sanguineo"
     t.date     "data_da_ultima_consulta"
     t.date     "data_obito"
-    t.float    "peso",                    limit: 24
-    t.text     "como_soube",              limit: 65535
-    t.float    "altura",                  limit: 24
+    t.float    "peso",                      limit: 24
+    t.text     "como_soube",                limit: 65535
+    t.float    "altura",                    limit: 24
     t.integer  "empresa_id"
+    t.string   "cep"
+    t.integer  "idade"
+    t.string   "cor"
+    t.string   "indicacao"
+    t.string   "profissao"
+    t.string   "responsavel"
+    t.string   "hora"
+    t.string   "observacao"
+    t.string   "correspondencia"
+    t.date     "data_validade_carteira"
+    t.string   "pai"
+    t.string   "mae"
+    t.date     "dia_vencimento_convenio"
+    t.integer  "sequencia"
+    t.string   "hora_cadastro"
+    t.date     "data_retorno"
+    t.date     "data_ultimo_servico"
+    t.float    "limite_vale",               limit: 24
+    t.string   "num_nacional_cartao_saude"
+    t.string   "empresa"
+    t.string   "setor"
+    t.string   "fonetica"
+    t.text     "observacao_convenio",       limit: 65535
+    t.string   "mes_retorno"
+    t.string   "ano_retorno"
+    t.string   "motivo_retorno"
+    t.string   "recem_nascido"
     t.index ["cargo_id"], name: "index_clientes_on_cargo_id", using: :btree
     t.index ["cidade_id"], name: "index_clientes_on_cidade_id", using: :btree
     t.index ["empresa_id"], name: "index_clientes_on_empresa_id", using: :btree
