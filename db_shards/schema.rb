@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170613121823) do
+ActiveRecord::Schema.define(version: 20170613180747) do
 
   create_table "agenda_movimentacoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "agenda_id"
@@ -209,6 +209,8 @@ ActiveRecord::Schema.define(version: 20170613121823) do
     t.integer  "texto_livre_id"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+    t.string   "cabecalho"
+    t.integer  "usuario_id"
     t.index ["cliente_id"], name: "index_cliente_texto_livres_on_cliente_id", using: :btree
     t.index ["texto_livre_id"], name: "index_cliente_texto_livres_on_texto_livre_id", using: :btree
   end
