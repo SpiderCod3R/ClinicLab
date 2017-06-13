@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170608134216) do
+ActiveRecord::Schema.define(version: 20170613121823) do
 
   create_table "agenda_movimentacoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "agenda_id"
@@ -198,6 +198,8 @@ ActiveRecord::Schema.define(version: 20170608134216) do
     t.text     "content",    limit: 65535
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.string   "cabecalho"
+    t.string   "receitas"
     t.index ["cliente_id"], name: "index_cliente_receituarios_on_cliente_id", using: :btree
   end
 
@@ -270,6 +272,17 @@ ActiveRecord::Schema.define(version: 20170608134216) do
     t.string   "ano_retorno"
     t.string   "motivo_retorno"
     t.string   "recem_nascido"
+    t.string   "cidade_old"
+    t.string   "estado_old"
+    t.string   "convenio"
+    t.string   "matricula"
+    t.string   "titular"
+    t.date     "data_cadastro"
+    t.string   "alertar"
+    t.text     "historico",                 limit: 65535
+    t.string   "plano"
+    t.string   "atendente"
+    t.date     "data_atualizacao"
     t.index ["cargo_id"], name: "index_clientes_on_cargo_id", using: :btree
     t.index ["cidade_id"], name: "index_clientes_on_cidade_id", using: :btree
     t.index ["empresa_id"], name: "index_clientes_on_empresa_id", using: :btree
@@ -323,6 +336,11 @@ ActiveRecord::Schema.define(version: 20170608134216) do
     t.string   "sigla"
     t.integer  "codigo"
     t.integer  "empresa_id"
+    t.string   "contato"
+    t.string   "matricula"
+    t.decimal  "valorchconsulta", precision: 14, scale: 2
+    t.decimal  "valorchservico",  precision: 14, scale: 2
+    t.string   "tipopessoa"
     t.index ["empresa_id"], name: "index_convenios_on_empresa_id", using: :btree
   end
 
