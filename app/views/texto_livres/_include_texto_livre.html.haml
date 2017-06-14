@@ -1,4 +1,4 @@
-- texto_livres.each do |f|
+- texto_livres.order(nome: :asc).each do |f|
   .row
     .col-md-9
       %p=f.nome
@@ -7,4 +7,4 @@
         =link_to "#", data: {freetext_id: f.id, freetext: f.content}, class: "btn btn-sm" do
           %i.fa.fa-clipboard.fa-2x
           Copiar & Incluir
-          
+
