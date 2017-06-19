@@ -9,7 +9,20 @@ section#agenda_table
     min-height: .01%
     overflow-x: inherit !important
   .dropdown-menu.drop-up
+    z-index: 99999 !important
+  .dropdown-menu > li > a
+    z-index: 9999 !important
+
+
+@media screen and (max-width: 767px)
+  section#agenda_table
+    .table-responsive
+      min-height: .01%
+      overflow-x: inherit !important
+  .dropdown-menu.drop-up
     z-index: 99999
+  .dropdown-menu > li > a
+    z-index: 9999 !important
 
 .tres
   width: 30px
