@@ -44,6 +44,7 @@
 #= require clientes/cliente_contato
 #= require clientes/cliente_pdfs
 #= require clientes/search
+#= require configuracao_relatorio
 #= require fornecedores
 #= require movimento_servicos
 #= require movimento_servicos_prosseguir
