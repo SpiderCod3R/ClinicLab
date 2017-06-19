@@ -1,23 +1,22 @@
 .panel.panel-default
   .panel-body
-    .table-responsive
-      %table.table-agenda.table.table-striped.table-bordered.table-hover{ cellspacing: "0", width: "100%"}
-        %thead
-          %th Referência
-          %th{align: "center"} Dia
-          %th{align: "center"} Data
-          %th{align: "center"} Horário
-          %th{align: "center"} Confirmação
-          %th Paciente
-          %th Atendente
-          %th{align: "center"} Hora
-          %th{align: "center", style:"text-align: center" }
-            -if !current_user.admin? && @agenda_permissao.nil?
-              %strong{style: "color: #A60F0F; font-weight: bold;"} Opções não Cadastradas
-            -else
-              Opções
-        =content_tag(:tbody, id: I18n.t('agendas.helpers.default_content')) do
-          =render 'agendas'
+    %table.table-agenda.table.table-striped.table-bordered.table-hover{ cellspacing: "0", width: "100%"}
+      %thead
+        %th Referência
+        %th{align: "center"} Dia
+        %th{align: "center"} Data
+        %th{align: "center"} Horário
+        %th{align: "center"} Confirmação
+        %th Paciente
+        %th Atendente
+        %th{align: "center"} Hora
+        %th{align: "center", style:"text-align: center" }
+          -if !current_user.admin? && @agenda_permissao.nil?
+            %strong{style: "color: #A60F0F; font-weight: bold;"} Opções não Cadastradas
+          -else
+            Opções
+      =content_tag(:tbody, id: I18n.t('agendas.helpers.default_content')) do
+        =render 'agendas'
 %br/
 / =content_tag(:div, id: "agenda_empresa_id", style: "display: none;") do
 /   =current_usuario.empresa_id
