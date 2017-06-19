@@ -13,14 +13,27 @@ section#agenda_table
   .dropdown-menu > li > a
     z-index: 9999 !important
 
+section#agenda_table
+  .table > thead > tr > th,
+  .table > tbody > tr > th,
+  .table > tfoot > tr > th,
+  .table > thead > tr > td,
+  .table > tbody > tr > td,
+  .table > tfoot > tr > td
+    padding: 0px
 
-@media screen and (max-width: 800px)
+
+@include media(">=phone", "<=desktop")
   section#agenda_table
     .table-responsive
+      width: 100%
       min-height: .01%
       overflow-x: inherit !important
   .dropdown-menu.drop-up
     z-index: 99999
+  .dropdown-menu > li > a
+    z-index: 9999 !important
+@media screen and (min-width: 776px)
   .dropdown-menu > li > a
     z-index: 9999 !important
 
