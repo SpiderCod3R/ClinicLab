@@ -11,7 +11,10 @@
     - @historicos.each do |historico|
       = data_e_hora_formatada(historico.created_at.to_date, historico.created_at.to_time)
       %br
-      = historico.user.name
+      -if historico.try(:user)
+        = historico.user.name
+      -else
+        %p="-"
       %br
       = historico.idade
       %br
