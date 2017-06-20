@@ -20,7 +20,7 @@ class Agenda < Connection::Factory
   scope :disponibilidade, ->(boolean = true) { where(status: "VAGO") }
 
   '''
-    OBS. IMPORTANTE: 
+    OBS. IMPORTANTE:
     OS scope A SEGUIR INTERCALAM AS POSIÇÕES NA GRID DA AGENDA
     CUIDADO AO MANUSEA-LOS
   '''
@@ -34,6 +34,12 @@ class Agenda < Connection::Factory
     FIM DA OBSERVAÇÃO
     TENHAM ATENÇÃO PLEASE!
   '''
+
+  delegate :cliente,
+           :title,
+           to: :agenda_movimentacao,
+           prefix: true,
+           allow_nil: true
 
   scope :nome_paciente_like, -> (name) { where("agenda_movimentacao.nome_paciente ilike ?", name)}
 
@@ -171,7 +177,7 @@ class Agenda < Connection::Factory
   private
     def self.ransortable_attributes(auth_object = nil)
       column_names - ['id', 'atendimento_sabado', 'atendimento_domingo',
-                      'atendimento_parcial', 
+                      'atendimento_parcial',
                       'atendimento_final', 'atendimento_duracao',
                       'created_at', 'updated_at',
                       'atendimento_manha_final', 'atendimento_tarde_final',
@@ -186,4 +192,4 @@ class Agenda < Connection::Factory
     def self.ransackable_scopes(auth_object = nil)
       %i(disponibilidade)
     end
-end 
+end
