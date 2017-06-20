@@ -1,7 +1,7 @@
 '''
   ATENÇÃO!!!
   ZONA DE PERIGO EXTREMO
-  CUIDADO AO MANUSEAR ESTA FUNCIONALIDADE
+  CUIDADO AO MANUSEAR ESTE CONTROLLER
 '''
 class AgendaMovimentacoesController < Support::InsideController
   before_action :find_agenda
@@ -65,6 +65,7 @@ class AgendaMovimentacoesController < Support::InsideController
       params.require(:agenda_movimantacao).permit(:agenda_id,
                                                   :convenio_id,
                                                   :sem_convenio,
+                                                  :indicacao,
                                                   :obeservacoes,
                                                   :confirmacao,
                                                   :nome_paciente,
