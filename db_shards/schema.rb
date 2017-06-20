@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170613180747) do
+ActiveRecord::Schema.define(version: 20170620191435) do
 
   create_table "agenda_movimentacoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "agenda_id"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20170613180747) do
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
     t.integer  "cliente_convenio_id"
+    t.string   "indicacao"
     t.index ["agenda_id"], name: "index_agenda_movimentacoes_on_agenda_id", using: :btree
     t.index ["cliente_convenio_id"], name: "index_agenda_movimentacoes_on_cliente_convenio_id", using: :btree
     t.index ["cliente_id"], name: "index_agenda_movimentacoes_on_cliente_id", using: :btree
@@ -129,7 +130,7 @@ ActiveRecord::Schema.define(version: 20170613180747) do
     t.index ["empresa_id"], name: "index_centro_de_custos_on_empresa_id", using: :btree
   end
 
-  create_table "cidades", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "cidades", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "nome"
     t.integer  "estado_id"
     t.datetime "created_at", null: false
@@ -355,7 +356,7 @@ ActiveRecord::Schema.define(version: 20170613180747) do
     t.integer  "environment_id"
   end
 
-  create_table "estados", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "estados", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "sigla"
     t.string   "nome"
     t.integer  "capital_id"
