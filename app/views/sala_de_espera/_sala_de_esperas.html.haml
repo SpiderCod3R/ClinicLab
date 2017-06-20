@@ -15,13 +15,14 @@
         %button.btn.btn-default.btn-circle.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
           %i.glyphicon.glyphicon-chevron-up
         %ul.dropdown-menu.drop-down.pull-right
-          %li=link_to "Ficha do Paciente", empresa_clinic_sheet_cliente_path(current_user.empresa, cliente_id: f.agenda.agenda_movimentacao.cliente_id, agenda_id: f.agenda, sala_espera_id: f)
-          - if f.agenda.agenda_movimentacao.movimento_servico.present?
-            %li=link_to "Movimento de Serviço", edit_empresa_movimento_servico_path(current_user.empresa, f.agenda.agenda_movimentacao.movimento_servico.id)
-          - else
-            %li=link_to "Movimento de Serviço", new_empresa_movimento_servico_path(current_user.empresa, agenda_id: f.agenda.id, cliente_id: f.agenda.agenda_movimentacao.cliente_id)
-          - if f.status == "ESPERA"
-            -if !f.hora_inicio_atendimento.nil?
-              %li=link_to "Atendido", attended_empresa_agenda_sala_de_espera_path(current_user.empresa, f.agenda, f)
-            -if f.hora_inicio_atendimento.nil?
-              %li=link_to "Voltar para agenda", back_empresa_agenda_sala_de_espera_path(current_user.empresa, f.agenda, f)
+          -if f.agenda.try(:agenda_movimentacao)
+            %li=link_to "Ficha do Paciente", empresa_clinic_sheet_cliente_path(current_user.empresa, cliente_id: f.agenda.agenda_movimentacao.cliente_id, agenda_id: f.agenda, sala_espera_id: f)
+            - if f.agenda.agenda_movimentacao.movimento_servico.present?
+              %li=link_to "Movimento de Serviço", edit_empresa_movimento_servico_path(current_user.empresa, f.agenda.agenda_movimentacao.movimento_servico.id)
+            - else
+              %li=link_to "Movimento de Serviço", new_empresa_movimento_servico_path(current_user.empresa, agenda_id: f.agenda.id, cliente_id: f.agenda.agenda_movimentacao.cliente_id)
+            - if f.status == "ESPERA"
+              -if !f.hora_inicio_atendimento.nil?
+                %li=link_to "Atendido", attended_empresa_agenda_sala_de_espera_path(current_user.empresa, f.agenda, f)
+              -if f.hora_inicio_atendimento.nil?
+                %li=link_to "Voltar para agenda", back_empresa_agenda_sala_de_espera_path(current_user.empresa, f.agenda, f)
