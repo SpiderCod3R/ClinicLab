@@ -5,9 +5,9 @@ $(document).ready ->
     event.preventDefault()
     paciente = $(this)
     $.ajax
-      type: 'get'
+      type: 'GET'
       url: localhost + '/search/buscar_pacientes'
-      dataType: 'json'
+      dataType: 'JSON'
       data:
         nome_paciente: paciente.attr('value').toUpperCase()
       success: (json) ->
@@ -27,7 +27,6 @@ $(document).ready ->
                     "</table>"
         else
           result_box = "Nenhum cliente encontrado.<BR />Preencha todos os campos corretamente."
-
 
         if result_box != ""
           BootstrapDialog.show
