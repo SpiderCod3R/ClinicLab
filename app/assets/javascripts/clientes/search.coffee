@@ -8,11 +8,11 @@ $(document).ready ->
       type: 'get'
       url: localhost + '/search/buscar_pacientes'
       dataType: 'json'
-      data: 
+      data:
         nome_paciente: paciente.attr('value').toUpperCase()
       success: (json) ->
         type = BootstrapDialog.TYPE_DEFAULT
-        
+
         if json.length != 0
           result = montar_resultado_busca_agenda_pacientes(json)
           result_box = "<table class='table'>"+
@@ -27,8 +27,8 @@ $(document).ready ->
                     "</table>"
         else
           result_box = "Nenhum cliente encontrado.<BR />Preencha todos os campos corretamente."
-        
-        
+
+
         if result_box != ""
           BootstrapDialog.show
             type: type
@@ -55,7 +55,7 @@ $(document).ready ->
       if cluster.cargo != null
         cargo_id = cluster.cargo.id
         cargo_nome = cluster.cargo.nome
-      
+
       dados_tabela.push("<tr><td id='cliente_search_result_link'>"+
                         "<a href='#' data-cliente-nome='#{cluster.nome}'"+
                         "data-cliente-status='#{cluster.status}'"+
@@ -79,7 +79,7 @@ $(document).ready ->
                         "data-cliente-nacionalidade='#{cluster.nacionalidade}'"+
                         "data-cliente-naturalidade='#{cluster.naturalidade}'"+
                         "data-cliente-telefone='#{cluster.telefone}'>"+
-                        cluster.nome.toUpperCase() + "</a></td>" + 
+                        cluster.nome.toUpperCase() + "</a></td>" +
                         "<td>#{cluster.rg }</td>" +
                         "<td>#{cluster.cpf.numero}</td>" +
                         "</tr>")
