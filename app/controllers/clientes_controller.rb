@@ -35,16 +35,35 @@ class ClientesController < Support::ClienteSupportController
   def update
     session[:cliente_id] = @cliente.id
     get_historicos
-    @cliente.upload_files(params[:cliente][:cliente_pdf_upload]) if !params[:cliente][:cliente_pdf_upload][:pdf].nil?
-    if @cliente.update(resource_params)
-      if params[:imagens_externas].present?
-        salva_imagens_externas
+    if !params[:cliente][:cliente_pdf_upload][:pdf].nil?
+      if params[:cliente][:cliente_pdf_upload][:anotacoes] != ""
+        @cliente.upload_files(params[:cliente][:cliente_pdf_upload])
+        if @cliente.update(resource_params)
+          if params[:imagens_externas].present?
+            salva_imagens_externas
+          end
+          flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @cliente.class)
+          redirect_to edit_empresa_cliente_path(current_user.empresa, @cliente)
+        else
+          send_back_with_error
+          render :edit
+        end
+      else
+        send_back_with_error
+        flash[:error] = t("flash.actions.#{__method__}.alert", resource_name: "Cliente") + " É necessário informar um nome para o PDF."
+        render :edit
       end
-      flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @cliente.class)
-      redirect_to edit_empresa_cliente_path(current_user.empresa, @cliente)
     else
-      send_back_with_error
-      render :edit
+      if @cliente.update(resource_params)
+        if params[:imagens_externas].present?
+          salva_imagens_externas
+        end
+        flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @cliente.class)
+        redirect_to edit_empresa_cliente_path(current_user.empresa, @cliente)
+      else
+        send_back_with_error
+        render :edit
+      end
     end
   end
 
