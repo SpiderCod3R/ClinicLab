@@ -3,7 +3,7 @@
     %td="##{f.id}"
     %td=f.status
     %td=f.agenda.agenda_movimentacao.cliente_nome if f.agenda.agenda_movimentacao.present?
-    %td=f.agenda.agenda_movimentacao.cliente_convenio.convenio.nome if f.agenda.agenda_movimentacao.present?
+    %td=f.agenda.agenda_movimentacao.cliente_convenio.convenio.nome if f.agenda.agenda_movimentacao.cliente_convenio.present?
     %td=l f.data
     %td=f.agenda.referencia_agenda.descricao
     %td=f.hora_agendada.strftime("%H:%M") if f.hora_agendada
