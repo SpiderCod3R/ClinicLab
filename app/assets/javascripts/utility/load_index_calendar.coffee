@@ -73,7 +73,6 @@ jQuery ->
       type: 'GET'
       dataType: 'JSON'
       success: (response) ->
-        console.log response
         load_last_month(response)
         load_current_month(response)
         load_after_month(response)

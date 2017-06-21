@@ -95,4 +95,9 @@ class Cliente < Connection::Factory
                                    pdf: resource[:pdf]
                                   )
   end
+
+  def collect_agenda_movimentacao_fields(resource)
+    self.indicacao=resource.agenda_movimentacao.indicacao
+    self.observacoes=resource.agenda_movimentacao.observacoes
+  end
 end

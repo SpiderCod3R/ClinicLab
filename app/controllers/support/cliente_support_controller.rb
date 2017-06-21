@@ -29,6 +29,7 @@ class Support::ClienteSupportController < Support::InsideController
     # => Caso o Cliente já exista esse primeiro if é executado
     if params[:cliente][:id].present?
       @cliente = Cliente.find(params[:cliente][:id])
+      @cliente.collect_agenda_movimentacao_fields(@agenda)
       @cliente.upload_files(params[:cliente][:cliente_pdf_upload]) if !params[:cliente][:cliente_pdf_upload].nil?
       if @cliente.update(resource_params)
         @agenda.agenda_movimentacao.update_attributes(nome_paciente: @cliente.nome, telefone_paciente: @cliente.telefone,
@@ -48,6 +49,7 @@ class Support::ClienteSupportController < Support::InsideController
       end
     else
       @cliente = current_user.empresa.clientes.build(resource_params)
+      @cliente.collect_agenda_movimentacao_fields(@agenda)
       if @cliente.save
         @agenda.agenda_movimentacao.update_attributes(nome_paciente: @cliente.nome, telefone_paciente: @cliente.telefone,
                                                       email_paciente: @cliente.email, cliente_id: @cliente.id)
@@ -384,9 +386,9 @@ class Support::ClienteSupportController < Support::InsideController
 
     def resource_params
       params.require(:cliente).permit(
-        :id, :status, :nome, :cpf, :endereco, :complemento, :bairro, :estado_id,
+        :id, :status, :nome, :cpf, :endereco, :complemento, :bairro, :estado_id, :indicacao, :observacoes,
         :cidade_id, :empresa_id, :foto, :email, :telefone, :cargo_id,
-        :nascimento, :sexo, :rg, :estado_civil, :nacionalidade, :naturalidade, 
+        :nascimento, :sexo, :rg, :estado_civil, :nacionalidade, :naturalidade,
         cliente_convenios_attributes: [:id, :cliente_id, :convenio_id, :status_convenio, :matricula, :plano, :validade_carteira, :produto, :titular],
         imagens_externas_attributes: [:foto_antes, :foto_depois, :cliente_id],
         cliente_pdf_upload_attributes: [:id, :cliente_id, :anotacoes, :data, :pdf, :_destroy])

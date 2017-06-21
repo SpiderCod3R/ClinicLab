@@ -3,13 +3,25 @@ class AgendaMovimentacao < Connection::Factory
 
   belongs_to :agenda
   belongs_to :cliente_convenio
+  belongs_to :convenio
   belongs_to :cliente
   belongs_to :atendente, class_name: "Gclinic::User", foreign_key: "atendente_id"
   has_one :movimento_servico
 
-  delegate :nome,
-           :title,
+  delegate :title,
+           :valor,
            to: :convenio,
+           prefix: true,
+           allow_nil: true
+
+  delegate :convenio,
+           :status_convenio,
+           :matricula,
+           :titular,
+           :plano,
+           :validade_carteira,
+           :produto,
+           to: :cliente_convenio,
            prefix: true,
            allow_nil: true
 
@@ -55,6 +67,7 @@ class AgendaMovimentacao < Connection::Factory
           observacoes:       resource[:observacoes],
           confirmacao:       resource[:confirmacao],
           nome_paciente:     resource[:nome_paciente],
+          indicacao:         resource[:indicacao],
           telefone_paciente: resource[:telefone_paciente],
           email_paciente:    resource[:email_paciente],
           solicitante_id:    resource[:solicitante_id])

@@ -12,7 +12,7 @@ $(document).ready ->
     $("#pdf_selected").animate({ color: "#253095" }, 1000);
 
 
-  $("#btn_search_pdf").click (event), ->
+  $(document).on "click", "#btn_search_pdf", (event) ->
     event.preventDefault()
     $.ajax
       url: localhost + "empresa/#{empresa_id}/clientes/#{cliente_id}/search_pdf_remotely"

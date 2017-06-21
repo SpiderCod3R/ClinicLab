@@ -19,7 +19,7 @@ class AgendaMovimentacoesController < Support::InsideController
 
   def create
     @movimentacao = AgendaMovimentacao.build_movimentacao(params[:agenda_movimentacao])
-    @movimentacao.atendente = current_user
+    @movimentacao.atendente=(current_user)
     if @movimentacao.save
       @movimentacao.change_agenda_status
       flash[:notice] = "Agenda movimentada com sucesso"
@@ -30,7 +30,7 @@ class AgendaMovimentacoesController < Support::InsideController
   end
 
   def update
-    @movimentacao.atendente = current_usuario
+    @movimentacao.atendente=(current_usuario)
     if @movimentacao.update_movimentacao(params[:agenda_movimentacao])
       @movimentacao.change_agenda_status
       flash[:notice] = "Agenda atualizada com sucesso"
