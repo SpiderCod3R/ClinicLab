@@ -4,7 +4,7 @@ $(function() {
 
 	// $('#my-container').imagesLoaded(myFunction)
 	// execute a callback when all images have loaded.
-	// needed because .load() doesn't work on cached images
+	// needed because .on('load') doesn't work on cached images
 
 	// callback function gets image collection as argument
 	//  this is the container
@@ -214,8 +214,8 @@ $(function() {
 					var $thumb		= $item.find('img'),
 						largesrc	= $thumb.data('large'),
 						title		= $thumb.data('description');
-					
-					$('<img/>').load( function() {
+					$('<img/>').trigger('load');
+					$('<img/>').on('load', function() {
 						
 						$rgGallery.find('div.rg-image').empty().append('<img src="' + largesrc + '"/>');
 						
