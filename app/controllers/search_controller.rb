@@ -17,6 +17,10 @@ class SearchController < Support::InsideController
     @receituario= Receituario.find(params[:id])
   end
 
+  def find_texto_livre
+    @texto_livre= TextoLivre.find(params[:id])
+  end
+
   def find_cliente_receituario
     @receituario_cliente= ClienteReceituario.find_by( id: params[:id], cliente_id: params[:cliente_id])
   end

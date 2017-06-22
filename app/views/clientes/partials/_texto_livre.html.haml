@@ -5,15 +5,14 @@
         =render 'clientes/partials/cliente_legend'
   %br/
   .row
-    %center
-      .col-sm-12.col-md-12.pull-left
-        = link_to "Incluir Novo", "#", class: "btn btn-success", id: "include_new_free_text"
-        = link_to "Incluir", "#", class: "btn btn-success", id: "salvar_new_free_text"
-        = link_to "Cancelar Inclusão", "#", class: "btn btn-warning", id: "cancelar_free_text"
-        = link_to "Alterar", "#", class: "btn btn-info", id: "change_free_text" if !@cliente.cliente_texto_livres.empty?
-        = link_to "Excluir", "#", class: "btn btn-danger", id: "destroy_free_text" if !@cliente.cliente_texto_livres.empty?
-        #print_free_text{style: "display: inline;"}
-          = link_to "Imprimir", print_free_text_empresa_cliente_path(current_user.empresa, @cliente, texto_livre_id: @cliente_texto_livre.id, format: 'pdf'), target: :_blank, class: "btn btn-default" if !@cliente.cliente_texto_livres.empty?
+    .col-sm-12.col-md-12.pull-left
+      = link_to "Incluir Novo", "#", class: "btn btn-success", id: "include_new_free_text"
+      = link_to "Salvar Texto Livre", "#", class: "btn btn-success", id: "salvar_new_free_text"
+      = link_to "Cancelar Inclusão", "#", class: "btn btn-warning", id: "cancelar_free_text"
+      = link_to "Alterar", "#", class: "btn btn-info", id: "change_free_text" if !@cliente.cliente_texto_livres.empty?
+      = link_to "Excluir", "#", class: "btn btn-danger", id: "destroy_free_text" if !@cliente.cliente_texto_livres.empty?
+      #print_free_text{style: "display: inline;"}
+        = link_to "Imprimir", print_free_text_empresa_cliente_path(current_user.empresa, @cliente, texto_livre_id: @cliente_texto_livre.id, format: 'pdf'), target: :_blank, class: "btn btn-default" if !@cliente.cliente_texto_livres.empty?
   .row
     %br
     %center
@@ -32,25 +31,12 @@
               #texto_livres_container
                 .clearfix
                 =render 'clientes/partials/cliente_texto_livre'
-      #select_free_text_modal
       #cktext_area_editor{style: "display: none"}
-        =cktext_area :page, :info, cols: 40, ckeditor: { height: 400 }, :id => "texto_livre_textarea"
-
-/ Modal
-#textoLivresModal.modal.fade{:role => "dialog"}
-  .modal-dialog
-    / Modal content
-    .modal-content
-      .modal-header
-        %button.close{"data-dismiss" => "modal", :type => "button"} ×
-        %h4.modal-title Textos Livres
-      .modal-body
-        - if @texto_livres.present?
-          #include_texto_livre
-            =render 'texto_livres/include_texto_livre', {texto_livres: @texto_livres}
-          #paginator_texto_livres
-            =paginate @texto_livres, remote: true
-      .modal-footer
-        %button.btn.btn-danger{"data-dismiss" => "modal", :type => "button"} Fechar
-
+        .col-sm-4.col-md-3
+          = f.collection_select :texto_livres, TextoLivre.order(nome: :asc), :id, :nome, {include_blank: "Selecione"}, {class: 'form-control'}
+        .col-sm-2.col-md-1
+          #add_freeText.btn.btn-primary{title: "Adicionar Texto Livre"}
+            %i.fa.fa-plus-circle
+        .col-sm-12.col-md-8
+          =cktext_area :page, :info, cols: 40, ckeditor: { height: 400 }, :id => "texto_livre_textarea"
 =javascript_include_tag Ckeditor.asset_path

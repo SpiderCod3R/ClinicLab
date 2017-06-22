@@ -167,6 +167,7 @@ Rails.application.routes.draw do
   post 'clientes/include_texto_livre', to: 'clientes#include_texto_livre'
   post 'clientes/include_recipe', to: 'clientes#include_recipe'
   get 'search/receituario', to: 'search#find_receituario'
+  get 'search/texto_livre', to: 'search#find_texto_livre'
   get 'search/cliente_receituario', to: 'search#find_cliente_receituario'
 
   namespace :painel do

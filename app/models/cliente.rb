@@ -6,7 +6,7 @@ class Cliente < Connection::Factory
   include ActiveMethods
   include AtivandoStatus
 
-  attr_accessor :empresa_name
+  attr_accessor :empresa_name, :texto_livres
 
   scope :pelo_nome, -> { order("nome ASC") }
 

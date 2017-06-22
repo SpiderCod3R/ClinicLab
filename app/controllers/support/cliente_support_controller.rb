@@ -221,10 +221,10 @@ class Support::ClienteSupportController < Support::InsideController
 
   def include_texto_livre
     if params[:cliente_texto_livre][:id].to_i.eql?(0)
-      @cliente_texto_livre = ClienteTextoLivre.include(params[:texto_livre])
+      @cliente_texto_livre = ClienteTextoLivre.include(params[:cliente_texto_livre])
     else
       @cliente_texto_livre = ClienteTextoLivre.find(params[:cliente_texto_livre][:id])
-      @cliente_texto_livre.update_content(params)
+      @cliente_texto_livre.update_content(params[:cliente_texto_livre])
     end
 
     respond_to do |format|
