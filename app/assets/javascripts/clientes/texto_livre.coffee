@@ -10,8 +10,14 @@ $(document).ready ->
   $("#salvar_new_free_text").hide()
 
   #=> Abre campos para adicionar o texto livre
-  $('#include_new_free_text').click ->
+  $(document).on "click", "#include_new_free_text", (event) ->
+    event.preventDefault()
     $(this).hide()
+    $("#free_text_area").hide()
+    $('#change_free_text').hide()
+    $('#destroy_free_text').hide()
+    $('#manual_pagination').hide()
+    $('#print_free_text').hide()
     $("#cancelar_free_text").show()
     $("#salvar_new_free_text").show()
     $('#cktext_area_editor').show()
@@ -34,8 +40,8 @@ $(document).ready ->
 
   #=> Exclui o Texto Livre
   $('#destroy_free_text').click ->
-    ctl_id     = $("#id_texto_livre").text()
-    cliente_id = $("#cliente_id").val()
+    cliente_id= $("#cliente_id").val()
+    cliente_texto_livre_id= $("#id_cliente_texto_livre").text()
     bootbox.confirm
       message: 'Deseja mesmo excluir este Texto Livre?'
       buttons:
@@ -63,9 +69,11 @@ $(document).ready ->
               $('.nav-tabs a[href="#texto_livre"]').tab('show')
 
   #=> Cancela inclusao ou alteração do Texto livre
-  $('#cancelar_free_text').click ->
+  $(document).on "click", "#cancelar_free_text", (event) ->
+    event.preventDefault()
     $(this).hide()
     $("#include_new_free_text").fadeIn(500)
+    $('#manual_pagination').fadeIn(500)
     $("#salvar_new_free_text").fadeOut(500)
     $('#cktext_area_editor').fadeOut(500)
     $("#free_text_area").fadeIn(500)
@@ -80,6 +88,7 @@ $(document).ready ->
   #=> Colecta o Texto Livre sendo exibido e retorna para o editor de texto_livre
   # Com a opção de selecionar outro texto livre no lugar do mesmo
   $(document).on "click", "#change_free_text", (event) ->
+    event.preventDefault()
     $(this).hide()
     cliente_texto_livre_id = $("#id_cliente_texto_livre").text()
     $('#destroy_free_text').hide()
@@ -105,20 +114,26 @@ $(document).ready ->
   #= Colecta o Texto Livre do Editor de Texto e Envia para o Controller
   # Support::ClienteSupportController no metodo include_texto_livre
   $(document).on "click", "#salvar_new_free_text", (event) ->
+    event.preventDefault()
     content=CKEDITOR.instances['texto_livre_textarea'].getData()
-    $.ajax
-      type: 'POST'
-      url: URL_BASE + 'clientes/include_texto_livre'
-      dataType: 'JSON'
-      data:
-        cliente_texto_livre:
-          id: cliente_texto_livre_id
-          cliente_id: cliente_id
-          content: content
-          texto_livre_id: texto_livre_id
-      success: (response) ->
-        if agenda_id == ""
-          window.location.href = URL_BASE + "empresa/" + empresa_id + "/clientes/" + cliente_id + "/edit"
-          window.location.href = URL_BASE + "empresa/" + empresa_id + "/clientes/" + cliente_id + "/edit#texto_livre"
-        else
-          window.location.href = URL_BASE + "empresa/#{empresa_id}/ficha_cliente?agenda_id=#{agenda_id}&cliente_id=#{cliente_id}"
+    if content == ""
+      bootbox.alert
+        message: "Texto Livre não pôde ser salvo \n Preencha algo no editor de texto"
+        backdrop: true
+    else
+      $.ajax
+        type: 'POST'
+        url: URL_BASE + 'clientes/include_texto_livre'
+        dataType: 'JSON'
+        data:
+          cliente_texto_livre:
+            id: cliente_texto_livre_id
+            cliente_id: cliente_id
+            content: content
+            texto_livre_id: texto_livre_id
+        success: (response) ->
+          if agenda_id == ""
+            window.location.href = URL_BASE + "empresa/" + empresa_id + "/clientes/" + cliente_id + "/edit"
+            window.location.href = URL_BASE + "empresa/" + empresa_id + "/clientes/" + cliente_id + "/edit#texto_livre"
+          else
+            window.location.href = URL_BASE + "empresa/#{empresa_id}/ficha_cliente?agenda_id=#{agenda_id}&cliente_id=#{cliente_id}"
