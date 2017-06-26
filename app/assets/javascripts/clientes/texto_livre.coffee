@@ -57,7 +57,7 @@ $(document).ready ->
             type: 'get'
             url: URL_BASE + "clientes/#{cliente_id}/destroy_texto_livre"
             data:
-              id: ctl_id
+              id: cliente_texto_livre_id
               cliente_id: cliente_id
             success: (response) ->
               cliente_id = cliente_id
