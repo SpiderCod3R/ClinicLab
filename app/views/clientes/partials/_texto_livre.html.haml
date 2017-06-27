@@ -33,7 +33,7 @@
                 =render 'clientes/partials/cliente_texto_livre'
       #cktext_area_editor{style: "display: none"}
         .col-sm-4.col-md-3
-          = f.collection_select :texto_livres, TextoLivre.order(nome: :asc), :id, :nome, {include_blank: "Selecione"}, {class: 'form-control'}
+          = f.collection_select :texto_livres, TextoLivre.order(nome: :asc), :id, :nome, {include_blank: "Selecione"}, {class: "form-control selectpicker", :"data-live-search"=>"true"}
         .col-sm-2.col-md-1
           #add_freeText.btn.btn-primary{title: "Adicionar Texto Livre"}
             %i.fa.fa-plus-circle
