@@ -3,9 +3,8 @@
     / aba dados_pessoais
     =render 'clientes/partials/dados_pessoais_edit', { f: f }
 
-    -if @cliente.id?
-      / aba convenio
-      =render 'clientes/partials/convenio', { f: f }
+    / aba convenio
+    =render 'clientes/partials/convenio', { f: f }
 
     / aba contato
     =render 'clientes/partials/contato', { f: f }
@@ -18,6 +17,10 @@
           =render 'clientes/partials/texto_livre', { f: f }
         -if @cliente_permissao.pdf_upload?
           =render 'clientes/partials/pdf_upload', { f: f }
+        -if @cliente_permissao.receituario?
+          =render 'clientes/partials/receituario', { f: f }
+        -if @cliente_permissao.imagens_externas?
+          =render 'clientes/partials/imagens_externas', { f: f }
       -else
         / aba historico
         =render 'clientes/partials/historico', { f: f }
