@@ -7,13 +7,14 @@ $(document).ready ->
   empresa_id = $("#empresa_id").text()
   cliente_id = $("#cliente_id").val()
   editando = false
+  cliente_convenio_utilizando_agora= undefined
+
+  $('#cliente_convenio_utilizando_agora').click ->
+    cliente_convenio_utilizando_agora = this.checked
 
   $('#adicionar_convenio_em_cliente').click (event) ->
     event.preventDefault()
     error_messages = []
-    if $('#cliente_convenio_status_convenio_true:checked').val() == undefined
-      if $('#cliente_convenio_status_convenio_false:checked').val() == undefined
-        error_messages.push('<li>Status Convênio deve ser selecionado</li>')
     if $('#cliente_convenio_convenio_id option:selected').val() == undefined
       error_messages.push('<li>Convênio deve ser selecionado</li>')
     if error_messages.length != 0
@@ -38,26 +39,29 @@ $(document).ready ->
     # pegando valores dos campos
     id_convenio = $('#cliente_convenio_convenio_id option:selected').val()
     nome_convenio = $('#cliente_convenio_convenio_id option:selected').text()
-    if $('#cliente_convenio_status_convenio_true:checked').val() != undefined
-      status_convenio = true
-    if $('#cliente_convenio_status_convenio_false:checked').val() != undefined
-      status_convenio = false
-    matricula = $('#cliente_convenio_matricula').val()
-    validade_carteira = $('#cliente_convenio_validade_carteira').val()
-    produto = $('#cliente_convenio_produto').val()
-    titular = $('#cliente_convenio_titular').val()
-    plano = $('#cliente_convenio_plano').val()
     cliente_convenio_id = $("#cliente_convenio_id").val()
     # montando a tabela
     $('#tabela_cliente_convenios').append "<tr>" +
                                             "<td>#{nome_convenio}</td>" +
-                                            "<td></td>" +
-                                            "<td></td>" +
-                                            "<td></td>" +
-                                            "<td>" + 
+                                            "<td>" +
+                                              "<center>" +
+                                                "<i class='fa fa-exclamation-circle fa-2x'></i>" +
+                                              "</center>" +
+                                            "</td>" +
+                                            "<td>" +
+                                              "<center>" +
+                                                "<i class='fa fa-times-circle fa-2x'></i>" +
+                                              "</center>" +
+                                            "</td>" +
+                                            "<td>" +
+                                              "<center>" +
+                                                "<i class='fa fa-check-circle fa-2x'></i>" +
+                                              "</center>" +
+                                            "</td>" +
+                                            "<td>" +
                                               "<a href='#{id_convenio}' class=excluir_convenio>" +
                                                 "<center>" +
-                                                  "<div id='icon-trash'></div>" +
+                                                  "<i class='fa fa-trash fa-2x' aria-hidden='true'></i>" +
                                                 "</center>" +
                                               "</a>" +
                                             "</td>" +
@@ -67,12 +71,12 @@ $(document).ready ->
       'cliente_convenio_id': cliente_convenio_id
       'convenio_id': id_convenio
       'convenio_nome': nome_convenio
-      'status_convenio': status_convenio
-      'matricula': matricula
-      'validade_carteira': validade_carteira
-      'produto': produto
-      'titular': titular
-      'plano': plano
+      'matricula': $('#cliente_convenio_matricula').val()
+      'validade_carteira': $('#cliente_convenio_validade_carteira').val()
+      'produto': $('#cliente_convenio_produto').val()
+      'titular': $('#cliente_convenio_titular').val()
+      'plano': $('#cliente_convenio_plano').val()
+      'utilizando_agora': cliente_convenio_utilizando_agora
     return
 
   limpa_campos_cliente_convenios = ->
@@ -167,12 +171,25 @@ $(document).ready ->
     event.preventDefault()
     $.ajax
       type: 'POST'
-      url: URL_BASE + 'clientes/salva_cliente_convenios'
+      url: URL_BASE + 'clientes/cria_session_cliente_convenios'
       dataType: 'JSON'
       data:
         convenios_attributes: dados_convenios
       success: () ->
         $('form.edit_cliente').unbind('submit').submit()
+        return
+    return
+
+  $('form.new_cliente').submit (event) ->
+    event.preventDefault()
+    $.ajax
+      type: 'POST'
+      url: URL_BASE + 'clientes/cria_session_cliente_convenios'
+      dataType: 'JSON'
+      data:
+        convenios_attributes: dados_convenios
+      success: () ->
+        $('form.new_cliente').unbind('submit').submit()
         return
     return
 
@@ -234,4 +251,3 @@ $(document).ready ->
           else
             $('#cliente_convenio_status_convenio').attr('checked', result)
     return
-
