@@ -24,12 +24,17 @@ class Support::ClienteSupportController < Support::InsideController
     @cliente_collection_pdfs = ClientePdfUpload.where(cliente_id: params[:id]).ultima_data.page(params[:page]).per(10)
   end
 
-  def change_or_create_paciente
+  def cria_session_cliente_convenios
+    session[:convenios_attributes]=params[:convenios_attributes]
+  end
+
+  def change_or_create_cliente
     @agenda = Agenda.find(session[:agenda_id])
     # => Caso o Cliente já exista esse primeiro if é executado
     if params[:cliente][:id].present?
       @cliente = Cliente.find(params[:cliente][:id])
       @cliente.collect_agenda_movimentacao_fields(@agenda)
+      @cliente.manage_convenios(session[:convenios_attributes]) if !session[:convenios_attributes].nil?
       @cliente.upload_files(params[:cliente][:cliente_pdf_upload]) if !params[:cliente][:cliente_pdf_upload].nil?
       if @cliente.update(resource_params)
         @agenda.agenda_movimentacao.update_attributes(nome_paciente: @cliente.nome, telefone_paciente: @cliente.telefone,
@@ -51,11 +56,12 @@ class Support::ClienteSupportController < Support::InsideController
       @cliente = current_user.empresa.clientes.build(resource_params)
       @cliente.collect_agenda_movimentacao_fields(@agenda)
       if @cliente.save
+        @cliente.manage_convenios(session[:convenios_attributes]) if !session[:convenios_attributes].nil?
         @agenda.agenda_movimentacao.update_attributes(nome_paciente: @cliente.nome, telefone_paciente: @cliente.telefone,
                                                       email_paciente: @cliente.email, cliente_id: @cliente.id)
-        if params[:imagens_externas].present?
-          salva_imagens_externas
-        end
+        # if params[:imagens_externas].present?
+        #   salva_imagens_externas
+        # end
         flash[:notice] = "Dados do cliente salvos com sucesso."
         redirect_to empresa_clinic_sheet_cliente_path(current_user.empresa, cliente_id: @cliente.id, agenda_id: @agenda.id)
       else
@@ -249,24 +255,6 @@ class Support::ClienteSupportController < Support::InsideController
     respond_to do |format|
       format.html
       format.json { render json: session[:cliente_id].as_json }
-    end
-  end
-
-  def salva_cliente_convenios
-    @cliente = Cliente.find(session[:cliente_id])
-    if params[:convenios_attributes]
-      dados = JSON.parse(params[:convenios_attributes].to_json)
-      dados.each do |_key, array |
-        @cliente_convenio = ClienteConvenio.new(convenio_id: array["convenio_id"],
-                                                status_convenio: array["status_convenio"],
-                                                validade_carteira: array["validade_carteira"],
-                                                matricula: array["matricula"],
-                                                produto: array["produto"],
-                                                titular: array["titular"],
-                                                plano: array["plano"],
-                                                cliente_id: @cliente.id)
-        @cliente_convenio.save!
-      end
     end
   end
 
