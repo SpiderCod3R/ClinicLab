@@ -144,12 +144,13 @@ Rails.application.routes.draw do
 
   get 'relatorios/new' => "configuracao_relatorios#new"
   get 'conselhos_regionais/new' => "conselho_regionais#new"
-  post 'agendas/clientes/change_or_create_paciente', to: "clientes#change_or_create_paciente", as: :create_paciente
-  put  'agendas/clientes/change_or_create_paciente', to: "clientes#change_or_create_paciente", as: :change_paciente
+  post 'agendas/clientes/new', to: "clientes#change_or_create_cliente", as: :change_or_create_cliente
+  put  'agendas/clientes/update_cliente', to: "clientes#update_cliente", as: :update_cliente
   post 'clientes/retorna_historico', to: "clientes#retorna_historico"
   post 'clientes/salva_historico', to: "clientes#salva_historico"
   post 'clientes/atualiza_historico', to: "clientes#atualiza_historico"
   post 'clientes/salva_cliente_convenios', to: "clientes#salva_cliente_convenios"
+  post 'clientes/cria_session_cliente_convenios', to: "clientes#cria_session_cliente_convenios"
   get 'clientes/:id/destroy_cliente_convenio', to: "clientes#destroy_cliente_convenio", as: :destroy_cliente_convenio
   get  'clientes/:cliente_id/destroy_texto_livre', to: "clientes#destroy_cliente_texto_livre"
   get 'clientes/:cliente_id/textos_livres', to: "clientes#find_textos_livre", as: :cliente_find_textos_livres
