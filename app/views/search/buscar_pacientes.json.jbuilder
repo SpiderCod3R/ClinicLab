@@ -54,4 +54,23 @@ json.array!(@clientes) do |cliente|
       json.null!
     end
   end
+
+  json.set! :naturalidade do
+    if cliente.naturalidade.present?
+      json.nome cliente.naturalidade
+    else
+      json.null!
+    end
+  end
+
+  json.set! :convenios do
+    if cliente.cliente_convenios.present?
+      json.array!(cliente.cliente_convenios) do |cliente_convenio|
+        json.extract! cliente_convenio, :id, :convenio_id, :cliente_id, :matricula, :titular, :plano,
+                                        :validade_carteira, :produto, :utilizando_agora
+      end
+    else
+      json.null!
+    end
+  end
 end

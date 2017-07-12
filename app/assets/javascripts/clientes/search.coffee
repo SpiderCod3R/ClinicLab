@@ -48,12 +48,22 @@ $(document).ready ->
     dados_tabela = []
     x = 0
     cargo_id =0
+    cidade_id=0
+    estado_id=0
     cargo_nome =""
+    cidade_nome =""
+    estado_nome =""
     while x < clientes.length
       cluster = clientes[x]
       if cluster.cargo != null
         cargo_id = cluster.cargo.id
-        cargo_nome = cluster.cargo.nome
+        cargo_nome=cluster.cargo.nome
+      if cluster.cidade != null
+        cidade_id = cluster.cidade.id
+        cidade_nome= cluster.cidade.nome
+      if cluster.estado != null
+        estado_id = cluster.estado.id
+        estado_nome= cluster.estado.nome
 
       dados_tabela.push("<tr><td id='cliente_search_result_link'>"+
                         "<a href='#' data-cliente-nome='#{cluster.nome}'"+
@@ -71,10 +81,10 @@ $(document).ready ->
                         "data-cliente-estado-civil='#{cluster.estado_civil}'"+
                         "data-cliente-cargo-id='#{cargo_id}'"+
                         "data-cliente-cargo-nome='#{cargo_nome}'"+
-                        "data-cliente-cidade-id='#{cluster.cidade.id}'"+
-                        "data-cliente-cidade-nome='#{cluster.cidade.nome}'"+
-                        "data-cliente-estado-id='#{cluster.estado.id}'"+
-                        "data-cliente-estado-nome='#{cluster.estado.nome}'"+
+                        "data-cliente-cidade-id='#{cluster.cidade_id}'"+
+                        "data-cliente-cidade-nome='#{cluster.cidade_nome}'"+
+                        "data-cliente-estado-id='#{cluster.estado_id}'"+
+                        "data-cliente-estado-nome='#{cluster.estado_nome}'"+
                         "data-cliente-nacionalidade='#{cluster.nacionalidade}'"+
                         "data-cliente-naturalidade='#{cluster.naturalidade}'"+
                         "data-cliente-telefone='#{cluster.telefone}'>"+
@@ -113,3 +123,80 @@ $(document).ready ->
     $("#cliente_id").val(link.data().clienteId)
     if link.data().clienteConvenio_id != "undefined"
       $("#cliente_convenio_id").val(link.data().clienteConvenio_id) #"<option value=\"" + link.data().pacienteEstado_id  + "\">" + link.data().pacienteEstado_nome + "</option>"
+    $.ajax
+      type: 'GET'
+      url: localhost + '/search/find_cliente'
+      dataType: 'JSON'
+      data:
+        id: link.data().clienteId
+      success: (response) ->
+        montar_tabela_convenios(response, link.data().clienteId)
+
+  montar_tabela_convenios = (response, cliente_id) ->
+    x=0
+    while x < response.convenios.length
+      request   = response.convenios[x]
+      status    = show_status_convenio(request.status_convenio)
+      using_now = show_convenio_utilizado(request)
+      $('#tabela_cliente_convenios').append "<tr>" +
+                                              "<td>#{request.convenio.name}</td>" +
+                                              "<td>" +
+                                                "<center><a href='#' data-cliente_convenio_id='#{request.id}' data-cliente_id='#{cliente_id}' id='edit_vinculo_cliente_convenio'>" +
+                                                  "<i class='fa fa-pencil fa-2x'></i>" +
+                                                "</a></center>" +
+                                              "</td>" +
+                                              "#{status}"+
+                                              "#{using_now}"+
+                                              "<td>" +
+                                                "<a href='#{request.id}' class=excluir_convenio>" +
+                                                  "<center>" +
+                                                    "<i class='fa fa-trash fa-2x' aria-hidden='true'></i>" +
+                                                  "</center>" +
+                                                "</a>" +
+                                              "</td>" +
+                                            "</tr>"
+      x++
+
+  show_status_convenio= (status) ->
+    td=""
+    if status == true
+      td="<td>" +
+        "<center>" +
+          "<i class='fa fa-check-circle fa-2x'></i>" +
+        "</center>" +
+      "</td>"
+    else
+      td= "<td>" +
+        "<center>" +
+          "<i class='fa fa-times-circle fa-2x'></i>" +
+        "</center>" +
+      "</td>"
+    return td
+
+  show_convenio_utilizado= (request) ->
+    td=""
+    -if request.utilizando_agora==true
+      td="<td>" +
+        "<center>" +
+          "<input type='checkbox' name='cliente_convenio_status_convenio' id='cliente_convenio_status_convenio' value='#{request.id}' checked>" +
+        "</center>" +
+      "</td>"
+    -if request.utilizando_agora==false
+      td="<td>" +
+        "<center>" +
+          "<input type='checkbox' name='cliente_convenio_status_convenio' id='cliente_convenio_status_convenio' value='#{request.id}'>" +
+        "</center>" +
+      "</td>"
+    return td
+
+  $(document).on 'click', "#edit_vinculo_cliente_convenio", ->
+    link = $(this).data()
+    console.log link
+    $.ajax
+      type: 'GET'
+      url: localhost + '/search/find_cliente_convenio'
+      dataType: 'JSON'
+      data:
+        cliente_convenio_id: link.cliente_convenio_id
+        cliente_id: link.cliente_id
+      success: (response) ->

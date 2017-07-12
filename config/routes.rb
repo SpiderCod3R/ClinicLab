@@ -158,8 +158,10 @@ Rails.application.routes.draw do
   get 'conselhos_regionais/new' => "conselho_regionais#new"
   get 'search/conselho_regional', to: 'conselho_regionais#search'
   get 'search/buscar_pacientes' => "search#buscar_pacientes"
+  get 'search/find_cliente' => "search#find_cliente"
   get 'search/find-texto-livres'=> "search#collect_all_free_text" ,as: :collect_all_free_text
   get 'search/conselho_regional', to: 'conselho_regionais#search'
+  get 'search/find_cliente_convenio', to: 'search#find_cliente_convenio'
   get 'search/cliente-texto-livre', to: 'search#find_cliente_texto_livre'
   post 'movimento_servicos/salva_movimento_servico_servicos', to: "movimento_servicos#salva_movimento_servico_servicos"
   post 'movimento_servicos/retorna_servico', to: "movimento_servicos#retorna_servico"
