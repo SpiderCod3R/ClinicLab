@@ -5,6 +5,5 @@
     = f.input :nome
     %hr/
     =label_or_error_tag @receituario, :receita, "Receita"
-    = f.cktext_area :receita, ckeditor: { uiColor: '#D3E7EF', toolbar: 'mini', height: 400 }
-
-= javascript_include_tag Ckeditor.asset_path
+    = f.text_area :receita, :class => "tinymce", :rows => 15, :cols => 120
+    = tinymce
