@@ -99,3 +99,4 @@ end
 
 gem 'dotenv-rails'
 gem "cpf_cnpj", "~> 0.2.1"
+gem "wysiwyg-rails"

@@ -1,10 +1,9 @@
-= simple_form_for([current_user.empresa, @receituario], url: empresa_receituarios_path) do |f|
-  = f.error_notification
-
-  .form-inputs
-    = f.input :nome
-    %hr/
+= form_for([current_user.empresa, @receituario], url: empresa_receituarios_path) do |form|
+  .field
+    = form.label :nome
+    = form.text_field :nome, class: "form-control"
+  %br
+  .field
+    = form.label :receita
+    = form.text_area :receita, id: :receiturario_receita, class: "wysiwyg_editor"
     =label_or_error_tag @receituario, :receita, "Receita"
-    = f.cktext_area :receita, ckeditor: { uiColor: '#D3E7EF', toolbar: 'mini', height: 400 }
-
-= javascript_include_tag Ckeditor.asset_path
