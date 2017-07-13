@@ -63,18 +63,18 @@
 # require ckeditor/init
 
 # Include wysiwyg-rails
-#= require froala_editor.min.js
-#= require plugins/align.min.js
-#= require plugins/char_counter.min.js
-#= require plugins/font_family.min.js
-#= require plugins/font_size.min.js
-#= require plugins/fullscreen.min.js
-#= require plugins/inline_style.min.js
-#= require plugins/line_breaker.min.js
-#= require plugins/link.min.js
-#= require plugins/lists.min.js
-#= require plugins/paragraph_format.min.js
-#= require plugins/paragraph_style.min.js
-#= require plugins/colors.min.js
+#= require froala_editor/froala_editor.min
+#= require froala_editor/plugins/align.min.js
+#= require froala_editor/plugins/char_counter.min.js
+#= require froala_editor/plugins/font_family.min.js
+#= require froala_editor/plugins/font_size.min.js
+#= require froala_editor/plugins/fullscreen.min.js
+#= require froala_editor/plugins/inline_style.min.js
+#= require froala_editor/plugins/line_breaker.min.js
+#= require froala_editor/plugins/link.min.js
+#= require froala_editor/plugins/lists.min.js
+#= require froala_editor/plugins/paragraph_format.min.js
+#= require froala_editor/plugins/paragraph_style.min.js
+#= require froala_editor/plugins/colors.min.js
 
 $('.wysiwyg_editor').froalaEditor()
