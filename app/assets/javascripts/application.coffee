@@ -76,5 +76,3 @@
 #= require froala_editor/plugins/paragraph_format.min.js
 #= require froala_editor/plugins/paragraph_style.min.js
 #= require froala_editor/plugins/colors.min.js
-
-$('.wysiwyg_editor').froalaEditor()
