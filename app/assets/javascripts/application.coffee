@@ -60,7 +60,7 @@
 #= require utility/bootbox.min
 #= require utility/accounting
 #= require utility/parsley.min
-# require ckeditor/init
+#= require ckeditor/init
 
 # Include tinymce-rails
 #= require tinymce-jquery
