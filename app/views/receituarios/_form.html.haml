@@ -4,6 +4,7 @@
     = form.text_field :nome, class: "form-control"
   %br
   .field
+    = tinymce
     = form.label :receita
-    = form.text_area :receita, id: :receiturario_receita, class: "wysiwyg_editor"
+    = form.text_area :receita, id: :receiturario_receita, :class => "tinymce", :rows => 40, :cols => 120
     =label_or_error_tag @receituario, :receita, "Receita"
