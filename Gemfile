@@ -45,7 +45,6 @@ end
 gem 'xray-rails', '~> 0.1.21'
 gem 'better_errors', '~> 2.1', '>= 2.1.1'
 
-# gem 'ransack', github: 'activerecord-hackery/ransack'
 gem 'momentjs-rails', github: 'derekprior/momentjs-rails'
 gem 'datetimepicker-rails', github: 'zpaulovics/datetimepicker-rails', branch: 'master', submodules: true
 gem 'font-awesome-sass'
@@ -99,3 +98,5 @@ end
 
 gem 'dotenv-rails'
 gem "cpf_cnpj", "~> 0.2.1"
+
+gem 'tinymce-rails', '~> 4.6', '>= 4.6.4'
