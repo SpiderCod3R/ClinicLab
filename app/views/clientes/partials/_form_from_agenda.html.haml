@@ -34,9 +34,5 @@
         %a{'data-toggle':"tab", href:"#receituario", id: "aba_receituario"} Receituário
       %li
         %a{'data-toggle':"tab", href:"#imagens_externas", id: "aba_imagens_externas"} Imagens Externas
--if @cliente.id?
-  = simple_form_for(@cliente, url: change_or_create_cliente_path, method: 'PUT') do |f|
-    =render "clientes/partials/abas", {f: f}
--else
-  = simple_form_for(@cliente, url: change_or_create_cliente_path, method: 'POST') do |f|
-    =render "clientes/partials/abas", {f: f}
+= simple_form_for(@cliente, url: change_or_create_cliente_path, method: 'POST') do |f|
+  =render "clientes/partials/abas", {f: f}
