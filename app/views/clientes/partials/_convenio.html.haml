@@ -63,9 +63,9 @@
               %thead
                 %th Convênio
                 %th Editar
-                %th Ativo?
+                %th Inativo?
                 -if params[:agenda_id]
-                  %th Convênio Utilizado?
+                  %th Utilizando Agora
               %tbody#tabela_cliente_convenios
                 - if @cliente.cliente_convenios.present?
                   - @cliente.cliente_convenios.each_with_index do |c, key|

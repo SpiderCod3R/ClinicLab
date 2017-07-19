@@ -91,6 +91,7 @@ class Cliente < Connection::Factory
     self.observacoes=resource.agenda_movimentacao.observacoes
   end
 
+  # => Geranciador de convenios no cliente
   def manage_convenios(resource_attributes)
     resource ||= JSON.parse(resource_attributes.to_json)
     resource.each do |_key, value|
