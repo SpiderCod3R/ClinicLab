@@ -1,6 +1,5 @@
 $(document).ready ->
   URL_BASE = window.location.origin + '/'
-  dados_convenios = []
   cliente_convenio_id = 0
   agenda_id = $("#agenda_id").text()
   sala_espera_id = $("#sala_espera_id").text()
@@ -91,9 +90,9 @@ $(document).ready ->
   $(document).on 'click', '.excluir_convenio', (event) ->
     event.preventDefault()
     i = 0
-    while i < dados_convenios.length
-      if parseInt($(this).attr('href')) == parseInt(dados_convenios[i]['convenio_id'])
-        dados_convenios.splice i, 1
+    while i < _cliente_convenios_.length
+      if parseInt($(this).attr('href')) == parseInt(_cliente_convenios_[i]['convenio_id'])
+        _cliente_convenios_.splice i, 1
         $(this).closest('tr').fadeOut()
       i = i + 1
     false
