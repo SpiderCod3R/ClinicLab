@@ -8,7 +8,7 @@ $(document).ready ->
   editando = false
   cliente_convenio_utilizando_agora= undefined
 
-  $('#cliente_convenio_utilizando_agora').click ->
+  $(document).on 'change', '#cliente_convenio_utilizando_agora', (event) ->
     cliente_convenio_utilizando_agora = this.checked
 
   $(document).on 'click', '#adicionar_convenio_em_cliente', (event) ->
@@ -33,11 +33,30 @@ $(document).ready ->
       adiciona_linha_tabela_convenios()
       limpa_campos_cliente_convenios()
 
+
+  convenio_selecionado = (value) ->
+    if value==true
+      symbol = "<td>" +
+                "<center>" +
+                  "<i class='fa fa-check-circle fa-2x'></i>" +
+                "</center>" +
+              "</td>"
+    else
+      symbol = "<td>" +
+                "<center>" +
+                  "<i class='fa fa-times-circle fa-2x'></i>" +
+                "</center>" +
+              "</td>"
+    return symbol
+
   adiciona_linha_tabela_convenios = ->
     # pegando valores dos campos
     id_convenio = $('#cliente_convenio_convenio_id option:selected').val()
     nome_convenio = $('#cliente_convenio_convenio_id option:selected').text()
     cliente_convenio_id = $("#cliente_convenio_id").val()
+
+    utilizando_agora = convenio_selecionado(cliente_convenio_utilizando_agora)
+
     # montando a tabela
     $('#tabela_cliente_convenios').append "<tr>" +
                                             "<td>#{nome_convenio}</td>" +
@@ -51,11 +70,7 @@ $(document).ready ->
                                                 "<i class='fa fa-times-circle fa-2x'></i>" +
                                               "</center>" +
                                             "</td>" +
-                                            "<td>" +
-                                              "<center>" +
-                                                "<i class='fa fa-check-circle fa-2x'></i>" +
-                                              "</center>" +
-                                            "</td>" +
+                                            "#{utilizando_agora}" +
                                             "<td>" +
                                               "<a href='#{id_convenio}' class=excluir_convenio>" +
                                                 "<center>" +
