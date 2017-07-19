@@ -10,8 +10,8 @@ class SearchController < Support::InsideController
   end
 
   def find_cliente_convenio
-    @cliente = Cliente.find(params[:id])
-    @cliente_convenio = @cliente.cliente_convenios.find(params[:cliente_id])
+    @cliente = Cliente.find(params[:cliente_id])
+    @cliente_convenio = @cliente.cliente_convenios.find(params[:cliente_convenio_id])
   end
 
   def collect_all_free_text

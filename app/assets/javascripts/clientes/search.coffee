@@ -1,5 +1,9 @@
 $(document).ready ->
   localhost = window.location.origin
+  window._cliente_convenios_ =[]
+  window._edit_cliente_convenio_=false
+  window._usando_agora_cliente_convenio_=false
+
   # => Metodo para buscar pacientes já cadastrados no sistema
   $("#cliente_nome").focusout (event) ->
     event.preventDefault()
@@ -138,10 +142,10 @@ $(document).ready ->
       request   = response.convenios[x]
       status    = show_status_convenio(request.status_convenio)
       using_now = show_convenio_utilizado(request)
-      $('#tabela_cliente_convenios').append "<tr>" +
+      $('#tabela_cliente_convenios').html "<tr>" +
                                               "<td>#{request.convenio.name}</td>" +
                                               "<td>" +
-                                                "<center><a href='#' data-cliente_convenio_id='#{request.id}' data-cliente_id='#{cliente_id}' id='edit_vinculo_cliente_convenio'>" +
+                                                "<center><a href='#' data-index='#{x}' data-usando_agora='#{request.utilizando_agora}' data-cliente_convenio_id='#{request.id}' data-cliente_id='#{cliente_id}' id='edit_vinculo_cliente_convenio'>" +
                                                   "<i class='fa fa-pencil fa-2x'></i>" +
                                                 "</a></center>" +
                                               "</td>" +
@@ -155,7 +159,18 @@ $(document).ready ->
                                                 "</a>" +
                                               "</td>" +
                                             "</tr>"
+      _cliente_convenios_.push
+        'cliente_convenio_id': request.id
+        'convenio_id': request.convenio_id
+        'convenio_nome': request.convenio.name
+        'matricula': request.matricula
+        'validade_carteira': request.data_carteira
+        'produto': request.produto
+        'titular': request.titular
+        'plano': request.plano
+        'utilizando_agora': request.utilizando_agora
       x++
+
 
   show_status_convenio= (status) ->
     td=""
@@ -191,7 +206,9 @@ $(document).ready ->
 
   $(document).on 'click', "#edit_vinculo_cliente_convenio", ->
     link = $(this).data()
-    console.log link
+    $(this).closest("tr").find('td').detach()
+    $("#cliente_convenio_id").val(link.cliente_convenio_id)
+    _usando_agora_cliente_convenio_=link.utilizando_agora
     $.ajax
       type: 'GET'
       url: localhost + '/search/find_cliente_convenio'
@@ -200,3 +217,11 @@ $(document).ready ->
         cliente_convenio_id: link.cliente_convenio_id
         cliente_id: link.cliente_id
       success: (response) ->
+        _cliente_convenios_.splice(link.index, 1)
+        $("#cliente_convenio_matricula").val(response.convenio.matricula)
+        $("#cliente_convenio_convenio_id").val(response.convenio.convenio_id)
+        $("#cliente_convenio_validade_carteira").val(response.convenio.data_carteira)
+        $("#cliente_convenio_produto").val(response.convenio.produto)
+        $("#cliente_convenio_titular").val(response.convenio.titular)
+        $("#cliente_convenio_plano").val(response.convenio.plano)
+        _edit_cliente_convenio_=true

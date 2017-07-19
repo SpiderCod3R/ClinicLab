@@ -31,6 +31,7 @@ class Support::ClienteSupportController < Support::InsideController
   def change_or_create_cliente
     @agenda = Agenda.find(session[:agenda_id])
     # => Caso o Cliente já exista esse primeiro if é executado
+    # binding.pry
     if params[:cliente][:id].present?
       @cliente = Cliente.find(params[:cliente][:id])
       @cliente.collect_agenda_movimentacao_fields(@agenda)

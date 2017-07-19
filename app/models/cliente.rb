@@ -94,15 +94,27 @@ class Cliente < Connection::Factory
   def manage_convenios(resource_attributes)
     resource ||= JSON.parse(resource_attributes.to_json)
     resource.each do |_key, value|
-      @cliente_convenio = self.cliente_convenios.build(convenio_id: value["convenio_id"],
-                                                       status_convenio: value["status_convenio"],
-                                                       validade_carteira: value["validade_carteira"],
-                                                       matricula: value["matricula"],
-                                                       produto: value["produto"],
-                                                       titular: value["titular"],
-                                                       plano: value["plano"],
-                                                       utilizando_agora: value["utilizando_agora"])
-      @cliente_convenio.save!
+      @cliente_convenio = self.cliente_convenios.find(value["cliente_convenio_id"])
+      if !@cliente_convenio.nil?
+        @cliente_convenio.update_attributes(convenio_id: value["convenio_id"],
+                                                        status_convenio: value["status_convenio"],
+                                                        validade_carteira: value["validade_carteira"],
+                                                        matricula: value["matricula"],
+                                                        produto: value["produto"],
+                                                        titular: value["titular"],
+                                                        plano: value["plano"],
+                                                        utilizando_agora: value["utilizando_agora"])
+      else
+        @cliente_convenio = self.cliente_convenios.build(convenio_id: value["convenio_id"],
+                                                        status_convenio: value["status_convenio"],
+                                                        validade_carteira: value["validade_carteira"],
+                                                        matricula: value["matricula"],
+                                                        produto: value["produto"],
+                                                        titular: value["titular"],
+                                                        plano: value["plano"],
+                                                        utilizando_agora: value["utilizando_agora"])
+        @cliente_convenio.save!
+      end
     end
   end
 end

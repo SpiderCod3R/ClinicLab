@@ -12,7 +12,7 @@ $(document).ready ->
   $('#cliente_convenio_utilizando_agora').click ->
     cliente_convenio_utilizando_agora = this.checked
 
-  $('#adicionar_convenio_em_cliente').click (event) ->
+  $(document).on 'click', '#adicionar_convenio_em_cliente', (event) ->
     event.preventDefault()
     error_messages = []
     if $('#cliente_convenio_convenio_id option:selected').val() == undefined
@@ -33,7 +33,6 @@ $(document).ready ->
     else
       adiciona_linha_tabela_convenios()
       limpa_campos_cliente_convenios()
-    return
 
   adiciona_linha_tabela_convenios = ->
     # pegando valores dos campos
@@ -67,7 +66,7 @@ $(document).ready ->
                                             "</td>" +
                                           "</tr>"
     # armazenando os valores em um array
-    dados_convenios.push
+    _cliente_convenios_.push
       'cliente_convenio_id': cliente_convenio_id
       'convenio_id': id_convenio
       'convenio_nome': nome_convenio
@@ -77,7 +76,6 @@ $(document).ready ->
       'titular': $('#cliente_convenio_titular').val()
       'plano': $('#cliente_convenio_plano').val()
       'utilizando_agora': cliente_convenio_utilizando_agora
-    return
 
   limpa_campos_cliente_convenios = ->
     $('#cliente_convenio_convenio_id').val('').trigger('change')
@@ -113,27 +111,25 @@ $(document).ready ->
     $("#adicionar_convenio_em_cliente").fadeOut(500)
     $("#alterar_convenio_em_cliente").fadeIn(500)
     resource.closest('tr').find('td').detach()
-    editando=true
+    _edit_cliente_convenio_=true
 
-    $(document).on 'click', '#alterar_convenio_em_cliente', (event) ->
-      event.preventDefault()
-      $.ajax
-        type: 'PUT'
-        url: URL_BASE + "empresa/#{empresa_id}/clientes/#{cliente_id}/atualizar_convenio"
-        dataType: 'JSON'
-        data:
-          cliente_id: $('#cliente_id').val()
-          cliente_convenio_id: $("#cliente_convenio_id").val()
-          cliente_convenio_convenio_id: $("#cliente_convenio_convenio_id").val()
-          cliente_convenio_validade_carteira: $("#cliente_convenio_validade_carteira").val()
-          cliente_convenio_produto: $("#cliente_convenio_produto").val()
-          cliente_convenio_titular: $("#cliente_convenio_titular").val()
-          cliente_convenio_titular: $("#cliente_convenio_titular").val()
-          cliente_convenio_plano: $("#cliente_convenio_plano").val()
-        success: (response) ->
-          $('form.edit_cliente').unbind('submit').submit()
-
-
+  $(document).on 'click', '#alterar_convenio_em_cliente', (event) ->
+    event.preventDefault()
+    $.ajax
+      type: 'PUT'
+      url: URL_BASE + "empresa/#{empresa_id}/clientes/#{cliente_id}/atualizar_convenio"
+      dataType: 'JSON'
+      data:
+        cliente_id: $('#cliente_id').val()
+        cliente_convenio_id: $("#cliente_convenio_id").val()
+        cliente_convenio_convenio_id: $("#cliente_convenio_convenio_id").val()
+        cliente_convenio_validade_carteira: $("#cliente_convenio_validade_carteira").val()
+        cliente_convenio_produto: $("#cliente_convenio_produto").val()
+        cliente_convenio_titular: $("#cliente_convenio_titular").val()
+        cliente_convenio_titular: $("#cliente_convenio_titular").val()
+        cliente_convenio_plano: $("#cliente_convenio_plano").val()
+      success: (response) ->
+        $('form.edit_cliente').unbind('submit').submit()
 
   # metodo que exclui o convenio já salvo no bd
   $(document).on 'click', '.delete_cliente_convenio', (event) ->
@@ -174,7 +170,7 @@ $(document).ready ->
       url: URL_BASE + 'clientes/cria_session_cliente_convenios'
       dataType: 'JSON'
       data:
-        convenios_attributes: dados_convenios
+        convenios_attributes: _cliente_convenios_
       success: () ->
         $('form.edit_cliente').unbind('submit').submit()
         return
@@ -187,7 +183,7 @@ $(document).ready ->
       url: URL_BASE + 'clientes/cria_session_cliente_convenios'
       dataType: 'JSON'
       data:
-        convenios_attributes: dados_convenios
+        convenios_attributes: _cliente_convenios_
       success: () ->
         $('form.new_cliente').unbind('submit').submit()
         return
