@@ -92,21 +92,21 @@ class Cliente < Connection::Factory
   end
 
   # => Geranciador de convenios no cliente
-  def manage_convenios(resource_attributes)
-    resource ||= JSON.parse(resource_attributes.to_json)
+  def manage_convenios(resource, option)
+    resource ||= JSON.parse(resource.to_json)
     resource.each do |_key, value|
-      @cliente_convenio = self.cliente_convenios.find(value["cliente_convenio_id"]) if value["cliente_convenio_id"].present?
-      if !@cliente_convenio.nil?
+      if option="edit"
+        @cliente_convenio = self.cliente_convenios.find(value["cliente_convenio_id"].to_i) if value["cliente_convenio_id"].present?
         @cliente_convenio.update_attributes(convenio_id: value["convenio_id"],
-                                                        status_convenio: value["status_convenio"],
-                                                        validade_carteira: value["validade_carteira"],
-                                                        matricula: value["matricula"],
-                                                        produto: value["produto"],
-                                                        titular: value["titular"],
-                                                        plano: value["plano"],
-                                                        utilizando_agora: value["utilizando_agora"])
+                                            status_convenio: value["status_convenio"],
+                                            validade_carteira: value["validade_carteira"],
+                                            matricula: value["matricula"],
+                                            produto: value["produto"],
+                                            titular: value["titular"],
+                                            plano: value["plano"],
+                                            utilizando_agora: value["utilizando_agora"])
       else
-        @cliente_convenio = self.cliente_convenios.build(convenio_id: value["convenio_id"],
+        @cliente_convenio = self.cliente_convenios.build(convenio_id: value["convenio_id"].to_i,
                                                         status_convenio: value["status_convenio"],
                                                         validade_carteira: value["validade_carteira"],
                                                         matricula: value["matricula"],

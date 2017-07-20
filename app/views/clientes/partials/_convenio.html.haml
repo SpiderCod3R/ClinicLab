@@ -6,13 +6,13 @@
   .col-xs-12.col-sm-12.col-md-6.col-lg-6
     .row
       %input{:type=>"hidden", :class => "form-control", :id => "cliente_convenio_id"}
-    .row
-      -if params[:agenda_id]
-        .panel.panel-warning
-          .panel-heading
-            .container-fluid
-              %label Utilizar nessa Agenda agora?
-              %input{type: "checkbox", name: "cliente_convenio_utilizando_agora", id: "cliente_convenio_utilizando_agora"}
+    -# .row
+    -#   -if params[:agenda_id]
+    -#     .panel.panel-warning
+    -#       .panel-heading
+    -#         .container-fluid
+    -#           %label Utilizar nessa Agenda agora?
+    -#           %input{type: "checkbox", name: "cliente_convenio_utilizando_agora", id: "cliente_convenio_utilizando_agora"}
     -# .row
     -#   .col-xs-12.col-sm-5.col-md-4.col-lg-4
     -#     %label{class: "string control-label"}
@@ -63,7 +63,7 @@
               %thead
                 %th Convênio
                 %th Editar
-                %th Inativo?
+                -# %th Inativo?
                 -if params[:agenda_id]
                   %th Utilizando Agora
               %tbody#tabela_cliente_convenios
@@ -77,12 +77,12 @@
                           -validade = c.validade_carteira.strftime("%d/%m/%Y") if c.validade_carteira?
                           =link_to "#", data: { id: c.id ,convenio_id: c.convenio.id, convenio_matricula: c.matricula, convenio_validade: validade, convenio_titular: c.titular, convenio_plano: c.plano, convenio_produto: c.produto, convenio_status: c.status_convenio}, id: "change_convenio_cliente" do
                             %i.fa.fa-pencil-square.fa-2x
-                      %td
-                        %center
-                          -if c.status_convenio?
-                            %input{type: "checkbox", name: "cliente_convenio_status_convenio", id: "cliente_convenio_status_convenio", value: c.id}
-                          -else
-                            %input{type: "checkbox", name: "cliente_convenio_status_convenio", id: "cliente_convenio_status_convenio", value: c.id, checked: "checked"}
+                      -# %td
+                      -#   %center
+                      -#     -if c.status_convenio?
+                      -#       %input{type: "checkbox", name: "cliente_convenio_status_convenio", id: "cliente_convenio_status_convenio", value: c.id}
+                      -#     -else
+                      -#       %input{type: "checkbox", name: "cliente_convenio_status_convenio", id: "cliente_convenio_status_convenio", value: c.id, checked: "checked"}
                       -if params[:agenda_id]
                         %td
                           %center

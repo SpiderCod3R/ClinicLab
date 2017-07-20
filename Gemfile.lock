@@ -429,7 +429,7 @@ DEPENDENCIES
   bootstrap-kaminari-views
   bootstrap-table-rails
   brazilian-rails
-  bundler (>= 1.8.4)
+  bundler (~> 1.15, >= 1.15.2)
   cancancan
   capistrano (~> 3.6)
   capistrano-bundler
@@ -504,4 +504,4 @@ DEPENDENCIES
   xray-rails (~> 0.1.21)
 
 BUNDLED WITH
-   1.15.1
+   1.15.2

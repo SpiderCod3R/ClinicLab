@@ -1,24 +1,24 @@
 $(document).ready ->
   localhost = window.location.origin
   window._cliente_convenios_ =[]
-  window._edit_cliente_convenio_=false
+  window._option_="create"
   window._usando_agora_cliente_convenio_=false
 
-  # => Metodo para buscar pacientes já cadastrados no sistema
+  # => Metodo para buscar clientes já cadastrados no sistema
   $("#cliente_nome").focusout (event) ->
     event.preventDefault()
-    paciente = $(this)
+    cliente = $(this)
     $.ajax
       type: 'GET'
-      url: localhost + '/search/buscar_pacientes'
+      url: localhost + '/search/collect_clientes'
       dataType: 'JSON'
       data:
-        nome_paciente: paciente.attr('value').toUpperCase()
+        name: cliente.attr('value').toUpperCase()
       success: (json) ->
         type = BootstrapDialog.TYPE_DEFAULT
 
         if json.length != 0
-          result = montar_resultado_busca_agenda_pacientes(json)
+          result = montar_resultado_busca_agenda_clientes(json)
           result_box = "<table class='table'>"+
                       "<thead><tr>"+
                         "<th>Nome do Cliente</th>"+
@@ -48,7 +48,7 @@ $(document).ready ->
                 return false
             }]
 
-  montar_resultado_busca_agenda_pacientes = (clientes) ->
+  montar_resultado_busca_agenda_clientes = (clientes) ->
     dados_tabela = []
     x = 0
     cargo_id =0
@@ -126,7 +126,7 @@ $(document).ready ->
 
     $("#cliente_id").val(link.data().clienteId)
     if link.data().clienteConvenio_id != "undefined"
-      $("#cliente_convenio_id").val(link.data().clienteConvenio_id) #"<option value=\"" + link.data().pacienteEstado_id  + "\">" + link.data().pacienteEstado_nome + "</option>"
+      $("#cliente_convenio_id").val(link.data().clienteConvenio_id) #"<option value=\"" + link.data().clienteEstado_id  + "\">" + link.data().clienteEstado_nome + "</option>"
     $.ajax
       type: 'GET'
       url: localhost + '/search/find_cliente'
@@ -138,18 +138,20 @@ $(document).ready ->
 
   montar_tabela_convenios = (response, cliente_id) ->
     x=0
+    #=> Limpa a tabela toda hora antes de Entrar adicionando elementos
+    # caso o usuario clickar varias vezes no nome desejado no modal com os clientes
+    $('#tabela_cliente_convenios').empty()
     while x < response.convenios.length
       request   = response.convenios[x]
       status    = show_status_convenio(request.status_convenio)
       using_now = show_convenio_utilizado(request)
-      $('#tabela_cliente_convenios').html "<tr>" +
+      $('#tabela_cliente_convenios').append "<tr>" +
                                               "<td>#{request.convenio.name}</td>" +
                                               "<td>" +
                                                 "<center><a href='#' data-index='#{x}' data-usando_agora='#{request.utilizando_agora}' data-cliente_convenio_id='#{request.id}' data-cliente_id='#{cliente_id}' id='edit_vinculo_cliente_convenio'>" +
                                                   "<i class='fa fa-pencil fa-2x'></i>" +
                                                 "</a></center>" +
                                               "</td>" +
-                                              "#{status}"+
                                               "#{using_now}"+
                                               "<td>" +
                                                 "<a href='#{request.id}' class=excluir_convenio>" +
@@ -204,6 +206,10 @@ $(document).ready ->
       "</td>"
     return td
 
+  #=> Em uma ficha de um cliente novo quando o cliente já possuir um convenio e
+  # o mesmo quiser editar o convenio ainda no cadastrar ele adiciona os campos e
+  # a seguir essa funcionalidade continua em cliente_convenios.coffee e finaliza em 
+  # $('form.new_cliente') & $('form.edit_cliente')
   $(document).on 'click', "#edit_vinculo_cliente_convenio", ->
     link = $(this).data()
     $(this).closest("tr").find('td').detach()
@@ -224,4 +230,4 @@ $(document).ready ->
         $("#cliente_convenio_produto").val(response.convenio.produto)
         $("#cliente_convenio_titular").val(response.convenio.titular)
         $("#cliente_convenio_plano").val(response.convenio.plano)
-        _edit_cliente_convenio_=true
+        _option_="edit"

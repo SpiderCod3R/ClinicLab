@@ -1,8 +1,6 @@
 class SearchController < Support::InsideController
-  def buscar_pacientes
-    if params[:nome_paciente] != ""
-      @clientes= Cliente.where("nome LIKE ?", "%#{params[:nome_paciente]}%").take(10)
-    end
+  def collect_clientes
+    @clientes= Cliente.where("nome LIKE ?", "%#{params[:name]}%").take(10)
   end
 
   def find_cliente

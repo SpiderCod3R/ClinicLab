@@ -89,7 +89,7 @@ $(document).ready ->
       'produto': $('#cliente_convenio_produto').val()
       'titular': $('#cliente_convenio_titular').val()
       'plano': $('#cliente_convenio_plano').val()
-      'utilizando_agora': cliente_convenio_utilizando_agora
+      'utilizando_agora': false
 
   limpa_campos_cliente_convenios = ->
     $('#cliente_convenio_convenio_id').val('').trigger('change')
@@ -112,9 +112,38 @@ $(document).ready ->
       i = i + 1
     false
 
+  $('form.edit_cliente').submit (event) ->
+    event.preventDefault()
+    $.ajax
+      type: 'POST'
+      url: URL_BASE + 'clientes/cria_session_cliente_convenios'
+      dataType: 'JSON'
+      data:
+        convenios_attributes: _cliente_convenios_
+        option: _option_
+      success: () ->
+        $('form.edit_cliente').unbind('submit').submit()
+        return
+    return
+
+  $('form.new_cliente').submit (event) ->
+    event.preventDefault()
+    $.ajax
+      type: 'POST'
+      url: URL_BASE + 'clientes/cria_session_cliente_convenios'
+      dataType: 'JSON'
+      data:
+        convenios_attributes: _cliente_convenios_
+        option: _option_
+      success: () ->
+        $('form.new_cliente').unbind('submit').submit()
+        return
+    return
+
   $(document).on 'click', '#change_convenio_cliente', (event) ->
     event.preventDefault()
     resource = $(this)
+
     $("#cliente_convenio_id").val(resource.data().id)
     $("#cliente_convenio_convenio_id option[value='#{resource.data().convenioId}']").prop('selected', true)
     $("#cliente_convenio_matricula").val(resource.data().convenioMatricula)
@@ -124,8 +153,7 @@ $(document).ready ->
     $("#cliente_convenio_plano").val(resource.data().convenioPlano)
     $("#adicionar_convenio_em_cliente").fadeOut(500)
     $("#alterar_convenio_em_cliente").fadeIn(500)
-    resource.closest('tr').find('td').detach()
-    _edit_cliente_convenio_=true
+    resource.closest('tr').find('td').detachoption    _option_="true"
 
   $(document).on 'click', '#alterar_convenio_em_cliente', (event) ->
     event.preventDefault()
@@ -177,32 +205,7 @@ $(document).ready ->
         return
     false
 
-  $('form.edit_cliente').submit (event) ->
-    event.preventDefault()
-    $.ajax
-      type: 'POST'
-      url: URL_BASE + 'clientes/cria_session_cliente_convenios'
-      dataType: 'JSON'
-      data:
-        convenios_attributes: _cliente_convenios_
-      success: () ->
-        $('form.edit_cliente').unbind('submit').submit()
-        return
-    return
-
-  $('form.new_cliente').submit (event) ->
-    event.preventDefault()
-    $.ajax
-      type: 'POST'
-      url: URL_BASE + 'clientes/cria_session_cliente_convenios'
-      dataType: 'JSON'
-      data:
-        convenios_attributes: _cliente_convenios_
-      success: () ->
-        $('form.new_cliente').unbind('submit').submit()
-        return
-    return
-
+  # => Alterar Status do Convenio no Cliente
   $('#cliente_convenio_status_convenio').change ->
     if $(this).is(':checked')
       cliente_convenio_id = $(this).val()

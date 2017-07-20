@@ -142,8 +142,8 @@ Rails.application.routes.draw do
 
   resources :atendimentos
 
-  get 'relatorios/new' => "configuracao_relatorios#new"
-  get 'conselhos_regionais/new' => "conselho_regionais#new"
+  get 'relatorios/new' , to: "configuracao_relatorios#new"
+  get 'conselhos_regionais/new' , to: "conselho_regionais#new"
   post 'agendas/clientes/new', to: "clientes#change_or_create_cliente", as: :change_or_create_cliente
   put  'agendas/clientes/update_cliente', to: "clientes#update_cliente", as: :update_cliente
   post 'clientes/retorna_historico', to: "clientes#retorna_historico"
@@ -154,12 +154,12 @@ Rails.application.routes.draw do
   get 'clientes/:id/destroy_cliente_convenio', to: "clientes#destroy_cliente_convenio", as: :destroy_cliente_convenio
   get  'clientes/:cliente_id/destroy_texto_livre', to: "clientes#destroy_cliente_texto_livre"
   get 'clientes/:cliente_id/textos_livres', to: "clientes#find_textos_livre", as: :cliente_find_textos_livres
-  get 'relatorios/new' => "configuracao_relatorios#new"
-  get 'conselhos_regionais/new' => "conselho_regionais#new"
+  get 'relatorios/new' , to: "configuracao_relatorios#new"
+  get 'conselhos_regionais/new' , to: "conselho_regionais#new"
   get 'search/conselho_regional', to: 'conselho_regionais#search'
-  get 'search/buscar_pacientes' => "search#buscar_pacientes"
-  get 'search/find_cliente' => "search#find_cliente"
-  get 'search/find-texto-livres'=> "search#collect_all_free_text" ,as: :collect_all_free_text
+  get 'search/collect_clientes', to: "search#collect_clientes"
+  get 'search/find_cliente' , to: "search#find_cliente"
+  get 'search/find-texto-livres', to: "search#collect_all_free_text" ,as: :collect_all_free_text
   get 'search/conselho_regional', to: 'conselho_regionais#search'
   get 'search/find_cliente_convenio', to: 'search#find_cliente_convenio'
   get 'search/cliente-texto-livre', to: 'search#find_cliente_texto_livre'
