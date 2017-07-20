@@ -65,11 +65,6 @@ $(document).ready ->
                                                 "<i class='fa fa-exclamation-circle fa-2x'></i>" +
                                               "</center>" +
                                             "</td>" +
-                                            "<td>" +
-                                              "<center>" +
-                                                "<i class='fa fa-times-circle fa-2x'></i>" +
-                                              "</center>" +
-                                            "</td>" +
                                             "#{utilizando_agora}" +
                                             "<td>" +
                                               "<a href='#{id_convenio}' class=excluir_convenio>" +
@@ -151,9 +146,10 @@ $(document).ready ->
     $("#cliente_convenio_produto").val(resource.data().convenioProduto)
     $("#cliente_convenio_titular").val(resource.data().convenioTitular)
     $("#cliente_convenio_plano").val(resource.data().convenioPlano)
-    $("#adicionar_convenio_em_cliente").fadeOut(500)
-    $("#alterar_convenio_em_cliente").fadeIn(500)
-    resource.closest('tr').find('td').detachoption    _option_="true"
+    # $("#adicionar_convenio_em_cliente").fadeOut(500)
+    # $("#alterar_convenio_em_cliente").fadeIn(500)
+    resource.closest('tr').find('td').hide()
+    _option_="edit"
 
   $(document).on 'click', '#alterar_convenio_em_cliente', (event) ->
     event.preventDefault()
