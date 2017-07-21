@@ -1,4 +1,7 @@
 class ClientesController < Support::ClienteSupportController
+  before_action :set_pdf_params, only:[:update]
+  before_action :set_imagens_externas, only:[:update]
+
   def index
     @search = Cliente.where(empresa: current_user.empresa).ransack(params[:q])
     @clientes = @search.result.order("id desc").page(params[:page]).per(10)
@@ -23,7 +26,7 @@ class ClientesController < Support::ClienteSupportController
 
   def create
     @cliente = current_user.empresa.clientes.build(resource_params)
-    get_historicos
+    @cliente.manage_convenios(session[:convenios_attributes], session[:option_for_cliente_convenio]) if !session[:convenios_attributes].nil?
     if @cliente.save
       redirect_to new_empresa_cliente_path(current_user.empresa)
       flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @cliente.class)
@@ -35,37 +38,52 @@ class ClientesController < Support::ClienteSupportController
   def update
     session[:cliente_id] = @cliente.id
     get_historicos
-    if !params[:cliente][:cliente_pdf_upload][:pdf].nil?
-      if params[:cliente][:cliente_pdf_upload][:anotacoes] != ""
-        @cliente.upload_files(params[:cliente][:cliente_pdf_upload])
-        if @cliente.update(resource_params)
-          if params[:imagens_externas].present?
-            salva_imagens_externas
-          end
-          flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @cliente.class)
-          redirect_to edit_empresa_cliente_path(current_user.empresa, @cliente)
-        else
-          send_back_with_error
-          render :edit
-        end
-      else
-        send_back_with_error
-        flash[:error] = t("flash.actions.#{__method__}.alert", resource_name: "Cliente") + " É necessário informar um nome para o PDF."
-        render :edit
-      end
+    if @cliente.update(resource_params)
+      @cliente.upload_files(@pdf_params) if @pdf_params.present?
+      @cliente.salva_imagens_externas(@imagens_externas_params) if @imagens_externas_params.present?
+      @cliente.manage_convenios(session[:convenios_attributes], session[:option_for_cliente_convenio]) if !session[:convenios_attributes].nil?
+      flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @cliente.class)
+      redirect_to edit_empresa_cliente_path(current_user.empresa, @cliente)
     else
-      if @cliente.update(resource_params)
-        if params[:imagens_externas].present?
-          salva_imagens_externas
-        end
-        flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @cliente.class)
-        redirect_to edit_empresa_cliente_path(current_user.empresa, @cliente)
-      else
-        send_back_with_error
-        render :edit
-      end
+      send_back_with_error
+      render :edit
     end
   end
+
+  # def update
+  #   session[:cliente_id] = @cliente.id
+  #   get_historicos
+  #     if params[:cliente][:cliente_pdf_upload][:anotacoes] != ""
+  #   if !params[:cliente][:cliente_pdf_upload][:pdf].nil?
+  #       @cliente.upload_files(params[:cliente][:cliente_pdf_upload])
+  #       if @cliente.update(resource_params)
+  #         if params[:imagens_externas].present?
+  #           salva_imagens_externas
+  #         end
+  #         flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @cliente.class)
+  #         redirect_to edit_empresa_cliente_path(current_user.empresa, @cliente)
+  #       else
+  #         send_back_with_error
+  #         render :edit
+  #       end
+  #     else
+  #       send_back_with_error
+  #       flash[:error] = t("flash.actions.#{__method__}.alert", resource_name: "Cliente") + " É necessário informar um nome para o PDF."
+  #       render :edit
+  #     end
+  #   else
+  #     if @cliente.update(resource_params)
+  #       if params[:imagens_externas].present?
+  #         salva_imagens_externas
+  #       end
+  #       flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @cliente.class)
+  #       redirect_to edit_empresa_cliente_path(current_user.empresa, @cliente)
+  #     else
+  #       send_back_with_error
+  #       render :edit
+  #     end
+  #   end
+  # end
 
   def destroy
     if @cliente.destroy
@@ -76,4 +94,13 @@ class ClientesController < Support::ClienteSupportController
       redirect_to :back
     end
   end
+
+  private
+    def set_pdf_params
+      @pdf_params = params[:cliente][:cliente_pdf_upload]
+    end
+
+    def set_imagens_externas
+      @imagens_externas_params = params[:imagens_externas]
+    end
 end
