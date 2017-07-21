@@ -1,10 +1,10 @@
 %ul{class: "nav nav-tabs"}
   %li{class:"active"}
-    %a{'data-toggle':"tab", href:"#dados"}
-      Dados Pessoais
+    %a{'data-toggle':"tab", href:"#dados"} Dados Pessoais
   %li
-    %a{'data-toggle':"tab", href:"#contato"}
-      Contato
+    %a{'data-toggle':"tab", href:"#contato"} Contato
+  %li
+    %a{'data-toggle':"tab", href:"#convenio", id: "aba_convenio"} Convênios
 
 = simple_form_for([current_user.empresa, @cliente]) do |f|
   %div{class: "container", style: "padding-top: 10px; padding-bottom: 25px;"}
@@ -15,3 +15,6 @@
 
       / aba contato
       =render 'clientes/partials/contato', { f: f }
+
+      / aba convenio
+      =render 'clientes/partials/convenio', { f: f }

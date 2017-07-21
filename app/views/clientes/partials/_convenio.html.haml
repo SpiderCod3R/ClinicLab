@@ -64,8 +64,7 @@
                 %th Convênio
                 %th Editar
                 -# %th Inativo?
-                -if params[:agenda_id]
-                  %th Utilizando Agora
+                %th Utilizando Agora
               %tbody#tabela_cliente_convenios
                 - if @cliente.cliente_convenios.present?
                   - @cliente.cliente_convenios.each_with_index do |c, key|
@@ -84,6 +83,13 @@
                       -#     -else
                       -#       %input{type: "checkbox", name: "cliente_convenio_status_convenio", id: "cliente_convenio_status_convenio", value: c.id, checked: "checked"}
                       -if params[:agenda_id]
+                        %td
+                          %center
+                            -if c.utilizando_agora?
+                              %input{ type: "radio", name: "cliente_convenio_agenda", id: "cliente_convenio_agenda", value: c.id, checked: "checked"}
+                            -else
+                              %input{ type: "radio", name: "cliente_convenio_agenda", id: "cliente_convenio_agenda", value: c.id}
+                      -else
                         %td
                           %center
                             -if c.utilizando_agora?
