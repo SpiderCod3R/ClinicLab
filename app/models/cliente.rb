@@ -84,6 +84,7 @@ class Cliente < Connection::Factory
 
   def upload_files(resource)
     self.cliente_pdf_uploads.build(data: Date.today,anotacoes: resource[:anotacoes], pdf: resource[:pdf])
+    self.save!
   end
 
   def collect_agenda_movimentacao_fields(resource)
@@ -117,5 +118,12 @@ class Cliente < Connection::Factory
         @cliente_convenio.save!
       end
     end
+  end
+
+  def salva_imagens_externas(resource)
+    @foto_antes = self.imagens_externas.build(foto_antes: resource["foto_antes"]) if resource["foto_antes"].present?
+    @foto_depois= self.imagens_externas.build(foto_depois: resource["foto_depois"]) if resource["foto_depois"].present?
+    @foto_antes.save!
+    @foto_depois.save!
   end
 end

@@ -287,22 +287,22 @@ class Support::ClienteSupportController < Support::InsideController
     end
   end
 
-  def salva_imagens_externas
-    unless params[:imagens_externas].empty?
-      if params[:imagens_externas]["foto_antes"].present?
-        @imagem_externa = ImagemExterna.new
-        @imagem_externa.cliente_id = params[:cliente][:id]
-        @imagem_externa.foto_antes = params[:imagens_externas]["foto_antes"]
-        @imagem_externa.save!
-      end
-      if params[:imagens_externas]["foto_depois"].present?
-        @imagem_externa = ImagemExterna.new
-        @imagem_externa.cliente_id = params[:cliente][:id]
-        @imagem_externa.foto_depois = params[:imagens_externas]["foto_depois"]
-        @imagem_externa.save!
-      end
-    end
-  end
+  # def salva_imagens_externas
+  #   unless params[:imagens_externas].empty?
+  #     if params[:imagens_externas]["foto_antes"].present?
+  #       @imagem_externa = ImagemExterna.new
+  #       @imagem_externa.cliente_id = params[:cliente][:id]
+  #       @imagem_externa.foto_antes = params[:imagens_externas]["foto_antes"]
+  #       @imagem_externa.save!
+  #     end
+  #     if params[:imagens_externas]["foto_depois"].present?
+  #       @imagem_externa = ImagemExterna.new
+  #       @imagem_externa.cliente_id = params[:cliente][:id]
+  #       @imagem_externa.foto_depois = params[:imagens_externas]["foto_depois"]
+  #       @imagem_externa.save!
+  #     end
+  #   end
+  # end
 
   def search_pdf_remotely
     @cliente = Cliente.find(params[:cliente][:id])
