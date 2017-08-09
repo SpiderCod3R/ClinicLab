@@ -26,6 +26,7 @@ $(document).ready ->
   $(document).on "click", "#add_freeText", (event) ->
     event.preventDefault()
     CKEDITOR.instances['texto_livre_textarea'].setData()
+
     if $("#cliente_texto_livres :selected").val() == ""
       bootbox.alert("<h4>Você deve selecionar um Texto Livre</h4>")
     else

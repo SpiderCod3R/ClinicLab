@@ -62,5 +62,5 @@
 #= require ckeditor/init
 
 # Include tinymce-rails
-#= require tinymce-jquery
-#= require utility/_tinyMCE.init_
+# require tinymce-jquery
+# require utility/_tinyMCE.init_
