@@ -84,7 +84,7 @@ class Cliente < Connection::Factory
 
   def upload_files(resource)
     self.cliente_pdf_uploads.build(data: Date.today,anotacoes: resource[:anotacoes], pdf: resource[:pdf])
-    self.save!
+    self.save
   end
 
   def collect_agenda_movimentacao_fields(resource)

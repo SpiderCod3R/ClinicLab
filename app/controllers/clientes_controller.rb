@@ -38,15 +38,34 @@ class ClientesController < Support::ClienteSupportController
   def update
     session[:cliente_id] = @cliente.id
     get_historicos
-    if @cliente.update(resource_params)
-      @cliente.upload_files(@pdf_params) if @pdf_params.present?
-      @cliente.salva_imagens_externas(@imagens_externas_params) if @imagens_externas_params.present?
-      @cliente.manage_convenios(session[:convenios_attributes], session[:option_for_cliente_convenio]) if !session[:convenios_attributes].nil?
-      flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @cliente.class)
-      redirect_to edit_empresa_cliente_path(current_user.empresa, @cliente)
+    if !params[:cliente][:cliente_pdf_upload][:pdf].nil?
+      if params[:cliente][:cliente_pdf_upload][:anotacoes] != ""
+        if @cliente.update(resource_params)
+          @cliente.upload_files(params[:cliente][:cliente_pdf_upload])
+          # @cliente.upload_files(@pdf_params) if @pdf_params.present?
+          @cliente.salva_imagens_externas(@imagens_externas_params) if @imagens_externas_params.present?
+          @cliente.manage_convenios(session[:convenios_attributes], session[:option_for_cliente_convenio]) if !session[:convenios_attributes].nil?
+          flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @cliente.class)
+          redirect_to edit_empresa_cliente_path(current_user.empresa, @cliente)
+        else
+          send_back_with_error
+          render :edit
+        end
+      else
+        send_back_with_error
+        flash[:error] = t("flash.actions.#{__method__}.alert", resource_name: "Cliente") + " É necessário informar um nome para o PDF."
+        render :edit
+      end
     else
-      send_back_with_error
-      render :edit
+      if @cliente.update(resource_params)
+        @cliente.salva_imagens_externas(@imagens_externas_params) if @imagens_externas_params.present?
+        @cliente.manage_convenios(session[:convenios_attributes], session[:option_for_cliente_convenio]) if !session[:convenios_attributes].nil?
+        flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @cliente.class)
+        redirect_to edit_empresa_cliente_path(current_user.empresa, @cliente)
+      else
+        send_back_with_error
+        render :edit
+      end
     end
   end
 
