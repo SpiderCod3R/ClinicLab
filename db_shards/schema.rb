@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170620200022) do
+ActiveRecord::Schema.define(version: 20170821130448) do
 
   create_table "agenda_movimentacoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "agenda_id"
@@ -130,7 +130,7 @@ ActiveRecord::Schema.define(version: 20170620200022) do
     t.index ["empresa_id"], name: "index_centro_de_custos_on_empresa_id", using: :btree
   end
 
-  create_table "cidades", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "cidades", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "nome"
     t.integer  "estado_id"
     t.datetime "created_at", null: false
@@ -236,17 +236,17 @@ ActiveRecord::Schema.define(version: 20170620200022) do
     t.integer  "estado_id"
     t.integer  "cidade_id"
     t.integer  "cargo_id"
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
     t.string   "nacionalidade"
     t.string   "naturalidade"
     t.string   "mes"
     t.string   "tipo_sanguineo"
     t.date     "data_da_ultima_consulta"
     t.date     "data_obito"
-    t.float    "peso",                      limit: 24
-    t.text     "como_soube",                limit: 65535
-    t.float    "altura",                    limit: 24
+    t.float    "peso",                       limit: 24
+    t.text     "como_soube",                 limit: 65535
+    t.float    "altura",                     limit: 24
     t.integer  "empresa_id"
     t.string   "cep"
     t.integer  "idade"
@@ -265,12 +265,12 @@ ActiveRecord::Schema.define(version: 20170620200022) do
     t.string   "hora_cadastro"
     t.date     "data_retorno"
     t.date     "data_ultimo_servico"
-    t.float    "limite_vale",               limit: 24
+    t.float    "limite_vale",                limit: 24
     t.string   "num_nacional_cartao_saude"
     t.string   "empresa"
     t.string   "setor"
     t.string   "fonetica"
-    t.text     "observacao_convenio",       limit: 65535
+    t.text     "observacao_convenio",        limit: 65535
     t.string   "mes_retorno"
     t.string   "ano_retorno"
     t.string   "motivo_retorno"
@@ -282,11 +282,19 @@ ActiveRecord::Schema.define(version: 20170620200022) do
     t.string   "titular"
     t.date     "data_cadastro"
     t.string   "alertar"
-    t.text     "historico",                 limit: 65535
+    t.text     "historico",                  limit: 65535
     t.string   "plano"
     t.string   "atendente"
     t.date     "data_atualizacao"
-    t.text     "observacoes",               limit: 65535
+    t.text     "observacoes",                limit: 65535
+    t.string   "flag"
+    t.string   "foto"
+    t.string   "atualizador"
+    t.string   "atualizador_historico"
+    t.string   "hora_atualizacao"
+    t.string   "data_atualizacao_historico"
+    t.string   "hora_atualizacao_historico"
+    t.string   "alertar_paciente"
     t.index ["cargo_id"], name: "index_clientes_on_cargo_id", using: :btree
     t.index ["cidade_id"], name: "index_clientes_on_cidade_id", using: :btree
     t.index ["empresa_id"], name: "index_clientes_on_empresa_id", using: :btree
@@ -357,7 +365,7 @@ ActiveRecord::Schema.define(version: 20170620200022) do
     t.integer  "environment_id"
   end
 
-  create_table "estados", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "estados", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "sigla"
     t.string   "nome"
     t.integer  "capital_id"
