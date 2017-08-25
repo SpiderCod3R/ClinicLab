@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170821130448) do
+ActiveRecord::Schema.define(version: 20170825114341) do
 
   create_table "agenda_movimentacoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "agenda_id"
@@ -162,7 +162,9 @@ ActiveRecord::Schema.define(version: 20170821130448) do
     t.string  "plano"
     t.date    "validade_carteira"
     t.string  "produto"
-    t.boolean "utilizando_agora",  default: false
+    t.boolean "utilizando_agora",                default: false
+    t.string  "via"
+    t.text    "observacoes",       limit: 65535
     t.index ["cliente_id"], name: "index_cliente_convenios_on_cliente_id", using: :btree
     t.index ["convenio_id"], name: "index_cliente_convenios_on_convenio_id", using: :btree
   end
