@@ -379,7 +379,7 @@ class Support::ClienteSupportController < Support::InsideController
     def resource_params
       params.require(:cliente).permit(
         :id, :status, :nome, :cpf, :endereco, :complemento, :bairro, :estado_id, :indicacao, :observacoes,
-        :cidade_id, :empresa_id, :foto, :email, :telefone, :cargo_id,
+        :cidade_id, :empresa_id, :foto, :email, :telefone, :cargo_id, :pai, :mae
         :nascimento, :sexo, :rg, :estado_civil, :nacionalidade, :naturalidade,
         cliente_convenios_attributes: [:id, :cliente_id, :convenio_id, :status_convenio, :matricula, :plano, :validade_carteira, :produto, :titular],
         imagens_externas_attributes: [:foto_antes, :foto_depois, :cliente_id],
