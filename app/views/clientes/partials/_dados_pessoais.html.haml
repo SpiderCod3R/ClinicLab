@@ -1,39 +1,80 @@
+-# %div{id:"dados", class:"tab-pane fade in active"}
+-#   %div{class: "row"}
+-#     %div{class: "col-xs-12 col-sm-6 col-md-6 col-lg-6", style: 'margin: 0; padding: 0;'}
+-#       %div{style: "font-weight: bold;"}
+-#         =f.error_notification
+-#   %div{class: "row"}
+-#     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
+-#       = f.input :nome
+-#     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
+-#       = f.input :sexo, :as => :select,
+-#               :collection => [['Masculino','Masculino'],['Feminino','Feminino']],
+-#               :include_blank => "Selecione",
+-#               :label => t('labels.sexo')
+-#   %div{class: "row"}
+-#     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
+-#       = f.input :nascimento, as: :string, input_html: {class: "datepicker_form"}
+-#     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
+-#       %label{class: "string required control-label"}
+-#         Idade
+-#       %input{:type=>"text", :class => "form-control", :id => "cliente_idade"}
+-#   %div{class: "row"}
+-#     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
+-#       = f.input :cpf,  input_html: {class: "cpf_maskara" }
+-#     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
+-#       = f.input :rg,  input_html: {class: "rg_maskara" }
+-#   %div{class: "row"}
+-#     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
+-#       =f.label "Nacionalidade"
+-#       =f.localized_country_select(:nacionalidade, [], {include_blank: "Selecione"}, {:class => "form-control"})
+-#     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3", id: "naturalidade_cliente", style: "display: none;"}
+-#       =f.label "Naturalidade"
+-#       =f.collection_select(:naturalidade, @estados, :id, :nome, {include_blank: "Selecione"}, {:class=>'form-control'})
+-#   %br/
+-#   %div{class: "row"}
+-#     %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
+-#       = f.input :estado_civil, :as => :select,
+-#               :collection => [['CASADO','CASADO'],['DIVORCIADO','DIVORCIADO'],['SOLTEIRO','SOLTEIRO']],
+-#               :include_blank => "Selecione",
+-#               :label => t('labels.estado civil')
 %div{id:"dados", class:"tab-pane fade in active"}
   %div{class: "row"}
     %div{class: "col-xs-12 col-sm-6 col-md-6 col-lg-6", style: 'margin: 0; padding: 0;'}
       %div{style: "font-weight: bold;"}
         =f.error_notification
-  %div{class: "row"}
-    %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
+  .row
+    .col-xs-12.col-sm-6.col-md-4.col-lg-3
       = f.input :nome
-    %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
-      = f.input :sexo, :as => :select,
-              :collection => [['Masculino','Masculino'],['Feminino','Feminino']],
-              :include_blank => "Selecione",
-              :label => t('labels.sexo')
-  %div{class: "row"}
-    %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
+    .col-xs-12.col-sm-10.col-md-3.col-lg-3
+      = f.input :pai, as: :string
+    .col-xs-12.col-sm-10.col-md-3.col-lg-3
+      = f.input :mae, as: :string, label: "Mãe"
+    .col-xs-12.col-sm-10.col-md-3.col-lg-2
       = f.input :nascimento, as: :string, input_html: {class: "datepicker_form"}
-    %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
-      %label{class: "string required control-label"}
-        Idade
+  .row
+    .col-xs-12.col-sm-10.col-md-3.col-lg-3
+      %label.string.required.control-label Idade
       %input{:type=>"text", :class => "form-control", :id => "cliente_idade"}
-  %div{class: "row"}
-    %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
+    .col-xs-12.col-sm-10.col-md-3.col-lg-3
       = f.input :cpf,  input_html: {class: "cpf_maskara" }
-    %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
+    .col-xs-12.col-sm-10.col-md-3.col-lg-3
       = f.input :rg,  input_html: {class: "rg_maskara" }
-  %div{class: "row"}
-    %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
+    .col-xs-12.col-sm-10.col-md-3.col-lg-2
+      =f.label :sexo
+      %br/
+      = f.select :sexo, options_for_select([ "Masculino", "Feminino"]), {include_blank: "Selecione"} ,{ :class => "form-control"}
+      =error_custom_tag(@cliente, :"sexo", "Sexo")
+  .row
+    .col-xs-12.col-sm-10.col-md-3.col-lg-3
+      = f.label :estado_civil
+      %br/
+      = f.select :estado_civil, options_for_select([ "CASADO", "DIVORCIADO", "SOLTEIRO" ]), {include_blank: "Selecione"} ,{ :class => "form-control"}
+      =error_custom_tag(@cliente, :"estado_civil", "Estado Civil")
+    .col-xs-12.col-sm-10.col-md-3.col-lg-3
       =f.label "Nacionalidade"
       =f.localized_country_select(:nacionalidade, [], {include_blank: "Selecione"}, {:class => "form-control"})
-    %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3", id: "naturalidade_cliente", style: "display: none;"}
-      =f.label "Naturalidade"
-      =f.collection_select(:naturalidade, @estados, :id, :nome, {include_blank: "Selecione"}, {:class=>'form-control'})
-  %br/
-  %div{class: "row"}
-    %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
-      = f.input :estado_civil, :as => :select,
-              :collection => [['CASADO','CASADO'],['DIVORCIADO','DIVORCIADO'],['SOLTEIRO','SOLTEIRO']],
-              :include_blank => "Selecione",
-              :label => t('labels.estado civil')
+    #naturalidade_cliente{style: "display: none;"}
+      .col-xs-12.col-sm-10.col-md-3.col-lg-3
+        =f.label "Naturalidade"
+        =f.collection_select(:naturalidade, Estado.pelo_nome, :id, :nome, {include_blank: "Selecione"}, {:class=>'form-control'})
+
