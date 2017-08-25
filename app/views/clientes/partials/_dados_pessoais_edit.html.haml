@@ -9,12 +9,20 @@
       .col-xs-12.col-sm-10.col-md-3.col-lg-3
         = f.input :id, as: :hidden
         = f.input :nome
+      .col-xs-12.col-sm-10.col-md-3.col-lg-3
+        = f.input :pai, as: :string
+      .col-xs-12.col-sm-10.col-md-3.col-lg-3
+        = f.input :mae, as: :string
     .row
       .col-xs-12.col-sm-10.col-md-3.col-lg-2
         = f.input :nascimento, as: :string, input_html: {class: "datepicker_form", value: "#{nascimento}"}
       .col-xs-12.col-sm-10.col-md-3.col-lg-3
         %label.string.required.control-label Idade
         %input{:type=>"text", :class => "form-control", :id => "cliente_idade"}
+      .col-xs-12.col-sm-10.col-md-3.col-lg-3
+        = f.input :cpf,  input_html: {class: "cpf_maskara" }
+      .col-xs-12.col-sm-10.col-md-3.col-lg-3
+        = f.input :rg,  input_html: {class: "rg_maskara" }
     .row
       .col-xs-12.col-sm-10.col-md-3.col-lg-2
         =f.label :sexo
@@ -26,13 +34,7 @@
         %br/
         = f.select :estado_civil, options_for_select([ "CASADO", "DIVORCIADO", "SOLTEIRO" ], estado_civil.to_s), {include_blank: "Selecione"} ,{ :class => "form-control"}
         =error_custom_tag(@cliente, :"estado_civil", "Estado Civil")
-    .row
-      .col-xs-12.col-sm-10.col-md-3.col-lg-2
-        = f.input :cpf,  input_html: {class: "cpf_maskara" }
       .col-xs-12.col-sm-10.col-md-3.col-lg-3
-        = f.input :rg,  input_html: {class: "rg_maskara" }
-    .row
-      .col-xs-12.col-sm-10.col-md-3.col-lg-2
         =f.label "Nacionalidade"
         =f.localized_country_select(:nacionalidade, [], {include_blank: "Selecione"}, {:class => "form-control"})
       .col-xs-12.col-sm-10.col-md-3.col-lg-3#naturalidade_cliente{style: "display: none;"}

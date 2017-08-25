@@ -84,6 +84,8 @@ $(document).ready ->
       'produto': $('#cliente_convenio_produto').val()
       'titular': $('#cliente_convenio_titular').val()
       'plano': $('#cliente_convenio_plano').val()
+      'via': $('#cliente_convenio_via').val()
+      'observacoes': $('#cliente_convenio_observacoes').val()
       'utilizando_agora': false
 
   limpa_campos_cliente_convenios = ->
@@ -95,6 +97,8 @@ $(document).ready ->
     $('#cliente_convenio_produto').val('')
     $('#cliente_convenio_titular').val('')
     $('#cliente_convenio_plano').val('')
+    $('#cliente_convenio_via').val('')
+    $('#cliente_convenio_observacoes').val('')
     return
 
   $(document).on 'click', '.excluir_convenio', (event) ->
@@ -146,8 +150,9 @@ $(document).ready ->
     $("#cliente_convenio_produto").val(resource.data().convenioProduto)
     $("#cliente_convenio_titular").val(resource.data().convenioTitular)
     $("#cliente_convenio_plano").val(resource.data().convenioPlano)
-    # $("#adicionar_convenio_em_cliente").fadeOut(500)
-    # $("#alterar_convenio_em_cliente").fadeIn(500)
+    $('#cliente_convenio_via').val(resource.data().convenioVia)
+    $('#cliente_convenio_observacoes').val(resource.data().convenioObservacoes)
+
     resource.closest('tr').find('td').hide()
     _option_="edit"
 
@@ -166,6 +171,8 @@ $(document).ready ->
         cliente_convenio_titular: $("#cliente_convenio_titular").val()
         cliente_convenio_titular: $("#cliente_convenio_titular").val()
         cliente_convenio_plano: $("#cliente_convenio_plano").val()
+        cliente_convenio_via:   $('#cliente_convenio_via').val()
+        cliente_convenio_observacoes: $('#cliente_convenio_observacoes').val()
       success: (response) ->
         $('form.edit_cliente').unbind('submit').submit()
 

@@ -97,6 +97,7 @@ class Cliente < Connection::Factory
     resource ||= JSON.parse(resource.to_json)
     resource.each do |_key, value|
       @cliente_convenio = self.cliente_convenios.find(value["cliente_convenio_id"].to_i) if value["cliente_convenio_id"].present?
+      # binding.pry
       if option="edit" and !@cliente_convenio.nil?
         @cliente_convenio.update_attributes(convenio_id: value["convenio_id"],
                                             status_convenio: value["status_convenio"],
@@ -105,8 +106,11 @@ class Cliente < Connection::Factory
                                             produto: value["produto"],
                                             titular: value["titular"],
                                             plano: value["plano"],
+                                            via: value["via"],
+                                            observacoes: value["observacoes"],
                                             utilizando_agora: value["utilizando_agora"])
       else
+        # binding.pry
         @cliente_convenio = self.cliente_convenios.build(convenio_id: value["convenio_id"].to_i,
                                                         status_convenio: value["status_convenio"],
                                                         validade_carteira: value["validade_carteira"],
@@ -114,6 +118,8 @@ class Cliente < Connection::Factory
                                                         produto: value["produto"],
                                                         titular: value["titular"],
                                                         plano: value["plano"],
+                                                        via: value["via"],
+                                                        observacoes: value["observacoes"],
                                                         utilizando_agora: value["utilizando_agora"])
         @cliente_convenio.save!
       end

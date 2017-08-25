@@ -96,49 +96,55 @@
       .panel_body
         .container
           - @cliente.cliente_convenios.each do |c|
-            .row
-              .col-xs-12.col-sm-12.col-md-12.col-lg-12
-                %br
-                %strong Nome:
-                - if c.convenio_id.present?
-                  =c.convenio.nome
-                - else
-                  Não mencionado
-            %br/
-            .row
-              .col-xs-4.col-sm-3.col-md-3.col-lg-3
-                =label_tag t('clientes.helpers.status_convenio')
-                %br
-                =status c.status_convenio
-              .col-xs-4.col-sm-3.col-md-3.col-lg-3
-                =label_tag t('clientes.helpers.matricula')
-                %br
-                - if c.matricula.present?
-                  =c.matricula
-                - else
-                  Não mencionado
-            %br
-            .row
-              - unless c.validade_carteira.nil?
-                .col-xs-4.col-sm-3.col-md-3.col-lg-3
-                  =label_tag t('clientes.helpers.validade_carteira')
+            .col-md-6
+              .row
+                .col-xs-12.col-sm-12.col-md-12.col-lg-12
                   %br
-                  =c.validade_carteira.strftime("%d/%m/%Y")
-              -if c.produto.present?
-                .col-xs-4.col-sm-3.col-md-3.col-lg-3
-                  =label_tag t('clientes.helpers.produto')
-                  %br
-                  - if c.produto.present?
-                    =c.produto
+                  %strong Nome:
+                  - if c.convenio_id.present?
+                    =c.convenio.nome
                   - else
                     Não mencionado
-            %br
-            .row
-              - if c.titular.present?
-                .col-xs-3.col-sm-3.col-md-3.col-lg-3
-                  =label_tag t('clientes.helpers.titular')
-                  =c.titular
-              - if c.plano.present?
-                .col-xs-3.col-sm-3.col-md-3.col-lg-3
-                  =label_tag t('clientes.helpers.plano')
-                  =c.plano
+              %br/
+              .row
+                .col-xs-4.col-sm-3.col-md-3.col-lg-3
+                  =label_tag t('clientes.helpers.status_convenio')
+                  %br
+                  =status c.status_convenio
+                .col-xs-4.col-sm-3.col-md-3.col-lg-3
+                  =label_tag t('clientes.helpers.matricula')
+                  %br
+                  - if c.matricula.present?
+                    =c.matricula
+                  - else
+                    Não mencionado
+              %br
+              .row
+                - unless c.validade_carteira.nil?
+                  .col-xs-4.col-sm-3.col-md-3.col-lg-3
+                    =label_tag t('clientes.helpers.validade_carteira')
+                    %br
+                    =c.validade_carteira.strftime("%d/%m/%Y")
+                -if c.produto.present?
+                  .col-xs-4.col-sm-3.col-md-3.col-lg-3
+                    =label_tag t('clientes.helpers.produto')
+                    %br
+                    - if c.produto.present?
+                      =c.produto
+                    - else
+                      Não mencionado
+              %br
+              .row
+                - if c.titular.present?
+                  .col-xs-3.col-sm-3.col-md-3.col-lg-3
+                    =label_tag t('clientes.helpers.titular')
+                    =c.titular
+                - if c.plano.present?
+                  .col-xs-3.col-sm-3.col-md-3.col-lg-3
+                    =label_tag t('clientes.helpers.plano')
+                    =c.plano
+              .row
+                - if c.via.present?
+                  .col-xs-3.col-sm-3.col-md-3.col-lg-3
+                    =label_tag "Via"
+                    =c.via

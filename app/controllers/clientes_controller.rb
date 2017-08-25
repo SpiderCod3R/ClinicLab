@@ -26,6 +26,7 @@ class ClientesController < Support::ClienteSupportController
 
   def create
     @cliente = current_user.empresa.clientes.build(resource_params)
+      # binding.pry
     if @cliente.save
       @cliente.manage_convenios(session[:convenios_attributes], session[:option_for_cliente_convenio]) if !session[:convenios_attributes].nil?
       redirect_to new_empresa_cliente_path(current_user.empresa)
