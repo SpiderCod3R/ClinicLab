@@ -83,13 +83,13 @@ class Support::ClienteSupportController < Support::InsideController
     @cliente = Cliente.find(params[:cliente_id])
     @cliente_texto_livre = @cliente.cliente_texto_livres.find(params[:texto_livre_id]) if params[:texto_livre_id].present?
     if params[:first_page].present?
-      @cliente_texto_livre = @cliente.cliente_texto_livres.first
+      @cliente_texto_livre = @cliente.cliente_texto_livres.last
     elsif params[:previous_page].present?
       @cliente_texto_livre = @cliente_texto_livre.previous
     elsif params[:next_page].present?
       @cliente_texto_livre = @cliente_texto_livre.next
     elsif params[:last_page].present?
-      @cliente_texto_livre = @cliente.cliente_texto_livres.last
+      @cliente_texto_livre = @cliente.cliente_texto_livres.first
     end
     respond_to &:js
   end
@@ -98,13 +98,13 @@ class Support::ClienteSupportController < Support::InsideController
     @cliente = Cliente.find(params[:id])
     @cliente_receituario = @cliente.cliente_receituarios.find(params[:cliente_receituario_id]) if params[:cliente_receituario_id].present?
     if params[:first_page].present?
-      @cliente_receituario = @cliente.cliente_receituarios.first
+      @cliente_receituario = @cliente.cliente_receituarios.last
     elsif params[:previous_page].present?
       @cliente_receituario = @cliente_receituario.previous
     elsif params[:next_page].present?
       @cliente_receituario = @cliente_receituario.next
     elsif params[:last_page].present?
-      @cliente_receituario = @cliente.cliente_receituarios.last
+      @cliente_receituario = @cliente.cliente_receituarios.first
     end
     respond_to &:js
   end
@@ -331,10 +331,10 @@ class Support::ClienteSupportController < Support::InsideController
     end
 
     def load_tabs
-      @cliente_texto_livre = @cliente.cliente_texto_livres.first
-      @cliente_receituario = @cliente.cliente_receituarios.first
+      @cliente_texto_livre = @cliente.cliente_texto_livres.last
+      @cliente_receituario = @cliente.cliente_receituarios.last
       @cliente_collection_pdfs  = @cliente.cliente_pdf_uploads.ultima_data.page params[:page]
-      @texto_livres = current_user.empresa.texto_livres.page params[:page]
+      # @texto_livres = current_user.empresa.texto_livres.page params[:page]
       @cliente_receituarios = @cliente.cliente_receituarios.page params[:page]
       if !@cliente.cliente_pdf_uploads.empty?
         @cliente_pdf_uploads = @cliente.cliente_pdf_uploads.build
