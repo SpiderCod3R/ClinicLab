@@ -1,3 +1,4 @@
 #texto_livre_content
-  =content_tag(:div, @cliente_texto_livre.id, id: "id_cliente_texto_livre", style: "display: none")
-  =raw @cliente_texto_livre.content_data
+  -unless @cliente_texto_livre.nil?
+    =content_tag(:div, @cliente_texto_livre.id, id: "id_cliente_texto_livre", style: "display: none")
+    =raw @cliente_texto_livre.content_data

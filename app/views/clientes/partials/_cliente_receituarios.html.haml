@@ -1,3 +1,4 @@
 #cliente_receituarios_content
-  =content_tag(:div, @cliente_receituario.id, id: "id_receituario", style: "display: none")
-  =raw @cliente_receituario.content
+  -unless@cliente_receituario.nil?
+    =content_tag(:div, @cliente_receituario.id, id: "id_receituario", style: "display: none")
+    =raw @cliente_receituario.content

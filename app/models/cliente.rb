@@ -96,8 +96,9 @@ class Cliente < Connection::Factory
   def manage_convenios(resource, option)
     resource ||= JSON.parse(resource.to_json)
     resource.each do |_key, value|
+
+      binding.pry
       @cliente_convenio = self.cliente_convenios.find(value["cliente_convenio_id"].to_i) if value["cliente_convenio_id"].present?
-      # binding.pry
       if option="edit" and !@cliente_convenio.nil?
         @cliente_convenio.update_attributes(convenio_id: value["convenio_id"],
                                             status_convenio: value["status_convenio"],
