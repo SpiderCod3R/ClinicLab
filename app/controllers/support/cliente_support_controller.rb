@@ -335,7 +335,7 @@ class Support::ClienteSupportController < Support::InsideController
       @cliente_receituario = @cliente.cliente_receituarios.last
       @cliente_collection_pdfs  = @cliente.cliente_pdf_uploads.ultima_data.page params[:page]
       # @texto_livres = current_user.empresa.texto_livres.page params[:page]
-      @cliente_receituarios = @cliente.cliente_receituarios.page params[:page]
+      # @cliente_receituarios = @cliente.cliente_receituarios.page params[:page]
       if !@cliente.cliente_pdf_uploads.empty?
         @cliente_pdf_uploads = @cliente.cliente_pdf_uploads.build
       else

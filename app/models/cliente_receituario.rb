@@ -9,10 +9,13 @@ class ClienteReceituario < Connection::Factory
 
 
   def next
-    self.class.where("id > ?", id).first
+    self.class.where("id < ? AND cliente_id = ?", id, cliente_id).last
   end
 
   def previous
-    self.class.where("id < ?", id).last
+    self.class.where("id > ? AND cliente_id = ?", id, cliente_id).first
   end
 end
+
+
+

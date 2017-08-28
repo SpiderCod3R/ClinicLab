@@ -1,3 +1,3 @@
--@cliente_receituarios.collect do |f|
-  =content_tag(:div, f.id, id: "id_receituario", style: "display: none")
-  =raw f.content
+#cliente_receituarios_content
+  =content_tag(:div, @cliente_receituario.id, id: "id_receituario", style: "display: none")
+  =raw @cliente_receituario.content
