@@ -30,11 +30,16 @@
         = f.select :sexo, options_for_select([ "Masculino", "Feminino"], sexo.to_s), {include_blank: "Selecione"} ,{ :class => "form-control"}
         =error_custom_tag(@cliente, :"sexo", "Sexo")
       .col-xs-12.col-sm-10.col-md-3.col-lg-3
+        = f.input :peso, as: :string
+      .col-xs-12.col-sm-10.col-md-3.col-lg-3
+        = f.input :altura, as: :string
+      .col-xs-12.col-sm-10.col-md-3.col-lg-3
         = f.label :estado_civil
         %br/
         = f.select :estado_civil, options_for_select([ "CASADO", "DIVORCIADO", "SOLTEIRO" ], estado_civil.to_s), {include_blank: "Selecione"} ,{ :class => "form-control"}
         =error_custom_tag(@cliente, :"estado_civil", "Estado Civil")
-      .col-xs-12.col-sm-10.col-md-3.col-lg-3
+    .row
+      .col-xs-12.col-sm-10.col-md-2.col-lg-2
         =f.label "Nacionalidade"
         =f.localized_country_select(:nacionalidade, [], {include_blank: "Selecione"}, {:class => "form-control"})
       #naturalidade_cliente{style: "display: none;"}

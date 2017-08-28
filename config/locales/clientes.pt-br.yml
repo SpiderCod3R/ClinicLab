@@ -25,6 +25,8 @@ pt-BR:
       status: "Status"
       status_convenio: "Status do convênio"
       sexo: "Sexo"
+      peso: "Peso"
+      altura: "Altura"
       email: "E-mail"
       estado_civil: "Estado Civil"
       complemento: "Complemento"
