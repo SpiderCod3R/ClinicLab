@@ -38,7 +38,7 @@ class AgendaMovimentacao < Connection::Factory
   end
 
   def sem_cliente_convenio?
-    return if cliente_convenio.nil?
+    return if self.cliente_convenio.nil?
   end
 
   def convenio_desc

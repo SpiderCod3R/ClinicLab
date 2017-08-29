@@ -4,10 +4,10 @@
     %td=f.status
     %td=f.agenda.agenda_movimentacao.cliente_nome if f.agenda.agenda_movimentacao.present?
     %td
-      -unless f.agenda.agenda_movimentacao.sem_cliente_convenio?
-        =f.agenda.agenda_movimentacao.cliente_convenio.convenio.nome
-      -else
+      -if f.agenda.agenda_movimentacao.cliente_convenio.nil?
         ="-"
+      -else
+        =f.agenda.agenda_movimentacao.cliente_convenio.convenio.nome
     %td=l f.data
     %td=f.agenda.referencia_agenda.descricao
     %td=f.hora_agendada.strftime("%H:%M") if f.hora_agendada
