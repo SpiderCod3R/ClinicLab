@@ -59,16 +59,6 @@ $(document).ready ->
     estado_nome =""
     while x < clientes.length
       cluster = clientes[x]
-      if cluster.cargo != null
-        cargo_id = cluster.cargo.id
-        cargo_nome=cluster.cargo.nome
-      if cluster.cidade != null
-        cidade_id = cluster.cidade.id
-        cidade_nome= cluster.cidade.nome
-      if cluster.estado != null
-        estado_id = cluster.estado.id
-        estado_nome= cluster.estado.nome
-
       dados_tabela.push("<tr><td id='cliente_search_result_link'>"+
                         "<a href='#' data-cliente-nome='#{cluster.nome}'"+
                         "data-cliente-status='#{cluster.status}'"+
@@ -83,14 +73,15 @@ $(document).ready ->
                         "data-cliente-bairro='#{cluster.bairro}'"+
                         "data-cliente-sexo='#{cluster.sexo}'"+
                         "data-cliente-estado-civil='#{cluster.estado_civil}'"+
-                        "data-cliente-cargo-id='#{cargo_id}'"+
-                        "data-cliente-cargo-nome='#{cargo_nome}'"+
+                        "data-cliente-cargo-id='#{cluster.cargo_id}'"+
                         "data-cliente-cidade-id='#{cluster.cidade_id}'"+
-                        "data-cliente-cidade-nome='#{cluster.cidade_nome}'"+
                         "data-cliente-estado-id='#{cluster.estado_id}'"+
-                        "data-cliente-estado-nome='#{cluster.estado_nome}'"+
                         "data-cliente-nacionalidade='#{cluster.nacionalidade}'"+
                         "data-cliente-naturalidade='#{cluster.naturalidade}'"+
+                        "data-cliente-peso='#{cluster.peso}'"+
+                        "data-cliente-altura='#{cluster.altura}'"+
+                        "data-cliente-pai='#{cluster.pai}'"+
+                        "data-cliente-mae='#{cluster.mae}'"+
                         "data-cliente-telefone='#{cluster.telefone}'>"+
                         cluster.nome.toUpperCase() + "</a></td>" +
                         "<td>#{cluster.rg }</td>" +
@@ -113,7 +104,12 @@ $(document).ready ->
     $("#cliente_bairro").val(link.data().clienteBairro)
     $("#cliente_sexo").val(link.data().clienteSexo)
     $("#cliente_estado_civil").val(link.data().clienteEstadoCivil)
-    $("#cliente_nacionalidade").val(link.data().clienteNacionalidade)
+    console.log link.data()
+    $("#cliente_nacionalidade ").val(link.data().clienteNacionalidade)
+    $("#cliente_pai").val(link.data().clientePai)
+    $("#cliente_mae").val(link.data().clienteMae)
+    $("#cliente_altura").val(link.data().clienteAltura)
+    $("#cliente_peso").val(link.data().clientePeso)
 
     if link.data().clienteStatus != null
       $("#cliente_status").val(link.data().clienteStatus.toString())
@@ -208,7 +204,7 @@ $(document).ready ->
 
   #=> Em uma ficha de um cliente novo quando o cliente já possuir um convenio e
   # o mesmo quiser editar o convenio ainda no cadastrar ele adiciona os campos e
-  # a seguir essa funcionalidade continua em cliente_convenios.coffee e finaliza em 
+  # a seguir essa funcionalidade continua em cliente_convenios.coffee e finaliza em
   # $('form.new_cliente') & $('form.edit_cliente')
   $(document).on 'click', "#edit_vinculo_cliente_convenio", ->
     link = $(this).data()
