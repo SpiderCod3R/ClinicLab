@@ -64,7 +64,7 @@ class AgendasController < Support::AgendaSupportController
   def destroy
     if @agenda.destroy
       flash[:warning] = "A agenda foi deletada."
-      redirect_to painel_empresa_agendas_path(@empresa)
+      redirect_to empresa_agendas_path(current_user.empresa)
     else
       flash[:error] = "A agenda não pôde ser deletada."
       respond_with(@agenda)
