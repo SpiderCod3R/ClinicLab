@@ -72,7 +72,7 @@
     .col-xs-12.col-sm-10.col-md-3.col-lg-3
       = f.label :estado_civil
       %br/
-      = f.select :estado_civil, options_for_select([ "CASADO", "DIVORCIADO", "SOLTEIRO" ]), {include_blank: "Selecione"} ,{ :class => "form-control"}
+      = f.select :estado_civil, options_for_select([ "CASADO", "DIVORCIADO", "SOLTEIRO", "VIUVO(a)" ]), {include_blank: "Selecione"} ,{ :class => "form-control"}
       =error_custom_tag(@cliente, :"estado_civil", "Estado Civil")
     .col-xs-12.col-sm-10.col-md-2.col-lg-2
       =f.label "Nacionalidade"

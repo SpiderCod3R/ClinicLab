@@ -36,7 +36,7 @@
       .col-xs-12.col-sm-10.col-md-3.col-lg-3
         = f.label :estado_civil
         %br/
-        = f.select :estado_civil, options_for_select([ "CASADO", "DIVORCIADO", "SOLTEIRO" ], estado_civil.to_s), {include_blank: "Selecione"} ,{ :class => "form-control"}
+        = f.select :estado_civil, options_for_select([ "CASADO", "DIVORCIADO", "SOLTEIRO", "VIUVO(a)" ], estado_civil.to_s), {include_blank: "Selecione"} ,{ :class => "form-control"}
         =error_custom_tag(@cliente, :"estado_civil", "Estado Civil")
     .row
       .col-xs-12.col-sm-10.col-md-2.col-lg-2
