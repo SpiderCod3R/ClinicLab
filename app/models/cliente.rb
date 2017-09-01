@@ -16,8 +16,8 @@ class Cliente < Connection::Factory
 
   attr_accessor :receituario, :empresa_name
 
-  validates :cpf, uniqueness: true
-  validates :rg, uniqueness: true
+  # validates :cpf, uniqueness: true
+  # validates :rg, uniqueness: true
 
   belongs_to :empresa
   belongs_to :estado
