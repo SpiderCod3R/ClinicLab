@@ -25,14 +25,23 @@ class ClientesController < Support::ClienteSupportController
   end
 
   def create
-    @cliente = current_user.empresa.clientes.build(resource_params)
-      # binding.pry
-    if @cliente.save
+    if params[:cliente][:id].present?
+      @cliente = Cliente.find(params[:cliente][:id])
       @cliente.manage_convenios(session[:convenios_attributes], session[:option_for_cliente_convenio]) if !session[:convenios_attributes].nil?
-      redirect_to new_empresa_cliente_path(current_user.empresa)
-      flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @cliente.class)
+      if @cliente.update(resource_params)
+        redirect_to new_empresa_cliente_path(current_user.empresa)
+        flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @cliente.class)
+      end
     else
-      render :new
+      @cliente = current_user.empresa.clientes.build(resource_params)
+      # binding.pry
+      if @cliente.save
+        @cliente.manage_convenios(session[:convenios_attributes], session[:option_for_cliente_convenio]) if !session[:convenios_attributes].nil?
+        redirect_to new_empresa_cliente_path(current_user.empresa)
+        flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @cliente.class)
+      else
+        render :new
+      end
     end
   end
 
