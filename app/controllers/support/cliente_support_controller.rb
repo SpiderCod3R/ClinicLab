@@ -34,13 +34,11 @@ class Support::ClienteSupportController < Support::InsideController
   def change_or_create_cliente
     @agenda = Agenda.find(session[:agenda_id])
     # => Caso o Cliente já exista esse primeiro if é executado
-    # binding.pry
     if params[:cliente][:id].present?
       @cliente = Cliente.find(params[:cliente][:id])
       @cliente.collect_agenda_movimentacao_fields(@agenda)
       @cliente.manage_convenios(session[:convenios_attributes], session[:option_for_cliente_convenio]) if !session[:convenios_attributes].nil?
       @cliente.upload_files(params[:cliente][:cliente_pdf_upload]) if !params[:cliente][:cliente_pdf_upload].nil?
-      binding.pry
       if @cliente.update(resource_params)
         @agenda.agenda_movimentacao.update_attributes(nome_paciente: @cliente.nome, telefone_paciente: @cliente.telefone,
                                                       email_paciente: @cliente.email, cliente_id: @cliente.id)
