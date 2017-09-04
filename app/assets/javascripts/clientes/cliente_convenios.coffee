@@ -66,13 +66,6 @@ $(document).ready ->
                                               "</center>" +
                                             "</td>" +
                                             "#{utilizando_agora}" +
-                                            "<td>" +
-                                              "<a href='#{id_convenio}' class=excluir_convenio>" +
-                                                "<center>" +
-                                                  "<i class='fa fa-trash fa-2x' aria-hidden='true'></i>" +
-                                                "</center>" +
-                                              "</a>" +
-                                            "</td>" +
                                           "</tr>"
     # armazenando os valores em um array
     _cliente_convenios_.push

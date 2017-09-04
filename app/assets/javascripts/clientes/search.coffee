@@ -149,13 +149,6 @@ $(document).ready ->
                                                 "</a></center>" +
                                               "</td>" +
                                               "#{using_now}"+
-                                              "<td>" +
-                                                "<a href='#{request.id}' class=excluir_convenio>" +
-                                                  "<center>" +
-                                                    "<i class='fa fa-trash fa-2x' aria-hidden='true'></i>" +
-                                                  "</center>" +
-                                                "</a>" +
-                                              "</td>" +
                                             "</tr>"
       _cliente_convenios_.push
         'cliente_convenio_id': request.id
@@ -191,13 +184,13 @@ $(document).ready ->
     -if request.utilizando_agora==true
       td="<td>" +
         "<center>" +
-          "<input type='checkbox' name='cliente_convenio_status_convenio' id='cliente_convenio_status_convenio' value='#{request.id}' checked>" +
+          "<input type='radio' name='cliente_convenio_status_convenio' id='cliente_convenio_status_convenio' value='#{request.id}' checked>" +
         "</center>" +
       "</td>"
     -if request.utilizando_agora==false
       td="<td>" +
         "<center>" +
-          "<input type='checkbox' name='cliente_convenio_status_convenio' id='cliente_convenio_status_convenio' value='#{request.id}'>" +
+          "<input type='radio' name='cliente_convenio_status_convenio' id='cliente_convenio_status_convenio' value='#{request.id}'>" +
         "</center>" +
       "</td>"
     return td
