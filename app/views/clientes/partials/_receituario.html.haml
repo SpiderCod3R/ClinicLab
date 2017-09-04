@@ -8,7 +8,7 @@
       .row
         .col-sm-5.col-md-4
           = link_to "Incluir Novo", "#", class: "btn btn-success", id: "include_new_recipe"
-          = link_to "Incluir", "#", class: "btn btn-success", id: "save_new_recipe"
+          = link_to "Salvar Receiturário", "#", class: "btn btn-success", id: "save_new_recipe"
           = link_to "Cancelar Inclusão", "#", class: "btn btn-warning", id: "cancel_recipe"
           = link_to "Alterar", "#", class: "btn btn-info", id: "change_recipe" if !@cliente.cliente_receituarios.empty?
           = link_to "Excluir", "#", class: "btn btn-danger", id: "destroy_recipe" if !@cliente.cliente_receituarios.empty?
