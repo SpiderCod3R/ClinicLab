@@ -226,7 +226,6 @@ class Support::ClienteSupportController < Support::InsideController
   end
 
   def include_texto_livre
-    binding.pry
     if params[:cliente_texto_livre][:id].to_i.eql?(0)
       @cliente_texto_livre = ClienteTextoLivre.include(params[:cliente_texto_livre])
     else
