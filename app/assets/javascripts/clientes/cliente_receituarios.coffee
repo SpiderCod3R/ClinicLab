@@ -2,6 +2,9 @@
 $(document).ready ->
   URL_BASE = window.location.origin + "/"
   environment_name = $('#cliente_empresa_name').val()
+  empresa_id = $("#empresa_id").text()
+  agenda_id  = $("#agenda_id").text()
+  cliente_id = $("#cliente_id").val()
 
   $("#cancel_recipe").hide()
   $("#save_new_recipe").hide()
@@ -45,9 +48,22 @@ $(document).ready ->
           cliente_recipe:
             id: $("#id_receituario").text()
             content: content
+        agenda:
+          id: agenda_id
       success: (response) ->
-        window.location.href = URL_BASE + "empresa/" + environment_name + "/clientes/" + $("#cliente_id").val() + "/edit"
-        window.location.href = URL_BASE + "empresa/" + environment_name + "/clientes/" + $("#cliente_id").val() + "/edit#receituario"
+        if response.agenda.page == true
+          # window.location.href = URL_BASE + "empresa/#{empresa_id}/ficha_cliente?agenda_id=#{agenda_id}&cliente_id=#{cliente_id}&locale=pt-BR#"
+          setTimeout (->
+            toastr.success(response.agenda.message, "Sucesso!")
+          ), 2000
+          setTimeout (->
+            window.location.href = URL_BASE + response.agenda.url
+          ), 3000
+
+
+        else
+          window.location.href = URL_BASE + "empresa/" + empresa_id + "/clientes/" + $("#cliente_id").val() + "/edit"
+          window.location.href = URL_BASE + "empresa/" + empresa_id + "/clientes/" + $("#cliente_id").val() + "/edit#receituario"
 
   # => Incluir nova receita
   $('#add_recipe').click ->
@@ -97,12 +113,12 @@ $(document).ready ->
         if result == true
           $.ajax
             type: 'get'
-            url: URL_BASE + "/clientes/#{cliente_id}/receita/#{recipe_id}/remove"
+            url: URL_BASE + "empresa/#{empresa_id}/clientes/#{cliente_id}/receita/#{recipe_id}/remove"
             data:
               recipe_id: recipe_id
               cliente_id: cliente_id
             success: (response) ->
               cliente_id = $("#cliente_id").val()
-              window.location.href=URL_BASE + "empresa/" + environment_name + "/clientes/" + cliente_id + "/edit"
-              window.location.href=URL_BASE + "empresa/" + environment_name + "/clientes/" + cliente_id + "/edit#receituario"
+              window.location.href=URL_BASE + "empresa/" + empresa_id + "/clientes/" + cliente_id + "/edit"
+              window.location.href=URL_BASE + "empresa/" + empresa_id + "/clientes/" + cliente_id + "/edit#receituario"
               $('.nav-tabs a[href="#texto_livre"]').tab('show')

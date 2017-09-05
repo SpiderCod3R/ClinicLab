@@ -79,41 +79,6 @@ class ClientesController < Support::ClienteSupportController
     end
   end
 
-  # def update
-  #   session[:cliente_id] = @cliente.id
-  #   get_historicos
-  #     if params[:cliente][:cliente_pdf_upload][:anotacoes] != ""
-  #   if !params[:cliente][:cliente_pdf_upload][:pdf].nil?
-  #       @cliente.upload_files(params[:cliente][:cliente_pdf_upload])
-  #       if @cliente.update(resource_params)
-  #         if params[:imagens_externas].present?
-  #           salva_imagens_externas
-  #         end
-  #         flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @cliente.class)
-  #         redirect_to edit_empresa_cliente_path(current_user.empresa, @cliente)
-  #       else
-  #         send_back_with_error
-  #         render :edit
-  #       end
-  #     else
-  #       send_back_with_error
-  #       flash[:error] = t("flash.actions.#{__method__}.alert", resource_name: "Cliente") + " É necessário informar um nome para o PDF."
-  #       render :edit
-  #     end
-  #   else
-  #     if @cliente.update(resource_params)
-  #       if params[:imagens_externas].present?
-  #         salva_imagens_externas
-  #       end
-  #       flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @cliente.class)
-  #       redirect_to edit_empresa_cliente_path(current_user.empresa, @cliente)
-  #     else
-  #       send_back_with_error
-  #       render :edit
-  #     end
-  #   end
-  # end
-
   def destroy
     if @cliente.destroy
       redirect_to empresa_clientes_path(current_user.empresa)
@@ -122,6 +87,14 @@ class ClientesController < Support::ClienteSupportController
       flash[:success] = t("flash.actions.#{__method__}.error", resource_name: @cliente.class)
       redirect_to :back
     end
+  end
+
+  def change_convenio
+    @cliente = Cliente.find(params[:cliente_id])
+    # binding.pry
+    @cliente.cliente_convenios.update_all(utilizando_agora: 0)
+    @change_cliente_convenio = @cliente.cliente_convenios.find(params[:cliente_convenio_id])
+    @change_cliente_convenio.update_attributes(utilizando_agora: 1)
   end
 
   private

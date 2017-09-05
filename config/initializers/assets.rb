@@ -16,3 +16,5 @@ Rails.application.config.assets.precompile += %w( utility/load_index_calendar.co
 Rails.application.config.assets.precompile += %w( utility/form_new_holiday.coffee )
 Rails.application.config.assets.precompile += %w( utility/load_year_months_calendar.coffee )
 Rails.application.config.assets.precompile += %w(ckeditor/config.js)
+
+Rails.application.config.assets.precompile += %w( clientes/cliente_convenio_utilizado.coffee )

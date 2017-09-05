@@ -86,6 +86,9 @@
                       %td
                         %center
                           -if c.utilizando_agora?
-                            %input{ type: "radio", name: "cliente_convenio_agenda", id: "cliente_convenio_agenda", value: c.id, checked: "checked"}
+                            %input{ type: "radio", name: "cliente_convenio_agenda", id: "cliente_convenio_agenda", class: "cliente_convenio_agenda", value: c.id, checked: "checked"}
                           -else
-                            %input{ type: "radio", name: "cliente_convenio_agenda", id: "cliente_convenio_agenda", value: c.id}
+                            %input{ type: "radio", name: "cliente_convenio_agenda", id: "cliente_convenio_agenda", class: "cliente_convenio_agenda", value: c.id}
+
+
+=javascript_include_tag "clientes/cliente_convenio_utilizado"

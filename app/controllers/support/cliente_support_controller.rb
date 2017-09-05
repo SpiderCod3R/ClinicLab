@@ -62,9 +62,6 @@ class Support::ClienteSupportController < Support::InsideController
         @cliente.manage_convenios(session[:convenios_attributes], session[:option_for_cliente_convenio]) if !session[:convenios_attributes].nil?
         @agenda.agenda_movimentacao.update_attributes(nome_paciente: @cliente.nome, telefone_paciente: @cliente.telefone,
                                                       email_paciente: @cliente.email, cliente_id: @cliente.id)
-        # if params[:imagens_externas].present?
-        #   salva_imagens_externas
-        # end
         flash[:notice] = "Dados do cliente salvos com sucesso."
         redirect_to empresa_clinic_sheet_cliente_path(current_user.empresa, cliente_id: @cliente.id, agenda_id: @agenda.id)
       else
@@ -280,28 +277,15 @@ class Support::ClienteSupportController < Support::InsideController
       @cliente_receituario.update_attributes(content: params[:cliente][:cliente_recipe][:content], user_id: current_user.id)
     end
 
-    respond_to do |format|
-      format.html
-      format.json { render json: session[:cliente_id].as_json }
+    if params[:agenda]
+      @agenda = Agenda.find(params[:agenda][:id])
     end
-  end
 
-  # def salva_imagens_externas
-  #   unless params[:imagens_externas].empty?
-  #     if params[:imagens_externas]["foto_antes"].present?
-  #       @imagem_externa = ImagemExterna.new
-  #       @imagem_externa.cliente_id = params[:cliente][:id]
-  #       @imagem_externa.foto_antes = params[:imagens_externas]["foto_antes"]
-  #       @imagem_externa.save!
-  #     end
-  #     if params[:imagens_externas]["foto_depois"].present?
-  #       @imagem_externa = ImagemExterna.new
-  #       @imagem_externa.cliente_id = params[:cliente][:id]
-  #       @imagem_externa.foto_depois = params[:imagens_externas]["foto_depois"]
-  #       @imagem_externa.save!
-  #     end
-  #   end
-  # end
+    # respond_to do |format|
+    #   format.html
+    #   format.json { render json: session[:cliente_id].as_json }
+    # end
+  end
 
   def search_pdf_remotely
     @cliente = Cliente.find(params[:cliente][:id])
