@@ -2,8 +2,8 @@ pt-BR:
   flash:
     actions:
       create:
-        notice: '%{resource_name} foi criado com sucesso.'
-        success: '%{resource_name} foi criado com sucesso.'
+        notice: '%{resource_name} foi criado ou atualizado com sucesso.'
+        success: '%{resource_name} foi criado ou atualizado com sucesso.'
         alert: '%{resource_name} não pode ser criado.'
         warning: '%{resource_name} não pode ser criado.'
       update:
