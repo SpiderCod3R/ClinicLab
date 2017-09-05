@@ -15,7 +15,9 @@ class ClienteTextoLivre < Connection::Factory
   end
 
   def update_content(resource)
-    update_attributes(content_data: resource[:content], texto_livre_id: resource[:texto_livre_id])
+    update(content_data: resource[:content])
+    self.texto_livre_id= resource[:texto_livre_id]
+    self.save
   end
 
   def next

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170829144534) do
+ActiveRecord::Schema.define(version: 20170905192415) do
 
   create_table "agenda_movimentacoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "agenda_id"
@@ -595,8 +595,6 @@ ActiveRecord::Schema.define(version: 20170829144534) do
   add_foreign_key "cliente_convenios", "clientes"
   add_foreign_key "cliente_convenios", "convenios"
   add_foreign_key "cliente_receituarios", "clientes"
-  add_foreign_key "cliente_texto_livres", "clientes"
-  add_foreign_key "cliente_texto_livres", "texto_livres"
   add_foreign_key "clientes", "cargos"
   add_foreign_key "clientes", "cidades"
   add_foreign_key "clientes", "empresas"
