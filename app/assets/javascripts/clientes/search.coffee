@@ -1,8 +1,7 @@
+#= require clientes/_init_
 $(document).ready ->
   localhost = window.location.origin
-  window._cliente_convenios_ =[]
-  window._option_="create"
-  window._usando_agora_cliente_convenio_=false
+
 
   # => Metodo para buscar clientes já cadastrados no sistema
   $("#cliente_nome").focusout (event) ->
@@ -110,6 +109,7 @@ $(document).ready ->
     $("#cliente_mae").val(link.data().clienteMae)
     $("#cliente_altura").val(link.data().clienteAltura)
     $("#cliente_peso").val(link.data().clientePeso)
+    $("#cliente_cargo_id").val(link.data().clienteCargoId)
 
     if link.data().clienteStatus != null
       $("#cliente_status").val(link.data().clienteStatus.toString())
@@ -131,6 +131,12 @@ $(document).ready ->
         id: link.data().clienteId
       success: (response) ->
         montar_tabela_convenios(response, link.data().clienteId)
+
+    if $('#cliente_nascimento').length > 0
+      if $('#cliente_nascimento').val().length > 0
+        verifica_data_nascimento()
+    $('#cliente_nascimento').change ->
+      verifica_data_nascimento()
 
   montar_tabela_convenios = (response, cliente_id) ->
     x=0
