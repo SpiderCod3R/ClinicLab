@@ -1,4 +1,43 @@
 pt-BR:
+  clientes:
+    links:
+      new: Novo Cliente
+      edit: Editar Cliente
+      destroy: Excluir Cliente
+      show: Visualizar Cliente
+    helpers:
+      id: ID
+      codigo: "Código"
+      nome: "Nome"
+      cidade: "Cidade"
+      estado: "Estado"
+      rg: "RG"
+      cpf: "CPF"
+      cnpj: "CNPJ"
+      nascimento: "Nascimento"
+      telefone: "Telefone"
+      celular: "Celular"
+      mae: "Mãe"
+      endereco: "Endereço"
+      bairro: "Bairro"
+      convenios: "Convênios"
+      cep: "CEP"
+      status: "Status"
+      status_convenio: "Status"
+      sexo: "Sexo"
+      peso: "Peso"
+      altura: "Altura"
+      email: "E-mail"
+      estado_civil: "Estado Civil"
+      complemento: "Complemento"
+      profissao: "Profissão"
+      plano: "Plano"
+      matricula: "Matricula"
+      validade_carteira: "Validade da carteira"
+      produto: "Produto"
+      titular: "Titular"
+      picture: "Foto"
+      cargo: "Cargo"
   agendas:
     links:
       new: Nova Agenda
@@ -11,7 +50,7 @@ pt-BR:
       default_content: agenda_content_normal
       default: normal
       by_day:  por_dia
-      by_parameters: agenda_content_%{parameter} 
+      by_parameters: agenda_content_%{parameter}
       atendimento_sabado:  Sábado
       atendimento_domingo: Domingo
       atendimento_duracao: "Duração do Atendimento [Min]"
@@ -40,10 +79,10 @@ pt-BR:
       referency_saved: Referência salva com sucesso.
       service_attended: Atendimento concluido
       didnt_came: Paciente não compareceu ao atendimento.
-  activerecord: 
-    models: 
-      agenda: Agenda 
-      referencia_agenda: ReferenciaAgenda 
-  attributes: 
-    referencia_agenda: 
+  activerecord:
+    models:
+      agenda: Agenda
+      referencia_agenda: ReferenciaAgenda
+  attributes:
+    referencia_agenda:
       profissional_id: Profissional

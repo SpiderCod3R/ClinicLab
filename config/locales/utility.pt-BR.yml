@@ -11,7 +11,7 @@ pt-BR:
         permissoes: "Permissões"
         empresa: "Empresas"
         usuario: "Usuários"
-      messages: 
+      messages:
         nao_pode_estar_em_branco: "%{class_name} não pode estar vazio!"
         permissoes_adicionadas: "Permissões adicionadas com successo ao usuario %{resource_name}"
   usuarios:
@@ -30,3 +30,4 @@ pt-BR:
     messages:
       wait: Aguarde, obtendo dados
       no_more_data: Não existem, mais dados para serem carregados
+      not_mentioned: Não Mencionado

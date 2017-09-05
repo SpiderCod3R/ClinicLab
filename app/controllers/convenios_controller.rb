@@ -3,7 +3,7 @@ class ConveniosController < Support::InsideController
   before_action :find_convenio, only: [:show, :edit, :update, :destroy]
 
   def index
-    @search = Convenio.where(empresa: current_user.empresa).ransack(params[:q])
+    @search = Convenio.ransack(params[:q])
     @convenios = @search.result.order("id desc").page(params[:page]).per(10)
     @search.build_condition if @search.conditions.empty?
   end

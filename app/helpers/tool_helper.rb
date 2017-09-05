@@ -23,6 +23,10 @@ module ToolHelper
     return resource ? "ATIVO" : "INATIVO"
   end
 
+  def yes_or_no(resource)
+    return resource ? "SIM" : "NÃO"
+  end
+
   def documento(documento)
     if documento == '1'
       'Física'

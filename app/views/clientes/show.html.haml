@@ -1,170 +1,67 @@
 =build_object_viewer_toolbar(edit_empresa_cliente_path(current_user.empresa,@cliente), @cliente, empresa_clientes_path(current_user.empresa), nil)
 
-%section#cliente
-  .panel.panel-default
-    .panel-heading
-      %h2.center{style: "color: #232323; align: center; font-weight: bolder;"}
-        Cliente -
-        =@cliente.id
-        |
-        =status @cliente.status
-    .panel-body
-      .col-xs-8.col-sm-8.col-md-8.col-lg-8
-        %br
-        .row
-          .col-xs-5.col-sm-3.col-md-3.col-lg-3
-            =label_tag t('clientes.helpers.nome')
-            %br
-            =@cliente.nome
-          .col-xs-4.col-sm-3.col-md-3.col-lg-3
-            =label_tag t('clientes.helpers.estado_civil')
-            %br
-            =@cliente.estado_civil.titleize
-        %br
-        .row
-          .col-xs-5.col-sm-3.col-md-3.col-lg-3
-            =label_tag "Pai"
-            %br
-            =@cliente.pai
-          .col-xs-4.col-sm-3.col-md-3.col-lg-3
-            =label_tag "Mãe"
-            %br
-            =@cliente.mae
-        %br
-        .row
-          .col-xs-6.col-sm-3.col-md-3.col-lg-3
-            =label_tag t('clientes.helpers.nascimento')
-            %br
-            =@cliente.nascimento.strftime("%d/%m/%Y") unless @cliente.nascimento.nil?
-          .col-xs-6.col-sm-3.col-md-3.col-lg-3
-            =label_tag t('clientes.helpers.sexo')
-            %br
-            =@cliente.sexo
-        %br
-        .row
-          .col-xs-6.col-sm-3.col-md-3.col-lg-3
-            =label_tag t('clientes.helpers.peso')
-            %br
-            =@cliente.peso
-          .col-xs-6.col-sm-3.col-md-3.col-lg-3
-            =label_tag t('clientes.helpers.altura')
-            %br
-            =@cliente.altura
-        %br
-        .row
-          .col-xs-6.col-sm-3.col-md-3.col-lg-3
-            =label_tag t('clientes.helpers.cpf')
-            %br
-            =@cliente.cpf
-          .col-xs-6.col-sm-3.col-md-3.col-lg-3
-            =label_tag t('clientes.helpers.rg')
-            %br
-            =@cliente.rg
-        %br
-        .row
-          .col-xs-6.col-sm-3.col-md-3.col-lg-3
-            =label_tag t('clientes.helpers.telefone')
-            %br
-            =@cliente.telefone
-          .col-xs-6.col-sm-3.col-md-3.col-lg-3
-            =label_tag t('clientes.helpers.email')
-            %br
-            - if !@cliente.email.present?
-              Não mencionado
-            -else
-              =@cliente.email
-        %br
-        .row
-          .col-xs-6.col-sm-3.col-md-3.col-lg-3
-            =label_tag t('clientes.helpers.estado')
-            %br
-            =@cliente.estado.nome.titleize if @cliente.try(:estado_id)
-          .col-xs-6.col-sm-3.col-md-3.col-lg-3
-            = label_tag t('clientes.helpers.cidade')
-            %br
-            =@cliente.cidade.nome.titleize if @cliente.try(:cidade_id)
-        %br
-        .row
-          .col-xs-6.col-sm-3.col-md-3.col-lg-3
-            =label_tag t('clientes.helpers.bairro')
-            %br
-            =@cliente.bairro
-          .col-xs-6.col-sm-3.col-md-3.col-lg-3
-            = label_tag t('clientes.helpers.endereco')
-            %br
-            =@cliente.endereco
-        %br
-        .row
-          - if @cliente.complemento.present?
-            .col-xs-3.col-sm-3.col-md-3.col-lg-3
-              =label_tag t('clientes.helpers.complemento')
-              =@cliente.complemento
-          - if @cliente.cargo_id.present?
-            .col-xs-3.col-sm-3.col-md-3.col-lg-3
-              =label_tag t('clientes.helpers.cargo')
-              =@cliente.cargo.nome
-      -if @cliente.foto.present?
-        .col-xs-4.image_thumb_canvas
-          =image_tag @cliente.foto.url(:thumb), :class => "img_canvas pull-right"
-        .col-sm-4.col-md-3.col-lg-3.image_medium_canvas
-          =image_tag @cliente.foto.url(:thumb), :class => "img_canvas pull-right"
-  %br
-  - if @cliente.cliente_convenios.present?
+.container-fluid
+  %section#cliente{style: "margin-top: 80px"}
     .panel.panel-default
       .panel-heading.center
-        =label_tag t('clientes.helpers.convenio')
+        =label_tag  "Cliente - #{@cliente.id} | #{status(@cliente.status)}"
       .panel_body
-        .container
-          - @cliente.cliente_convenios.each do |c|
-            .col-md-6
-              .row
-                .col-xs-12.col-sm-12.col-md-12.col-lg-12
-                  %br
-                  %strong Nome:
-                  - if c.convenio_id.present?
-                    =c.convenio.nome
-                  - else
-                    Não mencionado
-              %br/
-              .row
-                .col-xs-4.col-sm-3.col-md-3.col-lg-3
-                  =label_tag t('clientes.helpers.status_convenio')
-                  %br
-                  =status c.status_convenio
-                .col-xs-4.col-sm-3.col-md-3.col-lg-3
-                  =label_tag t('clientes.helpers.matricula')
-                  %br
-                  - if c.matricula.present?
-                    =c.matricula
-                  - else
-                    Não mencionado
-              %br
-              .row
-                - unless c.validade_carteira.nil?
-                  .col-xs-4.col-sm-3.col-md-3.col-lg-3
-                    =label_tag t('clientes.helpers.validade_carteira')
-                    %br
-                    =c.validade_carteira.strftime("%d/%m/%Y")
-                -if c.produto.present?
-                  .col-xs-4.col-sm-3.col-md-3.col-lg-3
-                    =label_tag t('clientes.helpers.produto')
-                    %br
-                    - if c.produto.present?
-                      =c.produto
-                    - else
-                      Não mencionado
-              %br
-              .row
-                - if c.titular.present?
-                  .col-xs-3.col-sm-3.col-md-3.col-lg-3
-                    =label_tag t('clientes.helpers.titular')
-                    =c.titular
-                - if c.plano.present?
-                  .col-xs-3.col-sm-3.col-md-3.col-lg-3
-                    =label_tag t('clientes.helpers.plano')
-                    =c.plano
-              .row
-                - if c.via.present?
-                  .col-xs-3.col-sm-3.col-md-3.col-lg-3
-                    =label_tag "Via"
-                    =c.via
+        %hr{style: "border: #B0B0B0 0.5px dashed"}
+        %table.table_cliente_stuff.table.table-condensed.table-hover.table-stripped
+          %caption{style: "font-weight: bold; margin-left: 12px"} Dados Pessoais
+          %thead
+            %th=label_tag t('clientes.helpers.nome')
+            %th=label_tag t('clientes.helpers.cpf')
+            %th=label_tag t('clientes.helpers.rg')
+            %th=label_tag t('clientes.helpers.estado_civil')
+            %th Pai
+            %th Mãe
+            %th=label_tag t('clientes.helpers.nascimento')
+            %th=label_tag t('clientes.helpers.sexo')
+            %th=label_tag t('clientes.helpers.peso')
+            %th=label_tag t('clientes.helpers.altura')
+            %th=label_tag t('clientes.helpers.cargo')
+          %tbody
+            %tr
+              %td=@cliente.nome
+              %td=@cliente.cpf
+              %td=@cliente.rg
+              %td=@cliente.estado_civil.titleize
+              %td=@cliente.pai
+              %td=@cliente.mae
+              %td=@cliente.nascimento.strftime("%d/%m/%Y") unless @cliente.nascimento.nil?
+              %td=@cliente.sexo
+              %td=@cliente.peso
+              %td=@cliente.altura
+              %td=@cliente.cargo.nome if @cliente.cargo_id.present?
+        %table.table_cliente_stuff.table.table-condensed.table-hover.table-stripped
+          %caption{style: "font-weight: bold; margin-left: 12px"} Dados Para Contato
+          %thead
+            %th=label_tag t('clientes.helpers.telefone')
+            %th=label_tag t('clientes.helpers.email')
+            %th=label_tag t('clientes.helpers.estado')
+            %th= label_tag t('clientes.helpers.cidade')
+            %th=label_tag t('clientes.helpers.bairro')
+            %th=label_tag t('clientes.helpers.endereco')
+            %th=label_tag t('clientes.helpers.complemento')
+          %tbody
+            %tr
+              %td=@cliente.telefone
+              %td
+                - if !@cliente.email.present?
+                  =t('helpers.messages.not_mentioned')
+                -else
+                  =@cliente.email
+              %td=@cliente.estado.nome.titleize if @cliente.try(:estado_id)
+              %td=@cliente.cidade.nome.titleize if @cliente.try(:cidade_id)
+              %td=@cliente.bairro
+              %td=@cliente.endereco
+              %td=@cliente.complemento
+        %hr{style: "border: #B0B0B0 0.5px dashed"}
+        .panel-bottom{style: "margin-left: 20px; margin-top: 10px; margin-bottom: 15px;"}
+          %label Foto:
+          .row-fluid
+            =image_tag @cliente.foto.url(:thumb), :class => "img_canvas" if @cliente.foto.present?
+    %br
+    - if @cliente.cliente_convenios.present?
+      =render 'clientes/partials/cliente_convenios_table'

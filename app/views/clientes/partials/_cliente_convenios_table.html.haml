@@ -1,0 +1,51 @@
+.panel.panel-default
+  .panel-heading.center
+    =label_tag t('clientes.helpers.convenios')
+  .panel_body
+    %table.table_cliente_stuff.table.table-condensed.table-hover.table-stripped
+      %thead
+        %th Utilizando Agora?
+        %th Status
+        %th Nome
+        %th Matricula
+        %th Validade
+        %th Produto
+        %th Titular
+        %th Plano
+        %th Via
+      %tbody
+        - @cliente.cliente_convenios.each do |c|
+          %tr{id: "tr_cliente_convenio_id_#{c.id}"}
+            %td.center=yes_or_no c.utilizando_agora
+            %td.center=status c.convenio.status
+            %td=c.convenio.nome
+            %td.center
+              - if c.matricula.present?
+                =c.matricula
+              - else
+                =t('helpers.messages.not_mentioned')
+            %td.center
+              - unless c.validade_carteira.nil?
+                =c.validade_carteira.strftime("%d/%m/%Y")
+              - else
+                =t('helpers.messages.not_mentioned')
+            %td
+              -if c.produto.present?
+                =c.produto
+              - else
+                =t('helpers.messages.not_mentioned')
+            %td
+              - if c.titular.present?
+                =c.titular
+              - else
+                =t('helpers.messages.not_mentioned')
+            %td
+              - if c.plano.present?
+                =c.plano
+              - else
+                =t('helpers.messages.not_mentioned')
+            %td
+              - if c.via.present?
+                =c.via
+              - else
+                =t('helpers.messages.not_mentioned')
