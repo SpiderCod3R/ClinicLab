@@ -39,7 +39,7 @@
         = f.select :estado_civil, options_for_select([ "CASADO", "DIVORCIADO", "SOLTEIRO", "VIUVO(a)" ], estado_civil.to_s), {include_blank: "Selecione"} ,{ :class => "form-control"}
         =error_custom_tag(@cliente, :"estado_civil", "Estado Civil")
     .row
-      .col-xs-12.col-sm-10.col-md-2.col-lg-2
+      .col-xs-12.col-sm-10.col-md-3.col-lg-2
         =f.label "Nacionalidade"
         =f.localized_country_select(:nacionalidade, [], {include_blank: "Selecione"}, {:class => "form-control"})
       #naturalidade_cliente{style: "display: none;"}

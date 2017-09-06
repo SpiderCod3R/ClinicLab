@@ -1,8 +1,7 @@
-%nav.navbar.navbar-full.navbar-light.navbar-fixed-top.navbar-custom
-  .container-fluid
-    / Brand and toggle get grouped for better mobile display
+%nav{id: "header", class: "navbar navbar-fixed-top navbar-custom" }
+  #header-container.container.navbar-container
     .navbar-header
-      %button.navbar-toggle.collapsed{"aria-expanded" => "false", "data-target" => "#bs-example-navbar-collapse-1", "data-toggle" => "collapse", :type => "button"}
+      %button.navbar-toggle.collapsed{"aria-expanded" => "false", "data-target" => "#navbar-collapse", "data-toggle" => "collapse", :type => "button"}
         %span.sr-only Toggle navigation
         %span.icon-bar
         %span.icon-bar
@@ -13,7 +12,7 @@
       -else
         =link_to new_admin_session_path, class: "navbar-brand" do
           GClinicWeb
-    #bs-example-navbar-collapse-1.collapse.navbar-collapse
+    #navbar-collapse.collapse.navbar-collapse
       %ul.nav.navbar-nav
         -unless new_path.nil?
           %li.nav-item= link_to "#{image_tag("icons/glyphicons-191-circle-plus-white.png", width: 22, height: 22)} NOVO".html_safe, new_path

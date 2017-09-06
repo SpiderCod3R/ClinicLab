@@ -43,7 +43,7 @@ class Support::ClienteSupportController < Support::InsideController
         @agenda.agenda_movimentacao.update_attributes(nome_paciente: @cliente.nome, telefone_paciente: @cliente.telefone,
                                                       email_paciente: @cliente.email, cliente_id: @cliente.id)
         if params[:imagens_externas].present?
-          salva_imagens_externas
+          @cliente.salva_imagens_externas(params[:imagens_externas])
         end
         flash[:notice] = "Dados do cliente atualizados com sucesso."
         redirect_to empresa_clinic_sheet_cliente_path(current_user.empresa, cliente_id: @cliente.id, agenda_id: @agenda.id) and return

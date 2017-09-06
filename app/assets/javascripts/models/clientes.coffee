@@ -1,0 +1,13 @@
+#= require clientes/carousel
+#= require clientes/estados_cidades
+#= require clientes/cliente_convenios
+#= require clientes/cliente_idade
+#= require clientes/cliente_nacionalidade
+#= require clientes/texto_livre
+#= require clientes/cliente_historicos
+#= require clientes/cliente_convenio_agenda
+#= require clientes/cliente_receituarios
+#= require clientes/cliente_imagem_externa
+#= require clientes/cliente_contato
+#= require clientes/cliente_pdfs
+#= require clientes/search

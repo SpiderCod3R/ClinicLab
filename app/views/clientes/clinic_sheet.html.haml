@@ -2,12 +2,12 @@
   =build_form_toolbar(nil, ".edit_cliente", @cliente, empresa_clientes_path(current_user.empresa), nil)
 -else
   =build_form_toolbar(nil, ".new_cliente", @cliente, empresa_clientes_path(current_user.empresa), nil)
-%section{id: "clinic_sheet"}
-  .container-fluid
-    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+%section{id: "clinic_sheet", style: "margin-top: 5%"}
+  #wrapper
+    .container.container_cliente_form
       %h1 Ficha Cliente
       %hr{style: "border: #323232 solid 0.5px;"}
-      .row-fluid
+      .row
         - if @cliente.errors.any?
           .alert.alert-danger
             .container
@@ -16,12 +16,14 @@
                   Alguns erros impediram este cliente de ser salvo.
                   %br
                   Verifique-os e tente novamente.
-  .container-fluid
-    .col-xs-12.col-sm-12.col-md-12.col-lg-12
-      .panel
-        =render 'clientes/partials/form_from_agenda'
+      =render 'clientes/partials/form_from_agenda'
+      %br/
+      %br/
+      .clearfix
+      .container-fluid
+        %hr{style: "border: #C5C5C5 0.5px solid"}
   - if params[:agenda_id]
-    .container-fluid
+    .container
       .col-xs-12.col-sm-12.col-md-12.col-lg-12
         -if params[:cliente_id].present?
           =link_to "Voltar para a agenda", "#", class: "btn btn-success", id: "return_to_agenda"

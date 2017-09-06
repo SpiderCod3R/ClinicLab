@@ -6,7 +6,7 @@
   .container
     .row
       #updload_pdf_area
-        .col-sm-11.col-md-4
+        .col-xs-12.col-sm-10.col-md-4.col-lg-4
           .panel.panel-default
             .panel-heading
               %b Envio de PDF's
@@ -23,7 +23,7 @@
                     =u.input :pdf, as: :file, label: false
                     #pdf_selected
                     =error_custom_tag(@cliente, :"cliente_pdf_uploads", "Documento")
-        .col-sm-09.col-md-7
+        .col-xs-12.col-sm-10.col-md-7.col-lg-7
           .panel.panel-default
             .panel-heading
               %b Pesquisar PDF's
@@ -38,12 +38,12 @@
                 .col-sm-2.col-md-2
                   =link_to "#", class: "btn btn-primary", id: "btn_search_pdf" do
                     %i{ class: "fa fa-search" }
-              %br
-              %br
-              .row-fluid
+          .panel.panel-default
+            .panel-heading
+              .row
                 -if !@cliente_collection_pdfs.empty?
                   .table-responsive
-                    %table{class: "table table_pdf_cliente table-striped table-bordered"}
+                    %table{class: "table  table-striped table-bordered"}
                       %thead
                         %th Nome
                         %th Data

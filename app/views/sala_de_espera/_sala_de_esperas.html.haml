@@ -18,7 +18,7 @@
       .btn-group
         %button.btn.btn-default.btn-circle.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
           %i.glyphicon.glyphicon-chevron-up
-        %ul.dropdown-menu.drop-down.pull-right
+        %ul.dropdown-menu.drop-up.pull-right
           -if f.agenda.try(:agenda_movimentacao)
             %li=link_to "Ficha do Paciente", empresa_clinic_sheet_cliente_path(current_user.empresa, cliente_id: f.agenda.agenda_movimentacao.cliente_id, agenda_id: f.agenda, sala_espera_id: f)
             - if f.agenda.agenda_movimentacao.movimento_servico.present?

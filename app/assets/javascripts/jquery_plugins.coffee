@@ -1,0 +1,12 @@
+#= require JQUERY/jquery.min
+#= require jquery-ui/effect.all
+#= require jquery-ui/effect-blind
+#= require JQUERY/jquery-migrate-1.2.1.min
+#= require JQUERY/jquery.maskMoney
+#= require JQUERY/jquery.numeric.pack
+#= require JQUERY/jquery.maskedinput-1.1.4.pack
+#= require jquery_ujs
+#= require jquery/jquery.easing-1.3
+#= require jquery/jquery.elastislide
+#= require jquery/jquery.tmpl.min
+#= require GALLERY/responsive
