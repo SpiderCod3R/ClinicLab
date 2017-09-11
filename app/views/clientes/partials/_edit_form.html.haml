@@ -1,13 +1,37 @@
-= simple_form_for([current_user.empresa, @cliente]) do |f|
-  =f.input :empresa_name, as: :hidden, input_html: { value: current_user.empresa.slug }
-  %ul{class: "nav nav-tabs"}
-    %li{class:"active"}
-      %a{'data-toggle':"tab", href:"#dados", id: "aba_dados"} Dados Pessoais
-    %li
-      %a{'data-toggle':"tab", href:"#contato", id: "aba_contato"} Contato
-    %li
-      %a{'data-toggle':"tab", href:"#convenio", id: "aba_convenio"} Convênio
-    -if !current_user.admin? 
+-# = simple_form_for([current_user.empresa, @cliente]) do |f|
+-#   =f.input :empresa_name, as: :hidden, input_html: { value: current_user.empresa.slug }
+-#   %ul{class: "nav nav-tabs"}
+-#     %li.active
+-#       %a{'data-toggle': "tab", href: "#dados"} Dados Pessoais
+-#     %li
+-#       %a{'data-toggle': "tab", href: "#contato"} Contato
+-#     %li
+-#       %a{'data-toggle': "tab", href: "#convenio"} Convênio
+-#     -if !current_user.admin?
+-#       -if !@cliente_permissao.nil?
+-#         =render 'cliente_permissoes/abas'
+-#     -else
+-#       =render 'clientes/partials/asset/abas_padrao_adm'
+-#   %div{class: "container", style: "margin-left: 5%; padding-top: 15px; padding-bottom: 15px;"}
+-#     .tab-content
+-#       =render 'clientes/partials/dados_pessoais_edit', { f: f }
+-#       =render 'clientes/partials/convenio', { f: f }
+-#       =render 'clientes/partials/contato', { f: f }
+-#       =render 'clientes/partials/historico', { f: f }
+-#       =render 'clientes/partials/texto_livre', { f: f }
+-#       =render 'clientes/partials/pdf_upload', { f: f }
+-#       =render 'clientes/partials/receituario', { f: f }
+-#       =render 'clientes/partials/imagens_externas', { f: f }
+
+%ul{class: "nav nav-tabs"}
+  %li{class:"active"}
+    %a{'data-toggle':"tab", href:"#dados", id: "aba_dados"} Dados Pessoais
+  %li
+    %a{'data-toggle':"tab", href:"#contato", id: "aba_contato"} Contato
+  %li
+    %a{'data-toggle':"tab", href:"#convenio", id: "aba_convenio"} Convênios
+  -if @cliente.id?
+    -if !current_user.admin?
       -if !@cliente_permissao.nil?
         -if @cliente_permissao.historico?
           %li
@@ -35,29 +59,13 @@
         %a{'data-toggle':"tab", href:"#receituario", id: "aba_receituario"} Receituário
       %li
         %a{'data-toggle':"tab", href:"#imagens_externas", id: "aba_imagens_externas"} Imagens Externas
+= simple_form_for([current_user.empresa, @cliente]) do |f|
+  =f.input :empresa_name, as: :hidden, input_html: { value: current_user.empresa.slug }
+  =render "clientes/partials/abas", {f: f}
 
-  %div{class: "container", style: "padding-top: 7px; padding-bottom: 25px;"}
-    %div{class:"tab-content"}
-      / aba dados_pessoais
-      =render 'clientes/partials/dados_pessoais_edit', { f: f }
 
-      / aba convenio
-      =render 'clientes/partials/convenio', { f: f }
+#empresa_id{style: "display: none"}=params[:empresa_id]
+#empresa_value{style: "display: none"}=current_user.empresa_id
+#cliente_id{style: "display: none"}=params[:cliente_id]
+#agenda_id{style: "display: none"}=params[:agenda_id]
 
-      / aba contato
-      =render 'clientes/partials/contato', { f: f }
-
-      / aba historico
-      =render 'clientes/partials/historico', { f: f }
-
-      / aba texto-livre
-      =render 'clientes/partials/texto_livre', { f: f }
-
-      / aba pdf
-      =render 'clientes/partials/pdf_upload', { f: f }
-
-      / aba receituario
-      =render 'clientes/partials/receituario', { f: f }
-
-      / aba imagens_externas
-      =render 'clientes/partials/imagens_externas', { f: f }

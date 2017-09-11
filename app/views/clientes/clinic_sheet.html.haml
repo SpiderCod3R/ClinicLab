@@ -22,6 +22,7 @@
         =render 'clientes/partials/form_from_agenda'
   - if params[:agenda_id]
     .container-fluid
+      %hr{style: "border: #323232 solid 0.5px;"}
       .col-xs-12.col-sm-12.col-md-12.col-lg-12
         -if params[:cliente_id].present?
           =link_to "Voltar para a agenda", "#", class: "btn btn-success", id: "return_to_agenda"

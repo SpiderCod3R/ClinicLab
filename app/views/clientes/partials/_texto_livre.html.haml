@@ -1,11 +1,11 @@
 #texto_livre.tab-pane.fade
-  .container-fluid
+  .container
     - if @cliente.id?
-      .row-fluid
+      .row
         .col-sm-10.col-md-11
           =render 'clientes/partials/cliente_legend'
     %br/
-    .row-fluid
+    .row
       .col-sm-6.col-md-6
         .pull-left
           = link_to "Incluir Novo", "#", class: "btn btn-success", id: "include_new_free_text"
@@ -20,7 +20,7 @@
           #manual_pagination
             =render 'manual_pagination' if !@cliente.cliente_texto_livres.empty?
   %br/
-  .container-fluid
+  .container
     .col-md-11
       -if !@cliente_texto_livre.nil?
         #free_text_area

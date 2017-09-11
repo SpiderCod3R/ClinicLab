@@ -6,19 +6,6 @@
   .col-xs-12.col-sm-12.col-md-6.col-lg-6
     .row
       %input{:type=>"hidden", :class => "form-control", :id => "cliente_convenio_id"}
-    -# .row
-    -#   -if params[:agenda_id]
-    -#     .panel.panel-warning
-    -#       .panel-heading
-    -#         .container-fluid
-    -#           %label Utilizar nessa Agenda agora?
-    -#           %input{type: "checkbox", name: "cliente_convenio_utilizando_agora", id: "cliente_convenio_utilizando_agora"}
-    -# .row
-    -#   .col-xs-12.col-sm-5.col-md-4.col-lg-4
-    -#     %label{class: "string control-label"}
-    -#       Status Convênio
-    -#     %br
-    -#     = collection_radio_buttons(:cliente_convenio, :status_convenio, [[true, 'Ativo'] ,[false, 'Inativo']], :first, :last, :class => "status_convenio_radio_buttons", checked: true)
     .row
       .col-xs-12.col-sm-5.col-md-6.col-lg-6
         %label{class: "string control-label"}
@@ -65,30 +52,48 @@
       %div{class: "panel-heading"}
         = "Convênio(s) Associado(s) ao Cliente"
       %div{class: "panel-body"}
-        #table_cliente_convenios
-          .table-responsive
-            %table{class: "table table-striped table-bordered table-hover table-responsive"}
-              %thead
-                %th Convênio
-                %th Editar
-                %th Convênio Utilizado?
-              %tbody#tabela_cliente_convenios
-                - if @cliente.cliente_convenios.present?
-                  - @cliente.cliente_convenios.each_with_index do |c, key|
-                    %tr
-                      %td
-                        = c.convenio.nome
-                      %td
-                        %center
-                          -validade = c.validade_carteira.strftime("%d/%m/%Y") if c.validade_carteira?
-                          =link_to "#", data: { id: c.id ,convenio_id: c.convenio.id, convenio_matricula: c.matricula, convenio_validade: validade, convenio_titular: c.titular, convenio_plano: c.plano, convenio_produto: c.produto, convenio_status: c.status_convenio, convenio_via: c.via, convenio_observacoes: c.observacoes}, id: "change_convenio_cliente" do
-                            %i.fa.fa-pencil-square.fa-2x
-                      %td
-                        %center
-                          -if c.utilizando_agora?
-                            %input{ type: "radio", name: "cliente_convenio_agenda", id: "cliente_convenio_agenda", class: "cliente_convenio_agenda", value: c.id, checked: "checked"}
-                          -else
-                            %input{ type: "radio", name: "cliente_convenio_agenda", id: "cliente_convenio_agenda", class: "cliente_convenio_agenda", value: c.id}
-
+        -if params[:agenda_id]
+          #table_cliente_convenios
+            .table-responsive
+              %table{class: "table table-striped table-bordered table-hover table-responsive"}
+                %thead
+                  %th Convênio
+                  %th Editar
+                  %th Convênio Utilizado?
+                %tbody#tabela_cliente_convenios
+                  - if @cliente.cliente_convenios.present?
+                    - @cliente.cliente_convenios.each_with_index do |c, key|
+                      %tr
+                        %td
+                          = c.convenio.nome
+                        %td
+                          %center
+                            -validade = c.validade_carteira.strftime("%d/%m/%Y") if c.validade_carteira?
+                            =link_to "#", data: { id: c.id ,convenio_id: c.convenio.id, convenio_matricula: c.matricula, convenio_validade: validade, convenio_titular: c.titular, convenio_plano: c.plano, convenio_produto: c.produto, convenio_status: c.status_convenio, convenio_via: c.via, convenio_observacoes: c.observacoes}, id: "change_convenio_cliente" do
+                              %i.fa.fa-pencil-square.fa-2x
+                        %td
+                          %center
+                            -if c.utilizando_agora?
+                              %input{ type: "radio", name: "cliente_convenio_agenda", id: "cliente_convenio_agenda", class: "cliente_convenio_agenda", value: c.id, checked: "checked"}
+                            -else
+                              %input{ type: "radio", name: "cliente_convenio_agenda", id: "cliente_convenio_agenda", class: "cliente_convenio_agenda", value: c.id}
+        -else
+          #table_cliente_convenios
+            .table-responsive
+              %table{class: "table table-striped table-bordered table-hover table-responsive"}
+                %thead
+                  %th Convênio
+                  %th Editar
+                %tbody#tabela_cliente_convenios
+                  - if @cliente.cliente_convenios.present?
+                    - @cliente.cliente_convenios.each_with_index do |c, key|
+                      %tr
+                        %td
+                          = c.convenio.nome
+                        %td
+                          %center
+                            -validade = c.validade_carteira.strftime("%d/%m/%Y") if c.validade_carteira?
+                            =link_to "#", data: { id: c.id ,convenio_id: c.convenio.id, convenio_matricula: c.matricula, convenio_validade: validade, convenio_titular: c.titular, convenio_plano: c.plano, convenio_produto: c.produto, convenio_status: c.status_convenio, convenio_via: c.via, convenio_observacoes: c.observacoes}, id: "change_convenio_cliente" do
+                              %i.fa.fa-pencil-square.fa-2x
 
 =javascript_include_tag "clientes/cliente_convenio_utilizado"
