@@ -330,7 +330,7 @@ class Support::ClienteSupportController < Support::InsideController
 
     def send_back_with_error
       @cliente_texto_livre=@cliente.cliente_texto_livres.first
-      @cliente_pdf_uploads=@cliente.cliente_pdf_uploads.build
+      # @cliente_pdf_uploads=@cliente.cliente_pdf_uploads.build
       @cliente.imagens_externas.build
       if params[:page].permitted?
         @@page = params[:page]
@@ -362,7 +362,7 @@ class Support::ClienteSupportController < Support::InsideController
     def resource_params
       params.require(:cliente).permit(
         :id, :status, :nome, :cpf, :endereco, :complemento, :bairro, :estado_id, :indicacao, :observacoes,
-        :cidade_id, :empresa_id, :foto, :email, :telefone, :cargo_id, :pai, :mae,
+        :cidade_id, :empresa_id, :foto, :email, :telefone, :cargo_id, :pai, :mae, :cep,
         :nascimento, :sexo, :rg, :estado_civil, :nacionalidade, :naturalidade, :altura, :peso,
         cliente_convenios_attributes: [:id, :cliente_id, :convenio_id, :status_convenio, :matricula, :plano, :validade_carteira, :produto, :titular],
         imagens_externas_attributes: [:foto_antes, :foto_depois, :cliente_id],
