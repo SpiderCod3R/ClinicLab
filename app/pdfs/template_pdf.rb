@@ -3,16 +3,16 @@ class TemplatePdf < Prawn::Document
     options = {
       page_size: 'A4',
       page_layout: :portrait,
-      top_margin: 20
+      top_margin: 50
     }
   end
 
-  def initialize(resource, relatorio, titulo)
+  def initialize(cliente, resource, relatorio)
     super(page_layout)
     self.font_size = 10
+    @cliente = cliente
     @resource = resource
     @relatorio = relatorio
-    @titulo     = titulo
     imprimir_pdf
   end
 
@@ -32,16 +32,15 @@ class TemplatePdf < Prawn::Document
       if @relatorio.logo.present?
         image ("public/system/configuracao_relatorios/logos/000/000/001/original/#{@relatorio.logo_file_name}"), height: 70, valign: :top, position: :left
       end
-      bounding_box([100, bounds.top], width: 200, height: 50) do
-        text "#{@relatorio.nome_empresa.upcase}", style: :bold, size: 12, align: :left, valign: :center
+      bounding_box([10, 690], width: 300, height: 50) do
+        text "#{@cliente.nome.upcase}", style: :bold, size: 10, align: :left, valign: :center
       end
-      move_down 10
-      text @titulo, style: :bold, size: 12, align: :center
-      line [0, 700], [522, 700]
-      stroke
-      bounding_box([390, bounds.top], width: 200) do
-        text "Emissão: #{@data} - #{@hora}", style: :bold
-      end
+      # move_down 100
+      # line [0, 700], [522, 700]
+      # stroke
+      # bounding_box([390, bounds.top], width: 200) do
+      draw_text "Emissão: #{@data} - #{@hora}", at: [390, 660]
+      # end
     end
   end
 

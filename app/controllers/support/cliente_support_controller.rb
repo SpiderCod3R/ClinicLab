@@ -113,7 +113,7 @@ class Support::ClienteSupportController < Support::InsideController
       respond_to do |format|
         format.html
         format.pdf do
-          pdf = PrintRecipe.new(@cliente_receituario.content, @relatorio, "Receituário")
+          pdf = PrintRecipe.new(@cliente, @cliente_receituario.content, @relatorio)
           send_data pdf.render, filename: "#{@cliente_receituario.cliente.nome}", type: 'application/pdf', disposition: 'inline'
         end
       end
