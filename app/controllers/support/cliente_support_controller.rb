@@ -4,6 +4,7 @@ class Support::ClienteSupportController < Support::InsideController
   before_action :set_access, only: [:edit, :ficha, :clinic_sheet]
 
   def clinic_sheet
+    session[:convenios_attributes] = nil
     session[:agenda_id] = params[:agenda_id]
     @agenda = Agenda.find(session[:agenda_id])
     if params[:cliente_id]
