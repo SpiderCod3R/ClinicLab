@@ -5,7 +5,7 @@ require 'converters/time_converter'
 class SalaEspera < Connection::Factory
   include ActiveMethods
 
-  paginates_per 3
+  paginates_per 10
 
   belongs_to :cliente
   belongs_to :referencia_agenda
