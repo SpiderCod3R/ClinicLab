@@ -39,7 +39,11 @@ class Support::ClienteSupportController < Support::InsideController
       @cliente = Cliente.find(params[:cliente][:id])
       @cliente.collect_agenda_movimentacao_fields(@agenda)
       @cliente.manage_convenios(session[:convenios_attributes], session[:option_for_cliente_convenio]) if !session[:convenios_attributes].nil?
-      @cliente.upload_files(params[:cliente][:cliente_pdf_upload]) if !params[:cliente][:cliente_pdf_upload][:anotacoes].eql?("")
+
+      # if !params[:cliente][:cliente_pdf_upload][:anotacoes].eql?("")
+      #   @cliente.upload_files(params[:cliente][:cliente_pdf_upload])
+      # end
+
       if @cliente.update(resource_params)
         @agenda.agenda_movimentacao.update_attributes(nome_paciente: @cliente.nome, telefone_paciente: @cliente.telefone,
                                                       email_paciente: @cliente.email, cliente_id: @cliente.id)
