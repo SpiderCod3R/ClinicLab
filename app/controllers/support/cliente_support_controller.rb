@@ -40,9 +40,7 @@ class Support::ClienteSupportController < Support::InsideController
       @cliente.collect_agenda_movimentacao_fields(@agenda)
       @cliente.manage_convenios(session[:convenios_attributes], session[:option_for_cliente_convenio]) if !session[:convenios_attributes].nil?
 
-      # if !params[:cliente][:cliente_pdf_upload][:anotacoes].eql?("")
-      #   @cliente.upload_files(params[:cliente][:cliente_pdf_upload])
-      # end
+      @cliente.upload_files(params[:cliente][:cliente_pdf_upload])
 
       if @cliente.update(resource_params)
         @agenda.agenda_movimentacao.update_attributes(nome_paciente: @cliente.nome, telefone_paciente: @cliente.telefone,
