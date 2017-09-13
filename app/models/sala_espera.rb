@@ -5,6 +5,8 @@ require 'converters/time_converter'
 class SalaEspera < Connection::Factory
   include ActiveMethods
 
+  paginates_per 3
+
   belongs_to :cliente
   belongs_to :referencia_agenda
   belongs_to :agenda
@@ -16,7 +18,7 @@ class SalaEspera < Connection::Factory
     def search_by_data(params)
       self.set_connection
       @param_data = Converter::DateConverter.new(params[:data]["sala_espera(1i)"].to_i, params[:data]["sala_espera(2i)"].to_i, params[:data]["sala_espera(3i)"].to_i)
-      find_by_sql("SELECT DISTINCT 
+      find_by_sql("SELECT DISTINCT
                     s.id AS id,
                     m.cliente_id As cliente_id,
                     s.agenda_id As agenda_id,
@@ -73,7 +75,7 @@ class SalaEspera < Connection::Factory
     end
 
     def _select_without_pacient(data, status)
-      find_by_sql("SELECT DISTINCT 
+      find_by_sql("SELECT DISTINCT
                     s.id AS id,
                     m.cliente_id As cliente_id,
                     s.agenda_id As agenda_id,
@@ -91,7 +93,7 @@ class SalaEspera < Connection::Factory
     end
 
     def _select_without_pacient_and_status_todos(data)
-      find_by_sql("SELECT DISTINCT 
+      find_by_sql("SELECT DISTINCT
                     s.id AS id,
                     m.cliente_id As cliente_id,
                     s.agenda_id As agenda_id,
@@ -137,7 +139,7 @@ class SalaEspera < Connection::Factory
                     s.hora_chegada,
                     s.hora_inicio_atendimento,
                     s.hora_fim_atendimento,
-                    m.nome_paciente 
+                    m.nome_paciente
                    FROM sala_esperas as s
                    INNER JOIN agenda_movimentacoes as m ON m.agenda_id = s.agenda_id
                    WHERE s.data='#{data}'

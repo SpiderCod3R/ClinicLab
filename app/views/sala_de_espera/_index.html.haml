@@ -36,3 +36,6 @@
         %th Opções
     %tbody#sala_esperas
       =render 'sala_de_espera/sala_de_esperas', {sala_esperas: @sala_esperas}
+
+  #waiting_room_paginator=paginate @sala_esperas, remote: true
+

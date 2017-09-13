@@ -1,0 +1,4 @@
+if ($("#waiting_room_paginator").length) {
+  $('#sala_esperas').html("<%=j render 'sala_de_espera/sala_de_esperas', {sala_esperas: @sala_esperas} %>");
+  $('#waiting_room_paginator').html("<%=j paginate(@sala_esperas, :remote => true).to_s %>");
+}
