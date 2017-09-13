@@ -1,0 +1,5 @@
+-if !@agenda_permissao.nil?
+  -if @agenda_permissao.sala_espera?
+    =render 'sala_de_espera/index'
+-if current_user.admin
+  =render 'sala_de_espera/index'

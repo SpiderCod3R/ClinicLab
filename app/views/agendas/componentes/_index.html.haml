@@ -14,23 +14,11 @@
   .tab-content
     -if can? :read, Agenda
       #agendas.tab-pane.active{:role => "tabpanel"}
-        =render 'result'
+        =render 'registros'
     -if can? :create, Agenda
       #gerar_agenda.tab-pane{:role => "tabpanel"}
         =render 'form'
-    -if !@agenda_permissao.nil?
-      -if @agenda_permissao.sala_espera?
-        #sala_espera.tab-pane{:role => "tabpanel"}
-          .panel
-            .container-fluid
-              %hr
-              =render 'sala_de_espera/index'
-    -if current_user.admin
-      #sala_espera.tab-pane{:role => "tabpanel"}
-        .panel
-          .container-fluid
-            %hr
-            =render 'sala_de_espera/index'
+    =render 'agendas/componentes/sala_espera'
 
 %hr{style: "border: #323232 solid 0.5px;"}
 #movimentar_agenda_section
