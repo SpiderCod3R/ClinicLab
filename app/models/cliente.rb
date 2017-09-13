@@ -6,18 +6,18 @@ class Cliente < Connection::Factory
   include ActiveMethods
   include AtivandoStatus
 
+  attr_accessor :receituario, :empresa_name
   attr_accessor :empresa_name, :texto_livres
 
   scope :pelo_nome, -> { order("nome ASC") }
 
   validates :nome, :endereco,
             :bairro, :nascimento, :sexo,
-            :estado_civil, :telefone, presence: true
+            :estado_civil, :telefone, :rg, presence: true
 
-  attr_accessor :receituario, :empresa_name
 
   # validates :cpf, uniqueness: true
-  # validates :rg, uniqueness: true
+  validates :rg, uniqueness: true
 
   belongs_to :empresa
   belongs_to :estado
