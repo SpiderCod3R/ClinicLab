@@ -41,8 +41,8 @@
     .row
       .col-xs-12.col-sm-10.col-md-2.col-lg-2
         =f.label "Nacionalidade"
-        =f.localized_country_select(:nacionalidade, [], {include_blank: "Selecione"}, {:class => "form-control"})
+        =f.localized_country_select(:nacionalidade, [], {include_blank: "Selecione"}, {:class => "form-control selectpicker", "data-live-search": true})
       #naturalidade_cliente{style: "display: none;"}
         .col-xs-12.col-sm-10.col-md-3.col-lg-3
           =f.label "Naturalidade"
-          =f.collection_select(:naturalidade, Estado.pelo_nome, :id, :nome, {include_blank: "Selecione"}, {:class=>'form-control'})
+          =f.collection_select(:naturalidade, Estado.pelo_nome, :id, :nome, {include_blank: "Selecione"}, {:class=>'form-control selectpicker', "data-live-search": true})
