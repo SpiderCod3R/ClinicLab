@@ -1,0 +1,42 @@
+=build_form_toolbar(new_empresa_exame_procedimento_path(current_user.empresa),nil, @exame_procedimento, empresa_exame_procedimentos_path(current_user.empresa), nil)
+%div{class: "container-fluid"}
+  %div{class: "row-fluid"}
+    %div{class: ".page-header"}
+      %h1 Exame Procedimentos
+      %hr{style: "border: #323232 solid 0.5px;"}
+      %div{class: "row", style: "margin: 0;"}
+        %div{class: "jumbotron"}
+          %div{class: "row", style: "margin: 0;"}
+            %div{class: "col-md-12 col-sm-12 col-xs-12 col-lg-12"}
+              = search_form_for @search, url: empresa_exame_procedimentos_path(current_user.empresa) do |f|
+                = f.condition_fields do |c|
+                  = render "condition_fields", f: c
+                = link_to_add_fields "Adicionar Condições", f, :condition
+                %div{class: "actions", style: "margin-top: 2%;"}
+                  = f.submit "Pesquisar", class: "btn btn-primary"
+                  = link_to "Recarregar", empresa_exame_procedimentos_path(current_user.empresa), class: "btn btn-default"
+  %br/
+  %br/
+  %div{class: "row-fluid"}
+    %table{class: "table table-striped table-bordered", cellspacing: "0", width: "100%"}
+      %thead
+        %th= "Descrição"
+        %th= "Tabela"
+        %th= "Código Procedimento"
+        %th=t(:show, scope: [:bootstrap, :helpers, :links])
+      %tbody
+        - @exame_procedimentos.each do |exame_procedimento|
+          %tr
+            %td= exame_procedimento.descricao
+            %td= exame_procedimento.tabela
+            %td= exame_procedimento.codigo_procedimento
+            %td
+              .btn-group
+                -if can? :read, ExameProcedimento
+                  = link_to "#{image_tag("icons/glyphicons-610-journal.png", width: 22, height: 22)}".html_safe,
+                    empresa_exame_procedimento_path(current_user.empresa, exame_procedimento), title: t(:show, scope: [:bootstrap, :helpers, :links]), class: 'btn btn-default'
+  %div{class: "row", style: "margin: 0;"}
+    %div{class: "pull-right"}
+      =paginate @exame_procedimentos
+  %div{class: "row-fluid"}
+    %hr{style: "border: #323232 solid 0.5px;"}

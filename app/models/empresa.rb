@@ -20,6 +20,7 @@ class Empresa < Connection::Factory
     has_one  :configuracao_relatorio
     has_many :conselho_regionais
     has_many :convenios
+    has_many :exame_procedimentos
     has_many :fornecedores
     has_many :imagem_cabecs
     has_many :movimento_servicos
