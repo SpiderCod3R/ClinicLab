@@ -1,28 +1,3 @@
--# = simple_form_for([current_user.empresa, @cliente]) do |f|
--#   =f.input :empresa_name, as: :hidden, input_html: { value: current_user.empresa.slug }
--#   %ul{class: "nav nav-tabs"}
--#     %li.active
--#       %a{'data-toggle': "tab", href: "#dados"} Dados Pessoais
--#     %li
--#       %a{'data-toggle': "tab", href: "#contato"} Contato
--#     %li
--#       %a{'data-toggle': "tab", href: "#convenio"} Convênio
--#     -if !current_user.admin?
--#       -if !@cliente_permissao.nil?
--#         =render 'cliente_permissoes/abas'
--#     -else
--#       =render 'clientes/partials/asset/abas_padrao_adm'
--#   %div{class: "container", style: "margin-left: 5%; padding-top: 15px; padding-bottom: 15px;"}
--#     .tab-content
--#       =render 'clientes/partials/dados_pessoais_edit', { f: f }
--#       =render 'clientes/partials/convenio', { f: f }
--#       =render 'clientes/partials/contato', { f: f }
--#       =render 'clientes/partials/historico', { f: f }
--#       =render 'clientes/partials/texto_livre', { f: f }
--#       =render 'clientes/partials/pdf_upload', { f: f }
--#       =render 'clientes/partials/receituario', { f: f }
--#       =render 'clientes/partials/imagens_externas', { f: f }
-
 %ul{class: "nav nav-tabs"}
   %li{class:"active"}
     %a{'data-toggle':"tab", href:"#dados", id: "aba_dados"} Dados Pessoais

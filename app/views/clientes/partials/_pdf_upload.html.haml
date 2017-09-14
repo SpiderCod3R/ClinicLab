@@ -1,56 +1,53 @@
 #pdf.tab-pane.fade
-  - if @cliente.id?
-    .row
-      .col-sm-10.col-md-11
-        =render 'clientes/partials/cliente_legend'
-  .container
-    .row
-      #updload_pdf_area
-        .col-sm-11.col-md-4
-          .panel.panel-default
-            .panel-heading
-              %b Envio de PDF's
-            .panel-body
-              =f.simple_fields_for @cliente_pdf_uploads do |u|
-                .row
-                  .col-sm-12.col-md-12
-                    =u.input :anotacoes, as: :string, label: "Nome"
-                    =error_custom_tag(@cliente, :"cliente_pdf_uploads.anotacoes", "Nome")
-                .row
-                  .col-sm-11.col-md-12
+  .row
+    =render 'clientes/partials/cliente_legend'
+  .row
+    #updload_pdf_area
+      .col-sm-12.col-md-4
+        .panel.panel-default
+          .panel-heading
+            %b Envio de PDF's
+          .panel-body
+            =f.simple_fields_for @cliente_pdf_uploads do |u|
+              .row
+                .col-sm-9.col-md-12.col-lg-12
+                  =u.input :anotacoes, as: :string, label: "Nome"
+                  =error_custom_tag(@cliente, :"cliente_pdf_uploads.anotacoes", "Nome")
+                .col-sm-3.col-md-12
+                  #upload_button{style: "margin-top: 30px"}
                     %label{for: "cliente_cliente_pdf_upload_pdf", class: "custom-file-upload"}
                       %i.fa.fa-cloud-upload PDF Upload
                     =u.input :pdf, as: :file, label: false
-                    #pdf_selected
-                    =error_custom_tag(@cliente, :"cliente_pdf_uploads", "Documento")
-        .col-sm-09.col-md-7
-          .panel.panel-default
-            .panel-heading
-              %b Pesquisar PDF's
-            .panel-body
               .row
-                .col-sm-4.col-md-4
-                  %label Nome do PDF
-                  %input{ type: "text", name: "search_pdf_name", id: "search_pdf_name", placeholder: "Buscar nome do pdf", class: "form-control"}
-                .col-sm-3.col-md-3
-                  %label Data
-                  %input{ type: "text", name: "search_pdf_data", id: "search_pdf_data", class: "form-control datepicker"}
-                .col-sm-2.col-md-2
-                  =link_to "#", class: "btn btn-primary", id: "btn_search_pdf" do
-                    %i{ class: "fa fa-search" }
-              %br
-              %br
-              .row-fluid
-                -if !@cliente_collection_pdfs.empty?
-                  .table-responsive
-                    %table{class: "table table_pdf_cliente table-striped table-bordered"}
-                      %thead
-                        %th Nome
-                        %th Data
-                        %th PDF
-                        %th Excluir
-                      %tbody#cliente_pdf_uploads
-                        .loader
-                        =render 'clientes/partials/pdf_table', { cliente_collection_pdfs: @cliente_collection_pdfs }
-                  #paginator
-                    =paginate @cliente_collection_pdfs, remote: true
+                #pdf_selected
+                =error_custom_tag(@cliente, :"cliente_pdf_uploads", "Documento")
+      .col-sm-12.col-md-8.col-lg-8
+        .panel.panel-default
+          .panel-heading
+            %b Pesquisar PDF's
+          .panel-body
+            .row
+              .col-sm-4.col-md-4
+                %label Nome do PDF
+                %input{ type: "text", name: "search_pdf_name", id: "search_pdf_name", placeholder: "Buscar nome do pdf", class: "form-control"}
+              .col-sm-3.col-md-3
+                %label Data
+                %input{ type: "text", name: "search_pdf_data", id: "search_pdf_data", class: "form-control datepicker"}
+              .col-sm-2.col-md-2
+                =link_to "#", class: "btn btn-primary btn-circle", id: "btn_search_pdf", style: "margin-top: 29px" do
+                  %i.fa.fa-search{style: "font-weight: bolder"}
+            %br
+            %br
+            .row-fluid
+              -if !@cliente_collection_pdfs.empty?
+                .table-responsive
+                  %table{class: "table table_pdf_cliente table-striped table-bordered"}
+                    %thead
+                      %th Nome
+                      %th Data
+                      %th PDF
+                      %th Excluir
+                    %tbody#cliente_pdf_uploads
+                      =render 'clientes/partials/pdf_table', { cliente_collection_pdfs: @cliente_collection_pdfs }
+                #paginator
+                  =paginate @cliente_collection_pdfs, remote: true
