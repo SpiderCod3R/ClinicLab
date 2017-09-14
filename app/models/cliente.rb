@@ -17,7 +17,7 @@ class Cliente < Connection::Factory
 
 
   # validates :cpf, uniqueness: true
-  validates :rg, uniqueness: true
+  validates :rg, uniqueness: true,{ scope: :id }
 
   belongs_to :empresa
   belongs_to :estado
