@@ -1,8 +1,6 @@
 #contato.tab-pane.fade
-  - if @cliente.id?
-    .row
-      .col-sm-10.col-md-11
-        =render 'clientes/partials/cliente_legend'
+  .row
+    =render 'clientes/partials/cliente_legend'
   .row
     .col-xs-12.col-sm-6.col-md-4.col-lg-6
       %label Foto
@@ -23,13 +21,13 @@
   .row
     .col-xs-12.col-sm-6.col-md-4.col-lg-3
       = f.input :bairro
-    .col-xs-12.col-sm-6.col-md-4.col-lg-3
+    .col-xs-12.col-sm-4.col-md-4.col-lg-3
       = f.input :cep, input_html: { class: "cep_mask" }
   .row
-    .col-xs-12.col-sm-4.col-md-4.col-lg-3
+    .col-xs-12.col-sm-6.col-md-4.col-lg-3
       =f.label "Estado"
       =f.collection_select(:estado_id, Estado.pelo_nome, :id, :nome, {include_blank: "Selecione"}, {:class=>'form-control'})
-    .col-xs-12.col-sm-6.col-md-4.col-lg-3
+    .col-xs-12.col-sm-4.col-md-4.col-lg-3
       =f.label "Cidade"
       = f.grouped_collection_select(:cidade_id, Estado.pelo_nome, :cidades, :nome, :id, :nome, {include_blank: "Selecione"}, { :class=> "collection_select form-control" })
   %br/

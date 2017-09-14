@@ -14,7 +14,7 @@ $(document).ready ->
   $(document).on 'click', '#adicionar_convenio_em_cliente', (event) ->
     event.preventDefault()
     error_messages = []
-    if $('#cliente_convenio_convenio_id option:selected').val() == undefined
+    if $('#cliente_convenio_convenio_id option:selected').text() == "Selecione"
       error_messages.push('<li>Convênio deve ser selecionado</li>')
     if error_messages.length != 0
       return BootstrapDialog.show

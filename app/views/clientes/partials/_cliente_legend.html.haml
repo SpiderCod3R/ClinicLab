@@ -1,14 +1,16 @@
-.panel.panel-default
-  .panel-heading
-    %h3="Cliente - #{@cliente.id}"
-  .panel-body
-    .row
-      .col-md-3
-        =label_tag "Nome: "
-        =@cliente.nome
-      .col-md-2
-        =label_tag "CPF: "
-        =@cliente.cpf
-      .col-md-2
-        =label_tag "Rg: "
-        =@cliente.rg
+- if @cliente.id?
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12
+    .panel.panel-default
+      .panel-heading
+        %label="Cliente - #{@cliente.id}"
+      .panel-body
+        .row
+          .col-sm-6.col-md-3
+            =label_tag "Nome: "
+            =@cliente.nome
+          .col-sm-3.col-md-2
+            =label_tag "CPF: "
+            =@cliente.cpf
+          .col-sm-3.col-md-2
+            =label_tag "Rg: "
+            =@cliente.rg

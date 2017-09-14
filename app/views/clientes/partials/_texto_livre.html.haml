@@ -1,9 +1,7 @@
 #texto_livre.tab-pane.fade
   .container
     - if @cliente.id?
-      .row
-        .col-sm-10.col-md-11
-          =render 'clientes/partials/cliente_legend'
+      =render 'clientes/partials/cliente_legend'
     %br/
     .row
       .col-sm-6.col-md-6
