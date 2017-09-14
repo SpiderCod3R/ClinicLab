@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170905192415) do
+ActiveRecord::Schema.define(version: 20170913195435) do
 
   create_table "agenda_movimentacoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "agenda_id"
@@ -375,6 +375,16 @@ ActiveRecord::Schema.define(version: 20170905192415) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "exame_procedimentos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.text     "descricao",           limit: 65535
+    t.string   "tabela",              limit: 2
+    t.string   "codigo_procedimento", limit: 10
+    t.integer  "empresa_id"
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.index ["empresa_id"], name: "index_exame_procedimentos_on_empresa_id", using: :btree
+  end
+
   create_table "feriado_e_data_comemorativas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.date     "data"
     t.string   "descricao"
@@ -602,6 +612,7 @@ ActiveRecord::Schema.define(version: 20170905192415) do
   add_foreign_key "configuracao_relatorios", "empresas"
   add_foreign_key "conselho_regionais", "empresas"
   add_foreign_key "convenios", "empresas"
+  add_foreign_key "exame_procedimentos", "empresas"
   add_foreign_key "fornecedores", "cidades"
   add_foreign_key "fornecedores", "empresas"
   add_foreign_key "fornecedores", "estados"

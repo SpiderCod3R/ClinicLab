@@ -1,0 +1,11 @@
+=build_form_toolbar(".edit_exame_procedimento", @exame_procedimento, empresa_exame_procedimentos_path, nil)
+%section{id: "edit_exame_procedimento"}
+  %div{class: "container"}
+    %div{class: "row"}
+      %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+        %h1 Editando Convênio
+        %hr{style: "border: #323232 solid 0.5px;"}
+    %div{class: "row"}
+      %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+        %div{class: "panel"}
+          = render 'exame_procedimentos/form'

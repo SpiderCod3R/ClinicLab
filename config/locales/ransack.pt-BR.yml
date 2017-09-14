@@ -70,6 +70,7 @@ pt-BR:
     value: valor
     models:
       cliente: "Cliente"
+      exame_procedimento: "Exame Procedimento"
     associations:
       cliente:
         convenio: "Convênio"
@@ -79,6 +80,10 @@ pt-BR:
         status: "Status"
         nome: "Nome"
         cpf: "CPF"
+      exame_procedimento:
+        descricao: "Descrição"
+        tabela: "Tabela"
+        codigo_procedimento: "Código Procedimento"
   views:
     pagination:
       first: "&laquo; Primeira"
