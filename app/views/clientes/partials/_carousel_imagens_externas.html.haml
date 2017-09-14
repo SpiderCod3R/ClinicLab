@@ -1,5 +1,5 @@
-%div{class: "row", style: "margin-bottom: 20px;"}
-  %div{class: "col-xs-12 col-sm-10 col-md-5 col-lg-5"}
+.container{style: "margin-top: 6%"}
+  .col-xs-12.col-sm-12.col-md-5.col-lg-5.pull-left{style: "margin-left: -3%"}
     %div{class: "rg-gallery", id: "rg-gallery1"}
       - if @cliente.imagens_externas.where.not(foto_antes_file_name: "").present?
         %div{class: "rg-thumbs"}
@@ -23,7 +23,7 @@
             %img{:alt => "foto_antes", "data-description" => "Foto Antes", "data-large" => "#{img.foto_antes.url}", :src => "#{img.foto_antes.url}"}/
           %div{class: "rg-loading", style: "display: none;"}
       / rg-gallery
-  %div{class: "col-xs-12 col-sm-10 col-md-5 col-lg-5 col-md-offset-1"}
+  .col-xs-12.col-sm-12.col-md-5.col-lg-5.pull-right{style: "margin-left: -2%"}
     %div{class: "rg-gallery", id: "rg-gallery2"}
       - if @cliente.imagens_externas.where.not(foto_depois_file_name: "").present?
         %div{class: "rg-thumbs"}
