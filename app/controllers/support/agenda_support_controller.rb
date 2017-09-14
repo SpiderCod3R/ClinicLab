@@ -116,8 +116,7 @@ class Support::AgendaSupportController < Support::InsideController
     end
 
     def somente_data_presente?
-      if (params[:q]["data_cont(3i)"].present? && params[:q]["data_cont(2i)"].present? && params[:q]["data_cont(1i)"].present?) &&
-          !params[:q][:referencia_agenda_id].present? && !params[:q][:agenda_movimentacao_nome_paciente_cont].present?
+      if (params[:q]["data_cont"].present?) && !params[:q][:referencia_agenda_id].present? && !params[:q][:agenda_movimentacao_nome_paciente_cont].present?
         true
       end
     end

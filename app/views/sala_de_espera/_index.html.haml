@@ -1,45 +1,42 @@
 #sala_espera.tab-pane{:role => "tabpanel"}
-  .panel
-    .container-fluid
-      %br
-      .col-md-12.col-sm-12.col-xs-12.col-lg-12
-        =form_tag localize_empresa_agenda_sala_de_espera_index_path(current_user.empresa, 0), :method => 'get', remote: true do
-          %row
-            %div{class: "col-lg-2"}
-              %label
-                Status
-              = select(:status, '', [['Todos','Todos'],['Atendidos','Atendidos'], ['Agendados', 'Agendados']], {:include_blank => 'Selecione'}, :class => "form-control")
-            %div{class: "col-lg-3"}
-              %label
-                Data
-              .form-group
-                =date_select :"data", :sala_espera, :order => [:day, :month, :year], default: Date.today, :html=>{ :class => "form-control"}
-            %div{class: "col-lg-3"}
-              %label
-                Pesquisar Paciente
-              = text_field_tag :paciente_nome, '', placeholder: "Pesquisar paciente", class: "form-control"
-            %br
-            = submit_tag "Pesquisar", :name => nil, class: "btn btn-primary"
+  .well
+    =form_tag localize_empresa_agenda_sala_de_espera_index_path(current_user.empresa, 0), :method => 'get', remote: true do
+      %row
+        .col-xs-12.col-sm-3.col-md-4.col-lg-4
+          %label Status
+          = select(:status, '', [['Todos','Todos'],['Atendidos','Atendidos'], ['Agendados', 'Agendados']], {:include_blank => 'Selecione'}, :class => "form-control")
+        .col-xs-12.col-sm-3.col-md-3.col-lg-4
+          %label Data
+          -# =date_select :"data", :sala_espera, :order => [:day, :month, :year], default: Date.today, :html=>{ :class => "form-control"}
+          -#       %br/
+          =text_field_tag :"data", '', class: 'datepicker', style: "width: 90%; height: 40px; margin-top: auto;"
+        .col-xs-12.col-sm-3.col-md-3.col-lg-4
+          %label Pesquisar Paciente
+          = text_field_tag :paciente_nome, '', placeholder: "Pesquisar paciente", class: "form-control"
+        %br
+        = submit_tag "Pesquisar", :name => nil, class: "btn btn-primary"
 
-      %hr{style: "border: #B1B1B1 1px solid"}
+  -# %hr{style: "border: #B1B1B1 1px solid"}
+  %br/
+  %br/
+  .container
+    .table-reponsive
+      %table.table.table-striped.table-hover.table-condensed
+        %thead
+          %tr
+            %th Código
+            %th Status
+            %th Nome
+            %th Convênio
+            %th Data(Agendada)
+            %th Nome do Responsável
+            %th Hora Agendada
+            %th Hora Chegada
+            %th Inicio do Atendimento
+            %th Fim do Atendimento
+            %th Opções
+        %tbody#sala_esperas
+          =render 'sala_de_espera/sala_de_esperas', {sala_esperas: @sala_esperas}
 
-      .container-fluid
-        %table{class: "table table-striped"}
-          %thead
-            %tr
-              %th Código
-              %th Status
-              %th Nome
-              %th Convênio
-              %th Data(Agendada)
-              %th Nome do Responsável
-              %th Hora Agendada
-              %th Hora Chegada
-              %th Inicio do Atendimento
-              %th Fim do Atendimento
-              %th Opções
-          %tbody#sala_esperas
-            =render 'sala_de_espera/sala_de_esperas', {sala_esperas: @sala_esperas}
-
-        #waiting_room_paginator=paginate @sala_esperas, remote: true
+      #waiting_room_paginator=paginate @sala_esperas, remote: true
 
