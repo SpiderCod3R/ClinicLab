@@ -16,4 +16,5 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.irregular 'agenda_permissao', 'agenda_permissoes'
   inflect.irregular 'cliente_permissao', 'cliente_permissoes'
   inflect.irregular 'imagem_externa', 'imagens_externas'
+  inflect.irregular 'exame_procedimento', 'exame_procedimentos'
 end

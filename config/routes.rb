@@ -1,5 +1,6 @@
   #-*-coding:utf-8-*-
 Rails.application.routes.draw do
+  resources :exames
   mount Ckeditor::Engine => '/ckeditor'
   namespace :painel do
     resources :environments do
@@ -62,6 +63,7 @@ Rails.application.routes.draw do
     resources :configuracao_relatorios
     resources :conselho_regionais
     resources :convenios, except: [:show]
+    resources :exame_procedimentos
     resources :fornecedores
     resources :imagem_cabecs, except: [:show]
     resources :movimento_servico_servicos

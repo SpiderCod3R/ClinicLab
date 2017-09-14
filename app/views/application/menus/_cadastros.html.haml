@@ -21,6 +21,8 @@
   %li=link_to 'Conselho Regional', new_empresa_conselho_regional_path(current_user.empresa), style: "font-weight: bold;"
 -if can? :read, ConfiguracaoRelatorio
   %li=link_to 'Configuração de Relatórios', new_empresa_configuracao_relatorio_path(current_user.empresa), style: "font-weight: bold;"
+-if can? :read, ExameProcedimento
+  %li=link_to 'Exame Procedimentos', new_empresa_exame_procedimento_path(current_user.empresa), style: "font-weight: bold;"
 -if can? :read, Fornecedor
   %li=link_to 'Fornecedores', new_empresa_fornecedor_path(current_user.empresa), style: "font-weight: bold;"
 -if can? :read, ImagemCabec

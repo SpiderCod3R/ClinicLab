@@ -1,0 +1,13 @@
+%div{class: "container", style: "margin-left: 5%; padding-top: 15px; padding-bottom: 15px;"}
+  =simple_form_for([current_user.empresa, @exame_procedimento]) do |f|
+    %div{class: "row"}
+      %div{class: "col-xs-12 col-sm-6 col-md-6 col-lg-6", style: 'margin: 0; padding: 0;'}
+        = f.error_notification
+    %div{class: "row"}
+      %div{class: "col-xs-12 col-sm-8 col-md-8 col-lg-6"}
+        = f.input :descricao, label: "Descrição"
+    %div{class: "row"}
+      %div{class: "col-xs-12 col-sm-4 col-md-4 col-lg-3"}
+        = f.input :tabela
+      %div{class: "col-xs-12 col-sm-4 col-md-4 col-lg-3"}
+        = f.input :codigo_procedimento, label: "Código Procedimento"
