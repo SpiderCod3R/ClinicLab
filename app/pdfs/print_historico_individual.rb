@@ -27,10 +27,9 @@ class PrintHistoricoIndividual < TemplatePdf
   end
 
   def imprime_pdf
-    bounding_box([0, 680], width: 522, height: 620) do
-      exibe_itens
+    bounding_box([0, 580], width: 522, height: 620) do
+      text remove_html(@resource), align: :justify
     end
-    exibe_rodape
   end
 
   def exibe_itens
@@ -45,16 +44,6 @@ class PrintHistoricoIndividual < TemplatePdf
   def formatDateHour(date, hour)
     if date.present? && hour.present?
       date.strftime("%d/%m/%Y") + " - " + hour.strftime("%H:%M")
-    end
-  end
-
-  def exibe_rodape
-    repeat(:all) do
-      bounding_box([0, 40], width: 520, height: 40) do
-        text "CNPJ: #{@relatorio.cnpj} - Telefone: #{@relatorio.telefone}", valign: :top, align: :center
-        text "#{@relatorio.endereco}, #{@relatorio.bairro}, #{@relatorio.cidade_estado}", align: :center
-        text "E-mail:#{@relatorio.email}", align: :center
-      end
     end
   end
 end
