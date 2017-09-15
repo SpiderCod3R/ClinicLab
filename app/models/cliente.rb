@@ -25,23 +25,23 @@ class Cliente < Connection::Factory
   belongs_to :cargo
 
   with_options dependent: :destroy do
-    has_many :historicos
-    has_many :cliente_texto_livres
-    has_many :cliente_pdf_uploads
-    has_many :imagens_externas
-    has_many :cliente_texto_livres
-    has_many :cliente_pdf_uploads
     has_many :cliente_convenios
+    has_many :cliente_pdf_uploads
     has_many :cliente_receituarios
+    has_many :cliente_texto_livres
+    has_many :historicos
+    has_many :imagens_externas
+    has_many :sadts
   end
 
   has_many :convenios, through: :cliente_convenios
   has_many :movimento_servicos
 
   accepts_nested_attributes_for :cliente_convenios, allow_destroy: true
+  accepts_nested_attributes_for :cliente_pdf_uploads, allow_destroy: true
   accepts_nested_attributes_for :historicos, allow_destroy: true
   accepts_nested_attributes_for :imagens_externas, allow_destroy: true
-  accepts_nested_attributes_for :cliente_pdf_uploads, allow_destroy: true
+  accepts_nested_attributes_for :sadts, allow_destroy: true
 
   has_attached_file :foto, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :foto, content_type: /\Aimage\/.*\Z/

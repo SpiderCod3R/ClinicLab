@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170913195435) do
+ActiveRecord::Schema.define(version: 20170914180114) do
 
   create_table "agenda_movimentacoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "agenda_id"
@@ -555,6 +555,27 @@ ActiveRecord::Schema.define(version: 20170913195435) do
     t.index ["profissional_id"], name: "index_referencia_agendas_on_profissional_id", using: :btree
   end
 
+  create_table "sadt_exame_procedimentos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "sadt_id"
+    t.integer  "exame_procedimento_id"
+    t.integer  "empresa_id"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.index ["empresa_id"], name: "index_sadt_exame_procedimentos_on_empresa_id", using: :btree
+    t.index ["exame_procedimento_id"], name: "index_sadt_exame_procedimentos_on_exame_procedimento_id", using: :btree
+    t.index ["sadt_id"], name: "index_sadt_exame_procedimentos_on_sadt_id", using: :btree
+  end
+
+  create_table "sadts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.text     "indicacao_clinica", limit: 65535
+    t.integer  "cliente_id"
+    t.integer  "empresa_id"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.index ["cliente_id"], name: "index_sadts_on_cliente_id", using: :btree
+    t.index ["empresa_id"], name: "index_sadts_on_empresa_id", using: :btree
+  end
+
   create_table "sala_esperas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "cliente_id"
     t.integer  "agenda_id"
@@ -612,7 +633,6 @@ ActiveRecord::Schema.define(version: 20170913195435) do
   add_foreign_key "configuracao_relatorios", "empresas"
   add_foreign_key "conselho_regionais", "empresas"
   add_foreign_key "convenios", "empresas"
-  add_foreign_key "exame_procedimentos", "empresas"
   add_foreign_key "fornecedores", "cidades"
   add_foreign_key "fornecedores", "empresas"
   add_foreign_key "fornecedores", "estados"

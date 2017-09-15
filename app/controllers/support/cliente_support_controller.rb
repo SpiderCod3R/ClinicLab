@@ -329,6 +329,7 @@ class Support::ClienteSupportController < Support::InsideController
       end
       get_historicos
       @cliente.imagens_externas.build
+      @sadts = @cliente.sadts.build
     end
 
     def send_back_with_error

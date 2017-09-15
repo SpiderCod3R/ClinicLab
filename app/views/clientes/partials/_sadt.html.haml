@@ -1,0 +1,26 @@
+#sadt.tab-pane.fade
+  - if @cliente.id?
+    .row
+      .col-sm-10.col-md-11
+        =render 'clientes/partials/cliente_legend'
+  .container
+    .row
+      #sadt_area
+        .col-sm-12.col-md-5{style: "padding-left: 0;"}
+          .panel.panel-default
+            .panel-heading
+              %b Cadastrar Sadt
+            .panel-body
+              =f.simple_fields_for @sadts do |s|
+                .row
+                  .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                    =s.input :indicacao_clinica, label: "Indicação Clínica"
+                    =error_custom_tag(@cliente, :"sadts.indicacao_clinica", "Indicação Clínica")
+                .row
+                  .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                    %label{class: "string required control-label"}
+                      Exame Procedimentos
+                    = select(:sadt_exame_procedimento, :exame_procedimento_id, ExameProcedimento.order(:descricao).collect {|p| ["#{p.descricao}", "#{p.id}"] }, {include_blank: "Selecione"}, class: "form-control")
+                .row
+                  %div{class: "col-xs-1 col-sm-1 col-md-1 col-lg-1", style: "margin-top: 20px;"}
+                    =link_to "#{image_tag("icons/glyphicons-191-circle-plus-white.png", width: 22, height: 22)}".html_safe, "#", {id: "adicionar_sadt_em_cliente", class: "btn btn-primary", title: "Adicionar Sadt", remote: true}

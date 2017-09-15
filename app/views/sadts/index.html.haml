@@ -1,0 +1,19 @@
+%h1 Listing sadts
+
+%table
+  %thead
+    %tr
+      %th
+      %th
+      %th
+
+  %tbody
+    - @sadts.each do |sadt|
+      %tr
+        %td= link_to 'Show', sadt
+        %td= link_to 'Edit', edit_sadt_path(sadt)
+        %td= link_to 'Destroy', sadt, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Sadt', new_sadt_path
