@@ -1,0 +1,70 @@
+.col-xs-8.col-sm-8.col-md-8.col-lg-8
+  .row-fluid
+    .col-xs-6.col-sm-6.col-md-6.col-lg-6
+      %strong Código:
+      = @profissional.id
+  .row-fluid
+    .col-xs-6.col-sm-6.col-md-6.col-lg-6
+      %strong Status:
+      =status(@profissional.status)
+  .row-fluid
+    .col-xs-6.col-sm-6.col-md-6.col-lg-6
+      %strong Nome:
+      = @profissional.nome
+  .row-fluid
+    .col-xs-6.col-sm-6.col-md-6.col-lg-6
+      %strong Cargo:
+      = @profissional.cargo
+  .row-fluid
+    .col-xs-6.col-sm-6.col-md-6.col-lg-6
+      %strong Data de nascimento:
+      = @profissional.data_nascimento
+  .row-fluid
+    .col-xs-6.col-sm-6.col-md-6.col-lg-6
+      %strong CPF:
+      = @profissional.cpf
+  .row-fluid
+    .col-xs-6.col-sm-6.col-md-6.col-lg-6
+      %strong RG:
+      = @profissional.rg
+  .row-fluid
+    .col-xs-6.col-sm-6.col-md-6.col-lg-6
+      %strong Telefone:
+      = @profissional.telefone
+  .row-fluid
+    .col-xs-6.col-sm-6.col-md-6.col-lg-6
+      %strong Celular:
+      = @profissional.celular
+  .row-fluid
+    .col-xs-6.col-sm-6.col-md-6.col-lg-6
+      %strong Operadora:
+      = @profissional.operadora.nome
+  .row-fluid
+    .col-xs-6.col-sm-6.col-md-6.col-lg-6
+      %strong Conselho regional:
+      = @profissional.conselho_regional.sigla
+  .row-fluid
+    .col-xs-6.col-sm-6.col-md-6.col-lg-6
+      %strong Endereço:
+      = @profissional.endereco
+  .row-fluid
+    .col-xs-6.col-sm-6.col-md-6.col-lg-6
+      %strong Complemento:
+      = @profissional.complemento
+  .row-fluid
+    .col-xs-6.col-sm-6.col-md-6.col-lg-6
+      %strong Bairro:
+      = @profissional.bairro
+  .row-fluid
+    .col-xs-6.col-sm-6.col-md-6.col-lg-6
+      %strong Estado:
+      = @profissional.estado.nome
+  .row-fluid
+    .col-xs-6.col-sm-6.col-md-6.col-lg-6
+      %strong Cidade:
+      = @profissional.cidade.nome
+
+.col-xs-4.col-sm-4.col-md-4.col-lg-4
+  -if @profissional.imagem.present?
+    = image_tag @profissional.imagem.url(:medium), :class => "img_profissional"
+  / img-responsive img-circle
