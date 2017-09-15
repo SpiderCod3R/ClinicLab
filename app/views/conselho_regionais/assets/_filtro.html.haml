@@ -1,0 +1,20 @@
+=form_tag empresa_conselho_regionais_path(current_user.empresa), :method => 'get' do
+  %row
+    %div{class: "col-lg-2"}
+      %label
+        Status
+      = select(:status, :status, [['Ativo',1],['Inativo',0]], {:include_blank => ''}, :class => "form-control")
+    %div{class: "col-lg-2"}
+      %label
+        ID
+      = select(:id, :id, ConselhoRegional.all.collect {|p| [p.id, p.id] }, {:include_blank => ''}, :class => "form-control")
+    %div{class: "col-lg-2"}
+      %label
+        Sigla
+      = select(:sigla, :sigla, ConselhoRegional.all.collect {|p| [p.sigla, p.sigla] }, {:include_blank => ''}, :class => "form-control")
+    %div{class: "col-lg-3"}
+      %label
+        Pesquisar
+      = text_field_tag :search, '', placeholder: "Pesquisar conselho regional por sigla", class: "form-control"
+    %br
+    = submit_tag "Pesquisar", :name => nil, class: "btn btn-default"
