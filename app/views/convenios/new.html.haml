@@ -1,11 +1,7 @@
 =build_form_toolbar(".new_convenio", @convenio, empresa_convenios_path(current_user.empresa), nil)
-%section{id: "new_convenio"}
-  %div{class: "container"}
-    %div{class: "row"}
-      %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
-        %h1 Novo Convênio
-        %hr{style: "border: #323232 solid 0.5px;"}
-    %div{class: "row"}
-      %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
-        %div{class: "panel"}
-          = render 'convenios/form'
+.container
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12
+    %h1 Novo Convênio
+    %hr{style: "border: #323232 solid 0.5px;"}
+.container
+  =render 'convenios/form'
