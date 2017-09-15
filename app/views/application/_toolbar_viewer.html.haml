@@ -26,12 +26,12 @@
         -else
           %li.disabled= link_to "#{image_tag("icons/glyphicons-193-circle-remove-white.png", width: 22, height: 22)} EXCLUIR".html_safe, "#"
         %li= link_to "#{image_tag("icons/glyphicons-28-search-white.png", width: 22, height: 22)} PROCURAR".html_safe, back_path
-        -if report_path.nil?
-          -unless admin_signed_in?
-            %li.disabled= link_to "#{image_tag("icons/glyphicons-16-print-white.png", width: 22, height: 22)} IMPRIMIR".html_safe, "#"
-        -else
-          -if can? :read, object.class
-            %li.active= link_to "#{image_tag("icons/glyphicons-16-print-white.png", width: 22, height: 22)} IMPRIMIR".html_safe, report_path
+        -# -if report_path.nil?
+        -#   -unless admin_signed_in?
+        -#     %li.disabled= link_to "#{image_tag("icons/glyphicons-16-print-white.png", width: 22, height: 22)} IMPRIMIR".html_safe, "#"
+        -# -else
+        -#   -if can? :read, object.class
+        -#     %li.active= link_to "#{image_tag("icons/glyphicons-16-print-white.png", width: 22, height: 22)} IMPRIMIR".html_safe, report_path
         %li.active= link_to "#{image_tag("icons/glyphicons-389-exit-white.png", width: 22, height: 22)} SAIR".html_safe, root_path
       %ul.nav.navbar-nav.navbar-right
         -if user_signed_in?
