@@ -1,15 +1,15 @@
 =build_form_toolbar(new_empresa_cliente_path(current_user.empresa),nil, @clientes, empresa_clientes_path(current_user.empresa), nil)
 %h1 Clientes
 %hr.white_stroke
-.container
-  .jumbotron
+.panel.panel-default
+  .panel-heading
     .row
-      .col-xs-6.col-sm-6.col-md-12.col-lg-12
-        = search_form_for @search, url: empresa_clientes_path(current_user.empresa) do |f|
-          = f.condition_fields do |c|
-            = render "condition_fields", f: c
+      = search_form_for @search, url: empresa_clientes_path(current_user.empresa) do |f|
+        = f.condition_fields do |c|
+          = render "condition_fields", f: c
+        .row
           = link_to_add_fields "Adicionar Condições", f, :condition
-          %div{class: "actions", style: "margin-top: 2%;"}
+          .actions{ style: "margin-top: 2%;" }
             = f.submit "Pesquisar", class: "btn btn-primary"
 %br
 %hr.white_stroke
