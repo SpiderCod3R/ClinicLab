@@ -1,17 +1,15 @@
 #historico.tab-pane.fade
-  - if @cliente.id?
-    .row
-      .col-sm-10.col-md-11
-        =render 'clientes/partials/cliente_legend'
-  %div{id:"old_historico"}
-    =render 'clientes/partials/index_historico', { historicos: @historicos }
-  %br
-  %div{id:"new_historico", style:"display: none;"}
-    %div{id:"show_historico", class:"well historico", style:"display: none;"}
+  .row
+    =render 'clientes/partials/cliente_legend'
+  #old_historico=render 'clientes/partials/index_historico', { historicos: @historicos }
+  %br/
+  #new_historico{ style:"display: none;" }
+    .well{style: "width: 100%;"}
+      #show_historico{ class: "historico", style: "display: none;" }
     %br
     = link_to "Incluir", "#", class: "btn btn-success", style: "margin-bottom: 10px;", id: "salvar_historico"
-    %div{class: "row"}
-      %div{class: "col-xs-11 col-sm-11 col-md-11 col-lg-11"}
+    .row
+      .col-xs-11.col-sm-11.col-md-11.col-lg-11
         = cktext_area :page, :info, cols: 40, ckeditor: { uiColor: '#E2E2E2', toolbar: 'mini', height: 400 }, :id => "historico_textarea", style: "height: 700px"
 
 = javascript_include_tag Ckeditor.asset_path

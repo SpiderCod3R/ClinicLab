@@ -1,13 +1,12 @@
 =build_form_toolbar(nil ,".new_profissional", @profissional, empresa_profissionais_path(current_user.empresa), nil)
 %section{id: "new_profissional"}
-  .container{style: "margin-top: 5%"}
-    .row
-      .col-xs-12.col-sm-12.col-md-12.col-lg-12
-        .row
-          .col-xs-12.col-sm-12.col-md-12.col-lg-12
-            %br
-            %br
-            .panel
-              %h1.center Novo Profissional
-              %hr
-              = render 'form'
+  .row
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+      .row
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12
+          %br
+          %br
+          .panel
+            %h1.center Novo Profissional
+            %hr
+            = render 'form'

@@ -1,12 +1,15 @@
-%div{class: "row", style:"margin-bottom: 1%;"}
-  %div{class: "field"}
-    %div{class: "col-xs-12 col-sm-3 col-md-3 col-lg-3 select_atributo_filtro"}
+.field
+  .row-fluid
+    .col-xs-12.col-sm-3.col-md-3.col-lg-3.select_atributo_filtro
       = f.attribute_fields do |a|
         = a.attribute_select
-    %div{class: "col-xs-12 col-sm-3 col-md-3 col-lg-3 select_predicado_filtro"}
-      = f.predicate_select only: %i(cont not_cont start not_start eq not_eq), compounds: false
-    %div{class: "col-xs-12 col-sm-3 col-md-3 col-lg-3 input_filtro"}
+  .row-fluid
+    .col-xs-12.col-sm-3.col-md-3.col-lg-3.select_predicado_filtro
+      = f.predicate_select only: %i(cont not_cont start not_start eq not_eq), compounds: false, style: "width: 30%"
+  .row-fluid
+    .col-xs-12.col-sm-4.col-md-3.col-lg-3.input_filtro
       = f.value_fields do |v|
-        = v.text_field :value
-    %div{class: "col-xs-12 col-sm-3 col-md-3 col-lg-3"}
+        = v.text_field :value, class: "form-control"
+  .row-fluid
+    .col-xs-12.col-sm-3.col-md-3.col-lg-3
       = link_to "Remover condição", '#', class: "remove_fields"

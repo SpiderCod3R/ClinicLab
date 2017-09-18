@@ -1,25 +1,24 @@
 =simple_form_for [current_user.empresa, @referencia] do |f|
   - if @referencia.errors.any?
     .row-fluid
-      .col-md-12
+      .col-sm-12.col-md-12
         %div{class: "alert alert-danger", style: "color: #B11515;"}
           %h4="#{pluralize(@referencia.errors.count, "erro")} impede(m) este referencia de ser salvo:"
   .row-fluid
-    .col-md-12
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12
       .panel.panel-default
         .panel-heading
           Descrição e Profissional
-        .container
-          %hr
+        .container-fluid
+          %br
           .row
-            .col-md-4
+            .col-sm-6.col-md-4
               -if @referencia.errors.any?
                 =label_or_error_tag @referencia, :descricao, "Descrição"
               -else
                 =f.label :descricao, class: "control-label"
               =f.input :descricao, :error => false, label: false
-          .row
-            .col-md-4
+            .col-sm-6.col-md-4
               -if @referencia.errors.any?
                 =label_or_error_tag @referencia, :profissional_id, "Profissional"
               -else

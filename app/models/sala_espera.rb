@@ -17,7 +17,7 @@ class SalaEspera < Connection::Factory
   class << self
     def search_by_data(params)
       self.set_connection
-      @param_data = Converter::DateConverter.new(params[:data]["sala_espera(1i)"].to_i, params[:data]["sala_espera(2i)"].to_i, params[:data]["sala_espera(3i)"].to_i)
+      # @param_data = Converter::DateConverter.new(params[:data]["sala_espera(1i)"].to_i, params[:data]["sala_espera(2i)"].to_i, params[:data]["sala_espera(3i)"].to_i)
       find_by_sql("SELECT DISTINCT
                     s.id AS id,
                     m.cliente_id As cliente_id,
@@ -31,45 +31,45 @@ class SalaEspera < Connection::Factory
                     m.nome_paciente As nome_paciente
                    FROM sala_esperas as s
                    INNER JOIN agenda_movimentacoes as m ON m.agenda_id = s.agenda_id
-                   WHERE s.data='#{@param_data.to_american_format}'")
+                   WHERE s.data='#{Date.parse(params[:data]).to_s}'")
     end
 
     def search(params)
       self.set_connection
-      @param_data = Converter::DateConverter.new(params[:data]["sala_espera(1i)"].to_i, params[:data]["sala_espera(2i)"].to_i, params[:data]["sala_espera(3i)"].to_i)
+      # @param_data = Converter::DateConverter.new(params[:data]["sala_espera(1i)"].to_i, params[:data]["sala_espera(2i)"].to_i, params[:data]["sala_espera(3i)"].to_i)
       collection = []
       if params[:status][0] == "Agendados"
         status = "ESPERA"
-        collection = _select_without_pacient(@param_data.to_american_format, status)
+        collection = _select_without_pacient(Date.parse(params[:data]).to_s, status)
       end
 
       if params[:status][0] == "Atendidos"
         status = "Atendido"
-        collection = _select_without_pacient(@param_data.to_american_format, status)
+        collection = _select_without_pacient(Date.parse(params[:data]).to_s, status)
       end
 
       if params[:status][0] == "Todos"
-        collection = _select_without_pacient_and_status_todos(@param_data.to_american_format)
+        collection = _select_without_pacient_and_status_todos(Date.parse(params[:data]).to_s)
       end
       return collection
     end
 
     def search_whith_name(params)
       self.set_connection
-      @param_data = Converter::DateConverter.new(params[:data]["sala_espera(1i)"].to_i, params[:data]["sala_espera(2i)"].to_i, params[:data]["sala_espera(3i)"].to_i)
+      # @param_data = Converter::DateConverter.new(params[:data]["sala_espera(1i)"].to_i, params[:data]["sala_espera(2i)"].to_i, params[:data]["sala_espera(3i)"].to_i)
       collection = []
       if params[:status][0] == "Agendados"
         status = "ESPERA"
-        collection = _select_pacient_with_status(@param_data.to_american_format, status, params[:paciente_nome])
+        collection = _select_pacient_with_status(Date.parse(params[:data]).to_s, status, params[:paciente_nome])
       end
 
       if params[:status][0] == "Atendidos"
         status = "Atendido"
-        collection = _select_pacient_with_status(@param_data.to_american_format, status, params[:paciente_nome])
+        collection = _select_pacient_with_status(Date.parse(params[:data]).to_s, status, params[:paciente_nome])
       end
 
       if params[:status][0] == "Todos"
-        collection = _select_pacient_without_status(@param_data.to_american_format, params[:paciente_nome])
+        collection = _select_pacient_without_status(Date.parse(params[:data]).to_s, params[:paciente_nome])
       end
       return collection
     end

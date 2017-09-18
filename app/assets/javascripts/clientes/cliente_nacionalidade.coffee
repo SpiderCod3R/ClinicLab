@@ -1,3 +1,9 @@
+$(document).ready ->
+  if $('#cliente_nacionalidade').val() == ""
+    $("#cliente_nacionalidade").val("BR").change()
+    $("#cliente_naturalidade").val("19").change()
+
+
 jQuery ->
   if $('#cliente_nacionalidade').val() != ""
     if $('#cliente_nacionalidade :selected').text() == 'Brasil'

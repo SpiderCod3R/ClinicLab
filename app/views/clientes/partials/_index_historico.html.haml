@@ -7,20 +7,21 @@
     = link_to "Imprimir Tudo", print_historico_full_empresa_cliente_path(current_user.empresa, @cliente, format: "pdf"), target: :_blank, class: "btn btn-default"
     = link_to "Imprimir historico", print_historico_empresa_cliente_path(current_user.empresa, @cliente, format: "pdf"), target: :_blank, class: "btn btn-default"
   %br/
-  #well_historicos.well.historico
-    - @historicos.each do |historico|
-      = data_e_hora_formatada(historico.created_at.to_date, historico.created_at.to_time)
-      %br
-      -if historico.try(:user)
-        = historico.user.name
-      -else
-        %p="-"
-      %br
-      = historico.idade
-      %br
-      %br
-      = raw historico.indice
-      %br
-      %br
+  .well{style: "width: 100%"}
+    #well_historicos.historico
+      - @historicos.each do |historico|
+        = data_e_hora_formatada(historico.created_at.to_date, historico.created_at.to_time)
+        %br
+        -if historico.try(:user)
+          = historico.user.name
+        -else
+          %p="-"
+        %br
+        = historico.idade
+        %br
+        %br
+        = raw historico.indice
+        %br
+        %br
 - else
   = link_to "Incluir", "#", class: "btn btn-success", style: "margin-bottom: 10px;", id: "incluir_historico"

@@ -1,7 +1,7 @@
 - cliente_collection_pdfs.each do |cp|
   %tr{id: "cliente_pdf_#{cp.id}"}
-    %td.annotations=cp.anotacoes
-    %td=l cp.data
+    %td=cp.anotacoes
+    %td.center=l cp.data
     %td.center
       =link_to cp.pdf.url, target: "_blank" do
         %i.fa.fa-cloud-download.fa-2x

@@ -7,6 +7,13 @@
     %div{class: "row"}
       %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
         = f.input :nome
-    %div{class: "row"}
-      %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
-        = f.input :imagem, as: :file
+    -# %div{class: "row"}
+    -#   %div{class: "col-xs-12 col-sm-6 col-md-4 col-lg-3"}
+    -#     = f.input :imagem, as: :file
+    .row
+      .col-xs-12.col-sm-6.col-md-4.col-lg-6
+        %label Imagem
+        %label{for: "imagem_cabec_imagem", class: "custom-file-upload"}
+          %i.fa.fa-cloud-upload Foto Upload
+        = f.input :imagem, as: :file, label: false
+        #imagem_cabec_imagem_selected

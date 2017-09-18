@@ -1,10 +1,8 @@
 =build_form_toolbar(nil ,".new_receituario", @receituario, empresa_receituarios_path(current_user.empresa), nil)
 %section{id: "new_receituario"}
-  .container
-    .row
-      .col-xs-12.col-sm-12.col-md-12.col-lg-12
-        %h1 Nova Receita
-        %hr{style: "border: #323232 solid 0.5px;"}
-    .row
-      .col-xs-12.col-sm-12.col-md-12.col-lg-12
-        = render 'form'
+  .row
+    .col-xs-12.col-sm-12.col-md-12.col-lg-12
+      %h1 Nova Receita
+      %hr{style: "border: #323232 solid 0.5px;"}
+  .row
+    = render 'form'

@@ -39,7 +39,7 @@ $(document).ready ->
     while x <= response.length
       if response[x] != undefined
         $('#cliente_pdf_uploads').append("<tr>" +
-          "<td class='annotations'>" + response[x]["anotacoes"] + "</td>" +
+          "<td>" + response[x]["anotacoes"] + "</td>" +
           "<td class='center'>" + response[x]["data"] + "</td>" +
           "<td class='center'><a target='_blank' href='#{response[x]["url"]}'><i class='fa fa-cloud-download fa-2x'></a></td>" +
           "<td class='center'><center><i class='fa fa-trash fa-2x'></div></center></td></tr>")

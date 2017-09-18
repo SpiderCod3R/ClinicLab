@@ -1,8 +1,6 @@
 #convenio.tab-pane.fade
-  - if @cliente.id?
-    .row
-      .col-sm-10.col-md-11
-        =render 'clientes/partials/cliente_legend'
+  .row
+    =render 'clientes/partials/cliente_legend'
   .col-xs-12.col-sm-12.col-md-6.col-lg-6
     .row
       %input{:type=>"hidden", :class => "form-control", :id => "cliente_convenio_id"}
@@ -43,11 +41,12 @@
         %textarea{:type=>"text", :class => "form-control", :id => "cliente_convenio_observacoes", style: "margin: 5px 0px 3px; height: 126px; width: 546px;"}
     .row
       %div{class: "col-xs-1 col-sm-1 col-md-1 col-lg-1", style: "margin-top: 20px;"}
-        =link_to "#{image_tag("icons/glyphicons-191-circle-plus-white.png", width: 22, height: 22)}".html_safe, "#", {id: "adicionar_convenio_em_cliente", class: "btn btn-primary", title: "Adicionar Convênio", remote: true}
+        =link_to "#", {id: "adicionar_convenio_em_cliente", class: "btn btn-primary btn-circle", title: "Adicionar Convênio", remote: true} do
+          %i.fa.fa-plus
       %div{class: "col-xs-1 col-sm-1 col-md-1 col-lg-1", style: "margin-top: 20px;"}
         =link_to "#{image_tag("icons/glyphicons-82-refresh.png", width: 22, height: 22)}".html_safe, "#", {id: "alterar_convenio_em_cliente", class: "btn btn-default", title: "Atualizar Convênio", remote: true, style: "display: none;"}
-  %br/
-  %div{class: "col-xs-12 col-sm-10 col-md-5 col-lg-5 pull-left"}
+  %div{class: "col-xs-12 col-sm-12 col-md-6 col-lg-6"}
+    %br/
     %div{class: "panel panel-default"}
       %div{class: "panel-heading"}
         = "Convênio(s) Associado(s) ao Cliente"
