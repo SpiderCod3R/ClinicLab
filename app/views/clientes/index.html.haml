@@ -3,46 +3,46 @@
 %hr.white_stroke
 .panel.panel-default
   .panel-heading
-    .row
+    .row-fluid
       = search_form_for @search, url: empresa_clientes_path(current_user.empresa) do |f|
         = f.condition_fields do |c|
           = render "condition_fields", f: c
-        .row
+        .row-fluid
           = link_to_add_fields "Adicionar Condições", f, :condition
           .actions{ style: "margin-top: 2%;" }
             = f.submit "Pesquisar", class: "btn btn-primary"
 %br
-%hr.white_stroke
-.container
-  .table-responsive{style:"overflow-x:auto;"}
-    %table.table.table-striped.table-bordered.table-condensed
-      %thead
-        %th=t('clientes.helpers.status')
-        %th=t('clientes.helpers.codigo')
-        %th=t('clientes.helpers.nome')
-        %th=t('clientes.helpers.cpf')
-        %th=t('clientes.helpers.endereço')
-        %th=t('clientes.helpers.complemento')
-        %th=t('clientes.helpers.bairro')
-        %th
-          %center
-            = t('bootstrap.helpers.actions')
-      %tbody
-        - @clientes.each do |cliente|
-          %tr
-            %td= status(cliente.status)
-            %td= cliente.id
-            %td= cliente.nome
-            %td= CPF.new(cliente.cpf).formatted
-            %td= cliente.endereco
-            %td= cliente.complemento
-            %td= cliente.bairro
-            %td
-              .btn-group.pull-right
-                -if can? :read, Cliente
-                  = link_to "#{image_tag("icons/glyphicons-610-journal.png", width: 22, height: 22)}".html_safe,
-                    empresa_cliente_path(current_user.empresa, cliente), title: t(:show, scope: [:bootstrap, :helpers, :links]), class: 'btn btn-default'
-      %div{class: "pull-right"}
-        = paginate @clientes
-%div{class: "row"}
-  %hr{style: "border: #323232 solid 0.5px;"}
+.container-fluid
+  .panel
+    .table-responsive{style:"overflow-x:auto;"}
+      %table.table.table-striped.table-bordered.table-condensed
+        %thead
+          %th=t('clientes.helpers.status')
+          %th=t('clientes.helpers.codigo')
+          %th=t('clientes.helpers.nome')
+          %th=t('clientes.helpers.cpf')
+          %th=t('clientes.helpers.endereço')
+          %th=t('clientes.helpers.complemento')
+          %th=t('clientes.helpers.bairro')
+          %th
+            %center
+              = t('bootstrap.helpers.actions')
+        %tbody
+          - @clientes.each do |cliente|
+            %tr
+              %td= status(cliente.status)
+              %td= cliente.id
+              %td= cliente.nome
+              %td= CPF.new(cliente.cpf).formatted
+              %td= cliente.endereco
+              %td= cliente.complemento
+              %td= cliente.bairro
+              %td
+                .btn-group.pull-right
+                  -if can? :read, Cliente
+                    = link_to "#{image_tag("icons/glyphicons-610-journal.png", width: 22, height: 22)}".html_safe,
+                      empresa_cliente_path(current_user.empresa, cliente), title: t(:show, scope: [:bootstrap, :helpers, :links]), class: 'btn btn-default'
+
+  .pull-right= paginate @clientes
+%br
+%br
