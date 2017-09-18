@@ -4,44 +4,44 @@
       %div{style: "font-weight: bold;"}
         =f.error_notification
   .row
-    .col-xs-12.col-sm-6.col-md-4.col-lg-3
+    .col-xs-12.col-sm-5.col-md-4.col-lg-3
       = f.input :id, as: :hidden
       = f.input :nome
-    .col-xs-12.col-sm-10.col-md-3.col-lg-3
+    .col-xs-12.col-sm-5.col-md-3.col-lg-3
       = f.input :pai, as: :string
-    .col-xs-12.col-sm-10.col-md-3.col-lg-3
+    .col-xs-12.col-sm-5.col-md-3.col-lg-3
       = f.input :mae, as: :string, label: "Mãe"
-    .col-xs-12.col-sm-10.col-md-3.col-lg-2
+    .col-xs-12.col-sm-5.col-md-3.col-lg-2
       = f.input :nascimento, as: :string, input_html: {class: "datepicker_form"}
   .row
-    .col-xs-12.col-sm-10.col-md-3.col-lg-3
+    .col-xs-12.col-sm-5.col-md-3.col-lg-3
       %label.string.required.control-label Idade
       %input{:type=>"text", :class => "form-control", :id => "cliente_idade"}
-    .col-xs-12.col-sm-10.col-md-3.col-lg-3
+    .col-xs-12.col-sm-5.col-md-3.col-lg-3
       = f.input :cpf
-    .col-xs-12.col-sm-10.col-md-3.col-lg-3
+    .col-xs-12.col-sm-5.col-md-3.col-lg-3
       = f.input :rg
-    .col-xs-12.col-sm-10.col-md-3.col-lg-2
+    .col-xs-12.col-sm-5.col-md-3.col-lg-2
       =f.label :sexo
       %br/
       = f.select :sexo, options_for_select([ "Masculino", "Feminino"]), {include_blank: "Selecione"} ,{ :class => "form-control"}
       =error_custom_tag(@cliente, :"sexo", "Sexo")
   .row
-    .col-xs-12.col-sm-10.col-md-3.col-lg-3
+    .col-xs-12.col-sm-5.col-md-3.col-lg-3
       = f.input :peso, as: :string
-    .col-xs-12.col-sm-10.col-md-3.col-lg-3
+    .col-xs-12.col-sm-5.col-md-3.col-lg-3
       = f.input :altura, as: :string
-    .col-xs-12.col-sm-10.col-md-3.col-lg-3
+    .col-xs-12.col-sm-5.col-md-3.col-lg-3
       = f.label :estado_civil
       %br/
       = f.select :estado_civil, options_for_select([ "CASADO", "DIVORCIADO", "SOLTEIRO", "VIUVO(a)" ]), {include_blank: "Selecione"} ,{ :class => "form-control"}
       =error_custom_tag(@cliente, :"estado_civil", "Estado Civil")
-    .col-xs-12.col-sm-10.col-md-2.col-lg-2
+    .col-xs-12.col-sm-5.col-md-2.col-lg-2
       =f.label "Nacionalidade"
       =f.localized_country_select(:nacionalidade, [], {include_blank: "Selecione"}, {:class => "form-control selectpicker", "data-live-search": true})
   .row
     #naturalidade_cliente{style: "display: none;"}
-      .col-xs-12.col-sm-10.col-md-3.col-lg-3
+      .col-xs-12.col-sm-5.col-md-3.col-lg-3
         =f.label "Naturalidade"
         =f.collection_select(:naturalidade, Estado.pelo_nome, :id, :nome, {include_blank: "Selecione"}, {:class=>'form-control selectpicker', "data-live-search": true})
 

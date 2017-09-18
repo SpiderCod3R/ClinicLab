@@ -64,3 +64,9 @@
 # Include tinymce-rails
 # require tinymce-jquery
 # require utility/_tinyMCE.init_
+
+
+$(document).ready ->
+  $('#imagem_cabec_imagem').change ->
+    $("#imagem_cabec_imagem_selected").text("Imagem Cabec selecionada - " + $('#imagem_cabec_imagem').val().replace(/C:\\fakepath\\/i, ''))
+    $("#imagem_cabec_imagem_selected").animate({ color: "#253095" }, 1000);
