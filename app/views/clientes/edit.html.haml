@@ -3,8 +3,11 @@
   .container
     %br
     %br
-    %h1=t('bootstrap.helpers.links.edit')
-    %hr.white_stroke
+    .pull-left
+      %h1=t('bootstrap.helpers.links.edit')
+    .pull-right
+      =image_tag @cliente.foto.url(:thumb), :class => "img_canvas" if @cliente.foto.present?
+  .container
     .row-fluid
       - if @cliente.errors.any?
         .alert.alert-danger
@@ -14,7 +17,6 @@
                 Alguns erros impediram este cliente de ser salvo.
                 %br
                 Verifique-os e tente novamente.
-  .container
     .panel=render 'clientes/partials/edit_form'
 
 #empresa_id{style: "display: none"}=params[:empresa_id]
