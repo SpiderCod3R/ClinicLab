@@ -39,7 +39,8 @@ $(document).ready ->
   # Carregamento quando o scroll for igual a 0
   $(window).scroll ->
     tbody = $('.table-agenda').find('tbody').attr("id")
-    data  = $("#q_data_cont_3i :selected").val() + "/" + $("#q_data_cont_2i :selected").val() + "/" + $("#q_data_cont_1i :selected").val()
+    # data  = $("#q_data_cont_3i :selected").val() + "/" + $("#q_data_cont_2i :selected").val() + "/" + $("#q_data_cont_1i :selected").val()
+    data  = $("#q_data_cont").val()
     if $(window).scrollTop() + $(window).height() >= $(document).height()
       loadler.fadeIn 'fast'
       loadData("acao=#{tbody}&offset=#{offset}&page_limit=20&data=#{data}&empresa_id=#{empresa_id}")
