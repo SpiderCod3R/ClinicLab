@@ -18,6 +18,7 @@ pt-BR:
     links:
       new: Novo Usuário
   labels:
+    ortographic_corrector: "Corretor Ortográfico"
     operadoras: Operadoras
     new_operadora: Nova Operadora
     edit_operadora: Editando Operadora

@@ -146,4 +146,8 @@ module ToolHelper
   def link_to_print_recipe(options={})
     link_to options[:text], options[:path], class: 'btn btn-default'
   end
+
+  def link_to_ortographic_corretor
+    link_to t('labels.ortographic_corrector'), "https://www.corretorortografico.com/", target: :_blank, class: "btn btn-default"
+  end
 end
