@@ -1,13 +1,15 @@
 =content_for :header do
   =render 'application/navbar'
 
-=simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'form-horizontal' }) do |f|
-  .login-form
-    %h1.login GClinic
-    .form-group
-      .col-xs-12.col-sm-12.col-md-12.col-lg-12
-        =f.input :name, required: true, autofocus: true,:placeholder => "Nome de Usuário", input_html: { class: "form-control" }
-    .form-group.log-status
-      .col-xs-12.col-sm-12.col-md-12.col-lg-12
-        =f.input :password, required: false,:placeholder => "Senha", input_html: { class: "form-control" }
-    = f.button :submit, "Log in", class: "btn btn-success"
+.container
+  =simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'form-horizontal' }) do |f|
+    .login-form
+      %h1.login GClinic
+      .row
+        .col-xs-12.col-sm-12.col-md-6.col-lg-6
+          =f.input :name, required: true, autofocus: true,:placeholder => "Nome de Usuário"
+      .row
+        .col-xs-12.col-sm-12.col-md-5.col-lg-6
+          =f.input :password, required: false,:placeholder => "Senha"
+      .row
+        = f.button :submit, "Log in", class: "btn btn-success"
