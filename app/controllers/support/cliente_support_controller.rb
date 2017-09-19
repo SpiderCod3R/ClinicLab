@@ -134,7 +134,7 @@ class Support::ClienteSupportController < Support::InsideController
       respond_to do |format|
         format.html
         format.pdf do
-          pdf = PrintFreeText.new(@cliente_texto_livre.content_data, @relatorio, "Texto Livre")
+          pdf = PrintFreeText.new(@cliente, @cliente_texto_livre.content_data, @relatorio)
           send_data pdf.render, filename: "#{@cliente_texto_livre.texto_livre.nome}", type: 'application/pdf', disposition: 'inline'
         end
       end

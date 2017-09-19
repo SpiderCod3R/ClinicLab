@@ -35,10 +35,11 @@ module AgendaFiltrosConcern
       end
 
       def search_by_day(resource)
+        # binding.pry
         @empresa = Empresa.friendly.find(resource[:empresa_id]).id
         includes(:referencia_agenda).includes(:agenda_movimentacao).
         da_empresa(@empresa).
-        where("data >= '#{Date.parse(resource["data"]).strftime("%Y-%m-%d")}'").
+        where("data >= '#{Date.parse(resource["data"])}'").
         order_data.
         order_atendimento.
         offset(resource[:offset]).

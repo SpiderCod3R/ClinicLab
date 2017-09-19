@@ -29,9 +29,7 @@ class TemplatePdf < Prawn::Document
 
   def exibir_cabecalho
     repeat(:all) do
-      if @relatorio.logo.present?
-        image ("public/system/configuracao_relatorios/logos/000/000/001/original/#{@relatorio.logo_file_name}"), height: 70, valign: :top, position: :left
-      end
+
       bounding_box([10, 690], width: 300, height: 50) do
         text "#{@cliente.nome.upcase}", style: :bold, size: 10, align: :left, valign: :center
       end
