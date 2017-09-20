@@ -14,7 +14,6 @@ class ClientesController < Support::ClienteSupportController
   end
 
   def new
-    session[:cliente_id] = nil
     @cliente = current_user.empresa.clientes.build
     get_historicos
     respond_with(@cliente)
@@ -47,12 +46,12 @@ class ClientesController < Support::ClienteSupportController
 
   def update
     session[:cliente_id] = @cliente.id
+
     get_historicos
     if !params[:cliente][:cliente_pdf_upload][:pdf].nil?
       if params[:cliente][:cliente_pdf_upload][:anotacoes] != ""
         if @cliente.update(resource_params)
           @cliente.upload_files(params[:cliente][:cliente_pdf_upload])
-          # @cliente.upload_files(@pdf_params) if @pdf_params.present?
           @cliente.salva_imagens_externas(@imagens_externas_params) if @imagens_externas_params.present?
           @cliente.manage_convenios(session[:convenios_attributes], session[:option_for_cliente_convenio]) if !session[:convenios_attributes].nil?
           flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @cliente.class)

@@ -1,10 +1,12 @@
 class Support::ClienteSupportController < Support::InsideController
+  before_action :zera_session,only: [:new, :edit,:clinic_sheet]
   before_action :set_cliente, only: [:show, :edit, :update, :destroy, :destroy_pdf]
   before_action :set_estados, only: [:new, :edit, :create, :update, :ficha, :clinic_sheet]
   before_action :set_access, only: [:edit, :ficha, :clinic_sheet]
 
   def clinic_sheet
     session[:convenios_attributes] = nil
+    session[:option_for_cliente_convenio]=nil
     session[:agenda_id] = params[:agenda_id]
     @agenda = Agenda.find(session[:agenda_id])
     if params[:cliente_id]
@@ -27,8 +29,8 @@ class Support::ClienteSupportController < Support::InsideController
 
   def cria_session_cliente_convenios
     if params[:convenios_attributes]
-      cookies[:convenios_attributes]=params[:convenios_attributes]
-      cookies[:option_for_cliente_convenio]=params[:option]
+      session[:convenios_attributes] = params[:convenios_attributes]
+      session[:option_for_cliente_convenio]= params[:option]
     end
   end
 
@@ -38,7 +40,7 @@ class Support::ClienteSupportController < Support::InsideController
     if params[:cliente][:id].present?
       @cliente = Cliente.find(params[:cliente][:id])
       @cliente.collect_agenda_movimentacao_fields(@agenda)
-      @cliente.manage_convenios(cookies[:convenios_attributes], cookies[:option_for_cliente_convenio]) if !session[:convenios_attributes].nil?
+      @cliente.manage_convenios(session[:convenios_attributes], session[:option_for_cliente_convenio]) if !session[:convenios_attributes].nil?
 
       if !params[:cliente][:cliente_pdf_upload].nil?
         @cliente.upload_files(params[:cliente][:cliente_pdf_upload])
@@ -64,7 +66,7 @@ class Support::ClienteSupportController < Support::InsideController
       @cliente = current_user.empresa.clientes.build(resource_params)
       @cliente.collect_agenda_movimentacao_fields(@agenda)
       if @cliente.save
-        @cliente.manage_convenios(cookies[:convenios_attributes], cookies[:option_for_cliente_convenio]) if !session[:convenios_attributes].nil?
+        @cliente.manage_convenios(session[:convenios_attributes], session[:option_for_cliente_convenio]) if !session[:convenios_attributes].nil?
         @agenda.agenda_movimentacao.update_attributes(nome_paciente: @cliente.nome, telefone_paciente: @cliente.telefone,
                                                       email_paciente: @cliente.email, cliente_id: @cliente.id)
         flash[:notice] = "Dados do cliente salvos com sucesso."
@@ -299,6 +301,12 @@ class Support::ClienteSupportController < Support::InsideController
   end
 
   private
+    def zera_session
+      session[:cliente_id] = nil
+      session[:convenios_attributes] = nil
+      session[:option_for_cliente_convenio]=nil
+    end
+
     def set_access
       if !current_user.admin?
         @model = Gclinic::Model.find_by(model_class: "Cliente")
