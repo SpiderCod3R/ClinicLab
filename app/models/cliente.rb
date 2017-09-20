@@ -137,4 +137,23 @@ class Cliente < Connection::Factory
       @foto_depois.save!
     end
   end
+
+  def salva_sadts(resource)
+    if resource[:indicacao_clinica].present?
+      @sadt = self.sadts.build(indicacao_clinica: resource[:indicacao_clinica], data: resource[:data], empresa_id: self.empresa_id)
+      if @sadt.save
+        if resource[:sadt_exame_procedimento].present?
+          @sadt_exame_procedimento = @sadt.sadt_exame_procedimentos.build(exame_procedimento_id: resource[:sadt_exame_procedimento]["exame_procedimento_id"], empresa_id: self.empresa_id)
+          @sadt_exame_procedimento.save
+        end
+        if resource[:sadt_exame_procedimentos_attributes].present?
+          @sepas = resource[:sadt_exame_procedimentos_attributes]
+          resource[:sadt_exame_procedimentos_attributes].each do |sep|
+            @sadt_exame_procedimento = @sadt.sadt_exame_procedimentos.build(exame_procedimento_id: @sepas[sep.to_s]["exame_procedimento_id"], empresa_id: self.empresa_id)
+            @sadt_exame_procedimento.save
+          end
+        end
+      end
+    end
+  end
 end

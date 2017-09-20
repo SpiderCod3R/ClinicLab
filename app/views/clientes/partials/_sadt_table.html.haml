@@ -1,0 +1,10 @@
+- cliente_collection_sadts.each do |cs|
+  %tr{id: "cliente_sadt_#{cs.id}"}
+    %td=cs.indicacao_clinica
+    %td=date_to_format(cs.data)
+    %td.center
+      = link_to print_sadt_empresa_cliente_path(current_user.empresa, @cliente, sadt_id: cs.id, format: 'pdf'), target: :_blank do
+        %i.fa.fa-print.fa-2x{style: "color: #282424;"}
+    -# %td.center
+      -# =link_to destroy_sadt_empresa_cliente_path(cs.cliente.empresa, cs.cliente, sadt: cs), method: :delete, remote: true, data: { confirm: "Tem certeza?" }, class: "delete_cliente_sadt" do
+        %i.fa.fa-trash.fa-2x

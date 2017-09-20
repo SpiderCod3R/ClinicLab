@@ -329,7 +329,9 @@ class Support::ClienteSupportController < Support::InsideController
       end
       get_historicos
       @cliente.imagens_externas.build
-      @sadts = @cliente.sadts.build
+      @sadt = @cliente.sadts.build
+      @sadt_exame_procedimento = @sadt.sadt_exame_procedimentos.build
+      @cliente_collection_sadts = @cliente.sadts.page params[:page]
     end
 
     def send_back_with_error
@@ -370,6 +372,8 @@ class Support::ClienteSupportController < Support::InsideController
         :nascimento, :sexo, :rg, :estado_civil, :nacionalidade, :naturalidade, :altura, :peso,
         cliente_convenios_attributes: [:id, :cliente_id, :convenio_id, :status_convenio, :matricula, :plano, :validade_carteira, :produto, :titular],
         imagens_externas_attributes: [:foto_antes, :foto_depois, :cliente_id],
-        cliente_pdf_upload_attributes: [:id, :cliente_id, :anotacoes, :data, :pdf, :_destroy])
+        cliente_pdf_upload_attributes: [:id, :cliente_id, :anotacoes, :data, :pdf, :_destroy],
+        sadts_attributes: [:indicacao_clinica, :data, :cliente_id, :empresa_id, :_destroy],
+        sadt_exame_procedimentos_attributes: [:sadt_id, :exame_procedimento_id, :empresa_id, :_destroy])
     end
 end

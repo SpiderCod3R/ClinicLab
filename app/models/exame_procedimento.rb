@@ -15,6 +15,10 @@ class ExameProcedimento < Connection::Factory
     (RANSACKABLE_ATTRIBUTES) + _ransackers.keys
   end
 
+  def title
+    "#{descricao} - #{tabela} - #{codigo_procedimento}"
+  end
+
   class << self
     def da_empresa_atual(resource)
       where(empresa_id: resource)
