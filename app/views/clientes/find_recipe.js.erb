@@ -15,4 +15,5 @@
   $('#recipe_content').empty()
   $('#recipe_content').html("<%=j render 'clientes/partials/cliente_receituario', { cliente_receituario: @cliente_receituario } %>");
   $('#recipe_manual_pagination').html("<%=j render 'recipe_pagination', { cliente_receituario: @cliente_receituario } %>");
+  $("#print_receituario").html("<%=j link_to_print_recipe path: print_recipe_empresa_cliente_path(@cliente.empresa, @cliente, receituario_id: @cliente_receituario.id, format: 'pdf'), text: 'Imprimir'%>")
 <%- end -%>
