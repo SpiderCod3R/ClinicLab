@@ -296,6 +296,25 @@ class Support::ClienteSupportController < Support::InsideController
     respond_to &:json
   end
 
+  def paginate_sadts
+    # @cliente_collection_sadts = Sadt.where(cliente_id: params[:id]).ultima_data.page(params[:page]).per(10)
+  end
+
+  def search_sadt_remotely
+    @cliente_collection_sadts = Sadt.where(cliente_id: params[:cliente][:id])
+    if params[:search][:indicacao_clinica].present?
+      @cliente_collection_sadts = @cliente_collection_sadts.where("indicacao_clinica LIKE ?","#{params[:search][:indicacao_clinica]}%")
+    end
+    if params[:search][:data].present?
+      @data_sadt = I18n.l(Date.parse(params[:search][:data]), format: :english)
+      @cliente_collection_sadts = @cliente_collection_sadts.where(data: @data_sadt)
+    end
+    respond_to do |format|
+      format.html
+      format.json { render json: @cliente_collection_sadts.as_json }
+    end
+  end
+
   private
     def set_access
       if !current_user.admin?

@@ -42,6 +42,7 @@
 #= require clientes/cliente_imagem_externa
 #= require clientes/cliente_contato
 #= require clientes/cliente_pdfs
+#= require clientes/cliente_sadts
 #= require clientes/search
 #= require configuracao_relatorio
 #= require fornecedores
