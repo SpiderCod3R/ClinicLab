@@ -40,7 +40,6 @@ class Support::ClienteSupportController < Support::InsideController
     if params[:cliente][:id].present?
       @cliente = Cliente.find(params[:cliente][:id])
       @cliente.collect_agenda_movimentacao_fields(@agenda)
-            binding.pry
       if @cliente.update(resource_params)
         @cliente.manage_convenios(session[:convenios_attributes], session[:option_for_cliente_convenio]) if !session[:convenios_attributes].nil?
         if !params[:cliente][:cliente_pdf_upload][:pdf].nil?
