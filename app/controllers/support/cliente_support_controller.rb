@@ -108,6 +108,24 @@ class Support::ClienteSupportController < Support::InsideController
     respond_to &:js
   end
 
+  def print_sadt
+    @relatorio = ConfiguracaoRelatorio.find_by(empresa_id: current_user.empresa.id)
+    unless @relatorio.nil?
+      @cliente = Cliente.find(params[:id])
+      @sadt = @cliente.sadts.find(params[:sadt_id]) if params[:sadt_id].present?
+      respond_to do |format|
+        format.html
+        format.pdf do
+          pdf = PrintSadt.new(@cliente, @sadt, @relatorio)
+          send_data pdf.render, filename: "#{@cliente.nome}", type: 'application/pdf', disposition: 'inline'
+        end
+      end
+    else
+      flash[:error] = "É necessário que haja uma Configuração de Relatório cadastrada."
+      redirect_to :back
+    end
+  end
+
   def print_recipe
     @relatorio = ConfiguracaoRelatorio.find_by(empresa_id: current_user.empresa.id)
     unless @relatorio.nil?
