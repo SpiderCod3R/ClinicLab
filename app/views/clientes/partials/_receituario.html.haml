@@ -9,7 +9,7 @@
       = link_to "Alterar", "#", class: "btn btn-info", id: "change_recipe" if !@cliente.cliente_receituarios.empty?
       -# = link_to "Excluir", "#", class: "btn btn-danger", id: "destroy_recipe" if !@cliente.cliente_receituarios.empty?
       #print_receituario{style: "display: inline;"}
-        = link_to "Imprimir", print_recipe_empresa_cliente_path(current_user.empresa, @cliente, receituario_id: @cliente_receituario.id, format: 'pdf'), target: :_blank, class: "btn btn-default" if !@cliente.cliente_receituarios.empty?
+        = link_to "Imprimir", print_recipe_empresa_cliente_path(current_user.empresa, @cliente, receituario_id: @cliente_receituario, format: 'pdf'), target: :_blank, class: "btn btn-default" if !@cliente.cliente_receituarios.empty?
       = link_to_ortographic_corretor
     .col-sm-6.col-md-6.col-lg-6.pull-right
       - if !@cliente.cliente_receituarios.empty?

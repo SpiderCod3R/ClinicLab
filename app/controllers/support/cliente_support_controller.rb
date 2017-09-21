@@ -40,13 +40,14 @@ class Support::ClienteSupportController < Support::InsideController
     if params[:cliente][:id].present?
       @cliente = Cliente.find(params[:cliente][:id])
       @cliente.collect_agenda_movimentacao_fields(@agenda)
-      @cliente.manage_convenios(session[:convenios_attributes], session[:option_for_cliente_convenio]) if !session[:convenios_attributes].nil?
-
-      if !params[:cliente][:cliente_pdf_upload].nil?
-        @cliente.upload_files(params[:cliente][:cliente_pdf_upload])
-      end
-
+            binding.pry
       if @cliente.update(resource_params)
+        @cliente.manage_convenios(session[:convenios_attributes], session[:option_for_cliente_convenio]) if !session[:convenios_attributes].nil?
+        if !params[:cliente][:cliente_pdf_upload][:pdf].nil?
+          if params[:cliente][:cliente_pdf_upload][:anotacoes] != ""
+            @cliente.upload_files(params[:cliente][:cliente_pdf_upload])
+          end
+        end
         @agenda.agenda_movimentacao.update_attributes(nome_paciente: @cliente.nome, telefone_paciente: @cliente.telefone,
                                                       email_paciente: @cliente.email, cliente_id: @cliente.id)
         if params[:imagens_externas].present?
@@ -330,20 +331,22 @@ class Support::ClienteSupportController < Support::InsideController
       @cliente_texto_livre = @cliente.cliente_texto_livres.last
       @cliente_receituario = @cliente.cliente_receituarios.last
       @cliente_collection_pdfs  = @cliente.cliente_pdf_uploads.ultima_data.page params[:page]
-      # @texto_livres = current_user.empresa.texto_livres.page params[:page]
-      # @cliente_receituarios = @cliente.cliente_receituarios.page params[:page]
+      @texto_livres = current_user.empresa.texto_livres.page params[:page]
+      @cliente_receituarios = @cliente.cliente_receituarios.page params[:page]
+
       if !@cliente.cliente_pdf_uploads.empty?
         @cliente_pdf_uploads = @cliente.cliente_pdf_uploads.build
       else
         @cliente_pdf_uploads = @cliente.cliente_pdf_uploads.build
       end
+
       get_historicos
       @cliente.imagens_externas.build
     end
 
     def send_back_with_error
       @cliente_texto_livre=@cliente.cliente_texto_livres.first
-      # @cliente_pdf_uploads=@cliente.cliente_pdf_uploads.build
+      @cliente_pdf_uploads=@cliente.cliente_pdf_uploads.build
       @cliente.imagens_externas.build
       if params[:page].permitted?
         @@page = params[:page]

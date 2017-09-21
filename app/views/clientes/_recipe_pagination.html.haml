@@ -2,8 +2,8 @@
   #first_page{style: "display: inline"}
     = link_to_first_page path: find_recipe_empresa_cliente_path(current_user.empresa, @cliente, first_page: true), text: '<< Primeiro'
   #previous_page{style: "display: inline"}
-    = link_to_back_page path: find_recipe_empresa_cliente_path(current_user.empresa, @cliente, previous_page: true, cliente_receituario_id: cliente_receituario.id), text: '< Anterior'
+    = link_to_back_page path: find_recipe_empresa_cliente_path(current_user.empresa, @cliente, previous_page: true, cliente_receituario_id: cliente_receituario), text: '< Anterior'
   #next_page{style: "display: inline"}
-    = link_to_advance_page path: find_recipe_empresa_cliente_path(current_user.empresa, @cliente, next_page: true, cliente_receituario_id: cliente_receituario.id), text: 'Próxima >'
+    = link_to_advance_page path: find_recipe_empresa_cliente_path(current_user.empresa, @cliente, next_page: true, cliente_receituario_id: cliente_receituario), text: 'Próxima >'
   #last_page{style: "display: inline"}
     = link_to_last_page path: find_recipe_empresa_cliente_path(current_user.empresa, @cliente, last_page: true), text: 'Último >>'
