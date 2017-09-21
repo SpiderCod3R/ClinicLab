@@ -14,9 +14,9 @@
         -if @cliente_permissao.texto_livre?
           %li
             %a{'data-toggle':"tab", href:"#texto_livre", id: "aba_texto_livre"} Texto-Livre
-        -if @cliente_permissao.pdf_upload?
-          %li
-            %a{'data-toggle':"tab", href:"#pdf", id: "aba_pdf_upload"} PDF
+        -# -if @cliente_permissao.pdf_upload?
+        -#   %li
+        -#     %a{'data-toggle':"tab", href:"#pdf", id: "aba_pdf_upload"} PDF
         -if @cliente_permissao.receituario?
           %li
             %a{'data-toggle':"tab", href:"#receituario", id: "aba_receituario"} Receituário
@@ -28,8 +28,8 @@
         %a{'data-toggle':"tab", href:"#historico", id: "aba_historico"} Histórico
       %li
         %a{'data-toggle':"tab", href:"#texto_livre", id: "aba_texto_livre"} Texto-Livre
-      %li
-        %a{'data-toggle':"tab", href:"#pdf", id: "aba_pdf_upload"} PDF
+      -# %li
+      -#   %a{'data-toggle':"tab", href:"#pdf", id: "aba_pdf_upload"} PDF
       %li
         %a{'data-toggle':"tab", href:"#receituario", id: "aba_receituario"} Receituário
       %li

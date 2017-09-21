@@ -15,8 +15,8 @@
           =render 'clientes/partials/historico', { f: f }
         -if @cliente_permissao.texto_livre?
           =render 'clientes/partials/texto_livre', { f: f }
-        -if @cliente_permissao.pdf_upload?
-          =render 'clientes/partials/pdf_upload', { f: f }
+        -# -if @cliente_permissao.pdf_upload?
+        -#   =render 'clientes/partials/pdf_upload', { f: f }
         -if @cliente_permissao.receituario?
           =render 'clientes/partials/receituario', { f: f }
         -if @cliente_permissao.imagens_externas?
@@ -27,7 +27,7 @@
         / aba texto-livre
         =render 'clientes/partials/texto_livre', { f: f }
         / aba pdf
-        =render 'clientes/partials/pdf_upload', { f: f }
+        -# =render 'clientes/partials/pdf_upload', { f: f }
         / aba receituario
         =render 'clientes/partials/receituario', { f: f }
         / aba imagens_externas

@@ -42,11 +42,11 @@ class Support::ClienteSupportController < Support::InsideController
       @cliente.collect_agenda_movimentacao_fields(@agenda)
       if @cliente.update(resource_params)
         @cliente.manage_convenios(session[:convenios_attributes], session[:option_for_cliente_convenio]) if !session[:convenios_attributes].nil?
-        if !params[:cliente][:cliente_pdf_upload][:pdf].nil?
-          if params[:cliente][:cliente_pdf_upload][:anotacoes] != ""
-            @cliente.upload_files(params[:cliente][:cliente_pdf_upload])
-          end
-        end
+        # if !params[:cliente][:cliente_pdf_upload].nil?
+        #   if params[:cliente][:cliente_pdf_upload][:anotacoes] != "" and params[:cliente][:cliente_pdf_upload][:pdf] != ""
+        #     @cliente.upload_files(params[:cliente][:cliente_pdf_upload])
+        #   end
+        # end
         @agenda.agenda_movimentacao.update_attributes(nome_paciente: @cliente.nome, telefone_paciente: @cliente.telefone,
                                                       email_paciente: @cliente.email, cliente_id: @cliente.id)
         if params[:imagens_externas].present?
