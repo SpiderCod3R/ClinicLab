@@ -59,6 +59,27 @@ class PrintSadt < Prawn::Document
     imprime_item_29
     imprime_item_30
     imprime_item_31
+    imprimir_linha_13
+    imprime_item_32
+    imprime_item_33
+    imprime_item_34
+    imprime_item_35
+    imprimir_linha_15
+    imprimir_linha_16
+    imprimir_linha_17
+    imprimir_linha_18
+    imprimir_linha_19
+    imprimir_linha_20
+    imprime_item_59
+    imprime_item_60
+    imprime_item_61
+    imprime_item_62
+    imprime_item_63
+    imprime_item_64
+    imprime_item_65
+    imprime_item_66
+    imprime_item_67
+    imprime_item_68
   end
 
   def exibe_cabecalho
@@ -390,12 +411,11 @@ class PrintSadt < Prawn::Document
     bounding_box([28, 328], width: 75) do
       table itens_linha_10_0 do
         self.width = 750
-        column(0).width = 50
-        column(1).width = 150
-        column(2).width = 400
-        column(3..4).width = 75
+        column(0).width = 35
+        column(1).width = 125
+        column(2).width = 490
+        column(3..4).width = 50
         row(0..row_length).align = :left
-        row(0).font_style = :bold
         style(row(0), size: 6)
         style(row(1..row_length), size: 5)
         self.position = 0
@@ -407,12 +427,11 @@ class PrintSadt < Prawn::Document
       end
       table itens_linha_10_1 do
         self.width = 750
-        column(0).width = 50
-        column(1).width = 150
-        column(2).width = 400
-        column(3..4).width = 75
+        column(0).width = 35
+        column(1).width = 125
+        column(2).width = 490
+        column(3..4).width = 50
         row(0..row_length).align = :left
-        row(0).font_style = :bold
         style(row(0), size: 6)
         style(row(1..row_length), size: 5)
         self.position = 0
@@ -424,12 +443,11 @@ class PrintSadt < Prawn::Document
       end
       table itens_linha_10_2 do
         self.width = 750
-        column(0).width = 50
-        column(1).width = 150
-        column(2).width = 400
-        column(3..4).width = 75
+        column(0).width = 35
+        column(1).width = 125
+        column(2).width = 490
+        column(3..4).width = 50
         row(0..row_length).align = :left
-        row(0).font_style = :bold
         style(row(0), size: 6)
         style(row(1..row_length), size: 5)
         self.position = 0
@@ -441,12 +459,11 @@ class PrintSadt < Prawn::Document
       end
       table itens_linha_10_3 do
         self.width = 750
-        column(0).width = 50
-        column(1).width = 150
-        column(2).width = 400
-        column(3..4).width = 75
+        column(0).width = 35
+        column(1).width = 125
+        column(2).width = 490
+        column(3..4).width = 50
         row(0..row_length).align = :left
-        row(0).font_style = :bold
         style(row(0), size: 6)
         style(row(1..row_length), size: 5)
         self.position = 0
@@ -458,12 +475,11 @@ class PrintSadt < Prawn::Document
       end
       table itens_linha_10_4 do
         self.width = 750
-        column(0).width = 50
-        column(1).width = 150
-        column(2).width = 400
-        column(3..4).width = 75
+        column(0).width = 35
+        column(1).width = 125
+        column(2).width = 490
+        column(3..4).width = 50
         row(0..row_length).align = :left
-        row(0).font_style = :bold
         style(row(0), size: 6)
         style(row(1..row_length), size: 5)
         self.position = 0
@@ -475,12 +491,11 @@ class PrintSadt < Prawn::Document
       end
       table itens_linha_10_5 do
         self.width = 750
-        column(0).width = 50
-        column(1).width = 150
-        column(2).width = 400
-        column(3..4).width = 75
+        column(0).width = 35
+        column(1).width = 125
+        column(2).width = 490
+        column(3..4).width = 50
         row(0..row_length).align = :left
-        row(0).font_style = :bold
         style(row(0), size: 6)
         style(row(1..row_length), size: 5)
         self.position = 0
@@ -498,23 +513,23 @@ class PrintSadt < Prawn::Document
   end
 
   def itens_linha_10_1
-    [["1- |___|___|","|___|___|___|___|___|___|___|___|___|___|", "_______________________________________________________________________________________________________","|___|___|___|","|___|___|___|"]]
+    [["1- |___|___|","|___|___|___|___|___|___|___|___|___|___|", "________________________________________________________________________________________________________________________________________________","|___|___|___|","|___|___|___|"]]
   end
 
   def itens_linha_10_2
-    [["2- |___|___|","|___|___|___|___|___|___|___|___|___|___|", "_______________________________________________________________________________________________________","|___|___|___|","|___|___|___|"]]
+    [["2- |___|___|","|___|___|___|___|___|___|___|___|___|___|", "________________________________________________________________________________________________________________________________________________","|___|___|___|","|___|___|___|"]]
   end
 
   def itens_linha_10_3
-    [["3- |___|___|","|___|___|___|___|___|___|___|___|___|___|", "_______________________________________________________________________________________________________","|___|___|___|","|___|___|___|"]]
+    [["3- |___|___|","|___|___|___|___|___|___|___|___|___|___|", "________________________________________________________________________________________________________________________________________________","|___|___|___|","|___|___|___|"]]
   end
 
   def itens_linha_10_4
-    [["4- |___|___|","|___|___|___|___|___|___|___|___|___|___|", "_______________________________________________________________________________________________________","|___|___|___|","|___|___|___|"]]
+    [["4- |___|___|","|___|___|___|___|___|___|___|___|___|___|", "________________________________________________________________________________________________________________________________________________","|___|___|___|","|___|___|___|"]]
   end
 
   def itens_linha_10_5
-    [["5- |___|___|","|___|___|___|___|___|___|___|___|___|___|", "_______________________________________________________________________________________________________","|___|___|___|","|___|___|___|"]]
+    [["5- |___|___|","|___|___|___|___|___|___|___|___|___|___|", "________________________________________________________________________________________________________________________________________________","|___|___|___|","|___|___|___|"]]
   end
 
   def imprimir_linha_11
@@ -567,6 +582,585 @@ class PrintSadt < Prawn::Document
         text "31 - Código CNES"
       end
       text "|___|___|___|___|___|___|___|", align: :center, size: 5
+    end
+  end
+
+  def imprimir_linha_13
+    bounding_box([28, 259], width: 75, height: 15) do
+      table itens_linha_13 do
+        self.width = 750
+        column(0).width = 750
+        row(0..row_length).align = :left
+        row(0).font_style = :bold
+        style(row(0..row_length), size: 6)
+        self.position = 0
+        self.header = true
+        row(0..row_length).columns(0).borders = []
+        style(row(0), background_color: 'DEDEDE')
+        style(row(0..row_length), padding: 0, padding_left: 2)
+      end
+    end
+  end
+
+  def itens_linha_13
+    [["Dados do Atendimento"]]
+  end
+
+  def imprime_item_32
+    bounding_box([28, 251], width: 65, height: 15) do
+      stroke_bounds
+      move_down 1
+      indent 2 do
+        text "32 - Tipo Atendimento"
+      end
+      text "|___|___|", align: :center, size: 5
+    end
+  end
+
+  def imprime_item_33
+    bounding_box([95, 251], width: 170, height: 15) do
+      stroke_bounds
+      move_down 1
+      indent 2 do
+        text "33 - Indicação de Acidente (acidente ou doença relacionada)"
+      end
+      text "|___|", align: :center, size: 5
+    end
+  end
+
+  def imprime_item_34
+    bounding_box([267, 251], width: 63, height: 15) do
+      stroke_bounds
+      move_down 1
+      indent 2 do
+        text "34 - Tipo de Consulta"
+      end
+      text "|___|", align: :center, size: 5
+    end
+  end
+
+  def imprime_item_35
+    bounding_box([332.5, 251], width: 130, height: 15) do
+      stroke_bounds
+      move_down 1
+      indent 2 do
+        text "35 - Motivo de Encerramento do Atendimento"
+      end
+      text "|___|___|", align: :center, size: 5
+    end
+  end
+
+  def imprimir_linha_15
+    bounding_box([28, 235], width: 75, height: 15) do
+      table itens_linha_15 do
+        self.width = 750
+        column(0).width = 750
+        row(0..row_length).align = :left
+        row(0).font_style = :bold
+        style(row(0..row_length), size: 6)
+        self.position = 0
+        self.header = true
+        row(0..row_length).columns(0).borders = []
+        style(row(0), background_color: 'DEDEDE')
+        style(row(0..row_length), padding: 0, padding_left: 2)
+      end
+    end
+  end
+
+  def itens_linha_15
+    [["Dados da Execução / Procedimentos e Exames Realizados"]]
+  end
+
+  def imprimir_linha_16
+    bounding_box([28, 227], width: 75) do
+      table itens_linha_16_0 do
+        self.width = 750
+        column(0).width = 107
+        column(1).width = 56
+        column(2).width = 53
+        column(3).width = 27
+        column(4).width = 119
+        column(5).width = 83
+        column(6).width = 30
+        column(7).width = 16
+        column(8).width = 17
+        column(9).width = 42
+        column(10..11).width = 100
+        row(0..row_length).align = :left
+        row(0..row_length).columns(6..8).align = :center
+        style(row(0), size: 6)
+        style(row(0).columns(3..4), size: 5)
+        style(row(0).columns(7..8), size: 5)
+        style(row(0).columns(9), size: 4)
+        style(row(1..row_length), size: 5)
+        self.position = 0
+        self.header = false
+        row(0).columns(1..10).borders = [:top]
+        row(0).columns(0).borders = [:left,:top]
+        row(0).columns(11).borders = [:right,:top]
+        style(row(0..row_length).columns(0), padding: 0)
+        style(row(0..row_length).columns(1..11), padding: 0, padding_left: 1)
+      end
+      table itens_linha_16_1 do
+        self.width = 750
+        column(0).width = 107
+        column(1).width = 56
+        column(2).width = 53
+        column(3).width = 27
+        column(4).width = 119
+        column(5).width = 83
+        column(6).width = 30
+        column(7).width = 16
+        column(8).width = 17
+        column(9).width = 42
+        column(10..11).width = 100
+        row(0..row_length).align = :left
+        row(0..row_length).columns(6..8).align = :center
+        style(row(0), size: 6)
+        style(row(1..row_length), size: 5)
+        self.position = 0
+        self.header = false
+        row(0).columns(1..10).borders = []
+        row(0).columns(0).borders = [:left]
+        row(0).columns(11).borders = [:right]
+        style(row(0..row_length).columns(0), padding: 0)
+        style(row(0..row_length).columns(1..11), padding: 0, padding_left: 1)
+      end
+      table itens_linha_16_2 do
+        self.width = 750
+        column(0).width = 107
+        column(1).width = 56
+        column(2).width = 53
+        column(3).width = 27
+        column(4).width = 119
+        column(5).width = 83
+        column(6).width = 30
+        column(7).width = 16
+        column(8).width = 17
+        column(9).width = 42
+        column(10..11).width = 100
+        row(0..row_length).align = :left
+        row(0..row_length).columns(6..8).align = :center
+        style(row(0), size: 6)
+        style(row(1..row_length), size: 5)
+        self.position = 0
+        self.header = false
+        row(0).columns(1..10).borders = []
+        row(0).columns(0).borders = [:left]
+        row(0).columns(11).borders = [:right]
+        style(row(0..row_length).columns(0), padding: 0)
+        style(row(0..row_length).columns(1..11), padding: 0, padding_left: 1)
+      end
+      table itens_linha_16_3 do
+        self.width = 750
+        column(0).width = 107
+        column(1).width = 56
+        column(2).width = 53
+        column(3).width = 27
+        column(4).width = 119
+        column(5).width = 83
+        column(6).width = 30
+        column(7).width = 16
+        column(8).width = 17
+        column(9).width = 42
+        column(10..11).width = 100
+        row(0..row_length).align = :left
+        row(0..row_length).columns(6..8).align = :center
+        style(row(0), size: 6)
+        style(row(1..row_length), size: 5)
+        self.position = 0
+        self.header = false
+        row(0).columns(1..10).borders = []
+        row(0).columns(0).borders = [:left]
+        row(0).columns(11).borders = [:right]
+        style(row(0..row_length).columns(0), padding: 0)
+        style(row(0..row_length).columns(1..11), padding: 0, padding_left: 1)
+      end
+      table itens_linha_16_4 do
+        self.width = 750
+        column(0).width = 107
+        column(1).width = 56
+        column(2).width = 53
+        column(3).width = 27
+        column(4).width = 119
+        column(5).width = 83
+        column(6).width = 30
+        column(7).width = 16
+        column(8).width = 17
+        column(9).width = 42
+        column(10..11).width = 100
+        row(0..row_length).align = :left
+        row(0..row_length).columns(6..8).align = :center
+        style(row(0), size: 6)
+        style(row(1..row_length), size: 5)
+        self.position = 0
+        self.header = false
+        row(0).columns(1..10).borders = []
+        row(0).columns(0).borders = [:left]
+        row(0).columns(11).borders = [:right]
+        style(row(0..row_length).columns(0), padding: 0)
+        style(row(0..row_length).columns(1..11), padding: 0, padding_left: 1)
+      end
+      table itens_linha_16_5 do
+        self.width = 750
+        column(0).width = 107
+        column(1).width = 56
+        column(2).width = 53
+        column(3).width = 27
+        column(4).width = 119
+        column(5).width = 83
+        column(6).width = 30
+        column(7).width = 16
+        column(8).width = 17
+        column(9).width = 42
+        column(10..11).width = 100
+        row(0..row_length).align = :left
+        row(0..row_length).columns(6..8).align = :center
+        style(row(0), size: 6)
+        style(row(1..row_length), size: 5)
+        self.position = 0
+        self.header = false
+        row(0).columns(1..10).borders = [:bottom]
+        row(0).columns(0).borders = [:left,:bottom]
+        row(0).columns(11).borders = [:right,:bottom]
+        # style(row(0..row_length), padding: 0, padding_left: 2, padding_bottom: 2)
+        style(row(0..row_length).columns(0), padding: 0, padding_bottom: 2)
+        style(row(0..row_length).columns(1..11), padding: 0, padding_left: 1, padding_bottom: 2)
+      end
+    end
+  end
+
+  def itens_linha_16_0
+    [["36 - Data", "37 - Hora Inicial", "38 - Hora Final", "39 - Tabela","40 - Código do Procedimento", "41 - Descrição", "42 - Qtde.", "43-Via", "44-Tec.", "45-Fator Red./Acresc.", "46 - Valor Unitário - R$", "47 - Valor Total - R$"]]
+  end
+
+  def itens_linha_16_1
+    [["1-|___|___|/|___|___|/|___|___|___|___|", "|___|___|:|___|___|a","|___|___|:|___|___|","|___|___|","|___|___|___|___|___|___|___|___|___|___|","________________________","|__|__|__|","|__|","|__|","|___|,|___|___|", "|___|___|___|___|___|___|,|___|___|", "|___|___|___|___|___|___|,|___|___|"]]
+  end
+
+  def itens_linha_16_2
+    [["2-|___|___|/|___|___|/|___|___|___|___|", "|___|___|:|___|___|a","|___|___|:|___|___|","|___|___|","|___|___|___|___|___|___|___|___|___|___|","________________________","|__|__|__|","|__|","|__|","|___|,|___|___|", "|___|___|___|___|___|___|,|___|___|", "|___|___|___|___|___|___|,|___|___|"]]
+  end
+
+  def itens_linha_16_3
+    [["3-|___|___|/|___|___|/|___|___|___|___|", "|___|___|:|___|___|a","|___|___|:|___|___|","|___|___|","|___|___|___|___|___|___|___|___|___|___|","________________________","|__|__|__|","|__|","|__|","|___|,|___|___|", "|___|___|___|___|___|___|,|___|___|", "|___|___|___|___|___|___|,|___|___|"]]
+  end
+
+  def itens_linha_16_4
+    [["4-|___|___|/|___|___|/|___|___|___|___|", "|___|___|:|___|___|a","|___|___|:|___|___|","|___|___|","|___|___|___|___|___|___|___|___|___|___|","________________________","|__|__|__|","|__|","|__|","|___|,|___|___|", "|___|___|___|___|___|___|,|___|___|", "|___|___|___|___|___|___|,|___|___|"]]
+  end
+
+  def itens_linha_16_5
+    [["5-|___|___|/|___|___|/|___|___|___|___|", "|___|___|:|___|___|a","|___|___|:|___|___|","|___|___|","|___|___|___|___|___|___|___|___|___|___|","________________________","|__|__|__|","|__|","|__|","|___|,|___|___|", "|___|___|___|___|___|___|,|___|___|", "|___|___|___|___|___|___|,|___|___|"]]
+  end
+
+  def imprimir_linha_17
+    bounding_box([28, 183], width: 75, height: 15) do
+      table itens_linha_17 do
+        self.width = 750
+        column(0).width = 750
+        row(0..row_length).align = :left
+        row(0).font_style = :bold
+        style(row(0..row_length), size: 6)
+        self.position = 0
+        self.header = true
+        row(0..row_length).columns(0).borders = []
+        style(row(0), background_color: 'DEDEDE')
+        style(row(0..row_length), padding: 0, padding_left: 2)
+      end
+    end
+  end
+
+  def itens_linha_17
+    [["Identificação do(s) Profissional(s) Executante(s)"]]
+  end
+
+  def imprimir_linha_18
+    bounding_box([28, 175], width: 75) do
+      table itens_linha_18_0 do
+        self.width = 750
+        column(0..1).width = 28
+        column(2).width = 169
+        column(3).width = 195
+        column(4).width = 40
+        column(5).width = 182
+        column(6).width = 33
+        column(7).width = 75
+        row(0..row_length).align = :left
+        style(row(0), size: 6)
+        style(row(1..row_length), size: 5)
+        style(row(0).columns(0..1), size: 4)
+        style(row(0).columns(4), size: 4)
+        self.position = 0
+        self.header = false
+        row(0).columns(1..6).borders = [:top]
+        row(0).columns(0).borders = [:left,:top]
+        row(0).columns(7).borders = [:right,:top]
+        style(row(0..row_length), padding: 0, padding_left: 2)
+      end
+      table itens_linha_18_1 do
+        self.width = 750
+        column(0..1).width = 28
+        column(2).width = 169
+        column(3).width = 195
+        column(4).width = 40
+        column(5).width = 182
+        column(6).width = 33
+        column(7).width = 75
+        row(0..row_length).align = :left
+        style(row(0), size: 6)
+        style(row(1..row_length), size: 5)
+        self.position = 0
+        self.header = false
+        row(0).columns(1..6).borders = []
+        row(0).columns(0).borders = [:left]
+        row(0).columns(7).borders = [:right]
+        style(row(0..row_length), padding: 0, padding_left: 2)
+      end
+      table itens_linha_18_2 do
+        self.width = 750
+        column(0..1).width = 28
+        column(2).width = 169
+        column(3).width = 195
+        column(4).width = 40
+        column(5).width = 182
+        column(6).width = 33
+        column(7).width = 75
+        row(0..row_length).align = :left
+        style(row(0), size: 6)
+        style(row(1..row_length), size: 5)
+        self.position = 0
+        self.header = false
+        row(0).columns(1..6).borders = []
+        row(0).columns(0).borders = [:left]
+        row(0).columns(7).borders = [:right]
+        style(row(0..row_length), padding: 0, padding_left: 2)
+      end
+      table itens_linha_18_3 do
+        self.width = 750
+        column(0..1).width = 28
+        column(2).width = 169
+        column(3).width = 195
+        column(4).width = 40
+        column(5).width = 182
+        column(6).width = 33
+        column(7).width = 75
+        row(0..row_length).align = :left
+        style(row(0), size: 6)
+        style(row(1..row_length), size: 5)
+        self.position = 0
+        self.header = false
+        row(0).columns(1..6).borders = []
+        row(0).columns(0).borders = [:left]
+        row(0).columns(7).borders = [:right]
+        style(row(0..row_length), padding: 0, padding_left: 2)
+      end
+      table itens_linha_18_4 do
+        self.width = 750
+        column(0..1).width = 28
+        column(2).width = 169
+        column(3).width = 195
+        column(4).width = 40
+        column(5).width = 182
+        column(6).width = 33
+        column(7).width = 75
+        row(0..row_length).align = :left
+        style(row(0), size: 6)
+        style(row(1..row_length), size: 5)
+        self.position = 0
+        self.header = false
+        row(0).columns(1..6).borders = [:bottom]
+        row(0).columns(0).borders = [:left,:bottom]
+        row(0).columns(7).borders = [:right,:bottom]
+        style(row(0..row_length), padding: 0, padding_left: 2, padding_bottom: 2)
+      end
+    end
+  end
+
+  def itens_linha_18_0
+    [["48 - Seq. Ref", "49 - Grau Part", "50 - Código da Operadora / CPF", "51 - Nome do Profissional", "52 - Conselho Profissional", "53 - Número no Conselho", "54 - UF", "55 - Código CBO"]]
+  end
+
+  def itens_linha_18_1
+    [["|___|___|", "|___|___|","|___|___|___|___|___|___|___|___|___|___|___|___|___|___|", "_______________________________________________________", "|___|___|", "|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|", "|___|___|", "|___|___|___|___|___|___|"]]
+  end
+
+  def itens_linha_18_2
+    [["|___|___|", "|___|___|","|___|___|___|___|___|___|___|___|___|___|___|___|___|___|", "_______________________________________________________", "|___|___|", "|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|", "|___|___|", "|___|___|___|___|___|___|"]]
+  end
+
+  def itens_linha_18_3
+    [["|___|___|", "|___|___|","|___|___|___|___|___|___|___|___|___|___|___|___|___|___|", "_______________________________________________________", "|___|___|", "|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|", "|___|___|", "|___|___|___|___|___|___|"]]
+  end
+
+  def itens_linha_18_4
+    [["|___|___|", "|___|___|","|___|___|___|___|___|___|___|___|___|___|___|___|___|___|", "_______________________________________________________", "|___|___|", "|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|", "|___|___|", "|___|___|___|___|___|___|"]]
+  end
+
+  def imprimir_linha_19
+    bounding_box([28, 134], width: 75) do
+      table itens_linha_19_0 do
+        self.width = 750
+        column(0).width = 750
+        row(0..row_length).align = :left
+        style(row(0), size: 6)
+        self.position = 0
+        self.header = false
+        row(0).columns(0).borders = [:left,:right,:top]
+        style(row(0..row_length), padding: 0)
+      end
+      table itens_linha_19_1 do
+        self.width = 750
+        column(0..4).width = 150
+        row(0..row_length).align = :center
+        style(row(0), size: 6)
+        self.position = 0
+        self.header = false
+        row(0).columns(1..3).borders = []
+        row(0).columns(0).borders = [:left]
+        row(0).columns(4).borders = [:right]
+        row(1).columns(1..3).borders = [:bottom]
+        row(1).columns(0).borders = [:left,:bottom]
+        row(1).columns(4).borders = [:right,:bottom]
+        style(row(0..row_length), padding: 0, padding_bottom: 2)
+      end
+    end
+  end
+
+  def itens_linha_19_0
+    [["56 - Data de Realização de Procedimento em Série 57 - Assinatura do Beneficiário ou Responsável"]]
+  end
+
+  def itens_linha_19_1
+    [["1- |___|___|/|___|___|/|___|___|___|___| ___________","3- |___|___|/|___|___|/|___|___|___|___| ___________","5- |___|___|/|___|___|/|___|___|___|___| ___________","7- |___|___|/|___|___|/|___|___|___|___| ___________","9- |___|___|/|___|___|/|___|___|___|___| ___________"],
+      ["2- |___|___|/|___|___|/|___|___|___|___| ___________","4- |___|___|/|___|___|/|___|___|___|___| ___________","6- |___|___|/|___|___|/|___|___|___|___| ___________","8- |___|___|/|___|___|/|___|___|___|___| ___________","10-|___|___|/|___|___|/|___|___|___|___| ___________"]]
+  end
+
+  def imprimir_linha_20
+    bounding_box([28, 107], width: 75, height: 60) do
+      table itens_linha_20 do
+        self.width = 750
+        column(0).width = 750
+        row(0..row_length).align = :left
+        row(0).font_style = :bold
+        style(row(0..row_length), size: 6)
+        self.position = 0
+        self.header = true
+        # row(0..row_length).columns(0).borders = []
+        style(row(0), background_color: 'DEDEDE')
+        style(row(0..row_length), padding: 0, padding_left: 2, padding_bottom: 50)
+      end
+    end
+  end
+
+  def itens_linha_20
+    [["58 - Observação / Justificativa"]]
+  end
+
+  def imprime_item_59
+    bounding_box([28, 48], width: 105, height: 15) do
+      stroke_bounds
+      move_down 1
+      indent 2 do
+        text "59 - Total Procedimentos (R$)"
+      end
+      text "|___|___|___|___|___|___|,|___|___|", align: :center, size: 5
+    end
+  end
+
+  def imprime_item_60
+    bounding_box([135, 48], width: 105, height: 15) do
+      stroke_bounds
+      move_down 1
+      indent 2 do
+        text "60 - Total Taxas e Aluguéis (R$)"
+      end
+      text "|___|___|___|___|___|___|,|___|___|", align: :center, size: 5
+    end
+  end
+
+  def imprime_item_61
+    bounding_box([242, 48], width: 105, height: 15) do
+      stroke_bounds
+      move_down 1
+      indent 2 do
+        text "61 - Total Materiais (R$)"
+      end
+      text "|___|___|___|___|___|___|,|___|___|", align: :center, size: 5
+    end
+  end
+
+  def imprime_item_62
+    bounding_box([349, 48], width: 105, height: 15) do
+      stroke_bounds
+      move_down 1
+      indent 2 do
+        text "62 - Total OPME (R$)"
+      end
+      text "|___|___|___|___|___|___|,|___|___|", align: :center, size: 5
+    end
+  end
+
+  def imprime_item_63
+    bounding_box([457, 48], width: 105, height: 15) do
+      stroke_bounds
+      move_down 1
+      indent 2 do
+        text "63 - Total de Medicamentos (R$)"
+      end
+      text "|___|___|___|___|___|___|,|___|___|", align: :center, size: 5
+    end
+  end
+
+  def imprime_item_64
+    bounding_box([565, 48], width: 105, height: 15) do
+      stroke_bounds
+      move_down 1
+      indent 2 do
+        text "64 - Total Gases Medicinais (R$)"
+      end
+      text "|___|___|___|___|___|___|,|___|___|", align: :center, size: 5
+    end
+  end
+
+  def imprime_item_65
+    bounding_box([673, 48], width: 105, height: 15) do
+      stroke_bounds
+      move_down 1
+      indent 2 do
+        text "65 - Total Geral (R$)"
+      end
+      text "|___|___|___|___|___|___|,|___|___|", align: :center, size: 5
+    end
+  end
+
+  def imprime_item_66
+    bounding_box([28, 31], width: 249, height: 15) do
+      stroke_bounds
+      move_down 1
+      indent 2 do
+        text "66 - Assinatura do Responsável pela Autorização"
+      end
+    end
+  end
+
+  def imprime_item_67
+    bounding_box([278.5, 31], width: 249, height: 15) do
+      stroke_bounds
+      move_down 1
+      indent 2 do
+        text "67 - Assinatura do Beneficiário ou Responsável"
+      end
+    end
+  end
+
+  def imprime_item_68
+    bounding_box([529, 31], width: 249, height: 15) do
+      stroke_bounds
+      move_down 1
+      indent 2 do
+        text "68 - Assinatura do Contratado"
+      end
     end
   end
 end
