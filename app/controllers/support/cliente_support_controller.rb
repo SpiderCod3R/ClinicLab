@@ -30,7 +30,7 @@ class Support::ClienteSupportController < Support::InsideController
   def cria_session_cliente_convenios
     if params[:convenios_attributes]
       session[:convenios_attributes] = params[:convenios_attributes]
-      session[:option_for_cliente_convenio]= params[:option]
+      # session[:option_for_cliente_convenio]= params[:option]
     end
   end
 
@@ -41,7 +41,7 @@ class Support::ClienteSupportController < Support::InsideController
       @cliente = Cliente.find(params[:cliente][:id])
       @cliente.collect_agenda_movimentacao_fields(@agenda)
       if @cliente.update(resource_params)
-        @cliente.manage_convenios(session[:convenios_attributes], session[:option_for_cliente_convenio]) if !session[:convenios_attributes].nil?
+        @cliente.manage_convenios(session[:convenios_attributes]) if !session[:convenios_attributes].nil?
         if !params[:cliente][:cliente_pdf_upload].nil?
           if params[:cliente][:cliente_pdf_upload][:anotacoes] != "" and params[:cliente][:cliente_pdf_upload][:pdf] != ""
             @cliente.upload_files(params[:cliente][:cliente_pdf_upload])
@@ -66,7 +66,7 @@ class Support::ClienteSupportController < Support::InsideController
       @cliente = current_user.empresa.clientes.build(resource_params)
       @cliente.collect_agenda_movimentacao_fields(@agenda)
       if @cliente.save
-        @cliente.manage_convenios(session[:convenios_attributes], session[:option_for_cliente_convenio]) if !session[:convenios_attributes].nil?
+        @cliente.manage_convenios(session[:convenios_attributes]) if !session[:convenios_attributes].nil?
         @agenda.agenda_movimentacao.update_attributes(nome_paciente: @cliente.nome, telefone_paciente: @cliente.telefone,
                                                       email_paciente: @cliente.email, cliente_id: @cliente.id)
         flash[:notice] = "Dados do cliente salvos com sucesso."

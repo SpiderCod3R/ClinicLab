@@ -1,8 +1,7 @@
 $(document).ready ->
   window.LOCALHOST        =window.location.origin + '/'
-  window._cliente_convenios_ =[]
-  window._option_="create"
   window._usando_agora_cliente_convenio_=false
+  window.empresa_id = $("#empresa_id").text()
 
   # funcao que calcula a idade em anos, meses e dias a partir da data_nascimento_informada
   window.calculaIdade = (data_nascimento_informada) ->

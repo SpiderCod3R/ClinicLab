@@ -4,7 +4,12 @@
   =build_form_toolbar(nil, ".new_cliente", @cliente, empresa_clientes_path(current_user.empresa), nil)
 %section{id: "clinic_sheet"}
   .col-xs-12.col-sm-12.col-md-12.col-lg-12
-    %h1 Ficha Cliente
+    .container-fluid
+      %br
+      .pull-left
+        %h1 Ficha Cliente
+      .pull-right
+        =image_tag @cliente.foto.url(:thumb), :class => "img_canvas" if @cliente.foto.present?
     %hr{style: "border: #323232 solid 0.5px;"}
     - if @cliente.errors.any?
       .alert.alert-danger
@@ -17,8 +22,10 @@
   .panel
     =render 'clientes/partials/form_from_agenda'
   - if params[:agenda_id]
-    %hr{style: "border: #323232 solid 0.5px;"}
     .col-xs-12.col-sm-12.col-md-12.col-lg-12
+      %br/
+      %br/
+      %hr{style: "border: #323232 solid 0.5px;"}
       -if params[:cliente_id].present?
         =link_to "Voltar para a agenda", "#", class: "btn btn-success", id: "return_to_agenda"
       #empresa_id{style: "display: none"}=params[:empresa_id]

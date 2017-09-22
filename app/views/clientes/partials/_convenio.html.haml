@@ -68,7 +68,7 @@
                         %td
                           %center
                             -validade = c.validade_carteira.strftime("%d/%m/%Y") if c.validade_carteira?
-                            =link_to "#", data: { id: c.id ,convenio_id: c.convenio.id, convenio_matricula: c.matricula, convenio_validade: validade, convenio_titular: c.titular, convenio_plano: c.plano, convenio_produto: c.produto, convenio_status: c.status_convenio, convenio_via: c.via, convenio_observacoes: c.observacoes}, id: "change_convenio_cliente" do
+                            =link_to "#", data: { cliente_convenio_id: "#{c.id}" ,convenio_id: "#{c.convenio.id}", convenio_matricula: "#{c.matricula}", convenio_validade: "#{validade}", convenio_titular: "#{c.titular}", convenio_plano: "#{c.plano}", convenio_produto: "#{c.produto}", convenio_status: "#{c.status_convenio}", convenio_via: "#{c.via}", convenio_observacoes: "#{c.observacoes}", utilizando_agora: "#{c.utilizando_agora}"}, id: "change_convenio_cliente" do
                               %i.fa.fa-pencil-square.fa-2x
                         %td
                           %center
@@ -92,7 +92,5 @@
                         %td
                           %center
                             -validade = c.validade_carteira.strftime("%d/%m/%Y") if c.validade_carteira?
-                            =link_to "#", data: { id: c.id ,convenio_id: c.convenio.id, convenio_matricula: c.matricula, convenio_validade: validade, convenio_titular: c.titular, convenio_plano: c.plano, convenio_produto: c.produto, convenio_status: c.status_convenio, convenio_via: c.via, convenio_observacoes: c.observacoes}, id: "change_convenio_cliente" do
+                            =link_to "#", data: { cliente_convenio_id: c.id ,convenio_id: c.convenio.id, convenio_matricula: c.matricula, convenio_validade: validade, convenio_titular: c.titular, convenio_plano: c.plano, convenio_produto: c.produto, convenio_status: c.status_convenio, convenio_via: c.via, convenio_observacoes: c.observacoes, utilizando_agora: c.utilizando_agora}, id: "change_convenio_cliente" do
                               %i.fa.fa-pencil-square.fa-2x
-
-=javascript_include_tag "clientes/cliente_convenio_utilizado"

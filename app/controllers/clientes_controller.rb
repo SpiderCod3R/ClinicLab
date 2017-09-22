@@ -93,7 +93,7 @@ class ClientesController < Support::ClienteSupportController
     # binding.pry
     @cliente.cliente_convenios.update_all(utilizando_agora: 0)
     @change_cliente_convenio = @cliente.cliente_convenios.find(params[:cliente_convenio_id])
-    @change_cliente_convenio.update_attributes(utilizando_agora: 1)
+    @change_cliente_convenio.update(utilizando_agora: 1)
   end
 
   private

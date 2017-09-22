@@ -94,13 +94,12 @@ class Cliente < Connection::Factory
   end
 
   # => Geranciador de convenios no cliente
-  def manage_convenios(resource, option)
+  def manage_convenios(resource)
     resource ||= JSON.parse(resource.to_json)
     resource.each do |_key, value|
 
-      # binding.pry
       @cliente_convenio = self.cliente_convenios.find_by(id: value["cliente_convenio_id"].to_i) if value["cliente_convenio_id"].present?
-      if option="edit" and !@cliente_convenio.nil?
+      if value['option']=="edit" and !@cliente_convenio.nil?
         @cliente_convenio.update_attributes(convenio_id: value["convenio_id"],
                                             status_convenio: value["status_convenio"],
                                             validade_carteira: value["validade_carteira"],
@@ -112,7 +111,6 @@ class Cliente < Connection::Factory
                                             observacoes: value["observacoes"],
                                             utilizando_agora: value["utilizando_agora"])
       else
-        # binding.pry
         @cliente_convenio = self.cliente_convenios.build(convenio_id: value["convenio_id"].to_i,
                                                         status_convenio: value["status_convenio"],
                                                         validade_carteira: value["validade_carteira"],
