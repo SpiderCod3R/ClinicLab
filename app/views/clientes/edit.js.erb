@@ -1,9 +1,9 @@
-if ($("#paginator").length) {
-  <%- if @cliente_collection_pdfs -%>
-    $('#table_pdf').html("<%=j render 'clientes/partials/pdf_table', { cliente_collection_pdfs: @cliente_collection_pdfs } %>");
-    $('#paginator').html("<%=j paginate(@cliente_collection_pdfs, :remote => true).to_s %>");
-  <%- end -%>
-}
+<%- if @cliente_collection_pdfs -%>
+  if ($("#paginator").length) {
+      $('#cliente_pdf_uploads').html("<%=j render 'clientes/partials/pdf_table', { cliente_collection_pdfs: @cliente_collection_pdfs } %>");
+      $('#paginator').html("<%=j paginate(@cliente_collection_pdfs, remote: true).to_s %>");
+  }
+<%- end -%>
 
 if ($("#paginator_texto_livres").length) {
   <%- if @texto_livres -%>
