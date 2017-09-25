@@ -21,6 +21,8 @@
           =render 'clientes/partials/receituario', { f: f }
         -if @cliente_permissao.imagens_externas?
           =render 'clientes/partials/imagens_externas', { f: f }
+        -# -if @cliente_permissao.sadt?
+        =render 'clientes/partials/sadt', { f: f }
       -else
         / aba historico
         =render 'clientes/partials/historico', { f: f }
@@ -32,3 +34,5 @@
         =render 'clientes/partials/receituario', { f: f }
         / aba imagens_externas
         =render 'clientes/partials/imagens_externas', { f: f }
+        / aba sadt
+        =render 'clientes/partials/sadt', { f: f }

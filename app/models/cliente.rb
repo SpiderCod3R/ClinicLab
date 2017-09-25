@@ -26,23 +26,23 @@ class Cliente < Connection::Factory
   belongs_to :cargo
 
   with_options dependent: :destroy do
-    has_many :historicos
-    has_many :cliente_texto_livres
-    has_many :cliente_pdf_uploads
-    has_many :imagens_externas
-    has_many :cliente_texto_livres
-    has_many :cliente_pdf_uploads
     has_many :cliente_convenios
+    has_many :cliente_pdf_uploads
     has_many :cliente_receituarios
+    has_many :cliente_texto_livres
+    has_many :historicos
+    has_many :imagens_externas
+    has_many :sadts
   end
 
   has_many :convenios, through: :cliente_convenios
   has_many :movimento_servicos
 
   accepts_nested_attributes_for :cliente_convenios, allow_destroy: true
+  accepts_nested_attributes_for :cliente_pdf_uploads, allow_destroy: true
   accepts_nested_attributes_for :historicos, allow_destroy: true
   accepts_nested_attributes_for :imagens_externas, allow_destroy: true
-  accepts_nested_attributes_for :cliente_pdf_uploads, allow_destroy: true
+  accepts_nested_attributes_for :sadts, allow_destroy: true
 
   has_attached_file :foto, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :foto, content_type: /\Aimage\/.*\Z/
@@ -134,6 +134,25 @@ class Cliente < Connection::Factory
     if resource["foto_depois"].present?
       @foto_depois= self.imagens_externas.build(foto_depois: resource["foto_depois"])
       @foto_depois.save!
+    end
+  end
+
+  def salva_sadts(resource)
+    if resource[:indicacao_clinica].present?
+      @sadt = self.sadts.build(indicacao_clinica: resource[:indicacao_clinica], data: resource[:data], empresa_id: self.empresa_id)
+      if @sadt.save
+        if resource[:sadt_exame_procedimento].present?
+          @sadt_exame_procedimento = @sadt.sadt_exame_procedimentos.build(exame_procedimento_id: resource[:sadt_exame_procedimento]["exame_procedimento_id"], empresa_id: self.empresa_id)
+          @sadt_exame_procedimento.save
+        end
+        if resource[:sadt_exame_procedimentos_attributes].present?
+          @sepas = resource[:sadt_exame_procedimentos_attributes]
+          resource[:sadt_exame_procedimentos_attributes].each do |sep|
+            @sadt_exame_procedimento = @sadt.sadt_exame_procedimentos.build(exame_procedimento_id: @sepas[sep.to_s]["exame_procedimento_id"], empresa_id: self.empresa_id)
+            @sadt_exame_procedimento.save
+          end
+        end
+      end
     end
   end
 end

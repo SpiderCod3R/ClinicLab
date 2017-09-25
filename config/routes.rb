@@ -1,6 +1,5 @@
   #-*-coding:utf-8-*-
 Rails.application.routes.draw do
-  resources :exames
   mount Ckeditor::Engine => '/ckeditor'
   namespace :painel do
     resources :environments do
@@ -52,6 +51,10 @@ Rails.application.routes.draw do
         delete 'destroy_pdf'
         get    'search_pdf_remotely'
         get    'change_convenio'
+        get    'print_sadt'
+        get    'paginate_sadts'
+        delete 'destroy_sadt'
+        get    'search_sadt_remotely'
       end
       put 'atualizar_convenio', to: "cliente_convenios#update_convenio", as: :update_convenio
       get 'inativar_convenio', to: "cliente_convenios#deactivate", as: :deactivate_convenio
@@ -76,6 +79,8 @@ Rails.application.routes.draw do
     resources :profissionais
     resources :receituarios
     resources :referencia_agendas, except: [:show]
+    resources :sadt_exame_procedimentos
+    resources :sadts
     resources :servicos
     resources :texto_livres
     resources :contas, controller: 'painel/usuarios/accounts' do

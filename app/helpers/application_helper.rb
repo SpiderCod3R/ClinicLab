@@ -9,7 +9,7 @@ module ApplicationHelper
     fields = f.send("#{type}_fields", new_object, child_index: id) do |builder|
       render(type.to_s + "_fields", f: builder)
     end
-    link_to(name, '#', class: "add_fields", data: {id: id, fields: fields.gsub("\n", "")})
+    link_to(name, '#', class: "add_ransack_fields", data: {id: id, fields: fields.gsub("\n", "")})
   end
 
   def app_info
@@ -32,7 +32,7 @@ module ApplicationHelper
 
   def custom_error_tag(model, attribute, label)
     if model.errors.has_key? attribute
-      content_tag( :span, 
+      content_tag( :span,
                    "#{label} - #{model.errors.messages[attribute].first}", class: 'help-block' )
     end
   end

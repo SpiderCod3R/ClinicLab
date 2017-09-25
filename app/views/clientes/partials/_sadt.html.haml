@@ -1,0 +1,67 @@
+#sadt.tab-pane.fade
+  - if @cliente.id?
+    .row
+      .col-sm-10.col-md-11
+        = render 'clientes/partials/cliente_legend'
+  .row
+    = f.simple_fields_for @sadt do |s|
+      #sadt_area
+        .col-sm-12.col-md-5
+          .panel.panel-default
+            .panel-heading
+              %b Cadastrar SADT
+            .panel-body
+              .row{style: "margin: 10px;"}
+                .col-xs-12.col-sm-10.col-md-5.col-lg-5
+                  = s.input :data, as: :string, input_html: { value: date_to_format(Date.today) }, label: "Data", class: "form-control", readonly: true
+              .row{style: "margin: 10px;"}
+                .col-xs-12.col-sm-10.col-md-10.col-lg-10
+                  = s.input :indicacao_clinica, label: "Indicação Clínica"
+                  = error_custom_tag(@cliente, :"sadts.indicacao_clinica", "Indicação Clínica")
+              .row{style: "margin: 10px;"}
+                .col-xs-12.col-sm-10.col-md-10.col-lg-10
+                  .sadt_exame_procedimentos
+                    = s.simple_fields_for @sadt_exame_procedimento do |e|
+                      .nested-fields
+                        .panel.panel-info
+                          .panel-heading
+                            .container-fluid
+                              .row
+                                .col-xs-12.col-sm-12.col-md-12.col-lg-12
+                                  = e.label "Exame Procedimentos"
+                                  = e.collection_select :exame_procedimento_id, ExameProcedimento.all.order(:descricao), :id, :title, { prompt: "Selecione um" }, class: "form-control"
+                .col-xs-1.col-sm-1.col-md-1.col-lg-1.pull-right{style: ""}
+                  = link_to_add_association s, :sadt_exame_procedimentos, id: "btn_to_add_association", class: 'btn btn-default btn-circle', style: "width: 30px; height: 30px; background-color: #31708F;", data: { association_insertion_node: '.sadt_exame_procedimentos', association_insertion_method: :append } do
+                    %i.fa.fa-plus{style: "color: white;"}
+    .col-sm-12.col-md-6
+      .panel.panel-default
+        .panel-heading
+          %b Pesquisar SADT
+        .panel-body
+          .row
+            .col-sm-5.col-md-5
+              %label Indicação Clínica
+              %input{ type: "text", name: "search_sadt_indicacao_clinica", id: "search_sadt_indicacao_clinica", placeholder: "Buscar Indicação Clínica", class: "form-control"}
+            .col-sm-4.col-md-4
+              %label Data
+              %input{ type: "text", name: "search_sadt_data", id: "search_sadt_data", class: "form-control datepicker"}
+            .col-sm-1.col-md-1
+              %br
+              =link_to "#", class: "btn btn-primary", id: "btn_search_sadt" do
+                %i{ class: "fa fa-search" }
+          %br
+          %br
+          .row-fluid
+            -if !@cliente_collection_sadts.empty?
+              .table-responsive
+                %table{class: "table table_pdf_cliente table-striped table-bordered"}
+                  %thead
+                    %th Indicação Clínica
+                    %th Data
+                    %th Imprimir
+                    -# %th Excluir
+                  %tbody#cliente_sadts
+                    .loader
+                    =render 'clientes/partials/sadt_table', { cliente_collection_sadts: @cliente_collection_sadts }
+              #paginator
+                =paginate @cliente_collection_sadts, remote: true

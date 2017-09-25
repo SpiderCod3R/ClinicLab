@@ -1,0 +1,19 @@
+%h1 Listing sadt_exame_procedimentos
+
+%table
+  %thead
+    %tr
+      %th
+      %th
+      %th
+
+  %tbody
+    - @sadt_exame_procedimentos.each do |sadt_exame_procedimento|
+      %tr
+        %td= link_to 'Show', sadt_exame_procedimento
+        %td= link_to 'Edit', edit_sadt_exame_procedimento_path(sadt_exame_procedimento)
+        %td= link_to 'Destroy', sadt_exame_procedimento, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Sadt exame procedimento', new_sadt_exame_procedimento_path

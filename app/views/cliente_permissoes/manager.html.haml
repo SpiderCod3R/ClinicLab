@@ -1,7 +1,7 @@
 =build_exit_toolbar
 .container-fluid
   .col-md-12
-    %h1 
+    %h1
       %b Permissões da modalidade - Cliente
       %hr{style: "border: #5F5F5F 1px solid"}
   .col-md-12
@@ -11,10 +11,10 @@
         .panel.panel.default
           .panel-heading
             %h3
-              %label Usuário - 
+              %label Usuário -
               %em=@user.name.capitalize
             %hr{style: "border: #C5B1FF 1px dashed"}
-              %label Ultima vez logado no sistema - 
+              %label Ultima vez logado no sistema -
               %pre=@user.last_sign_in_at.to_formatted_s(:short) if !@user.last_sign_in_at.nil?
       .col-md-6
         .panel.panel.default
@@ -22,7 +22,7 @@
             %h3
               %em=t('painel.helpers.models.permissoes')
             .pull-right
-              %label Selecionar Tudo? - 
+              %label Selecionar Tudo? -
               = check_box_tag('check_all', 'check_all', false, :onClick => "checkAll(this);")
             %hr{style: "border: #C5B1FF 1px dashed"}
           .panel-body
@@ -58,6 +58,12 @@
                     %td=f.check_box :imagens_externas, checked: true
                   -else
                     %td=f.check_box :imagens_externas, checked: false
+                %tr
+                  %th Sadt
+                  -# -if @cliente_permissao.sadt?
+                  -#   %td=f.check_box :sadt, checked: true
+                  -# -else
+                  %td=f.check_box :sadt, checked: false
             .pull-right
               =link_to "Contas", empresa_contas_path(current_user.empresa), class: "btn btn-default"
             .pull-left

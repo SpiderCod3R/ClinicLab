@@ -33,7 +33,6 @@ class ClientesController < Support::ClienteSupportController
       end
     else
       @cliente = current_user.empresa.clientes.build(resource_params)
-      # binding.pry
       if @cliente.save
         @cliente.manage_convenios(session[:convenios_attributes]) if !session[:convenios_attributes].nil?
         redirect_to new_empresa_cliente_path(current_user.empresa)
@@ -54,6 +53,7 @@ class ClientesController < Support::ClienteSupportController
           @cliente.upload_files(params[:cliente][:cliente_pdf_upload])
           @cliente.salva_imagens_externas(@imagens_externas_params) if @imagens_externas_params.present?
           @cliente.manage_convenios(session[:convenios_attributes]) if !session[:convenios_attributes].nil?
+          @cliente.salva_sadts(params[:cliente][:sadt]) if params[:cliente][:sadt].present?
           flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @cliente.class)
           redirect_to edit_empresa_cliente_path(current_user.empresa, @cliente)
         else
@@ -69,6 +69,7 @@ class ClientesController < Support::ClienteSupportController
       if @cliente.update(resource_params)
         @cliente.salva_imagens_externas(@imagens_externas_params) if @imagens_externas_params.present?
         @cliente.manage_convenios(session[:convenios_attributes]) if !session[:convenios_attributes].nil?
+        @cliente.salva_sadts(params[:cliente][:sadt]) if params[:cliente][:sadt].present?
         flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @cliente.class)
         redirect_to edit_empresa_cliente_path(current_user.empresa, @cliente)
       else

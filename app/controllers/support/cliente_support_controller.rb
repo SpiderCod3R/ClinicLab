@@ -112,6 +112,19 @@ class Support::ClienteSupportController < Support::InsideController
     respond_to &:js
   end
 
+  def print_sadt
+    @cliente = Cliente.find(params[:id])
+    @sadt = @cliente.sadts.find(params[:sadt_id]) if params[:sadt_id].present?
+    @sadt_exame_procedimentos = SadtExameProcedimento.where(sadt_id: @sadt.id)
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = PrintSadt.new(@cliente, @sadt, @sadt_exame_procedimentos)
+        send_data pdf.render, filename: "#{@cliente.nome}", type: 'application/pdf', disposition: 'inline'
+      end
+    end
+  end
+
   def print_recipe
     @relatorio = ConfiguracaoRelatorio.find_by(empresa_id: current_user.empresa.id)
     unless @relatorio.nil?
@@ -300,6 +313,25 @@ class Support::ClienteSupportController < Support::InsideController
     respond_to &:json
   end
 
+  def paginate_sadts
+    # @cliente_collection_sadts = Sadt.where(cliente_id: params[:id]).ultima_data.page(params[:page]).per(10)
+  end
+
+  def search_sadt_remotely
+    @cliente_collection_sadts = Sadt.where(cliente_id: params[:cliente][:id])
+    if params[:search][:indicacao_clinica].present?
+      @cliente_collection_sadts = @cliente_collection_sadts.where("indicacao_clinica LIKE ?","#{params[:search][:indicacao_clinica]}%")
+    end
+    if params[:search][:data].present?
+      @data_sadt = I18n.l(Date.parse(params[:search][:data]), format: :english)
+      @cliente_collection_sadts = @cliente_collection_sadts.where(data: @data_sadt)
+    end
+    respond_to do |format|
+      format.html
+      format.json { render json: @cliente_collection_sadts.as_json }
+    end
+  end
+
   private
     def zera_session
       session[:cliente_id] = nil
@@ -341,6 +373,9 @@ class Support::ClienteSupportController < Support::InsideController
 
       get_historicos
       @cliente.imagens_externas.build
+      @sadt = @cliente.sadts.build
+      @sadt_exame_procedimento = @sadt.sadt_exame_procedimentos.build
+      @cliente_collection_sadts = @cliente.sadts.page params[:page]
     end
 
     def send_back_with_error
@@ -381,6 +416,8 @@ class Support::ClienteSupportController < Support::InsideController
         :nascimento, :sexo, :rg, :estado_civil, :nacionalidade, :naturalidade, :altura, :peso,
         cliente_convenios_attributes: [:id, :cliente_id, :convenio_id, :status_convenio, :matricula, :plano, :validade_carteira, :produto, :titular],
         imagens_externas_attributes: [:foto_antes, :foto_depois, :cliente_id],
-        cliente_pdf_upload_attributes: [:id, :cliente_id, :anotacoes, :data, :pdf, :_destroy])
+        cliente_pdf_upload_attributes: [:id, :cliente_id, :anotacoes, :data, :pdf, :_destroy],
+        sadts_attributes: [:indicacao_clinica, :data, :cliente_id, :empresa_id, :_destroy],
+        sadt_exame_procedimentos_attributes: [:sadt_id, :exame_procedimento_id, :empresa_id, :_destroy])
     end
 end
