@@ -1,8 +1,6 @@
 #sadt.tab-pane.fade
-  - if @cliente.id?
-    .row
-      .col-sm-10.col-md-11
-        = render 'clientes/partials/cliente_legend'
+  .row
+    =render 'clientes/partials/cliente_legend'
   .row
     = f.simple_fields_for @sadt do |s|
       #sadt_area
@@ -30,10 +28,10 @@
                                 .col-xs-12.col-sm-12.col-md-12.col-lg-12
                                   = e.label "Exame Procedimentos"
                                   = e.collection_select :exame_procedimento_id, ExameProcedimento.all.order(:descricao), :id, :title, { prompt: "Selecione um" }, class: "form-control"
-                .col-xs-1.col-sm-1.col-md-1.col-lg-1.pull-right{style: ""}
-                  = link_to_add_association s, :sadt_exame_procedimentos, id: "btn_to_add_association", class: 'btn btn-default btn-circle', style: "width: 30px; height: 30px; background-color: #31708F;", data: { association_insertion_node: '.sadt_exame_procedimentos', association_insertion_method: :append } do
-                    %i.fa.fa-plus{style: "color: white;"}
-    .col-sm-12.col-md-6
+                .col-xs-1.col-sm-1.col-md-1.col-lg-1.pull-right
+                  = link_to_add_association s, :sadt_exame_procedimentos, id: "btn_to_add_association", class: 'btn btn-primary btn-circle', style: "width: 30px; height: 30px;", data: { association_insertion_node: '.sadt_exame_procedimentos', association_insertion_method: :append } do
+                    %i.fa.fa-plus
+    .col-sm-12.col-md-7
       .panel.panel-default
         .panel-heading
           %b Pesquisar SADT
@@ -47,8 +45,8 @@
               %input{ type: "text", name: "search_sadt_data", id: "search_sadt_data", class: "form-control datepicker"}
             .col-sm-1.col-md-1
               %br
-              =link_to "#", class: "btn btn-primary", id: "btn_search_sadt" do
-                %i{ class: "fa fa-search" }
+              =link_to "#", class: "btn btn-primary btn-circle", id: "btn_search_sadt", style: "margin-top: 10px" do
+                %i.fa.fa-search{style: "font-weight: bolder"}
           %br
           %br
           .row-fluid
