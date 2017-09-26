@@ -14,6 +14,7 @@ class ClientesController < Support::ClienteSupportController
   end
 
   def new
+    session[:cliente_id] = nil
     @cliente = current_user.empresa.clientes.build
     get_historicos
     respond_with(@cliente)
@@ -26,7 +27,7 @@ class ClientesController < Support::ClienteSupportController
   def create
     if params[:cliente][:id].present?
       @cliente = Cliente.find(params[:cliente][:id])
-      @cliente.manage_convenios(session[:convenios_attributes]) if !session[:convenios_attributes].nil?
+      @cliente.manage_convenios(session[:convenios_attributes], session[:option_for_cliente_convenio]) if !session[:convenios_attributes].nil?
       if @cliente.update(resource_params)
         redirect_to new_empresa_cliente_path(current_user.empresa)
         flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @cliente.class)
@@ -35,7 +36,7 @@ class ClientesController < Support::ClienteSupportController
       @cliente = current_user.empresa.clientes.build(resource_params)
       # binding.pry
       if @cliente.save
-        @cliente.manage_convenios(session[:convenios_attributes]) if !session[:convenios_attributes].nil?
+        @cliente.manage_convenios(session[:convenios_attributes], session[:option_for_cliente_convenio]) if !session[:convenios_attributes].nil?
         redirect_to new_empresa_cliente_path(current_user.empresa)
         flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @cliente.class)
       else
@@ -46,14 +47,14 @@ class ClientesController < Support::ClienteSupportController
 
   def update
     session[:cliente_id] = @cliente.id
-
     get_historicos
     if !params[:cliente][:cliente_pdf_upload][:pdf].nil?
       if params[:cliente][:cliente_pdf_upload][:anotacoes] != ""
         if @cliente.update(resource_params)
           @cliente.upload_files(params[:cliente][:cliente_pdf_upload])
+          # @cliente.upload_files(@pdf_params) if @pdf_params.present?
           @cliente.salva_imagens_externas(@imagens_externas_params) if @imagens_externas_params.present?
-          @cliente.manage_convenios(session[:convenios_attributes]) if !session[:convenios_attributes].nil?
+          @cliente.manage_convenios(session[:convenios_attributes], session[:option_for_cliente_convenio]) if !session[:convenios_attributes].nil?
           flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @cliente.class)
           redirect_to edit_empresa_cliente_path(current_user.empresa, @cliente)
         else
@@ -68,7 +69,7 @@ class ClientesController < Support::ClienteSupportController
     else
       if @cliente.update(resource_params)
         @cliente.salva_imagens_externas(@imagens_externas_params) if @imagens_externas_params.present?
-        @cliente.manage_convenios(session[:convenios_attributes]) if !session[:convenios_attributes].nil?
+        @cliente.manage_convenios(session[:convenios_attributes], session[:option_for_cliente_convenio]) if !session[:convenios_attributes].nil?
         flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @cliente.class)
         redirect_to edit_empresa_cliente_path(current_user.empresa, @cliente)
       else
@@ -93,7 +94,7 @@ class ClientesController < Support::ClienteSupportController
     # binding.pry
     @cliente.cliente_convenios.update_all(utilizando_agora: 0)
     @change_cliente_convenio = @cliente.cliente_convenios.find(params[:cliente_convenio_id])
-    @change_cliente_convenio.update(utilizando_agora: 1)
+    @change_cliente_convenio.update_attributes(utilizando_agora: 1)
   end
 
   private
