@@ -297,7 +297,7 @@ class Support::ClienteSupportController < Support::InsideController
       @cliente_receituario.update_attributes(content: params[:cliente][:cliente_recipe][:content], user_id: current_user.id)
     end
 
-    if params[:agenda]
+    if params[:agenda][:id] != ""
       @agenda = Agenda.find(params[:agenda][:id])
     end
 

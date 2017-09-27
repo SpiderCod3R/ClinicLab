@@ -59,11 +59,14 @@ $(document).ready ->
           setTimeout (->
             window.location.href = URL_BASE + response.agenda.url
           ), 3000
-
-
         else
-          window.location.href = URL_BASE + "empresa/" + empresa_id + "/clientes/" + $("#cliente_id").val() + "/edit"
-          window.location.href = URL_BASE + "empresa/" + empresa_id + "/clientes/" + $("#cliente_id").val() + "/edit#receituario"
+          setTimeout (->
+            toastr.success(response.agenda.message, "Sucesso!")
+          ), 2000
+          setTimeout (->
+            window.location.href = URL_BASE + "empresa/" + empresa_id + "/clientes/" + $("#cliente_id").val() + "/edit"
+            window.location.href = URL_BASE + "empresa/" + empresa_id + "/clientes/" + $("#cliente_id").val() + "/edit#receituario"
+          ), 3000
 
   # => Incluir nova receita
   $('#add_recipe').click ->
