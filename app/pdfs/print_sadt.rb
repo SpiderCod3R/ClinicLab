@@ -473,7 +473,7 @@ class PrintSadt < Prawn::Document
       end
       if @item_26_1.present?
         text_box "#{@item_26_1.exame_procedimento.tabela}", :at =>  [15,5.5], character_spacing: 6
-        text_box "#{@item_26_1.exame_procedimento.codigo_procedimento}", :at =>  [42,5.5], character_spacing: 7.5
+        text_box "#{@item_26_1.exame_procedimento.codigo_procedimento}", :at =>  [41.4,5.5], character_spacing: 8
         text_box "#{@item_26_1.exame_procedimento.descricao}", :at =>  [162,5.5]
       end
       table itens_linha_10_2 do
@@ -494,7 +494,7 @@ class PrintSadt < Prawn::Document
       end
       if @item_26_2.present?
         text_box "#{@item_26_2.exame_procedimento.tabela}", :at =>  [15,5.5], character_spacing: 6
-        text_box "#{@item_26_2.exame_procedimento.codigo_procedimento}", :at =>  [42,5.5], character_spacing: 7.5
+        text_box "#{@item_26_2.exame_procedimento.codigo_procedimento}", :at =>  [41.4,5.5], character_spacing: 8
         text_box "#{@item_26_2.exame_procedimento.descricao}", :at =>  [162,5.5]
       end
       table itens_linha_10_3 do
@@ -515,7 +515,7 @@ class PrintSadt < Prawn::Document
       end
       if @item_26_3.present?
         text_box "#{@item_26_3.exame_procedimento.tabela}", :at =>  [15,5.5], character_spacing: 6
-        text_box "#{@item_26_3.exame_procedimento.codigo_procedimento}", :at =>  [42,5.5], character_spacing: 7.5
+        text_box "#{@item_26_3.exame_procedimento.codigo_procedimento}", :at =>  [41.4,5.5], character_spacing: 8
         text_box "#{@item_26_3.exame_procedimento.descricao}", :at =>  [162,5.5]
       end
       table itens_linha_10_4 do
@@ -536,7 +536,7 @@ class PrintSadt < Prawn::Document
       end
       if @item_26_4.present?
         text_box "#{@item_26_4.exame_procedimento.tabela}", :at =>  [15,5.5], character_spacing: 6
-        text_box "#{@item_26_4.exame_procedimento.codigo_procedimento}", :at =>  [42,5.5], character_spacing: 7.5
+        text_box "#{@item_26_4.exame_procedimento.codigo_procedimento}", :at =>  [41.4,5.5], character_spacing: 8
         text_box "#{@item_26_4.exame_procedimento.descricao}", :at =>  [162,5.5]
       end
       table itens_linha_10_5 do
@@ -557,7 +557,7 @@ class PrintSadt < Prawn::Document
       end
       if @item_26_5.present?
         text_box "#{@item_26_5.exame_procedimento.tabela}", :at =>  [15,7.5], character_spacing: 6
-        text_box "#{@item_26_5.exame_procedimento.codigo_procedimento}", :at =>  [42,7.5], character_spacing: 7.5
+        text_box "#{@item_26_5.exame_procedimento.codigo_procedimento}", :at =>  [41.4,7.5], character_spacing: 8
         text_box "#{@item_26_5.exame_procedimento.descricao}", :at =>  [162,7.5]
       end
     end
