@@ -438,7 +438,7 @@ class PrintSadt < Prawn::Document
   end
 
   def imprimir_linha_10
-    bounding_box([28, 328], width: 75) do
+    bounding_box([28, 328], width: 750) do
       table itens_linha_10_0 do
         self.width = 750
         column(0).width = 35
@@ -471,6 +471,11 @@ class PrintSadt < Prawn::Document
         row(0).columns(4).borders = [:right]
         style(row(0..row_length), padding: 0, padding_left: 2)
       end
+      if @item_26_1.present?
+        text_box "#{@item_26_1.exame_procedimento.tabela}", :at =>  [15,5.5], character_spacing: 6
+        text_box "#{@item_26_1.exame_procedimento.codigo_procedimento}", :at =>  [42,5.5], character_spacing: 7.5
+        text_box "#{@item_26_1.exame_procedimento.descricao}", :at =>  [162,5.5]
+      end
       table itens_linha_10_2 do
         self.width = 750
         column(0).width = 35
@@ -486,6 +491,11 @@ class PrintSadt < Prawn::Document
         row(0).columns(0).borders = [:left]
         row(0).columns(4).borders = [:right]
         style(row(0..row_length), padding: 0, padding_left: 2)
+      end
+      if @item_26_2.present?
+        text_box "#{@item_26_2.exame_procedimento.tabela}", :at =>  [15,5.5], character_spacing: 6
+        text_box "#{@item_26_2.exame_procedimento.codigo_procedimento}", :at =>  [42,5.5], character_spacing: 7.5
+        text_box "#{@item_26_2.exame_procedimento.descricao}", :at =>  [162,5.5]
       end
       table itens_linha_10_3 do
         self.width = 750
@@ -503,6 +513,11 @@ class PrintSadt < Prawn::Document
         row(0).columns(4).borders = [:right]
         style(row(0..row_length), padding: 0, padding_left: 2)
       end
+      if @item_26_3.present?
+        text_box "#{@item_26_3.exame_procedimento.tabela}", :at =>  [15,5.5], character_spacing: 6
+        text_box "#{@item_26_3.exame_procedimento.codigo_procedimento}", :at =>  [42,5.5], character_spacing: 7.5
+        text_box "#{@item_26_3.exame_procedimento.descricao}", :at =>  [162,5.5]
+      end
       table itens_linha_10_4 do
         self.width = 750
         column(0).width = 35
@@ -518,6 +533,11 @@ class PrintSadt < Prawn::Document
         row(0).columns(0).borders = [:left]
         row(0).columns(4).borders = [:right]
         style(row(0..row_length), padding: 0, padding_left: 2)
+      end
+      if @item_26_4.present?
+        text_box "#{@item_26_4.exame_procedimento.tabela}", :at =>  [15,5.5], character_spacing: 6
+        text_box "#{@item_26_4.exame_procedimento.codigo_procedimento}", :at =>  [42,5.5], character_spacing: 7.5
+        text_box "#{@item_26_4.exame_procedimento.descricao}", :at =>  [162,5.5]
       end
       table itens_linha_10_5 do
         self.width = 750
@@ -535,6 +555,11 @@ class PrintSadt < Prawn::Document
         row(0).columns(4).borders = [:right,:bottom]
         style(row(0..row_length), padding: 0, padding_left: 2, padding_bottom: 2)
       end
+      if @item_26_5.present?
+        text_box "#{@item_26_5.exame_procedimento.tabela}", :at =>  [15,7.5], character_spacing: 6
+        text_box "#{@item_26_5.exame_procedimento.codigo_procedimento}", :at =>  [42,7.5], character_spacing: 7.5
+        text_box "#{@item_26_5.exame_procedimento.descricao}", :at =>  [162,7.5]
+      end
     end
   end
 
@@ -543,43 +568,23 @@ class PrintSadt < Prawn::Document
   end
 
   def itens_linha_10_1
-    if @item_26_1.present?
-      [["1- #{@item_26_1.exame_procedimento.tabela}", "#{@item_26_1.exame_procedimento.codigo_procedimento}", "#{@item_26_1.exame_procedimento.descricao}","|___|___|___|","|___|___|___|"]]
-    else
-      [["1- |___|___|","|___|___|___|___|___|___|___|___|___|___|", "________________________________________________________________________________________________________________________________________________","|___|___|___|","|___|___|___|"]]
-    end
+    [["1- |___|___|","|___|___|___|___|___|___|___|___|___|___|", "________________________________________________________________________________________________________________________________________________","|___|___|___|","|___|___|___|"]]
   end
 
   def itens_linha_10_2
-    if @item_26_2.present?
-      [["2- #{@item_26_2.exame_procedimento.tabela}", "#{@item_26_2.exame_procedimento.codigo_procedimento}", "#{@item_26_2.exame_procedimento.descricao}","|___|___|___|","|___|___|___|"]]
-    else
-      [["2- |___|___|","|___|___|___|___|___|___|___|___|___|___|", "________________________________________________________________________________________________________________________________________________","|___|___|___|","|___|___|___|"]]
-    end
+    [["2- |___|___|","|___|___|___|___|___|___|___|___|___|___|", "________________________________________________________________________________________________________________________________________________","|___|___|___|","|___|___|___|"]]
   end
 
   def itens_linha_10_3
-    if @item_26_3.present?
-      [["3- #{@item_26_3.exame_procedimento.tabela}", "#{@item_26_3.exame_procedimento.codigo_procedimento}", "#{@item_26_3.exame_procedimento.descricao}","|___|___|___|","|___|___|___|"]]
-    else
-      [["3- |___|___|","|___|___|___|___|___|___|___|___|___|___|", "________________________________________________________________________________________________________________________________________________","|___|___|___|","|___|___|___|"]]
-    end
+    [["3- |___|___|","|___|___|___|___|___|___|___|___|___|___|", "________________________________________________________________________________________________________________________________________________","|___|___|___|","|___|___|___|"]]
   end
 
   def itens_linha_10_4
-    if @item_26_4.present?
-      [["4- #{@item_26_4.exame_procedimento.tabela}", "#{@item_26_4.exame_procedimento.codigo_procedimento}", "#{@item_26_4.exame_procedimento.descricao}","|___|___|___|","|___|___|___|"]]
-    else
-      [["4- |___|___|","|___|___|___|___|___|___|___|___|___|___|", "________________________________________________________________________________________________________________________________________________","|___|___|___|","|___|___|___|"]]
-    end
+    [["4- |___|___|","|___|___|___|___|___|___|___|___|___|___|", "________________________________________________________________________________________________________________________________________________","|___|___|___|","|___|___|___|"]]
   end
 
   def itens_linha_10_5
-    if @item_26_5.present?
-      [["5- #{@item_26_5.exame_procedimento.tabela}", "#{@item_26_5.exame_procedimento.codigo_procedimento}", "#{@item_26_5.exame_procedimento.descricao}","|___|___|___|","|___|___|___|"]]
-    else
-      [["5- |___|___|","|___|___|___|___|___|___|___|___|___|___|", "________________________________________________________________________________________________________________________________________________","|___|___|___|","|___|___|___|"]]
-    end
+    [["5- |___|___|","|___|___|___|___|___|___|___|___|___|___|", "________________________________________________________________________________________________________________________________________________","|___|___|___|","|___|___|___|"]]
   end
 
   def imprimir_linha_11
