@@ -29,8 +29,10 @@
                                   = e.label "Exame Procedimentos"
                                   = e.collection_select :exame_procedimento_id, ExameProcedimento.all.order(:descricao), :id, :title, { prompt: "Selecione um" }, class: "form-control"
                 .col-xs-1.col-sm-1.col-md-1.col-lg-1.pull-right
-                  = link_to_add_association s, :sadt_exame_procedimentos, id: "btn_to_add_association", class: 'btn btn-primary btn-circle', style: "width: 30px; height: 30px;", data: { association_insertion_node: '.sadt_exame_procedimentos', association_insertion_method: :append } do
+                  = link_to_add_association s, :sadt_exame_procedimentos, id: "btn_to_add_association", class: 'btn btn-primary btn-circle', style: "width: 30px; height: 30px; margin-top: 20px;", data: { association_insertion_node: '.sadt_exame_procedimentos', association_insertion_method: :append } do
                     %i.fa.fa-plus
+              .row{style: "margin: 10px;"}
+                = link_to "Salvar Sadt", "#", {id: "btn_salvar_sadt", class: "btn btn-primary", title: "Salvar Sadt", remote: true, style: "margin-left: 15px;"}
     .col-sm-12.col-md-7
       .panel.panel-default
         .panel-heading

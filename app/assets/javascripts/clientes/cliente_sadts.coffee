@@ -4,6 +4,30 @@ $(document).ready ->
   empresa_id = $('#empresa_id').text()
   cliente_id = $('#cliente_id').val()
 
+  $(document).on "click", "#btn_salvar_sadt", (event) ->
+    event.preventDefault()
+    error_messages = []
+    if $('#cliente_sadt_indicacao_clinica').val() == ""
+      error_messages.push('<li>Indicação Clínica deve ser preenchida</li>')
+    if $('#cliente_sadt_sadt_exame_procedimento_exame_procedimento_id option:selected').val() == ""
+      error_messages.push('<li>Exame Procedimento deve ser selecionado</li>')
+    if error_messages.length != 0
+      return BootstrapDialog.show
+        type: BootstrapDialog.TYPE_DANGER
+        title: 'Erros Encontrados: Para prosseguir resolva os seguintes problemas'
+        message: error_messages
+        closable: false
+        buttons: [ {
+          label: 'Fechar'
+          action: (dialogRef) ->
+            dialogRef.close()
+            error_messages = []
+            false
+        } ]
+    else
+      $('form.edit_cliente').unbind('submit').submit()
+    return
+
   $(document).on "click", "#btn_search_sadt", (event) ->
     event.preventDefault()
     $.ajax
