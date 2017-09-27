@@ -14,6 +14,7 @@ class ClientesController < Support::ClienteSupportController
   end
 
   def new
+    session[:cliente_id] = nil
     @cliente = current_user.empresa.clientes.build
     get_historicos
     respond_with(@cliente)
@@ -45,12 +46,15 @@ class ClientesController < Support::ClienteSupportController
 
   def update
     session[:cliente_id] = @cliente.id
-
     get_historicos
     if !params[:cliente][:cliente_pdf_upload][:pdf].nil?
       if params[:cliente][:cliente_pdf_upload][:anotacoes] != ""
         if @cliente.update(resource_params)
-          @cliente.upload_files(params[:cliente][:cliente_pdf_upload])
+          if !params[:cliente][:cliente_pdf_upload].nil?
+            if params[:cliente][:cliente_pdf_upload][:anotacoes] != "" and params[:cliente][:cliente_pdf_upload][:pdf] != ""
+              @cliente.upload_files(params[:cliente][:cliente_pdf_upload])
+            end
+          end
           @cliente.salva_imagens_externas(@imagens_externas_params) if @imagens_externas_params.present?
           @cliente.manage_convenios(session[:convenios_attributes]) if !session[:convenios_attributes].nil?
           @cliente.salva_sadts(params[:cliente][:sadt]) if params[:cliente][:sadt].present?
@@ -94,7 +98,7 @@ class ClientesController < Support::ClienteSupportController
     # binding.pry
     @cliente.cliente_convenios.update_all(utilizando_agora: 0)
     @change_cliente_convenio = @cliente.cliente_convenios.find(params[:cliente_convenio_id])
-    @change_cliente_convenio.update(utilizando_agora: 1)
+    @change_cliente_convenio.update_attributes(utilizando_agora: 1)
   end
 
   private

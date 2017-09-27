@@ -1,13 +1,13 @@
 <%- if @cliente_collection_pdfs -%>
   if ($("#paginator").length) {
-      $('#cliente_pdf_uploads').html("<%=j render 'clientes/partials/pdf_table', { cliente_collection_pdfs: @cliente_collection_pdfs } %>");
-      $('#paginator').html("<%=j paginate(@cliente_collection_pdfs, remote: true).to_s %>");
+    $('#cliente_pdf_uploads').html("<%=j render 'clientes/partials/pdf_table', { cliente_collection_pdfs: @cliente_collection_pdfs } %>");
+    $('#paginator').html("<%=j paginate(@cliente_collection_pdfs, remote: true).to_s %>");
   }
 <%- end -%>
 
-if ($("#paginator_texto_livres").length) {
-  <%- if @texto_livres -%>
+<%- if @texto_livres -%>
+  if ($("#paginator_texto_livres").length) {
     $('#include_texto_livre').html("<%=j render 'texto_livres/include_texto_livre', { texto_livres: @texto_livres } %>");
     $('#paginator_texto_livres').html("<%=j paginate(@texto_livres, :remote => true).to_s %>");
-  <%- end -%>
-}
+  }
+<%- end -%>

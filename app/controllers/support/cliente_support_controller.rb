@@ -1,12 +1,10 @@
 class Support::ClienteSupportController < Support::InsideController
-  before_action :zera_session,only: [:new, :edit,:clinic_sheet]
   before_action :set_cliente, only: [:show, :edit, :update, :destroy, :destroy_pdf]
   before_action :set_estados, only: [:new, :edit, :create, :update, :ficha, :clinic_sheet]
   before_action :set_access, only: [:edit, :ficha, :clinic_sheet]
 
   def clinic_sheet
     session[:convenios_attributes] = nil
-    session[:option_for_cliente_convenio]=nil
     session[:agenda_id] = params[:agenda_id]
     @agenda = Agenda.find(session[:agenda_id])
     if params[:cliente_id]
@@ -29,8 +27,8 @@ class Support::ClienteSupportController < Support::InsideController
 
   def cria_session_cliente_convenios
     if params[:convenios_attributes]
-      session[:convenios_attributes] = params[:convenios_attributes]
-      # session[:option_for_cliente_convenio]= params[:option]
+      session[:convenios_attributes]=params[:convenios_attributes]
+      # session[:option_for_cliente_convenio]=params[:option]
     end
   end
 
@@ -40,13 +38,15 @@ class Support::ClienteSupportController < Support::InsideController
     if params[:cliente][:id].present?
       @cliente = Cliente.find(params[:cliente][:id])
       @cliente.collect_agenda_movimentacao_fields(@agenda)
-      if @cliente.update(resource_params)
-        @cliente.manage_convenios(session[:convenios_attributes]) if !session[:convenios_attributes].nil?
-        if !params[:cliente][:cliente_pdf_upload].nil?
-          if params[:cliente][:cliente_pdf_upload][:anotacoes] != "" and params[:cliente][:cliente_pdf_upload][:pdf] != ""
-            @cliente.upload_files(params[:cliente][:cliente_pdf_upload])
-          end
+      @cliente.manage_convenios(session[:convenios_attributes]) if !session[:convenios_attributes].nil?
+
+      if !params[:cliente][:cliente_pdf_upload].nil?
+        if params[:cliente][:cliente_pdf_upload][:anotacoes] != "" and params[:cliente][:cliente_pdf_upload][:pdf] != ""
+          @cliente.upload_files(params[:cliente][:cliente_pdf_upload])
         end
+      end
+
+      if @cliente.update(resource_params)
         @agenda.agenda_movimentacao.update_attributes(nome_paciente: @cliente.nome, telefone_paciente: @cliente.telefone,
                                                       email_paciente: @cliente.email, cliente_id: @cliente.id)
         if params[:imagens_externas].present?
@@ -151,8 +151,8 @@ class Support::ClienteSupportController < Support::InsideController
       respond_to do |format|
         format.html
         format.pdf do
-          pdf = PrintFreeText.new(@cliente, @cliente_texto_livre.content_data, @relatorio)
-          send_data pdf.render, filename: "Texto_Livre", type: 'application/pdf', disposition: 'inline'
+          pdf = PrintFreeText.new(@cliente_texto_livre.content_data, @relatorio, "Texto Livre")
+          send_data pdf.render, filename: "#{@cliente_texto_livre.texto_livre.nome}", type: 'application/pdf', disposition: 'inline'
         end
       end
     else
@@ -333,12 +333,6 @@ class Support::ClienteSupportController < Support::InsideController
   end
 
   private
-    def zera_session
-      session[:cliente_id] = nil
-      session[:convenios_attributes] = nil
-      session[:option_for_cliente_convenio]=nil
-    end
-
     def set_access
       if !current_user.admin?
         @model = Gclinic::Model.find_by(model_class: "Cliente")
@@ -362,15 +356,13 @@ class Support::ClienteSupportController < Support::InsideController
       @cliente_texto_livre = @cliente.cliente_texto_livres.last
       @cliente_receituario = @cliente.cliente_receituarios.last
       @cliente_collection_pdfs  = @cliente.cliente_pdf_uploads.ultima_data.page params[:page]
-      @texto_livres = current_user.empresa.texto_livres.page params[:page]
-      @cliente_receituarios = @cliente.cliente_receituarios.page params[:page]
-
+      # @texto_livres = current_user.empresa.texto_livres.page params[:page]
+      # @cliente_receituarios = @cliente.cliente_receituarios.page params[:page]
       if !@cliente.cliente_pdf_uploads.empty?
         @cliente_pdf_uploads = @cliente.cliente_pdf_uploads.build
       else
         @cliente_pdf_uploads = @cliente.cliente_pdf_uploads.build
       end
-
       get_historicos
       @cliente.imagens_externas.build
       @sadt = @cliente.sadts.build
@@ -380,7 +372,7 @@ class Support::ClienteSupportController < Support::InsideController
 
     def send_back_with_error
       @cliente_texto_livre=@cliente.cliente_texto_livres.first
-      @cliente_pdf_uploads=@cliente.cliente_pdf_uploads.build
+      # @cliente_pdf_uploads=@cliente.cliente_pdf_uploads.build
       @cliente.imagens_externas.build
       if params[:page].permitted?
         @@page = params[:page]
