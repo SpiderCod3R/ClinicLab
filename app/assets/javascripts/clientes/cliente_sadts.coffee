@@ -57,7 +57,7 @@ $(document).ready ->
         $('#cliente_sadts').append("<tr>" +
           "<td class='indicacao_clinica'>" + cluster[x]["indicacao_clinica"] + "</td>" +
           "<td>" + formata_data(cluster[x]["data"]) + "</td>" +
-          "<td class='center'><a target='_blank' href='/empresa/#{empresa_id}/clientes/#{cliente_id}/print_sadt.pdf'><i class='fa fa-print fa-2x' style='color: #282424;'></a></td>" +
+          "<td class='center'><a target='_blank' href='/empresa/#{empresa_id}/clientes/#{cliente_id}/print_sadt.pdf?locale=pt-BR&sadt_id=#{cluster[x]['id']}'><i class='fa fa-print fa-2x'></a></td>" +
           # "<td class='center'><center><i class='fa fa-trash fa-2x'></div></center></td>"
           "</tr>")
       x = x + 1
