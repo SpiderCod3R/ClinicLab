@@ -7,4 +7,6 @@ class Sadt < Connection::Factory
   has_many :exame_procedimentos, through: :sadt_exame_procedimentos
 
   accepts_nested_attributes_for :sadt_exame_procedimentos, allow_destroy: true
+
+  paginates_per 10
 end

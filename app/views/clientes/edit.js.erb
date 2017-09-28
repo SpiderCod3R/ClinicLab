@@ -11,3 +11,10 @@
     $('#paginator_texto_livres').html("<%=j paginate(@texto_livres, :remote => true).to_s %>");
   }
 <%- end -%>
+
+<%- if @cliente_collection_sadts -%>
+  if ($("#paginator_sadts").length) {
+    $('#cliente_sadts').html("<%=j render 'clientes/partials/sadt_table', { cliente_collection_sadts: @cliente_collection_sadts } %>");
+    $('#paginator_sadts').html("<%=j paginate(@cliente_collection_sadts, remote: true).to_s %>");
+  }
+<%- end -%>

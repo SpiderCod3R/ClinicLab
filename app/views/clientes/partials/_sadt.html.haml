@@ -63,5 +63,5 @@
                   %tbody#cliente_sadts
                     .loader
                     =render 'clientes/partials/sadt_table', { cliente_collection_sadts: @cliente_collection_sadts }
-              #paginator
+              #paginator_sadts
                 =paginate @cliente_collection_sadts, remote: true

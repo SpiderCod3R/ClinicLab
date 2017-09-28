@@ -313,10 +313,6 @@ class Support::ClienteSupportController < Support::InsideController
     respond_to &:json
   end
 
-  def paginate_sadts
-    # @cliente_collection_sadts = Sadt.where(cliente_id: params[:id]).ultima_data.page(params[:page]).per(10)
-  end
-
   def search_sadt_remotely
     @cliente_collection_sadts = Sadt.where(cliente_id: params[:cliente][:id])
     if params[:search][:indicacao_clinica].present?
