@@ -23,6 +23,8 @@
         -if @cliente_permissao.imagens_externas?
           %li
             %a{'data-toggle':"tab", href:"#imagens_externas", id: "aba_imagens_externas"} Imagens Externas
+        %li
+          %a{'data-toggle':"tab", href:"#sadt", id: "aba_sadt"} SADT
     -else
       %li
         %a{'data-toggle':"tab", href:"#historico", id: "aba_historico"} Histórico
@@ -34,6 +36,8 @@
         %a{'data-toggle':"tab", href:"#receituario", id: "aba_receituario"} Receituário
       %li
         %a{'data-toggle':"tab", href:"#imagens_externas", id: "aba_imagens_externas"} Imagens Externas
+      %li
+        %a{'data-toggle':"tab", href:"#sadt", id: "aba_sadt"} SADT
 = simple_form_for(@cliente, url: change_or_create_cliente_path, method: 'POST') do |f|
   =render "clientes/partials/abas", {f: f}
 
