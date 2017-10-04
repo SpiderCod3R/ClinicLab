@@ -141,15 +141,15 @@ class Cliente < Connection::Factory
     if resource[:indicacao_clinica].present?
       @sadt = self.sadts.build(indicacao_clinica: resource[:indicacao_clinica], data: resource[:data], empresa_id: self.empresa_id)
       if @sadt.save
-        if resource[:sadt_exame_procedimento].present?
-          @sadt_exame_procedimento = @sadt.sadt_exame_procedimentos.build(exame_procedimento_id: resource[:sadt_exame_procedimento]["exame_procedimento_id"], empresa_id: self.empresa_id)
-          @sadt_exame_procedimento.save
+        if resource[:sadt_grupo].present?
+          @sadt_grupo = @sadt.sadt_grupos.build(grupo_id: resource[:sadt_grupo]["grupo_id"], empresa_id: self.empresa_id)
+          @sadt_grupo.save
         end
-        if resource[:sadt_exame_procedimentos_attributes].present?
-          @sepas = resource[:sadt_exame_procedimentos_attributes]
-          resource[:sadt_exame_procedimentos_attributes].each do |sep|
-            @sadt_exame_procedimento = @sadt.sadt_exame_procedimentos.build(exame_procedimento_id: @sepas[sep.to_s]["exame_procedimento_id"], empresa_id: self.empresa_id)
-            @sadt_exame_procedimento.save
+        if resource[:sadt_grupos_attributes].present?
+          @sadt_grupos = resource[:sadt_grupos_attributes]
+          resource[:sadt_grupos_attributes].each do |sg|
+            @sadt_grupo = @sadt.sadt_grupos.build(grupo_id: @sadt_grupos[sg.to_s]["grupo_id"], empresa_id: self.empresa_id)
+            @sadt_grupo.save
           end
         end
       end

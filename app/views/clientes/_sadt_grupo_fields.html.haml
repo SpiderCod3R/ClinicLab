@@ -4,7 +4,7 @@
       .container-fluid
         .row
           .col-xs-12.col-sm-12.col-md-12.col-lg-12
-            =f.label "Exame Procedimentos"
+            = f.label "Grupos"
             = link_to_remove_association f, class: 'btn  btn-danger btn-circle pull-right', style: "width: 20px; height: 20px; padding: 0;" do
               %i.fa.fa-times{style: "width: 50%; height: 50%;"}
-            =f.collection_select :exame_procedimento_id, ExameProcedimento.all.order(:descricao), :id, :title, { prompt: "Selecione um" }, class: "form-control"
+            = f.collection_select :grupo_id, Grupo.all.order(:nome), :id, :nome, { prompt: "Selecione um" }, class: "form-control"

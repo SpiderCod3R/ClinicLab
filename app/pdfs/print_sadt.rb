@@ -7,44 +7,54 @@ class PrintSadt < Prawn::Document
     }
   end
 
-  def initialize(cliente, sadt, sadt_exame_procedimentos)
+  def initialize(cliente, sadt, sadt_grupos)
     super(page_layout)
     self.font_size = 6
     @cliente = cliente
     @sadt = sadt
-    @sadt_exame_procedimentos = sadt_exame_procedimentos
+    @sadt_grupos = sadt_grupos
+    @grupos = []
+    @sadt_grupos.each do |sadt_grupo|
+      @grupos << sadt_grupo.grupo
+    end
     @cont = 0
-    @sadt_exame_procedimentos.each_slice(5) do |array|
-      if array[0].present?
-        @item_26_1 = array[0]
-      else
-        @item_26_1 = nil
+    @grupos.each do |grupo|
+      @exame_procedimentos = []
+      grupo.grupo_exame_procedimentos.each do |grupo_exame_procedimento|
+        @exame_procedimentos << grupo_exame_procedimento.exame_procedimento
       end
-      if array[1].present?
-        @item_26_2 = array[1]
-      else
-        @item_26_2 = nil
+      @exame_procedimentos.each_slice(5) do |array|
+        if array[0].present?
+          @item_26_1 = array[0]
+        else
+          @item_26_1 = nil
+        end
+        if array[1].present?
+          @item_26_2 = array[1]
+        else
+          @item_26_2 = nil
+        end
+        if array[2].present?
+          @item_26_3 = array[2]
+        else
+          @item_26_3 = nil
+        end
+        if array[3].present?
+          @item_26_4 = array[3]
+        else
+          @item_26_4 = nil
+        end
+        if array[4].present?
+          @item_26_5 = array[4]
+        else
+          @item_26_5 = nil
+        end
+        if @cont > 0
+          start_new_page
+        end
+        imprime_pdf
+        @cont +=  1
       end
-      if array[2].present?
-        @item_26_3 = array[2]
-      else
-        @item_26_3 = nil
-      end
-      if array[3].present?
-        @item_26_4 = array[3]
-      else
-        @item_26_4 = nil
-      end
-      if array[4].present?
-        @item_26_5 = array[4]
-      else
-        @item_26_5 = nil
-      end
-      if @cont > 0
-        start_new_page
-      end
-      imprime_pdf
-      @cont +=  1
     end
   end
 
@@ -116,7 +126,7 @@ class PrintSadt < Prawn::Document
     move_down 25
     text "GUIA DE SERVIÇO PROFISSIONAL / SERVIÇO AUXILIAR DE", style: :bold, align: :center, size: 9
     text "DIAGNÓSTICO E TERAPIA - SP/SADT", style: :bold, align: :center, size: 9
-    image ("public/petrobras_logo.jpg"), height: 40, :at => [30, 23]
+    image ("public/petrobras_logo.jpg"), height: 40, at: [30, 23]
   end
 
   def imprime_item_1
@@ -472,9 +482,23 @@ class PrintSadt < Prawn::Document
         style(row(0..row_length), padding: 0, padding_left: 2)
       end
       if @item_26_1.present?
-        text_box "#{@item_26_1.exame_procedimento.tabela}", :at =>  [15,5.5], character_spacing: 6
-        text_box "#{@item_26_1.exame_procedimento.codigo_procedimento}", :at =>  [41.4,5.5], character_spacing: 8
-        text_box "#{@item_26_1.exame_procedimento.descricao}", :at =>  [162,5.5]
+        # text_box "#{@item_26_1.tabela}", at: [15,5.5], character_spacing: 6
+        # text_box "#{@item_26_1.codigo_procedimento}", at: [41.4,5.5], character_spacing: 8
+        @item_26_1_tabela = @item_26_1.tabela.split(//)
+        text_box "#{@item_26_1_tabela[0]}", at: [14,5.5]
+        text_box "#{@item_26_1_tabela[1]}", at: [25.5,5.5]
+        @item_26_1_codigo_procedimento = @item_26_1.codigo_procedimento.split(//)
+        text_box "#{@item_26_1_codigo_procedimento[0]}", at: [42,5.5]
+        text_box "#{@item_26_1_codigo_procedimento[1]}", at: [53,5.5]
+        text_box "#{@item_26_1_codigo_procedimento[2]}", at: [65,5.5]
+        text_box "#{@item_26_1_codigo_procedimento[3]}", at: [76,5.5]
+        text_box "#{@item_26_1_codigo_procedimento[4]}", at: [88,5.5]
+        text_box "#{@item_26_1_codigo_procedimento[5]}", at: [100,5.5]
+        text_box "#{@item_26_1_codigo_procedimento[6]}", at: [111,5.5]
+        text_box "#{@item_26_1_codigo_procedimento[7]}", at: [122,5.5]
+        text_box "#{@item_26_1_codigo_procedimento[8]}", at: [134,5.5]
+        text_box "#{@item_26_1_codigo_procedimento[9]}", at: [146,5.5]
+        text_box "#{@item_26_1.descricao}", at: [162,5.5]
       end
       table itens_linha_10_2 do
         self.width = 750
@@ -493,9 +517,23 @@ class PrintSadt < Prawn::Document
         style(row(0..row_length), padding: 0, padding_left: 2)
       end
       if @item_26_2.present?
-        text_box "#{@item_26_2.exame_procedimento.tabela}", :at =>  [15,5.5], character_spacing: 6
-        text_box "#{@item_26_2.exame_procedimento.codigo_procedimento}", :at =>  [41.4,5.5], character_spacing: 8
-        text_box "#{@item_26_2.exame_procedimento.descricao}", :at =>  [162,5.5]
+        # text_box "#{@item_26_2.tabela}", at: [15,5.5], character_spacing: 6
+        # text_box "#{@item_26_2.codigo_procedimento}", at: [41.4,5.5], character_spacing: 8
+        @item_26_2_tabela = @item_26_2.tabela.split(//)
+        text_box "#{@item_26_2_tabela[0]}", at: [14,5.5]
+        text_box "#{@item_26_2_tabela[1]}", at: [25.5,5.5]
+        @item_26_2_codigo_procedimento = @item_26_2.codigo_procedimento.split(//)
+        text_box "#{@item_26_2_codigo_procedimento[0]}", at: [42,5.5]
+        text_box "#{@item_26_2_codigo_procedimento[1]}", at: [53,5.5]
+        text_box "#{@item_26_2_codigo_procedimento[2]}", at: [65,5.5]
+        text_box "#{@item_26_2_codigo_procedimento[3]}", at: [76,5.5]
+        text_box "#{@item_26_2_codigo_procedimento[4]}", at: [88,5.5]
+        text_box "#{@item_26_2_codigo_procedimento[5]}", at: [100,5.5]
+        text_box "#{@item_26_2_codigo_procedimento[6]}", at: [111,5.5]
+        text_box "#{@item_26_2_codigo_procedimento[7]}", at: [122,5.5]
+        text_box "#{@item_26_2_codigo_procedimento[8]}", at: [134,5.5]
+        text_box "#{@item_26_2_codigo_procedimento[9]}", at: [146,5.5]
+        text_box "#{@item_26_2.descricao}", at: [162,5.5]
       end
       table itens_linha_10_3 do
         self.width = 750
@@ -514,9 +552,23 @@ class PrintSadt < Prawn::Document
         style(row(0..row_length), padding: 0, padding_left: 2)
       end
       if @item_26_3.present?
-        text_box "#{@item_26_3.exame_procedimento.tabela}", :at =>  [15,5.5], character_spacing: 6
-        text_box "#{@item_26_3.exame_procedimento.codigo_procedimento}", :at =>  [41.4,5.5], character_spacing: 8
-        text_box "#{@item_26_3.exame_procedimento.descricao}", :at =>  [162,5.5]
+        # text_box "#{@item_26_3.tabela}", at: [15,5.5], character_spacing: 6
+        # text_box "#{@item_26_3.codigo_procedimento}", at: [41.4,5.5], character_spacing: 8
+        @item_26_3_tabela = @item_26_3.tabela.split(//)
+        text_box "#{@item_26_3_tabela[0]}", at: [14,5.5]
+        text_box "#{@item_26_3_tabela[1]}", at: [25.5,5.5]
+        @item_26_3_codigo_procedimento = @item_26_3.codigo_procedimento.split(//)
+        text_box "#{@item_26_3_codigo_procedimento[0]}", at: [42,5.5]
+        text_box "#{@item_26_3_codigo_procedimento[1]}", at: [53,5.5]
+        text_box "#{@item_26_3_codigo_procedimento[2]}", at: [65,5.5]
+        text_box "#{@item_26_3_codigo_procedimento[3]}", at: [76,5.5]
+        text_box "#{@item_26_3_codigo_procedimento[4]}", at: [88,5.5]
+        text_box "#{@item_26_3_codigo_procedimento[5]}", at: [100,5.5]
+        text_box "#{@item_26_3_codigo_procedimento[6]}", at: [111,5.5]
+        text_box "#{@item_26_3_codigo_procedimento[7]}", at: [122,5.5]
+        text_box "#{@item_26_3_codigo_procedimento[8]}", at: [134,5.5]
+        text_box "#{@item_26_3_codigo_procedimento[9]}", at: [146,5.5]
+        text_box "#{@item_26_3.descricao}", at: [162,5.5]
       end
       table itens_linha_10_4 do
         self.width = 750
@@ -535,9 +587,23 @@ class PrintSadt < Prawn::Document
         style(row(0..row_length), padding: 0, padding_left: 2)
       end
       if @item_26_4.present?
-        text_box "#{@item_26_4.exame_procedimento.tabela}", :at =>  [15,5.5], character_spacing: 6
-        text_box "#{@item_26_4.exame_procedimento.codigo_procedimento}", :at =>  [41.4,5.5], character_spacing: 8
-        text_box "#{@item_26_4.exame_procedimento.descricao}", :at =>  [162,5.5]
+        # text_box "#{@item_26_4.tabela}", at: [15,5.5], character_spacing: 6
+        # text_box "#{@item_26_4.codigo_procedimento}", at: [41.4,5.5], character_spacing: 8
+        @item_26_4_tabela = @item_26_4.tabela.split(//)
+        text_box "#{@item_26_4_tabela[0]}", at: [14,5.5]
+        text_box "#{@item_26_4_tabela[1]}", at: [25.5,5.5]
+        @item_26_4_codigo_procedimento = @item_26_4.codigo_procedimento.split(//)
+        text_box "#{@item_26_4_codigo_procedimento[0]}", at: [42,5.5]
+        text_box "#{@item_26_4_codigo_procedimento[1]}", at: [53,5.5]
+        text_box "#{@item_26_4_codigo_procedimento[2]}", at: [65,5.5]
+        text_box "#{@item_26_4_codigo_procedimento[3]}", at: [76,5.5]
+        text_box "#{@item_26_4_codigo_procedimento[4]}", at: [88,5.5]
+        text_box "#{@item_26_4_codigo_procedimento[5]}", at: [100,5.5]
+        text_box "#{@item_26_4_codigo_procedimento[6]}", at: [111,5.5]
+        text_box "#{@item_26_4_codigo_procedimento[7]}", at: [122,5.5]
+        text_box "#{@item_26_4_codigo_procedimento[8]}", at: [134,5.5]
+        text_box "#{@item_26_4_codigo_procedimento[9]}", at: [146,5.5]
+        text_box "#{@item_26_4.descricao}", at: [162,5.5]
       end
       table itens_linha_10_5 do
         self.width = 750
@@ -556,9 +622,23 @@ class PrintSadt < Prawn::Document
         style(row(0..row_length), padding: 0, padding_left: 2, padding_bottom: 2)
       end
       if @item_26_5.present?
-        text_box "#{@item_26_5.exame_procedimento.tabela}", :at =>  [15,7.5], character_spacing: 6
-        text_box "#{@item_26_5.exame_procedimento.codigo_procedimento}", :at =>  [41.4,7.5], character_spacing: 8
-        text_box "#{@item_26_5.exame_procedimento.descricao}", :at =>  [162,7.5]
+        # text_box "#{@item_26_5.tabela}", at: [15,7.5], character_spacing: 6
+        # text_box "#{@item_26_5.codigo_procedimento}", at: [41.4,7.5], character_spacing: 8
+        @item_26_5_tabela = @item_26_5.tabela.split(//)
+        text_box "#{@item_26_5_tabela[0]}", at: [14,7.5]
+        text_box "#{@item_26_5_tabela[1]}", at: [25.5,7.5]
+        @item_26_5_codigo_procedimento = @item_26_5.codigo_procedimento.split(//)
+        text_box "#{@item_26_5_codigo_procedimento[0]}", at: [42,7.5]
+        text_box "#{@item_26_5_codigo_procedimento[1]}", at: [53,7.5]
+        text_box "#{@item_26_5_codigo_procedimento[2]}", at: [65,7.5]
+        text_box "#{@item_26_5_codigo_procedimento[3]}", at: [76,7.5]
+        text_box "#{@item_26_5_codigo_procedimento[4]}", at: [88,7.5]
+        text_box "#{@item_26_5_codigo_procedimento[5]}", at: [100,7.5]
+        text_box "#{@item_26_5_codigo_procedimento[6]}", at: [111,7.5]
+        text_box "#{@item_26_5_codigo_procedimento[7]}", at: [122,7.5]
+        text_box "#{@item_26_5_codigo_procedimento[8]}", at: [134,7.5]
+        text_box "#{@item_26_5_codigo_procedimento[9]}", at: [146,7.5]
+        text_box "#{@item_26_5.descricao}", at: [162,7.5]
       end
     end
   end
