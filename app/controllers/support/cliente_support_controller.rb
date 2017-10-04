@@ -151,8 +151,8 @@ class Support::ClienteSupportController < Support::InsideController
       respond_to do |format|
         format.html
         format.pdf do
-          pdf = PrintFreeText.new(@cliente_texto_livre.content_data, @relatorio, "Texto Livre")
-          send_data pdf.render, filename: "#{@cliente_texto_livre.texto_livre.nome}", type: 'application/pdf', disposition: 'inline'
+          pdf = PrintFreeText.new(@cliente, @cliente_texto_livre.content_data, @relatorio)
+          send_data pdf.render, filename: "Texto_Livre", type: 'application/pdf', disposition: 'inline'
         end
       end
     else
@@ -160,6 +160,7 @@ class Support::ClienteSupportController < Support::InsideController
       redirect_to :back
     end
   end
+
 
   def print_historico
     @relatorio = ConfiguracaoRelatorio.find_by(empresa_id: current_user.empresa.id)
