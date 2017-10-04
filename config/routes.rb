@@ -68,6 +68,8 @@ Rails.application.routes.draw do
     resources :convenios, except: [:show]
     resources :exame_procedimentos
     resources :fornecedores
+    resources :grupos
+    resources :grupo_exame_procedimentos
     resources :imagem_cabecs, except: [:show]
     resources :movimento_servico_servicos
     resources :movimento_servicos do

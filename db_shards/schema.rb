@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170920180114) do
+ActiveRecord::Schema.define(version: 20171002122146) do
 
   create_table "agenda_movimentacoes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "agenda_id"
@@ -412,6 +412,25 @@ ActiveRecord::Schema.define(version: 20170920180114) do
     t.index ["cidade_id"], name: "index_fornecedores_on_cidade_id", using: :btree
     t.index ["empresa_id"], name: "index_fornecedores_on_empresa_id", using: :btree
     t.index ["estado_id"], name: "index_fornecedores_on_estado_id", using: :btree
+  end
+
+  create_table "grupo_exame_procedimentos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "grupo_id"
+    t.integer  "exame_procedimento_id"
+    t.integer  "empresa_id"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.index ["empresa_id"], name: "index_grupo_exame_procedimentos_on_empresa_id", using: :btree
+    t.index ["exame_procedimento_id"], name: "index_grupo_exame_procedimentos_on_exame_procedimento_id", using: :btree
+    t.index ["grupo_id"], name: "index_grupo_exame_procedimentos_on_grupo_id", using: :btree
+  end
+
+  create_table "grupos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "nome"
+    t.integer  "empresa_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["empresa_id"], name: "index_grupos_on_empresa_id", using: :btree
   end
 
   create_table "historicos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

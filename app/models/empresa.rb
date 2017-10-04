@@ -22,6 +22,8 @@ class Empresa < Connection::Factory
     has_many :convenios
     has_many :exame_procedimentos
     has_many :fornecedores
+    has_many :grupo_exame_procedimentos
+    has_many :grupos
     has_many :imagem_cabecs
     has_many :movimento_servicos
     has_many :operadoras

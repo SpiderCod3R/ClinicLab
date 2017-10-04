@@ -25,6 +25,8 @@
   %li=link_to 'Exame Procedimentos', new_empresa_exame_procedimento_path(current_user.empresa), style: "font-weight: bold;"
 -if can? :read, Fornecedor
   %li=link_to 'Fornecedores', new_empresa_fornecedor_path(current_user.empresa), style: "font-weight: bold;"
+-if can? :read, Grupo
+  %li=link_to 'Grupos', new_empresa_grupo_path(current_user.empresa), style: "font-weight: bold;"
 -if can? :read, ImagemCabec
   %li=link_to 'Imagem Cabec', new_empresa_imagem_cabec_path(current_user.empresa), style: "font-weight: bold;"
 -if can? :read, Operadora
