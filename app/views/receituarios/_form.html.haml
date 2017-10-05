@@ -1,10 +1,14 @@
-= form_for([current_user.empresa, @receituario], url: empresa_receituarios_path) do |form|
-  .field
-    = form.label :nome
-    = form.text_field :nome, class: "form-control"
-  %br
-  .field
-    = tinymce
-    = form.label :receita
-    = form.text_area :receita, id: :receiturario_receita, :class => "tinymce", :rows => 40, :cols => 120
-    =label_or_error_tag @receituario, :receita, "Receita"
+.container
+  = form_for([current_user.empresa, @receituario], url: empresa_receituarios_path) do |f|
+    .row
+      .col-md-4
+        = f.label :nome
+        = f.text_field :nome, class: "form-control"
+    %br
+    .row-fluid
+      -# = tinymce
+      -# = f.label :receita
+      -# = f.text_area :receita, id: :receiturario_receita, :class => "tinymce", :rows => 40, :cols => 120
+      = label_or_error_tag @receituario, :receita, "Receita"
+      = f.cktext_area :receita, ckeditor: { uiColor: '#D3E7EF', toolbar: 'mini', height: 400 }
+  = javascript_include_tag Ckeditor.asset_path

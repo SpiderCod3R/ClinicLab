@@ -1,13 +1,13 @@
 =build_form_toolbar(new_empresa_receituario_path(current_user.empresa), nil, @receituario, empresa_receituarios_path(current_user.empresa), nil)
-%div{class: "container-fluid"}
-  %div{class: "row-fluid"}
+%div{class: "container"}
+  %div{class: "row"}
     %h1 Receituários
     %hr{style: "border: #323232 solid 0.5px;"}
     %div{class: "row", style: "margin: 0;"}
       %div{class: "jumbotron"}
         %div{class: "row", style: "margin: 0;"}
           %div{class: "col-md-12 col-sm-12 col-xs-12 col-lg-12"}
-            =search_form_for @search, url: empresa_receituarios_path(current_user.empresa) do |f|
+            = search_form_for @search, url: empresa_receituarios_path(current_user.empresa) do |f|
               = f.condition_fields do |c|
                 = render "condition_fields", f: c
               = link_to_add_fields "Adicionar Condições", f, :condition
@@ -27,9 +27,11 @@
             %tr
               %td= receituario.nome
               %td=raw receituario.receita.truncate(80)
-              %td= link_to 'Visualizar', empresa_receituario_path(current_user.empresa, receituario)
-              %td= link_to 'Editar', edit_empresa_receituario_path(current_user.empresa, receituario)
-              %td= link_to 'Remover', empresa_receituario_path(current_user.empresa, receituario), :method => :delete, :data => { :confirm => 'Are you sure?' }
+              %td
+                .btn-group
+                  -if can? :read, Receituario
+                    = link_to "#{image_tag("icons/glyphicons-610-journal.png", width: 22, height: 22)}".html_safe,
+                      empresa_receituario_path(current_user.empresa, receituario), title: t(:show, scope: [:bootstrap, :helpers, :links]), class: 'btn btn-default'
     %div{class: "row", style: "margin: 0;"}
       %div{class: "pull-right"}
         =paginate @receituarios
