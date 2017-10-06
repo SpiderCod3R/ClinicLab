@@ -1,0 +1,16 @@
+%div{class: "container", style: "margin-left: 5%; padding-top: 15px; padding-bottom: 15px;"}
+  =simple_form_for([current_user.empresa, @grupo]) do |f|
+    %div{class: "row"}
+      %div{class: "col-xs-12 col-sm-6 col-md-6 col-lg-6", style: 'margin: 0; padding: 0;'}
+        = f.error_notification
+    %div{class: "row"}
+      %div{class: "col-xs-12 col-sm-6 col-md-6 col-lg-4"}
+        = f.input :nome, label: "Nome"
+    %div{class: "row", style: "margin: 10px; margin-left: -10px;"}
+      %div{class: "col-xs-12 col-sm-4 col-md-4 col-lg-4"}
+        %div{class: "grupo_exame_procedimentos"}
+          = f.simple_fields_for :grupo_exame_procedimentos do |builder|
+            = render 'grupo_exame_procedimento_fields', {f: builder}
+      %div{class: "col-xs-12 col-sm-1 col-md-1 col-lg-1"}
+        = link_to_add_association f, :grupo_exame_procedimentos, id: "btn_to_add_association", class: 'btn btn-primary btn-circle', style: "width: 30px; height: 30px; margin-top: 20px;", data: { association_insertion_node: '.grupo_exame_procedimentos' } do
+          %i.fa.fa-plus

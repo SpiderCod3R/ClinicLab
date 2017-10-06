@@ -2,7 +2,7 @@
   .row
     =render 'clientes/partials/cliente_legend'
   .row
-    = f.simple_fields_for @sadt do |s|
+    = f.simple_fields_for @sadt do |builder|
       #sadt_area
         .col-sm-12.col-md-5
           .panel.panel-default
@@ -11,25 +11,25 @@
             .panel-body
               .row{style: "margin: 10px;"}
                 .col-xs-12.col-sm-10.col-md-5.col-lg-5
-                  = s.input :data, as: :string, input_html: { value: date_to_format(Date.today) }, label: "Data", class: "form-control", readonly: true
+                  = builder.input :data, as: :string, input_html: { value: date_to_format(Date.today) }, label: "Data", class: "form-control", readonly: true
               .row{style: "margin: 10px;"}
                 .col-xs-12.col-sm-10.col-md-10.col-lg-10
-                  = s.input :indicacao_clinica, label: "Indicação Clínica"
+                  = builder.input :indicacao_clinica, label: "Indicação Clínica"
                   = error_custom_tag(@cliente, :"sadts.indicacao_clinica", "Indicação Clínica")
               .row{style: "margin: 10px;"}
                 .col-xs-12.col-sm-10.col-md-10.col-lg-10
-                  .sadt_exame_procedimentos
-                    = s.simple_fields_for @sadt_exame_procedimento do |e|
+                  .sadt_grupos
+                    = builder.simple_fields_for @sadt_grupo do |sg|
                       .nested-fields
                         .panel.panel-info
                           .panel-heading
                             .container-fluid
                               .row
                                 .col-xs-12.col-sm-12.col-md-12.col-lg-12
-                                  = e.label "Exame Procedimentos"
-                                  = e.collection_select :exame_procedimento_id, ExameProcedimento.all.order(:descricao), :id, :title, { prompt: "Selecione um" }, class: "form-control"
+                                  = sg.label "Grupos"
+                                  = sg.collection_select :grupo_id, Grupo.all.order(:nome), :id, :nome, { prompt: "Selecione um" }, class: "form-control"
                 .col-xs-1.col-sm-1.col-md-1.col-lg-1.pull-right
-                  = link_to_add_association s, :sadt_exame_procedimentos, id: "btn_to_add_association", class: 'btn btn-primary btn-circle', style: "width: 30px; height: 30px; margin-top: 20px;", data: { association_insertion_node: '.sadt_exame_procedimentos', association_insertion_method: :append } do
+                  = link_to_add_association builder, :sadt_grupos, id: "btn_to_add_association", class: 'btn btn-primary btn-circle', style: "width: 30px; height: 30px; margin-top: 20px;", data: { association_insertion_node: '.sadt_grupos', association_insertion_method: :append } do
                     %i.fa.fa-plus
               .row{style: "margin: 10px;"}
                 = link_to "Salvar Sadt", "#", {id: "btn_salvar_sadt", class: "btn btn-primary", title: "Salvar Sadt", remote: true, style: "margin-left: 15px;"}

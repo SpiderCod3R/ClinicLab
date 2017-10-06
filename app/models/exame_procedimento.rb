@@ -2,10 +2,10 @@ class ExameProcedimento < Connection::Factory
   include ActiveMethods
 
   belongs_to :empresa
-  has_many :sadt_exame_procedimentos
-  has_many :sadts, through: :sadt_exame_procedimentos
+  has_many :grupo_exame_procedimentos
+  has_many :grupos, through: :grupo_exame_procedimentos
 
-  validates_presence_of :descricao, :tabela, :codigo_procedimento
+  validates_presence_of :descricao
   validates :tabela, length: { maximum: 2 }
   validates :codigo_procedimento, length: { maximum: 10 }
 

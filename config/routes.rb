@@ -68,6 +68,8 @@ Rails.application.routes.draw do
     resources :convenios, except: [:show]
     resources :exame_procedimentos
     resources :fornecedores
+    resources :grupo_exame_procedimentos
+    resources :grupos
     resources :imagem_cabecs, except: [:show]
     resources :movimento_servico_servicos
     resources :movimento_servicos do
@@ -79,7 +81,7 @@ Rails.application.routes.draw do
     resources :profissionais
     resources :receituarios
     resources :referencia_agendas, except: [:show]
-    resources :sadt_exame_procedimentos
+    resources :sadt_grupos
     resources :sadts
     resources :servicos
     resources :texto_livres

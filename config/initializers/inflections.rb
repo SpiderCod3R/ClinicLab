@@ -18,5 +18,5 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.irregular 'imagem_externa', 'imagens_externas'
   inflect.irregular 'exame_procedimento', 'exame_procedimentos'
   inflect.irregular 'sadt', 'sadts'
-  inflect.irregular 'sadt_exame_procedimento', 'sadt_exame_procedimentos'
+  inflect.irregular 'sadt_grupo', 'sadt_grupos'
 end

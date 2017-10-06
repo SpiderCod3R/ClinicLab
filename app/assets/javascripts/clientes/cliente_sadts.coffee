@@ -9,8 +9,8 @@ $(document).ready ->
     error_messages = []
     if $('#cliente_sadt_indicacao_clinica').val() == ""
       error_messages.push('<li>Indicação Clínica deve ser preenchida</li>')
-    if $('#cliente_sadt_sadt_exame_procedimento_exame_procedimento_id option:selected').val() == ""
-      error_messages.push('<li>Exame Procedimento deve ser selecionado</li>')
+    if $('#cliente_sadt_sadt_grupo_grupo_id option:selected').val() == ""
+      error_messages.push('<li>Grupo deve ser selecionado</li>')
     if error_messages.length != 0
       return BootstrapDialog.show
         type: BootstrapDialog.TYPE_DANGER

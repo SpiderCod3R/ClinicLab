@@ -115,11 +115,11 @@ class Support::ClienteSupportController < Support::InsideController
   def print_sadt
     @cliente = Cliente.find(params[:id])
     @sadt = @cliente.sadts.find(params[:sadt_id]) if params[:sadt_id].present?
-    @sadt_exame_procedimentos = SadtExameProcedimento.where(sadt_id: @sadt.id)
+    @sadt_grupos = SadtGrupo.where(sadt_id: @sadt.id)
     respond_to do |format|
       format.html
       format.pdf do
-        pdf = PrintSadt.new(@cliente, @sadt, @sadt_exame_procedimentos)
+        pdf = PrintSadt.new(@cliente, @sadt, @sadt_grupos)
         send_data pdf.render, filename: "#{@cliente.nome}", type: 'application/pdf', disposition: 'inline'
       end
     end
@@ -383,7 +383,7 @@ class Support::ClienteSupportController < Support::InsideController
       get_historicos
       @cliente.imagens_externas.build
       @sadt = @cliente.sadts.build
-      @sadt_exame_procedimento = @sadt.sadt_exame_procedimentos.build
+      @sadt_grupo = @sadt.sadt_grupos.build
       @cliente_collection_sadts = @cliente.sadts.page params[:page]
     end
 
@@ -427,6 +427,6 @@ class Support::ClienteSupportController < Support::InsideController
         imagens_externas_attributes: [:foto_antes, :foto_depois, :cliente_id],
         cliente_pdf_upload_attributes: [:id, :cliente_id, :anotacoes, :data, :pdf, :_destroy],
         sadts_attributes: [:indicacao_clinica, :data, :cliente_id, :empresa_id, :_destroy],
-        sadt_exame_procedimentos_attributes: [:sadt_id, :exame_procedimento_id, :empresa_id, :_destroy])
+        sadt_grupos_attributes: [:sadt_id, :grupo_id, :empresa_id, :_destroy])
     end
 end

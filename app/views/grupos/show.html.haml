@@ -1,0 +1,18 @@
+=build_object_viewer_toolbar(edit_empresa_grupo_path(current_user.empresa ,@grupo), @grupo, empresa_grupos_path(current_user.empresa), nil)
+%section{id: "show_grupo"}
+  %div{class: "container"}
+    %div{class: "row"}
+      %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+        %div{class: "row-fluid"}
+          %h2 Exibindo Grupo
+          %hr{style: "border: #323232 solid 0.5px;"}
+        %div{class: "row-fluid"}
+          %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+            %strong Nome:
+            = @grupo.nome
+        - if @grupo.grupo_exame_procedimentos.present?
+          - @grupo.grupo_exame_procedimentos.each do |ep|
+            %div{class: "row-fluid"}
+              %div{class: "col-xs-12 col-sm-12 col-md-12 col-lg-12"}
+                %strong Exame Procedimento:
+                = ep.exame_procedimento.descricao
