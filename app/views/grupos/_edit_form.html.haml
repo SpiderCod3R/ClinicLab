@@ -12,5 +12,5 @@
           = f.simple_fields_for :grupo_exame_procedimentos do |builder|
             = render 'grupo_exame_procedimento_fields', {f: builder}
       %div{class: "col-xs-12 col-sm-1 col-md-1 col-lg-1"}
-        = link_to_add_association f, :grupo_exame_procedimentos, id: "btn_to_add_association", class: 'btn btn-primary btn-circle', style: "width: 30px; height: 30px; margin-top: 20px;", data: { association_insertion_node: '.grupo_exame_procedimentos', association_insertion_method: :append } do
+        = link_to_add_association f, :grupo_exame_procedimentos, id: "btn_to_add_association", class: 'btn btn-primary btn-circle', style: "width: 30px; height: 30px; margin-top: 20px;", data: { association_insertion_node: '.grupo_exame_procedimentos' } do
           %i.fa.fa-plus
