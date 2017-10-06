@@ -8,6 +8,7 @@ $(document).ready ->
 
   $("#cancelar_free_text").hide()
   $("#salvar_new_free_text").hide()
+  $("#salvar_imprimir_free_text").hide()
 
   #=> Abre campos para adicionar o texto livre
   $(document).on "click", "#include_new_free_text", (event) ->
@@ -20,6 +21,7 @@ $(document).ready ->
     $('#print_free_text').hide()
     $("#cancelar_free_text").show()
     $("#salvar_new_free_text").show()
+    $("#salvar_imprimir_free_text").show()
     $('#cktext_area_editor').show()
 
   #=> Pega o Texto Livre selecionado e adiciona no Editor de Texto
@@ -75,7 +77,8 @@ $(document).ready ->
     $(this).hide()
     $("#include_new_free_text").fadeIn(500)
     $('#manual_pagination').fadeIn(500)
-    $("#salvar_new_free_text").fadeOut(500)
+    $("#salvar_new_free_text").fadeOut(0)
+    $("#salvar_imprimir_free_text").fadeOut(0)
     $('#cktext_area_editor').fadeOut(500)
     $("#free_text_area").fadeIn(500)
     $("#next_page").fadeIn(500)
@@ -105,6 +108,7 @@ $(document).ready ->
         $('#cktext_area_editor').show()
         $("#include_new_free_text").fadeOut(500)
         $("#salvar_new_free_text").fadeIn(500)
+        $("#salvar_imprimir_free_text").fadeIn(500)
         $("#next_page").fadeOut(500)
         $("#previous_page").fadeOut(500)
         $("#first_page").fadeOut(500)
@@ -112,7 +116,7 @@ $(document).ready ->
         $('#cancelar_free_text').show()
         CKEDITOR.instances['texto_livre_textarea'].setData(response.content_data)
 
-  #= Colecta o Texto Livre do Editor de Texto e Envia para o Controller
+  #= Coleta o Texto Livre do Editor de Texto e Envia para o Controller
   # Support::ClienteSupportController no metodo include_texto_livre
   $(document).on "click", "#salvar_new_free_text", (event) ->
     event.preventDefault()
@@ -138,3 +142,36 @@ $(document).ready ->
             window.location.href = URL_BASE + "empresa/" + empresa_id + "/clientes/" + cliente_id + "/edit#texto_livre"
           else
             window.location.href = URL_BASE + "empresa/#{empresa_id}/ficha_cliente?agenda_id=#{agenda_id}&cliente_id=#{cliente_id}"
+
+  #= Coleta o Texto Livre do Editor de Texto e Envia para o Controller
+  # Support::ClienteSupportController no metodo salvar_imprimir_texto_livre
+  $(document).on "click", "#salvar_imprimir_free_text", (event) ->
+    event.preventDefault()
+    content=CKEDITOR.instances['texto_livre_textarea'].getData()
+    if content == ""
+      bootbox.alert
+        message: "Texto Livre não pôde ser salvo \n Preencha algo no editor de texto"
+        backdrop: true
+    else
+      $.ajax
+        type: 'POST'
+        url: URL_BASE + 'clientes/salvar_imprimir_texto_livre'
+        dataType: 'JSON'
+        data:
+          cliente_texto_livre:
+            id: cliente_texto_livre_id
+            cliente_id: cliente_id
+            content: content
+            texto_livre_id: texto_livre_id
+        success: (cliente_texto_livre) ->
+          setTimeout (->
+            toastr.success("Texto Livre cadastrado/atualizado com sucesso", "Sucesso!", {timeOut: 5000})
+          ), 1000
+          setTimeout (->
+            window.open(URL_BASE + "/empresa/#{empresa_id}/clientes/#{cliente_texto_livre.cliente_id}/print_free_text.pdf?locale=pt-BR&texto_livre_id=#{cliente_texto_livre.id}")
+            if agenda_id == ""
+              window.location.href = URL_BASE + "empresa/" + empresa_id + "/clientes/" + cliente_id + "/edit"
+              window.location.href = URL_BASE + "empresa/" + empresa_id + "/clientes/" + cliente_id + "/edit#texto_livre"
+            else
+              window.location.href = URL_BASE + "empresa/#{empresa_id}/ficha_cliente?agenda_id=#{agenda_id}&cliente_id=#{cliente_id}"
+          ), 2000

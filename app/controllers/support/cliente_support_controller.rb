@@ -260,6 +260,26 @@ class Support::ClienteSupportController < Support::InsideController
     end
   end
 
+  def salvar_imprimir_texto_livre
+    if params[:cliente_texto_livre][:id].to_i.eql?(0)
+      @cliente_texto_livre = ClienteTextoLivre.include(params[:cliente_texto_livre])
+      if @cliente_texto_livre
+        respond_to do |format|
+          format.html
+          format.json { render json: @cliente_texto_livre.as_json }
+        end
+      end
+    else
+      @cliente_texto_livre = ClienteTextoLivre.find(params[:cliente_texto_livre][:id])
+      if @cliente_texto_livre.update_content(params[:cliente_texto_livre])
+        respond_to do |format|
+          format.html
+          format.json { render json: @cliente_texto_livre.as_json }
+        end
+      end
+    end
+  end
+
   def destroy_cliente_texto_livre
     @cliente_texto_livre = ClienteTextoLivre.find(params[:id])
     @cliente_texto_livre.destroy

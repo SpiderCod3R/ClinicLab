@@ -176,6 +176,7 @@ Rails.application.routes.draw do
   post 'movimento_servicos/prosseguir_servicos', to: "movimento_servicos#prosseguir_servicos", as: :prosseguir_servicos
 
   post 'clientes/include_texto_livre', to: 'clientes#include_texto_livre'
+  post 'clientes/salvar_imprimir_texto_livre', to: 'clientes#salvar_imprimir_texto_livre'
   post 'clientes/include_recipe', to: 'clientes#include_recipe'
   get 'search/receituario', to: 'search#find_receituario'
   get 'search/texto_livre', to: 'search#find_texto_livre'

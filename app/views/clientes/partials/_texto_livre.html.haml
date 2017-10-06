@@ -5,6 +5,7 @@
     .col-xs-12.col-sm-12.col-md-8.col-lg-8
       = link_to "Incluir Novo", "#", class: "btn btn-success", id: "include_new_free_text"
       = link_to "Salvar Texto Livre", "#", class: "btn btn-success", id: "salvar_new_free_text"
+      = link_to "Salvar e Imprimir", "#", class: "btn btn-info", id: "salvar_imprimir_free_text"
       = link_to "Cancelar Inclusão", "#", class: "btn btn-warning", id: "cancelar_free_text"
       = link_to "Alterar", "#", class: "btn btn-info", id: "change_free_text" if !@cliente.cliente_texto_livres.empty?
       = link_to "Excluir", "#", class: "btn btn-danger", id: "destroy_free_text" if !@cliente.cliente_texto_livres.empty?
