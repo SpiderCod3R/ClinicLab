@@ -27,7 +27,7 @@
                               .row
                                 .col-xs-12.col-sm-12.col-md-12.col-lg-12
                                   = sg.label "Grupos"
-                                  = sg.collection_select :grupo_id, Grupo.all.order(:nome), :id, :nome, { prompt: "Selecione um" }, class: "form-control"
+                                  = sg.collection_select :grupo_id, Grupo.all.order(:nome), :id, :nome, { prompt: "Selecione um" }, class: "form-control selectpicker", "data-live-search": true
                 .col-xs-1.col-sm-1.col-md-1.col-lg-1.pull-right
                   = link_to_add_association builder, :sadt_grupos, id: "btn_to_add_association", class: 'btn btn-primary btn-circle', style: "width: 30px; height: 30px; margin-top: 20px;", data: { association_insertion_node: '.sadt_grupos', association_insertion_method: :append } do
                     %i.fa.fa-plus
