@@ -52,6 +52,7 @@ class Support::ClienteSupportController < Support::InsideController
         if params[:imagens_externas].present?
           salva_imagens_externas
         end
+        @cliente.salva_sadts(params[:cliente][:sadt]) if params[:cliente][:sadt].present?
         flash[:notice] = "Dados do cliente atualizados com sucesso."
         redirect_to empresa_clinic_sheet_cliente_path(current_user.empresa, cliente_id: @cliente.id, agenda_id: @agenda.id) and return
       else
