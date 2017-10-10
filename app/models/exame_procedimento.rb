@@ -5,7 +5,7 @@ class ExameProcedimento < Connection::Factory
   has_many :grupo_exame_procedimentos
   has_many :grupos, through: :grupo_exame_procedimentos
 
-  validates_presence_of :descricao
+  validates :descricao, presence: true, uniqueness: true
   validates :tabela, length: { maximum: 2 }
   validates :codigo_procedimento, length: { maximum: 10 }
 
