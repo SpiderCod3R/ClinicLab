@@ -1,18 +1,65 @@
 # README
 
-# Modo desenvolvedor  
-  * Ao criar um novo modelo por exemplo:  
-    * ```rails g model Post title description ``` 
-    * **É importante que copie o arquivo de migration para o diretorio db_shards/migrate**
-    * Outro fator importante ao criar um modelo é fazer a **herança do Connection::Factory** como no exemplo a seguir:  
+-------------------------------------------------
+                                                             GCLINIC
+-------------------------------------------------
+- Digital Ocean
+  - Droplet Name: GClinicWEB
+  - domain: ```gestaoclin.com.br```
+
+- FIREWAL
+
+    | Número    | Porta                        |
+    | --------- | ---------------------------- |
+    | 21/tcp    | FTP                          |
+    | 22        | SSH                          |
+    | 25        | SMTP                         |
+    | 587       | Outcoming SMTP               |
+    | 443       | SSL                          |
+    | 49697     | Deploy e Acesso via Terminal |  
     
+
+  
+- Acesso via Terminal  
+```
+ssh deployer@gestaoclin.com.br -p 49697
+```
+
+- Criação do CERTIFICADO
+  * 1ª Forma - Funcionando
+
+    ```
+    cd ~/letsencrypt
+./letsencrypt-auto certonly --standalone --emai globalnetsis@globalnetsis.com.br -d gestaoclin.com.br -d gestaoclin.com.br
+    ```
+  * 2ª Forma - Não sei como funciona essa direito :fearful:
+
+    ```
+    certbot certonly --webroot -w /var/www/gclinic -d gestaoclin.com.br -d
+      www.gestaoclin.com.br -w /var/www/gclinic -d gclinic.is -d m.gclinic.is
+    ```
+
+- Renovação do CERTIFICADO
+  ```
+  cd ~/letsencrypt
+  ./letsencrypt-auto renew
+  ```
+
+-------------------------------------------------
+
+# Modo desenvolvedor
+  * Ao criar um novo modelo por exemplo:
+    * ```rails g model Post title description ```
+    * **É importante que copie o arquivo de migration para o diretorio db_shards/migrate**
+    * Outro fator importante ao criar um modelo é fazer a **herança do Connection::Factory** como no exemplo a seguir:
+
     ```ruby
         class Example < Connection::Factory
             include ActiveMethods
         end
     ```
-  * Ao Criar um **novo controller** é importante fazer a **herança do InsideController** como no exemplo a seguir:  
-  
+  * Ao Criar um **novo controller** é importante fazer a **herança do InsideController** como no exemplo a seguir:
+
     ```ruby
     class ExampleController  < Support::InsideController
     ...
@@ -23,40 +70,40 @@
     * Dúvidas sobre as rotas utilize com o server startado -- ```127.0.0.1:3000/rails/info```
 
 # Como utilizar?
-- Para utilizar o Sistema use primeira mente essas tasks(tarefas)  
+- Para utilizar o Sistema use primeira mente essas tasks(tarefas)
 
 * Caso não tenha o banco principal
 ```ruby
   rails db:drop db:create db:migrate setup:create_admin setup:send_models
 ```
-* Obs 
-  * *O sistema está configurada para ambientes distintos*  
+* Obs
+  * *O sistema está configurada para ambientes distintos*
 
-# Configurando o Modelos  
-  * Em caso de **Criação** de novos **Módulos Independentes** - 
+# Configurando o Modelos
+  * Em caso de **Criação** de novos **Módulos Independentes** -
     * Logado no sistema como **admin**
-        * Na área de criação de modelos -   
-            coloque o **nome de exibição e nome da classe**.  
+        * Na área de criação de modelos -
+            coloque o **nome de exibição e nome da classe**.
           ```
             Ex: Users - User
-          ```  
-          
+          ```
+
 # Configurando o Ambiente
-  
+
   - Existe um arquivo chamado ```database_shared_db.yml``` em **/config/databases**
     - Altere o nome da base de dados para o nome do banco da empresa e entrar em vigor
     - Lembrese de alterar o usuario e senha do banco
 
-- Use as tarefas a seguir para criar o banco de dados  
+- Use as tarefas a seguir para criar o banco de dados
 
     ```ruby
       rails shared:setup:db:create shared:setup:db:migrate
     ```
 
-    * Ao criar o banco com base em ```database_shared_db.yml```  
-        *  **Importar manualmente** o SQL de Estados e Cidades em db_shards  
+    * Ao criar o banco com base em ```database_shared_db.yml```
+        *  **Importar manualmente** o SQL de Estados e Cidades em db_shards
 
-    * Entre como Administrador do Sistema e cadastre o Ambiente da Empresa  
+    * Entre como Administrador do Sistema e cadastre o Ambiente da Empresa
       * Obs.: O **nome do banco** deve ser o mesmo colocado em ```database_shared_db.yml```
         porem **sem** o _production, _development ou _test.
       * Crie o Admin desse ambiente e Adicione modalidades permitidas para esse Ambiente
