@@ -1,0 +1,16 @@
+%div{class: "rg-gallery", id: "rg-gallery1"}
+  - if @cliente.imagens_externas.where.not(foto_antes_file_name: "").present?
+    %div{class: "rg-thumbs"}
+      %div{class: "es-carousel-wrapper"}
+        %div{class: "es-carousel"}
+          %ul
+            - @cliente.imagens_externas.each do |img|
+              - if img.foto_antes.present?
+                %li
+                  %a{:href => "#"}
+                    %img{:alt => "foto_antes", "data-description" => "Foto Antes", "data-large" => "#{img.foto_antes.url}", :src => "#{img.foto_antes.url}", :class => "carousel-img-externas"}/
+    %div{class: "rg-image-wrapper"}
+      %div{class: "rg-image"}
+        - img = @cliente.imagens_externas.where.not(foto_antes_file_name: "").first
+        %img{:alt => "foto_antes", "data-description" => "Foto Antes", "data-large" => "#{img.foto_antes.url}", :src => "#{img.foto_antes.url}"}/
+      %div{class: "rg-loading", style: "display: none;"}

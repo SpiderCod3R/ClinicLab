@@ -1,0 +1,22 @@
+%div{class: "rg-gallery", id: "rg-gallery2"}
+  - if @cliente.imagens_externas.where.not(foto_depois_file_name: "").present?
+    %div{class: "rg-thumbs"}
+      / Elastislide Carousel Thumbnail Viewer
+      %div{class: "es-carousel-wrapper"}
+        / %div{class: "es-nav"}
+        /   %span.es-nav-prev Anterior
+        /   %span.es-nav-next Próximo
+        %div{class: "es-carousel"}
+          %ul
+            - @cliente.imagens_externas.each do |img|
+              - if img.foto_depois.present?
+                %li
+                  %a{:href => "#"}
+                    %img{:alt => "foto_depois", "data-description" => "Foto Depois", "data-large" => "#{img.foto_depois.url}", :src => "#{img.foto_depois.url}", :class => "carousel-img-externas"}/
+      / End Elastislide Carousel Thumbnail Viewer
+    / rg-thumbs
+    %div{class: "rg-image-wrapper"}
+      %div{class: "rg-image"}
+        - img = @cliente.imagens_externas.where.not(foto_depois_file_name: "").first
+        %img{:alt => "foto_depois", "data-description" => "Foto Depois", "data-large" => "#{img.foto_depois.url}", :src => "#{img.foto_depois.url}"}/
+      %div{class: "rg-loading", style: "display: none;"}

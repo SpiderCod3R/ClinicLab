@@ -1,20 +1,32 @@
-#imagens_externas.tab-pane.fade
-  .row
-    =render 'clientes/partials/cliente_legend'
-  = simple_form_for :imagens_externas do |i|
-    .row-fluid{style: "margin-bottom: 20px;"}
-      .pull-left
-        %label{for: "imagens_externas_foto_antes", class: "custom-file-upload"}
-          %i.fa.fa-cloud-upload Foto Antes
-        =i.input :foto_antes, as: :file, label: false
-        #foto_antes_selected
-      .pull-right
-        %label{for: "imagens_externas_foto_depois", class: "custom-file-upload"}
-          %i.fa.fa-cloud-upload Foto Depois
-        =i.input :foto_depois, as: :file, label: false
-    .row-fluid{style: "margin-bottom: 20px;"}
-      .pull-left
-        #foto_antes_selected
-        #foto_depois_selected
-  - if @cliente.imagens_externas.count > 0
-    = render 'clientes/partials/carousel_imagens_externas', {imagens_externas: @cliente.imagens_externas}
+#imagens_externas.tab-pane.fade.in.active
+  .container
+    .row{style: "margin-bottom: 10px;"}
+      =render 'clientes/partials/cliente_legend'
+    = simple_form_for :imagens_externas do |i|
+      .well
+        .container-fluid
+          .col-xs-12.col-sm-12.col-md-12.col-lg-12
+            .row
+              .pull-left
+                %label{for: "imagens_externas_foto_antes", class: "custom-file-upload"}
+                  %i.fa.fa-cloud-upload Foto Antes
+                =i.input :foto_antes, as: :file, label: false
+              .pull-right
+                %label{for: "imagens_externas_foto_depois", class: "custom-file-upload"}
+                  %i.fa.fa-cloud-upload Foto Depois
+                =i.input :foto_depois, as: :file, label: false
+            .row
+              .pull-left
+                #foto_antes_selected
+              .pull-right
+                #foto_depois_selected
+
+  .container-fluid
+    .row-fluid{style: "margin-top: 1%;"}
+      - if @cliente.imagens_externas.count > 0
+        / = render 'clientes/partials/carousel_imagens_externas', {imagens_externas: @cliente.imagens_externas}
+        .col-xs-12.col-sm-12.col-md-6.col-lg-6
+          =render 'clientes/partials/imagens_externas/foto_antes'
+        .col-xs-12.col-sm-12.col-md-6.col-lg-6
+          =render 'clientes/partials/imagens_externas/foto_depois'
+
