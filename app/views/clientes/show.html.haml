@@ -5,8 +5,14 @@
     .panel.panel-default
       .panel-heading.center
         =label_tag  "Cliente - #{@cliente.id} | #{status(@cliente.status)}"
+
+      %br
+      .container-fluid
+        .pull-right
+          .row-fluid
+            =image_tag @cliente.foto.url(:thumb), :class => "img_canvas" if @cliente.foto.present?
       .panel_body
-        %hr{style: "border: #B0B0B0 0.5px dashed"}
+        / %hr{style: "border: #B0B0B0 0.5px dashed"}
         %table.table_cliente_stuff.table.table-condensed.table-hover.table-stripped
           %caption{style: "font-weight: bold; margin-left: 12px"} Dados Pessoais
           %thead
@@ -57,11 +63,6 @@
               %td=@cliente.bairro
               %td=@cliente.endereco
               %td=@cliente.complemento
-        %hr{style: "border: #B0B0B0 0.5px dashed"}
-        .panel-bottom{style: "margin-left: 20px; margin-top: 10px; margin-bottom: 15px;"}
-          %label Foto:
-          .row-fluid
-            =image_tag @cliente.foto.url(:thumb), :class => "img_canvas" if @cliente.foto.present?
     %br
     - if @cliente.cliente_convenios.present?
       =render 'clientes/partials/cliente_convenios_table'
