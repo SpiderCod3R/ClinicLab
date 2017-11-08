@@ -5,64 +5,66 @@
     .panel.panel-default
       .panel-heading.center
         =label_tag  "Cliente - #{@cliente.id} | #{status(@cliente.status)}"
-
-      %br
-      .container-fluid
-        .pull-right
-          .row-fluid
-            =image_tag @cliente.foto.url(:thumb), :class => "img_canvas" if @cliente.foto.present?
       .panel_body
+        %br
+        .container-fluid
+          .pull-right
+            .row-fluid
+              =image_tag @cliente.foto.url(:thumb), :class => "img_canvas" if @cliente.foto.present?
+        %br
         / %hr{style: "border: #B0B0B0 0.5px dashed"}
-        %table.table_cliente_stuff.table.table-condensed.table-hover.table-stripped
-          %caption{style: "font-weight: bold; margin-left: 12px"} Dados Pessoais
-          %thead
-            %th=label_tag t('clientes.helpers.nome')
-            %th=label_tag t('clientes.helpers.cpf')
-            %th=label_tag t('clientes.helpers.rg')
-            %th=label_tag t('clientes.helpers.estado_civil')
-            %th Pai
-            %th Mãe
-            %th=label_tag t('clientes.helpers.nascimento')
-            %th=label_tag t('clientes.helpers.sexo')
-            %th=label_tag t('clientes.helpers.peso')
-            %th=label_tag t('clientes.helpers.altura')
-            %th=label_tag t('clientes.helpers.cargo')
-          %tbody
-            %tr
-              %td=@cliente.nome
-              %td=@cliente.cpf
-              %td=@cliente.rg
-              %td=@cliente.estado_civil.titleize
-              %td=@cliente.pai
-              %td=@cliente.mae
-              %td=@cliente.nascimento.strftime("%d/%m/%Y") unless @cliente.nascimento.nil?
-              %td=@cliente.sexo
-              %td=@cliente.peso
-              %td=@cliente.altura
-              %td=@cliente.cargo.nome if @cliente.cargo_id.present?
-        %table.table_cliente_stuff.table.table-condensed.table-hover.table-stripped
-          %caption{style: "font-weight: bold; margin-left: 12px"} Dados Para Contato
-          %thead
-            %th=label_tag t('clientes.helpers.telefone')
-            %th=label_tag t('clientes.helpers.email')
-            %th=label_tag t('clientes.helpers.estado')
-            %th= label_tag t('clientes.helpers.cidade')
-            %th=label_tag t('clientes.helpers.bairro')
-            %th=label_tag t('clientes.helpers.endereco')
-            %th=label_tag t('clientes.helpers.complemento')
-          %tbody
-            %tr
-              %td=@cliente.telefone
-              %td
-                - if !@cliente.email.present?
-                  =t('helpers.messages.not_mentioned')
-                -else
-                  =@cliente.email
-              %td=@cliente.estado.nome.titleize if @cliente.try(:estado_id)
-              %td=@cliente.cidade.nome.titleize if @cliente.try(:cidade_id)
-              %td=@cliente.bairro
-              %td=@cliente.endereco
-              %td=@cliente.complemento
+        .table-responsive
+          %table.table_cliente_stuff.table.table-condensed.table-hover.table-stripped
+            %caption{style: "font-weight: bold; margin-left: 12px"} Dados Pessoais
+            %thead
+              %th=label_tag t('clientes.helpers.nome')
+              %th=label_tag t('clientes.helpers.cpf')
+              %th=label_tag t('clientes.helpers.rg')
+              %th=label_tag t('clientes.helpers.estado_civil')
+              %th Pai
+              %th Mãe
+              %th=label_tag t('clientes.helpers.nascimento')
+              %th=label_tag t('clientes.helpers.sexo')
+              %th=label_tag t('clientes.helpers.peso')
+              %th=label_tag t('clientes.helpers.altura')
+              %th=label_tag t('clientes.helpers.cargo')
+            %tbody
+              %tr
+                %td=@cliente.nome
+                %td=@cliente.cpf
+                %td=@cliente.rg
+                %td=@cliente.estado_civil.titleize
+                %td=@cliente.pai
+                %td=@cliente.mae
+                %td=@cliente.nascimento.strftime("%d/%m/%Y") unless @cliente.nascimento.nil?
+                %td=@cliente.sexo
+                %td=@cliente.peso
+                %td=@cliente.altura
+                %td=@cliente.cargo.nome if @cliente.cargo_id.present?
+        .table-responsive
+          %table.table_cliente_stuff.table.table-condensed.table-hover.table-stripped
+            %caption{style: "font-weight: bold; margin-left: 12px"} Dados Para Contato
+            %thead
+              %th=label_tag t('clientes.helpers.telefone')
+              %th=label_tag t('clientes.helpers.email')
+              %th=label_tag t('clientes.helpers.estado')
+              %th= label_tag t('clientes.helpers.cidade')
+              %th=label_tag t('clientes.helpers.bairro')
+              %th=label_tag t('clientes.helpers.endereco')
+              %th=label_tag t('clientes.helpers.complemento')
+            %tbody
+              %tr
+                %td=@cliente.telefone
+                %td
+                  - if !@cliente.email.present?
+                    =t('helpers.messages.not_mentioned')
+                  -else
+                    =@cliente.email
+                %td=@cliente.estado.nome.titleize if @cliente.try(:estado_id)
+                %td=@cliente.cidade.nome.titleize if @cliente.try(:cidade_id)
+                %td=@cliente.bairro
+                %td=@cliente.endereco
+                %td=@cliente.complemento
     %br
     - if @cliente.cliente_convenios.present?
       =render 'clientes/partials/cliente_convenios_table'
