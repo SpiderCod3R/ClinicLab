@@ -128,12 +128,10 @@ class Cliente < Connection::Factory
 
   def salva_imagens_externas(resource)
     if resource["foto_antes"].present?
-      @foto_antes = self.imagens_externas.build(foto_antes: resource["foto_antes"])
-      @foto_antes.save!
+      self.imagens_externas.build(foto_antes: resource["foto_antes"])
     end
     if resource["foto_depois"].present?
-      @foto_depois= self.imagens_externas.build(foto_depois: resource["foto_depois"])
-      @foto_depois.save!
+      self.imagens_externas.build(foto_depois: resource["foto_depois"])
     end
   end
 
