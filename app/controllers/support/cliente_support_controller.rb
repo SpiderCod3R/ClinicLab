@@ -2,6 +2,8 @@ class Support::ClienteSupportController < Support::InsideController
   before_action :set_cliente, only: [:show, :edit, :update, :destroy, :destroy_pdf]
   before_action :set_estados, only: [:new, :edit, :create, :update, :ficha, :clinic_sheet]
   before_action :set_access, only: [:edit, :ficha, :clinic_sheet]
+  before_action :set_imagens_externas, only:[:update, :change_or_create_cliente]
+
 
   def clinic_sheet
     session[:convenios_attributes] = nil
@@ -46,12 +48,11 @@ class Support::ClienteSupportController < Support::InsideController
         end
       end
 
+      @cliente.salva_imagens_externas(@imagens_externas_params) if @imagens_externas_params.present?
+
       if @cliente.update(resource_params)
         @agenda.agenda_movimentacao.update_attributes(nome_paciente: @cliente.nome, telefone_paciente: @cliente.telefone,
                                                       email_paciente: @cliente.email, cliente_id: @cliente.id)
-        if params[:imagens_externas].present?
-          salva_imagens_externas
-        end
         @cliente.salva_sadts(params[:cliente][:sadt]) if params[:cliente][:sadt].present?
         flash[:notice] = "Dados do cliente atualizados com sucesso."
         redirect_to empresa_clinic_sheet_cliente_path(current_user.empresa, cliente_id: @cliente.id, agenda_id: @agenda.id) and return
@@ -390,16 +391,26 @@ class Support::ClienteSupportController < Support::InsideController
 
     def send_back_with_error
       @cliente_texto_livre=@cliente.cliente_texto_livres.first
-      # @cliente_pdf_uploads=@cliente.cliente_pdf_uploads.build
+      @cliente_pdf_uploads=@cliente.cliente_pdf_uploads.build
       @cliente.imagens_externas.build
+
       if params[:page].permitted?
         @@page = params[:page]
       else
         @@page = 7
       end
+
       @cliente_collection_pdfs = @cliente.cliente_pdf_uploads.ultima_data.page(@@page).per(2)
       @cliente_receituarios = @cliente.cliente_receituarios.page(@@page).per(2)
       @texto_livres = current_user.empresa.texto_livres.page(@@page).per(2)
+
+      @sadt = @cliente.sadts.build
+      @sadt_grupo = @sadt.sadt_grupos.build
+      @cliente_collection_sadts = @cliente.sadts.page(@@page).per(2)
+
+      if @cliente.errors.messages.first[0].eql?(:"imagens_externas.foto_antes_content_type")
+        flash[:error] =@cliente.errors.messages.first[1]
+      end
     end
 
     def set_estados
@@ -417,6 +428,10 @@ class Support::ClienteSupportController < Support::InsideController
     def get_historicos
       @cliente ||= Cliente.find(session[:cliente_id])
       @historicos = Historico.where(cliente_id: @cliente.id).order('updated_at DESC')
+    end
+
+    def set_imagens_externas
+      @imagens_externas_params = params[:imagens_externas]
     end
 
     def resource_params

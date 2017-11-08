@@ -1,6 +1,5 @@
 class ClientesController < Support::ClienteSupportController
   before_action :set_pdf_params, only:[:update]
-  before_action :set_imagens_externas, only:[:update]
 
   def index
     @search = Cliente.where(empresa: current_user.empresa).ransack(params[:q])
@@ -70,8 +69,8 @@ class ClientesController < Support::ClienteSupportController
         render :edit
       end
     else
+      @cliente.salva_imagens_externas(@imagens_externas_params) if @imagens_externas_params.present?
       if @cliente.update(resource_params)
-        @cliente.salva_imagens_externas(@imagens_externas_params) if @imagens_externas_params.present?
         @cliente.manage_convenios(session[:convenios_attributes]) if !session[:convenios_attributes].nil?
         @cliente.salva_sadts(params[:cliente][:sadt]) if params[:cliente][:sadt].present?
         flash[:success] = t("flash.actions.#{__method__}.success", resource_name: @cliente.class)
@@ -104,9 +103,5 @@ class ClientesController < Support::ClienteSupportController
   private
     def set_pdf_params
       @pdf_params = params[:cliente][:cliente_pdf_upload]
-    end
-
-    def set_imagens_externas
-      @imagens_externas_params = params[:imagens_externas]
     end
 end
