@@ -9,9 +9,8 @@ $(document).ready ->
   cliente_id = $("#cliente_id").val()
   cliente_convenio_utilizando_agora= false
 
-  $(document).on 'change', '#cliente_convenio_utilizando_agora', (event) ->
-    alert("HAHAHA")
-    # cliente_convenio_utilizando_agora = this.checked
+  # $(document).on 'change', '#cliente_convenio_utilizando_agora', (event) ->
+  #   # cliente_convenio_utilizando_agora = this.checked
 
   $(document).on 'click', '#adicionar_convenio_em_cliente', (event) ->
     event.preventDefault()

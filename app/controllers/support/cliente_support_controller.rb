@@ -118,12 +118,22 @@ class Support::ClienteSupportController < Support::InsideController
     @cliente = Cliente.find(params[:id])
     @sadt = @cliente.sadts.find(params[:sadt_id]) if params[:sadt_id].present?
     @sadt_grupos = SadtGrupo.where(sadt_id: @sadt.id)
-    respond_to do |format|
-      format.html
-      format.pdf do
-        pdf = PrintSadt.new(@cliente, @sadt, @sadt_grupos)
-        send_data pdf.render, filename: "#{@cliente.nome}", type: 'application/pdf', disposition: 'inline'
+    @convenio = @cliente.cliente_convenios.where(utilizando_agora: true).first
+    if !@convenio.nil? 
+      respond_to do |format|
+        format.html
+        format.pdf do
+          if @convenio.petrobras?
+            pdf = PrintSadtPetrobras.new(@cliente, @sadt, @sadt_grupos)
+          elsif @convenio.unimed?
+            pdf = PrintSadtUnimed.new(@cliente, @sadt, @sadt_grupos)
+          end
+          send_data pdf.render, filename: "#{@cliente.nome}", type: 'application/pdf', disposition: 'inline'
+        end
       end
+    else
+      redirect_to :back
+      flash[:error] = "Convenio não selecionado"
     end
   end
 

@@ -1,4 +1,4 @@
-class PrintSadt < Prawn::Document
+class PrintSadtUnimed < Prawn::Document
   def page_layout
     options = {
       page_size: 'A4',
@@ -126,7 +126,7 @@ class PrintSadt < Prawn::Document
     move_down 25
     text "GUIA DE SERVIÇO PROFISSIONAL / SERVIÇO AUXILIAR DE", style: :bold, align: :center, size: 9
     text "DIAGNÓSTICO E TERAPIA - SP/SADT", style: :bold, align: :center, size: 9
-    image ("public/petrobras_logo.jpg"), height: 40, at: [30, 23]
+    image ("public/assets/images/logos/unimed_logo.jpg"), height: 60, at: [30, 35]
   end
 
   def imprime_item_1
@@ -136,7 +136,7 @@ class PrintSadt < Prawn::Document
       indent 2 do
         text "1 - Registro ANS"
       end
-      text "366871", style: :bold, align: :center, size: 7
+      text "", style: :bold, align: :center, size: 7
     end
   end
 
