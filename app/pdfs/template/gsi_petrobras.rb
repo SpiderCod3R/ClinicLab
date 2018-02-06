@@ -1,4 +1,4 @@
-class TemplateGSI < Prawn::Document
+class Template::GsiPetrobras < Prawn::Document
   include Guia::GuiaInternacaoPetrobrasFrente
   include Guia::GuiaInternacaoPetrobrasVerso
 

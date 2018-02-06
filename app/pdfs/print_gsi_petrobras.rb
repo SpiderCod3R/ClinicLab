@@ -1,4 +1,4 @@
-class PrintGsi < TemplateGSI
+class PrintGsiPetrobras < Template::GsiPetrobras
   def page_layout
     options = {
       page_size: 'A4',
