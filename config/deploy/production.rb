@@ -15,7 +15,7 @@ set :ssh_options, {
   user: fetch(:user),
 }
 
-set :rbenv_ruby, '2.5.1'
+set :rbenv_ruby, '2.4.4'
 set :rbenv_type, :user
 
 set :conditionally_migrate, true
