@@ -12,9 +12,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
 
 source 'https://rails-assets.org' do
-  gem 'rails-assets-bootstrap'
-  gem 'rails-assets-angular'
-  gem 'rails-assets-leaflet'
+  gem 'rails-assets-bootstrap-sass'
 end
 
 gem 'jquery-rails'

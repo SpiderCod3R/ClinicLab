@@ -14,9 +14,7 @@
 
 #= require cocoon
 
-#= require bootstrap
-#= require angular
-#= require leaflet
+#= require bootstrap-sass
 
 # -*- BOOTSTRAP-PLUGINS -*-
 #= require BOOTSTRAP-PLUGINS/bootstrap-select
