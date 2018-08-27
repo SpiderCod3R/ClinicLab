@@ -1,7 +1,7 @@
 # -*- JQUERY -*-
 #= require JQUERY/jquery.min
 #= require jquery-ui/effect.all
-#= require jquery-ui/effect-blind
+#= require jquery-ui/effects/effect-blind
 #= require JQUERY/jquery-migrate-1.2.1.min
 #= require JQUERY/jquery.maskMoney
 #= require JQUERY/jquery.numeric.pack

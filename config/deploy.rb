@@ -1,4 +1,4 @@
-lock '3.6.1'
+lock '3.11.0'
 
 set :deploy_via, :remote_cache
 set :use_sudo, false
@@ -10,7 +10,6 @@ set :application, 'gclinic'
 set :repo_url, 'git@gitlab.com:gclinic/gclinic2.0.git'
 set :branch, 'master'
 set :deploy_to, "/var/www/#{fetch(:application)}"
-set :scm, :git
 
 set :format, :airbrussh
 set :format_options, command_output: true, log_file: 'log/capistrano.log', color: :auto, truncate: :auto
