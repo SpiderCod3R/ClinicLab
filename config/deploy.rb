@@ -1,25 +1,7 @@
 lock '3.6.1'
 
-set :port, 49697
-set :user, 'deployer'
 set :deploy_via, :remote_cache
 set :use_sudo, false
-
-server '138.197.135.242',
-  roles: [:web, :app, :db],
-  port: fetch(:port),
-  user: fetch(:user),
-  primary: true
-
-set :ssh_options, {
-  forward_agent: true,
-  auth_methods: %w(publickey),
-  user: fetch(:user),
-}
-
-set :rbenv_ruby, '2.3.1'
-set :rbenv_type, :user
-
 set :conditionally_migrate, true
 
 set :stage,     :production
@@ -48,26 +30,9 @@ set :puma_preload_app, true
 set :puma_worker_timeout, nil
 set :puma_init_active_record, true
 
-## Defaults:
-# set :scm,           :git
-# set :branch,        :master
-# set :format,        :pretty
-# set :log_level,     :debug
-# set :keep_releases, 5
-
 set :pty, true
 
 before :deploy, "deploy:check_revision"
 before :deploy, "puma:make_dirs"
 after "assets:symlink", 'setup:database'
 after :deploy, 'deploy:cleanup'
-
-# namespace :deploy do
-# #  before 'check:linked_files', 'puma:config'
-# #  before 'check:linked_files', 'puma:nginx_config'
-# #  after 'puma:smart_restart', 'nginx:restart'
-# end
-
-# ps aux | grep puma    # Get puma pid
-# kill -s SIGUSR2 pid   # Restart puma
-# kill -s SIGTERM pid   # Stop puma
