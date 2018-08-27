@@ -5,7 +5,7 @@ gem 'bundler', '~> 1.15', '>= 1.15.2'
 gem 'rails-i18n', '~> 5.0.0'
 
 gem 'mysql2', '>= 0.3.18', '< 0.5'
-gem 'puma', '~> 3.0'
+gem 'puma', '~> 3.12'
 
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
