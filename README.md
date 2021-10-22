@@ -1,50 +1,9 @@
 # README
 
 -------------------------------------------------
-                                                             GCLINIC
+                  CLINIC-LAB
 -------------------------------------------------
-- Digital Ocean
-  - Droplet Name: GClinicWEB
-  - domain: ```gestaoclin.com.br```
-
-- FIREWAL
-
-    | Número    | Porta                        |
-    | --------- | ---------------------------- |
-    | 21/tcp    | FTP                          |
-    | 22        | SSH                          |
-    | 25        | SMTP                         |
-    | 587       | Outcoming SMTP               |
-    | 443       | SSL                          |
-    | 49697     | Deploy e Acesso via Terminal |  
     
-
-  
-- Acesso via Terminal  
-```
-ssh deployer@gestaoclin.com.br -p 49697
-```
-
-- Criação do CERTIFICADO
-  * 1ª Forma - Funcionando
-
-    ```
-    cd ~/letsencrypt
-./letsencrypt-auto certonly --standalone --emai globalnetsis@globalnetsis.com.br -d gestaoclin.com.br -d gestaoclin.com.br
-    ```
-  * 2ª Forma - Não sei como funciona essa direito :fearful:
-
-    ```
-    certbot certonly --webroot -w /var/www/gclinic -d gestaoclin.com.br -d
-      www.gestaoclin.com.br -w /var/www/gclinic -d gclinic.is -d m.gclinic.is
-    ```
-
-- Renovação do CERTIFICADO
-  ```
-  cd ~/letsencrypt
-  ./letsencrypt-auto renew
-  ```
-
 -------------------------------------------------
 
 # Modo desenvolvedor
